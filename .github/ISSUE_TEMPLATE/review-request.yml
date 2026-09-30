@@ -1,0 +1,45 @@
+name: Request or offer a review
+description: Ask for a claim or case to be checked, or offer to check one. No Redact Secret product knowledge is needed.
+title: "review: "
+labels: ["review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Maintained by the Redact Secret project. See docs/governance/external-review.md for what a review covers. Reviewers do not need to run a scanner or read product code.
+  - type: dropdown
+    id: direction
+    attributes:
+      label: This is
+      options:
+        - A request for review
+        - An offer to review
+    validations:
+      required: true
+  - type: input
+    id: record
+    attributes:
+      label: Record or pull request
+      description: Link, or the area you would like to review (provider, family, or topic).
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      description: What should be, or will be, checked.
+      options:
+        - label: Source reading (does the source say this)
+        - label: Evidence class (do the requirements hold)
+        - label: Case reasoning (does the expectation follow from the claim)
+        - label: Safety (are all values synthetic or published)
+        - label: Attribution and disclosure
+  - type: input
+    id: affiliation
+    attributes:
+      label: Your affiliation or relationship to the provider or any scanner, if any
+      description: Reviewers are recorded as external only if unaffiliated with the Redact Secret project.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes

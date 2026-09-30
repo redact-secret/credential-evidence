@@ -1,0 +1,47 @@
+name: Dispute an interpretation or a neutrality claim
+description: You disagree with how a source is read, a claim's class, a case expectation, or a statement about this repository's neutrality.
+title: "dispute: "
+labels: ["dispute"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Maintained by the Redact Secret project. Disputes against project-authored work follow the same process as any other, and the author does not decide alone. See docs/governance/corrections-and-disputes.md. Do not paste real credentials.
+  - type: input
+    id: record
+    attributes:
+      label: Record or statement disputed
+      description: Claim, case, or class identifier, a link, or the wording you object to.
+    validations:
+      required: true
+  - type: dropdown
+    id: about
+    attributes:
+      label: What you dispute
+      options:
+        - How a source is read
+        - Whether a source qualifies for its class
+        - A case's expected outcome
+        - A project-policy decision
+        - A statement about neutrality, independence, or disclosure
+        - A scanner-derived basis for a claim or expectation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Your interpretation
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Sources, quoted text, and dates. For a neutrality claim, name the observation that shows it false (see GOVERNANCE.md, "What can be checked").
+    validations:
+      required: true
+  - type: input
+    id: affiliation
+    attributes:
+      label: Your affiliation or relationship to the provider or any scanner, if relevant

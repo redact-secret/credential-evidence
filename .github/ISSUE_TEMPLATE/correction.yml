@@ -1,0 +1,45 @@
+name: Report a correction or stale source
+description: A recorded claim is wrong, a source changed or disappeared, or a source is out of date.
+title: "correction: "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Maintained by the Redact Secret project. Corrections are public and keep the earlier claim as superseded. Do not paste real credentials.
+  - type: input
+    id: record
+    attributes:
+      label: Record affected
+      description: Provider, family, case, or claim identifier, or a link.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong
+      options:
+        - The claim is factually wrong
+        - The source does not say what the record says
+        - The source changed
+        - The source is gone
+        - The source may be out of date
+        - Attribution or affiliation is wrong
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: What the source says now (quote and link, with the date you looked), or what the record should say.
+    validations:
+      required: true
+  - type: textarea
+    id: dependents
+    attributes:
+      label: Cases or expectations you think depend on it
+  - type: input
+    id: affiliation
+    attributes:
+      label: Your affiliation or relationship to the provider or any scanner, if relevant

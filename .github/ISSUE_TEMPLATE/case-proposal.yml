@@ -1,0 +1,74 @@
+name: Propose a case
+description: Propose a scenario and its expected semantic outcome.
+title: "case: "
+labels: ["case"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Maintained by the Redact Secret project. Do not paste real credentials. Describe values in words or as a grammar, or use unmistakably synthetic values and say how you built them.
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Scenario
+      description: What happens, and where the credential-like value appears.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters
+    validations:
+      required: true
+  - type: dropdown
+    id: expectation
+    attributes:
+      label: Expected semantic outcome
+      options:
+        - Must be flagged
+        - Must not be flagged
+        - Depends on context (explain below)
+    validations:
+      required: true
+  - type: textarea
+    id: basis
+    attributes:
+      label: Basis for the expectation
+      description: The source and the exact statement it supports, or a policy rationale if no source settles it. Do not cite what a scanner does.
+    validations:
+      required: true
+  - type: input
+    id: families
+    attributes:
+      label: Credential families involved
+  - type: textarea
+    id: construction
+    attributes:
+      label: How any values were constructed
+      description: Prefix and body choices, and why they are non-issuable.
+  - type: dropdown
+    id: affiliation
+    attributes:
+      label: Your affiliation
+      options:
+        - Redact Secret project maintainer
+        - Contributor to Redact Secret repositories or employed by the project
+        - None of the above
+    validations:
+      required: true
+  - type: textarea
+    id: exposure
+    attributes:
+      label: Implementation exposure
+      description: Did you read Redact Secret detector source, rules, or tests before writing this? Which? Write "no" if not.
+    validations:
+      required: true
+  - type: checkboxes
+    id: attestation
+    attributes:
+      label: Attestation
+      options:
+        - label: I did not consult any scanner's output to decide the expectation.
+          required: true
+        - label: No value here is live, revoked, real-derived, or from an incident.
+          required: true
