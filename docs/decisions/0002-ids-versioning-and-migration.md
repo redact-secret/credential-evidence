@@ -1,6 +1,6 @@
 # 0002. IDs, schema versioning and migration
 
-- Status: accepted
+- Status: accepted; id rules extended by 0007 (no suite, milestone, issue or migration coordinates)
 - Date: 2026-09-30
 - Issue: #2 (part of #1)
 

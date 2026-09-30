@@ -111,6 +111,10 @@ Fixture projections:
 
 One case may produce many executable fixtures. Generated fixtures must always preserve a link back to the authored case or contract that justifies them.
 
+A Case is reserved for a real reasoning unit (partial-span leakage, reference versus literal, public identifier versus secret, a chunk boundary). A **Scenario** is a reusable semantic scenario whose reasoning is the same for every family it applies to (documentation placeholder, prefix near miss, wrong alphabet). A **fixture plan** declares a family x Scenario (or Case) matrix projection with its generation rule and lineage and asserts nothing itself. The criteria are in `docs/decisions/0007`.
+
+Canonical ids and record paths never contain legacy suite names, beta, milestone or issue coordinates, detector ids, release or migration-source coordinates, and evidence tier or basis is never part of identity. Those live in `externalRefs` and `migration/legacy-map.json`. `npm run lint:identity` enforces this; the imported records from #4 still violate it and are listed in a shrinking baseline until #12 stage B renames them.
+
 ## Evidence classes
 
 The repository may distinguish evidence quality such as:
@@ -155,6 +159,7 @@ Migration work is tracked under:
 - #4 — first-class Case model and fixture lineage
 - #5 — evidence governance and external contribution policy
 - #6 — compatibility export and cutover parity
+- #12 — correction: no legacy coordinates in canonical identity; Scenario and fixture plans; reclassify the imported cases (stage A: rule, schema, lint, CI; stage B: the data)
 
 ## Expected repository shape
 
@@ -172,7 +177,10 @@ records/              # canonical records; layout in docs/decisions/0004
   providers/ families/ contracts/ reviews/ sources/   # taxonomy import (#3)
   cases/<suite>/     # authored Cases: scenario, why it matters, expected outcome, evidence (#4)
   fixtures/<suite>.json  # sharded fixture projections of cases; authored or generated (#4)
+  scenarios/ fixture-plans/                           # reusable scenarios and matrix projections (#12)
   variants/ siblings/                                 # reserved
+
+migration/            # legacy-map.json: legacy suite/case/fixture -> canonical record (#12 stage B); validated with records/
 
 dist/legacy-projection/ # gitignored: derived legacy-compatible projection (npm run export:legacy); its manifest is committed in docs/migration/
 
@@ -181,6 +189,7 @@ fixtures/materialized/  # gitignored: executable fixtures materialized from reco
 scripts/
   validate.mjs        # npm run validate
   lib/validator.mjs
+  lib/identity.mjs, lint-identity.mjs, lint/identity-baseline.json   # npm run lint:identity (ADR 0007)
   materialize-fixtures.mjs   # npm run fixtures:materialize: files + manifest for credential-eval
   migrate/            # import-taxonomy.mjs, import-cases.mjs (npm run migrate:taxonomy, migrate:cases); future schema migrations
   export/             # legacy-projection.mjs (npm run export:legacy): legacy-compatible projection + credential-eval snapshot
@@ -204,6 +213,8 @@ Requires Node 22 or newer. The validator is offline and deterministic.
 ```bash
 npm ci
 npm run validate   # schemas, examples/valid and records/: shape, IDs, cross-references
+npm run lint:identity   # no legacy coordinates in canonical ids and paths; baseline may only shrink (#12)
+npm run migrate:check   # both migration regeneration checks (need the pinned legacy checkout)
 npm test           # positive and negative cases, imported records, round trips
 npm run migrate:taxonomy:check   # regenerate the taxonomy records from the pinned legacy revision and diff
 npm run migrate:cases:check      # regenerate cases and fixture sets (runs the legacy generators) and diff
@@ -222,7 +233,7 @@ a checkout of `redact-secret-benchmarks` (`--legacy <path>` or
 only commit `ade8a10bd7922765110a68986b0690eb3861f2e5` of it. Tests that compare
 against that checkout skip when it is absent unless `REQUIRE_LEGACY=1`.
 
-The model and its rules are recorded in `docs/decisions/0001` to `0006`; what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`.
+The model and its rules are recorded in `docs/decisions/0001` to `0007` (0007 corrects parts of 0001 and 0005); what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`.
 
 Cases are the human unit (`records/cases/`); fixtures are their executable
 projections (`records/fixtures/`). A fixture set is either authored (hand-written
