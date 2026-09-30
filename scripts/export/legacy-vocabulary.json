@@ -1,0 +1,37 @@
+{
+  "$comment": "Consumer-side vocabulary of the legacy benchmark input shapes. Canonical records deliberately keep scenarios free-form (ADR 0005 open question) and know nothing of the legacy file layout; the exporter needs these few fixed facts to speak the legacy shapes. The parity harness verifies every entry against the pinned legacy files, so a wrong entry shows up as a difference. Nothing here is evidence.",
+  "nullProviderId": "generic",
+  "categoryKind": "accuracy",
+  "taxonomySourceNote": "GENERATED PROJECTION from redact-secret/credential-evidence canonical records (see provenance-manifest.json). Not the hand-authored legacy note. Detector assignments come from optional externalRefs mapping metadata; supportStatus is product qualification and is supplied by an overlay (overlay-interface.json).",
+  "corpusPaths": {
+    "authored": "fixtures/<id>/corpus.json",
+    "generated": "fixtures/generated/<id>.json"
+  },
+  "scenarios": [
+    {
+      "id": "credential-shape-grammar",
+      "title": "Credential shape and grammar",
+      "description": "Lexical structure, prefixes, alphabets, lengths, and provider-documented credential forms."
+    },
+    {
+      "id": "context-and-encoding",
+      "title": "Context and encoding",
+      "description": "Assignments, headers, quoting, boundaries, Unicode, line endings, and encoded representations."
+    },
+    {
+      "id": "benign-controls-and-twins",
+      "title": "Benign controls and twins",
+      "description": "Authored non-secret controls and near-twins that must remain distinguishable from positives."
+    },
+    {
+      "id": "cross-family-interactions",
+      "title": "Cross-family interactions",
+      "description": "Fixtures intentionally assigned to more than one credential family or generic detection contract."
+    },
+    {
+      "id": "regression-behavior",
+      "title": "Regression behavior",
+      "description": "Cases retained to reproduce an issue, milestone, or release-specific behavior."
+    }
+  ]
+}
