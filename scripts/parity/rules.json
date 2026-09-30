@@ -49,8 +49,8 @@
       "artifact": "corpus",
       "patterns": ["fixtures[*].group"],
       "change": "changed",
-      "predicate": "value-is-case-id",
-      "justification": "The legacy display group label is not canonical. The canonical grouping of the same fixtures is the case, so the projection fills `group` with the case id. A legacy consumer that displays the group shows the case id. Checked: the projected value is the fixture's case id."
+      "predicate": "value-is-target-id",
+      "justification": "The legacy display group label is not canonical. The canonical grouping of the same fixtures is the Case, or for a matrix cell its Scenario, so the projection fills `group` with that id. A legacy consumer that displays the group shows the Case or Scenario id. Checked: the projected value is the fixture's Case or Scenario id."
     },
     {
       "id": "fixture-reason-collapsed-to-case",
@@ -59,7 +59,7 @@
       "patterns": ["fixtures[*].assessment.reason"],
       "change": "changed",
       "predicate": "reason-collapsed-to-case",
-      "justification": "Legacy carries one prose reason per fixture. A canonical case records one rationale: the most common reason among its fixtures (whitespace-normalized, clipped at 2000 characters), after a note when the evidence basis was downgraded. The projection repeats the case rationale on each fixture. Checked: the projected text is the case rationale and equals a legacy reason of a fixture in the same case (or its clipped prefix)."
+      "justification": "Legacy carries one prose reason per fixture. A canonical evidence entry records one reason: the most common reason among the fixtures it was built from (whitespace-normalized, clipped at 2000 characters), after a note when the evidence basis was downgraded. The projection repeats the entry's reason on each fixture that cites it. Checked: the projected text is the entry's reason and equals a legacy reason of a fixture in the same case (or its clipped prefix)."
     },
     {
       "id": "assessment-tier-downgraded-on-import",
@@ -70,7 +70,7 @@
       "legacy": { "equals": "T2" },
       "projected": { "equals": "T3" },
       "predicate": "basis-downgrade-recorded",
-      "justification": "Legacy tier T2 is tool-corroborated. The evidence-classes rule (docs/governance/evidence-classes.md) needs artifacts from two distinct owners; where the cited sources do not have them the importer recorded the case as project-policy, which projects back as T3. The downgrade is written in the case rationale (docs/migration/cases-report.md: T2 recorded as project-policy). Checked: the case basis is project-policy and its rationale carries the downgrade note."
+      "justification": "Legacy tier T2 is tool-corroborated. The evidence-classes rule (docs/governance/evidence-classes.md) needs artifacts from two distinct owners; where the cited sources do not have them the importer recorded the evidence as project-policy, which projects back as T3. The downgrade is written in the evidence reason (docs/migration/cases-report.md: T2 recorded as project-policy). Checked: the fixture's evidence basis is project-policy and its rationale carries the downgrade note."
     },
     {
       "id": "assessment-kind-follows-downgraded-tier",
@@ -101,7 +101,7 @@
       "patterns": ["fixtures[*].twinOf", "fixtures[*].mutation", "fixtures[*].mutationKind"],
       "change": "removed",
       "predicate": "twin-target-not-assertable",
-      "justification": "The legacy corpus loader (validateCorpus) rejects a twin whose positive has no secret span. A positive that was unresolved (T0) is not-assertable here with its candidate spans dropped, so projecting the twin link would make the corpus unloadable. The projection omits twinOf, mutation and mutationKind on such twins; the lineage stays canonical (the case relation and the fixture lineage in records/). Checked: the legacy twin target is a fixture whose canonical outcome is not-assertable."
+      "justification": "The legacy corpus loader (validateCorpus) rejects a twin whose positive has no secret span. A positive that was unresolved (T0) is not-assertable here with its candidate spans dropped, so projecting the twin link would make the corpus unloadable. The projection omits twinOf, mutation and mutationKind on such twins; the lineage stays canonical (the fixture lineage in records/). Checked: the legacy twin target is a fixture whose canonical outcome is not-assertable."
     },
     {
       "id": "index-twin-relation-omitted-for-unresolved-positive",
@@ -119,7 +119,7 @@
       "patterns": ["fixtures[*].assessment.sources[*]"],
       "change": "added",
       "predicate": "added-from-peer-in-case",
-      "justification": "Canonical citations are recorded per case, not per fixture, so each projected fixture lists the union of its case. Checked: the added URL is cited by another fixture of the same case in the legacy corpus."
+      "justification": "Canonical citations are recorded per evidence entry, not per fixture, so each projected fixture lists the union of the fixtures that share its entry. Checked: the added URL is cited by another fixture that shares the entry in the legacy corpus."
     },
     {
       "id": "assessment-sources-not-recorded",

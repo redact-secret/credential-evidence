@@ -1,12 +1,8 @@
 {
-  "$comment": "Consumer-side vocabulary of the legacy benchmark input shapes. Canonical records deliberately keep scenarios free-form (ADR 0005 open question) and know nothing of the legacy file layout; the exporter needs these few fixed facts to speak the legacy shapes. The parity harness verifies every entry against the pinned legacy files, so a wrong entry shows up as a difference. Nothing here is evidence.",
+  "$comment": "Consumer-side vocabulary of the legacy benchmark input shapes. Canonical records know nothing of the legacy file layout and keep no legacy navigation scenarios: the corpus paths, suite titles and fixture names come from migration/legacy-map (ADR 0008), and the exporter needs only these few fixed facts to speak the legacy shapes. The parity harness verifies every entry against the pinned legacy files, so a wrong entry shows up as a difference. Nothing here is evidence.",
   "nullProviderId": "generic",
   "categoryKind": "accuracy",
   "taxonomySourceNote": "GENERATED PROJECTION from redact-secret/credential-evidence canonical records (see provenance-manifest.json). Not the hand-authored legacy note. Detector assignments come from optional externalRefs mapping metadata; supportStatus is product qualification and is supplied by an overlay (overlay-interface.json).",
-  "corpusPaths": {
-    "authored": "fixtures/<id>/corpus.json",
-    "generated": "fixtures/generated/<id>.json"
-  },
   "scenarios": [
     {
       "id": "credential-shape-grammar",

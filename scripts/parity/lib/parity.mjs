@@ -60,7 +60,7 @@ const firstKey = (path) => {
   return i < 0 || j < 0 ? undefined : path.slice(i + 1, j);
 };
 
-function buildContext({ ix, docId, artifact, legacyFlat, setIdOfCorpus, casesOfSlug, peersOfCase }) {
+function buildContext({ ix, docId, artifact, legacyFlat, setIdOfCorpus, casesOfSlug, fixtureOfSlug, caseMembers, evidenceMembers }) {
   const isCorpus = artifact === "corpus";
   const setId = isCorpus ? setIdOfCorpus.get(docId.slice("corpus:".length)) : undefined;
   const slugOf = (key) => (isCorpus ? `${setId}--${key}` : key);
@@ -83,11 +83,16 @@ function buildContext({ ix, docId, artifact, legacyFlat, setIdOfCorpus, casesOfS
     legacyPathsWithPrefix: (prefix) => [...legacyFlat.leaves.keys()].filter((p) => p.startsWith(prefix)),
     caseOf,
     caseOfKey: (key) => casesOfSlug.get(slugOf(key)),
+    // Peers are the fixtures the canonical grouping folds with this one: for families and scenarios, the fixtures of the
+    // same Case (a cell has no peers: its families are exact); for assessment fields (reason, citations), the fixtures that share the evidence entry.
+    // In a corpus document only peers of the same legacy suite have a path to compare.
     peerPaths(path) {
       const k = firstKey(path);
-      const c = k === undefined ? undefined : casesOfSlug.get(slugOf(k));
-      if (!c) return [];
-      return (peersOfCase.get(c.id) ?? []).filter((s) => s !== slugOf(k)).map((s) => swapKey(path, keyOfSlug(s)));
+      const slug = k === undefined ? undefined : slugOf(k);
+      const f = slug === undefined ? undefined : fixtureOfSlug.get(slug);
+      if (!f) return [];
+      const group = path.includes(".assessment.") ? evidenceMembers.get(f.evidenceKey) : f.caseId ? caseMembers.get(f.caseId) : [];
+      return (group ?? []).filter((s) => s !== slug && (!isCorpus || s.startsWith(`${setId}--`))).map((s) => swapKey(path, keyOfSlug(s)));
     },
   };
 }
@@ -141,14 +146,14 @@ export function runParity({ legacyRoot, inputs, projection, rulesPath, inventory
   }
 
   const setIdOfCorpus = new Map(projectedOf.get("categories").map((c) => [c.corpus, c.id]));
-  const casesOfSlug = new Map();
-  const peersOfCase = new Map();
-  for (const set of ix.sets.values()) {
-    for (const item of set.fixtures) {
-      casesOfSlug.set(item.id, ix.cases.get(item.case));
-      if (!peersOfCase.has(item.case)) peersOfCase.set(item.case, []);
-      peersOfCase.get(item.case).push(item.id);
-    }
+  const view = projection.view;
+  const casesOfSlug = new Map(view.fixtures.map((f) => [f.slug, f.peer]));
+  const fixtureOfSlug = view.bySlug;
+  const caseMembers = new Map();
+  const evidenceMembers = new Map();
+  for (const f of view.fixtures) {
+    if (f.caseId) caseMembers.set(f.caseId, [...(caseMembers.get(f.caseId) ?? []), f.slug]);
+    evidenceMembers.set(f.evidenceKey, [...(evidenceMembers.get(f.evidenceKey) ?? []), f.slug]);
   }
 
   const ruleStats = new Map(rules.map((r) => [r.id, { rule: r, count: 0, entities: new Set(), docs: new Set(), examples: [] }]));
@@ -164,7 +169,7 @@ export function runParity({ legacyRoot, inputs, projection, rulesPath, inventory
     if (!projected) throw new Error(`no projected document for legacy ${docId}`);
     const legacyFlat = flatten(legacy.doc);
     const cmpRes = compareFlat(legacyFlat, flatten(projected));
-    const ctx = buildContext({ ix, docId, artifact: legacy.artifact, legacyFlat, setIdOfCorpus, casesOfSlug, peersOfCase });
+    const ctx = buildContext({ ix, docId, artifact: legacy.artifact, legacyFlat, setIdOfCorpus, casesOfSlug, fixtureOfSlug, caseMembers, evidenceMembers });
     let explained = 0;
     for (const d of cmpRes.diffs) {
       const rule = rules.find((r) => matches(r, legacy.artifact, d, ctx));
@@ -226,5 +231,7 @@ export function runParity({ legacyRoot, inputs, projection, rulesPath, inventory
     dossiers: { excluded: dossiers.excluded, proseBytes: dossiers.proseBytes },
     categoriesLegacy: categories.length,
     caseCount: ix.cases.size,
+    scenarioCount: ix.scenarios.size,
+    planCount: ix.plans.size,
   };
 }
