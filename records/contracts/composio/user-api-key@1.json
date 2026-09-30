@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "composio:user-api-key@1",
+  "family": "composio:user-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^uak_[A-Za-z0-9_-]{43}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "provider staff statement of 2026-09-17 (uak_ + 43 nanoid); the SDK constant names uak_: a dated statement by Composio's Head of Security (ruling R3) fixes uak_ + exactly 43 [A-Za-z0-9_-]; a CLI code comment showing uak_ + 20 is T2 under ruling R6 and does not override it",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ec332ca01e",
+          "supports": "a dated statement by Composio's Head of Security (ruling R3) fixes uak_ + exactly 43 [A-Za-z0-9_-]; a CLI code comment showing uak_ + 20 is T2 under ruling R6 and does not override it"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: uak_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-composio-dev-7990e7985f",
+          "supports": "x-user-api-key header"
+        },
+        {
+          "sourceId": "github-com-composiohq-composio-aa4a440b9c",
+          "supports": "prefix: uak_",
+          "locator": "#L23"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 43 characters (A provider-staff statement, recorded under the nearest basis; T1 by ruling R3 until a newer provider source contradicts it (none did at the 2026-09-28 re-check).)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d9034c81c6",
+          "supports": "body: exactly 43 characters"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R3: a dated provider-staff statement is T1",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ec332ca01e",
+          "supports": "Composio Head of Security, 2026-09-17: ak_+20, oak_+20, uak_+43"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: URL-safe nanoid [A-Za-z0-9_-]; a body may start or end with _ or -",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-composiohq-composio-d411a858a4",
+          "supports": "\\buak_[A-Za-z0-9_-]+, \\bak_[A-Za-z0-9_-]+",
+          "locator": "#L426-L427"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R2",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ec332ca01e",
+          "supports": "alphabet: URL-safe nanoid [A-Za-z0-9_-]; a body may start or end with _ or -"
+        }
+      ]
+    },
+    {
+      "id": "field-separators",
+      "statement": "separators: none; no checksum",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ec332ca01e",
+          "supports": "separators: none; no checksum"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed; this keeps ak_ inside oak_/uak_/cak_ from reading as a project key",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e448eaa4d3",
+          "supports": "separability"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1; the staff-authored trufflehog PR #5322 (20/20/43 over [A-Za-z0-9_-]) is still open",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no composio rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-e4196de46d",
+          "supports": "open, updated 2026-09-28"
+        }
+      ]
+    },
+    {
+      "id": "field-code-comment-width",
+      "statement": "code-comment-width: a CLI code comment shows uak_ + 20 (Cannot override the T1 43. uak_ + 20 backs a length twin; the issuance check (handoff checklist) is the confirmation.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-composiohq-composio-0468adb9c1",
+          "supports": "code-comment-width: a CLI code comment shows uak_ + 20",
+          "locator": "#L801"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R6: a code comment is T2",
+          "locator": "#issuecomment-5871306275"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 15 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-composio-dev-7990e7985f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-composiohq-composio-0468adb9c1",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L801"
+        },
+        {
+          "sourceId": "github-com-composiohq-composio-aa4a440b9c",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L23"
+        },
+        {
+          "sourceId": "github-com-composiohq-composio-bb6dbe3db1",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-composiohq-composio-d411a858a4",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L426-L427"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d9034c81c6",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-55eacc0745",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-600e29e0fd",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-fb496527b7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e448eaa4d3",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-e4196de46d",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ec332ca01e",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-composiohq-composio-0ab70131b0",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d9034c81c6",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6340c7e3d0",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ec332ca01e",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 3 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-composio-dev-7990e7985f",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e448eaa4d3",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ec332ca01e",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "composio-user-api-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "composio-user-api-key:body",
+      "note": "claim field-body; legacy evidence basis=maintainer-observation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "composio-user-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "composio-user-api-key:code-comment-width",
+      "note": "claim field-code-comment-width; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "composio-user-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "composio-user-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "composio-user-api-key:separators",
+      "note": "claim field-separators; legacy evidence basis=maintainer-observation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434g.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434g.ts",
+      "note": "contracts['composio-user-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/composio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/composio.md",
+      "note": "families[id=composio:user-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=composio:user-api-key]"
+    }
+  ]
+}

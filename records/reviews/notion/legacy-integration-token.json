@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-notion-legacy-integration-token",
+  "subject": {
+    "kind": "family",
+    "id": "notion:legacy-integration-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-23. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/642/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#300",
+          "url": "https://github.com/redact-secret/redact-secret/issues/300"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#642",
+          "url": "https://github.com/redact-secret/redact-secret/issues/642"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'notion-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): This contract covers only the legacy secret_ family. Notion says the token should be treated as opaque, warns that its format may change, and advises against regex validation. The current ntn_ family is distinct and remains outside this contract; the pinned gitleaks rule targets ntn_, while TruffleHog corroborates secret_."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/notion.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+      "note": "families[id=notion:legacy-integration-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=notion:legacy-integration-token]"
+    }
+  ]
+}

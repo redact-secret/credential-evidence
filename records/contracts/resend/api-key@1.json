@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "resend:api-key@1",
+  "family": "resend:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^re_[A-Za-z0-9]{8}_[A-Za-z0-9]{24}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "resend-cli login rejects a key that does not start with re_; the create-API-key response example is re_ + 8 + _ + 24 (re-checked 2026-09-28: 36 characters, no 0/O/I/l): re_ + 8 alphanumerics + _ + 24 alphanumerics, 36 in all; full_access and sending_access keys share the shape",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "resend-com-8fd9a2a2ab",
+          "supports": "re_ + 8 alphanumerics + _ + 24 alphanumerics, 36 in all; full_access and sending_access keys share the shape"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: re_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-resend-resend-cli-a396e01b85",
+          "supports": "\"Your key must start with re_\"",
+          "locator": "#authentication"
+        }
+      ]
+    },
+    {
+      "id": "field-layout",
+      "statement": "layout: re_ + 8 + _ + 24 (36 in all); the _ at offset 11 is the only one after the prefix",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-143c9ef7a8",
+          "supports": "the same shape in three distinct SDK fixture values"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R5",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "resend-com-8fd9a2a2ab",
+          "supports": "response example, measured by script, no value retained"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: [A-Za-z0-9] in both segments (Every provider example is alphanumeric and base58-consistent; the contract keeps the alphanumeric superset, so a key with 0, O, I or l is not a false negative.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-143c9ef7a8",
+          "supports": "a trufflehog rule newer than the pinned 3.97.4 uses base58, a narrower class"
+        },
+        {
+          "sourceId": "resend-com-8fd9a2a2ab",
+          "supports": "alphabet: [A-Za-z0-9] in both segments"
+        }
+      ]
+    },
+    {
+      "id": "field-mixed-case-guard",
+      "statement": "mixed-case-guard: the product requires at least one upper- and one lower-case letter in the 32 body bytes (Project false-positive policy, not a provider fact. Positives are mixed case; no fixture asserts silence on a random one-case body, and the one-case controls are word-built identifiers.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-143c9ef7a8",
+          "supports": "the short-prefix guard; false-negative cost about 6e-8"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: the RESEND_API_KEY environment variable, sent as Authorization: Bearer",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "resend-com-6fa3a03170",
+          "supports": "transport: the RESEND_API_KEY environment variable, sent as Authorization: Bearer",
+          "locator": "#authentication"
+        }
+      ]
+    },
+    {
+      "id": "field-webhook-secret",
+      "statement": "webhook-secret: whsec_ webhook signing secrets use the Svix scheme (Another credential class: a prefix twin, never a benign control.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-143c9ef7a8",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no resend rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no resend detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 9 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-143c9ef7a8",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7526f66796",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-dc70f447d7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c14573da5f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-resend-resend-cli-a396e01b85",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#authentication"
+        },
+        {
+          "sourceId": "resend-com-6fa3a03170",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#authentication"
+        },
+        {
+          "sourceId": "resend-com-8fd9a2a2ab",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9a18ddd9fd",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-resend-resend-cli-a396e01b85",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#authentication"
+        },
+        {
+          "sourceId": "resend-com-8fd9a2a2ab",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-resend-resend-cli-a396e01b85",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#authentication"
+        },
+        {
+          "sourceId": "resend-com-8fd9a2a2ab",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "resend-api-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "resend-api-key:layout",
+      "note": "claim field-layout; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "resend-api-key:mixed-case-guard",
+      "note": "claim field-mixed-case-guard; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "resend-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "resend-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "resend-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "resend-api-key:webhook-secret",
+      "note": "claim field-webhook-secret; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/436d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/436d.ts",
+      "note": "contracts['resend-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/resend.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/resend.md",
+      "note": "families[id=resend:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=resend:api-key]"
+    }
+  ]
+}

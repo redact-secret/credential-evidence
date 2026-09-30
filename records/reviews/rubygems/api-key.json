@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-rubygems-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "rubygems:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/rubygems.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/4f220ea000b58fa2e0e431ad88dea4eccb393fb0/docs/audits/evidence/1014/rubygems.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "4f220ea000b58fa2e0e431ad88dea4eccb393fb0"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1014",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1014"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1023",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1023"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#528",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for rubygems:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family rubygems-api-key (#528, product redact-secret#1023), contract in benchmarks/lib/beta8/528d.ts from the #1014 handoff rubygems.md. T1 (provider generator, R1). gitleaks 8.30.1 rubygems-api-token and trufflehog 3.97.4 RubyGems are mapped to this family. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'rubygems-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1023; #1014 handoff rubygems.md, READY). A key can push and yank gems and manage owners within its scopes, so a leak is a supply-chain risk for every gem the account owns. T1 for the prefix, the 48-byte length and the lowercase-hex alphabet under R1, from the provider's own generator; OIDC-exchanged keys share it. RubyGems sends the key in Authorization without a scheme. Excluded: legacy unprefixed keys (no shape; generic context covers GEM_HOST_API_KEY= and :rubygems_api_key:), rubygems_version and rubygems_mfa_required metadata keys (they fail the body) and uppercased copies. gitleaks 8.30.1 agrees with the grammar but also requires a trailing delimiter; trufflehog 3.97.4 reads a wider class (any lowercase letter and A), so it overreaches on a non-hex letter twin. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1039)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/rubygems.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/rubygems.md",
+      "note": "families[id=rubygems:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=rubygems:api-key]"
+    }
+  ]
+}

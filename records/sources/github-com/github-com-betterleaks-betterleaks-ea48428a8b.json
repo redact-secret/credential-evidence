@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-betterleaks-betterleaks-ea48428a8b",
+  "sourceType": "scanner-rule-source",
+  "title": "betterleaks/betterleaks @ main: config/betterleaks.toml",
+  "publisher": "betterleaks/betterleaks",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/betterleaks/betterleaks",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-field; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/208.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/208.ts",
+      "note": "cited by contracts['openrouter-api-key'].fields"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/210.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/210.ts",
+      "note": "cited by contracts['langfuse-secret-key'].corroboration; contracts['langfuse-secret-key'].fields"
+    },
+    {
+      "system": "legacy-url",
+      "id": "https://github.com/betterleaks/betterleaks/blob/main/config/betterleaks.toml",
+      "note": "Legacy link names ref 'main', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL."
+    }
+  ],
+  "notes": "Legacy URL pins ref 'main', which can move. Resolve it to a commit permalink before a reviewed claim depends on it."
+}

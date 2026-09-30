@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "rubygems:api-key",
+  "provider": "rubygems",
+  "name": "API key (rubygems_)",
+  "description": "rubygems_ + exactly 48 lowercase hex (57 in all); OIDC-exchanged keys share the generator.",
+  "lifecycle": "draft",
+  "currentContract": "rubygems:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1014",
+      "redact-secret/redact-secret#1023",
+      "redact-secret/redact-secret-benchmarks#528"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/rubygems.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/rubygems.md",
+      "note": "families[id=rubygems:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=rubygems:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "rubygems-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "replicate:api-token@1",
+  "family": "replicate:api-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^r8_[A-Za-z0-9_-]{37}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "Replicate API tokens page (\"40-character strings that always start with r8_\"): Replicate states that API tokens are 40-character strings that always start with r8_, fixing the prefix and a 37-character body. The page states no body alphabet.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "replicate-com-9898db55fd",
+          "supports": "Replicate states that API tokens are 40-character strings that always start with r8_, fixing the prefix and a 37-character body. The page states no body alphabet."
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-dccb09a06c",
+          "supports": "trufflehog 3.97.4: Replicate: \\b(r8_[0-9A-Za-z-_]{37})\\b"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: r8_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "replicate-com-9898db55fd",
+          "supports": "prefix: r8_"
+        }
+      ]
+    },
+    {
+      "id": "field-total-length",
+      "statement": "total-length: 40 characters (37-character body after r8_)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "replicate-com-9898db55fd",
+          "supports": "total-length: 40 characters (37-character body after r8_)"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body-alphabet: [A-Za-z0-9] in every positive; TruffleHog also admits - and _, flare-redact and agent-sweep admit alphanumerics only (The provider does not state a charset. The contract pattern admits the union so only a non-word byte counts as an alphabet mutation.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-flare-collection-flare-redact-239ebf6404",
+          "supports": "r8_[A-Za-z0-9]{30,45}",
+          "locator": "#L1352"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-dccb09a06c",
+          "supports": "body class [0-9A-Za-z-_]{37}; its own test fixture is alphanumeric"
+        }
+      ]
+    },
+    {
+      "id": "field-header-scheme",
+      "statement": "header-scheme: Authorization: Bearer <token>; the legacy Authorization: Token <token> is still accepted",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "replicate-com-8b72c6de27",
+          "supports": "header-scheme: Authorization: Bearer <token>; the legacy Authorization: Token <token> is still accepted"
+        },
+        {
+          "sourceId": "replicate-com-9c199156f6",
+          "supports": "header-scheme: Authorization: Bearer <token>; the legacy Authorization: Token <token> is still accepted"
+        }
+      ]
+    },
+    {
+      "id": "field-sibling-tokens",
+      "statement": "sibling-tokens: Whether the cog login token (replicate.com/auth/token) or org-owned and default tokens differ in shape from a created API token",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-gitguardian-com-194a097cb8",
+          "supports": "sibling-tokens: Whether the cog login token (replicate.com/auth/token) or org-owned and default tokens differ in shape from a created API token"
+        },
+        {
+          "sourceId": "github-com-replicate-cog-c62b96ff75",
+          "supports": "sibling-tokens: Whether the cog login token (replicate.com/auth/token) or org-owned and default tokens differ in shape from a created API token"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-replicate-replicate-python-0ba08c3242",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "replicate-com-8b72c6de27",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "replicate-com-9c199156f6",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "replicate-com-8b72c6de27",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "replicate-com-9898db55fd",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "replicate-com-8b72c6de27",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "replicate-com-9898db55fd",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "replicate-api-token:body-alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "replicate-api-token:header-scheme",
+      "note": "claim field-header-scheme; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "replicate-api-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "replicate-api-token:sibling-tokens",
+      "note": "claim field-sibling-tokens; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "replicate-api-token:total-length",
+      "note": "claim field-total-length; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/208.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/208.ts",
+      "note": "contracts['replicate-api-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/replicate.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/replicate.md",
+      "note": "families[id=replicate:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=replicate:api-token]"
+    }
+  ]
+}

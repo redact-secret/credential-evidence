@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "datadog:application-key-legacy",
+  "provider": "datadog",
+  "name": "Application key (legacy 40-hex)",
+  "description": "Pre-ddapp_ 40-character lowercase-hex application key, still accepted by Datadog; recognized only beside a same-line DD_APPLICATION_KEY / datadog marker.",
+  "lifecycle": "draft",
+  "currentContract": "datadog:application-key-legacy@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#645",
+      "redact-secret/redact-secret#671",
+      "redact-secret/redact-secret-benchmarks#162"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/datadog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+      "note": "families[id=datadog:application-key-legacy]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=datadog:application-key-legacy]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "datadog-application-key-legacy",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

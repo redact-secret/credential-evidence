@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-gitleaks-gitleaks-4127284f03",
+  "sourceType": "scanner-rule-source",
+  "title": "gitleaks/gitleaks @ b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b: cmd/generate/config/rules/aws.go",
+  "publisher": "gitleaks/gitleaks",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/gitleaks/gitleaks/blob/b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b/cmd/generate/config/rules/aws.go",
+    "pin": {
+      "kind": "commit-permalink",
+      "commit": "b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-field, contract-reference, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012d.ts",
+      "note": "cited by contracts['aws-sts-temporary-access-key'].corroboration; contracts['aws-sts-temporary-access-key'].fields; contracts['aws-sts-temporary-access-key'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+      "note": "cited by families[id=aws:context-specific-credential].research.sources; families[id=aws:sts-service-bearer-token].research.sources; families[id=aws:sts-temporary-access-key].research.sources"
+    }
+  ]
+}

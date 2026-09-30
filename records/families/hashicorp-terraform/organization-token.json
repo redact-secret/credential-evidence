@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "hashicorp-terraform:organization-token",
+  "provider": "hashicorp-terraform",
+  "name": "Organization token",
+  "description": "HCP Terraform/Enterprise organization API token; identical grammar to the user token.",
+  "lifecycle": "draft",
+  "currentContract": "hashicorp-terraform:organization-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-21",
+    "issues": [
+      "redact-secret/redact-secret#521",
+      "redact-secret/redact-secret-benchmarks#67"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/hashicorp-terraform.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-terraform.md",
+      "note": "families[id=hashicorp-terraform:organization-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=hashicorp-terraform:organization-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "terraform-cloud-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

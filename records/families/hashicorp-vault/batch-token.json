@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "hashicorp-vault:batch-token",
+  "provider": "hashicorp-vault",
+  "name": "Batch token",
+  "description": "Lightweight, non-renewable Vault batch token, prefixed hvb.",
+  "lifecycle": "draft",
+  "currentContract": "hashicorp-vault:batch-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-20",
+    "issues": [
+      "redact-secret/redact-secret-benchmarks#46"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/hashicorp-vault.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-vault.md",
+      "note": "families[id=hashicorp-vault:batch-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=hashicorp-vault:batch-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "vault-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

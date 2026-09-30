@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "e2b:api-key",
+  "provider": "e2b",
+  "name": "Team API key (e2b_)",
+  "description": "e2b_ + 40 lowercase hex (20 random bytes); the retired sk_e2b_ user token is a different class.",
+  "lifecycle": "draft",
+  "currentContract": "e2b:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#905",
+      "redact-secret/redact-secret-benchmarks#434"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/e2b.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/e2b.md",
+      "note": "families[id=e2b:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=e2b:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "e2b-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

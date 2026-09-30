@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "telegram:bot-token@1",
+  "family": "telegram:bot-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^[0-9]{5,}:[A-Za-z0-9_-]{34,}$"
+  },
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (digits:secret bot token; provider-code delimiter and alphabet, tool-corroborated body length): Un-probeable record lifted 2026-09-24 (#207): twins mutate only the : delimiter and a / inside the secret, both rejected by Telegram's Bot API server acceptance check (tdlib/telegram-bot-api ClientManager.cpp, provider code on github.com), and the secret body below this contract's tool-corroborated 34-character floor. No twin shortens the bot id: provider code accepts 1 to 16 digits.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-5a14042940",
+          "supports": "Un-probeable record lifted 2026-09-24 (#207): twins mutate only the : delimiter and a / inside the secret, both rejected by Telegram's Bot API server acceptance check (tdlib/telegram-bot-api ClientManager.cpp, provider code on github.com), and the secret body below this contract's tool-corroborated 34-character floor. No twin shortens the bot id: provider code accepts 1 to 16 digits."
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-af9449fb2d",
+          "supports": "trufflehog 3.97.4: telegrambottoken/telegrambottoken"
+        }
+      ]
+    },
+    {
+      "id": "field-delimiter",
+      "statement": "delimiter: a single : between the numeric bot id and the secret; the token contains no /",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-tdlib-telegram-bot-api-3100dd887f",
+          "supports": "Telegram's Bot API server acceptance check (code on github.com, not documentation)"
+        }
+      ]
+    },
+    {
+      "id": "field-bot-id",
+      "statement": "bot id: digits, no leading 0, below 2^54; the contract floor is 5 digits and real ids are usually 8–10 (Provider code allows 1–16 digits, so no fixture asserts silence on a short id.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-tdlib-telegram-bot-api-3100dd887f",
+          "supports": "bot id: digits, no leading 0, below 2^54; the contract floor is 5 digits and real ids are usually 8–10"
+        }
+      ]
+    },
+    {
+      "id": "field-secret-body",
+      "statement": "secret body: [A-Za-z0-9_-], at least 34 characters: docs examples show 34, community reports and most tools say 35, usually starting AA",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-5a14042940",
+          "supports": "secret body: [A-Za-z0-9_-], at least 34 characters: docs examples show 34, community reports and most tools say 35, usually starting AA"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-af9449fb2d",
+          "supports": "secret body: [A-Za-z0-9_-], at least 34 characters: docs examples show 34, community reports and most tools say 35, usually starting AA"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "core-telegram-org-bd35c3b4ce",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "core-telegram-org-efb891b3c9",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f4bb4fc3e1",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-tdlib-telegram-bot-api-136af55220",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "telegram-bot-token:bot id",
+      "note": "claim field-bot-id; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "telegram-bot-token:delimiter",
+      "note": "claim field-delimiter; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "telegram-bot-token:secret body",
+      "note": "claim field-secret-body; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['telegram-bot-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/telegram.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/telegram.md",
+      "note": "families[id=telegram:bot-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=telegram:bot-token]"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "heroku:oauth-access-token",
+  "provider": "heroku",
+  "name": "OAuth access token (HRKU-prefixed)",
+  "description": "HRKU- prefixed OAuth access token in its two documented prefixed generations: 41 characters (HRKU- plus a UUID, granted 2024-04-01 to 2025-04-22) and 65 characters (HRKU- plus 60 of [A-Za-z0-9_-], granted from 2025-04-23, observed to begin AA).",
+  "lifecycle": "draft",
+  "currentContract": "heroku:oauth-access-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret-benchmarks#235"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/heroku.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/heroku.md",
+      "note": "families[id=heroku:oauth-access-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=heroku:oauth-access-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "heroku-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

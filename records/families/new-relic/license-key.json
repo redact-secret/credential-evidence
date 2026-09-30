@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "new-relic:license-key",
+  "provider": "new-relic",
+  "name": "License key",
+  "description": "40-character hexadecimal license key.",
+  "lifecycle": "draft",
+  "currentContract": "new-relic:license-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#656",
+      "redact-secret/redact-secret#672",
+      "redact-secret/redact-secret#754",
+      "redact-secret/redact-secret-benchmarks#160"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/new-relic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/new-relic.md",
+      "note": "families[id=new-relic:license-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=new-relic:license-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "new-relic-license-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

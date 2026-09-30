@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "docs-tavily-com-bcc8c8c36f",
+  "sourceType": "provider-documentation",
+  "title": "docs.tavily.com/documentation/enterprise/generate-keys",
+  "publisher": "docs.tavily.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://docs.tavily.com/documentation/enterprise/generate-keys",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-26",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-27",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research, taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384d.ts",
+      "note": "cited by contracts['tavily-api-key'].fields; contracts['tavily-api-key'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/tavily.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/tavily.md",
+      "note": "cited by families[id=tavily:api-key].research.sources"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=tavily:api-key].sources"
+    }
+  ]
+}

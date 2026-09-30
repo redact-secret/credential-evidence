@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "ai21:api-key@1",
+  "family": "ai21:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^[A-Za-z0-9]{32}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (3 artifacts: LLM-Runner-Router (independent implementation); Vulnetix vnx-sec-315; keychecker (independent implementation)).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-cunnymessiah-keychecker-9e67758ceb",
+          "supports": "keychecker (independent implementation): [A-Za-z0-9]{32} filter before a live AI21 check (2023-12-16)",
+          "locator": "#L242"
+        },
+        {
+          "sourceId": "github-com-mcerqua-llm-runner-router-fc3b25980a",
+          "supports": "LLM-Runner-Router (independent implementation): ai21 keyFormat '[A-Za-z0-9]{32}' (2025-08-26)",
+          "locator": "#L287-L290"
+        },
+        {
+          "sourceId": "github-com-vulnetix-cli-be4de27552",
+          "supports": "Vulnetix vnx-sec-315: ai21[_-]?api[_-]?key assignment + exactly [A-Za-z0-9]{32} (2026-06-14)",
+          "locator": "#L25"
+        }
+      ]
+    },
+    {
+      "id": "field-shape",
+      "statement": "shape: 32 alphanumeric characters, no prefix (One peer rule and two independent implementations (redact-secret#1013); no provider statement. AI21-committed literals agree but are held for ruling Q-AI.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-cunnymessiah-keychecker-9e67758ceb",
+          "supports": "a 32-alphanumeric filter",
+          "locator": "#L242"
+        },
+        {
+          "sourceId": "github-com-mcerqua-llm-runner-router-fc3b25980a",
+          "supports": "keyFormat '[A-Za-z0-9]{32}'",
+          "locator": "#L287-L290"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6fe667e9a0",
+          "supports": "ten-sample maintainer observation, values withheld"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d0cddb721f",
+          "supports": "shape: 32 alphanumeric characters, no prefix"
+        },
+        {
+          "sourceId": "github-com-vulnetix-cli-be4de27552",
+          "supports": "exactly [A-Za-z0-9]{32} after an ai21 key name",
+          "locator": "#L25"
+        }
+      ]
+    },
+    {
+      "id": "field-context",
+      "statement": "context: a same-line AI21_API_KEY name, api.ai21.com host or AI21 SDK constructor",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-7ba503c98b",
+          "supports": "_ENV_API_KEY = \"AI21_API_KEY\""
+        },
+        {
+          "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-9bd570cae8",
+          "supports": "Authorization: Bearer {api_key}"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix-and-checksum",
+      "statement": "prefix-and-checksum: no prefix or checksum was observed or documented",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6fe667e9a0",
+          "supports": "prefix-and-checksum: no prefix or checksum was observed or documented"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d0cddb721f",
+          "supports": "prefix-and-checksum: no prefix or checksum was observed or documented"
+        }
+      ]
+    },
+    {
+      "id": "field-other-widths",
+      "statement": "other-widths: a UUID (Kingfisher, deleted 2026-08-21) or 40-64 alphanumerics (octocode) (Excluded by the exact-32 contract; no fixture asserts either way.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d0cddb721f",
+          "supports": "both readings contradict every AI21 literal found"
+        }
+      ]
+    },
+    {
+      "id": "field-non-secrets",
+      "statement": "non-secrets: AI21_API_HOST, AI21_API_VERSION, AI21_AWS_REGION and the console's masked suffix are not credentials",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-7ba503c98b",
+          "supports": "non-secrets: AI21_API_HOST, AI21_API_VERSION, AI21_AWS_REGION and the console's masked suffix are not credentials"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 7 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-ai21-com-11aa0fbc1a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-litellm-ai-c6dfd519b8",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6fe667e9a0",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d0cddb721f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-7ba503c98b",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-9bd570cae8",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 5 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-ai21labs-ai21-python-11619380ba",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L6"
+        },
+        {
+          "sourceId": "github-com-cunnymessiah-keychecker-9e67758ceb",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L242"
+        },
+        {
+          "sourceId": "github-com-mcerqua-llm-runner-router-fc3b25980a",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L287-L290"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d0cddb721f",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-vulnetix-cli-be4de27552",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L25"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-ai21-com-11aa0fbc1a",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "ai21-api-key:context",
+      "note": "claim field-context; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "ai21-api-key:non-secrets",
+      "note": "claim field-non-secrets; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "ai21-api-key:other-widths",
+      "note": "claim field-other-widths; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "ai21-api-key:prefix-and-checksum",
+      "note": "claim field-prefix-and-checksum; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "ai21-api-key:shape",
+      "note": "claim field-shape; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384e.ts",
+      "note": "contracts['ai21-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/ai21.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/ai21.md",
+      "note": "families[id=ai21:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=ai21:api-key]"
+    }
+  ]
+}

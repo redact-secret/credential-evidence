@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "pinecone:api-key@1",
+  "family": "pinecone:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^pcsk_[A-Za-z0-9]{5,6}_[A-Za-z0-9]{63}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-35e0a7ce8f",
+          "supports": "trufflehog 3.97.4: Pinecone"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: pcsk_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-pinecone-io-cli-6c0470ca7a",
+          "supports": "prefix: pcsk_"
+        },
+        {
+          "sourceId": "github-com-pinecone-io-skills-d91bdab368",
+          "supports": "prefix: pcsk_"
+        }
+      ]
+    },
+    {
+      "id": "field-segments",
+      "statement": "segments: pcsk_<label>_<secret>, underscore-separated",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-pinecone-io-python-sdk-bbe38c6e29",
+          "supports": "short stand-in values with a label segment"
+        }
+      ]
+    },
+    {
+      "id": "field-label-width",
+      "statement": "label width: 5 or 6 alphanumeric characters",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-1e933d3f31",
+          "supports": "PR #4917 \"verified against real keys\"; a 4-character label is rejected by its test"
+        }
+      ]
+    },
+    {
+      "id": "field-secret-width",
+      "statement": "secret width: exactly 63 alphanumeric characters (74-75 total) (pleno-dlp's looser pcsk_[A-Za-z0-9_]{40,} is recorded as a peer difference.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-afabcac273",
+          "supports": "secret width: exactly 63 alphanumeric characters (74-75 total)"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-1e933d3f31",
+          "supports": "secret width: exactly 63 alphanumeric characters (74-75 total)"
+        }
+      ]
+    },
+    {
+      "id": "field-documented-pckey-prefix",
+      "statement": "documented pckey_ prefix: Admin API docs: new keys have the format pckey_<public-label>_<unique-key> (Contradicts every pcsk_ observation; neither positive nor negative here.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-pinecone-io-afb4aa4af7",
+          "supports": "documented pckey_ prefix: Admin API docs: new keys have the format pckey_<public-label>_<unique-key>"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 1 reference without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-pinecone-io-afb4aa4af7",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-pinecone-io-9359d617d4",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-pinecone-io-afb4aa4af7",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-pinecone-io-cli-6c0470ca7a",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "pinecone-api-key:documented pckey_ prefix",
+      "note": "claim field-documented-pckey-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "pinecone-api-key:label width",
+      "note": "claim field-label-width; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "pinecone-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "pinecone-api-key:secret width",
+      "note": "claim field-secret-width; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "pinecone-api-key:segments",
+      "note": "claim field-segments; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/212.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/212.ts",
+      "note": "contracts['pinecone-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pinecone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pinecone.md",
+      "note": "families[id=pinecone:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=pinecone:api-key]"
+    }
+  ]
+}

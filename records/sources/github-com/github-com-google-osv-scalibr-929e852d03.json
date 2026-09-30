@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-google-osv-scalibr-929e852d03",
+  "sourceType": "scanner-rule-source",
+  "title": "google/osv-scalibr @ 5ab8022c6d67ff99d91d9750f2456ed9549fe8cb: veles/secrets/gcpoauth2client/detector.go",
+  "publisher": "google/osv-scalibr",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/google/osv-scalibr/blob/5ab8022c6d67ff99d91d9750f2456ed9549fe8cb/veles/secrets/gcpoauth2client/detector.go",
+    "pin": {
+      "kind": "commit-permalink",
+      "commit": "5ab8022c6d67ff99d91d9750f2456ed9549fe8cb"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-field, contract-reference, dossier-research, taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012b.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012b.ts",
+      "note": "cited by contracts['google-oauth-client-secret'].corroboration; contracts['google-oauth-client-secret'].fields; contracts['google-oauth-client-secret'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/google.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/google.md",
+      "note": "cited by families[id=google:oauth-client-secret].research.sources"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=google:oauth-client-secret].sources"
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "neon:api-key@1",
+  "family": "neon:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^napi_[A-Za-z0-9]{64,}$"
+  },
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (napi_ prefix (2025-01-31 changelog)): Neon states that newly created API keys are prefixed with napi_ so that secret scanning can rely on an identifiable marker, and that existing unprefixed keys stay valid. It states no body length or alphabet. Twins mutate the prefix, its delimiter, the body length floor or the body alphabet",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "neon-com-cb728eae0c",
+          "supports": "Neon states that newly created API keys are prefixed with napi_ so that secret scanning can rely on an identifiable marker, and that existing unprefixed keys stay valid. It states no body length or alphabet. Twins mutate the prefix, its delimiter, the body length floor or the body alphabet"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: betterleaks; mask-go).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-e6566f1d29",
+          "supports": "betterleaks: neon-api-key"
+        },
+        {
+          "sourceId": "github-com-koki-develop-mask-go-358ff6f0fe",
+          "supports": "mask-go: neon-api-key"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: napi_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-neondatabase-website-55f2c7337d",
+          "supports": "prefix: napi_"
+        },
+        {
+          "sourceId": "neon-com-cb728eae0c",
+          "supports": "prefix: napi_"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body length: at least 64 characters (Neon says \"64-bit token\", which fits no string length; not used.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-e6566f1d29",
+          "supports": "exactly 64"
+        },
+        {
+          "sourceId": "github-com-koki-develop-mask-go-358ff6f0fe",
+          "supports": "64 as a floor"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body alphabet: [A-Za-z0-9]",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-e6566f1d29",
+          "supports": "body alphabet: [A-Za-z0-9]"
+        },
+        {
+          "sourceId": "github-com-koki-develop-mask-go-358ff6f0fe",
+          "supports": "body alphabet: [A-Za-z0-9]"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-keys",
+      "statement": "legacy keys: keys issued before the prefix stay valid and carry no marker (Not claimed; never a control.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "neon-com-cb728eae0c",
+          "supports": "legacy keys: keys issued before the prefix stay valid and carry no marker"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-neondatabase-website-55f2c7337d",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "neon-com-8be6eee7a8",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-25",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-e6566f1d29",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-koki-develop-mask-go-358ff6f0fe",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-fc7f0bdc6c",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "neon-com-cb728eae0c",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-25",
+      "sources": [
+        {
+          "sourceId": "neon-com-cb728eae0c",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "neon-api-key:body alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "neon-api-key:body length",
+      "note": "claim field-body-length; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "neon-api-key:legacy keys",
+      "note": "claim field-legacy-keys; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "neon-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/259.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/259.ts",
+      "note": "contracts['neon-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/neon.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/neon.md",
+      "note": "families[id=neon:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=neon:api-key]"
+    }
+  ]
+}

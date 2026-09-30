@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-browserbase-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "browserbase:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/browserbase.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/browserbase.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#973",
+          "url": "https://github.com/redact-secret/redact-secret/issues/973"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#464",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/464"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for browserbase:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family browserbase-api-key (#464, product redact-secret#973), contract in benchmarks/lib/beta8/464d.ts from the #860 handoff browserbase.md. T1 on the prefix, alphabet and floor; the cap is policy. Neither pinned scanner has a Browserbase rule. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'browserbase-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#464, product redact-secret#973; #860 handoff browserbase.md, READY for bb_live_ with an open-ended body). T1: the bb_live_ prefix is the docs placeholder (R4) and a provider redaction regex bb_(live|test)_ in browserbase/stagehand (R2); the alphabet and the floor of 20 are a provider CI gate whose author is a public Browserbase-organization member (R2), and no public scanner has a Browserbase rule, so it is not a vendored rule. The stagehand redactor admits _ and - after four alphanumerics while the CI gate is alphanumeric only; both are provider-authored, and the contract takes the alphanumeric class, which keeps bb_live_session_ style identifiers out. POLICY, not T1: the 128-byte upper bound (a bounded run for streaming; rejected whole, never truncated), so positives reach 128 and nothing asserts silence on 129. Excluded: bb_test_ keys (issuance-gated: only a floor-5 regex and a T2 comment), bb_live_session_ and other snake_case identifiers, bb_live_... and bb_live_your_api_key_here placeholders, bb_<timestamp> cookie names and project-ID UUIDs. Neither pinned peer has a Browserbase rule. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1037)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/browserbase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/browserbase.md",
+      "note": "families[id=browserbase:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=browserbase:api-key]"
+    }
+  ]
+}

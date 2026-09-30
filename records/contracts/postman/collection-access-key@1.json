@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "postman:collection-access-key@1",
+  "family": "postman:collection-access-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^PMAT-[A-Z0-9]{26}$"
+  },
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (masked PMAT- collection access key): Postman documents the collection access key as a read-only credential for one collection's JSON (Share via API), valid for 60 days of inactivity, and renders it masked as PMAT- followed by asterisks and four trailing characters (26 in all). It states no alphabet. Twins mutate the prefix, its delimiter or the body length",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "learning-postman-com-e637862051",
+          "supports": "Postman documents the collection access key as a read-only credential for one collection's JSON (Share via API), valid for 60 days of inactivity, and renders it masked as PMAT- followed by asterisks and four trailing characters (26 in all). It states no alphabet. Twins mutate the prefix, its delimiter or the body length"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: GitLab secret-detection-rules).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-7f4b938ca8",
+          "supports": "GitLab secret-detection-rules: PostmanCollectionAccessKey"
+        }
+      ]
+    },
+    {
+      "id": "field-credential",
+      "statement": "credential: read-only collection access key, 60-day inactivity expiry, shared via the collection JSON URL",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "learning-postman-com-47b8667191",
+          "supports": "credential: read-only collection access key, 60-day inactivity expiry, shared via the collection JSON URL"
+        },
+        {
+          "sourceId": "learning-postman-com-81df2b7b1c",
+          "supports": "credential: read-only collection access key, 60-day inactivity expiry, shared via the collection JSON URL"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: PMAT-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "learning-postman-com-e637862051",
+          "supports": "masked display"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body length: exactly 26 characters (The provider's masked display (asterisks + 4) counts to 26, which agrees but is not a statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-7f4b938ca8",
+          "supports": "body length: exactly 26 characters"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body alphabet: [A-Z0-9] (One tool only; the product accepts lowercase too. No case twin.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-7f4b938ca8",
+          "supports": "body alphabet: [A-Z0-9]"
+        }
+      ]
+    },
+    {
+      "id": "field-ulid-body",
+      "statement": "ULID body: the body may be a ULID (26 Crockford base32 characters with a timestamp prefix): every example in GitLab's rule has that shape (Not claimed. Positives use the rule's wider [A-Z0-9]{26}; no fixture asserts silence on a non-ULID body.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-7f4b938ca8",
+          "supports": "rule examples; not copied into any fixture"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "learning-postman-com-47b8667191",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "learning-postman-com-81df2b7b1c",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-25",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2bac414bd1",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "gitlab-com-7f4b938ca8",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "learning-postman-com-81df2b7b1c",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "learning-postman-com-e637862051",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-25",
+      "sources": [
+        {
+          "sourceId": "learning-postman-com-81df2b7b1c",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "postman-collection-access-key:ULID body",
+      "note": "claim field-ulid-body; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "postman-collection-access-key:body alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "postman-collection-access-key:body length",
+      "note": "claim field-body-length; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "postman-collection-access-key:credential",
+      "note": "claim field-credential; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "postman-collection-access-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/259.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/259.ts",
+      "note": "contracts['postman-collection-access-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/postman.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/postman.md",
+      "note": "families[id=postman:collection-access-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=postman:collection-access-key]"
+    }
+  ]
+}

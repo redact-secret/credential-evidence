@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "openai:admin-api-key@1",
+  "family": "openai:admin-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^sk-admin-[A-Za-z0-9_-]{58}T3BlbkFJ[A-Za-z0-9_-]{58}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (3 artifacts: gitleaks 8.30.1; trufflehog 3.97.4; trufflehog issue 4698 (admin-key request)).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-77740cd8a7",
+          "supports": "trufflehog issue 4698 (admin-key request): marker-less 124-character body"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-c17ff75762",
+          "supports": "trufflehog 3.97.4: openaiadmin (PR #4689): sk-admin- + 58 + T3BlbkFJ + 58"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: sk-admin- (Provider code, not a provider documentation page; the reference example in the API reference is illustrative only.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-openai-codex-86981d0327",
+          "supports": "the OpenAI credential broker names the prefix set and the T3BlbkFJ watermark",
+          "locator": "#L13-L23"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b2b6ce3e81",
+          "supports": "prefix: sk-admin-"
+        }
+      ]
+    },
+    {
+      "id": "field-marker",
+      "statement": "marker: T3BlbkFJ between two body segments",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "three admin test vectors"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-c17ff75762",
+          "supports": "dedicated admin detector (PR #4689): marker + 58/58"
+        }
+      ]
+    },
+    {
+      "id": "field-segment-widths",
+      "statement": "segment-widths: 58/58 (133 characters in all) (One byte short on either side reads as a non-key.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "58 + marker + 58; its three admin vectors are 58/58"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f8cda0acf9",
+          "supports": "five references from five owners"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-c17ff75762",
+          "supports": "exactly 58 + marker + 58"
+        }
+      ]
+    },
+    {
+      "id": "field-width-74",
+      "statement": "width-74: a 74 + T3BlbkFJ + 74 admin body, the width the product shares with sk-proj- and sk-svcacct- (Outside the claim: no positive, twin or control is 74/74, and a mixed 58/74 width is not authored either way. The shipped detector accepts 74/74; that over-redaction is not measured.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "admits 74 only through the width union shared with sk-proj-/sk-svcacct-"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f8cda0acf9",
+          "supports": "no source shows a 74/74 admin value; trufflehog openaiadmin, nuclei-templates and poltergeist admit 58/58 only"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body-alphabet: [A-Za-z0-9_-]",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "body-alphabet: [A-Za-z0-9_-]"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b2b6ce3e81",
+          "supports": "body-alphabet: [A-Za-z0-9_-]"
+        }
+      ]
+    },
+    {
+      "id": "field-marker-less-body",
+      "statement": "marker-less-body: a 124-character [A-Za-z0-9_-] body without the marker (Out of contract by the product decision in #863. It is a negative twin, never a positive; Bearer and quoted-assignment contexts still redact it through the generic layers, which co-detection records.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-77740cd8a7",
+          "supports": "request text; numerically equal to 58 + 8 + 58"
+        }
+      ]
+    },
+    {
+      "id": "field-blog-widths",
+      "statement": "blog-widths: a {40,} floor and 164-character totals from two blog pages (Not used.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b2b6ce3e81",
+          "supports": "rows 10-11, contradicted by the gitleaks vectors"
+        }
+      ]
+    },
+    {
+      "id": "field-public-key-id",
+      "statement": "public-key-id: the admin key resource id (key_...) and the redacted_value display are public identifiers (Backs the public-id controls; no shape is claimed beyond the prefix key_.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b2b6ce3e81",
+          "supports": "hands-on checklist item; shape recorded, not observed"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 4 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-42a7f537cb",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b2b6ce3e81",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f8cda0acf9",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "platform-openai-com-850ad6cc47",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 7 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developers-openai-com-8ac1b033d0",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-ghostsecurity-poltergeist-66724636ca",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L36"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-2046c4f630",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L14"
+        },
+        {
+          "sourceId": "github-com-openai-codex-86981d0327",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L13-L23"
+        },
+        {
+          "sourceId": "github-com-projectdiscovery-nuclei-templates-a6ef28c40c",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L23"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f8cda0acf9",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-49539ec7a3",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L26-L29"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-openai-codex-86981d0327",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L13-L23"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "openai-admin-api-key:blog-widths",
+      "note": "claim field-blog-widths; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openai-admin-api-key:body-alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openai-admin-api-key:marker",
+      "note": "claim field-marker; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openai-admin-api-key:marker-less-body",
+      "note": "claim field-marker-less-body; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openai-admin-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openai-admin-api-key:public-key-id",
+      "note": "claim field-public-key-id; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openai-admin-api-key:segment-widths",
+      "note": "claim field-segment-widths; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openai-admin-api-key:width-74",
+      "note": "claim field-width-74; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384a.ts",
+      "note": "contracts['openai-admin-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/openai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openai.md",
+      "note": "families[id=openai:admin-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=openai:admin-api-key]"
+    }
+  ]
+}

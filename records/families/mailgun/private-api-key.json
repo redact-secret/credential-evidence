@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "mailgun:private-api-key",
+  "provider": "mailgun",
+  "name": "Private API key and HTTP webhook signing key",
+  "description": "key- followed by 32 lowercase alphanumeric bytes; Mailgun's current API reference shows the same shape for the account HTTP signing key. Recognized only beside a same-line mailgun keyword.",
+  "lifecycle": "draft",
+  "currentContract": "mailgun:private-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-25",
+    "issues": [
+      "redact-secret/redact-secret#582",
+      "redact-secret/redact-secret#701"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailgun.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+      "note": "families[id=mailgun:private-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mailgun:private-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "mailgun-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

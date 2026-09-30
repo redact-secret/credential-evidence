@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "axiom:api-token",
+  "provider": "axiom",
+  "name": "API token (xaat-)",
+  "description": "xaat- + a lowercase-hex UUID (41 in all); placeholders and bare UUIDs are not claimed.",
+  "lifecycle": "draft",
+  "currentContract": "axiom:api-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1014",
+      "redact-secret/redact-secret#1035",
+      "redact-secret/redact-secret-benchmarks#528"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/axiom.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/axiom.md",
+      "note": "families[id=axiom:api-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=axiom:api-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "axiom-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

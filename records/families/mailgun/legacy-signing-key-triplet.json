@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "mailgun:legacy-signing-key-triplet",
+  "provider": "mailgun",
+  "name": "Prefix-less 32-8-8 hex key triplet",
+  "description": "Dash-segmented 32-8-8 lowercase hex triplet that both pinned tools match and three sources describe as the newer private API key; recognized only beside a same-line mailgun keyword.",
+  "lifecycle": "draft",
+  "currentContract": "mailgun:legacy-signing-key-triplet@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-25",
+    "issues": [
+      "redact-secret/redact-secret#582",
+      "redact-secret/redact-secret#701",
+      "redact-secret/redact-secret-benchmarks#259"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailgun.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+      "note": "families[id=mailgun:legacy-signing-key-triplet]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mailgun:legacy-signing-key-triplet]"
+    }
+  ]
+}

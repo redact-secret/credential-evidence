@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-convex-deployment-key",
+  "subject": {
+    "kind": "family",
+    "id": "convex:deployment-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/convex.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/convex.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#912",
+          "url": "https://github.com/redact-secret/redact-secret/issues/912"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#436",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/436"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for convex:deployment-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector convex-deployment-key since redact-secret#912 (registry pinned at 1127bf9); graduated from a Beta.11 arrival family (#436), contract in benchmarks/lib/beta8/436a.ts. T1 on provider backend code (R1); neither pinned scanner has a Convex rule."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'convex-deployment-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#436, product redact-secret#912; #860 handoff convex.md, READY for the hex body). T1 under ruling R1: the provider backend joins {deployment_name}|{encrypted_part}, writes version byte 01, a 12-byte nonce, the AES-GCM-SIV ciphertext and a 16-byte tag, and hex-encodes it in lower case; the 74–96 even length is derived from the proto fields the broker always sets. The CLI accepts prod:/dev: + a cloud name and preview:/project: + two slugs; the slug grammar is project policy (bounded, no source). The secret span is the whole key, name included, because it is the one string the CLI consumes. Excluded: CONVEX_DEPLOYMENT=dev:<name> selectors (no |), convex.cloud URLs, pre-0.16.0 bare keys, team and OAuth tokens, docs placeholders whose body fails the grammar. The current cloud deploy-key body (eyJ2…) is issuance-gated: ruling R4 fixes only its prefix, so no fixture asserts it either way. Neither pinned peer has a Convex rule. Graduated to a registry detector at the 1127bf9 re-pin (redact-secret PR #938)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/convex.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/convex.md",
+      "note": "families[id=convex:deployment-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=convex:deployment-key]"
+    }
+  ]
+}

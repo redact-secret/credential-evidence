@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "google:generic-api-key",
+  "provider": "google",
+  "name": "Generic API key",
+  "description": "AIza prefixed general-purpose API key.",
+  "lifecycle": "draft",
+  "currentContract": "google:generic-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-23",
+    "issues": [
+      "redact-secret/redact-secret#296",
+      "redact-secret/redact-secret#519",
+      "redact-secret/redact-secret#642"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/google.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/google.md",
+      "note": "families[id=google:generic-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=google:generic-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "google-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

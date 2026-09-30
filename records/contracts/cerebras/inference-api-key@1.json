@@ -1,0 +1,375 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "cerebras:inference-api-key@1",
+  "family": "cerebras:inference-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^csk[-_][A-Za-z0-9_-]{48}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "Cerebras/vscode-cerebras-chat src/provider.ts (e03602f; the check was introduced on 2025-08-29 with csk- only and the 52 has stayed): a key that does not start csk_ or csk- or whose length is not 52 is rejected; a Cerebras staff member wrote on 2025-10-23 and 2025-10-24 that customers hold keys with both prefixes, csk_ was an unintentional recent change, new keys use csk-, and both should be accepted (R3); re-checked 2026-09-28: csk- or csk_ + exactly 48 body bytes (52 in all); the body alphabet is project policy under R10, not a provider fact",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-d1a9029089",
+          "supports": "csk- or csk_ + exactly 48 body bytes (52 in all); the body alphabet is project policy under R10, not a provider fact",
+          "locator": "#L113"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: betterleaks and other tool rules (unpinned)).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-4fda03f3d2",
+          "supports": "betterleaks and other tool rules (unpinned): csk- body [a-z0-9] (tool-only, T2; not adopted, R8)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: csk- (current) or csk_ (the 2025-10 window, still accepted) (The csk_ prefix is T1 as of 2025-10 (R3): a dated staff statement.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-415bbc2af0",
+          "supports": "staff statement, 2025-10-23",
+          "locator": "#discussion_r2453931915"
+        },
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-415bbc2af0",
+          "supports": "staff statement, 2025-10-24",
+          "locator": "#discussion_r2462008982"
+        },
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-d1a9029089",
+          "supports": "starts csk_ or csk-",
+          "locator": "#L113"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1, R3",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body-length: exactly 48 body bytes (52 in all)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-bcfd224605",
+          "supports": "unchanged 13 months later",
+          "locator": "#L176"
+        },
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-d1a9029089",
+          "supports": "length 52 minus the 4-byte prefix",
+          "locator": "#L113"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-policy-alphabet",
+      "statement": "policy-alphabet: POLICY (R10), not T1: the body alphabet is [A-Za-z0-9_-] (The validator accepts any 48 code units and states no alphabet. Positives use lowercase-only bodies and bodies with _ and -; no fixture asserts silence on a byte outside the class, so a dot or plus twin is not authored.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-26407f5ce9",
+          "supports": "the policy class is a superset of every class seen"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R10: project policy may fill a grammar the provider states only partly, never narrower than a provider-stated class",
+          "locator": "#issuecomment-5880547337"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R8: no narrowing from third-party rules",
+          "locator": "#issuecomment-5871306275"
+        }
+      ]
+    },
+    {
+      "id": "field-tool-alphabet",
+      "statement": "tool-alphabet: tool rules use [a-z0-9] for the body (Tool-only and narrower than the policy class; not adopted (R8).)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-4fda03f3d2",
+          "supports": "unpinned"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-dedd5534a8",
+          "supports": "tool-only"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier before the prefix ([A-Za-z0-9_-]) is not claimed; this keeps Pinecone pcsk_ / pcsk- unclaimed (Handoff boundary decision, not a provider statement. The body class already contains _ and -, so a trailing byte extends the run and no trailing-glue twin exists.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-26407f5ce9",
+          "supports": "implementation notes: the leading boundary is what rejects pcsk_"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: the CEREBRAS_API_KEY environment variable, sent as Authorization: Bearer to api.cerebras.ai; Cerebras(api_key=...)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-26407f5ce9",
+          "supports": "role and blast radius"
+        }
+      ]
+    },
+    {
+      "id": "field-management-key",
+      "statement": "management-key: the Management API key for dedicated endpoints is a separate credential of unknown shape (Not this family; nothing is authored for it.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-26407f5ce9",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no Cerebras rule in trufflehog 3.97.4 or gitleaks 8.30.1; unpinned tool rules use a [a-z0-9] body, narrower than the policy class",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no cerebras rule"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-dedd5534a8",
+          "supports": "tool-only [a-z0-9]"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no cerebras detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 15 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-415bbc2af0",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#discussion_r2453931915"
+        },
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-415bbc2af0",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#discussion_r2462008982"
+        },
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-41c0b8f492",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-bcfd224605",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L176"
+        },
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-d1a9029089",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L113"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-26407f5ce9",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5880547337"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-dedd5534a8",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-eaf3fa15e3",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-fc5f396543",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-d1a9029089",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L113"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-26407f5ce9",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-dedd5534a8",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-cerebras-vscode-cerebras-chat-d1a9029089",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L113"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-26407f5ce9",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "cerebras-api-key:body-length",
+      "note": "claim field-body-length; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cerebras-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cerebras-api-key:management-key",
+      "note": "claim field-management-key; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cerebras-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cerebras-api-key:policy-alphabet",
+      "note": "claim field-policy-alphabet; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cerebras-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cerebras-api-key:tool-alphabet",
+      "note": "claim field-tool-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cerebras-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/464e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/464e.ts",
+      "note": "contracts['cerebras-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cerebras.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cerebras.md",
+      "note": "families[id=cerebras:inference-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=cerebras:inference-api-key]"
+    }
+  ]
+}

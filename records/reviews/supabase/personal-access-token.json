@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-supabase-personal-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "supabase:personal-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-21",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-21. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/supabase.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#515",
+          "url": "https://github.com/redact-secret/redact-secret/issues/515"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#81",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/81"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-21",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for supabase:personal-access-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): #81 backfilled the supabase-management-token detector (redact-secret#535). Deliberately independent of supabase:secret-key's evidence, per https://github.com/redact-secret/redact-secret/blob/de6add470321f40d7b1cb36808d9f4559e6c2e99/docs/decisions/2026-09-20-scope-supabase-management-token-and-secret-key-independence.md."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-21",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'supabase-management-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Body length and alphabet are tool-corroborated, not provider-documented: TruffleHog's supabase detector is anchored to [a-z0-9]{40} for the classic sbp_ prefix and carries no underscore in its class, so it cannot match the versioned sbp_v0_ prefix the same docs page's scoped-token walkthrough names — this contract closes that gap as a second, identical-body shape, the same \"adopt the sibling prefix, keep the body shape\" move already made for hugging-face-token's api_org_ shape. No TruffleHog implementation code is used, only its published match shape, per AGENTS.md."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/supabase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/supabase.md",
+      "note": "families[id=supabase:personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=supabase:personal-access-token]"
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "aws:sts-temporary-access-key@1",
+  "family": "aws:sts-temporary-access-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^ASIA[A-Z0-9]{16}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (6 artifacts: awslabs/ferret-scan (AWS-authored, R2 not applied); awslabs/git-secrets (AWS-merged); gitleaks (generator source); noseyparker; osv-scalibr; trufflehog (HEAD)).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-awslabs-ferret-scan-eb13b62ba2",
+          "supports": "awslabs/ferret-scan (AWS-authored, R2 not applied): \\b(?:AKIA|ASIA)[0-9A-Z]{16}\\b",
+          "locator": "#L1444"
+        },
+        {
+          "sourceId": "github-com-awslabs-git-secrets-57d690e6e4",
+          "supports": "awslabs/git-secrets (AWS-merged): (A3T[A-Z0-9]|AKIA|…|ASIA)[A-Z0-9]{16}",
+          "locator": "#L239"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-4127284f03",
+          "supports": "gitleaks (generator source): (?:A3T[A-Z0-9]|AKIA|ASIA|ABIA|ACCA)[A-Z2-7]{16}",
+          "locator": "#L15-L24"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-b037e591e6",
+          "supports": "osv-scalibr: \\b(AKIA[A-Z0-9]{16}|ASIA[A-Z0-9]{16})\\b",
+          "locator": "#L25-L26"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-b3a9bb034f",
+          "supports": "noseyparker: AWS id prefix set + [A-Z0-9]{16}",
+          "locator": "#L3-L6"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-cf4da7cc86",
+          "supports": "trufflehog (HEAD): session_keys: \\b((?:ASIA)[A-Z0-9]{16})\\b with a session token",
+          "locator": "#L74-L75"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: ASIA",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-59c608844f",
+          "supports": "ASIA: temporary (AWS STS) access key IDs",
+          "locator": "#identifiers-prefixes"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-a33beae256",
+          "supports": "access key IDs beginning with ASIA are temporary credentials"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 16 [A-Z0-9] (20 in all) (T2: the example plus AWS-owned and peer rules; the API allows 16–128 [\\w], which no example or rule uses.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-f4520419ab",
+          "supports": "a 20-character uppercase-and-digit example"
+        },
+        {
+          "sourceId": "github-com-awslabs-ferret-scan-eb13b62ba2",
+          "supports": "body: exactly 16 [A-Z0-9] (20 in all)",
+          "locator": "#L1444"
+        },
+        {
+          "sourceId": "github-com-awslabs-git-secrets-57d690e6e4",
+          "supports": "body: exactly 16 [A-Z0-9] (20 in all)",
+          "locator": "#L239"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-b037e591e6",
+          "supports": "body: exactly 16 [A-Z0-9] (20 in all)",
+          "locator": "#L25-L26"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: [A-Z0-9], the wider of the two classes rules use (Bounded, not settled: no AWS source states which bytes are issued. Positives mix ids with and without 0, 1, 8, 9.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-awslabs-ferret-scan-eb13b62ba2",
+          "supports": "[0-9A-Z]",
+          "locator": "#L1444"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-4127284f03",
+          "supports": "[A-Z2-7], \"current AWS tokens cannot contain [0,1,8,9]\"",
+          "locator": "#L15-L24"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: not [A-Za-z0-9] on either side (A research-record boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-13337316c7",
+          "supports": "supported shape: boundary is a product rule (policy)"
+        }
+      ]
+    },
+    {
+      "id": "field-companion",
+      "statement": "companion: usable only with its secret access key and session token; a bare id is scored as project policy",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-59c608844f",
+          "supports": "unique only in combination with the secret access key and the session token",
+          "locator": "#identifiers-prefixes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: gitleaks 8.30.1 aws-access-token reads ASIA + [A-Z2-7]{16}, so it misses an id with 0, 1, 8 or 9; trufflehog 3.97.4 reads ASIA ids only paired with a secret and a session token. Both labels map to aws-access-key",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "aws-access-token"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "aws/session_keys"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 15 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-59c608844f",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#identifiers-prefixes"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-a33beae256",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-f4520419ab",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-awslabs-ferret-scan-eb13b62ba2",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L1444"
+        },
+        {
+          "sourceId": "github-com-awslabs-git-secrets-57d690e6e4",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L239"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-4127284f03",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L15-L24"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-b037e591e6",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L25-L26"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-b3a9bb034f",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L3-L6"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-13337316c7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ae8940925d",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b4ceff8385",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f0d1f2054e",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-cf4da7cc86",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L74-L75"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 17 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "awsteele-com-b4e7b24a61",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "blog-adobe-com-547bd7dec9",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-1e7f14016c",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-59c608844f",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#identifiers-prefixes"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-dc376a81fa",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-f4520419ab",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-awslabs-git-secrets-57d690e6e4",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-bishopfox-jsluice-b7f6bf7bff",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-4127284f03",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-8f07f73a57",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-hashicorp-aws-sdk-go-base-894e07bf40",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-13337316c7",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-cf4da7cc86",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-yelp-detect-secrets-385a46e487",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "hackingthe-cloud-3fb9ba028a",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "summitroute-com-f8a30bb19a",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-59c608844f",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#identifiers-prefixes"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-13337316c7",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-sts-temporary-access-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-sts-temporary-access-key:body",
+      "note": "claim field-body; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-sts-temporary-access-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-sts-temporary-access-key:companion",
+      "note": "claim field-companion; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-sts-temporary-access-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-sts-temporary-access-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012d.ts",
+      "note": "contracts['aws-sts-temporary-access-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+      "note": "families[id=aws:sts-temporary-access-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=aws:sts-temporary-access-key]"
+    }
+  ]
+}

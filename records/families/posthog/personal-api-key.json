@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "posthog:personal-api-key",
+  "provider": "posthog",
+  "name": "Personal API key (phx_)",
+  "description": "phx_ + 42–49 of [0-9A-Za-z] (base57 since 2026-03-30, base62 before); the phc_ project token is public and never claimed.",
+  "lifecycle": "draft",
+  "currentContract": "posthog:personal-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#906",
+      "redact-secret/redact-secret-benchmarks#434"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/posthog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/posthog.md",
+      "note": "families[id=posthog:personal-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=posthog:personal-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "posthog-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

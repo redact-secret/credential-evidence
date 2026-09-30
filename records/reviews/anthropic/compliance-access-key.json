@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-anthropic-compliance-access-key",
+  "subject": {
+    "kind": "family",
+    "id": "anthropic:compliance-access-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-27. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#776",
+          "url": "https://github.com/redact-secret/redact-secret/issues/776"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#862",
+          "url": "https://github.com/redact-secret/redact-secret/issues/862"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#882",
+          "url": "https://github.com/redact-secret/redact-secret/issues/882"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for anthropic:compliance-access-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.10 arrival family anthropic-api01-key (#384, research redact-secret#776, product #862, #882). The product extends the shared anthropic-token detector; since product PR #882 (redact-secret#774) it reports its own anthropic_enterprise_api_key finding type (previously the shared anthropic_api_key type), so this family maps to no registry detector id but is scored on its own arrival id by finding type (scanners/families.mjs arrivalFindingTypes), never borrowing the status of anthropic:secret-api-key. T1 on the prefix only; the body is unspecified."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'anthropic-api01-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#384, product redact-secret#862; research #776). T1 on the prefix only: two provider pages document sk-ant-api01- (compliance-api-access, admin-api-keys). The body is undocumented and no scanner rule exists for this prefix, so nothing here asserts a length, alphabet or AA tail: positives borrow the api03 93-character + AA shape, which the product accepts as a subset of its >= 20 byte run, and no twin is authored on the body. The prefix is the general Claude Enterprise organization key for any scope set; \"Compliance\" describes the scopes chosen at creation, which the value does not show, so a finding must not claim it. sk-ant-api03- and sk-ant-admin01- are different provider classes and back prefix twins."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/anthropic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+      "note": "families[id=anthropic:compliance-access-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=anthropic:compliance-access-key]"
+    }
+  ]
+}

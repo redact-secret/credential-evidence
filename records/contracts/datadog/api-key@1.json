@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "datadog:api-key@1",
+  "family": "datadog:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "OpenAPI v1 ApiKey.key minLength/maxLength 32 and apiKeyAuth scheme: Datadog's own API reference spec (docs.datadoghq.com /resources/json/full_spec_v1.json, v1 ApiKey schema, generated from DataDog/documentation hugo/data/api/v1/full_spec.yaml) fixes the API key value at exactly 32 characters (minLength 32, maxLength 32) and names the DD-API-KEY header and DD_API_KEY environment variable. The constraint is stated on the v1 key model; the v2 schema states no length. The lowercase-hex alphabet is not provider-stated: the spec's example fits it, and it is corroborated by Datadog-owned code and tools only",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-datadoghq-com-f074e5c689",
+          "supports": "Datadog's own API reference spec (docs.datadoghq.com /resources/json/full_spec_v1.json, v1 ApiKey schema, generated from DataDog/documentation hugo/data/api/v1/full_spec.yaml) fixes the API key value at exactly 32 characters (minLength 32, maxLength 32) and names the DD-API-KEY header and DD_API_KEY environment variable. The constraint is stated on the v1 key model; the v2 schema states no length. The lowercase-hex alphabet is not provider-stated: the spec's example fits it, and it is corroborated by Datadog-owned code and tools only"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-21418667b4",
+          "supports": "trufflehog 3.97.4: datadogapikey/datadogapikey"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 1 reference without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-datadog-documentation-669857053f",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L571-L577"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-datadoghq-com-f074e5c689",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9646d82435",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['datadog-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/datadog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+      "note": "families[id=datadog:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=datadog:api-key]"
+    }
+  ]
+}

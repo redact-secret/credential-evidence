@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-apify-api-token",
+  "subject": {
+    "kind": "family",
+    "id": "apify:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/apify.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/apify.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#916",
+          "url": "https://github.com/redact-secret/redact-secret/issues/916"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#436",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/436"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for apify:api-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector apify-api-token since redact-secret#916 (registry pinned at 1127bf9); graduated from a Beta.11 arrival family (#436), contract in benchmarks/lib/beta8/436e.ts. T1 on the docs placeholder (R4) and the provider-authored linter (R2); trufflehog 3.97.4 has an exact-36 rule."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'apify-api-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#436, product redact-secret#916; #860 handoff apify.md, READY with an open-ended body). T1: the prefix is the provider's docs placeholder apify_api_... (R4), and the alphabet and the 20-byte floor are the provider-authored leak linter TOKEN_RE = apify_api_[A-Za-z0-9]{20,} (R2; the handoff checked the author and that it matches no public scanner rule). No provider source states an exact width: trufflehog's exact 36 is T2, and the product's 128-byte cap is streaming policy, so positives carry 20, 36 and 128 and nothing asserts silence on a longer run. Excluded: apify_ui_ Console tokens (prefix T1 under R6 but no shape), Actor-run, integration and webhook-dispatch tokens (no public shape), the unprefixed proxy password, placeholders whose _ or . breaks the run below 20, and APIFY_API_ identifiers (the prefix is case-sensitive). Graduated to a registry detector at the 1127bf9 re-pin (redact-secret PR #938)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/apify.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/apify.md",
+      "note": "families[id=apify:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=apify:api-token]"
+    }
+  ]
+}

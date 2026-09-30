@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-xai-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "xai:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/xai.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#727",
+          "url": "https://github.com/redact-secret/redact-secret/issues/727"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#216",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/216"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for xai:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector xai-api-key since redact-secret#727 (registry pinned at dad7868); graduated from a Beta.8 arrival family (#208, research #216), contract in benchmarks/lib/beta8/208.ts. Management keys (tool-reported xai-token- prefix, XAI_MANAGEMENT_KEY) are a separate credential and not members of this family; no taxonomy family is added for them until the provider documents a format."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'xai-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Graduated arrival evidence (#208, registry detector since redact-secret#727; research #216). T2: the xai- prefix is provider-documented, but the 80-character body rests on the provider's one example value and a third-party masked key, corroborated by tool rules; xAI states no length or alphabet in prose. Management keys are a separate credential and are not in this family."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/xai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/xai.md",
+      "note": "families[id=xai:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=xai:api-key]"
+    }
+  ]
+}

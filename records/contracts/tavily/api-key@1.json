@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "tavily:api-key@1",
+  "family": "tavily:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^tvly-(?:dev-)?[A-Za-z0-9]{32}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: GitGuardian; noseyparker).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-gitguardian-com-2a46410e73",
+          "supports": "GitGuardian: Tavily API Key detector: prefixed, no length stated"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-7b7c56fa9b",
+          "supports": "noseyparker: np.tavily.1: \\b(tvly-[a-zA-Z0-9]{32})\\b (predates tvly-dev-, so it misses that form)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: tvly- (A placeholder, not a stated format.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-tavily-com-045c0c99d5",
+          "supports": "prefix: tvly-"
+        },
+        {
+          "sourceId": "docs-tavily-com-d682a88b0e",
+          "supports": "Authorization: Bearer tvly-YOUR_API_KEY (a placeholder)"
+        }
+      ]
+    },
+    {
+      "id": "field-dev-segment",
+      "statement": "dev-segment: the optional dev- segment: tvly-dev- + body (Replaced or coexists with the bare form since 2025: undocumented. Positives carry both forms.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-tavily-com-bcc8c8c36f",
+          "supports": "truncated sample keys tvly-dev-..."
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: 32 alphanumeric characters after the last hyphen (One scanner rule and n=3 observed bodies; no provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-7b7c56fa9b",
+          "supports": "body: 32 alphanumeric characters after the last hyphen"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-929ca26a35",
+          "supports": "three full-width samples in 2024-2025, maintainer observation"
+        }
+      ]
+    },
+    {
+      "id": "field-production-prefix",
+      "statement": "production-prefix: whether tvly-prod- exists, and the width of production and enterprise expiring keys (No fixture asserts silence on tvly-prod- or on a longer body.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-tavily-com-bcc8c8c36f",
+          "supports": "the {key_type}-{expiration}-#{index} form is the key name, not the secret"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-929ca26a35",
+          "supports": "production-prefix: whether tvly-prod- exists, and the width of production and enterprise expiring keys"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: Authorization: Bearer, the api_key JSON body field, the TAVILY_API_KEY environment variable and the remote-MCP tavilyApiKey query parameter",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-tavily-com-d682a88b0e",
+          "supports": "transport: Authorization: Bearer, the api_key JSON body field, the TAVILY_API_KEY environment variable and the remote-MCP tavilyApiKey query parameter"
+        },
+        {
+          "sourceId": "github-com-tavily-ai-tavily-js-345ba77333",
+          "supports": "transport: Authorization: Bearer, the api_key JSON body field, the TAVILY_API_KEY environment variable and the remote-MCP tavilyApiKey query parameter"
+        }
+      ]
+    },
+    {
+      "id": "field-non-secrets",
+      "statement": "non-secrets: the tvly CLI name, the key-name field and search request_id values are not credentials",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-tavily-com-bcc8c8c36f",
+          "supports": "non-secrets: the tvly CLI name, the key-name field and search request_id values are not credentials"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-929ca26a35",
+          "supports": "non-secrets: the tvly CLI name, the key-name field and search request_id values are not credentials"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 6 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-tavily-com-045c0c99d5",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-tavily-com-bcc8c8c36f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-tavily-com-d682a88b0e",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-929ca26a35",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d23c540ff3",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-tavily-ai-tavily-js-345ba77333",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "docs-tavily-com-bcc8c8c36f",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-tavily-com-d682a88b0e",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-5c9bc7d4ae",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "docs-tavily-com-bcc8c8c36f",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "docs-tavily-com-d682a88b0e",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "tavily-api-key:body",
+      "note": "claim field-body; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "tavily-api-key:dev-segment",
+      "note": "claim field-dev-segment; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "tavily-api-key:non-secrets",
+      "note": "claim field-non-secrets; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "tavily-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "tavily-api-key:production-prefix",
+      "note": "claim field-production-prefix; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "tavily-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384d.ts",
+      "note": "contracts['tavily-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/tavily.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/tavily.md",
+      "note": "families[id=tavily:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=tavily:api-key]"
+    }
+  ]
+}

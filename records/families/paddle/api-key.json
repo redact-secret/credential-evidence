@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "paddle:api-key",
+  "provider": "paddle",
+  "name": "Billing API key (pdl_live_/pdl_sdbx_apikey_)",
+  "description": "pdl_(live|sdbx)_apikey_ + 26 [a-z0-9] + _ + 22 [A-Za-z0-9] + _ + 3 [A-Za-z0-9] (69 in all), the provider-published regex; key ids and legacy 50-character keys are not claimed.",
+  "lifecycle": "draft",
+  "currentContract": "paddle:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1014",
+      "redact-secret/redact-secret#1033",
+      "redact-secret/redact-secret-benchmarks#528"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/paddle.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/paddle.md",
+      "note": "families[id=paddle:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=paddle:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "paddle-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

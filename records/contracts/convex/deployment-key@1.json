@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "convex:deployment-key@1",
+  "family": "convex:deployment-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^(?:(?:prod|dev):[a-z]+-[a-z]+-[0-9]+|(?:preview|project):[a-z0-9][a-z0-9-]{0,62}:[a-z0-9][a-z0-9-]{0,62}|[a-z0-9][a-z0-9-]{0,62})\\|01(?:[0-9a-f]{2}){36,47}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "convex-backend 032e81e: format_admin_key / split_admin_key / remove_type_prefix, ADMIN_KEY_VERSION = 1, encrypt_proto + const_hex::encode (re-checked 2026-09-28): provider code (ruling R1): an optional prod:/dev: + cloud name or preview:/project: + two slugs lead, the deployment or instance name, exactly one |, then 01 + lowercase hex whose even length 74–96 is derived from the generator (29-byte envelope plus a 8–19-byte AdminKey proto); the docs show the typed leads and the | join",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-get-convex-convex-backend-0e3e21437a",
+          "supports": "provider code (ruling R1): an optional prod:/dev: + cloud name or preview:/project: + two slugs lead, the deployment or instance name, exactly one |, then 01 + lowercase hex whose even length 74–96 is derived from the generator (29-byte envelope plus a 8–19-byte AdminKey proto); the docs show the typed leads and the | join"
+        }
+      ]
+    },
+    {
+      "id": "field-join",
+      "statement": "join: {name}|{encrypted}: the name, exactly one |, then the encrypted body; the whole string is the credential",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-get-convex-convex-backend-0e3e21437a",
+          "supports": "format_admin_key, split_admin_key on the first |"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-typed-lead",
+      "statement": "typed-lead: optional prod: or dev: + a cloud name [a-z]+-[a-z]+-[0-9]+, or preview: / project: + <team-slug>:<project-slug>",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-convex-dev-c0edd8f0d1",
+          "supports": "every typed key shown as <type>:<name-or-slugs>|…, truncated"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-30e88a9390",
+          "supports": "cloud name /^[a-z]+-[a-z]+-\\d+$/"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-d3bcf51fdd",
+          "supports": "isDeploymentKey /^(dev|prod):.*\\|/, isProjectKey /^project:.*\\|/"
+        }
+      ]
+    },
+    {
+      "id": "field-untyped-name",
+      "statement": "untyped-name: an untyped (admin) key leads with the instance or deployment name, bounded to [a-z0-9][a-z0-9-]{0,62} (The default name is provider code; the character class and 63-byte bound are the handoff's project policy. A name outside it is an accepted false negative, so no fixture asserts silence on one.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-get-convex-convex-backend-e4c6e44da9",
+          "supports": "default instance name convex-self-hosted"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0c07f4cd59",
+          "supports": "the class and bound are project policy"
+        }
+      ]
+    },
+    {
+      "id": "field-slugs",
+      "statement": "slugs: preview:/project: team and project slugs bounded to [a-z0-9][a-z0-9-]{0,62} each",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0c07f4cd59",
+          "supports": "no source states the slug grammar"
+        }
+      ]
+    },
+    {
+      "id": "field-body-version",
+      "statement": "body-version: the hex body starts 01 (ADMIN_KEY_VERSION = 1)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-get-convex-convex-backend-818f239d07",
+          "supports": "ADMIN_KEY_VERSION: u8 = 1"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-ab72932932",
+          "supports": "version byte first"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body-alphabet: lowercase hex [0-9a-f]",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-get-convex-convex-backend-ab72932932",
+          "supports": "const_hex::encode"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body-length: even, 74 to 96 hex characters (37–48 bytes: a 29-byte envelope plus an 8–19-byte proto) (Derived from the generator, not stated. Positives carry 74, 76 and 96; the twins carry 72, 98 and an odd length.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-get-convex-convex-backend-818f239d07",
+          "supports": "issue_key sets issued_s and an identity; instance_name is None"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-ab72932932",
+          "supports": "version + 12-byte nonce + ciphertext + 16-byte tag"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0c07f4cd59",
+          "supports": "derived facts, not stated ones"
+        }
+      ]
+    },
+    {
+      "id": "field-cloud-body",
+      "statement": "cloud-body: the current cloud deploy-key body begins eyJ2; its alphabet, padding and length are unknown (Issuance-gated. No fixture asserts a finding or silence on an eyJ2 body.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-convex-dev-c0edd8f0d1",
+          "supports": "truncated eyJ2...0= examples"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R4: a truncated example fixes the prefix only",
+          "locator": "#issuecomment-5871306275"
+        }
+      ]
+    },
+    {
+      "id": "field-non-secrets",
+      "statement": "non-secrets: CONVEX_DEPLOYMENT=<type>:<name> selectors, https://<name>.convex.cloud / .convex.site URLs and bare deployment names are public",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-convex-dev-c0edd8f0d1",
+          "supports": "non-secrets: CONVEX_DEPLOYMENT=<type>:<name> selectors, https://<name>.convex.cloud / .convex.site URLs and bare deployment names are public"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0c07f4cd59",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: CONVEX_DEPLOY_KEY and CONVEX_SELF_HOSTED_ADMIN_KEY environment variables; sent as Authorization: Convex <key>",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-convex-dev-c0edd8f0d1",
+          "supports": "transport: CONVEX_DEPLOY_KEY and CONVEX_SELF_HOSTED_ADMIN_KEY environment variables; sent as Authorization: Convex <key>"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0c07f4cd59",
+          "supports": "role and blast radius"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no convex rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no convex detector directory"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 15 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-convex-dev-c0edd8f0d1",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-0e3e21437a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-30e88a9390",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-818f239d07",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-ab72932932",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-d3bcf51fdd",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-e4c6e44da9",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-e6ddb40861",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0c07f4cd59",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7526f66796",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-dc70f447d7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ef632044dc",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-convex-dev-c0edd8f0d1",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-e6ddb40861",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-36fb673ef1",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-convex-dev-c0edd8f0d1",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-get-convex-convex-backend-0e3e21437a",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:body-alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:body-length",
+      "note": "claim field-body-length; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:body-version",
+      "note": "claim field-body-version; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:cloud-body",
+      "note": "claim field-cloud-body; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:join",
+      "note": "claim field-join; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:non-secrets",
+      "note": "claim field-non-secrets; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:slugs",
+      "note": "claim field-slugs; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:typed-lead",
+      "note": "claim field-typed-lead; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "convex-deployment-key:untyped-name",
+      "note": "claim field-untyped-name; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/436a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/436a.ts",
+      "note": "contracts['convex-deployment-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/convex.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/convex.md",
+      "note": "families[id=convex:deployment-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=convex:deployment-key]"
+    }
+  ]
+}

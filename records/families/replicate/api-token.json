@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "replicate:api-token",
+  "provider": "replicate",
+  "name": "API token",
+  "description": "r8_ prefixed API token; the provider documents a 40-character total (a 37-character body) and does not state the body alphabet.",
+  "lifecycle": "draft",
+  "currentContract": "replicate:api-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret#727",
+      "redact-secret/redact-secret-benchmarks#215",
+      "redact-secret/redact-secret-benchmarks#217"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/replicate.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/replicate.md",
+      "note": "families[id=replicate:api-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=replicate:api-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "replicate-api-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

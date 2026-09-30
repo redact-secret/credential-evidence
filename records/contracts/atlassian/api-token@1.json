@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "atlassian:api-token@1",
+  "family": "atlassian:api-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^ATAT[A-Za-z0-9_-]{100,}(?:=[0-9A-F]{8})?$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: ATAT (An account labelled \"Atlassian Team\" on community.atlassian.com wrote \"You can rely on\" ATAT/ATBB/ATCT (2025-08-25), while a 2022 staff post called tokens opaque; whether that answer is provider documentation is an open maintainer decision (redact-secret#643).)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "prefix: ATAT"
+        }
+      ]
+    },
+    {
+      "id": "field-minimum-length",
+      "statement": "minimum length: ATAT plus at least 100 body characters of [A-Za-z0-9_-]; Atlassian calls the length \"varied\"",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b6eedad7ae",
+          "supports": "minimum length: ATAT plus at least 100 body characters of [A-Za-z0-9_-]; Atlassian calls the length \"varied\""
+        },
+        {
+          "sourceId": "support-atlassian-com-7cba7e2659",
+          "supports": "\"We use a varied API token length\""
+        }
+      ]
+    },
+    {
+      "id": "field-fixed-header",
+      "statement": "fixed header: the first 12 characters are ATATT3xFfGF0",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b6eedad7ae",
+          "supports": "Maintainer-confirmed on one issued key; a customer report of five keys and every scanner sample agree."
+        }
+      ]
+    },
+    {
+      "id": "field-total-length-and-suffix",
+      "statement": "total length and suffix: 192 characters: 12-character header, 171 body characters, a literal =, then 8 uppercase hex characters",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b6eedad7ae",
+          "supports": "Maintainer answered length 192, = at position 184, last 8 in [0-9A-F]; one observation, below #205's five-observation floor."
+        }
+      ]
+    },
+    {
+      "id": "field-checksum",
+      "statement": "checksum: the trailing 8 hex characters are CRC32 (big-endian, uppercase hex) of everything before them, = included (Fixtures carry a CRC32-valid suffix; the maintainer could not confirm the check on an issued key, so no checksum-only twin is scored.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-datadog-dd-sensitive-data-scanner-dfc45602b8",
+          "supports": "checksum: the trailing 8 hex characters are CRC32 (big-endian, uppercase hex) of everything before them, = included"
+        },
+        {
+          "sourceId": "github-com-samsung-credsweeper-fbccce3abd",
+          "supports": "checksum: the trailing 8 hex characters are CRC32 (big-endian, uppercase hex) of everything before them, = included"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 5 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "community-atlassian-com-3582e12b20",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "community-developer-atlassian-com-84216ce1c6",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-datadog-dd-sensitive-data-scanner-0609e2b514",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f34ccdcd76",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "support-atlassian-com-7cba7e2659",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "atlassian-api-token:checksum",
+      "note": "claim field-checksum; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "atlassian-api-token:fixed header",
+      "note": "claim field-fixed-header; legacy evidence basis=maintainer-observation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "atlassian-api-token:minimum length",
+      "note": "claim field-minimum-length; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "atlassian-api-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "atlassian-api-token:total length and suffix",
+      "note": "claim field-total-length-and-suffix; legacy evidence basis=maintainer-observation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['atlassian-api-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/atlassian.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+      "note": "families[id=atlassian:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=atlassian:api-token]"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "slack:bot-token@1",
+  "family": "slack:bot-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^xoxb-[0-9]{12}-[0-9]{12}-[A-Za-z0-9]{24}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "xoxb-/xoxp-/xapp-/xwfp- prefixes, dash-separated sections: prefixes and section structure with the secret last; numeric section widths and 24-character secret are tool-corroborated",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-17",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "prefixes and section structure with the secret last; numeric section widths and 24-character secret are tool-corroborated"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-17",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-7ed9f8b5f1",
+          "supports": "trufflehog 3.97.4: slack/slack"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-17",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e8bd91eaa4",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['slack-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:bot-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=slack:bot-token]"
+    }
+  ]
+}

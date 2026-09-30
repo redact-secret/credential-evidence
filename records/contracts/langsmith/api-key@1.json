@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "langsmith:api-key@1",
+  "family": "langsmith:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^lsv2_(?:pt|sk)_[0-9a-f]{32}_[0-9a-f]{10}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (3 artifacts: poltergeist; titus (kingfisher.langchain.1/.2); trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-ghostsecurity-poltergeist-4014ce762f",
+          "supports": "poltergeist: langsmith.yaml"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-titus-753d4191a5",
+          "supports": "titus (kingfisher.langchain.1/.2): langchain.yml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-e37e2dd21c",
+          "supports": "trufflehog 3.97.4: langsmith/langsmith"
+        }
+      ]
+    },
+    {
+      "id": "field-roles",
+      "statement": "roles: Two API-key roles: Personal Access Token (inherits the creating user's permissions) and service key (workspace- or org-scoped). Shown once at creation.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-langchain-com-d2c419f327",
+          "supports": "roles: Two API-key roles: Personal Access Token (inherits the creating user's permissions) and service key (workspace- or org-scoped). Shown once at creation."
+        }
+      ]
+    },
+    {
+      "id": "field-contexts",
+      "statement": "contexts: LANGSMITH_API_KEY env (legacy LANGCHAIN_API_KEY), X-API-Key header, OTEL_EXPORTER_OTLP_HEADERS x-api-key=<key>; LANGSMITH_WORKSPACE_ID and LANGSMITH_ENDPOINT are non-secret neighbours.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-langchain-com-441e66eb7d",
+          "supports": "contexts: LANGSMITH_API_KEY env (legacy LANGCHAIN_API_KEY), X-API-Key header, OTEL_EXPORTER_OTLP_HEADERS x-api-key=<key>; LANGSMITH_WORKSPACE_ID and LANGSMITH_ENDPOINT are non-secret neighbours."
+        },
+        {
+          "sourceId": "docs-langchain-com-d2c419f327",
+          "supports": "contexts: LANGSMITH_API_KEY env (legacy LANGCHAIN_API_KEY), X-API-Key header, OTEL_EXPORTER_OTLP_HEADERS x-api-key=<key>; LANGSMITH_WORKSPACE_ID and LANGSMITH_ENDPOINT are non-secret neighbours."
+        }
+      ]
+    },
+    {
+      "id": "field-profile-file",
+      "statement": "profile-file: SDK profiles in ~/.langsmith/config.json carry api_key; workspace id goes to X-Tenant-Id and is not itself a credential; the env lookup checks LANGSMITH_ then legacy LANGCHAIN_.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-langchain-ai-langsmith-sdk-f86992a1d7",
+          "supports": "profile-file: SDK profiles in ~/.langsmith/config.json carry api_key; workspace id goes to X-Tenant-Id and is not itself a credential; the env lookup checks LANGSMITH_ then legacy LANGCHAIN_."
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: lsv2_ followed by a role code pt (PAT) or sk (service key) and _. (The docs render masked lsv2_pt_/lsv2_sk_ displays (seen only indirectly, in a search snippet), which agrees but is not a grammar statement. The SDK redactor also keys on lsv2_(pt|sk)_ (provider code).)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-ghostsecurity-poltergeist-4014ce762f",
+          "supports": "prefix: lsv2_ followed by a role code pt (PAT) or sk (service key) and _."
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-titus-753d4191a5",
+          "supports": "prefix: lsv2_ followed by a role code pt (PAT) or sk (service key) and _."
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-c16c483272",
+          "supports": "prefix: lsv2_ followed by a role code pt (PAT) or sk (service key) and _."
+        }
+      ]
+    },
+    {
+      "id": "field-segment-widths",
+      "statement": "segment-widths: Exactly 32 characters, then _, then exactly 10 characters (51 total). (The provider SDK redactor accepts 32+ and any number of tails, and its own test fixture uses a 36-character first segment. Pending the hands-on checklist in #219.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-praetorian-inc-titus-753d4191a5",
+          "supports": "segment-widths: Exactly 32 characters, then _, then exactly 10 characters (51 total)."
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-c16c483272",
+          "supports": "segment-widths: Exactly 32 characters, then _, then exactly 10 characters (51 total)."
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: Lowercase hex in both segments. (trufflehog is lowercase-only; Titus and Poltergeist are case-insensitive; the provider redactor is alphanumeric. Uppercase acceptance is not claimed and no uppercase twin is authored.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-c16c483272",
+          "supports": "alphabet: Lowercase hex in both segments."
+        }
+      ]
+    },
+    {
+      "id": "field-tail-semantics",
+      "statement": "tail-semantics: Whether the 10-character tail is a checksum, key-id fragment or random is not documented.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-d13cecec18",
+          "supports": "tail-semantics: Whether the 10-character tail is a checksum, key-id fragment or random is not documented."
+        },
+        {
+          "sourceId": "raw-githubusercontent-com-langchain-ai-helm-cfa166ac11",
+          "supports": "config.apiKeySalt hints at server-side derivation"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-ls",
+      "statement": "legacy-ls__: A legacy ls__ key form exists (provider SDK still redacts ls__[A-Za-z0-9]{16,}); its real length and alphabet are not established. Not claimed; only the ls__... placeholder appears, as a placeholder control.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-langchain-ai-langsmith-sdk-46127e1a51",
+          "supports": "legacy-ls__: A legacy ls__ key form exists (provider SDK still redacts ls__[A-Za-z0-9]{16,}); its real length and alphabet are not established. Not claimed; only the ls__... placeholder appears, as a placeholder control."
+        }
+      ]
+    },
+    {
+      "id": "field-sibling-credentials",
+      "statement": "sibling-credentials: License key, SCIM bearer token, OAuth access/refresh tokens, internal X-Service-Key JWT and deployment keys are distinct LangSmith credentials outside this family. Their shapes are unknown or uncorroborated; none is fixtured as a control (they are secrets).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "api-smith-langchain-com-4f237be282",
+          "supports": "sibling-credentials: License key, SCIM bearer token, OAuth access/refresh tokens, internal X-Service-Key JWT and deployment keys are distinct LangSmith credentials outside this family. Their shapes are unknown or uncorroborated; none is fixtured as a control (they are secrets)."
+        },
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "tool listing: PAT, service key, license key and SCIM bearer token are four distinct types"
+        },
+        {
+          "sourceId": "docs-langchain-com-e060ebe49b",
+          "supports": "SCIM bearer token, shown once; no prefix or example"
+        },
+        {
+          "sourceId": "forum-langchain-com-3270ce5c4b",
+          "supports": "community, uncorroborated sk-*/dep-srv-*"
+        },
+        {
+          "sourceId": "lab-ctbb-show-c869107ed7",
+          "supports": "community write-up of the X-Service-Key JWT"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 4 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "api-smith-langchain-com-4f237be282",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-langchain-com-d2c419f327",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-langchain-ai-langsmith-sdk-46127e1a51",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-d13cecec18",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-langchain-com-d2c419f327",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-c16c483272",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-langchain-com-d2c419f327",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:contexts",
+      "note": "claim field-contexts; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:legacy-ls__",
+      "note": "claim field-legacy-ls; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:profile-file",
+      "note": "claim field-profile-file; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:roles",
+      "note": "claim field-roles; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:segment-widths",
+      "note": "claim field-segment-widths; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:sibling-credentials",
+      "note": "claim field-sibling-credentials; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "langsmith-api-key:tail-semantics",
+      "note": "claim field-tail-semantics; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/210.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/210.ts",
+      "note": "contracts['langsmith-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/langsmith.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/langsmith.md",
+      "note": "families[id=langsmith:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=langsmith:api-key]"
+    }
+  ]
+}

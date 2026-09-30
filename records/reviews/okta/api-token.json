@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-okta-api-token",
+  "subject": {
+    "kind": "family",
+    "id": "okta:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/okta.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/okta-api-token.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#315",
+          "url": "https://github.com/redact-secret/redact-secret/issues/315"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#694",
+          "url": "https://github.com/redact-secret/redact-secret/issues/694"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for okta:api-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): redact-secret#315 (product PR #681) landed on the product main after 0.1.0-beta.6; the pinned published package predates it. OAuth access/ID tokens are JWTs and belong to the jwt family, not this one."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'okta-api-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Okta's own \"Create an API token\" guide (developer.okta.com/docs/guides/create-an-api-token/main/, observed 2026-09-23) shows the token only in use — `Authorization: SSWS 00QCjAl4MlV-WPXM...0HmjFx-vbGua` — a provider-unique SSWS scheme and a value beginning 00, elided in the middle, with no stated length or alphabet. Both pinned tools pin the 00 prefix and a 40-byte body (42 bytes total): gitleaks 8.30.1's okta-access-token rule captures `00[\\w=\\-]{40}` after an okta keyword and an assignment operator, trufflehog 3.97.4's okta detector `\\b00[a-zA-Z0-9_-]{40}\\b` only when the same input also carries an Okta tenant domain (`*.okta.com`, `*.oktapreview.com`, `*.okta-emea.com`). They disagree only on \"=\" in the body; this contract, like the product, adopts trufflehog's narrower [A-Za-z0-9_-], so a body containing \"=\" is an intentional false negative and the family's alphabet twin records gitleaks's wider reading. A bare 00-prefixed value is not self-identifying: every positive here sits in one of the two contexts the product's gate recognizes — the SSWS authorization header (High) or a same-line okta keyword (Medium) — and a context-less value is an accepted product false negative not fixtured here. Tenant domains and OAuth client ids are the family's public-identifier control; Okta's JWT-shaped OAuth tokens belong to the jwt contract. redact-secret#315 (PR #681) froze the identical grammar on the product side."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/okta.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/okta.md",
+      "note": "families[id=okta:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=okta:api-token]"
+    }
+  ]
+}

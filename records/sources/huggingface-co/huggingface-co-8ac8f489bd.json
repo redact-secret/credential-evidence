@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "huggingface-co-8ac8f489bd",
+  "sourceType": "other",
+  "title": "huggingface.co/.well-known/openapi.json",
+  "publisher": "huggingface.co",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://huggingface.co/.well-known/openapi.json",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-23",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-reference, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['huggingface-token'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/huggingface.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/huggingface.md",
+      "note": "cited by families[id=huggingface:api-token].research.sources"
+    }
+  ]
+}

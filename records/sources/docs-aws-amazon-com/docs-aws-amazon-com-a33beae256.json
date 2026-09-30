@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "docs-aws-amazon-com-a33beae256",
+  "sourceType": "provider-documentation",
+  "title": "docs.aws.amazon.com/STS/latest/APIReference/API_GetAccessKeyInfo.html",
+  "publisher": "docs.aws.amazon.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://docs.aws.amazon.com/STS/latest/APIReference/API_GetAccessKeyInfo.html",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference, taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012a.ts",
+      "note": "cited by contracts['aws-secret-access-key'].fields; contracts['aws-secret-access-key'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012d.ts",
+      "note": "cited by contracts['aws-sts-temporary-access-key'].fields; contracts['aws-sts-temporary-access-key'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=aws:iam-user-secret-access-key].sources"
+    }
+  ]
+}

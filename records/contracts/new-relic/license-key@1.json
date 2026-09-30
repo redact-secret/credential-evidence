@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "new-relic:license-key@1",
+  "family": "new-relic:license-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^([0-9a-f]{32}|eu01xx[0-9a-f]{26})FFFFNRAL$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "ingest license key length and NRAL suffix: New Relic's own documentation (docs.newrelic.com, IBM MQ host-integration page) states the ingest license key as 40 characters with the literal suffix NRAL, establishing the suffix and total length; its eBPF install pages show elided examples ending FFFFNRAL. The body alphabet, the FFFF segment and the EU eu01xx prefix are not provider-stated: they rest on New Relic-authored code (newrelic-cli IsValidLicenseKeyFormat, docs-website check-for-keys.sh) and trufflehog 3.97.4",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-newrelic-com-5f3799e076",
+          "supports": "New Relic's own documentation (docs.newrelic.com, IBM MQ host-integration page) states the ingest license key as 40 characters with the literal suffix NRAL, establishing the suffix and total length; its eBPF install pages show elided examples ending FFFFNRAL. The body alphabet, the FFFF segment and the EU eu01xx prefix are not provider-stated: they rest on New Relic-authored code (newrelic-cli IsValidLicenseKeyFormat, docs-website check-for-keys.sh) and trufflehog 3.97.4"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-d0f8135b0e",
+          "supports": "trufflehog 3.97.4: newreliclicensekey/newreliclicensekey"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-newrelic-com-2c4c786e81",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-newrelic-com-38b4eebb6b",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-newrelic-com-925733b4af",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-newrelic-com-38b4eebb6b",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-newrelic-com-5f3799e076",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-newrelic-com-925733b4af",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-126731f875",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['new-relic-license-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/new-relic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/new-relic.md",
+      "note": "families[id=new-relic:license-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=new-relic:license-key]"
+    }
+  ]
+}

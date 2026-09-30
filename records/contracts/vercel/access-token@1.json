@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "vercel:access-token@1",
+  "family": "vercel:access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "candidate-source",
+      "statement": "Candidate provider source, not accepted as the provider source by the legacy contract (vcp_/vci_/vca_/vcr_/vck_ prefixed opaque tokens): prefixes are now documented per credential type (personal/integration/app-access/app-refresh/API-key, via the token-format changelog); the body is stated to be an opaque format not intended to be human-readable, with no length or alphabet given",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "vercel-com-8ba2d5b3b4",
+          "supports": "prefixes are now documented per credential type (personal/integration/app-access/app-refresh/API-key, via the token-format changelog); the body is stated to be an opaque format not intended to be human-readable, with no length or alphabet given"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ef32a94b92",
+          "supports": "trufflehog 3.97.4: vercel/vercel"
+        }
+      ]
+    },
+    {
+      "id": "legacy-contract-tier",
+      "statement": "The legacy contract records no adequate evidence for a grammar (tier T0).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": []
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict rejected, tier none) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-dc028f2a36",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-714bc5d343",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L25"
+        },
+        {
+          "sourceId": "vercel-com-770ae7d1d8",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "vercel-com-94803cac22",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['vercel-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=vercel:access-token]"
+    }
+  ]
+}

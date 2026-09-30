@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-openrouter-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "openrouter:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openrouter.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#727",
+          "url": "https://github.com/redact-secret/redact-secret/issues/727"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#220",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/220"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for openrouter:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector openrouter-api-key since redact-secret#727 (registry pinned at dad7868); graduated from a Beta.8 arrival family (#208, research #220), contract in benchmarks/lib/beta8/208.ts. Management keys (sk-or-mgmt-) are openrouter:management-api-key, not members of this family. The public key hash has the same 64-hex body shape without the prefix."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'openrouter-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Graduated arrival evidence (#208, registry detector since redact-secret#727; research #220). A mixed-evidence contract: the prefix and the 64-lowercase-hex body are provider-stated in a guardrail detection description and match the provider's create-key example, and every peer rule agrees. Management keys (sk-or-mgmt-) are openrouter:management-api-key, not members of this family, and are never used as benign controls. The public key hash shares the body shape without the prefix."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/openrouter.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openrouter.md",
+      "note": "families[id=openrouter:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=openrouter:api-key]"
+    }
+  ]
+}

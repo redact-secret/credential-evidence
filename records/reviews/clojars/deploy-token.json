@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-clojars-deploy-token",
+  "subject": {
+    "kind": "family",
+    "id": "clojars:deploy-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clojars.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/4f220ea000b58fa2e0e431ad88dea4eccb393fb0/docs/audits/evidence/1014/clojars.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "4f220ea000b58fa2e0e431ad88dea4eccb393fb0"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1014",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1014"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1025",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1025"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#528",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for clojars:deploy-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family clojars-deploy-token (#528, product redact-secret#1025), contract in benchmarks/lib/beta8/528e.ts from the #1014 handoff clojars.md. T1 (provider generator and validator, R1). gitleaks 8.30.1 clojars-api-token (case-insensitive, wider) is mapped to this family; trufflehog 3.97.4 has no rule. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'clojars-deploy-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1025; #1014 handoff clojars.md, READY). A deploy token is the password for deploying artifacts to Clojars (CLOJARS_PASSWORD, ~/.lein/credentials, Maven settings.xml), optionally scoped to a group or artifact; a leak is a supply-chain risk. T1 for every fact under R1: the generator and the server validator agree, so the contract is exactly the validator. The prefix is case-sensitive. Excluded: legacy account passwords (no shape), CLOJARS_USERNAME/CLOJARS_PASSWORD/CLOJARS_ENVIRONMENT names and uppercase-hex bodies (the validator rejects them). gitleaks 8.30.1 clojars-api-token is case-insensitive over [a-z0-9] with no boundary, so it overreaches on the lowercase-prefix, uppercase-hex, non-hex-letter, leading-glue and 61-byte twins; trufflehog 3.97.4 has no rule. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1039)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/clojars.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clojars.md",
+      "note": "families[id=clojars:deploy-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=clojars:deploy-token]"
+    }
+  ]
+}

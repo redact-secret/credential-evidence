@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "clickhouse-cloud:api-key",
+  "provider": "clickhouse-cloud",
+  "name": "API key secret (4b1d)",
+  "description": "4b1d + exactly 38 [A-Za-z0-9] (42 in all), T1 as of 2025-04-16 (R3, provider staff); the key ID (Basic-auth username) is not claimed. The at-least-one-uppercase guard is product policy, not a provider fact.",
+  "lifecycle": "draft",
+  "currentContract": "clickhouse-cloud:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#971",
+      "redact-secret/redact-secret-benchmarks#464"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/clickhouse-cloud.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clickhouse-cloud.md",
+      "note": "families[id=clickhouse-cloud:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=clickhouse-cloud:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "clickhouse-cloud-api-secret",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

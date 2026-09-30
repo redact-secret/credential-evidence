@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-deepgram-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "deepgram:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-27. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/deepgram.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#789",
+          "url": "https://github.com/redact-secret/redact-secret/issues/789"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#868",
+          "url": "https://github.com/redact-secret/redact-secret/issues/868"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#932",
+          "url": "https://github.com/redact-secret/redact-secret/issues/932"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#936",
+          "url": "https://github.com/redact-secret/redact-secret/issues/936"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for deepgram:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector deepgram-api-key since redact-secret#868 (registry pinned at cfe2aec); graduated from a Beta.10 arrival family (#384, research #789), contract in benchmarks/lib/beta8/384e.ts. T2, context-gated, no bare-value claim; the hex versus base36 alphabet is disputed between the tools and asserted by no fixture."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'deepgram-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Context-gated arrival family (#384, product redact-secret#868; research #789). No Deepgram page or SDK code states a prefix, length or alphabet: the docs' 32-hex example is an ascending-digit placeholder (1234567890abcdef twice) that the create-key reference gives to both the key and its id. TruffleHog 3.97.4 (keyword deepgram, [0-9a-z]{40}) and betterleaks ([a-f0-9]{40}) agree on 40 characters, and one community post reports a working key of length 40; the tools disagree on whether the alphabet is hex or base36. The contract freezes the hex intersection and asserts nothing on any other letter, so no alphabet or case twin is authored. The value is recognised only beside a same-line deepgram name, host or SDK constructor, so its positives score as project policy. A bare 40-hex run is indistinguishable from a Git SHA-1. The api_key_id shares the key's shape in the docs and is a public lookalike; the temporary-key JWT from /auth/grant is a bearer-path credential, not this family."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/deepgram.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/deepgram.md",
+      "note": "families[id=deepgram:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=deepgram:api-key]"
+    }
+  ]
+}

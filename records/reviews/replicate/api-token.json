@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-replicate-api-token",
+  "subject": {
+    "kind": "family",
+    "id": "replicate:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/replicate.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#727",
+          "url": "https://github.com/redact-secret/redact-secret/issues/727"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#215",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/215"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#217",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/217"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for replicate:api-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector replicate-api-token since redact-secret#727 (registry pinned at dad7868); graduated from a Beta.8 arrival family (#208, research #217), contract in benchmarks/lib/beta8/208.ts. The body alphabet is peer-contested (TruffleHog admits - and _; flare-redact alphanumeric only) and stays provisional. The cog/r8.im login token's relation to this token is undocumented and not claimed."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'replicate-api-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Graduated arrival evidence (#208, registry detector since redact-secret#727; research #217). T1 because every frozen field a positive depends on (prefix, 40-character total) is provider-stated. Positives use an alphanumeric body, which every source admits; the body alphabet stays provisional and no fixture asserts silence on a - or _ body byte."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/replicate.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/replicate.md",
+      "note": "families[id=replicate:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=replicate:api-token]"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-cunnymessiah-keychecker-9e67758ceb",
+  "sourceType": "scanner-rule-source",
+  "title": "cunnymessiah/keychecker @ 122eadc6bdbbeec9f31e94878f98c4692d5b5718: main.py",
+  "publisher": "cunnymessiah/keychecker",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/cunnymessiah/keychecker/blob/122eadc6bdbbeec9f31e94878f98c4692d5b5718/main.py",
+    "pin": {
+      "kind": "commit-permalink",
+      "commit": "122eadc6bdbbeec9f31e94878f98c4692d5b5718"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-26",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-field; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384e.ts",
+      "note": "cited by contracts['ai21-api-key'].corroboration; contracts['ai21-api-key'].fields"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/ai21.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/ai21.md",
+      "note": "cited by families[id=ai21:api-key].research.sources"
+    }
+  ]
+}

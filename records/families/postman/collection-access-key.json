@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "postman:collection-access-key",
+  "provider": "postman",
+  "name": "Collection access key",
+  "description": "PMAT- followed by 26 characters; a read-only key for one collection's JSON, shared through the collection URL's access_key parameter.",
+  "lifecycle": "draft",
+  "currentContract": "postman:collection-access-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-25",
+    "issues": [
+      "redact-secret/redact-secret#582",
+      "redact-secret/redact-secret#700",
+      "redact-secret/redact-secret-benchmarks#259"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/postman.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/postman.md",
+      "note": "families[id=postman:collection-access-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=postman:collection-access-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "postman-collection-access-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

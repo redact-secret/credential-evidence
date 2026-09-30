@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "discord:bot-token",
+  "provider": "discord",
+  "name": "Bot token",
+  "description": "Three-segment base64url bot token.",
+  "lifecycle": "draft",
+  "currentContract": "discord:bot-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#646",
+      "redact-secret/redact-secret#670",
+      "redact-secret/redact-secret-benchmarks#128",
+      "redact-secret/redact-secret-benchmarks#159"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/discord.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/discord.md",
+      "note": "families[id=discord:bot-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=discord:bot-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "discord-bot-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

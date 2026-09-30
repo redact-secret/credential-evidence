@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-slack-app-level-token",
+  "subject": {
+    "kind": "family",
+    "id": "slack:app-level-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/slack-app-level-token.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#729",
+          "url": "https://github.com/redact-secret/redact-secret/issues/729"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#222",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/222"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#367",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/367"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for slack:app-level-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Documented alongside xoxb- in the same provider prefix table; not matched by the bot-token-only pattern. Measured as the Beta.8 arrival family slack-app-level-token (#211, research #222): only the xapp- prefix is provider-documented; section widths and alphabet are tool-only and contradictory (4-section 97-character vs Nosey Parker's 2-section 42-character) and stay unresolved. Scored as the arrival family slack-app-level-token (#730; docs/decisions/2026-09-24-score-arrival-families-by-finding-type.md): the product types it inside the shared slack-token detector as slack_app_level_token, so its findings carry the arrival id and its status comes from its own contract, profile and ledger rows. slack-app-level-token is not a registry detector id."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'slack-app-level-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival contract (#211, research #222, observed 2026-09-24). T2: Slack documents only the xapp- prefix; the four-section order comes from provider-authored placeholders (Java SDK, Slack CLI tests) that the python SDK mock contradicts, and widths/alphabet come from veles/kingfisher (one lineage; gitleaks fixes only the section order, its 1/11/13/64 being test samples, not enforced widths, per redact-secret#1013), which Nosey Parker's two-section 42-character rule contradicts outright. The pattern therefore fixes the prefix and section order with open widths; widths and alphabet are unresolved. Positives use the 1/11/13/64 shape so every candidate relied on accepts them; no fixture uses a 42-character value or removes the version section. The pinned trufflehog 3.97.4 has no xapp- detector. Slack's own CLI redacts xapp-[\\w.-]* on prefix alone."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:app-level-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=slack:app-level-token]"
+    }
+  ]
+}

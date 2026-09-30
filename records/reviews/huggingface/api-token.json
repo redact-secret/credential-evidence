@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-huggingface-api-token",
+  "subject": {
+    "kind": "family",
+    "id": "huggingface:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-23. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/huggingface.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/654/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#654",
+          "url": "https://github.com/redact-secret/redact-secret/issues/654"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'huggingface-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-tiered 2026-09-23 (#112, provider evidence redact-secret#654). The prefix source is a TypeScript type annotation rendered in the provider's SDK reference on huggingface.co, not a prose paragraph; accepting an SDK-reference source for the prefix is a maintainer ruling, on the same footing as the google-api-key example precedent, not a change to the T1 bar. The 34-character length rests on a single OpenAPI example whose placeholder is one repeated letter (schema bounds are only minLength 1 / maxLength 200), so it is example-strength, and the example says nothing about the alphabet. Re-verified 2026-09-20 (#45) against the pinned source: TruffleHog's huggingface detector matches `\\b(?:hf_|api_org_)[a-zA-Z0-9]{34}\\b`, alphanumeric; gitleaks's huggingface-access-token rule matches `\\b(hf_(?i:[a-z]{34}))...`, letters-only, so gitleaks would not flag a digit-bearing instance. A retired provider-hosted Space validator used hf_[a-zA-Z0-9]{34}, but that is application code, not documentation. api_org_ stays outside this contract's pattern: only a 2021 archived provider page shows an api_org_ placeholder, and the current SDK rejects org tokens. The provider also documents hf_oauth_/hf_jwt_ tokens in the same hf_ namespace; they are uncovered here, so no delimiter twin is authored (a post-prefix \"_\" is not provably non-Hugging Face)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/huggingface.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/huggingface.md",
+      "note": "families[id=huggingface:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=huggingface:api-token]"
+    }
+  ]
+}

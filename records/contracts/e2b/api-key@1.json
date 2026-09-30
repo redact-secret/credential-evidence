@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "e2b:api-key@1",
+  "family": "e2b:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^e2b_[0-9a-f]{40}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "e2b-dev/infra keys: ApiKeyPrefix = \"e2b_\", keyLength = 20 random bytes, hex.EncodeToString (re-checked 2026-09-28): provider code (ruling R1): e2b_ + exactly 40 lowercase hex (20 random bytes, Go hex encoding), 44 in all, no separator or checksum; the local-dev seed test asserts len(prefix) + 2*20",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-e2b-dev-infra-874a8d1a98",
+          "supports": "provider code (ruling R1): e2b_ + exactly 40 lowercase hex (20 random bytes, Go hex encoding), 44 in all, no separator or checksum; the local-dev seed test asserts len(prefix) + 2*20",
+          "locator": "#L15-L74"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: e2b_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-e2b-dev-f8a28ba5d9",
+          "supports": "e2b_… placeholders"
+        },
+        {
+          "sourceId": "github-com-e2b-dev-infra-f4ab078445",
+          "supports": "ApiKeyPrefix = \"e2b_\"",
+          "locator": "#L3"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: the E2B_API_KEY environment variable, sent as X-API-Key",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-e2b-dev-f8a28ba5d9",
+          "supports": "transport: the E2B_API_KEY environment variable, sent as X-API-Key"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 40 lowercase hex (20 random bytes); 44 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-e2b-dev-infra-874a8d1a98",
+          "supports": "keyLength = 20, hex.EncodeToString",
+          "locator": "#L15-L74"
+        },
+        {
+          "sourceId": "github-com-e2b-dev-infra-9fe135a8a6",
+          "supports": "len(prefix) + 2*20",
+          "locator": "#L307"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-separators",
+      "statement": "separators: none; no checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-e2b-dev-infra-874a8d1a98",
+          "supports": "separators: none; no checksum",
+          "locator": "#L15-L74"
+        }
+      ]
+    },
+    {
+      "id": "field-uppercase-hex",
+      "statement": "uppercase-hex: the verifier accepts an uppercase-hex body the generator never issues (The contract follows the issued grammar; the uppercase twin records the accepted false negative.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c71ac2464d",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-retired-user-token",
+      "statement": "retired-user-token: sk_e2b_ + 40 hex was the user access token, retired on 2026-08-01 (Another credential class: a prefix twin, never a benign control.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-e2b-dev-a2491a5898",
+          "supports": "retired-user-token: sk_e2b_ + 40 hex was the user access token, retired on 2026-08-01"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed; this keeps e2b_ inside sk_e2b_ unclaimed",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c71ac2464d",
+          "supports": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed; this keeps e2b_ inside sk_e2b_ unclaimed"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no e2b rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no e2b detector directory"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 12 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-e2b-dev-a2491a5898",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-e2b-dev-f8a28ba5d9",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-e2b-dev-infra-3651da9dbf",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-e2b-dev-infra-874a8d1a98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L15-L74"
+        },
+        {
+          "sourceId": "github-com-e2b-dev-infra-9fe135a8a6",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L307"
+        },
+        {
+          "sourceId": "github-com-e2b-dev-infra-f4ab078445",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L3"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-600e29e0fd",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-fb496527b7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c71ac2464d",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-db9d15eae3",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-e2b-dev-infra-3651da9dbf",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6f98529089",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-e2b-dev-f8a28ba5d9",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c71ac2464d",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "e2b-api-key:body",
+      "note": "claim field-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "e2b-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "e2b-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "e2b-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "e2b-api-key:retired-user-token",
+      "note": "claim field-retired-user-token; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "e2b-api-key:separators",
+      "note": "claim field-separators; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "e2b-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "e2b-api-key:uppercase-hex",
+      "note": "claim field-uppercase-hex; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434c.ts",
+      "note": "contracts['e2b-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/e2b.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/e2b.md",
+      "note": "families[id=e2b:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=e2b:api-key]"
+    }
+  ]
+}

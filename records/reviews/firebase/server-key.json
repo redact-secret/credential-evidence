@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-firebase-server-key",
+  "subject": {
+    "kind": "family",
+    "id": "firebase:server-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firebase.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/649/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#649",
+          "url": "https://github.com/redact-secret/redact-secret/issues/649"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for firebase:server-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): #81 backfilled the firebase-server-key detector (redact-secret#543). Service-account JSON exports and AIza-prefixed keys are covered elsewhere (private-key, google-api-key), not this family."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'firebase-server-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Neither Google's current documentation nor either of this suite's pinned scanners publishes a rule for this shape: TruffleHog's own proto/detector_type.proto reserves both Firebase = 33 and FirebaseCloudMessaging = 102, explicitly marked \"Not yet implemented\", and no gitleaks 8.30.1 rule names Firebase at all. The single corroboration source above (not one of this suite's pinned, version-tracked scanners) pins the exact two-segment width — AAAA + 7 bytes + \":\" + 140 bytes, 152 bytes total, regex AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140} — observed 2026-09-20 at the commit pinned in its URL. The AAAA prefix itself is additionally corroborated by two independent non-tool sources (a 2024 B4X developer-forum FCM-deprecation thread and an independent FCM-takeover security writeup, both observed 2026-09-20; recorded here as prose, not as further corroboration entries, since neither is a scanner). A shorter or longer segment, a missing or misplaced separator, or a wider embedded run is an intentional false negative rather than a fuzzy match. status-criteria.json requires a T1 providerSource for stable; this family cannot reach stable on this evidence and is expected to classify provisional."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/firebase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firebase.md",
+      "note": "families[id=firebase:server-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=firebase:server-key]"
+    }
+  ]
+}

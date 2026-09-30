@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "slack:app-level-token@1",
+  "family": "slack:app-level-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^xapp-[0-9]+-[A-Za-z0-9]+-[0-9]+-[A-Za-z0-9]+$"
+  },
+  "claims": [
+    {
+      "id": "candidate-source",
+      "statement": "Candidate provider source, not accepted as the provider source by the legacy contract (xapp- app-level token prefix): the xapp- prefix only; no section widths, alphabet or length",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "the xapp- prefix only; no section widths, alphabet or length"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; osv-scalibr veles).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: slack-app-token"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-70fa725fb0",
+          "supports": "osv-scalibr veles: slacktoken"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: App-level tokens begin with the literal xapp-.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-2a8335f568",
+          "supports": "Placeholders only (SLACK_APP_TOKEN='xapp-***', Authorization: Bearer xapp-1-123); the token goes in the Authorization header."
+        },
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "\"App-level token strings begin with xapp-.\" No section widths, alphabet, length or example."
+        }
+      ]
+    },
+    {
+      "id": "field-section-structure",
+      "statement": "section-structure: After the prefix: a digit section, then three more dash-separated sections (digit, alphanumeric, digit, alphanumeric). (Provider-authored placeholders disagree on whether the version section exists; no provider page states section count. The contract pattern uses this 4-section order with open widths only so positives are well-formed; no twin or control removes the version section or asserts silence on the python-mock order.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-cd8752db37",
+          "supports": "gitleaks SlackAppLevelToken (?i)xapp-\\d-[A-Z0-9]+-\\d+-[a-z0-9]+, \"based on a limited number of examples\"."
+        },
+        {
+          "sourceId": "github-com-slackapi-java-slack-sdk-59c5ac00c1",
+          "supports": "Java SDK socket-mode guide/sample placeholder xapp-1-<A+3>-<3 digits>-<3 x>: version digit first. Placeholder widths are not real."
+        },
+        {
+          "sourceId": "github-com-slackapi-python-slack-sdk-202a7313ad",
+          "supports": "Contradiction: the python SDK socket-mode mock uses xapp-<A+3>-<3 digits>-<3 lower> with no version section."
+        },
+        {
+          "sourceId": "github-com-slackapi-slack-cli-6da4b72ffc",
+          "supports": "internal/goutils/strings_test.go placeholder xapp-1-<A+3>-<4 digits>-<4 upper>."
+        }
+      ]
+    },
+    {
+      "id": "field-section-widths",
+      "statement": "section-widths: Section widths 1 / 11 / 13 / 64 (97 characters total). (Not frozen. Positives use 1/11/13/64 so they satisfy gitleaks, veles/kingfisher, the product's interim xapp-[A-Za-z0-9_-]{20,} floor and Slack CLI's prefix-only redaction; they cannot also satisfy Nosey Parker's 2-section shape, which is recorded, never asserted against: no fixture uses a 42-character xapp- value.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-google-osv-scalibr-70fa725fb0",
+          "supports": "veles xapp-\\d{1,10}-[A-Za-z0-9]{11}-[0-9]{13}-[a-fA-F0-9]{64}; \"presumably\" hedges the version width."
+        },
+        {
+          "sourceId": "github-com-mongodb-kingfisher-c9ae3655da",
+          "supports": "Kingfisher imports the identical regex (not independent)."
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-06d50d9d1c",
+          "supports": "Contradiction: np.slack.5 \\b(xapp-[0-9]{12}-[a-zA-Z0-9/+]{24})\\b — two sections, 42 characters."
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: Section 2 uppercase alphanumeric (app-ID-like); final section lowercase hex. (Not frozen; the pattern accepts any alphanumeric in sections 2 and 4. No fixture twins on tail case or width.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-cd8752db37",
+          "supports": "Case-insensitive; TP samples use lowercase hex tails. Two of three cited samples do not start section 2 with \"A\", so \"section 2 is the App ID\" is not consistently supported."
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-70fa725fb0",
+          "supports": "Accepts [a-fA-F0-9] for the tail."
+        }
+      ]
+    },
+    {
+      "id": "field-app-id-embedding",
+      "statement": "app-id-embedding: Whether section 2 equals the public App ID. (An App ID alone is a public identifier and is used as a public-id control; nothing asserts it is or is not embedded.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-google-osv-scalibr-70fa725fb0",
+          "supports": "Calls section 2 \"an app ID\" without a source."
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-2a8335f568",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-3e3040db9c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-slackapi-slack-cli-6da4b72ffc",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 5 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-2a8335f568",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-3fd7db0133",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-slackapi-java-slack-sdk-a2559bc3b3",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L180"
+        },
+        {
+          "sourceId": "github-com-slackapi-slack-cli-86d31a6fd0",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L198-L202"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "slack-app-level-token:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "slack-app-level-token:app-id-embedding",
+      "note": "claim field-app-id-embedding; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "slack-app-level-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "slack-app-level-token:section-structure",
+      "note": "claim field-section-structure; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "slack-app-level-token:section-widths",
+      "note": "claim field-section-widths; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/211.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/211.ts",
+      "note": "contracts['slack-app-level-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:app-level-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=slack:app-level-token]"
+    }
+  ]
+}

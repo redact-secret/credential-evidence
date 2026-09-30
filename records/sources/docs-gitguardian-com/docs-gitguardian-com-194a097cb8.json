@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "docs-gitguardian-com-194a097cb8",
+  "sourceType": "other",
+  "title": "docs.gitguardian.com/secrets-detection/secrets-detection-engine/detectors/specifics/replicate_user_access_token",
+  "publisher": "docs.gitguardian.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://docs.gitguardian.com/secrets-detection/secrets-detection-engine/detectors/specifics/replicate_user_access_token",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/208.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/208.ts",
+      "note": "cited by contracts['replicate-api-token'].fields"
+    }
+  ]
+}

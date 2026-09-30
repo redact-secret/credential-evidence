@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "anthropic:compliance-access-key",
+  "provider": "anthropic",
+  "name": "Enterprise organization key (sk-ant-api01-)",
+  "description": "sk-ant-api01- prefixed key that Anthropic documents as a Compliance Access Key; the prefix is the general Claude Enterprise organization key for any scope set, so a finding must not claim 'compliance'.",
+  "lifecycle": "draft",
+  "currentContract": "anthropic:compliance-access-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-27",
+    "issues": [
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#776",
+      "redact-secret/redact-secret#862",
+      "redact-secret/redact-secret#882"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/anthropic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+      "note": "families[id=anthropic:compliance-access-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=anthropic:compliance-access-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "anthropic-api01-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "convex:deployment-key",
+  "provider": "convex",
+  "name": "Deployment, project and admin key (hex body)",
+  "description": "An optional prod:/dev: + cloud name or preview:/project: + two slugs lead, the deployment or instance name, one |, then 01 + an even 74–96 lowercase hex body; the whole key is the credential. The cloud eyJ2 deploy-key body is issuance-gated and not claimed.",
+  "lifecycle": "draft",
+  "currentContract": "convex:deployment-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#912",
+      "redact-secret/redact-secret-benchmarks#436"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/convex.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/convex.md",
+      "note": "families[id=convex:deployment-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=convex:deployment-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "convex-deployment-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

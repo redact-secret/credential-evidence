@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "daytona:api-key@1",
+  "family": "daytona:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^dtn_[0-9a-f]{64}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "daytonaio/daytona v0.190.0 (01c502b): generateApiKeyValue() = dtn_ + crypto.randomBytes(32).toString('hex'); the same inline form since 5271af9 (2025-04-28); re-checked 2026-09-28 (no newer provider source): dtn_ + exactly 64 lowercase hex (32 random bytes), 68 in all; no separator or checksum; T1 as of v0.190.0 (2026-06-23) under R9",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-daytonaio-daytona-ff023af7a3",
+          "supports": "dtn_ + exactly 64 lowercase hex (32 random bytes), 68 in all; no separator or checksum; T1 as of v0.190.0 (2026-06-23) under R9",
+          "locator": "#L8-L18"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: dtn_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "daytona-io-c57b1a926f",
+          "supports": "DAYTONA_API_KEY=dtn_*** (prefix only)"
+        },
+        {
+          "sourceId": "github-com-daytonaio-daytona-ff023af7a3",
+          "supports": "generateApiKeyValue",
+          "locator": "#L8-L18"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 64 lowercase hex [0-9a-f] (32 random bytes); 68 in all (Dated: T1 as of v0.190.0 (2026-06-23), not a claim about the live cloud. A post-v0.190.0 format change is an accepted false negative.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-daytonaio-daytona-a29ac4eb1b",
+          "supports": "the same inline form since 2025-04-28",
+          "locator": "#L27"
+        },
+        {
+          "sourceId": "github-com-daytonaio-daytona-ff023af7a3",
+          "supports": "randomBytes(32).toString(hex)",
+          "locator": "#L8-L18"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R9: T1 as of the generator date",
+          "locator": "#issuecomment-5880547337"
+        }
+      ]
+    },
+    {
+      "id": "field-separators",
+      "statement": "separators: none; no checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-daytonaio-daytona-ff023af7a3",
+          "supports": "separators: none; no checksum",
+          "locator": "#L8-L18"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed; this keeps dtn_secret_ and dtn_artifact_ identifiers unclaimed (Handoff boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7b91cf8d8b",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: the DAYTONA_API_KEY environment variable, sent as Authorization: Bearer; Daytona(DaytonaConfig(api_key=...)) and the Terraform provider variable",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "daytona-io-c57b1a926f",
+          "supports": "transport: the DAYTONA_API_KEY environment variable, sent as Authorization: Bearer; Daytona(DaytonaConfig(api_key=...)) and the Terraform provider variable"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7b91cf8d8b",
+          "supports": "test axes"
+        }
+      ]
+    },
+    {
+      "id": "field-self-provisioned-runner-key",
+      "statement": "self-provisioned-runner-key: a self-provisioned runner key is unprefixed 64 hex (openssl rand -hex 32), lexically a SHA-256 (No prefix, not attributable: a bare 64-hex value is an encoded-value control, never a positive.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-81e9ea9805",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no daytona rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no daytona detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 11 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "daytona-io-c57b1a926f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-daytonaio-daytona-a29ac4eb1b",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L27"
+        },
+        {
+          "sourceId": "github-com-daytonaio-daytona-ff023af7a3",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L8-L18"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7b91cf8d8b",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-801a922726",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-81e9ea9805",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5880547337"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-daytonaio-daytona-ff023af7a3",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L8-L18"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7b91cf8d8b",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-81e9ea9805",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-daytonaio-daytona-ff023af7a3",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L8-L18"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7b91cf8d8b",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "daytona-api-key:body",
+      "note": "claim field-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "daytona-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "daytona-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "daytona-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "daytona-api-key:self-provisioned-runner-key",
+      "note": "claim field-self-provisioned-runner-key; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "daytona-api-key:separators",
+      "note": "claim field-separators; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "daytona-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/464a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/464a.ts",
+      "note": "contracts['daytona-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/daytona.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/daytona.md",
+      "note": "families[id=daytona:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=daytona:api-key]"
+    }
+  ]
+}

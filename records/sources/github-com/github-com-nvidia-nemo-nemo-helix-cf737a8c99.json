@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-nvidia-nemo-nemo-helix-cf737a8c99",
+  "sourceType": "provider-documentation",
+  "title": "NVIDIA-NeMo/nemo-helix @ 689f7852611b0151cee2748ca2b68e8e163e3b65: plugins/nemo-agents/src/nemo_agents_plugin/skills/agents-secure/resources/pii_scan.py",
+  "publisher": "NVIDIA-NeMo/nemo-helix",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/NVIDIA-NeMo/nemo-helix/blob/689f7852611b0151cee2748ca2b68e8e163e3b65/plugins/nemo-agents/src/nemo_agents_plugin/skills/agents-secure/resources/pii_scan.py",
+    "pin": {
+      "kind": "commit-permalink",
+      "commit": "689f7852611b0151cee2748ca2b68e8e163e3b65"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-28",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research, taxonomy-source; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-providerSource, contract-reference; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/464c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/464c.ts",
+      "note": "cited by contracts['nvidia-api-key'].fields; contracts['nvidia-api-key'].providerSource; contracts['nvidia-api-key'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/nvidia.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/nvidia.md",
+      "note": "cited by families[id=nvidia:ngc-api-key].research.sources"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=nvidia:ngc-api-key].sources"
+    }
+  ]
+}

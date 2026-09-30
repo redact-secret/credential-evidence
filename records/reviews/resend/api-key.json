@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-resend-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "resend:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/resend.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/resend.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#915",
+          "url": "https://github.com/redact-secret/redact-secret/issues/915"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#436",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/436"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for resend:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector resend-api-key since redact-secret#915 (registry pinned at 1127bf9); graduated from a Beta.11 arrival family (#436), contract in benchmarks/lib/beta8/436d.ts. T1 on the provider CLI prefix and the docs/SDK example layout (R5); neither pinned scanner has a Resend rule."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'resend-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#436, product redact-secret#915; #860 handoff resend.md, READY). T1: the provider CLI enforces the re_ prefix (code and README); the 8/_/24 layout is the docs response example and three distinct provider-authored SDK fixture values, which ruling R5 weighs like a docs example. The alphabet is taken as the alphanumeric superset: the samples are base58-consistent, but three samples show what is present, not what is excluded. re_ is short and ends many identifiers (are_, pre_, score_), so the leading boundary matters; the product adds a mixed-case guard (at least one upper- and one lower-case letter in the body) as false-positive policy. That guard is not a provider fact, so the corpus asserts silence only on word-built identifiers of the same layout, never on a random one-case body. Excluded: re_ + GUID mock keys, the 36-lowercase Go webhook placeholder, placeholders and masks, key object UUIDs, and whsec_ webhook signing secrets (another credential class: a twin, never a control). Graduated to a registry detector at the 1127bf9 re-pin (redact-secret PR #938)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/resend.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/resend.md",
+      "note": "families[id=resend:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=resend:api-key]"
+    }
+  ]
+}

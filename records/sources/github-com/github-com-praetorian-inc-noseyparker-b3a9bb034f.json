@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-praetorian-inc-noseyparker-b3a9bb034f",
+  "sourceType": "scanner-rule-source",
+  "title": "praetorian-inc/noseyparker @ 2e6e7f36ce36619852532bbe698d8cb7a26d2da7: crates/noseyparker/data/default/builtin/rules/aws.yml",
+  "publisher": "praetorian-inc/noseyparker",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/praetorian-inc/noseyparker/blob/2e6e7f36ce36619852532bbe698d8cb7a26d2da7/crates/noseyparker/data/default/builtin/rules/aws.yml",
+    "pin": {
+      "kind": "commit-permalink",
+      "commit": "2e6e7f36ce36619852532bbe698d8cb7a26d2da7"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-reference; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012a.ts",
+      "note": "cited by contracts['aws-secret-access-key'].corroboration; contracts['aws-secret-access-key'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012d.ts",
+      "note": "cited by contracts['aws-sts-temporary-access-key'].corroboration; contracts['aws-sts-temporary-access-key'].references"
+    }
+  ]
+}

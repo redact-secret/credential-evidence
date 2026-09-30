@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "clojars:deploy-token@1",
+  "family": "clojars:deploy-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^CLOJARS_[0-9a-f]{60}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "clojars/clojars-web src/clojars/db.clj (442eb89, last changed 2026-09-16): generate-deploy-token = (str \"CLOJARS_\" (hexadecimalize (generate-secure-token 30))), hexadecimalize formats %02X then lowercases, and is-deploy-token? is #\"^CLOJARS_[0-9a-f]{60}$\"; re-checked 2026-09-29: CLOJARS_ + exactly 60 lowercase hex, 68 in all; no checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clojars-clojars-web-e4965bbabe",
+          "supports": "CLOJARS_ + exactly 60 lowercase hex, 68 in all; no checksum",
+          "locator": "#L799-L853"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: clojars-api-token: (?i)CLOJARS_[a-z0-9]{60} (case-insensitive and wider than hex)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: CLOJARS_ (uppercase, case-sensitive)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clojars-clojars-web-e4965bbabe",
+          "supports": "generate-deploy-token and is-deploy-token?",
+          "locator": "#L799-L853"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 60 lowercase hex [0-9a-f] (30 secure-random bytes); 68 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clojars-clojars-web-e4965bbabe",
+          "supports": "hexadecimalize lowercases; the validator is [0-9a-f]{60}",
+          "locator": "#L799-L853"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a token glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed (Handoff boundary decision, not a provider statement; the validator itself is anchored.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-76118ee96e",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: CLOJARS_PASSWORD in CI; a Leiningen :password entry; a Maven ~/.m2/settings.xml <password> element",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-76118ee96e",
+          "supports": "test axes"
+        }
+      ]
+    },
+    {
+      "id": "field-env-names",
+      "statement": "env-names: CLOJARS_USERNAME, CLOJARS_PASSWORD and CLOJARS_ENVIRONMENT are variable names, not tokens (Benign controls: they fail the 60-hex body.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-76118ee96e",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: gitleaks 8.30.1 clojars-api-token (?i)CLOJARS_[a-z0-9]{60} (entropy 2) has no boundary and is case-insensitive over [a-z0-9]: it reads every positive and overreaches on clojars_, uppercase-hex and non-hex-letter bodies, leading glue and a 61-byte body (it matches the first 60). Mapped to clojars-deploy-token. No Clojars rule in trufflehog 3.97.4",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "clojars-api-token"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no clojars detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 8 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clojars-clojars-web-e4965bbabe",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L799-L853"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5900447282"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-76118ee96e",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f4ef7214ef",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clojars-clojars-web-e4965bbabe",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L799-L853"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-76118ee96e",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clojars-clojars-web-e4965bbabe",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L799-L853"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-76118ee96e",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "clojars-deploy-token:body",
+      "note": "claim field-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clojars-deploy-token:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clojars-deploy-token:env-names",
+      "note": "claim field-env-names; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clojars-deploy-token:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clojars-deploy-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clojars-deploy-token:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/528e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/528e.ts",
+      "note": "contracts['clojars-deploy-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/clojars.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clojars.md",
+      "note": "families[id=clojars:deploy-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=clojars:deploy-token]"
+    }
+  ]
+}

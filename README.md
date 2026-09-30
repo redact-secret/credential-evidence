@@ -166,17 +166,20 @@ examples/
   valid/              # synthetic example records, validated by CI
   content/            # synthetic fixture bytes for the examples
 
-records/              # canonical records (empty until #3 and #4 import data)
+records/              # canonical records; layout in docs/decisions/0004
+  providers/ families/ contracts/ reviews/ sources/   # taxonomy import (#3)
+  variants/ siblings/                                 # reserved
 
 scripts/
   validate.mjs        # npm run validate
   lib/validator.mjs
-  migrate/            # future schema migrations
+  migrate/            # import-taxonomy.mjs (npm run migrate:taxonomy); future schema migrations
   export/             # future legacy-compatible exports
 
 tests/                # npm test
 
 docs/
+  migration/          # generated migration reports
   methodology/
   governance/
   decisions/
@@ -191,10 +194,18 @@ Requires Node 22 or newer. The validator is offline and deterministic.
 ```bash
 npm ci
 npm run validate   # schemas, examples/valid and records/: shape, IDs, cross-references
-npm test           # positive and negative cases
+npm test           # positive and negative cases, imported records, round trips
+npm run migrate:taxonomy:check   # regenerate records/ from the pinned legacy revision and diff
 ```
 
-The model and its rules are recorded in `docs/decisions/0001` to `0003`.
+`examples/valid` and `records/` are validated as separate universes, so an
+illustrative example may reuse the id of a real record. The taxonomy import needs
+a checkout of `redact-secret-benchmarks` (`--legacy <path>` or
+`LEGACY_BENCHMARKS_DIR`; a sibling directory is found automatically) and reads
+only commit `ade8a10bd7922765110a68986b0690eb3861f2e5` of it. Tests that compare
+against that checkout skip when it is absent unless `REQUIRE_LEGACY=1`.
+
+The model and its rules are recorded in `docs/decisions/0001` to `0004`; what the taxonomy import kept, dropped and could not map is in `docs/migration/taxonomy-report.md`.
 
 ## Public future
 

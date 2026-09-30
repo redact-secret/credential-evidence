@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "new-relic:user-api-key@1",
+  "family": "new-relic:user-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^NRAK-[A-Z0-9]{27}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "NRAK- user-key prefix: New Relic says most user keys begin with NRAK-; body length and alphabet remain tool-corroborated",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-newrelic-com-38b425f411",
+          "supports": "New Relic says most user keys begin with NRAK-; body length and alphabet remain tool-corroborated"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-784a9018a4",
+          "supports": "trufflehog 3.97.4: newrelicuserkey/newrelicuserkey"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-newrelic-com-38b425f411",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-991482f3da",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['new-relic-user-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/new-relic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/new-relic.md",
+      "note": "families[id=new-relic:user-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=new-relic:user-api-key]"
+    }
+  ]
+}

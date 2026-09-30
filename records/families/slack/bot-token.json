@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "slack:bot-token",
+  "provider": "slack",
+  "name": "Bot token",
+  "description": "Bot user OAuth token, prefixed xoxb-.",
+  "lifecycle": "draft",
+  "currentContract": "slack:bot-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-17",
+    "issues": [
+      "redact-secret/redact-secret#371"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:bot-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=slack:bot-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "slack-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

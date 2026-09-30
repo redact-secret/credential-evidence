@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "nvidia:ngc-api-key@1",
+  "family": "nvidia:ngc-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^nvapi-[A-Za-z0-9_-]{60,}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "NVIDIA-NeMo/nemo-helix pii_scan.py (added 2026-05-21): \\bnvapi-[A-Za-z0-9_\\-]{60,}\\b, a provider-authored rule (R2); NVIDIA/SkillEvaluator secrets.py nvapi-[A-Za-z0-9_-]{40,}; the ngcsdk constant SCOPED_KEY_PREFIX = \"nvapi-\" with an executing startswith (R1, R6); re-checked 2026-09-28: nvapi- + at least 60 [A-Za-z0-9_-], open-ended; NGC Personal, NGC Service and build.nvidia.com keys share the prefix; no separator or checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-nvidia-nemo-nemo-helix-cf737a8c99",
+          "supports": "nvapi- + at least 60 [A-Za-z0-9_-], open-ended; NGC Personal, NGC Service and build.nvidia.com keys share the prefix; no separator or checksum",
+          "locator": "#L229-L232"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: betterleaks (unpinned); trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-4fda03f3d2",
+          "supports": "betterleaks (unpinned): nvapi- + {60,70} (tool-only, T2)"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-30de073b45",
+          "supports": "trufflehog 3.97.4: NVAPI: \\b(nvapi-[a-zA-Z0-9_-]{64})\\b, exact 64 (tool-only, T2)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: nvapi-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-24d07d4af2",
+          "supports": "ngcsdk SCOPED_KEY_PREFIX = \"nvapi-\", executing startswith (R1, R6)"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9077241b86",
+          "supports": "NVIDIA docs: \"typically start with nvapi-\""
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: [A-Za-z0-9_-]",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-nvidia-nemo-nemo-helix-cf737a8c99",
+          "supports": "provider-authored rule, R2",
+          "locator": "#L229-L232"
+        },
+        {
+          "sourceId": "github-com-nvidia-skillevaluator-11f3011ddf",
+          "supports": "the same class, floor 40",
+          "locator": "#L57-L60"
+        }
+      ]
+    },
+    {
+      "id": "field-floor",
+      "statement": "floor: at least 60 body bytes, open-ended (Provider-authored (R2), not the tool width: the SkillEvaluator rule's lower 40 is below it and contradicts nothing.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-nvidia-nemo-nemo-helix-cf737a8c99",
+          "supports": "{60,}",
+          "locator": "#L229-L232"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R2",
+          "locator": "#issuecomment-5871306275"
+        }
+      ]
+    },
+    {
+      "id": "field-policy-upper-bound",
+      "statement": "policy-upper-bound: POLICY, not T1: the product caps the run at 128 bytes; an over-cap run is rejected whole, never truncated (Not a provider fact, and the provider rule is open-ended: positives reach 128 and no fixture asserts silence on 129.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9077241b86",
+          "supports": "supported shape: project policy, the Apify precedent; the tool-verified width is 64"
+        }
+      ]
+    },
+    {
+      "id": "field-observed-width",
+      "statement": "observed-width: the tool-verified width is 64 (Default positives carry 64; the 60, 70 and 128 positives exercise the provider floor and the policy cap.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-30de073b45",
+          "supports": "exact 64"
+        }
+      ]
+    },
+    {
+      "id": "field-dot-in-body",
+      "statement": "dot-in-body: a body containing . is not claimed: only one looser NVIDIA redaction rule admits it (The dot twin puts the dot early so no run reaches the 60 floor, so it holds under the provider rule too.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-nvidia-nemo-labs-oo-agents-333fb445a8",
+          "supports": "the looser redaction superset",
+          "locator": "#L118"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-24d07d4af2",
+          "supports": "the alphabet table"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-ngc-key",
+      "statement": "legacy-ngc-key: the legacy NGC key is 84 non-space characters with no prefix, used as the $oauthtoken registry password; its structure is tool-inferred (Context-anchored only; generic context covers NGC_API_KEY=. Nothing is authored for it either way.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9077241b86",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier before the prefix ([A-Za-z0-9_-]) is not claimed (Handoff boundary decision, not a provider statement. The body class already contains _ and -, so a trailing byte extends the run and no trailing-glue twin exists.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9077241b86",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: NVIDIA_API_KEY and NGC_API_KEY, sent as Authorization: Bearer to integrate.api.nvidia.com; ChatNVIDIA(api_key=...)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-nvidia-nemoclaw-ac2aff225e",
+          "supports": "validation of the scoped key",
+          "locator": "#L255-L271"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9077241b86",
+          "supports": "test axes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: trufflehog 3.97.4 NVAPI is an exact 64 (lags the 60-63 and 65-128 positives); gitleaks 8.30.1 has no NVIDIA rule; betterleaks (unpinned, not measured here) uses {60,70}",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-4fda03f3d2",
+          "supports": "observed 2026-09-28 in the handoff research; unpinned"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no nvapi rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-30de073b45",
+          "supports": "exact 64"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 13 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-nvidia-nemo-labs-oo-agents-333fb445a8",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L118"
+        },
+        {
+          "sourceId": "github-com-nvidia-nemo-nemo-helix-cf737a8c99",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L229-L232"
+        },
+        {
+          "sourceId": "github-com-nvidia-nemoclaw-ac2aff225e",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L255-L271"
+        },
+        {
+          "sourceId": "github-com-nvidia-skillevaluator-11f3011ddf",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L57-L60"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-24d07d4af2",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9077241b86",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5880547337"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ddba891393",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-fc5f396543",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-nvidia-nemo-nemo-helix-cf737a8c99",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L229-L232"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-24d07d4af2",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9077241b86",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-nvidia-nemo-nemo-helix-cf737a8c99",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L229-L232"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9077241b86",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:dot-in-body",
+      "note": "claim field-dot-in-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:floor",
+      "note": "claim field-floor; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:legacy-ngc-key",
+      "note": "claim field-legacy-ngc-key; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:observed-width",
+      "note": "claim field-observed-width; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:policy-upper-bound",
+      "note": "claim field-policy-upper-bound; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "nvidia-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/464c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/464c.ts",
+      "note": "contracts['nvidia-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/nvidia.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/nvidia.md",
+      "note": "families[id=nvidia:ngc-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=nvidia:ngc-api-key]"
+    }
+  ]
+}

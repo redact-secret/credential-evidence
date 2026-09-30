@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-clickhouse-cloud-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "clickhouse-cloud:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clickhouse-cloud.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/clickhouse-cloud.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#971",
+          "url": "https://github.com/redact-secret/redact-secret/issues/971"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#464",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/464"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for clickhouse-cloud:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family clickhouse-cloud-api-secret (#464, product redact-secret#971), contract in benchmarks/lib/beta8/464b.ts from the #860 handoff clickhouse-cloud.md. T1 as of 2025-04-16; gitleaks 8.30.1 clickhouse-cloud-api-secret-key (entropy 3) is mapped to this family, trufflehog 3.97.4 has no rule. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'clickhouse-cloud-api-secret' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#464, product redact-secret#971; #860 handoff clickhouse-cloud.md, READY). T1 as of 2025-04-16: a ClickHouse employee stated the 4b1d prefix in gitleaks PR #1826 (R3) and authored the rule 4b1d[A-Za-z0-9]{38} (R2), and the provider-owned Terraform examples and a 2024 unit-test fixture carry 42-byte 4b1d values. One provider knowledge-base example is 39 bytes (2023-09-02); R3 date order sets it aside, so a 39-byte total is a twin, not a positive. POLICY, not T1: the product requires at least one uppercase letter in the body (removes hex digests and lowercase ids that start 4b1d; false-negative cost about 1e-9), and the staff regex does not, so every positive is mixed case and no fixture asserts silence on a lowercase body. The leading boundary matters because 4b1d is valid hex: a longer hex or base64 run containing 4b1d must not match mid-run. Excluded: the key ID (no prefix, 17 or 20 alphanumerics, unresolved), UUIDs containing -4b1d-, 40- and 64-hex digests starting 4b1d, secrets supplied through the API's hashData (caller-chosen shape) and placeholders such as mykeysecret. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1037)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/clickhouse-cloud.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clickhouse-cloud.md",
+      "note": "families[id=clickhouse-cloud:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=clickhouse-cloud:api-key]"
+    }
+  ]
+}

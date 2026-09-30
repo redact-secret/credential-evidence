@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-inngest-signing-key",
+  "subject": {
+    "kind": "family",
+    "id": "inngest:signing-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/inngest.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/inngest.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#914",
+          "url": "https://github.com/redact-secret/redact-secret/issues/914"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#436",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/436"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for inngest:signing-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector inngest-signing-key since redact-secret#914 (registry pinned at 1127bf9); graduated from a Beta.11 arrival family (#436), contract in benchmarks/lib/beta8/436c.ts. T1 on provider code constants and docs; neither pinned scanner has an Inngest rule."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'inngest-signing-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#436, product redact-secret#914; #860 handoff inngest.md, READY). T1: the three environment prefixes are provider code constants (R1); the docs state an even-length hex key and generate it with openssl rand -hex 32 (64 lowercase hex), and every realistic provider SDK fixture is signkey-test- or signkey-prod- + 64 lowercase hex (R5). One family covers the raw key, INNGEST_SIGNING_KEY_FALLBACK and the hashed wire form sent as Bearer, which are lexically identical and each authenticates. Excluded: other environment labels (the SDKs' \\w+ admits them, but only three are constants), the self-hosted bare-hex key (unattributable without the prefix), event keys (no shape), an uppercase-hex body (the decoder accepts it, the generator never emits it) and the docs and SDK placeholders. Neither pinned peer has an Inngest rule. Graduated to a registry detector at the 1127bf9 re-pin (redact-secret PR #938)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/inngest.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/inngest.md",
+      "note": "families[id=inngest:signing-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=inngest:signing-key]"
+    }
+  ]
+}

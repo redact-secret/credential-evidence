@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-gitleaks-gitleaks-e96f3968c2",
+  "sourceType": "provider-documentation",
+  "title": "github.com/gitleaks/gitleaks/issues/2158",
+  "publisher": "gitleaks/gitleaks",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/gitleaks/gitleaks/issues/2158",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-26",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384a.ts",
+      "note": "cited by contracts['anthropic-api01-key'].fields"
+    }
+  ]
+}

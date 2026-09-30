@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-honeycomb-ingest-key",
+  "subject": {
+    "kind": "family",
+    "id": "honeycomb:ingest-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/honeycomb.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/4f220ea000b58fa2e0e431ad88dea4eccb393fb0/docs/audits/evidence/1014/honeycomb.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "4f220ea000b58fa2e0e431ad88dea4eccb393fb0"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1014",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1014"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1034",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1034"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#528",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for honeycomb:ingest-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family honeycomb-api-key (#528, product redact-secret#1034), contract in benchmarks/lib/beta8/528i.ts from the #1014 handoff honeycomb.md. T1 (docs, provider SDK regex, length gate and fixtures; R1, R5). trufflehog 3.97.4 Honeycomb reads classic and configuration keys only and is unmapped; gitleaks 8.30.1 has no rule. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'honeycomb-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1034; #1014 handoff honeycomb.md, READY for ingest keys). An ingest key sends telemetry into an environment; a leak lets anyone write or spoof events and burn the quota, and ingest keys are routinely pasted into OpenTelemetry collector configs. T1: the prefix and the id-plus-secret concatenation are the docs; the 58-byte body is the docs placeholder, the libhoney-go 64-byte gate and its fixtures (R5); the alphabet is the SDK fixtures (R5) and the classic regex in two provider SDKs (R1). The whole 64 bytes are the span. Excluded: key ids alone (hc?ik_/hc?mk_ + 26, and hc?lk_ and hc?en_ ids; non-secret, shown in the UI and API), 22-character configuration keys and 32-hex classic keys (no distinctive shape; credentials that generic context covers, so authored neither way) and the management key (ISSUANCE-GATED on the alphabet of both segments; authored neither way). Neither pinned peer reads this shape: trufflehog 3.97.4 Honeycomb wants a 32-hex or 22-alphanumeric value near the keyword Honeycomb (classic and configuration keys), and gitleaks 8.30.1 has no rule. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1039)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/honeycomb.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/honeycomb.md",
+      "note": "families[id=honeycomb:ingest-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=honeycomb:ingest-key]"
+    }
+  ]
+}

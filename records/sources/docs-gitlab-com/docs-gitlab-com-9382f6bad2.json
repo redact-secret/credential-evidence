@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "docs-gitlab-com-9382f6bad2",
+  "sourceType": "provider-documentation",
+  "title": "docs.gitlab.com/security/tokens/",
+  "publisher": "docs.gitlab.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://docs.gitlab.com/security/tokens/",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-17",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-providerSource; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-20",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research, taxonomy-source; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-25",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research, taxonomy-source; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['gitlab-token'].providerSource"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/212.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/212.ts",
+      "note": "cited by contracts['gitlab-runner-authentication-token'].fields; contracts['gitlab-runner-authentication-token'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "cited by families[id=gitlab:legacy-personal-access-token].research.sources; families[id=gitlab:routable-personal-access-token].research.sources; families[id=gitlab:runner-authentication-token].research.sources"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=gitlab:legacy-personal-access-token].sources; families[id=gitlab:runner-authentication-token].sources"
+    }
+  ]
+}

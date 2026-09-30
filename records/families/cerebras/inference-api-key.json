@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "cerebras:inference-api-key",
+  "provider": "cerebras",
+  "name": "Inference API key (csk-)",
+  "description": "csk- or csk_ + exactly 48 body bytes (52 in all): the length is the provider validator (R1) and the prefixes a dated staff statement (R3); the [A-Za-z0-9_-] alphabet is project policy under R10. Management API keys are a separate credential of unknown shape.",
+  "lifecycle": "draft",
+  "currentContract": "cerebras:inference-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#975",
+      "redact-secret/redact-secret-benchmarks#464"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cerebras.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cerebras.md",
+      "note": "families[id=cerebras:inference-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=cerebras:inference-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "cerebras-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

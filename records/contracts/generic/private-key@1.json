@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "generic:private-key@1",
+  "family": "generic:private-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "RFC 7468 textual encodings: BEGIN/END PRIVATE KEY labels and base64 body; the reviewed control is additionally parsed as PKCS#8 offline",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-17",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-41f2b096bc",
+          "supports": "BEGIN/END PRIVATE KEY labels and base64 body; the reviewed control is additionally parsed as PKCS#8 offline"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-17",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-51c7198ed7",
+          "supports": "trufflehog 3.97.4: privatekey/privatekey"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9deaf5009b",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "rfc-editor-org-41f2b096bc",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['private-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/generic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/generic.md",
+      "note": "families[id=generic:private-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=generic:private-key]"
+    }
+  ]
+}

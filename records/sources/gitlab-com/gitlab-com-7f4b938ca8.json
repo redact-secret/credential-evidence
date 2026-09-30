@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "gitlab-com-7f4b938ca8",
+  "sourceType": "scanner-rule-source",
+  "title": "gitlab.com/gitlab-org/security-products/secret-detection/secret-detection-rules/-/blob/e1c7e83815a7e55cc1514dd59d4e56459e39cbfb/rules/mit/postman/postman.toml",
+  "publisher": "gitlab.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://gitlab.com/gitlab-org/security-products/secret-detection/secret-detection-rules/-/blob/e1c7e83815a7e55cc1514dd59d4e56459e39cbfb/rules/mit/postman/postman.toml",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-field; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-25",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/259.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/259.ts",
+      "note": "cited by contracts['postman-collection-access-key'].corroboration; contracts['postman-collection-access-key'].fields"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/postman.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/postman.md",
+      "note": "cited by families[id=postman:collection-access-key].research.sources"
+    }
+  ]
+}

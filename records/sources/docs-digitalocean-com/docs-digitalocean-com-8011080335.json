@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "docs-digitalocean-com-8011080335",
+  "sourceType": "provider-documentation",
+  "title": "docs.digitalocean.com/release-notes/api/",
+  "publisher": "docs.digitalocean.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://docs.digitalocean.com/release-notes/api/",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-17",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-providerSource, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['digitalocean-token'].providerSource"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/digitalocean.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/digitalocean.md",
+      "note": "cited by families[id=digitalocean:oauth-token].research.sources; families[id=digitalocean:personal-access-token].research.sources; families[id=digitalocean:refresh-token].research.sources"
+    }
+  ]
+}

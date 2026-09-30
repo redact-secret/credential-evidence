@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-trufflesecurity-trufflehog-4551bd9e7f",
+  "sourceType": "scanner-rule-source",
+  "title": "trufflesecurity/trufflehog @ v3.97.4: pkg/detectors/gitlab/v3/gitlab_v3.go",
+  "publisher": "trufflesecurity/trufflehog",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/trufflesecurity/trufflehog",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012c.ts",
+      "note": "cited by contracts['gitlab-routable-personal-access-token'].fields; contracts['gitlab-routable-personal-access-token'].references"
+    },
+    {
+      "system": "legacy-url",
+      "id": "https://github.com/trufflesecurity/trufflehog/blob/v3.97.4/pkg/detectors/gitlab/v3/gitlab_v3.go",
+      "note": "Legacy link names ref 'v3.97.4', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL."
+    }
+  ],
+  "notes": "Legacy URL pins ref 'v3.97.4', which can move. Resolve it to a commit permalink before a reviewed claim depends on it."
+}

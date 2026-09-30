@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "platform-claude-com-2aaa0e2386",
+  "sourceType": "provider-documentation",
+  "title": "platform.claude.com/docs/en/manage-claude/compliance-api-access",
+  "publisher": "platform.claude.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://platform.claude.com/docs/en/manage-claude/compliance-api-access",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-23",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-providerSource, dossier-research; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-26",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-providerSource; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-27",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research, taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['anthropic-token'].fields; contracts['anthropic-token'].providerSource"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384a.ts",
+      "note": "cited by contracts['anthropic-admin01-key'].fields; contracts['anthropic-api01-key'].fields; contracts['anthropic-api01-key'].providerSource"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/anthropic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+      "note": "cited by families[id=anthropic:admin-api-key].research.sources; families[id=anthropic:compliance-access-key].research.sources; families[id=anthropic:secret-api-key].research.sources"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=anthropic:compliance-access-key].sources"
+    }
+  ]
+}

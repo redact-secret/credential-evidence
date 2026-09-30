@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-cerebras-inference-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "cerebras:inference-api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cerebras.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/cerebras.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#975",
+          "url": "https://github.com/redact-secret/redact-secret/issues/975"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#464",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/464"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for cerebras:inference-api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family cerebras-api-key (#464, product redact-secret#975), contract in benchmarks/lib/beta8/464e.ts from the #860 handoff cerebras.md. T1 on length and prefixes; the alphabet is policy (R10). Neither pinned scanner has a Cerebras rule; unpinned tool rules use [a-z0-9]. The leading boundary keeps Pinecone pcsk_ out. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'cerebras-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#464, product redact-secret#975; #860 handoff cerebras.md, READY by ruling R10). T1: the length comes from the provider VS Code extension validator, which rejects any key that does not start csk_ or csk- or is not 52 long (R1), and both prefixes are a dated provider-staff statement (R3, as of 2025-10; provider docs state \"starts with csk-\"). POLICY under R10, not T1: no provider source states the alphabet (the validator accepts any 48 code units) and the [a-z0-9] class is tool-only, so project policy fills it with [A-Za-z0-9_-], a superset of every class seen with no narrowing from third-party rules (R8). Positives therefore include lowercase-only bodies and bodies with _ and -, and no fixture asserts silence on a byte outside the policy class (a dot or plus in the body is not authored either way). The leading boundary is load-bearing: it excludes Pinecone pcsk_ / pcsk- (the byte before csk is p; Pinecone keeps pcsk_ with a 69- or 70-byte body, so no width overlaps). Excluded: Management API keys (shape unknown), csk-your-key-here style placeholders and other widths. The tool rules' [a-z0-9] body is narrower than the policy class, so a tool that follows it lags on any uppercase, _ or - body. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1037)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cerebras.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cerebras.md",
+      "note": "families[id=cerebras:inference-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=cerebras:inference-api-key]"
+    }
+  ]
+}

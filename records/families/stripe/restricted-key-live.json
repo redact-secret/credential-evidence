@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "stripe:restricted-key-live",
+  "provider": "stripe",
+  "name": "Live restricted key",
+  "description": "Live-mode restricted-permission key, prefixed rk_live_.",
+  "lifecycle": "draft",
+  "currentContract": "stripe:restricted-key-live@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-20",
+    "issues": [
+      "redact-secret/redact-secret-benchmarks#33"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/stripe.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/stripe.md",
+      "note": "families[id=stripe:restricted-key-live]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=stripe:restricted-key-live]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "stripe-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

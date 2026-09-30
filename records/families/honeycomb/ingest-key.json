@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "honeycomb:ingest-key",
+  "provider": "honeycomb",
+  "name": "Ingest key (hcXik_, hcXic_)",
+  "description": "hc + one [a-z] + ik_ or ic_ + exactly 58 [a-z0-9] (64 in all: key id and secret concatenated); key ids, configuration and classic keys are not claimed, and the management key stays issuance-gated.",
+  "lifecycle": "draft",
+  "currentContract": "honeycomb:ingest-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1014",
+      "redact-secret/redact-secret#1034",
+      "redact-secret/redact-secret-benchmarks#528"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/honeycomb.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/honeycomb.md",
+      "note": "families[id=honeycomb:ingest-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=honeycomb:ingest-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "honeycomb-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

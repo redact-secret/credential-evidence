@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "travis-ci:api-token",
+  "provider": "travis-ci",
+  "name": "API token",
+  "description": "22-character alphanumeric API token sent in an Authorization: token header; recognized only beside a same-line travis keyword.",
+  "lifecycle": "draft",
+  "currentContract": "travis-ci:api-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-25",
+    "issues": [
+      "redact-secret/redact-secret#523",
+      "redact-secret/redact-secret-benchmarks#259"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/travis-ci.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/travis-ci.md",
+      "note": "families[id=travis-ci:api-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=travis-ci:api-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "travisci-api-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

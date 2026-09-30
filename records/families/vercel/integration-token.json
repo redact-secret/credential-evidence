@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "vercel:integration-token",
+  "provider": "vercel",
+  "name": "Integration token",
+  "description": "Modern integration token identified only by the provider-documented vci stem.",
+  "lifecycle": "draft",
+  "currentContract": null,
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "No provider source writes vci_ with the underscore; the 56-character body rests on peer rules only (1 class). Needs ruling Q-VC or one integration token measured (checklist in redact-secret#1013)."
+      }
+    ],
+    "issues": [
+      "redact-secret/redact-secret#1013",
+      "redact-secret/redact-secret#516",
+      "redact-secret/redact-secret#858",
+      "redact-secret/redact-secret-benchmarks#367",
+      "redact-secret/redact-secret-benchmarks#373",
+      "redact-secret/redact-secret-benchmarks#473"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:integration-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=vercel:integration-token]"
+    }
+  ]
+}

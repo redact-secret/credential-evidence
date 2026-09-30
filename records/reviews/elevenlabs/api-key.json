@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-elevenlabs-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "elevenlabs:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-27. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/elevenlabs.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#788",
+          "url": "https://github.com/redact-secret/redact-secret/issues/788"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#865",
+          "url": "https://github.com/redact-secret/redact-secret/issues/865"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#866",
+          "url": "https://github.com/redact-secret/redact-secret/issues/866"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for elevenlabs:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector elevenlabs-api-key since redact-secret#865 (registry pinned at cfe2aec); graduated from a Beta.10 arrival family (#384, research #788), contract in benchmarks/lib/beta8/384c.ts. T1 by maintainer ruling of 2026-09-27 (redact-secret#788) on ElevenLabs SDK code for the sk_ prefix and the _residency_[a-z0-9]+ suffix grammar; the 48-lowercase-hex body stays T2 and no fixture asserts it. sk_ is shared with Stripe (sk_live_, sk_test_, sk_org_) and Pollinations."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'elevenlabs-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#384, product redact-secret#865; research #788), T1 by maintainer ruling of 2026-09-27 on provider SDK code for the sk_ prefix and the _residency_ suffix grammar, graduated to a registry detector at cfe2aec. The body claims below stay T2 and no fixture asserts them: the sk_ prefix and the _residency_<region> suffix rest on ElevenLabs' own SDK source, the 48-lowercase-hex body on trufflehog's v2 detector, betterleaks and about 35 code-search fragments (each fully formed body was 48 hex characters), and no ElevenLabs page states any of it. Both tool rules are keyword-gated on elevenlabs, xi-api-key or xi_api_key; the contract claims the bare shape, as the product issue does, on the strength of the sk_ prefix, so nothing here relies on the gate. sk_ is shared with Stripe (sk_live_, sk_test_, sk_org_) and, by plan, Pollinations (sk_ + 32 characters): the Stripe shape is a prefix twin and a bare sk_ prefix cannot attribute a value. A legacy bare 32-hex form has trufflehog v1 evidence only and stays unasserted either way. Uppercase hex is disputed between the tools (betterleaks matches case-insensitively, trufflehog v2 does not), so no fixture asserts silence on it."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/elevenlabs.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/elevenlabs.md",
+      "note": "families[id=elevenlabs:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=elevenlabs:api-key]"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-paddle-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "paddle:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/paddle.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/4f220ea000b58fa2e0e431ad88dea4eccb393fb0/docs/audits/evidence/1014/paddle.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "4f220ea000b58fa2e0e431ad88dea4eccb393fb0"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1014",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1014"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1033",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1033"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#528",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for paddle:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family paddle-api-key (#528, product redact-secret#1033), contract in benchmarks/lib/beta8/528h.ts from the #1014 handoff paddle.md. T1 (provider docs regex and length). Neither pinned scanner has a Paddle rule. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'paddle-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1033; #1014 handoff paddle.md, READY). A Paddle Billing API key is a server-side credential for a merchant-of-record account; with full permissions it reads and changes customers, subscriptions, transactions, prices and adjustments (refunds and credits). Sandbox keys act on the sandbox only and are the same family (a committed sandbox key is still a policy violation). T1 for every part: the provider docs publish the full regex and the total length, and the Node SDK mocks carry a masked key and an apikey_ id in the same layout. Excluded: legacy keys (50 [a-z0-9], no prefix; generic context covers PADDLE_API_KEY=), the apikey_ + 26 key id alone (a non-secret identifier returned by the API and in webhooks, Q5), Paddle.js client-side tokens and Paddle Classic vendor auth codes. Neither pinned peer has a Paddle rule. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1039)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/paddle.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/paddle.md",
+      "note": "families[id=paddle:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=paddle:api-key]"
+    }
+  ]
+}

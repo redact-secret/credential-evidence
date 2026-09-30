@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-crates-io-trusted-publishing-token",
+  "subject": {
+    "kind": "family",
+    "id": "crates-io:trusted-publishing-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/crates-io.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/4f220ea000b58fa2e0e431ad88dea4eccb393fb0/docs/audits/evidence/1014/crates-io.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "4f220ea000b58fa2e0e431ad88dea4eccb393fb0"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1014",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1014"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1031",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1031"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#528",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for crates-io:trusted-publishing-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family crates-io-trusted-publishing-token (#528, product redact-secret#1031), contract in benchmarks/lib/beta8/528f.ts from the #1014 handoff crates-io.md. T1 (provider server code, R1). Shares the crates-io-token detector (finding type crates_io_trusted_publishing_token). No scanner covers cio_tp_. Since the 4fb7882 re-pin (product PR #1039) it is an arrival family scored by that finding type (scanners/families.mjs arrivalFindingTypes), so the row maps to its own id."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'crates-io-trusted-publishing-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1031; #1014 handoff crates-io.md, READY). A trusted-publishing token is minted from a CI OIDC exchange and can publish for its short lifetime. T1 for every fact under R1. POLICY, not T1: the check character is corroboration only; a shape-valid token whose last character is not the check character is still claimed (ruling Q1 open; security-first standing decision), so positives carry a matching and a mismatching check character and nothing asserts silence on a check failure. No pinned peer (and no scanner the handoff found) covers cio_tp_."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/crates-io.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/crates-io.md",
+      "note": "families[id=crates-io:trusted-publishing-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=crates-io:trusted-publishing-token]"
+    }
+  ]
+}

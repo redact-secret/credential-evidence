@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "crates-io:trusted-publishing-token@1",
+  "family": "crates-io:trusted-publishing-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^cio_tp_[A-Za-z0-9]{32}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "rust-lang/crates.io crates/crates_io_trustpub/src/access_token.rs (f937ab0, 2026-06-24): PREFIX = \"cio_tp_\", RAW_LENGTH = 31 alphanumerics, then one check character from A-Za-z0-9 (XOR of the raw bytes, modulo 62); the parser requires exactly 32 characters after the prefix; re-checked 2026-09-29: cio_tp_ + exactly 32 [A-Za-z0-9] (31 + 1 check character), 39 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-rust-lang-crates-io-72a03988b4",
+          "supports": "cio_tp_ + exactly 32 [A-Za-z0-9] (31 + 1 check character), 39 in all",
+          "locator": "#L21-L102"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: cio_tp_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-rust-lang-crates-io-72a03988b4",
+          "supports": "PREFIX",
+          "locator": "#L21-L102"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 32 [A-Za-z0-9]: 31 random alphanumerics and one check character; 39 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-rust-lang-crates-io-72a03988b4",
+          "supports": "RAW_LENGTH = 31 + 1",
+          "locator": "#L21-L102"
+        }
+      ]
+    },
+    {
+      "id": "field-checksum",
+      "statement": "checksum: the 32nd body character is a check character from A-Za-z0-9: the XOR of the 31 raw bytes, modulo 62 (The corpus computes it as the handoff describes it (A-Za-z0-9 index order); nothing depends on the order because the check never rejects.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-rust-lang-crates-io-72a03988b4",
+          "supports": "checksum: the 32nd body character is a check character from A-Za-z0-9: the XOR of the 31 raw bytes, modulo 62",
+          "locator": "#L21-L102"
+        }
+      ]
+    },
+    {
+      "id": "field-policy-checksum",
+      "statement": "policy-checksum: POLICY, not T1: the check character is corroboration only and never rejects a shape-valid match (Positives carry both a matching and a mismatching check character.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0f368adfb1",
+          "supports": "overlap and output policy: optional under Q1"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Q1: checksum post-checks, open",
+          "locator": "#ruling-questions-for-the-maintainer"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a token glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed; cio + 32 inside a longer alphanumeric run is never truncated (Handoff boundary decision, not a provider statement. It is load-bearing for the three-letter cio prefix.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0f368adfb1",
+          "supports": "short prefix; implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: CARGO_REGISTRY_TOKEN; [registry] token in ~/.cargo/credentials.toml; cargo publish --token; a trusted-publishing token minted in CI and exported for cargo publish",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0f368adfb1",
+          "supports": "role and blast radius; test axes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no crates.io rule in trufflehog 3.97.4 or gitleaks 8.30.1: both lag on every positive. noseyparker (not pinned here) has \\bcio[a-zA-Z0-9]{32}\\b and no cio_tp_ rule",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no crates.io rule"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0f368adfb1",
+          "supports": "tier rationale"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no crates.io detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 10 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0f368adfb1",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0ff93144ed",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#ruling-questions-for-the-maintainer"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5900447282"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-rust-lang-crates-io-72a03988b4",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L21-L102"
+        },
+        {
+          "sourceId": "github-com-rust-lang-crates-io-8fcc76bccc",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L10-L91"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0f368adfb1",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-rust-lang-crates-io-72a03988b4",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L21-L102"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0f368adfb1",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-rust-lang-crates-io-72a03988b4",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L21-L102"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "crates-io-trusted-publishing-token:body",
+      "note": "claim field-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "crates-io-trusted-publishing-token:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "crates-io-trusted-publishing-token:checksum",
+      "note": "claim field-checksum; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "crates-io-trusted-publishing-token:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "crates-io-trusted-publishing-token:policy-checksum",
+      "note": "claim field-policy-checksum; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "crates-io-trusted-publishing-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "crates-io-trusted-publishing-token:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/528f.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/528f.ts",
+      "note": "contracts['crates-io-trusted-publishing-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/crates-io.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/crates-io.md",
+      "note": "families[id=crates-io:trusted-publishing-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=crates-io:trusted-publishing-token]"
+    }
+  ]
+}

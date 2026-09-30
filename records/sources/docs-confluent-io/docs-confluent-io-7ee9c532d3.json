@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "docs-confluent-io-7ee9c532d3",
+  "sourceType": "provider-documentation",
+  "title": "docs.confluent.io/cloud/current/release-notes/index.html",
+  "publisher": "docs.confluent.io",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://docs.confluent.io/cloud/current/release-notes/index.html",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['confluent-cloud-api-secret'].fields; contracts['confluent-cloud-api-secret-legacy'].fields"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/confluent.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/confluent.md",
+      "note": "cited by families[id=confluent:cloud-api-secret-legacy].research.sources; families[id=confluent:cloud-api-secret].research.sources"
+    }
+  ]
+}

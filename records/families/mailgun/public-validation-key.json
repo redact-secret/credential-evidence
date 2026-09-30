@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "mailgun:public-validation-key",
+  "provider": "mailgun",
+  "name": "Public validation key (pubkey-)",
+  "description": "pubkey- followed by 32 bytes; Mailgun's public email-validation key, not a secret.",
+  "lifecycle": "draft",
+  "currentContract": null,
+  "research": {
+    "state": "rejected",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#314",
+      "redact-secret/redact-secret#582",
+      "redact-secret/redact-secret-benchmarks#473"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailgun.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+      "note": "families[id=mailgun:public-validation-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mailgun:public-validation-key]"
+    }
+  ]
+}

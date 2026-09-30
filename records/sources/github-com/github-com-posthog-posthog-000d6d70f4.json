@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-posthog-posthog-000d6d70f4",
+  "sourceType": "provider-sdk-source",
+  "title": "PostHog/posthog @ 1.43.0: posthog/models/utils.py",
+  "publisher": "PostHog/posthog",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/PostHog/posthog",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-28",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434d.ts",
+      "note": "cited by contracts['posthog-project-secret-api-key'].fields; contracts['posthog-project-secret-api-key'].references; contracts['posthog-token'].fields; contracts['posthog-token'].references"
+    },
+    {
+      "system": "legacy-url",
+      "id": "https://github.com/PostHog/posthog/blob/1.43.0/posthog/models/utils.py",
+      "note": "Legacy link names ref '1.43.0', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL."
+    }
+  ],
+  "notes": "Legacy URL pins ref '1.43.0', which can move. Resolve it to a commit permalink before a reviewed claim depends on it."
+}

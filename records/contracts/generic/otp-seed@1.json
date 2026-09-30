@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "generic:otp-seed@1",
+  "family": "generic:otp-seed",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (Key URI format, secret parameter): secret is REQUIRED and Base32 per RFC 3548 with padding omitted; no length is stated",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "github-com-google-google-authenticator-4c73b28585",
+          "supports": "secret is REQUIRED and Base32 per RFC 3548 with padding omitted; no length is stated"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 1 reference without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "github-com-google-google-authenticator-4c73b28585",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "legacy-contract-tier",
+      "statement": "The legacy contract records this grammar as project masking policy (tier T3), not as a provider format.",
+      "evidenceClass": "project-policy",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": []
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T3) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "project-policy",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-google-google-authenticator-4c73b28585",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-74afc55bc2",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['otpauth-uri']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/generic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/generic.md",
+      "note": "families[id=generic:otp-seed].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=generic:otp-seed]"
+    }
+  ]
+}

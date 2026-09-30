@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "cohere:api-key@1",
+  "family": "cohere:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^[A-Za-z0-9]{40}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        }
+      ]
+    },
+    {
+      "id": "field-shape",
+      "statement": "shape: 40 alphanumeric characters, no prefix (One scanner rule; the length is the rule author's inference, not provider-stated.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "cohere-api-token: [a-zA-Z0-9]{40}, entropy 4"
+        }
+      ]
+    },
+    {
+      "id": "field-context",
+      "statement": "context: a same-line cohere or CO_API_KEY name before the value",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "context: a same-line cohere or CO_API_KEY name before the value"
+        }
+      ]
+    },
+    {
+      "id": "field-trial-vs-production",
+      "statement": "trial-vs-production: trial and production keys are one credential family; the difference is entitlement, not shape (The candidate id premise of a distinct production shape is unsupported.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-cohere-com-a03104fba0",
+          "supports": "trial-vs-production: trial and production keys are one credential family; the difference is entitlement, not shape"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: CO_API_KEY (documented), COHERE_API_KEY (accepted), Authorization: Bearer",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-cohere-com-36ceec7f34",
+          "supports": "transport: CO_API_KEY (documented), COHERE_API_KEY (accepted), Authorization: Bearer"
+        },
+        {
+          "sourceId": "github-com-cohere-ai-cohere-python-86ea8356fb",
+          "supports": "transport: CO_API_KEY (documented), COHERE_API_KEY (accepted), Authorization: Bearer"
+        }
+      ]
+    },
+    {
+      "id": "field-co-prefix",
+      "statement": "co-prefix: a co- prefix (Not adopted and not asserted either way.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "getbifrost-ai-71879a91db",
+          "supports": "one vendor blog; contradicts the gitleaks rule and GitGuardian"
+        }
+      ]
+    },
+    {
+      "id": "field-public-ids",
+      "statement": "public-ids: organization_id (org_...) and owner_id (user_...) from the check-api-key response are public identifiers (Illustrative examples only; backs the public-id controls.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-cohere-com-36ceec7f34",
+          "supports": "public-ids: organization_id (org_...) and owner_id (user_...) from the check-api-key response are public identifiers"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 7 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-cohere-com-36ceec7f34",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-cohere-com-a03104fba0",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-gitguardian-com-141ec0cf30",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-cohere-ai-cohere-python-86ea8356fb",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-012da42583",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "docs-cohere-com-a03104fba0",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-f86346b52b",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "docs-cohere-com-a03104fba0",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "cohere-api-key:co-prefix",
+      "note": "claim field-co-prefix; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cohere-api-key:context",
+      "note": "claim field-context; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cohere-api-key:public-ids",
+      "note": "claim field-public-ids; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cohere-api-key:shape",
+      "note": "claim field-shape; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cohere-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "cohere-api-key:trial-vs-production",
+      "note": "claim field-trial-vs-production; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384e.ts",
+      "note": "contracts['cohere-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cohere.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cohere.md",
+      "note": "families[id=cohere:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=cohere:api-key]"
+    }
+  ]
+}

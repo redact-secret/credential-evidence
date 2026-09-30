@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "github:fine-grained-personal-access-token",
+  "provider": "github",
+  "name": "Fine-grained personal access token",
+  "description": "Repository- and permission-scoped PAT, prefixed github_pat_.",
+  "lifecycle": "draft",
+  "currentContract": "github:fine-grained-personal-access-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1013",
+      "redact-secret/redact-secret#517",
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret#729",
+      "redact-secret/redact-secret-benchmarks#223",
+      "redact-secret/redact-secret-benchmarks#367",
+      "redact-secret/redact-secret-benchmarks#371"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/github.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/github.md",
+      "note": "families[id=github:fine-grained-personal-access-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=github:fine-grained-personal-access-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "github-fine-grained-pat",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

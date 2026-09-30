@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-datadog-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "datadog:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-23. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/644/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#575",
+          "url": "https://github.com/redact-secret/redact-secret/issues/575"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#644",
+          "url": "https://github.com/redact-secret/redact-secret/issues/644"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'datadog-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-tiered 2026-09-23 (#112, provider evidence redact-secret#644): the key has no prefix, so the provider-stated exact length plus the DD-API-KEY/DD_API_KEY marker is the whole identifying element, and the family stays context-gated (CONTEXT_GATED): a bare 32-character value with no same-line datadog/dd marker has no grammar of its own. Retained limitations: the 32/32 constraint sits on the v1 key model only (v2's FullAPIKeyAttributes.key states no length, though nothing suggests v1 and v2 issue different shapes); the provider states no character class, and Datadog-owned validators (Agent scrubber, privateactionrunner keys.go, dd-trace-java) accept uppercase A-F while datadog-ci's masking regex and every observed value are lowercase, so a hand-uppercased key would be outside the lowercase-hex shape the tools corroborate. The bare 32-character shape, gated on a same-line datadog/dd marker, is corroborated by TruffleHog's datadogapikey detector; the pinned gitleaks datadog-access-token rule instead matches a 40-character body (the application-key length), not this one. The provider-documented marker is a method-level twin limitation: a context twin is reserved for policy-tier contracts, so only the length dimension carries a twin."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/datadog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+      "note": "families[id=datadog:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=datadog:api-key]"
+    }
+  ]
+}

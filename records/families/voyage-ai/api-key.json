@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "voyage-ai:api-key",
+  "provider": "voyage-ai",
+  "name": "API key (pa- or al-)",
+  "description": "Voyage AI platform key (pa-) and MongoDB Atlas model API key (al-, al-eu-, al-us-); a 43-character [A-Za-z0-9_-] body rests on one scanner rule with no cited origin.",
+  "lifecycle": "draft",
+  "currentContract": null,
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "Every 43-character body source traces to MongoDB. al- needs ruling Q-VO1 or Q-VO2, pa- needs Q-VO2 or one dashboard key; al-eu- needs one EU-scoped key in any case (checklists in redact-secret#1013)."
+      }
+    ],
+    "issues": [
+      "redact-secret/redact-secret#1013",
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#785",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/voyage-ai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/voyage-ai.md",
+      "note": "families[id=voyage-ai:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=voyage-ai:api-key]"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-gitleaks-gitleaks-d9034c81c6",
+  "sourceType": "issue-or-discussion",
+  "title": "github.com/gitleaks/gitleaks/issues/2276",
+  "publisher": "gitleaks/gitleaks",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/gitleaks/gitleaks/issues/2276",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-28",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434g.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434g.ts",
+      "note": "cited by contracts['composio-api-key'].fields; contracts['composio-api-key'].references; contracts['composio-org-api-key'].fields; contracts['composio-org-api-key'].references; +2 more"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/composio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/composio.md",
+      "note": "cited by families[id=composio:org-api-key].research.sources; families[id=composio:project-api-key].research.sources; families[id=composio:user-api-key].research.sources"
+    }
+  ]
+}

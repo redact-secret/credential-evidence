@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "azure-devops:personal-access-token@1",
+  "family": "azure-devops:personal-access-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^[A-Za-z0-9]{76}AZDO[A-Za-z0-9]{4}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "84-character PAT with AZDO signature: tokens are 84 characters long with a fixed AZDO signature at positions 76-80; Microsoft Purview separately supplies the alphanumeric detail used by the pattern",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-774e2e3e9b",
+          "supports": "tokens are 84 characters long with a fixed AZDO signature at positions 76-80; Microsoft Purview separately supplies the alphanumeric detail used by the pattern",
+          "locator": "#pat-format"
+        }
+      ]
+    },
+    {
+      "id": "field-total-length",
+      "statement": "total-length: 84 characters",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-774e2e3e9b",
+          "supports": "\"PATs are 84 characters long\"",
+          "locator": "#pat-format"
+        }
+      ]
+    },
+    {
+      "id": "field-signature",
+      "statement": "signature: literal AZDO at 0-based offsets 76-79 (the page's \"positions 76 through 80\")",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-774e2e3e9b",
+          "supports": "signature: literal AZDO at 0-based offsets 76-79 (the page's \"positions 76 through 80\")",
+          "locator": "#pat-format"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: [A-Za-z0-9] in every non-signature position (The same Purview page's Format summary says \"letters, digits, and special characters\". The detailed pattern and the credential example agree with this contract; the contradiction is kept on record (redact-secret#642) and no alphabet twin is authored on it.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-70b19a2f7e",
+          "supports": "detailed pattern: a-z, A-Z or 0-9"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-52-character-generation",
+      "statement": "legacy-52-character-generation: the pre-2024 52-character lowercase-base32 PAT that trufflehog 3.97.4 still targets (Outside this contract; no fixture relies on it.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-541c4d89f6",
+          "supports": "legacy-52-character-generation: the pre-2024 52-character lowercase-base32 PAT that trufflehog 3.97.4 still targets"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 1 reference without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-70b19a2f7e",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-991482f3da",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "learn-microsoft-com-70b19a2f7e",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "learn-microsoft-com-774e2e3e9b",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#pat-format"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "azure-devops-personal-access-token:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "azure-devops-personal-access-token:legacy-52-character-generation",
+      "note": "claim field-legacy-52-character-generation; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "azure-devops-personal-access-token:signature",
+      "note": "claim field-signature; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "azure-devops-personal-access-token:total-length",
+      "note": "claim field-total-length; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['azure-devops-personal-access-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/azure-devops.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/azure-devops.md",
+      "note": "families[id=azure-devops:personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=azure-devops:personal-access-token]"
+    }
+  ]
+}

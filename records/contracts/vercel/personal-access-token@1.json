@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "vercel:personal-access-token@1",
+  "family": "vercel:personal-access-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^vcp_[A-Za-z0-9]{56}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (3 artifacts: CredSweeper; betterleaks; kingfisher).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+          "supports": "betterleaks: vc[pikar]_ + 56 [A-Za-z0-9_-] (derived from kingfisher)",
+          "locator": "#L46-L212"
+        },
+        {
+          "sourceId": "github-com-mongodb-kingfisher-81669063af",
+          "supports": "kingfisher: vc[pikar]_ + 50 [A-Za-z0-9_-] + 6 [A-Za-z0-9] (Base62 CRC-32 tail)",
+          "locator": "#L46-L299"
+        },
+        {
+          "sourceId": "github-com-samsung-credsweeper-78d85df7ab",
+          "supports": "CredSweeper: vcp_ + exactly 56 [0-9A-Za-z] (samples fail the checksum, so independent of kingfisher)",
+          "locator": "#L1995-L2007"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: vcp_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "openapi-vercel-sh-403403b630",
+          "supports": "tokenPrefix enum"
+        },
+        {
+          "sourceId": "vercel-com-770ae7d1d8",
+          "supports": "marker stem vcp"
+        },
+        {
+          "sourceId": "vercel-com-8ba2d5b3b4",
+          "supports": "vcp_ with the underscore"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 56 [A-Za-z0-9] (60 in all) (T2.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-kingfisher-81669063af",
+          "supports": "body: exactly 56 [A-Za-z0-9] (60 in all)",
+          "locator": "#L46-L299"
+        },
+        {
+          "sourceId": "github-com-samsung-credsweeper-78d85df7ab",
+          "supports": "body: exactly 56 [A-Za-z0-9] (60 in all)",
+          "locator": "#L1995-L2007"
+        },
+        {
+          "sourceId": "vercel-com-454aecdbd1",
+          "supports": "CLI --token/VERCEL_TOKEN example: one vcp_ + 56 alphanumeric value, hand-written (fails the checksum)"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet-bound",
+      "statement": "alphabet-bound: _ and - are not in the body (Bounded by the record (every provider example is alphanumeric); a body with _ or - is an alphabet twin.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-kingfisher-81669063af",
+          "supports": "admits _ and - in the first 50",
+          "locator": "#L46-L299"
+        },
+        {
+          "sourceId": "github-com-vercel-vercel-azure-devops-extension-b513a9d723",
+          "supports": "the masker admits _ and -, with no length",
+          "locator": "#L37-L38"
+        },
+        {
+          "sourceId": "vercel-com-454aecdbd1",
+          "supports": "alphabet-bound: _ and - are not in the body"
+        }
+      ]
+    },
+    {
+      "id": "field-checksum",
+      "statement": "checksum: the last 6 characters may be base62 (0-9A-Za-z) of the CRC-32 of the 50 before them (Not enforced and never a twin: positives carry a matching and a mismatching tail.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "openapi-vercel-sh-403403b630",
+          "supports": "tokenSuffix: \"The token checksum suffix.\""
+        },
+        {
+          "sourceId": "vercel-com-454aecdbd1",
+          "supports": "the vcp_ example fails it"
+        },
+        {
+          "sourceId": "vercel-com-ee64691632",
+          "supports": "the vca_ example passes it"
+        }
+      ]
+    },
+    {
+      "id": "field-sibling-classes",
+      "statement": "sibling-classes: vci_ and vck_ are other Vercel classes, STILL-BLOCKED on the body (Q-VC); the legacy unprefixed 24-character token is excluded (Neither a positive nor a control.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d6351680eb",
+          "supports": "verdict table"
+        },
+        {
+          "sourceId": "vercel-com-770ae7d1d8",
+          "supports": "sibling-classes: vci_ and vck_ are other Vercel classes, STILL-BLOCKED on the body (Q-VC); the legacy unprefixed 24-character token is excluded"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no prefixed Vercel rule in gitleaks 8.30.1; trufflehog 3.97.4 reads only the legacy unprefixed 24-character contextual token",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no vercel rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "peer-lag: no prefixed Vercel rule in gitleaks 8.30.1; trufflehog 3.97.4 reads only the legacy unprefixed 24-character contextual token"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ef32a94b92",
+          "supports": "legacy 24-character pattern"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 16 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L46-L212"
+        },
+        {
+          "sourceId": "github-com-mongodb-kingfisher-81669063af",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L46-L299"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-54239becc6",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-cd294f5715",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d6351680eb",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ff4eb86e65",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-samsung-credsweeper-78d85df7ab",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L1995-L2007"
+        },
+        {
+          "sourceId": "github-com-vercel-turborepo-4e376af416",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L361"
+        },
+        {
+          "sourceId": "github-com-vercel-vercel-azure-devops-extension-b513a9d723",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L37-L38"
+        },
+        {
+          "sourceId": "openapi-vercel-sh-403403b630",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "vercel-com-40ae5b29fd",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "vercel-com-454aecdbd1",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "vercel-com-770ae7d1d8",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "vercel-com-8ba2d5b3b4",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 13 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-blog-cb9bb341a1",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L46-L80"
+        },
+        {
+          "sourceId": "github-com-mongodb-kingfisher-81669063af",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L46-L91"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-dc028f2a36",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-samsung-credsweeper-78d85df7ab",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L1995-L2007"
+        },
+        {
+          "sourceId": "github-com-secretlint-secretlint-d009796e7f",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L27-L58"
+        },
+        {
+          "sourceId": "github-com-vercel-vercel-azure-devops-extension-b513a9d723",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L37-L38"
+        },
+        {
+          "sourceId": "github-com-vercel-vercel-c1f2f7534c",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L36-L41"
+        },
+        {
+          "sourceId": "openapi-vercel-sh-9a87419efe",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "vercel-com-2141ae62fc",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "vercel-com-454aecdbd1",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "vercel-com-770ae7d1d8",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "vercel-com-8ba2d5b3b4",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 4 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d6351680eb",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "vercel-com-770ae7d1d8",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "vercel-com-8ba2d5b3b4",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "vercel-com-94803cac22",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "vercel-personal-access-token:alphabet-bound",
+      "note": "claim field-alphabet-bound; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "vercel-personal-access-token:body",
+      "note": "claim field-body; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "vercel-personal-access-token:checksum",
+      "note": "claim field-checksum; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "vercel-personal-access-token:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "vercel-personal-access-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "vercel-personal-access-token:sibling-classes",
+      "note": "claim field-sibling-classes; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012e.ts",
+      "note": "contracts['vercel-personal-access-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=vercel:personal-access-token]"
+    }
+  ]
+}

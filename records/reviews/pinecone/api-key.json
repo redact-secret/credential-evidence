@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-pinecone-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "pinecone:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pinecone.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#730",
+          "url": "https://github.com/redact-secret/redact-secret/issues/730"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#228",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/228"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for pinecone:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector pinecone-api-key since redact-secret#730 (registry pinned at f2082ab); graduated from a Beta.8 arrival family (#212, research #228), contract in benchmarks/lib/beta8/212.ts. The Admin API docs describe an unobserved pckey_ prefix; that contradiction is unresolved."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'pinecone-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Graduated arrival contract (registry detector since redact-secret#730). Lexical separability decided before authoring (#212): the pcsk_ prefix with a label segment and a 63-character secret segment separates a current key from every recorded confusable (UUID key/project/service-account ids, index hosts, environment names, masked pcsk*** values). The pcsk_ prefix and the <label>_<secret> segmenting come from provider code (Pinecone CLI help, Python SDK unit tests, the pinecone-io/skills guidance), not provider documentation; the 5-6 label width and 63-character secret come from peer rules (trufflehog 3.97.4 pinecone; betterleaks pinecone-api-key.2, which likely shares its grammar), hence T2. benchmarks/detector-inventory.json records the trufflehog detector as feature-gated (PineconeDetectorEnabled), yet the pinned 3.97.4 filesystem scan reported every pcsk_ positive in this corpus's first run (2026-09-24); that inventory contradiction is recorded, not resolved here. Contradiction kept open: Pinecone's Admin API documentation and generated SDK models describe new keys as pckey_<public-label>_<unique-key>, a prefix no tool, code sample or observation shows. No fixture asserts silence on pckey_. Legacy bare-UUID keys are the separate context-gated pinecone-api-key-legacy family; service-account client secrets are another credential class and are not controls."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pinecone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pinecone.md",
+      "note": "families[id=pinecone:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=pinecone:api-key]"
+    }
+  ]
+}

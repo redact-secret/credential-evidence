@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "trigger-dev-81c493edb9",
+  "sourceType": "provider-documentation",
+  "title": "trigger.dev/docs/apikeys",
+  "publisher": "trigger.dev",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://trigger.dev/docs/apikeys",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-28",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference, taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434b.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434b.ts",
+      "note": "cited by contracts['trigger-dev-personal-access-token'].fields; contracts['trigger-dev-personal-access-token'].references; contracts['trigger-dev-token'].fields; contracts['trigger-dev-token'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=trigger-dev:personal-access-token].sources; families[id=trigger-dev:secret-api-key].sources"
+    }
+  ]
+}

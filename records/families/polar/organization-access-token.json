@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "polar:organization-access-token",
+  "provider": "polar",
+  "name": "Organization access token (polar_oat_)",
+  "description": "polar_oat_ + exactly 43 [A-Za-z0-9] (37 random + a 6-character base62 CRC32); the checksum corroborates only and never rejects (policy).",
+  "lifecycle": "draft",
+  "currentContract": "polar:organization-access-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1014",
+      "redact-secret/redact-secret#1020",
+      "redact-secret/redact-secret-benchmarks#528"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/polar.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/polar.md",
+      "note": "families[id=polar:organization-access-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=polar:organization-access-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "polar-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

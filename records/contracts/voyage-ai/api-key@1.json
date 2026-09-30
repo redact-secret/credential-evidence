@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "voyage-ai:api-key@1",
+  "family": "voyage-ai:api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict issuance-gated, tier T2) cited 7 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-c8e42a8e5d",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-mongodb-docs-87ac839efb",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L119-L121"
+        },
+        {
+          "sourceId": "github-com-mongodb-labs-ai-ml-pipeline-testing-08e95b5826",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L134-L146"
+        },
+        {
+          "sourceId": "github-com-mongodb-openapi-e316639242",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L1781-L1798"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d3897c93c5",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-voyage-ai-voyageai-python-afb5496a20",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "mongodb-com-765bfa4e09",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 3 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0549b01d5e",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-voyage-ai-voyageai-python-afb5496a20",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "mongodb-com-765bfa4e09",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/voyage-ai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/voyage-ai.md",
+      "note": "families[id=voyage-ai:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=voyage-ai:api-key]"
+    }
+  ]
+}

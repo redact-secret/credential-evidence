@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "gitlab:legacy-personal-access-token",
+  "provider": "gitlab",
+  "name": "Legacy personal access token",
+  "description": "Legacy-format PAT, prefixed glpat- with a 20-character body.",
+  "lifecycle": "draft",
+  "currentContract": "gitlab:legacy-personal-access-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-20",
+    "issues": [
+      "redact-secret/redact-secret#518"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:legacy-personal-access-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=gitlab:legacy-personal-access-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "gitlab-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

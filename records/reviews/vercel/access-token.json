@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-vercel-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "vercel:access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "does-not-support",
+      "note": "Imported from the legacy dossier: research verdict 'rejected', tier none (unresolved), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/vercel.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#516",
+          "url": "https://github.com/redact-secret/redact-secret/issues/516"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#858",
+          "url": "https://github.com/redact-secret/redact-secret/issues/858"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#367",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/367"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#373",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/373"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#473",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/473"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for vercel:access-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Bounded by product #858 and benchmark #373. This row preserves the existing aggregate detector/fixture routing while runtime behavior and finding types remain unchanged. Its T0 profile cells combine five implementation hypotheses and must not be copied to, or read as evidence for, any modern Vercel credential family. Opaque unprefixed examples are also outside the modern positive contract."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'vercel-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-checked 2026-09-22 (#127, following #45): Vercel documents all five prefixes (vcp_/vci_/vca_/vcr_/vck_) as visual/scanning markers, but no page states a body length or alphabet for any of them; the pinned TruffleHog detector matches only a different, unprefixed 24-character contextual credential (Vercel's OAuth code-exchange access_token/client_secret) that this shape's own evidence excludes as a separate surface. redact-secret#516 is closed (PR #536): the product's own taxonomy audit (docs/audits/evidence/516/README.md) reached the identical conclusion — all five prefixed classes stay pending T0, no detector was authored — and recorded the same unblocking condition this contract uses. This corpus's bar is unmet on that same evidence, not on an open product issue."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=vercel:access-token]"
+    }
+  ]
+}

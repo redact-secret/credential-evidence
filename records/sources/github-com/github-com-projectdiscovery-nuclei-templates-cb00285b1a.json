@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-projectdiscovery-nuclei-templates-cb00285b1a",
+  "sourceType": "scanner-rule-source",
+  "title": "projectdiscovery/nuclei-templates @ 8cf94b93a389a47bef77b89f8c8915b2755018f0: http/exposures/tokens/firebase-fcm-server-key-disclosure.yaml",
+  "publisher": "projectdiscovery/nuclei-templates",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/projectdiscovery/nuclei-templates/blob/8cf94b93a389a47bef77b89f8c8915b2755018f0/http/exposures/tokens/firebase-fcm-server-key-disclosure.yaml",
+    "pin": {
+      "kind": "commit-permalink",
+      "commit": "8cf94b93a389a47bef77b89f8c8915b2755018f0"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-20",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-field; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research, taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['firebase-server-key'].corroboration; contracts['firebase-server-key'].fields"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/firebase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firebase.md",
+      "note": "cited by families[id=firebase:server-key].research.sources"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=firebase:server-key].sources"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "composio:user-api-key",
+  "provider": "composio",
+  "name": "User API key (uak_)",
+  "description": "uak_ + 43 URL-safe nanoid [A-Za-z0-9_-] per the 2026-09-17 staff statement; a code comment's 20 is T2 (R6).",
+  "lifecycle": "draft",
+  "currentContract": "composio:user-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#909",
+      "redact-secret/redact-secret-benchmarks#434"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/composio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/composio.md",
+      "note": "families[id=composio:user-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=composio:user-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "composio-user-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

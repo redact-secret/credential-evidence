@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "new-relic:user-api-key",
+  "provider": "new-relic",
+  "name": "User API key",
+  "description": "NRAK- prefixed user API key.",
+  "lifecycle": "draft",
+  "currentContract": "new-relic:user-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-23",
+    "issues": [
+      "redact-secret/redact-secret#642"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/new-relic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/new-relic.md",
+      "note": "families[id=new-relic:user-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=new-relic:user-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "new-relic-user-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

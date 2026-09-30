@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-aws-aws-bedrock-token-generator-python-05652147db",
+  "sourceType": "provider-documentation",
+  "title": "aws/aws-bedrock-token-generator-python @ main: aws_bedrock_token_generator/token_generator.py",
+  "publisher": "aws/aws-bedrock-token-generator-python",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/aws/aws-bedrock-token-generator-python",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-26",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-providerSource; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-27",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384b.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384b.ts",
+      "note": "cited by contracts['aws-bedrock-short-term-api-key'].fields; contracts['aws-bedrock-short-term-api-key'].providerSource"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=aws-bedrock:short-term-api-key].sources"
+    },
+    {
+      "system": "legacy-url",
+      "id": "https://github.com/aws/aws-bedrock-token-generator-python/blob/main/aws_bedrock_token_generator/token_generator.py",
+      "note": "Legacy link names ref 'main', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL."
+    }
+  ],
+  "notes": "Legacy URL pins ref 'main', which can move. Resolve it to a commit permalink before a reviewed claim depends on it."
+}

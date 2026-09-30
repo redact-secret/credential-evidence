@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "neon-com-cb728eae0c",
+  "sourceType": "provider-documentation",
+  "title": "neon.com/docs/changelog/2025-01-31",
+  "publisher": "neon.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://neon.com/docs/changelog/2025-01-31",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-twinSource; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-25",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research, taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/259.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/259.ts",
+      "note": "cited by contracts['neon-api-key'].fields; contracts['neon-api-key'].twinSource"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/neon.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/neon.md",
+      "note": "cited by families[id=neon:api-key].research.sources"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=neon:api-key].sources"
+    }
+  ]
+}

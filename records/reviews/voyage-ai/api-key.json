@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-voyage-ai-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "voyage-ai:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Imported from the legacy dossier: research verdict 'issuance-gated', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried. Legacy blockedBy: Every 43-character body source traces to MongoDB. al- needs ruling Q-VO1 or Q-VO2, pa- needs Q-VO2 or one dashboard key; al-eu- needs one EU-scoped key in any case (checklists in redact-secret#1013).",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/voyage-ai.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/voyage-ai-api-key.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#785",
+          "url": "https://github.com/redact-secret/redact-secret/issues/785"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for voyage-ai:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.10 research disposition (redact-secret#785, benchmarks #384): pending, no corpus. The only body evidence is one betterleaks rule and community pages, no issued key confirms it, and pa- and al- are common two-letter prefixes, so a bare rule has low precision. Named-assignment, Bearer, JSON, YAML and tool-call forms are already redacted by the generic paths; revisit after the hands-on issuance the research comment lists."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/voyage-ai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/voyage-ai.md",
+      "note": "families[id=voyage-ai:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=voyage-ai:api-key]"
+    }
+  ]
+}

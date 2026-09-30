@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "gitlab:routable-personal-access-token@1",
+  "family": "gitlab:routable-personal-access-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^glpat-[A-Za-z0-9_-]{27,300}\\.[0-9a-z]{2}\\.[0-9a-z]{2}[0-9a-z]{7}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "gitlab-org/gitlab lib/authn/token_field/generator/routable_token.rb at fa2faf33 (version field since 2025-04-22, 8343330f): \"#{prefix}#{base64_payload}.#{token_version}.#{base64_payload_length}\" + Zlib.crc32(...).to_s(36).rjust(7, \"0\"); routable_payload.rb decodes and verifies it; personal_access_token.rb binds glpat- to the routable generator (routable_pat flag removed 2025-07-24, 36573efc); re-checked 2026-09-29: glpat- + unpadded base64url payload of 27–300 + . + 2 base36 version + . + 2 base36 payload length + 7 base36 CRC32 of every byte before it; 46–319 bytes",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-e98434ac14",
+          "supports": "glpat- + unpadded base64url payload of 27–300 + . + 2 base36 version + . + 2 base36 payload length + 7 base36 CRC32 of every byte before it; 46–319 bytes",
+          "locator": "#L7-L86"
+        }
+      ]
+    },
+    {
+      "id": "field-grammar",
+      "statement": "grammar: <prefix><base64-payload>.<token-version>.<base64-payload-length><crc32>; payload 27 to 300 bytes; version and CRC base36",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "handbook-gitlab-com-0a96642893",
+          "supports": "routable tokens design document"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: glpat-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-d63b8ba8be",
+          "supports": "PERSONAL_TOKEN_PREFIX",
+          "locator": "#L22-L36"
+        }
+      ]
+    },
+    {
+      "id": "field-payload",
+      "statement": "payload: unpadded base64url [A-Za-z0-9_-], 27 to 300 characters (The current generator caps the payload at 235; the design-document cap is used.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-e98434ac14",
+          "supports": "urlsafe_encode64(padding: false); 16 random bytes + routing payload + one length byte",
+          "locator": "#L7-L86"
+        },
+        {
+          "sourceId": "handbook-gitlab-com-0a96642893",
+          "supports": "minimum 27, maximum 300 bytes"
+        }
+      ]
+    },
+    {
+      "id": "field-separators",
+      "statement": "separators: . after the payload and after the version; none elsewhere",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-e98434ac14",
+          "supports": "separators: . after the payload and after the version; none elsewhere",
+          "locator": "#L7-L86"
+        }
+      ]
+    },
+    {
+      "id": "field-version",
+      "statement": "version: exactly 2 [0-9a-z] (base36, zero-padded; 01 today)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-e98434ac14",
+          "supports": "TOKEN_VERSION = 1, TOKEN_VERSION_LENGTH = 2",
+          "locator": "#L7-L86"
+        }
+      ]
+    },
+    {
+      "id": "field-length-holder",
+      "statement": "length-holder: exactly 2 [0-9a-z]: base36 of the payload length",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-738b2458c5",
+          "supports": "reads the payload length from the third field",
+          "locator": "#L24-L71"
+        },
+        {
+          "sourceId": "gitlab-com-e98434ac14",
+          "supports": "length-holder: exactly 2 [0-9a-z]: base36 of the payload length",
+          "locator": "#L7-L86"
+        }
+      ]
+    },
+    {
+      "id": "field-checksum",
+      "statement": "checksum: exactly 7 [0-9a-z]: base36 CRC32 (zlib) of every byte from g of glpat- through the length holder, zero-padded; enforced by `validate`",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "gitlab-com-738b2458c5",
+          "supports": "valid when the CRC of everything before the last 7 characters equals them",
+          "locator": "#L24-L71"
+        },
+        {
+          "sourceId": "gitlab-com-e98434ac14",
+          "supports": "CRC_BYTES = 7",
+          "locator": "#L7-L86"
+        }
+      ]
+    },
+    {
+      "id": "field-excluded-forms",
+      "statement": "excluded-forms: the legacy glpat- + 20, the unversioned routable form, instance/custom prefixes and glrt- are not this family (The legacy 20-byte glpat- value is a benign sibling control here (gitlab-token owns it).)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-25df8e18d1",
+          "supports": "excluded shapes"
+        },
+        {
+          "sourceId": "gitlab-com-0c4360c57c",
+          "supports": "instance and admin-custom prefixes",
+          "locator": "#L5-L24"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: gitleaks 8.30.1 lags: gitlab-pat-routable reads only the unversioned form and gitlab-pat a 20-byte payload slice. trufflehog 3.97.4 gitlab/v3 overreaches: it reads the versioned form with unescaped dots and = in the payload and checks neither the length holder nor the CRC",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitlab-pat, gitlab-pat-routable"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-4551bd9e7f",
+          "supports": "keyPat at v3.97.4"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-5d8fe1c289",
+          "supports": "peer-lag: gitleaks 8.30.1 lags: gitlab-pat-routable reads only the unversioned form and gitlab-pat a 20-byte payload slice. trufflehog 3.97.4 gitlab/v3 overreaches: it reads the versioned form with unescaped dots and = in the payload and checks neither the length holder nor the CRC"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 17 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-25df8e18d1",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4d1ecb8481",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5880547337"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ae8940925d",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-f0d1f2054e",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-4551bd9e7f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-5d8fe1c289",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "gitlab-com-0c4360c57c",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L5-L24"
+        },
+        {
+          "sourceId": "gitlab-com-5699f3d927",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L27-L57"
+        },
+        {
+          "sourceId": "gitlab-com-738b2458c5",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L24-L71"
+        },
+        {
+          "sourceId": "gitlab-com-d63b8ba8be",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L22-L36"
+        },
+        {
+          "sourceId": "gitlab-com-e98434ac14",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L7-L86"
+        },
+        {
+          "sourceId": "handbook-gitlab-com-0a96642893",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 14 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-gitlab-com-9382f6bad2",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-436944e185",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-952be122b5",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-25df8e18d1",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-semgrep-semgrep-network-broker-f55f76adc7",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-5d8fe1c289",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-e8f92281f8",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "gitlab-com-7cbf055dae",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "gitlab-com-8c889c799d",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "gitlab-com-98476466c7",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "gitlab-com-99b63f7212",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "gitlab-com-aa03c14a3e",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "handbook-gitlab-com-0a96642893",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-25df8e18d1",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "gitlab-com-e98434ac14",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L7-L86"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:checksum",
+      "note": "claim field-checksum; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:excluded-forms",
+      "note": "claim field-excluded-forms; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:grammar",
+      "note": "claim field-grammar; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:length-holder",
+      "note": "claim field-length-holder; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:payload",
+      "note": "claim field-payload; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:separators",
+      "note": "claim field-separators; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "gitlab-routable-personal-access-token:version",
+      "note": "claim field-version; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012c.ts",
+      "note": "contracts['gitlab-routable-personal-access-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:routable-personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=gitlab:routable-personal-access-token]"
+    }
+  ]
+}

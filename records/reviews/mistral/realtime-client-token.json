@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-mistral-realtime-client-token",
+  "subject": {
+    "kind": "family",
+    "id": "mistral:realtime-client-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Imported from the legacy dossier: research verdict 'issuance-gated', tier T1 (provider-documented), researchedAt 2026-09-27. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried. Legacy blockedBy: T1 covers the rt_ prefix and carriers only; no source states body length, alphabet or checksum. Needs hands-on minting via POST /v1/client/sessions (checklist in",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#780",
+          "url": "https://github.com/redact-secret/redact-secret/issues/780"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for mistral:realtime-client-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.10 research disposition (redact-secret#780, benchmarks #384): pending, no corpus. No source states a body length, alphabet or checksum, so only a carrier-gated shape could be justified and it needs hands-on issuance first; keyed env and Bearer contexts are already redacted by generic paths, and the documented client_secret.value and WebSocket subprotocol carriers are a generic-carrier question, not a Mistral family. Not the Mistral Studio key (mistral:api-key)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mistral.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+      "note": "families[id=mistral:realtime-client-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mistral:realtime-client-token]"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-fireworks-ai-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "fireworks-ai:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/fireworks-ai.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#730",
+          "url": "https://github.com/redact-secret/redact-secret/issues/730"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#227",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/227"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for fireworks-ai:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector fireworks-ai-api-key since redact-secret#730 (registry pinned at f2082ab); graduated from a Beta.8 arrival family (#212, research #227), contract in benchmarks/lib/beta8/212.ts. The fpk_ Fire Pass key and any unprefixed legacy key are not covered."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'fireworks-ai-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Graduated arrival contract (registry detector since redact-secret#730). Lexical separability decided before authoring (#212): the fw_ prefix plus a 22- or 24-character alphanumeric body separates a key from the recorded confusables (fw_version/fw_id/fw_spec identifiers, the console's short display prefix, placeholders), none of which carries a 22+ alphanumeric run after fw_. Frozen fields are the provider-documented fw_ prefix and the provider code's startsWith(\"fw_\") check (fireconnect key-type.mjs); the body widths are the two widths seen in a small aggregate observation of public values (n=9, #227 row 17) and stay provisional, so the pattern admits exactly the observed widths and no twin or control asserts silence on any other width (23 is not a negative boundary) or on any body alphabet. No pinned peer has a Fireworks rule. Not claimed: an unprefixed legacy key (GitGuardian lists its detector as \"Not prefixed\"; unconfirmed) and the fpk_ Fire Pass key (a real, separately scoped secret with no public grammar), which is never a control."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/fireworks-ai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/fireworks-ai.md",
+      "note": "families[id=fireworks-ai:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=fireworks-ai:api-key]"
+    }
+  ]
+}

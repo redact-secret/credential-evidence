@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "groq:api-key@1",
+  "family": "groq:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^gsk_[A-Za-z0-9]{52}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b5aac93cbd",
+          "supports": "trufflehog 3.97.4: Groq: \\b(gsk_[a-zA-Z0-9]{52})\\b"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: gsk_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "console-groq-com-09b29ab3fc",
+          "supports": "prefix: gsk_"
+        },
+        {
+          "sourceId": "console-groq-com-dad042bbcd",
+          "supports": "placeholder gsk_your_secret_key_here"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length-and-alphabet",
+      "statement": "body-length-and-alphabet: 52 characters of [A-Za-z0-9] after gsk_ (A four-sample maintainer observation (#218 row 17) agrees on 52 mixed-case alphanumerics; it is corroboration, not #205 intake.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-faa4c70411",
+          "supports": "{50,54}"
+        },
+        {
+          "sourceId": "github-com-secretlint-secretlint-47ffe0282d",
+          "supports": "body-length-and-alphabet: 52 characters of [A-Za-z0-9] after gsk_"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b5aac93cbd",
+          "supports": "body-length-and-alphabet: 52 characters of [A-Za-z0-9] after gsk_"
+        }
+      ]
+    },
+    {
+      "id": "field-fixed-segment",
+      "statement": "fixed-segment: Body offsets 20–27 read WGdyb3FY in four observed keys (n=4, undocumented and used by no tool. Not a grammar requirement: positives do not carry it and no fixture asserts silence on its absence.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-e2cf8bf47c",
+          "supports": "fixed-segment: Body offsets 20–27 read WGdyb3FY in four observed keys"
+        }
+      ]
+    },
+    {
+      "id": "field-alternate-length",
+      "statement": "alternate-length: 48-character body (gitleaks PR #2181) (Contradicted by every tool rule and the observation above; no fixture uses a 48-character body.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-14ad5226ce",
+          "supports": "alternate-length: 48-character body (gitleaks PR #2181)"
+        }
+      ]
+    },
+    {
+      "id": "field-encoded-form",
+      "statement": "encoded-form: GitHub secret scanning detects Base64-encoded Groq keys (Whether an encoded key is in family scope is a contract decision #208 has not made; no Base64-of-key fixture is authored.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "encoded-form: GitHub secret scanning detects Base64-encoded Groq keys"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "console-groq-com-1fa7058290",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "console-groq-com-dad042bbcd",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-secretlint-secretlint-47ffe0282d",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "console-groq-com-dad042bbcd",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-bfa22a156c",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "console-groq-com-dad042bbcd",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b5aac93cbd",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "groq-api-key:alternate-length",
+      "note": "claim field-alternate-length; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "groq-api-key:body-length-and-alphabet",
+      "note": "claim field-body-length-and-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "groq-api-key:encoded-form",
+      "note": "claim field-encoded-form; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "groq-api-key:fixed-segment",
+      "note": "claim field-fixed-segment; legacy evidence basis=maintainer-observation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "groq-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/208.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/208.ts",
+      "note": "contracts['groq-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/groq.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/groq.md",
+      "note": "families[id=groq:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=groq:api-key]"
+    }
+  ]
+}

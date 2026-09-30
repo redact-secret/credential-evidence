@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-tavily-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "tavily:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-27. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/tavily.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#786",
+          "url": "https://github.com/redact-secret/redact-secret/issues/786"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#867",
+          "url": "https://github.com/redact-secret/redact-secret/issues/867"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for tavily:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector tavily-api-key since redact-secret#867 (registry pinned at cfe2aec); graduated from a Beta.10 arrival family (#384, research #786), contract in benchmarks/lib/beta8/384d.ts. T2; no pinned scanner has a Tavily rule (noseyparker and GitGuardian only)."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'tavily-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#384, product redact-secret#867; research #786). T2 pending hands-on corroboration: Tavily's docs show the tvly- prefix in a placeholder (tvly-YOUR_API_KEY) and tvly-dev- in truncated sample values, and state no length or alphabet. The 32-alphanumeric body rests on one scanner rule (noseyparker, which predates tvly-dev- and so cannot match that form) and three maintainer-observed samples from 2024-2025 (tvly- and tvly-dev-, each with a 32-character mixed-case alphanumeric body). GitGuardian confirms a prefixed detector without a length. Whether a tvly-prod- prefix exists and the width of production or enterprise keys are unresolved (a third-party integration doc says production keys begin with plain tvly-), so no fixture asserts silence on either. Neither pinned scanner has a Tavily rule."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/tavily.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/tavily.md",
+      "note": "families[id=tavily:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=tavily:api-key]"
+    }
+  ]
+}

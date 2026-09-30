@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-doppler-cli-token",
+  "subject": {
+    "kind": "family",
+    "id": "doppler:cli-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/doppler.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/doppler.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#903",
+          "url": "https://github.com/redact-secret/redact-secret/issues/903"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#434",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/434"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for doppler:cli-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Scored arrival family doppler-cli-token: the product types it inside the shared doppler-token detector as doppler_cli_token since redact-secret#903 (registry pinned at 1127bf9; scanners/families.mjs arrivalFindingTypes). Authored as a Beta.11 arrival family (#434 slice a, #860 Tier A handoff), contract in benchmarks/lib/beta8/434a.ts. T1."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'doppler-cli-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#434, product redact-secret#903; #860 handoff doppler.md, READY). T1 on every field: one Doppler page states the regex for each of the seven dp.<type>. roles, and this family is the CLI token (user-wide). All documentation examples have a 43-byte body; the contract keeps the documented 40–44 band. Scanner rules lag the page and are corroboration only (gitleaks 8.30.1 covers dp.pt. only). No fixture asserts a body width outside 40–44 as a key, and no future type is asserted either way."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/doppler.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/doppler.md",
+      "note": "families[id=doppler:cli-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=doppler:cli-token]"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "helicone:api-key",
+  "provider": "helicone",
+  "name": "Read-write key (sk-helicone-)",
+  "description": "sk-helicone- with optional -eu and -rl, then four 7-byte [a-z0-9] groups; or sk-helicone-proxy- + the groups + a lowercase UUID.",
+  "lifecycle": "draft",
+  "currentContract": "helicone:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#907",
+      "redact-secret/redact-secret-benchmarks#434"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/helicone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/helicone.md",
+      "note": "families[id=helicone:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=helicone:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "helicone-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

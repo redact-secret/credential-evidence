@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "sentry:user-auth-token@1",
+  "family": "sentry:user-auth-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^sntryu_[0-9a-f]{64}$"
+  },
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (sntryu_ + secrets.token_hex(32)): Un-probeable record lifted 2026-09-24 (#207): Sentry's own server code (provider code on github.com, so the tier stays T2) builds the token as the sntryu_ prefix plus 64 lowercase hex characters. Twins mutate the prefix, the _ delimiter, the length or a non-hex byte; none is a bare 64-hex value, since legacy unprefixed tokens are still valid secrets.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-sentry-36f9d610de",
+          "supports": "Un-probeable record lifted 2026-09-24 (#207): Sentry's own server code (provider code on github.com, so the tier stays T2) builds the token as the sntryu_ prefix plus 64 lowercase hex characters. Twins mutate the prefix, the _ delimiter, the length or a non-hex byte; none is a bare 64-hex value, since legacy unprefixed tokens are still valid secrets.",
+          "locator": "#L106-L112"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: sntryu_ (siblings sntrys_, sntrya_, sntryi_ are other token kinds)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-sentry-6ba09d9401",
+          "supports": "prefix: sntryu_ (siblings sntrys_, sntrya_, sntryi_ are other token kinds)"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: 64 lowercase hex characters from secrets.token_hex(32); the server cannot emit uppercase",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-sentry-36f9d610de",
+          "supports": "body: 64 lowercase hex characters from secrets.token_hex(32); the server cannot emit uppercase",
+          "locator": "#L106-L112"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-unprefixed-tokens",
+      "statement": "legacy unprefixed tokens: pre-2024 user tokens are bare 64 hex and still valid; they are secrets, so no bare 64-hex value beside a sentry keyword is used as a control",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9ea919c3c2",
+          "supports": "legacy unprefixed tokens: pre-2024 user tokens are bare 64 hex and still valid; they are secrets, so no bare 64-hex value beside a sentry keyword is used as a control"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-sentry-7a67b4cea1",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-getsentry-sentry-bd102dc883",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-getsentry-sentry-cli-e78ab926c5",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-91e5415ee1",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "sentry-user-auth-token:body",
+      "note": "claim field-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sentry-user-auth-token:legacy unprefixed tokens",
+      "note": "claim field-legacy-unprefixed-tokens; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sentry-user-auth-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['sentry-user-auth-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sentry.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sentry.md",
+      "note": "families[id=sentry:user-auth-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=sentry:user-auth-token]"
+    }
+  ]
+}

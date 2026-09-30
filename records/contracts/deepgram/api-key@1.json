@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "deepgram:api-key@1",
+  "family": "deepgram:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^[0-9a-f]{40}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: betterleaks; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-5fbea6d047",
+          "supports": "betterleaks: deepgram-api-key: deepgram keyword + [a-f0-9]{40}, entropy filter"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b6c4d60434",
+          "supports": "trufflehog 3.97.4: Deepgram: deepgram keyword + \\b([0-9a-z]{40})\\b"
+        }
+      ]
+    },
+    {
+      "id": "field-shape",
+      "statement": "shape: 40 lowercase hexadecimal characters, no prefix (The pinned tool and betterleaks agree on the length; the alphabet is the intersection of two tools.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-5fbea6d047",
+          "supports": "shape: 40 lowercase hexadecimal characters, no prefix"
+        },
+        {
+          "sourceId": "github-com-orgs-deepgram-a80f2c96a2",
+          "supports": "a user reports a 40-character working key"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b6c4d60434",
+          "supports": "shape: 40 lowercase hexadecimal characters, no prefix"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: hex (betterleaks [a-f0-9]) versus base36 (trufflehog [0-9a-z]) (The tools disagree and no provider source decides it, so no fixture asserts silence on a non-hex letter or on upper case (docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md).)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-5fbea6d047",
+          "supports": "alphabet: hex (betterleaks [a-f0-9]) versus base36 (trufflehog [0-9a-z])"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b6c4d60434",
+          "supports": "alphabet: hex (betterleaks [a-f0-9]) versus base36 (trufflehog [0-9a-z])"
+        }
+      ]
+    },
+    {
+      "id": "field-docs-example-length",
+      "statement": "docs-example-length: the 32-hex documentation example is a placeholder, not a length statement (Whether keys were ever 32 characters is untested; not claimed.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "developers-deepgram-com-0924be132c",
+          "supports": "docs-example-length: the 32-hex documentation example is a placeholder, not a length statement"
+        }
+      ]
+    },
+    {
+      "id": "field-context",
+      "statement": "context: a same-line deepgram name, host or SDK constructor",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-5fbea6d047",
+          "supports": "context: a same-line deepgram name, host or SDK constructor"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b6c4d60434",
+          "supports": "deepgram keyword"
+        }
+      ]
+    },
+    {
+      "id": "field-header-scheme",
+      "statement": "header-scheme: Authorization: Token <key> (not Bearer); temporary access tokens are JWTs sent as Bearer",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "developers-deepgram-com-27fb8c65e4",
+          "supports": "header-scheme: Authorization: Token <key> (not Bearer); temporary access tokens are JWTs sent as Bearer"
+        },
+        {
+          "sourceId": "developers-deepgram-com-641a8d1734",
+          "supports": "header-scheme: Authorization: Token <key> (not Bearer); temporary access tokens are JWTs sent as Bearer"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: DEEPGRAM_API_KEY, DeepgramClient(api_key=...), createClient(key)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-deepgram-deepgram-python-sdk-d507a4a38d",
+          "supports": "transport: DEEPGRAM_API_KEY, DeepgramClient(api_key=...), createClient(key)"
+        }
+      ]
+    },
+    {
+      "id": "field-public-ids",
+      "statement": "public-ids: api_key_id, project ids and dg-request-id values are public identifiers (api_key_id is authored only as a context twin (the value kept, the assignment renamed), never as a benign control.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "developers-deepgram-com-0924be132c",
+          "supports": "api_key_id and key share one example shape"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 7 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "developers-deepgram-com-0924be132c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "developers-deepgram-com-27fb8c65e4",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-gitguardian-com-aa0c4b17fa",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-deepgram-deepgram-python-sdk-d507a4a38d",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-orgs-deepgram-a80f2c96a2",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c1cd0bb447",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "developers-deepgram-com-27fb8c65e4",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-141784d2ec",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "developers-deepgram-com-27fb8c65e4",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b6c4d60434",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "deepgram-api-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "deepgram-api-key:context",
+      "note": "claim field-context; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "deepgram-api-key:docs-example-length",
+      "note": "claim field-docs-example-length; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "deepgram-api-key:header-scheme",
+      "note": "claim field-header-scheme; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "deepgram-api-key:public-ids",
+      "note": "claim field-public-ids; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "deepgram-api-key:shape",
+      "note": "claim field-shape; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "deepgram-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384e.ts",
+      "note": "contracts['deepgram-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/deepgram.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/deepgram.md",
+      "note": "families[id=deepgram:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=deepgram:api-key]"
+    }
+  ]
+}

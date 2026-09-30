@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "ai21:api-key",
+  "provider": "ai21",
+  "name": "API key (unprefixed)",
+  "description": "32 alphanumeric characters recognised only beside a same-line AI21 name, host or SDK constructor; the shape rests on one ten-sample maintainer observation.",
+  "lifecycle": "draft",
+  "currentContract": "ai21:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1013",
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#784",
+      "redact-secret/redact-secret#868",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/ai21.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/ai21.md",
+      "note": "families[id=ai21:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=ai21:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "ai21-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

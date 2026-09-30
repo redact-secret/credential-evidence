@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-posthog-personal-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "posthog:personal-api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/posthog.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/posthog.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#906",
+          "url": "https://github.com/redact-secret/redact-secret/issues/906"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#434",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/434"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for posthog:personal-api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector posthog-token since redact-secret#906 (registry pinned at 1127bf9); graduated from a Beta.11 arrival family (#434 slice d, #860 Tier A handoff), contract in benchmarks/lib/beta8/434d.ts. T1. Peers lag: trufflehog 3.97.4 reads phx_ + 43–48 over [a-zA-Z0-9_], missing 42- and 49-byte keys."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'posthog-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#434, product redact-secret#906; #860 handoff posthog.md, READY). A personal API key acts as the user across every organization and project the user can reach. The prefix is documented; the alphabet and algorithm are provider code and unit tests (R1); the 42–49 band is the union of the three prefixed eras (base57 48/49 since 2026-03-30, 35-byte base62 at most 48, 32-byte base62 at most 43) with the 42 floor keeping the 1.6% of 32-byte-era keys that render at 42. The phc_ project token is public and only ever a benign control. Peers lag: trufflehog 3.97.4 stops at 48 (missing the 2.9% of base57 keys at 49 and the 42-byte keys) and admits _, gitleaks 8.30.1 has no PostHog rule. Graduated to a registry detector at the 1127bf9 re-pin (redact-secret PR #938)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/posthog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/posthog.md",
+      "note": "families[id=posthog:personal-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=posthog:personal-api-key]"
+    }
+  ]
+}

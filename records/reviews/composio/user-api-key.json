@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-composio-user-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "composio:user-api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/composio.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/composio.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#909",
+          "url": "https://github.com/redact-secret/redact-secret/issues/909"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#434",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/434"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for composio:user-api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Scored arrival family composio-user-api-key: the product types it inside the shared composio-api-key detector as composio_user_api_key since redact-secret#909 (registry pinned at 1127bf9; scanners/families.mjs arrivalFindingTypes). Authored as a Beta.11 arrival family (#434 slice g, #860 Tier A handoff), contract in benchmarks/lib/beta8/434g.ts. T1."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'composio-user-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#434, product redact-secret#909; #860 handoff composio.md, READY under R6). The user key is issued by composio login (x-user-api-key, COMPOSIO_USER_API_KEY). T1 for 43: the dated staff statement (R3); the CLI code comment showing uak_ + 20 is T2 (R6), so a 20-byte uak_ is outside the contract and a length twin. The optional issuance check would confirm or contradict the width; a contradiction changes the contract through a follow-up, never by widening. Neither pinned peer has a Composio rule."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/composio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/composio.md",
+      "note": "families[id=composio:user-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=composio:user-api-key]"
+    }
+  ]
+}

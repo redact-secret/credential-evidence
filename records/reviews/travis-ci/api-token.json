@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-travis-ci-api-token",
+  "subject": {
+    "kind": "family",
+    "id": "travis-ci:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-25. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/travis-ci.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/523/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#523",
+          "url": "https://github.com/redact-secret/redact-secret/issues/523"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#259",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/259"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for travis-ci:api-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector travisci-api-token since redact-secret#523 (#773, registry pinned at 3144bb3), authored under #259. Travis CI states no shape; the 22-character grammar is tool-corroborated (gitleaks travisci-access-token, trufflehog travisci)."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'travisci-api-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector travisci-api-token since redact-secret#523 (#773, registry pinned at 3144bb3); authored under #259 directly as a context-gated registry contract. Travis CI states no token shape. Both pinned peers corroborate a 22-character alphanumeric token gated on a travis keyword: gitleaks 8.30.1 travisci-access-token (a case-insensitive travis keyword before an assignment operator, then [a-z0-9]{22} under (?i)) and trufflehog 3.97.4 travisci (a travis prefix within its keyword window, then \\b[a-zA-Z0-9_]{22}\\b). The contract freezes their intersection, [A-Za-z0-9]{22}, recognised only beside a same-line travis keyword, so positives score as policy. It also requires at least one letter and one digit, matching the product grammar; about 2% of uniformly random 22-character tokens have no digit and fall outside that claim. The underscore trufflehog admits is not claimed, and the underscore twin records that peer difference. Travis build, job and repository ids are numeric and commit SHAs are 40 hex characters, so they are public-id controls. .travis.yml secure: values are RSA ciphertext and are encoded-value controls."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/travis-ci.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/travis-ci.md",
+      "note": "families[id=travis-ci:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=travis-ci:api-token]"
+    }
+  ]
+}
