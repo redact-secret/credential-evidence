@@ -17,6 +17,7 @@ const { projection } = generate();
 const sha = (t) => createHash("sha256").update(t).digest("hex");
 const parsed = (path) => JSON.parse(projection.artifacts.get(path));
 const ix = indexRecords(inputs.records);
+const view = projection.view;
 
 describe("legacy projection: determinism and provenance", () => {
   test("two builds from the same records are byte-identical", () => {
@@ -36,7 +37,7 @@ describe("legacy projection: determinism and provenance", () => {
     assert.equal(manifest.artifacts.length, projection.artifacts.size);
     assert.match(manifest.sourceRevision.digest, /^[0-9a-f]{64}$/);
     assert.equal(manifest.sourceRevision.kind, "records-tree-sha256");
-    assert.equal(manifest.schemaRevision, "1.2.0");
+    assert.equal(manifest.schemaRevision, "1.3.0");
     for (const e of manifest.artifacts) {
       const text = projection.artifacts.get(e.path);
       assert.ok(text !== undefined, e.path);
@@ -70,10 +71,12 @@ describe("legacy projection: content", () => {
   const categories = parsed("benchmarks/categories.json");
   const sets = [...ix.sets.values()];
 
-  test("covers every provider, family, fixture set and fixture", () => {
+  test("covers every provider, family, legacy suite and fixture (the suites come from the legacy map, not from the sets)", () => {
     assert.equal(taxonomy.families.length, ix.families.size);
     assert.equal(taxonomy.providers.length, ix.providers.size - 1, "the null-provider 'generic' is not a legacy provider");
-    assert.equal(categories.length, sets.length);
+    assert.equal(categories.length, 67);
+    assert.equal(categories.length, view.suites.length);
+    assert.notEqual(categories.length, sets.length, "canonical sets are by provider, the projected categories are the legacy suites");
     const fixtures = sets.reduce((s, x) => s + x.fixtures.length, 0);
     assert.equal(index.fixtures.length, fixtures);
     assert.equal(semantics.fixtures.length, fixtures);
@@ -96,24 +99,35 @@ describe("legacy projection: content", () => {
     assert.equal(index.sources.reviewedMetadata.digest, digestJson(semantics));
   });
 
-  test("corpus fixtures carry the exact recorded text and the scanner-neutral truth fields", () => {
-    for (const set of sets) {
-      const corpus = parsed(categories.find((c) => c.id === set.id).corpus);
+  test("corpus fixtures carry the exact recorded text and the scanner-neutral truth fields, under their legacy suite and name", () => {
+    for (const suite of view.suites) {
+      const corpus = parsed(categories.find((c) => c.id === suite.id).corpus);
       assert.equal(corpus.schemaVersion, 2);
-      assert.equal(corpus.fixtures.length, set.fixtures.length, set.id);
+      const members = view.fixtures.filter((f) => f.suite === suite.id);
+      assert.equal(corpus.fixtures.length, members.length, suite.id);
       const byId = new Map(corpus.fixtures.map((f) => [f.id, f]));
-      for (const item of set.fixtures) {
-        const f = byId.get(item.id.slice(set.id.length + 2));
-        assert.ok(f, item.id);
-        assert.equal(sha(f.content), item.sha256, item.id);
-        assert.equal(f.path, item.path);
-        assert.equal(f.group, item.case);
-        assert.deepEqual(f.expected.map((s) => [s.start, s.end, s.role]), item.expected.spans.map((s) => [s.start, s.end, s.role]));
-        if (item.expected.outcome === "not-assertable") assert.equal(f.assessment.tier, "T0");
-        if (item.expected.outcome === "must-flag") assert.ok(["must-redact", "policy"].includes(f.assessment.kind), item.id);
-        if (item.expected.outcome === "must-not-flag") assert.equal(f.assessment.kind, "must-not-flag");
+      for (const m of members) {
+        const f = byId.get(m.name);
+        assert.ok(f, m.slug);
+        assert.equal(sha(f.content), m.item.sha256, m.slug);
+        assert.equal(f.path, m.legacyPath);
+        assert.equal(f.group, m.item.case ?? m.item.cell.scenario, "the legacy display group is the canonical Case or Scenario id");
+        assert.deepEqual(f.expected.map((s) => [s.start, s.end, s.role]), m.item.expected.spans.map((s) => [s.start, s.end, s.role]));
+        if (m.item.expected.outcome === "not-assertable") assert.equal(f.assessment.tier, "T0");
+        if (m.item.expected.outcome === "must-flag") assert.ok(["must-redact", "policy"].includes(f.assessment.kind), m.slug);
+        if (m.item.expected.outcome === "must-not-flag") assert.equal(f.assessment.kind, "must-not-flag");
+        // the tier the legacy file shows is the fixture's own evidence basis, not its Case's or Scenario's
+        const basis = m.evidence.basis;
+        const tier = { "provider-documented": "T1", "tool-corroborated": "T2", "project-policy": "T3", unresolved: "T0" }[basis];
+        assert.equal(f.assessment.tier, tier, m.slug);
       }
     }
+  });
+
+  test("legacy names come only from the legacy map: canonical ids never appear in the legacy shapes", () => {
+    for (const m of view.fixtures) assert.notEqual(m.slug, m.id);
+    const corpusText = [...projection.artifacts].filter(([p]) => p.startsWith("fixtures/")).map(([, t]) => t).join("\n");
+    for (const set of sets.slice(0, 20)) assert.ok(!corpusText.includes(`"${set.id}--`), set.id);
   });
 
   test("no product state is invented: no support status, milestone, pin, expected action or per-fixture detector", () => {
@@ -144,14 +158,13 @@ describe("legacy projection: content", () => {
   });
 
   test("a twin whose positive is unresolved is projected without twin fields, and the lineage stays canonical", () => {
-    const set = ix.sets.get("detector-coverage");
-    const twin = set.fixtures.find((i) => i.id === "detector-coverage--databricks-personal-access-token-rotated-shape-bare-twin");
-    assert.ok(twin?.lineage, "canonical lineage is kept");
+    const twin = view.bySlug.get("detector-coverage--databricks-personal-access-token-rotated-shape-bare-twin");
+    assert.ok(twin?.item.lineage, "canonical lineage is kept");
     const corpus = parsed("fixtures/generated/detector-coverage.json");
     const f = corpus.fixtures.find((x) => x.id === "databricks-personal-access-token-rotated-shape-bare-twin");
     assert.equal(f.twinOf, undefined);
-    const positive = set.fixtures.find((i) => i.id === twin.lineage.of);
-    assert.notEqual(positive.expected.outcome, "must-flag");
+    const positive = view.byId.get(twin.item.lineage.of);
+    assert.notEqual(positive.outcome, "must-flag");
   });
 });
 
@@ -189,7 +202,7 @@ describe("credential-eval corpus snapshot", () => {
     assert.equal(snapshot.identity.corpus_digest, `sha256:${sha(canon(snapshot.cases))}`);
     assert.equal(snapshot.identity.source, "credential-evidence");
     assert.equal(snapshot.identity.revision, `records-tree-sha256:${projection.manifest.sourceRevision.digest}`);
-    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.2.0");
+    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.3.0");
   });
 
   test("validates against credential-eval's published JSON Schema (skipped without a checkout)", { skip: findCredentialEval() === null ? "credential-eval checkout unavailable" : false }, () => {

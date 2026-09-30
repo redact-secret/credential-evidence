@@ -12,7 +12,7 @@ Both halves are required. Today:
 
 | Condition | State |
 | --- | --- |
-| Unexplained parity differences are zero | **Met at the pinned revision** `ade8a10bd7922765110a68986b0690eb3861f2e5`: 0 unexplained, 30,402 explained, 173,509 identical leaf values (`npm run parity:check`). The legacy repository has moved on since that pin (the local checkout used for this work is 17 commits ahead of it); the count must be re-proven at the revision that is current when the cutover happens (see Re-pinning). |
+| Unexplained parity differences are zero | **Met at the pinned revision** `ade8a10bd7922765110a68986b0690eb3861f2e5`: 0 unexplained, 28,448 explained, 173,505 identical leaf values (`npm run parity:check`). The legacy repository has moved on since that pin (the local checkout used for this work is 17 commits ahead of it); the count must be re-proven at the revision that is current when the cutover happens (see Re-pinning). |
 | Downstream consumers have switched | **Not met.** No consumer reads the projection or the canonical records yet. |
 
 So, today: **the legacy repository stays authoritative, nothing in it may be deleted or frozen, and it must keep being updated.** This repository proposes no deletion.
@@ -56,10 +56,11 @@ So, today: **the legacy repository stays authoritative, nothing in it may be del
 
 All are explained in the parity report; none is harmless by being explained.
 
-1. **Per-fixture family links.** A case carries families, so 459 fixtures gain family or scenario links the legacy index did not give them (1,066 links). Anything that counts fixtures per family or classifies support per family will read different numbers. Options: an additive per-fixture `families` override on fixture-set items (schema revision 1.2.0), or splitting cases by family set in the case import. Needs a decision by the maintainers.
-2. **Evidence-tier downgrades.** 343 fixtures (138 cases) that legacy holds at tier T2 are recorded as project-policy and project as T3, `policy`. That is the import applying `docs/governance/evidence-classes.md`. Whether the cited sources should be strengthened or the legacy tier was too generous is an evidence review, not an export question.
+1. **Per-fixture family links.** Since #12 stage B a matrix cell carries exactly the fixture's own families, so only fixtures of a Case that spans several families gain links the legacy index did not give them: 35 fixtures (87 links), down from 459 (1,066 links). Anything that counts fixtures per family or classifies support per family will read slightly different numbers for those 35. Options: an additive per-fixture `families` override on fixture-set items, or splitting those Cases by family set. Needs a decision by the maintainers.
+2. **Evidence-tier downgrades.** 343 fixtures that legacy holds at tier T2 are recorded as project-policy and project as T3, `policy`. That is the import applying `docs/governance/evidence-classes.md`. Whether the cited sources should be strengthened or the legacy tier was too generous is an evidence review, not an export question.
 3. **Unresolved (T0) fixtures.** 31 must-redact T0 fixtures lose their candidate spans and project as `must-not-flag`, T0. Consumers must key T0 on the tier (legacy does). 3 twins of unresolved positives project without twin links.
 4. **Identity digests** of the fixture index differ; the projected index is self-consistent (legacy `fixtureIndexProblems` finds none).
+5. **Legacy names are regenerated, not canonical.** Canonical fixtures are `<provider>--<name>` with semantic ids; the projection names suites, fixtures, corpus paths and navigation scenario ids from `migration/legacy-map/` (ADR 0008). The legacy `group` label shows the canonical Case or Scenario id. The credential-eval snapshot keeps legacy fixture ids and `<suite>/<path>` paths so the dual run needs no re-keying; `grouping.group` is the new id. The exporter is an adapter (`scripts/export/lib/view.mjs`), not the stage C design.
 
 ## Checklist
 
@@ -70,6 +71,8 @@ Do these in order; tick only what is verified, in the pull request that does it.
 - [x] Parity report pinned; unexplained differences zero at the pin (#6).
 - [x] Legacy loaders accept the projection (`validateCorpus` on 67 corpora, `fixtureIndexProblems`, the four legacy schemas) (#6).
 - [x] credential-eval's validator accepts the corpus snapshot (#6; checked once by hand, re-check after a projection change).
+- [x] Identity correction and reclassification (#12 stages A and B): no legacy coordinates in canonical ids or paths, 1,925 imported cases reclassified into 52 Cases, 29 Scenarios and 5 plans, every fixture in `migration/legacy-map/`, parity still 0 unexplained.
+- [ ] Stage C (#12): rework the compatibility exporter and parity to read the legacy map as a first-class input (no adapter view), decide what replaces the legacy navigation scenario ids, then the credential-eval dual run.
 - [ ] Maintainers decide the per-fixture family question and the tier downgrades above.
 - [ ] Re-pin: choose the legacy revision current at cutover, re-run `npm run migrate:taxonomy`, `npm run migrate:cases`, `npm run export:legacy`, `npm run parity`; unexplained must still be zero.
 - [ ] credential-eval consumes the snapshot and its dual run shows no unexplained outcome drift (credential-eval issue #5).
