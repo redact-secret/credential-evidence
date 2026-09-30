@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:provider",
+  "title": "Provider",
+  "description": "A public issuer or logical source of credential families. Mutable descriptive record.",
+  "x-schemaRevision": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "name", "lifecycle"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "provider" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/providerId" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "aliases": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 200 } },
+    "homepage": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/httpsUrl" },
+    "description": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  }
+}

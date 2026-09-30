@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:case",
+  "title": "Case",
+  "description": "The authored unit of human reasoning: what happened, why it matters, the scanner-neutral expected outcome and the evidence for it. A case relates to zero or more families (many-to-many); the relation is stored here only, families never list their cases. Executable fixtures are separate fixture-projection records that point back here.",
+  "x-schemaRevision": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "title", "summary", "rationale", "caseTypes", "families", "expectation", "lifecycle"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "case" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "summary": { "description": "What happened.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "rationale": { "description": "Why it matters.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "caseTypes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["positive", "benign", "twin", "mutation", "metamorphic", "cross-family"] }
+    },
+    "families": {
+      "description": "Involved families and the role each plays.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["family", "role"],
+        "properties": {
+          "family": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId" },
+          "role": { "enum": ["subject", "lookalike", "context", "companion"] },
+          "contract": {
+            "description": "Pin the case to a specific contract revision when the outcome depends on it (for example a retired format).",
+            "$ref": "urn:credential-evidence:schema:v1:common#/$defs/contractId"
+          }
+        }
+      }
+    },
+    "unscopedReason": {
+      "description": "Required when no family is involved (for example generic context controls).",
+      "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text"
+    },
+    "scenarios": {
+      "description": "Free-form scenario tags (slugs) for navigation; not a controlled vocabulary in v1.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }
+    },
+    "expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outcome", "basis", "rationale", "sources", "observedAt"],
+      "properties": {
+        "outcome": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/expectationOutcome" },
+        "basis": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/evidenceClass" },
+        "rationale": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+        "sources": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sourceRefs" },
+        "observedAt": {
+          "description": "When the expectation's evidence was last confirmed, not when a scanner last agreed with it.",
+          "$ref": "urn:credential-evidence:schema:v1:common#/$defs/dateOrDateTime"
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "basis": { "enum": ["provider-documented", "tool-corroborated"] } } },
+          "then": { "properties": { "sources": { "minItems": 1 } } }
+        },
+        {
+          "if": { "properties": { "basis": { "const": "unresolved" } } },
+          "then": { "properties": { "outcome": { "const": "not-assertable" } } }
+        }
+      ]
+    },
+    "relations": {
+      "description": "Explicit lineage to other cases.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "target"],
+        "properties": {
+          "type": { "enum": ["twin-of", "mutation-of", "metamorphic-of"] },
+          "target": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+          "mutationKind": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+          "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+        }
+      }
+    },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "supersededBy": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "families": { "maxItems": 0 } } },
+      "then": { "required": ["unscopedReason"] },
+      "else": { "not": { "required": ["unscopedReason"] } }
+    },
+    {
+      "if": { "properties": { "caseTypes": { "contains": { "const": "cross-family" } } } },
+      "then": { "properties": { "families": { "minItems": 2 } } }
+    }
+  ]
+}

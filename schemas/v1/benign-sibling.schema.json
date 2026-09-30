@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:benign-sibling",
+  "title": "Benign sibling",
+  "description": "A public identifier, documentation placeholder, test vector or other lookalike that shares shape with one or more credential families but is not itself a secret. Sample values must be synthetic, provider-documented placeholders or public test vectors.",
+  "x-schemaRevision": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "families", "siblingClass", "name", "description", "evidenceClass", "sources", "observedAt", "lifecycle"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "benign-sibling" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "families": {
+      "description": "Families this sibling can be confused with (many-to-many).",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId" }
+    },
+    "siblingClass": {
+      "enum": ["public-identifier", "documentation-placeholder", "test-vector", "lookalike", "non-secret-companion", "checksum-failing-near-miss", "other"]
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["value", "origin"],
+        "properties": {
+          "value": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "origin": { "enum": ["synthetic", "provider-documented-placeholder", "public-test-vector"] }
+        }
+      }
+    },
+    "evidenceClass": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/evidenceClass" },
+    "sources": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sourceRefs" },
+    "observedAt": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/dateOrDateTime" },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  },
+  "if": { "properties": { "evidenceClass": { "enum": ["provider-documented", "tool-corroborated"] } } },
+  "then": { "properties": { "sources": { "minItems": 1 } } }
+}

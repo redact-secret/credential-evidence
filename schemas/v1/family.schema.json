@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:family",
+  "title": "Credential family",
+  "description": "The root semantic entity. Identity is <provider>:<family>, never a detector. Format facts live in format-contract records (many per family over time); the family only points at the current one. Mutable descriptive record.",
+  "x-schemaRevision": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "provider", "name", "description", "lifecycle", "research"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "family" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId" },
+    "provider": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/providerId" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "aliases": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 200 } },
+    "description": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "currentContract": {
+      "description": "The contract revision believed to describe today's issuance; null when none is established. Historical revisions stay resolvable through their own records.",
+      "oneOf": [{ "$ref": "urn:credential-evidence:schema:v1:common#/$defs/contractId" }, { "type": "null" }]
+    },
+    "research": {
+      "description": "Evidence-centric research state. Says how far the facts are established, not whether any tool supports the family.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "researchedAt"],
+      "properties": {
+        "state": { "enum": ["unresearched", "researched", "not-found", "rejected"] },
+        "researchedAt": {
+          "description": "Observed-at date of the latest research verdict; null only while unresearched.",
+          "oneOf": [{ "$ref": "urn:credential-evidence:schema:v1:common#/$defs/date" }, { "type": "null" }]
+        },
+        "blockers": {
+          "description": "What prevents establishing or exercising a fact (for example credentials that cannot be issued).",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "summary"],
+            "properties": {
+              "kind": { "enum": ["issuance-gated", "date-gated", "documentation-gated", "other"] },
+              "summary": { "type": "string", "minLength": 1, "maxLength": 240, "pattern": "^[^\\r\\n]+$" }
+            }
+          }
+        },
+        "issues": {
+          "description": "owner/repo#N research threads, open or closed.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+#[1-9][0-9]*$" }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "state": { "const": "unresearched" } } },
+          "then": { "properties": { "researchedAt": { "type": "null" } } },
+          "else": { "properties": { "researchedAt": { "type": "string" } } }
+        }
+      ]
+    },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  }
+}

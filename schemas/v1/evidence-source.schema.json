@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:evidence-source",
+  "title": "Evidence source",
+  "description": "One external source. Claims cite it via sourceRefs; the source records where it lives, how it is pinned, and an append-only log of when it was actually read. Freshness of the source is separate from the validity of any claim citing it: a stale source can still be sound historical evidence.",
+  "x-schemaRevision": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "sourceType", "title", "locator", "observations", "lifecycle"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "evidence-source" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "sourceType": {
+      "enum": ["provider-documentation", "provider-sdk-source", "scanner-rule-source", "third-party-writeup", "issue-or-discussion", "standard-or-rfc", "project-research-note", "other"]
+    },
+    "title": { "type": "string", "minLength": 1, "maxLength": 300 },
+    "publisher": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "publishedAt": {
+      "description": "Date the source itself claims, when known. Not an observed-at.",
+      "oneOf": [{ "$ref": "urn:credential-evidence:schema:v1:common#/$defs/date" }, { "type": "null" }]
+    },
+    "locator": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/pinnedLink" },
+    "observations": {
+      "description": "Append-only log. observedAt is when a person or tool actually read the source and recorded the outcome; it is never advanced without a re-read.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observedAt", "outcome", "observer"],
+        "properties": {
+          "observedAt": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/dateOrDateTime" },
+          "outcome": { "enum": ["read", "unchanged", "changed", "unreachable", "superseded"] },
+          "observer": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+          "contentDigest": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sha256" },
+          "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+        }
+      }
+    },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  }
+}

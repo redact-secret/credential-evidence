@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:evidence-review-history",
+  "title": "Evidence review history",
+  "description": "Append-only log of who looked at one evidence record, when, and what they concluded. It describes the evidence, never a product status: no event type means stable, provisional, pending or any release decision. Product workflow steps (issue filed, fix shipped) are recorded, if at all, as externalRefs on an event.",
+  "x-schemaRevision": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "subject", "events"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "evidence-review-history" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "enum": ["provider", "family", "format-contract", "evidence-source", "variant", "benign-sibling", "case", "fixture-projection"] },
+        "id": { "type": "string", "minLength": 1, "maxLength": 200 }
+      }
+    },
+    "events": {
+      "description": "Ordered by seq, strictly increasing from 1. Never edited or removed: a mistake is corrected by a later 'corrected' event.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["seq", "type", "at", "actor", "note"],
+        "properties": {
+          "seq": { "type": "integer", "minimum": 1 },
+          "type": { "enum": ["authored", "observed", "reviewed", "disputed", "resolved", "corrected", "withdrawn", "superseded"] },
+          "at": { "description": "When the reviewed evidence was observed or the decision was made.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/dateOrDateTime" },
+          "actor": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "role", "affiliation"],
+            "properties": {
+              "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+              "role": { "enum": ["author", "reviewer", "maintainer", "contributor", "automation"] },
+              "affiliation": {
+                "description": "Disclosed relationship to the maintaining organization; project-maintained review is never independent validation.",
+                "enum": ["project-maintainer", "external", "unknown"]
+              }
+            }
+          },
+          "subjectRevision": {
+            "description": "Contract revision or content digest of the subject as reviewed, so the event stays tied to what was actually seen.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "verdict": { "enum": ["supports", "does-not-support", "inconclusive", "not-assertable"] },
+          "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+          "evidence": { "type": "array", "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/pinnedLink" } },
+          "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" }
+        }
+      }
+    },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  }
+}
