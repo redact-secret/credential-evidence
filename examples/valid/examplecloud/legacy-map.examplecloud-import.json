@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "legacy-map",
+  "id": "examplecloud-import",
+  "title": "Synthetic legacy map for the ExampleCloud examples",
+  "source": { "repository": "example-org/example-legacy-benchmarks", "revision": "0123456789abcdef0123456789abcdef01234567" },
+  "entries": [
+    {
+      "legacy": { "type": "suite", "id": "beta9-101", "path": "corpora/beta9-101.json" },
+      "canonical": { "type": "fixture-set", "id": "examplecloud-carriers" },
+      "relation": "same",
+      "note": "The legacy suite name appears only here; the canonical set has a semantic id."
+    },
+    {
+      "legacy": { "type": "case", "id": "beta9-101-examplecloud-api-key-control-placeholder" },
+      "canonical": { "type": "scenario", "id": "documentation-placeholder" },
+      "relation": "reclassified-as-scenario",
+      "note": "A template-worded control, the same for every family."
+    },
+    {
+      "legacy": { "type": "case", "id": "beta9-101-examplecloud-api-key-twin-truncated" },
+      "canonical": { "type": "case", "id": "examplecloud-api-key-truncated-body-twin" },
+      "relation": "same"
+    },
+    {
+      "legacy": { "type": "fixture", "id": "beta9-101--api-key-double-quoted" },
+      "canonical": { "type": "fixture", "id": "examplecloud-carriers--api-key-double-quoted" },
+      "relation": "same"
+    },
+    {
+      "legacy": { "type": "fixture", "id": "beta9-101--detector-note" },
+      "canonical": null,
+      "relation": "dropped",
+      "note": "Product-owned detector bookkeeping; outside the evidence boundary."
+    }
+  ],
+  "lifecycle": "draft"
+}

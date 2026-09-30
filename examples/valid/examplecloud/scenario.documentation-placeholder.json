@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "documentation-placeholder",
+  "title": "Documentation placeholder in place of a credential",
+  "description": "A credential-looking value that a provider's documentation marks as an example, such as YOUR_API_KEY_HERE, appears where a real credential would sit.",
+  "semantics": "The value was published as illustrative text and was never issued, so it carries no access regardless of the variable name or carrier it appears under.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Every provider that documents its credential format publishes placeholder values; the reasoning does not depend on the format."
+  },
+  "evidenceBasis": {
+    "basis": "provider-documented",
+    "rationale": "The ExampleCloud token documentation labels its placeholder text as an example, not an issued key.",
+    "sources": [
+      { "sourceId": "examplecloud-token-format-doc", "supports": "Shows exc_live_YOUR_API_KEY_HERE as an example, not an issued key." }
+    ],
+    "observedAt": "2026-09-30"
+  },
+  "lifecycle": "reviewed"
+}

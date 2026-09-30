@@ -36,7 +36,7 @@ describe("legacy projection: determinism and provenance", () => {
     assert.equal(manifest.artifacts.length, projection.artifacts.size);
     assert.match(manifest.sourceRevision.digest, /^[0-9a-f]{64}$/);
     assert.equal(manifest.sourceRevision.kind, "records-tree-sha256");
-    assert.equal(manifest.schemaRevision, "1.1.0");
+    assert.equal(manifest.schemaRevision, "1.2.0");
     for (const e of manifest.artifacts) {
       const text = projection.artifacts.get(e.path);
       assert.ok(text !== undefined, e.path);
@@ -189,7 +189,7 @@ describe("credential-eval corpus snapshot", () => {
     assert.equal(snapshot.identity.corpus_digest, `sha256:${sha(canon(snapshot.cases))}`);
     assert.equal(snapshot.identity.source, "credential-evidence");
     assert.equal(snapshot.identity.revision, `records-tree-sha256:${projection.manifest.sourceRevision.digest}`);
-    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.1.0");
+    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.2.0");
   });
 
   test("validates against credential-eval's published JSON Schema (skipped without a checkout)", { skip: findCredentialEval() === null ? "credential-eval checkout unavailable" : false }, () => {

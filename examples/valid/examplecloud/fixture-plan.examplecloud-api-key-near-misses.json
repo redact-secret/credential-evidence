@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "examplecloud-api-key-near-misses",
+  "title": "ExampleCloud key against placeholder and near-miss scenarios",
+  "description": "Instantiates the documentation-placeholder and truncated-body scenarios for the ExampleCloud API key family across shell and structured-file carriers, and re-renders one authored case. The plan carries no reasoning of its own: each target does.",
+  "matrix": {
+    "families": { "select": "listed", "ids": ["examplecloud:api-key"] },
+    "targets": [
+      { "type": "scenario", "id": "documentation-placeholder" },
+      { "type": "scenario", "id": "truncated-body-near-miss", "expectedOutcome": "must-not-flag" },
+      { "type": "case", "id": "examplecloud-docs-placeholder-under-credential-name", "expectedOutcome": "must-not-flag" }
+    ],
+    "carriers": ["shell-assignment", "structured-file"]
+  },
+  "generation": {
+    "rule": "carrier-template",
+    "generator": { "name": "examplecloud-carrier-renderer", "version": "1.0.0" },
+    "inputs": [{ "kind": "format-contract", "id": "examplecloud:api-key@2" }]
+  },
+  "lineage": {
+    "origin": "authored",
+    "derivedFrom": [{ "kind": "case", "id": "examplecloud-api-key-truncated-body-twin" }],
+    "note": "The truncated-body scenario generalizes the authored twin case."
+  },
+  "output": ["examplecloud-carriers"],
+  "lifecycle": "draft"
+}
