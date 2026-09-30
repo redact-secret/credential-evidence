@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "wrong-length",
+  "title": "Right shape, wrong length",
+  "description": "A positive value with exactly one change: its body is shorter or longer than the length the format allows, everything else (prefix, alphabet, carrier) unchanged.",
+  "semantics": "Length is part of the format. A value outside the documented length is not an issued credential of that family, so it must not be reported as one. Reporting it shows that the prefix alone, not the whole structure, decided.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Applies to any family whose format fixes a length or a length range."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

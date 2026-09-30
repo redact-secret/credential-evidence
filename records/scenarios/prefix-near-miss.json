@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "prefix-near-miss",
+  "title": "Right body, wrong prefix",
+  "description": "A positive value with exactly one change: its prefix is another namespace or a near-identical spelling of the documented prefix, body unchanged.",
+  "semantics": "The prefix names the credential kind. A body that is right under a wrong prefix is not a credential of the family, so it must not be reported as one; an adjacent, real family with that prefix is a different case.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Applies to any family whose format starts with a documented prefix."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

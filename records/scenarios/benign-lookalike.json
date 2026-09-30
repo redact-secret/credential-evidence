@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "benign-lookalike",
+  "title": "Benign lookalike of a family's credentials",
+  "description": "A benign input built to resemble a family's credentials in one respect: a bare prefix, a mask, a short body, a prose label, a reference, or an identifier that embeds the prefix.",
+  "semantics": "A value that only resembles a credential is not one. Reporting it is a false alarm; it shows whether structure and context, not appearance, decide the outcome.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Any family can be imitated; the plan lists the ones that are."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

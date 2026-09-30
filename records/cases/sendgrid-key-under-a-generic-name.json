@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "sendgrid-key-under-a-generic-name",
+  "title": "SendGrid key assigned to a generic api_key",
+  "summary": "The SendGrid key shape, in base62, URL-safe and trailing-dash forms, assigned to a variable named api_key.",
+  "rationale": "Providers' keys are often stored under generic names. A detector that knows the format must still report the whole key when the name gives no help, and a generic rule must not stop at the first dot or dash.",
+  "caseTypes": [
+    "positive",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    },
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flagged. The documented format identifies the value whatever its name; the reported extent must cover the trailing characters.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-f377f65c30",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "support-sendgrid-com-135e975bd1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "incidents": [
+    {
+      "id": "incident-428-sendgrid",
+      "failureMode": "missed-credential",
+      "summary": "Promote the SendGrid generic-key whole-span contract (trailing dash, embedded underscore) out of regressions.test.mjs",
+      "observedAt": "2026-09-18",
+      "externalRefs": [
+        {
+          "system": "redact-secret-issue",
+          "id": "redact-secret#428",
+          "url": "https://github.com/redact-secret/redact-secret/issues/428",
+          "note": "Product issue where the failure mode was reported; product workflow status is not imported."
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs#generic-fallback",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "legacy suite sendgrid-regressions; group Generic fallback; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (3 fixtures); draft, not yet reviewed."
+}

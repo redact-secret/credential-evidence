@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "sendgrid-key-in-provider-named-fields",
+  "title": "SendGrid keys in provider-named environment fields",
+  "summary": "The complete SendGrid key shape (SG. followed by two base62 segments, including URL-safe - and _ and a trailing -) bare and in SENDGRID_TOKEN and SENDGRID_API_KEY environment assignments.",
+  "rationale": "The complete shape has punctuation inside and at the end of the value. A range that stops at the first punctuation, or drops the trailing dash, leaves part of a live-format key exposed.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flagged. The value matches the provider's documented key format and sits in a provider-named field; the range is the whole key including any trailing dash.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-f377f65c30",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "support-sendgrid-com-135e975bd1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs#provider-detection",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "legacy suite sendgrid-regressions; group Provider detection; 9 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (9 fixtures); draft, not yet reviewed."
+}

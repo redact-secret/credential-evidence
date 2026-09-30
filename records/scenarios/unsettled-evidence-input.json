@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "unsettled-evidence-input",
+  "title": "Input whose expected outcome the evidence does not settle",
+  "description": "An input the legacy benchmark left unscored because its evidence was unresolved: for example a value whose format question (is the variant real, is the boundary part of it) had no provider answer.",
+  "semantics": "When the evidence does not settle whether a value is a credential, no outcome is asserted. The input stays in the corpus so the open question is visible; it carries no expected spans and nothing may be scored against it until evidence resolves it.",
+  "expectedOutcomeClass": "not-assertable",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Any family can have an open question; the plan lists the ones that do."
+  },
+  "evidenceBasis": {
+    "basis": "unresolved",
+    "rationale": "The legacy evidence for these inputs was unresolved (tier T0), so the scenario asserts no outcome; each fixture's own evidence entry records the legacy reason.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

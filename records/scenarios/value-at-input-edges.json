@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "value-at-input-edges",
+  "title": "Credential at the edges of the input",
+  "description": "A credential-shaped value stands alone, or ends the input with no trailing newline, in the shape of one provider format per input.",
+  "semantics": "Scanners commonly anchor on delimiters. At the start and end of an input there is no delimiter, so boundary handling decides whether the value is found and whether its exact extent is right.",
+  "expectedOutcomeClass": "must-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Carrier-level: the reasoning does not depend on which format the value has."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

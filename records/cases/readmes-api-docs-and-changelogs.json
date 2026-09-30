@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "readmes-api-docs-and-changelogs",
+  "title": "READMEs, API documentation and changelogs that explain authentication",
+  "summary": "Twenty Markdown documents that describe how to authenticate: copy .env.example, send Authorization: Bearer <token>, with placeholders and no credential.",
+  "rationale": "Documentation talks about credentials constantly and is scanned with the rest of the repository. The vocabulary (API key, Bearer, token) is credential-shaped; the content is placeholders.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Authored detector and arrival-target metadata intentionally assign no credential family; this fixture remains a global benchmark control.",
+  "scenarios": [
+    "documentation-placeholder"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. Every example value is a placeholder or a description of a header.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/real-world-shapes/corpus.json#realworld-docs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/real-world-shapes/corpus.json",
+      "note": "legacy suite real-world-shapes; group realworld-docs; 20 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (20 fixtures); draft, not yet reviewed."
+}

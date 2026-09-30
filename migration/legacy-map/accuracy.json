@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "kind": "legacy-map",
+  "id": "accuracy",
+  "title": "Legacy map for suite accuracy",
+  "source": {
+    "repository": "redact-secret/redact-secret-benchmarks",
+    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+  },
+  "entries": [
+    {"legacy":{"type":"suite","id":"accuracy","path":"fixtures/accuracy/corpus.json","title":"Detection accuracy","description":"Exact secret detection across identical, synthetic files."},"canonical":[{"type":"case","id":"early-benign-inputs"},{"type":"case","id":"early-filler-token-assignments"},{"type":"case","id":"early-filler-token-contexts"}],"relation":"merged","note":"10 fixtures in 4 imported cases (4 case, 0 scenario, 0 projection); every fixture is listed below with its canonical id."},
+    {"legacy":{"type":"case","id":"accuracy-context","path":"records/cases/accuracy/accuracy-context.json"},"canonical":{"type":"case","id":"early-filler-token-contexts"},"relation":"same","note":"rule authored-case; legacy tier T3; 3 fixtures"},
+    {"legacy":{"type":"case","id":"accuracy-negative-controls","path":"records/cases/accuracy/accuracy-negative-controls.json"},"canonical":{"type":"case","id":"early-benign-inputs"},"relation":"merged","note":"rule authored-case; legacy tier T2; 1 fixture"},
+    {"legacy":{"type":"case","id":"accuracy-negative-controls-benign","path":"records/cases/accuracy/accuracy-negative-controls-benign.json"},"canonical":{"type":"case","id":"early-benign-inputs"},"relation":"merged","note":"rule authored-case; legacy tier T3; 4 fixtures"},
+    {"legacy":{"type":"case","id":"accuracy-token-formats","path":"records/cases/accuracy/accuracy-token-formats.json"},"canonical":{"type":"case","id":"early-filler-token-assignments"},"relation":"same","note":"rule authored-case; legacy tier T3; 2 fixtures"},
+    {"legacy":{"type":"fixture","id":"accuracy--aws-id","path":"aws-id.txt","scenarioIds":["credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-aws--aws-id"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--bearer-header","path":"bearer-header.txt","scenarioIds":["credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-generic--bearer-header"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--documentation","path":"documentation.txt","scenarioIds":["benign-controls-and-twins","credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-provider-neutral--documentation"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--empty-config","path":"empty-config.txt","scenarioIds":["benign-controls-and-twins","credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-generic--empty-config"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--github-token","path":"github-token.txt","scenarioIds":["credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-github--github-token"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--ordinary-text","path":"ordinary-text.txt","scenarioIds":["benign-controls-and-twins","credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-provider-neutral--ordinary-text"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--placeholder","path":"placeholder.txt","scenarioIds":["benign-controls-and-twins","credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-generic--placeholder"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--public-id","path":"public-id.txt","scenarioIds":["benign-controls-and-twins","credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-provider-neutral--public-id"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--quoted-token","path":"quoted-token.txt","scenarioIds":["credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-github--quoted-token"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"accuracy--unicode-prefix","path":"unicode-prefix.txt","scenarioIds":["credential-shape-grammar"]},"canonical":{"type":"fixture","id":"authored-github--unicode-prefix"},"relation":"same"}
+  ],
+  "lifecycle": "draft",
+  "notes": "Migration provenance (ADR 0007, ADR 0008): where every legacy suite, imported case and fixture of this suite went. Legacy names appear only on the legacy side. `case` entries name the groups that the first import (issue #4) minted, which are superseded by this reclassification; their path is the file that import wrote."
+}

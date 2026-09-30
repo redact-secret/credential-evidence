@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "interpolation-and-command-substitution",
+  "title": "Interpolation, command substitution and variable expansion as credential values",
+  "summary": "Values such as $(registryPassword), $(pass show benchmark/database), #{ENV['DB_PASSWORD']}, {env:ANTHROPIC_API_KEY} and ${DATABASE_PASSWORD} assigned to credential-named keys across Azure pipelines, shell, Ruby and configuration formats.",
+  "rationale": "Interpolation defers the secret to run time. Flagging the syntax flags every correctly written pipeline and every shell script that reads a secret from a store.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. Each value is an interpolation form in its language and holds no secret bytes.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "incidents": [
+    {
+      "id": "incident-292",
+      "failureMode": "false-alarm",
+      "summary": "Preserve Windows environment references and SQL bind parameters in contextual detection",
+      "observedAt": "2026-09-16",
+      "externalRefs": [
+        {
+          "system": "redact-secret-issue",
+          "id": "redact-secret#292",
+          "url": "https://github.com/redact-secret/redact-secret/issues/292",
+          "note": "Product issue where the failure mode was reported; product workflow status is not imported."
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs#interpolation-279",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "legacy suite reference-syntax; group Interpolation · #279; 6 fixtures"
+    },
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs#template-controls",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "legacy suite reference-syntax; group Template controls; 1 fixture"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 2 legacy groups (7 fixtures); draft, not yet reviewed."
+}

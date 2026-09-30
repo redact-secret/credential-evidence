@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "public-identifier",
+  "title": "Public identifier beside a credential",
+  "description": "A public identifier that sits next to a credential and looks like it: an account, key or client id, a request or trace id, a cloud resource id.",
+  "semantics": "Identifiers are public by design and readers need them. Reporting one is a false alarm and redacting it removes information a reader legitimately needs.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Any family whose provider publishes identifiers next to its secrets."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

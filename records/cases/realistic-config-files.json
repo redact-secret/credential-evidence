@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "realistic-config-files",
+  "title": "Realistic configuration files with no secret",
+  "summary": "Twenty locally authored configuration files in the shapes real repositories contain: Docker Compose, nginx, application settings and similar, using variables and example hostnames and holding no credential.",
+  "rationale": "A scanner is run over real repositories. Configuration files are dense with keys, hostnames and identifiers that resemble credentials, so false-alarm rates on realistic files are what users feel.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Authored detector and arrival-target metadata intentionally assign no credential family; this fixture remains a global benchmark control.",
+  "scenarios": [
+    "credential-named-assignment-false-positive"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. Authored by hand to contain no credential; every secret-position value is a variable reference or an example name.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "incidents": [
+    {
+      "id": "incident-911",
+      "failureMode": "false-alarm",
+      "summary": "generic-token redacts secret-reference names and identifiers in ordinary config/source (untargeted real-world-shapes)",
+      "observedAt": "2026-09-28",
+      "externalRefs": [
+        {
+          "system": "redact-secret-issue",
+          "id": "redact-secret#911",
+          "url": "https://github.com/redact-secret/redact-secret/issues/911",
+          "note": "Product issue where the failure mode was reported; product workflow status is not imported."
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/real-world-shapes/corpus.json#realworld-config",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/real-world-shapes/corpus.json",
+      "note": "legacy suite real-world-shapes; group realworld-config; 20 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (20 fixtures); draft, not yet reviewed."
+}

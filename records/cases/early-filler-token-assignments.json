@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "early-filler-token-assignments",
+  "title": "Filler GitHub and AWS tokens assigned in NAME=value lines",
+  "summary": "Two environment-style lines from the benchmark's first corpus: a GitHub classic token and an AWS access key id, each built from the provider's prefix followed by the word SYNTHETIC and repeated filler characters, so the length and prefix are right and the body is obviously not issued.",
+  "rationale": "These were the first values the benchmark asked a scanner to find. They prove a prefix-and-length match in the simplest carrier, but they are filler, not independent format examples, so they are kept as a project decision and must not be read as evidence about either format.",
+  "caseTypes": [
+    "positive",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "aws:iam-user-access-key",
+      "role": "subject"
+    },
+    {
+      "family": "github:classic-personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged by project decision: the prefix and length match the documented formats and the carrier names the credential type. Nothing beyond the project's own authoring supports the exact ranges.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/accuracy/corpus.json#token-formats",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/accuracy/corpus.json",
+      "note": "legacy suite accuracy; group Token formats; 2 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (2 fixtures); draft, not yet reviewed."
+}

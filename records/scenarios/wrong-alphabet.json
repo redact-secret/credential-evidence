@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "wrong-alphabet",
+  "title": "Right shape, character outside the alphabet",
+  "description": "A positive value with exactly one change: one or more characters fall outside the alphabet the format allows, length and prefix unchanged.",
+  "semantics": "The alphabet is part of the format. A value containing a character the provider never issues is not a credential of the family, so it must not be reported as one.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Applies to any family whose format restricts its alphabet."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

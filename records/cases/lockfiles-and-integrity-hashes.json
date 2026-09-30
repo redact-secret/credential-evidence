@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "lockfiles-and-integrity-hashes",
+  "title": "Lock files and checksum files",
+  "summary": "Twenty snippets of package-lock.json, yarn.lock, go.sum and similar dependency lock files, each line carrying an integrity hash.",
+  "rationale": "Integrity hashes are long, random-looking, base64 or hexadecimal, and public. Lock files are large and committed in nearly every project, so any weakness here multiplies.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Authored detector and arrival-target metadata intentionally assign no credential family; this fixture remains a global benchmark control.",
+  "scenarios": [
+    "benign-encoded-value"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. The hashes verify published packages and are public by design.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/real-world-shapes/corpus.json#realworld-lockfile",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/real-world-shapes/corpus.json",
+      "note": "legacy suite real-world-shapes; group realworld-lockfile; 20 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (20 fixtures); draft, not yet reviewed."
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "early-filler-token-contexts",
+  "title": "Filler tokens in a Bearer header, after emoji, and in a quoted source literal",
+  "summary": "Three inputs from the first corpus: a Bearer header carrying a synthetic token, a GITHUB_TOKEN assignment that follows an emoji, and a JavaScript string literal holding a GitHub-shaped filler token.",
+  "rationale": "They were the first contexts the benchmark exercised beyond a bare assignment: a header, multibyte text before the value (which shifts byte offsets), and a quoted literal whose quotes are not part of the secret.",
+  "caseTypes": [
+    "positive",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "generic:bearer-token",
+      "role": "subject"
+    },
+    {
+      "family": "github:classic-personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged by project decision, with the exact secret range. The contexts are ordinary and the values carry documented prefixes or header position; the expectation records the project's choice, not provider evidence.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/accuracy/corpus.json#context",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/accuracy/corpus.json",
+      "note": "legacy suite accuracy; group Context; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (3 fixtures); draft, not yet reviewed."
+}

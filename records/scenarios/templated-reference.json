@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "templated-reference",
+  "title": "Reference to a secret instead of the secret",
+  "description": "A value that names a secret without containing it: a variable, a template expression, an interpolation, a secret-manager pointer, a CI secret reference.",
+  "semantics": "A reference is the safe way to use a secret. Reporting it punishes the practice a scanner exists to encourage, and there is no secret byte in it to cover.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Any family's secret can be referenced rather than embedded."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

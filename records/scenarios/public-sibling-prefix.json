@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "public-sibling-prefix",
+  "title": "Public sibling identifier instead of the secret",
+  "description": "A positive value with exactly one change: the prefix is that of the provider's public sibling identifier (a publishable key, a client id) rather than the secret.",
+  "semantics": "Providers issue public identifiers next to their secrets with a near-identical shape. The public one is meant to appear in client code and pages; reporting it is a false alarm.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Applies to any family that has a public sibling identifier with a similar shape."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

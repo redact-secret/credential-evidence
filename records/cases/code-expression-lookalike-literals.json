@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "code-expression-lookalike-literals",
+  "title": "Literals that look like code references but are not",
+  "summary": "password: SYNTHETIC.REVOKED.CONTEXT_VALUE, password: SYNTHETIC_REVOKED_CONTEXT_VALUE and password: selfhostedYmWZ...: dotted or underscored literals and a value that starts with a plausible root name but continues as a real-looking string.",
+  "rationale": "A rule that exempts anything dotted or underscored would hide real passwords that happen to contain those characters. The exemption has to rest on the structure of a real reference, not on the punctuation.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged. These values do not resolve to a reference form; they are literals that share punctuation with code expressions.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs#278-code-reference-exclusions",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "legacy suite milestone-6-closed; group #278 · Code reference exclusions; 3 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#278",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/278",
+      "note": "Legacy benchmark issue the group was written for."
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#278",
+      "url": "https://github.com/redact-secret/redact-secret/issues/278",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (3 fixtures); draft, not yet reviewed."
+}

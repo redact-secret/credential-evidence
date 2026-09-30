@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "partially-delimited-template-expressions",
+  "title": "Values that begin a template or embed one between real-looking text",
+  "summary": "A password whose value starts with {{ but never closes it, and a password with a real-looking run, a {{var}} expression, and another real-looking run.",
+  "rationale": "If any brace pair silenced a value, wrapping a real secret in braces would hide it. The exemption covers only fully delimited expressions; anything else still contains literal characters that must be covered.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged. A value that is not a complete template expression carries literal material next to the braces, and the whole literal must be reported.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs#263-fully-delimited-templates",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "legacy suite milestone-6-closed; group #263 · Fully delimited templates; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#263",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/263",
+      "note": "Legacy benchmark issue the group was written for."
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#263",
+      "url": "https://github.com/redact-secret/redact-secret/issues/263",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (2 fixtures); draft, not yet reviewed."
+}

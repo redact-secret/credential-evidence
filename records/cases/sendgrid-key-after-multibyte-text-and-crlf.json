@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "sendgrid-key-after-multibyte-text-and-crlf",
+  "title": "SendGrid keys after emoji and CJK text, and on CRLF lines",
+  "summary": "The SendGrid key shape after emoji and Chinese text on the same line, and on a CRLF-terminated line under a comment.",
+  "rationale": "Ranges are byte offsets, so multibyte text before the key moves the offsets; a carriage return after the key must not be counted into it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flagged. Byte-exact range of the key, regardless of the text before it or the line ending after it.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-f377f65c30",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "support-sendgrid-com-135e975bd1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs#encoding",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "legacy suite sendgrid-regressions; group Encoding; 6 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (6 fixtures); draft, not yet reviewed."
+}

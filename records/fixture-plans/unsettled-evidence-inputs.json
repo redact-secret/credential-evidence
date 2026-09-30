@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "unsettled-evidence-inputs",
+  "title": "Inputs whose outcome the evidence does not settle",
+  "description": "Positive, twin and control inputs for which the legacy evidence was unresolved, so no outcome may be relied on. They are kept visible as open questions, not as expectations.",
+  "matrix": {
+    "families": {
+      "select": "listed",
+      "ids": [
+        "anthropic:secret-api-key",
+        "databricks:personal-access-token",
+        "elevenlabs:api-key",
+        "linear:personal-api-key",
+        "mailchimp:marketing-api-key",
+        "mailgun:private-api-key",
+        "openai:secret-api-key",
+        "slack:bot-token",
+        "stripe:organization-api-key",
+        "stripe:webhook-signing-secret",
+        "vercel:access-token"
+      ]
+    },
+    "targets": [
+      {
+        "type": "scenario",
+        "id": "unsettled-evidence-input"
+      }
+    ],
+    "carriers": [
+      "ci-config",
+      "env",
+      "header",
+      "shell-export"
+    ],
+    "coverage": "sparse"
+  },
+  "generation": {
+    "rule": "unsettled-input-matrix",
+    "generator": {
+      "name": "redact-secret-benchmarks-fixture-generators",
+      "version": "legacy-ade8a10bd792",
+      "sourceRevision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+      "entrypoint": "fixtures/generated/build.mjs"
+    }
+  },
+  "lineage": {
+    "origin": "reclassified-from-cases",
+    "derivedFrom": [
+      {
+        "kind": "scenario",
+        "id": "unsettled-evidence-input"
+      }
+    ],
+    "note": "Reclassified out of the legacy imported cases, which were matrix cells; the correspondence is in migration/legacy-map."
+  },
+  "output": [
+    "anthropic",
+    "databricks",
+    "elevenlabs",
+    "linear",
+    "mailchimp",
+    "mailgun",
+    "openai",
+    "slack",
+    "stripe",
+    "vercel"
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. The matrix is sparse: the content instantiates the cells below, not every family against every scenario."
+}

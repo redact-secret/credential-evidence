@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "aws-documented-example-keys",
+  "title": "The AWS documentation example access key and secret",
+  "summary": "The access key id AKIAIOSFODNN7EXAMPLE and the secret access key wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY that AWS publishes in its documentation, appearing bare, in an AWS_ACCESS_KEY_ID assignment and in a quoted secret assignment.",
+  "rationale": "The pair is printed in tutorials to be copied and was never issued. A scanner that reports it buries real findings in noise; a policy that silences it on purpose must not also silence real values that merely look similar, which is what the paired Case checks.",
+  "caseTypes": [
+    "benign",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "aws:iam-user-access-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "documentation-placeholder"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. The values are the provider's published examples, not issued credentials; the project policy is to treat exactly these documented literals as placeholders.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs#254-aws-documentation-literals",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "legacy suite milestone-6-closed; group #254 · AWS documentation literals; 4 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#254",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/254",
+      "note": "Legacy benchmark issue the group was written for."
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#254",
+      "url": "https://github.com/redact-secret/redact-secret/issues/254",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (4 fixtures); draft, not yet reviewed."
+}

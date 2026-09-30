@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "otp-seeds-in-otpauth-uris",
+  "title": "One-time-password seeds in otpauth URIs",
+  "summary": "otpauth:// URIs, in totp and hotp forms, with a synthetic Base32 seed in varying query order, quoting and encodings, including one after Unicode text and CRLF.",
+  "rationale": "The seed is the secret that lets anyone generate codes; the label and issuer are not secret. Query order and carrier must not change whether the seed is found, or how much of it is covered.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:otp-seed",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged under project policy: a full Base32 seed in an otpauth URI is a long-lived secret, and the range covers the seed.",
+    "sources": [
+      {
+        "sourceId": "github-com-google-google-authenticator-4c73b28585",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-26"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/policy-qualified-credentials.mjs#otpauth-uri",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/policy-qualified-credentials.mjs",
+      "note": "legacy suite policy-qualified-credentials; group otpauth-uri; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (3 fixtures); draft, not yet reviewed."
+}

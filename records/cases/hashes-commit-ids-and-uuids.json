@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hashes-commit-ids-and-uuids",
+  "title": "Checksums, commit hashes, UUIDs and public URLs",
+  "summary": "checksum= with a SHA-256 digest, commit= with a git hash, request_id= with a UUID and a documentation URL, assigned to ordinary field names.",
+  "rationale": "Long random-looking values are everywhere in repositories and are public by nature. Entropy alone, without a format or a credential name, is not a finding.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Authored detector and arrival-target metadata intentionally assign no credential family; this fixture remains a global benchmark control.",
+  "scenarios": [
+    "benign-encoded-value"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. Hashes, commit ids, UUIDs and URLs are public identifiers, not credentials, and their field names say so.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/build.mjs#public-identifiers",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/build.mjs",
+      "note": "legacy suite negative-controls; group Public identifiers; 5 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (5 fixtures); draft, not yet reviewed."
+}

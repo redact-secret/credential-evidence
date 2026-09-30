@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "placeholder-vocabulary-values",
+  "title": "Placeholder words under credential-named keys",
+  "summary": "Assignments such as secret=\" changeme\" (leading space), secret_key=\"changeme2\" and secret_key: \"REDACTED-EXAMPLE\", where the key sounds like a credential and the value is placeholder vocabulary in several spellings.",
+  "rationale": "The key name is a strong signal, so the value has to be looked at. Placeholder words written with a leading space, a trailing digit or as a compound are still placeholders, and treating only exact matches as placeholders flags half of the documentation examples.",
+  "caseTypes": [
+    "benign",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "generic:connection-string-password",
+      "role": "lookalike"
+    },
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "credential-named-assignment-false-positive",
+    "documentation-placeholder"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. The values are placeholder vocabulary in recognised spellings; nothing in them was issued, and the key name alone is not evidence of a secret.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs#257-placeholder-vocabulary",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "legacy suite milestone-6-closed; group #257 · Placeholder vocabulary; 5 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#257",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/257",
+      "note": "Legacy benchmark issue the group was written for."
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#257",
+      "url": "https://github.com/redact-secret/redact-secret/issues/257",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (5 fixtures); draft, not yet reviewed."
+}
