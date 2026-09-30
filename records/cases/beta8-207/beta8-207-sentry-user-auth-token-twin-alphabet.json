@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-207-sentry-user-auth-token-twin-alphabet",
   "title": "Sentry User auth token: one-property twin (alphabet)",
-  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: \"g\" in the body, outside the lowercase hex Sentry's generator emits and alphabet: \"z\" in the body, outside the lowercase hex Sentry's generator emits. Twin of \"Sentry User auth token: must be flagged (project-policy) [legacy tier T2]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: \"g\" in the body, outside the lowercase hex Sentry's generator emits and alphabet: \"z\" in the body, outside the lowercase hex Sentry's generator emits. Twin of \"Sentry User auth token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

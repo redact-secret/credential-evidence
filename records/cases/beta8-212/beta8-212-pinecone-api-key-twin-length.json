@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-212-pinecone-api-key-twin-length",
-  "title": "Pinecone API key (pcsk_): one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "4 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 4-character label vs the tool-corroborated 5-6 (trufflehog's pinecone test rejects a 4-character label), length: 62-character secret segment vs the tool-corroborated 63, and length: 64-character secret segment vs the tool-corroborated 63 (pleno-dlp's open pcsk_[A-Za-z0-9_]{40,} still accepts it; recorded peer difference), and 1 more. Twin of \"Pinecone API key (pcsk_): must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "Pinecone API key (pcsk_): one-property twin (length)",
+  "summary": "4 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 4-character label vs the tool-corroborated 5-6 (trufflehog's pinecone test rejects a 4-character label), length: 62-character secret segment vs the tool-corroborated 63, and length: 64-character secret segment vs the tool-corroborated 63 (pleno-dlp's open pcsk_[A-Za-z0-9_]{40,} still accepts it; recorded peer difference), and 1 more. Twin of \"Pinecone API key (pcsk_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

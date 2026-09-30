@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "common-formats-openai-token-twin-boundary",
   "title": "OpenAI Secret API key: one-property twin (boundary)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: internal marker: T3BlbkFK vs contracted T3BlbkFJ. Twin of \"OpenAI Secret API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: internal marker: T3BlbkFK vs contracted T3BlbkFJ. Twin of \"OpenAI Secret API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

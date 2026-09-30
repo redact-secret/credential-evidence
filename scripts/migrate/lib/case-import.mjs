@@ -370,7 +370,10 @@ export function buildCaseImport({ root, generated, taxonomy, revision = LEGACY_R
     let why;
     if (agg.roleKind === "base") {
       title = `${topic}: ${outcomeWord}`;
-      if (agg.outcome === "must-flag") {
+      if (agg.outcome === "not-assertable") {
+        summary = `${entry?.what ?? `Values related to ${topic}`}${entry?.what ? "" : ", inputs"} whose status the legacy evidence does not settle. Covers ${inputs}.`;
+        why = "The legacy benchmark could not ground an expectation for these inputs (tier T0) and left them unscored. They stay visible so the open question is not lost, but no outcome may be relied on until evidence resolves it.";
+      } else if (agg.outcome === "must-flag") {
         summary = entry?.flag ?? entry?.what;
         summary = summary ? `${summary} Covers ${inputs}.` : `Synthetic ${topic} values built to the documented format appear in ${inputs}${ctx}. Each input records the exact byte range of the secret.`;
         why = entry?.why ?? "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.";
@@ -379,7 +382,6 @@ export function buildCaseImport({ root, generated, taxonomy, revision = LEGACY_R
         summary = summary ? `${summary} Covers ${inputs}.` : `${inputs} related to ${topic} that resemble the format but are not issued credentials (a bare prefix, a short body, a mask or a reference).`;
         why = entry?.why ?? "A value that only resembles a credential is not one. Reporting it is a false alarm, and it shows whether structure and context, not appearance, decide the outcome.";
       }
-      if (agg.outcome === "not-assertable") summary = `${summary} The legacy evidence for this expectation is unresolved.`;
     } else if (agg.roleKind === "twin") {
       const mk = agg.role.slice(5);
       const mutations = uniqSorted(fixturesOf.map((f) => f.mutation).filter(Boolean));
@@ -440,7 +442,10 @@ export function buildCaseImport({ root, generated, taxonomy, revision = LEGACY_R
   const dedupeTitles = (recs) => {
     for (const pass of ["basis", "tier"]) {
       const byTitle = new Map();
-      for (const r of recs) byTitle.set(r.title, [...(byTitle.get(r.title) ?? []), r]);
+      for (const r of recs) {
+        const k = `${aggById.get(r.id).suite}\u0000${r.title}`;
+        byTitle.set(k, [...(byTitle.get(k) ?? []), r]);
+      }
       for (const group of byTitle.values()) {
         if (group.length < 2) continue;
         for (const r of group) {

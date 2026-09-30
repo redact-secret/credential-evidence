@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-212-pinecone-api-key",
-  "title": "Pinecone API key (pcsk_): must be flagged (tool-corroborated) [legacy tier T2]",
+  "title": "Pinecone API key (pcsk_): must be flagged",
   "summary": "Synthetic Pinecone API key (pcsk_) values built to the documented format appear in 8 inputs across 8 carrier types. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

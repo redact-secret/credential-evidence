@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "detector-coverage-posthog-token",
-  "title": "PostHog Personal API key (phx_): must be flagged (provider-documented) [legacy tier T1]",
+  "title": "PostHog Personal API key (phx_): must be flagged",
   "summary": "Synthetic PostHog Personal API key (phx_) values built to the documented format appear in 3 inputs. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

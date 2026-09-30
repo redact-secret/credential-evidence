@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "detector-coverage-cohere-api-key-twin-length",
-  "title": "Cohere API key (unprefixed): one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 39 vs contracted 40. Twin of \"Cohere API key (unprefixed): must be flagged (project-policy) [legacy tier T3]\".",
+  "title": "Cohere API key (unprefixed): one-property twin (length)",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 39 vs contracted 40. Twin of \"Cohere API key (unprefixed): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

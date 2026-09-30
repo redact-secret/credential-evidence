@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-528h-paddle-api-key-twin-length",
   "title": "Paddle Billing API key (pdl_live_/pdl_sdbx_apikey_): one-property twin (length)",
-  "summary": "6 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 2-character suffix vs exactly 3 (68 in all), length: a 21-character secret segment vs exactly 22, and length: a 23-character secret segment vs exactly 22, and 3 more. Twin of \"Paddle Billing API key (pdl_live_/pdl_sdbx_apikey_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "6 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 2-character suffix vs exactly 3 (68 in all), length: a 21-character secret segment vs exactly 22, and length: a 23-character secret segment vs exactly 22, and 3 more. Twin of \"Paddle Billing API key (pdl_live_/pdl_sdbx_apikey_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

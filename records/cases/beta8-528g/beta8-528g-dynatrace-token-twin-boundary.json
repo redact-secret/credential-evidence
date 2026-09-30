@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-528g-dynatrace-token-twin-boundary",
   "title": "Dynatrace Access and platform token (dt0c01, dt0s..): one-property twin (boundary)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: _x glued after the 64-character secret portion and boundary: x glued before dt0. Twin of \"Dynatrace Access and platform token (dt0c01, dt0s..): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: _x glued after the 64-character secret portion and boundary: x glued before dt0. Twin of \"Dynatrace Access and platform token (dt0c01, dt0s..): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

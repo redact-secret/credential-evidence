@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-207-atlassian-api-token-twin-length",
-  "title": "Atlassian API token: one-property twin (length) (project-policy) [legacy tier T2]",
-  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 99 body characters after ATAT vs the contract's 100-character floor. Twin of \"Atlassian API token: must be flagged (project-policy) [legacy tier T2]\".",
+  "title": "Atlassian API token: one-property twin (length)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 99 body characters after ATAT vs the contract's 100-character floor. Twin of \"Atlassian API token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

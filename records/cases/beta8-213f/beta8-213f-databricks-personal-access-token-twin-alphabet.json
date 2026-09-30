@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-213f-databricks-personal-access-token-twin-alphabet",
-  "title": "Databricks Personal access token: one-property twin (alphabet) (tool-corroborated) [legacy tier T2]",
-  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one lowercase \"z\" at offset 20, outside the dapi[0-9a-f]{32} body Databricks' own Labs code documents (the Purview non-hex example is settled against it); width unchanged. Twin of \"Databricks Personal access token: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "Databricks Personal access token: one-property twin (alphabet)",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one lowercase \"z\" at offset 20, outside the dapi[0-9a-f]{32} body Databricks' own Labs code documents (the Purview non-hex example is settled against it); width unchanged. Twin of \"Databricks Personal access token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

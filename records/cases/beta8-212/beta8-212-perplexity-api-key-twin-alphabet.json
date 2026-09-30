@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-212-perplexity-api-key-twin-alphabet",
   "title": "Perplexity API key: one-property twin (alphabet)",
-  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body byte replaced with \"-\" (48-character body kept), outside the tool-corroborated [A-Za-z0-9] body; osv-scalibr's test rejects an internal dash. Twin of \"Perplexity API key: must be flagged (project-policy) [legacy tier T2]\".",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body byte replaced with \"-\" (48-character body kept), outside the tool-corroborated [A-Za-z0-9] body; osv-scalibr's test rejects an internal dash. Twin of \"Perplexity API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-434a-doppler-token-twin-length",
   "title": "Doppler Service token (dp.st.): one-property twin (length)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 39-byte body vs the documented 40–44, length: a 45-byte body vs the documented 40–44 (an embedded value, never truncated), and segment: 36 bytes vs the documented maximum of 35. Twin of \"Doppler Service token (dp.st.): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 39-byte body vs the documented 40–44, length: a 45-byte body vs the documented 40–44 (an embedded value, never truncated), and segment: 36 bytes vs the documented maximum of 35. Twin of \"Doppler Service token (dp.st.): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

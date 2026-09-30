@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-259-neon-api-key-twin-length",
-  "title": "Neon API key: one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 63-character body vs the tool-corroborated 64-character floor. Twin of \"Neon API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "Neon API key: one-property twin (length)",
+  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 63-character body vs the tool-corroborated 64-character floor. Twin of \"Neon API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

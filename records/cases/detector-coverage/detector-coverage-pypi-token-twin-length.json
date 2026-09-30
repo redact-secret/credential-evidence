@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-pypi-token-twin-length",
   "title": "Python Package Index (PyPI) API token: one-property twin (length)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 84-byte body vs the provider's documented {85,} floor. Twin of \"Python Package Index (PyPI) API token: must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 84-byte body vs the provider's documented {85,} floor. Twin of \"Python Package Index (PyPI) API token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

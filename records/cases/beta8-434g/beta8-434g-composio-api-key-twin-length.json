@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-434g-composio-api-key-twin-length",
   "title": "Composio Project API key (ak_): one-property twin (length)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 19 body bytes vs exactly 20, length: 21 body bytes vs exactly 20 (rejected, never truncated), and length: ak_ + 64 hex, bkend.ai's key (another provider), vs exactly 20. Twin of \"Composio Project API key (ak_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 19 body bytes vs exactly 20, length: 21 body bytes vs exactly 20 (rejected, never truncated), and length: ak_ + 64 hex, bkend.ai's key (another provider), vs exactly 20. Twin of \"Composio Project API key (ak_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

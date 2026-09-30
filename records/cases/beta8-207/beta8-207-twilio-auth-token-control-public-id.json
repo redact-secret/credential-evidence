@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-207-twilio-auth-token-control-public-id",
-  "title": "Twilio Account auth token: benign public id controls (project-policy) [legacy tier T2]",
+  "title": "Twilio Account auth token: benign public id controls",
   "summary": "3 inputs holding public identifiers that sit next to the credential and look like it but are not secret.",
   "rationale": "Providers publish identifiers (account, key or client ids) beside their secrets. Reporting one is a false alarm, and redacting it removes information a reader legitimately needs.",
   "caseTypes": [

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-213b-private-key",
-  "title": "PEM-encoded private key: must be flagged (project-policy) [legacy tier T3]",
+  "title": "PEM-encoded private key: must be flagged",
   "summary": "Synthetic PEM-encoded private key values built to the documented format appear in 3 inputs in container and orchestration configuration, source code, and command and tool output. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

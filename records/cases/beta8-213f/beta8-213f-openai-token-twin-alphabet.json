@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-213f-openai-token-twin-alphabet",
-  "title": "OpenAI Secret API key: one-property twin (alphabet) (tool-corroborated) [legacy tier T2]",
-  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one \".\" at offset 10 of the left run, outside every source's [A-Za-z0-9] legacy body; widths and marker unchanged. Twin of \"OpenAI Secret API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "OpenAI Secret API key: one-property twin (alphabet)",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one \".\" at offset 10 of the left run, outside every source's [A-Za-z0-9] legacy body; widths and marker unchanged. Twin of \"OpenAI Secret API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-213a-linear-token",
-  "title": "Linear Personal API key: must be flagged (provider-documented) [legacy tier T1]",
+  "title": "Linear Personal API key: must be flagged",
   "summary": "Synthetic Linear Personal API key values built to the documented format appear in 3 inputs in environment files, HTTP headers, and source code. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-259-travisci-api-token",
-  "title": "Travis CI API token: must be flagged (project-policy) [legacy tier T3]",
+  "title": "Travis CI API token: must be flagged",
   "summary": "Synthetic Travis CI API token values built to the documented format appear in 8 inputs across 8 carrier types. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

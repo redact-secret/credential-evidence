@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-528f-crates-io-token-twin-boundary",
   "title": "crates.io API token (cio): one-property twin (boundary)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: _ glued before cio, boundary: _x glued after the 32-byte body, and boundary: x glued before cio. Twin of \"crates.io API token (cio): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: _ glued before cio, boundary: _x glued after the 32-byte body, and boundary: x glued before cio. Twin of \"crates.io API token (cio): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

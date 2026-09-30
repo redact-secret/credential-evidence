@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-379-heroku-api-key-legacy-twin-context",
-  "title": "Heroku Legacy API key (bare UUID): one-property twin (context) (project-policy) [legacy tier T3]",
-  "summary": "3 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context:field: the Token row relabelled Client ID; the value is kept byte-for-byte (basis: context), context:host: git.heroku.com replaced by git.example.test; the value is kept byte-for-byte (basis: context), and context:keyword: HEROKU_API_KEY renamed SENTRY_RELEASE_ID; the value is kept byte-for-byte (basis: context). Twin of \"Heroku Legacy API key (bare UUID): must be flagged (project-policy) [legacy tier T3]\".",
+  "title": "Heroku Legacy API key (bare UUID): one-property twin (context)",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context:field: the Token row relabelled Client ID; the value is kept byte-for-byte (basis: context), context:host: git.heroku.com replaced by git.example.test; the value is kept byte-for-byte (basis: context), and context:keyword: HEROKU_API_KEY renamed SENTRY_RELEASE_ID; the value is kept byte-for-byte (basis: context). Twin of \"Heroku Legacy API key (bare UUID): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-213c-jwt",
-  "title": "JSON Web Token: must be flagged (project-policy) [legacy tier T3]",
+  "title": "JSON Web Token: must be flagged",
   "summary": "Synthetic JSON Web Token values built to the documented format appear in 6 inputs in environment files, HTTP headers, log lines, structured files (JSON, YAML, TOML), command and tool output, and URLs. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

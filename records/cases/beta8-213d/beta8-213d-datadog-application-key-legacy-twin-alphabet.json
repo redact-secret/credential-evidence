@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-213d-datadog-application-key-legacy-twin-alphabet",
   "title": "Datadog Application key (legacy 40-hex): one-property twin (alphabet)",
-  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one \"g\" at offset 20, outside the corroborated [a-f0-9] body; width unchanged. Twin of \"Datadog Application key (legacy 40-hex): must be flagged (project-policy) [legacy tier T3]\".",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one \"g\" at offset 20, outside the corroborated [a-f0-9] body; width unchanged. Twin of \"Datadog Application key (legacy 40-hex): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

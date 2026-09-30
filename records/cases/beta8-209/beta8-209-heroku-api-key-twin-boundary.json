@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-209-heroku-api-key-twin-boundary",
   "title": "Heroku OAuth access token (HRKU-prefixed): one-property twin (boundary)",
-  "summary": "1 input is identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: the documented HRKU- prefix's dash replaced by an underscore (HRKU_); UUID and length unchanged. Twin of \"Heroku OAuth access token (HRKU-prefixed): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "1 input is identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: the documented HRKU- prefix's dash replaced by an underscore (HRKU_); UUID and length unchanged. Twin of \"Heroku OAuth access token (HRKU-prefixed): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

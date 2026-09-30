@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-bearer-token-twin-alphabet",
   "title": "Bearer credential: one-property twin (alphabet)",
-  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one character (!) outside the RFC 6750 b64token alphabet, inside the 16-byte MIN_TOKEN_LEN floor. Twin of \"Bearer credential: must be flagged (project-policy) [legacy tier T3]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one character (!) outside the RFC 6750 b64token alphabet, inside the 16-byte MIN_TOKEN_LEN floor. Twin of \"Bearer credential: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

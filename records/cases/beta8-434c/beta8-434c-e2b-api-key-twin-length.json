@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-434c-e2b-api-key-twin-length",
   "title": "Team API key (e2b_): one-property twin (length)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 39-byte body vs exactly 40 and length: a 41-byte body vs exactly 40. Twin of \"Team API key (e2b_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 39-byte body vs exactly 40 and length: a 41-byte body vs exactly 40. Twin of \"Team API key (e2b_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

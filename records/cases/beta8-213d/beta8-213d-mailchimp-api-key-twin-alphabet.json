@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-213d-mailchimp-api-key-twin-alphabet",
   "title": "Mailchimp Marketing API key: one-property twin (alphabet)",
-  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one lowercase \"z\" at offset 16, outside the hex body of every pinned tool and both Mailchimp examples (the 2009 staff regex and keyhacks admit g-z, so this is not asserted: docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md); width and suffix unchanged. Twin of \"Mailchimp Marketing API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one lowercase \"z\" at offset 16, outside the hex body of every pinned tool and both Mailchimp examples (the 2009 staff regex and keyhacks admit g-z, so this is not asserted: docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md); width and suffix unchanged. Twin of \"Mailchimp Marketing API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. The outcome shows how the changed property is treated.",
   "caseTypes": [
     "twin",

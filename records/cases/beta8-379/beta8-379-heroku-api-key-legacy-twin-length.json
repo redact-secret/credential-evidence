@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-379-heroku-api-key-legacy-twin-length",
-  "title": "Heroku Legacy API key (bare UUID): one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: the UUID's last group has 11 hex digits instead of 12 (both pinned tools match the exact 8-4-4-4-12 shape) (basis: tool-undisputed). Twin of \"Heroku Legacy API key (bare UUID): must be flagged (project-policy) [legacy tier T3]\".",
+  "title": "Heroku Legacy API key (bare UUID): one-property twin (length)",
+  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: the UUID's last group has 11 hex digits instead of 12 (both pinned tools match the exact 8-4-4-4-12 shape) (basis: tool-undisputed). Twin of \"Heroku Legacy API key (bare UUID): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

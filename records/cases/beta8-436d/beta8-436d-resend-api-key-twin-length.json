@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-436d-resend-api-key-twin-length",
   "title": "Resend API key (re_): one-property twin (length)",
-  "summary": "4 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 23-character second segment vs exactly 24, length: a 25-character second segment vs exactly 24, and length: a 7-character first segment vs exactly 8, and 1 more. Twin of \"Resend API key (re_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "4 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 23-character second segment vs exactly 24, length: a 25-character second segment vs exactly 24, and length: a 7-character first segment vs exactly 8, and 1 more. Twin of \"Resend API key (re_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

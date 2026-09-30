@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-209-datadog-application-key-twin-prefix",
-  "title": "Datadog Application key (ddapp_-prefixed): one-property twin (prefix) (tool-corroborated) [legacy tier T2]",
-  "summary": "2 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: one prefix byte changed (ddaqp_, not a Datadog prefix); body unchanged and the documented lower-case ddapp_ prefix written in upper case (DDAPP_); body unchanged. Twin of \"Datadog Application key (ddapp_-prefixed): must be flagged (provider-documented) [legacy tier T1]\".",
+  "title": "Datadog Application key (ddapp_-prefixed): one-property twin (prefix)",
+  "summary": "2 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: one prefix byte changed (ddaqp_, not a Datadog prefix); body unchanged and the documented lower-case ddapp_ prefix written in upper case (DDAPP_); body unchanged. Twin of \"Datadog Application key (ddapp_-prefixed): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

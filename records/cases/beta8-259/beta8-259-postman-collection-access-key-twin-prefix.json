@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-259-postman-collection-access-key-twin-prefix",
   "title": "Postman Collection access key: one-property twin (prefix)",
-  "summary": "2 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: PMAK- (the Postman API key prefix) with the 26-character collection-key body, which fits neither the PMAT- contract nor the PMAK- 24-hex-34-hex grammar and prefix namespace: pmat- vs the upper-case PMAT- the provider displays. Twin of \"Postman Collection access key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: PMAK- (the Postman API key prefix) with the 26-character collection-key body, which fits neither the PMAT- contract nor the PMAK- 24-hex-34-hex grammar and prefix namespace: pmat- vs the upper-case PMAT- the provider displays. Twin of \"Postman Collection access key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

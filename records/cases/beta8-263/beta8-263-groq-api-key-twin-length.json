@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-263-groq-api-key-twin-length",
-  "title": "Groq API key: one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 51 body characters vs the 52 the contract requires. Twin of \"Groq API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "Groq API key: one-property twin (length)",
+  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 51 body characters vs the 52 the contract requires. Twin of \"Groq API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

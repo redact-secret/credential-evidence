@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-259-travisci-api-token-twin-alphabet",
   "title": "Travis CI API token: one-property twin (alphabet)",
-  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one character replaced by _, which trufflehog admits and gitleaks does not; outside the contract's [A-Za-z0-9] intersection (recorded peer difference). Twin of \"Travis CI API token: must be flagged (project-policy) [legacy tier T3]\".",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one character replaced by _, which trufflehog admits and gitleaks does not; outside the contract's [A-Za-z0-9] intersection (recorded peer difference). Twin of \"Travis CI API token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

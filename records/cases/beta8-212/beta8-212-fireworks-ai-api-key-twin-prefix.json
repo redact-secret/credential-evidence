@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-212-fireworks-ai-api-key-twin-prefix",
   "title": "Fireworks AI API key: one-property twin (prefix)",
-  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: FW_ vs the documented lowercase fw_ (provider code's startsWith check is case-sensitive), prefix namespace: fv_ vs the documented fw_ (one-letter deviation; neither fw_ nor fpk_), and prefix namespace: wf_ vs the documented fw_ (transposed; neither fw_ nor fpk_). Twin of \"Fireworks AI API key: must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: FW_ vs the documented lowercase fw_ (provider code's startsWith check is case-sensitive), prefix namespace: fv_ vs the documented fw_ (one-letter deviation; neither fw_ nor fpk_), and prefix namespace: wf_ vs the documented fw_ (transposed; neither fw_ nor fpk_). Twin of \"Fireworks AI API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

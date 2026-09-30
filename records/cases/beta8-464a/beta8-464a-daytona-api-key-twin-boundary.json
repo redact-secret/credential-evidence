@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-464a-daytona-api-key-twin-boundary",
   "title": "Daytona API key (dtn_): one-property twin (boundary)",
-  "summary": "5 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: -x glued after the 64-byte body, boundary: _ glued before dtn_, and boundary: _x glued after the 64-byte body, and 2 more. Twin of \"Daytona API key (dtn_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "5 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: -x glued after the 64-byte body, boundary: _ glued before dtn_, and boundary: _x glued after the 64-byte body, and 2 more. Twin of \"Daytona API key (dtn_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

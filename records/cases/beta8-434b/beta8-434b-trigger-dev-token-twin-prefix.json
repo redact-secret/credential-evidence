@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-434b-trigger-dev-token-twin-prefix",
   "title": "Trigger.dev Environment secret key (tr_ENV_ / tr_ENV_sk_): one-property twin (prefix)",
-  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: TR_PREVIEW_ vs the documented lower-case tr_preview_, prefix: pk_preview_ + 20, the public key, in the secretKey position, and prefix: tr_test_, an env slug outside dev|stg|prod|preview. Twin of \"Trigger.dev Environment secret key (tr_ENV_ / tr_ENV_sk_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: TR_PREVIEW_ vs the documented lower-case tr_preview_, prefix: pk_preview_ + 20, the public key, in the secretKey position, and prefix: tr_test_, an env slug outside dev|stg|prod|preview. Twin of \"Trigger.dev Environment secret key (tr_ENV_ / tr_ENV_sk_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

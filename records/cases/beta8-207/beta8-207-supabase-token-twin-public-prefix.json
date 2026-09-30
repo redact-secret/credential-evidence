@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-207-supabase-token-twin-public-prefix",
   "title": "Supabase Project secret key: one-property twin (public-prefix)",
-  "summary": "2 inputs are identical to a positive input except for one change: the prefix is that of a public sibling identifier rather than the secret. Legacy mutation notes: public-prefix: sb_publishable_ (documented \"safe to expose online\", supabase.com/docs/guides/api/api-keys) replaces sb_secret_; the 31-character body is unchanged and public-prefix: sb_publishable_ (documented safe to expose) replaces sb_secret_ in the same createClient call; body unchanged. Twin of \"Supabase Project secret key: must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the prefix is that of a public sibling identifier rather than the secret. Legacy mutation notes: public-prefix: sb_publishable_ (documented \"safe to expose online\", supabase.com/docs/guides/api/api-keys) replaces sb_secret_; the 31-character body is unchanged and public-prefix: sb_publishable_ (documented safe to expose) replaces sb_secret_ in the same createClient call; body unchanged. Twin of \"Supabase Project secret key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

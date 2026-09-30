@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-528c-sonarqube-token-twin-alphabet",
   "title": "SonarQube User token (squ_): one-property twin (alphabet)",
-  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body byte as uppercase hex; Hex.encodeHexString is lowercase and alphabet: one body byte replaced by g, outside hex. Twin of \"SonarQube User token (squ_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body byte as uppercase hex; Hex.encodeHexString is lowercase and alphabet: one body byte replaced by g, outside hex. Twin of \"SonarQube User token (squ_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

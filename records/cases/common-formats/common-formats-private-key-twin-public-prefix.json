@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "common-formats-private-key-twin-public-prefix",
   "title": "PEM-encoded private key: one-property twin (public-prefix)",
-  "summary": "2 inputs are identical to a positive input except for one change: the prefix is that of a public sibling identifier rather than the secret. Legacy mutation notes: public material: RFC 7468 PUBLIC KEY block of the same test key vs PRIVATE KEY. Twin of \"PEM-encoded private key: must be flagged (provider-documented)\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the prefix is that of a public sibling identifier rather than the secret. Legacy mutation notes: public material: RFC 7468 PUBLIC KEY block of the same test key vs PRIVATE KEY. Twin of \"PEM-encoded private key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

@@ -19,7 +19,7 @@ This report is generated with the records. It lists what was imported, how, and 
 | distinct families referenced by at least one case | 160 of 173 |
 | cases with historical incidents | 68 |
 
-Records: `records/cases/<suite>/<case>.json` (1,925 files, 6,383 KiB) and `records/fixtures/<suite>.json` (67 files, 3,283 KiB, 919 KiB of fixture text). Fixture content is embedded in the set, one line per fixture, so the whole projection layer is 67 files instead of 5,925.
+Records: `records/cases/<suite>/<case>.json` (1,925 files, 6,351 KiB) and `records/fixtures/<suite>.json` (67 files, 3,283 KiB, 919 KiB of fixture text). Fixture content is embedded in the set, one line per fixture, so the whole projection layer is 67 files instead of 5,925.
 
 Materialization digest: the fixtures materialize (`npm run fixtures:materialize`) to a file tree and manifest with materialization digest: `0e4272546abd62b815d827ed80e812b5b66e76937a84325355ce7cb05a594a1d`. `npm run fixtures:materialize -- --check` verifies it.
 

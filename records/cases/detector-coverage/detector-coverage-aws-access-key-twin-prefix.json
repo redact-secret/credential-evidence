@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-aws-access-key-twin-prefix",
   "title": "Amazon Web Services IAM user access key: one-property twin (prefix)",
-  "summary": "6 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: AIDA (provider-documented IAM user unique ID) vs AKIA access key and prefix namespace: AIDA (provider-documented IAM user unique ID) vs ASIA access key. Twin of \"Amazon Web Services IAM user access key: must be flagged (project-policy) [legacy tier T3]\".",
+  "summary": "6 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: AIDA (provider-documented IAM user unique ID) vs AKIA access key and prefix namespace: AIDA (provider-documented IAM user unique ID) vs ASIA access key. Twin of \"Amazon Web Services IAM user access key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

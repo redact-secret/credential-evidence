@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-384e-cohere-api-key-control-public-id",
-  "title": "Cohere API key (unprefixed): benign public id controls (tool-corroborated) [legacy tier T2]",
+  "title": "Cohere API key (unprefixed): benign public id controls",
   "summary": "5 inputs holding public identifiers that sit next to the credential and look like it but are not secret.",
   "rationale": "Providers publish identifiers (account, key or client ids) beside their secrets. Reporting one is a false alarm, and redacting it removes information a reader legitimately needs.",
   "caseTypes": [

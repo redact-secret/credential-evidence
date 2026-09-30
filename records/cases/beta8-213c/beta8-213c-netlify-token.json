@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-213c-netlify-token",
-  "title": "Netlify Personal access token: must be flagged (provider-documented) [legacy tier T1]",
+  "title": "Netlify Personal access token: must be flagged",
   "summary": "Synthetic Netlify Personal access token values built to the documented format appear in 4 inputs in CI configuration, command lines, HTTP headers, and source code. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-379-together-ai-api-key",
-  "title": "Together AI Project API key (tgp_v1_): must be flagged (tool-corroborated) [legacy tier T2]",
+  "title": "Together AI Project API key (tgp_v1_): must be flagged",
   "summary": "Synthetic Together AI Project API key (tgp_v1_) values built to the documented format appear in 4 inputs in command lines, log lines, prose, and SDK and client configuration. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

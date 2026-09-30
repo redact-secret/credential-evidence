@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-384b-aws-bedrock-long-term-api-key-twin-alphabet",
   "title": "Amazon Bedrock Long-term API key (ABSK): one-property twin (alphabet)",
-  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: - (URL-safe Base64) as the byte right after the head, so the standard-Base64 run after ABSK stops at 18 characters and alphabet: = as the byte right after the head, where Base64 allows padding only at the end. Twin of \"Amazon Bedrock Long-term API key (ABSK): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: - (URL-safe Base64) as the byte right after the head, so the standard-Base64 run after ABSK stops at 18 characters and alphabet: = as the byte right after the head, where Base64 allows padding only at the end. Twin of \"Amazon Bedrock Long-term API key (ABSK): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

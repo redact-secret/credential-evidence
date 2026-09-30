@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-postman-api-key-twin-length",
   "title": "Postman API key: one-property twin (length)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 33-byte second segment vs the 34 gitleaks corroborates (58-byte body vs the 59 both pinned tools corroborate). Twin of \"Postman API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 33-byte second segment vs the 34 gitleaks corroborates (58-byte body vs the 59 both pinned tools corroborate). Twin of \"Postman API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

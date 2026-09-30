@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-208-replicate-api-token",
-  "title": "Replicate API token: must be flagged (provider-documented) [legacy tier T1]",
+  "title": "Replicate API token: must be flagged",
   "summary": "Synthetic Replicate API token values built to the documented format appear in 9 inputs across 7 carrier types. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

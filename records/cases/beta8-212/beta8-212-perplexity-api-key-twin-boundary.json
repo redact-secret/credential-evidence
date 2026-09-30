@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-212-perplexity-api-key-twin-boundary",
   "title": "Perplexity API key: one-property twin (boundary)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: prefix delimiter dropped (pplx + body vs the provider-documented pplx-); osv-scalibr's test rejects this shape and boundary: underscore delimiter (pplx_ vs the provider-documented pplx-). Twin of \"Perplexity API key: must be flagged (project-policy) [legacy tier T2]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: prefix delimiter dropped (pplx + body vs the provider-documented pplx-); osv-scalibr's test rejects this shape and boundary: underscore delimiter (pplx_ vs the provider-documented pplx-). Twin of \"Perplexity API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

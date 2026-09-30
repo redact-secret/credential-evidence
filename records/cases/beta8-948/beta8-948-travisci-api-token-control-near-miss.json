@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-948-travisci-api-token-control-near-miss",
-  "title": "Travis CI API token: benign near miss controls (tool-corroborated) [legacy tier T2]",
+  "title": "Travis CI API token: benign near miss controls",
   "summary": "1 input holding near-miss values that resemble the format but break it (truncated, wrong separator, wrong prefix or too short).",
   "rationale": "Incomplete or malformed values are not issued credentials. They test whether the format's structure, and not only its look, is what identifies a credential.",
   "caseTypes": [

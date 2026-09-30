@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "detector-coverage-mailchimp-api-key",
-  "title": "Mailchimp Marketing API key: must be flagged (tool-corroborated) [legacy tier T2]",
+  "title": "Mailchimp Marketing API key: must be flagged",
   "summary": "Synthetic Mailchimp Marketing API key values built to the documented format appear in 6 inputs. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-263-xai-api-key-twin-length",
-  "title": "xAI API key: one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 79 body characters vs the 80 the contract requires. Twin of \"xAI API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "xAI API key: one-property twin (length)",
+  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 79 body characters vs the 80 the contract requires. Twin of \"xAI API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

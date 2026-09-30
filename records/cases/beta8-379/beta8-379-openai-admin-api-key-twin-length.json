@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-379-openai-admin-api-key-twin-length",
-  "title": "OpenAI Admin API key (sk-admin-): one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: the first segment has 57 characters (its last byte removed); the marker and the second segment are byte-identical (basis: tool-undisputed). Twin of \"OpenAI Admin API key (sk-admin-): must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "OpenAI Admin API key (sk-admin-): one-property twin (length)",
+  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: the first segment has 57 characters (its last byte removed); the marker and the second segment are byte-identical (basis: tool-undisputed). Twin of \"OpenAI Admin API key (sk-admin-): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

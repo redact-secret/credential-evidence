@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "detector-coverage-jwt-twin-alphabet",
-  "title": "JSON Web Token: one-property twin (alphabet) (tool-corroborated) [legacy tier T2]",
-  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one character (+) outside the RFC 7519 base64url alphabet. Twin of \"JSON Web Token: must be flagged (project-policy) [legacy tier T3]\".",
+  "title": "JSON Web Token: one-property twin (alphabet)",
+  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one character (+) outside the RFC 7519 base64url alphabet. Twin of \"JSON Web Token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

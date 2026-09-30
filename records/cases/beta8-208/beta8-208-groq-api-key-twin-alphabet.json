@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-208-groq-api-key-twin-alphabet",
   "title": "Groq API key: one-property twin (alphabet)",
-  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body character replaced by '-', outside the alphanumeric body every source reports. Twin of \"Groq API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body character replaced by '-', outside the alphanumeric body every source reports. Twin of \"Groq API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

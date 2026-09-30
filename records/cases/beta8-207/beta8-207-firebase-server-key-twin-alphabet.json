@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-207-firebase-server-key-twin-alphabet",
   "title": "Firebase Legacy FCM server key: one-property twin (alphabet)",
-  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: \".\" at body offset 68, outside [A-Za-z0-9_-], splitting the 140-character body. Twin of \"Firebase Legacy FCM server key: must be flagged (project-policy) [legacy tier T2]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: \".\" at body offset 68, outside [A-Za-z0-9_-], splitting the 140-character body. Twin of \"Firebase Legacy FCM server key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

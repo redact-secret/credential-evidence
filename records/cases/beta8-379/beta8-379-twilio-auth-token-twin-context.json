@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-379-twilio-auth-token-twin-context",
-  "title": "Twilio Account auth token: one-property twin (context) (project-policy) [legacy tier T3]",
-  "summary": "2 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context:field: the Auth Token column relabelled Account SID; the value is kept byte-for-byte (basis: context) and context:keyword: the 'twilio auth_token=' gate replaced by 'cache etag='; the value is kept byte-for-byte (basis: context). Twin of \"Twilio Account auth token: must be flagged (project-policy) [legacy tier T3]\".",
+  "title": "Twilio Account auth token: one-property twin (context)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context:field: the Auth Token column relabelled Account SID; the value is kept byte-for-byte (basis: context) and context:keyword: the 'twilio auth_token=' gate replaced by 'cache etag='; the value is kept byte-for-byte (basis: context). Twin of \"Twilio Account auth token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

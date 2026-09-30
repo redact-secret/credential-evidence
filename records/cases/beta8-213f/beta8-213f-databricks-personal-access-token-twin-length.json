@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-213f-databricks-personal-access-token-twin-length",
-  "title": "Databricks Personal access token: one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 33 hex bytes (one extra at offset 16) vs the 32 every source fixes (gitleaks, trufflehog, Nosey Parker, Purview, Databricks' own docs example and Labs code). Twin of \"Databricks Personal access token: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "Databricks Personal access token: one-property twin (length)",
+  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 33 hex bytes (one extra at offset 16) vs the 32 every source fixes (gitleaks, trufflehog, Nosey Parker, Purview, Databricks' own docs example and Labs code). Twin of \"Databricks Personal access token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

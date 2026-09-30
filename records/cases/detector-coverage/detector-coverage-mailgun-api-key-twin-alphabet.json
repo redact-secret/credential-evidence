@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-mailgun-api-key-twin-alphabet",
   "title": "Mailgun Private API key and HTTP webhook signing key: one-property twin (alphabet)",
-  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one uppercase byte vs the tool-corroborated lowercase [a-z0-9] body. Twin of \"Mailgun Private API key and HTTP webhook signing key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one uppercase byte vs the tool-corroborated lowercase [a-z0-9] body. Twin of \"Mailgun Private API key and HTTP webhook signing key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. The outcome shows how the changed property is treated.",
   "caseTypes": [
     "twin",

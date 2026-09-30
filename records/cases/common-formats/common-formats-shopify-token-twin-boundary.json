@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "common-formats-shopify-token-twin-boundary",
   "title": "Shopify Custom app access token: one-property twin (boundary)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: missing \"_\" delimiter after the shpat prefix (the documented shpat_/shppa_ prefixes each include the trailing underscore). Twin of \"Shopify Custom app access token and Shopify Public app access token: must be flagged (provider-documented)\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: missing \"_\" delimiter after the shpat prefix (the documented shpat_/shppa_ prefixes each include the trailing underscore). Twin of \"Shopify Custom app access token and Shopify Public app access token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

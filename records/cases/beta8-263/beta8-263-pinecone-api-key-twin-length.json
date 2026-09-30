@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-263-pinecone-api-key-twin-length",
-  "title": "Pinecone API key (pcsk_): one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 4-character label, below the 5-6 the contract requires and length: a 62-character secret segment vs the 63 the contract requires. Twin of \"Pinecone API key (pcsk_): must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "Pinecone API key (pcsk_): one-property twin (length)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 4-character label, below the 5-6 the contract requires and length: a 62-character secret segment vs the 63 the contract requires. Twin of \"Pinecone API key (pcsk_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

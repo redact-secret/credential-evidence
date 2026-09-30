@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-netlify-token-twin-length",
   "title": "Netlify Personal access token: one-property twin (length)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 39 characters vs the provider-documented 40 (answers.netlify.com: \"increase capacity for the token to 40 characters\"). Twin of \"Netlify Personal access token: must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 39 characters vs the provider-documented 40 (answers.netlify.com: \"increase capacity for the token to 40 characters\"). Twin of \"Netlify Personal access token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

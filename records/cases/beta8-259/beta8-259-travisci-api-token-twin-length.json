@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-259-travisci-api-token-twin-length",
   "title": "Travis CI API token: one-property twin (length)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 21 characters vs the 22 both pinned tools corroborate and length: 23 characters vs the 22 both pinned tools corroborate. Twin of \"Travis CI API token: must be flagged (project-policy) [legacy tier T3]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 21 characters vs the 22 both pinned tools corroborate and length: 23 characters vs the 22 both pinned tools corroborate. Twin of \"Travis CI API token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

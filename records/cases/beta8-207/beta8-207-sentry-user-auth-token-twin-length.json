@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-207-sentry-user-auth-token-twin-length",
   "title": "Sentry User auth token: one-property twin (length)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 63 hex characters vs the 64 secrets.token_hex(32) emits. Twin of \"Sentry User auth token: must be flagged (project-policy) [legacy tier T2]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 63 hex characters vs the 64 secrets.token_hex(32) emits. Twin of \"Sentry User auth token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

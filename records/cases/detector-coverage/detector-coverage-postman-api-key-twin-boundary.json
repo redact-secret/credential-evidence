@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-postman-api-key-twin-boundary",
   "title": "Postman API key: one-property twin (boundary)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: no internal separator at body offset 24 vs the gitleaks-corroborated literal \"-\" between the 24- and 34-byte hex segments. Twin of \"Postman API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: no internal separator at body offset 24 vs the gitleaks-corroborated literal \"-\" between the 24- and 34-byte hex segments. Twin of \"Postman API key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

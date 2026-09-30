@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-209-anthropic-token",
-  "title": "Anthropic Secret API key: must be flagged (provider-documented) [legacy tier T1]",
+  "title": "Anthropic Secret API key: must be flagged",
   "summary": "Synthetic Anthropic Secret API key values built to the documented format appear in 4 inputs in environment files, HTTP headers, SDK and client configuration, and source code. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

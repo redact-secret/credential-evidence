@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-528d-rubygems-api-key-twin-boundary",
   "title": "RubyGems.org API key (rubygems_): one-property twin (boundary)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: _x glued after the 48-hex body, boundary: x glued after the 48-hex body, and boundary: x glued before rubygems_. Twin of \"RubyGems.org API key (rubygems_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: _x glued after the 48-hex body, boundary: x glued after the 48-hex body, and boundary: x glued before rubygems_. Twin of \"RubyGems.org API key (rubygems_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

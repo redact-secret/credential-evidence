@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-384b-aws-bedrock-short-term-api-key-twin-prefix",
   "title": "Amazon Bedrock Short-term API key (bedrock-api-key-): one-property twin (prefix)",
-  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: bedrock-api-keys- (plural) in place of bedrock-api-key-, prefix: one character of the fixed 133-character head changed, inside its first 28 characters, and prefix: the documented lower-case bedrock-api-key- capitalized. Twin of \"Amazon Bedrock Short-term API key (bedrock-api-key-): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: bedrock-api-keys- (plural) in place of bedrock-api-key-, prefix: one character of the fixed 133-character head changed, inside its first 28 characters, and prefix: the documented lower-case bedrock-api-key- capitalized. Twin of \"Amazon Bedrock Short-term API key (bedrock-api-key-): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

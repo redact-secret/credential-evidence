@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-384b-aws-bedrock-short-term-api-key-twin-length",
   "title": "Amazon Bedrock Short-term API key (bedrock-api-key-): one-property twin (length)",
-  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: prefix and fixed head with no body after it. Twin of \"Amazon Bedrock Short-term API key (bedrock-api-key-): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "1 input is identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: prefix and fixed head with no body after it. Twin of \"Amazon Bedrock Short-term API key (bedrock-api-key-): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-okta-api-token-twin-prefix",
   "title": "Okta Management API token (SSWS): one-property twin (prefix)",
-  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: 01 vs the 00 the provider's own SSWS example begins with (developer.okta.com: \"Authorization: SSWS 00QCjAl4MlV-WPXM...0HmjFx-vbGua\"). Twin of \"Okta Management API token (SSWS): must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: 01 vs the 00 the provider's own SSWS example begins with (developer.okta.com: \"Authorization: SSWS 00QCjAl4MlV-WPXM...0HmjFx-vbGua\"). Twin of \"Okta Management API token (SSWS): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

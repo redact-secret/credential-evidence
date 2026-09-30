@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-212-gitlab-runner-authentication-token",
-  "title": "GitLab Runner authentication token: must be flagged (tool-corroborated) [legacy tier T2]",
+  "title": "GitLab Runner authentication token: must be flagged",
   "summary": "Synthetic GitLab Runner authentication token values built to the documented format appear in 7 inputs in command lines, container and orchestration configuration, environment files, structured files (JSON, YAML, TOML), and command and tool output. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

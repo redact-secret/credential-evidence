@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-434b-trigger-dev-token-twin-length",
   "title": "Trigger.dev Environment secret key (tr_ENV_ / tr_ENV_sk_): one-property twin (length)",
-  "summary": "8 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 19-byte root body vs exactly 20 or 24, length: a 21-byte root body vs exactly 20 or 24, and length: a 22-byte root body vs exactly 20 or 24, and 5 more. Twin of \"Trigger.dev Environment secret key (tr_ENV_ / tr_ENV_sk_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "8 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 19-byte root body vs exactly 20 or 24, length: a 21-byte root body vs exactly 20 or 24, and length: a 22-byte root body vs exactly 20 or 24, and 5 more. Twin of \"Trigger.dev Environment secret key (tr_ENV_ / tr_ENV_sk_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

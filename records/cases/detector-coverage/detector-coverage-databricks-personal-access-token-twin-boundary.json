@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-databricks-personal-access-token-twin-boundary",
   "title": "Databricks Personal access token: one-property twin (boundary)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: two-digit rotation suffix vs the single digit both pinned tools corroborate (gitleaks: (?:-\\d)?; trufflehog: (-\\d)?). Twin of \"Databricks Personal access token: expected outcome not assertable (unresolved) [legacy tier T0]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: two-digit rotation suffix vs the single digit both pinned tools corroborate (gitleaks: (?:-\\d)?; trufflehog: (-\\d)?). Twin of \"Databricks Personal access token: expected outcome not assertable\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. The outcome shows how the changed property is treated.",
   "caseTypes": [
     "twin",

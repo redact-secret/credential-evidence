@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-528i-honeycomb-api-key-twin-prefix",
   "title": "Honeycomb Ingest key (hcXik_, hcXic_): one-property twin (prefix)",
-  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: hcAic_, an uppercase type letter outside [a-z], prefix: hcik_ without the one-letter type byte, and prefix: hcxmk_ (the management-key prefix) with an ingest-key body; the management key is unclaimed. Twin of \"Honeycomb Ingest key (hcXik_, hcXic_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: hcAic_, an uppercase type letter outside [a-z], prefix: hcik_ without the one-letter type byte, and prefix: hcxmk_ (the management-key prefix) with an ingest-key body; the management key is unclaimed. Twin of \"Honeycomb Ingest key (hcXik_, hcXic_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

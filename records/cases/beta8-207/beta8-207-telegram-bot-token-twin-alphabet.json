@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-207-telegram-bot-token-twin-alphabet",
   "title": "Telegram Bot token: one-property twin (alphabet)",
-  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: \"+\" in the secret, outside [A-Za-z0-9_-], alphabet: \"/\" in the secret; the Bot API server rejects any token containing \"/\", and alphabet: \"/\" in the secret; the Bot API server rejects any token containing \"/\" (tdlib/telegram-bot-api ClientManager.cpp). Twin of \"Telegram Bot token: must be flagged (project-policy) [legacy tier T2]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: \"+\" in the secret, outside [A-Za-z0-9_-], alphabet: \"/\" in the secret; the Bot API server rejects any token containing \"/\", and alphabet: \"/\" in the secret; the Bot API server rejects any token containing \"/\" (tdlib/telegram-bot-api ClientManager.cpp). Twin of \"Telegram Bot token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

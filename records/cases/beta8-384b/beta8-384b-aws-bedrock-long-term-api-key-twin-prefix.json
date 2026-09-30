@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-384b-aws-bedrock-long-term-api-key-twin-prefix",
   "title": "Amazon Bedrock Long-term API key (ABSK): one-property twin (prefix)",
-  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: ABK in place of ABSK, one letter of the prefix dropped, prefix: ABSX in place of ABSK, and prefix: the documented upper-case ABSK spelled lower case. Twin of \"Amazon Bedrock Long-term API key (ABSK): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: ABK in place of ABSK, one letter of the prefix dropped, prefix: ABSX in place of ABSK, and prefix: the documented upper-case ABSK spelled lower case. Twin of \"Amazon Bedrock Long-term API key (ABSK): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

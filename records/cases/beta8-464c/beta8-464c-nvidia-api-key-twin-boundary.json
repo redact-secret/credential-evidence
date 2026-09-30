@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-464c-nvidia-api-key-twin-boundary",
   "title": "NVIDIA API key (nvapi-): one-property twin (boundary)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: _ glued before nvapi-, boundary: nvapi_ in place of the nvapi- separator, and boundary: x glued before nvapi-. Twin of \"NVIDIA API key (nvapi-): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: _ glued before nvapi-, boundary: nvapi_ in place of the nvapi- separator, and boundary: x glued before nvapi-. Twin of \"NVIDIA API key (nvapi-): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

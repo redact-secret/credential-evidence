@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-379-new-relic-license-key-twin-length",
-  "title": "New Relic License key: one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: total length 39: EU form eu01xx + 25 hex + FFFFNRAL (the provider fixes 40) (basis: provider) and total length 41: one extra hex body character before FFFFNRAL (the provider fixes 40) (basis: provider). Twin of \"New Relic License key: must be flagged (provider-documented) [legacy tier T1]\".",
+  "title": "New Relic License key: one-property twin (length)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: total length 39: EU form eu01xx + 25 hex + FFFFNRAL (the provider fixes 40) (basis: provider) and total length 41: one extra hex body character before FFFFNRAL (the provider fixes 40) (basis: provider). Twin of \"New Relic License key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

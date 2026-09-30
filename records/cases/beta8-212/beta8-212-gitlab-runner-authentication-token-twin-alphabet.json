@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-212-gitlab-runner-authentication-token-twin-alphabet",
   "title": "GitLab Runner authentication token: one-property twin (alphabet)",
-  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one base36 letter in the length/checksum tail uppercased; GitLab's generator (Integer#to_s(36)) and its provider-authored rule ([0-9a-z]) emit lowercase only. Twin of \"GitLab Runner authentication token: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one base36 letter in the length/checksum tail uppercased; GitLab's generator (Integer#to_s(36)) and its provider-authored rule ([0-9a-z]) emit lowercase only. Twin of \"GitLab Runner authentication token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

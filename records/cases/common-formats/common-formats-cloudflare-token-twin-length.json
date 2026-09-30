@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "common-formats-cloudflare-token-twin-length",
   "title": "Cloudflare Scannable API token: one-property twin (length)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 7-character hex suffix vs contracted 8. Twin of \"Cloudflare Scannable API token: must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 7-character hex suffix vs contracted 8. Twin of \"Cloudflare Scannable API token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

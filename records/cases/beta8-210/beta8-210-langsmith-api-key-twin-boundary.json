@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-210-langsmith-api-key-twin-boundary",
   "title": "LangSmith (LangChain) API key (personal access token or service key): one-property twin (boundary)",
-  "summary": "1 input is identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: The _ separator between the 32- and 10-character segments is removed, so the value no longer has the two-segment layout; characters are otherwise unchanged. Twin of \"LangSmith (LangChain) API key (personal access token or service key): must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "1 input is identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: The _ separator between the 32- and 10-character segments is removed, so the value no longer has the two-segment layout; characters are otherwise unchanged. Twin of \"LangSmith (LangChain) API key (personal access token or service key): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

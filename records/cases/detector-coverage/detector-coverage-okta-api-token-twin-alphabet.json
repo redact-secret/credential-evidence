@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-okta-api-token-twin-alphabet",
   "title": "Okta Management API token (SSWS): one-property twin (alphabet)",
-  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one \"=\" byte vs the trufflehog-corroborated [A-Za-z0-9_-] body (gitleaks's okta-access-token rule admits it). Twin of \"Okta Management API token (SSWS): must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one \"=\" byte vs the trufflehog-corroborated [A-Za-z0-9_-] body (gitleaks's okta-access-token rule admits it). Twin of \"Okta Management API token (SSWS): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

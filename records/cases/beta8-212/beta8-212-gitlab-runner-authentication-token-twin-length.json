@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-212-gitlab-runner-authentication-token-twin-length",
-  "title": "GitLab Runner authentication token: one-property twin (length) (tool-corroborated) [legacy tier T2]",
-  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 19-character legacy body vs the 20-character Devise.friendly_token GitLab's token field generates and length: the base36 payload-length holder claims one more character than the base64url payload carries (checksum recomputed over the altered text, so only the length holder is wrong). Twin of \"GitLab Runner authentication token: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "title": "GitLab Runner authentication token: one-property twin (length)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 19-character legacy body vs the 20-character Devise.friendly_token GitLab's token field generates and length: the base36 payload-length holder claims one more character than the base64url payload carries (checksum recomputed over the altered text, so only the length holder is wrong). Twin of \"GitLab Runner authentication token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

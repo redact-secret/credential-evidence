@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-434g-composio-api-key-twin-alphabet",
   "title": "Composio Project API key (ak_): one-property twin (alphabet)",
-  "summary": "4 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body byte replaced by +, outside [A-Za-z0-9_-], alphabet: one body byte replaced by ., outside [A-Za-z0-9_-], and guard: the body lower-cased, so it has no uppercase letter (the ak_ mixed-case guard), and 1 more. Twin of \"Composio Project API key (ak_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "4 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body byte replaced by +, outside [A-Za-z0-9_-], alphabet: one body byte replaced by ., outside [A-Za-z0-9_-], and guard: the body lower-cased, so it has no uppercase letter (the ak_ mixed-case guard), and 1 more. Twin of \"Composio Project API key (ak_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

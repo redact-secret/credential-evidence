@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-384c-elevenlabs-api-key",
-  "title": "ElevenLabs API key (sk_): must be flagged (provider-documented) [legacy tier T1]",
+  "title": "ElevenLabs API key (sk_): must be flagged",
   "summary": "Synthetic ElevenLabs API key (sk_) values built to the documented format appear in 10 inputs across 8 carrier types. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

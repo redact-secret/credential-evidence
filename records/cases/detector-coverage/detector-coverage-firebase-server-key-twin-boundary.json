@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "detector-coverage-firebase-server-key-twin-boundary",
   "title": "Firebase Legacy FCM server key: one-property twin (boundary)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: \"-\" separator vs the corroborated literal \":\" marker. Twin of \"Firebase Legacy FCM server key: must be flagged (project-policy) [legacy tier T2]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: \"-\" separator vs the corroborated literal \":\" marker. Twin of \"Firebase Legacy FCM server key: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

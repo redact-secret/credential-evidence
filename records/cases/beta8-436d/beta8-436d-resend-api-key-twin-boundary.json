@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-436d-resend-api-key-twin-boundary",
   "title": "Resend API key (re_): one-property twin (boundary)",
-  "summary": "4 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: - in place of the _ separator at offset 11, boundary: -x glued after the second segment, and boundary: _ glued before re_, and 1 more. Twin of \"Resend API key (re_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "4 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: - in place of the _ separator at offset 11, boundary: -x glued after the second segment, and boundary: _ glued before re_, and 1 more. Twin of \"Resend API key (re_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

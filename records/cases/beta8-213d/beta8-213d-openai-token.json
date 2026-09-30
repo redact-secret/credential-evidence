@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-213d-openai-token",
-  "title": "OpenAI Secret API key: must be flagged (tool-corroborated) [legacy tier T2]",
+  "title": "OpenAI Secret API key: must be flagged",
   "summary": "Synthetic OpenAI Secret API key values built to the documented format appear in 6 inputs in CI configuration, environment files, HTTP headers, SDK and client configuration, shell exports, and source code. Each input records the exact byte range of the secret.",
   "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
   "caseTypes": [

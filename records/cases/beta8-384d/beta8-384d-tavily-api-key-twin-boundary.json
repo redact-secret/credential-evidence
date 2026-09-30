@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-384d-tavily-api-key-twin-boundary",
   "title": "Tavily API key (tvly-): one-property twin (boundary)",
-  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: one identifier character before tvly-, so the key is embedded in a longer token and boundary: tvly_ in place of the tvly- delimiter. Twin of \"Tavily API key (tvly-): must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: one identifier character before tvly-, so the key is embedded in a longer token and boundary: tvly_ in place of the tvly- delimiter. Twin of \"Tavily API key (tvly-): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-436a-convex-deployment-key-twin-length",
   "title": "Convex Deployment, project and admin key (hex body): one-property twin (length)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 72-hex body, below the 74 the generator's smallest proto yields, length: a 98-hex body, above the 96 the generator's largest proto yields, and length: an odd 75-hex body, which hex-encoded bytes never give. Twin of \"Convex Deployment, project and admin key (hex body): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 72-hex body, below the 74 the generator's smallest proto yields, length: a 98-hex body, above the 96 the generator's largest proto yields, and length: an odd 75-hex body, which hex-encoded bytes never give. Twin of \"Convex Deployment, project and admin key (hex body): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

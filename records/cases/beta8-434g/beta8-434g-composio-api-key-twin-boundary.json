@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-434g-composio-api-key-twin-boundary",
   "title": "Composio Project API key (ak_): one-property twin (boundary)",
-  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: an identifier byte glued after the body, so the key is embedded in a longer run, boundary: cak_ (an agent key of unknown shape) with the same body; ak_ is glued to c, and boundary: x glued before ak_. Twin of \"Composio Project API key (ak_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: an identifier byte glued after the body, so the key is embedded in a longer run, boundary: cak_ (an agent key of unknown shape) with the same body; ak_ is glued to c, and boundary: x glued before ak_. Twin of \"Composio Project API key (ak_): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "kind": "case",
   "id": "beta8-209-azure-devops-personal-access-token-twin-boundary",
-  "title": "Azure DevOps Personal access token: one-property twin (boundary) (project-policy) [legacy tier T2]",
-  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: the AZDO signature moved one position earlier (0-based offsets 75-78, not the documented 76-79); length and alphabet unchanged and the fixed signature written in lower case (azdo) instead of the documented AZDO; every other byte unchanged. Twin of \"Azure DevOps Personal access token: must be flagged (provider-documented) [legacy tier T1]\".",
+  "title": "Azure DevOps Personal access token: one-property twin (boundary)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: the AZDO signature moved one position earlier (0-based offsets 75-78, not the documented 76-79); length and alphabet unchanged and the fixed signature written in lower case (azdo) instead of the documented AZDO; every other byte unchanged. Twin of \"Azure DevOps Personal access token: must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",

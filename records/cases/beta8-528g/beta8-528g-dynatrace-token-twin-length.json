@@ -3,7 +3,7 @@
   "kind": "case",
   "id": "beta8-528g-dynatrace-token-twin-length",
   "title": "Dynatrace Access and platform token (dt0c01, dt0s..): one-property twin (length)",
-  "summary": "4 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 23-character public portion vs exactly 24, length: a 25-character public portion vs exactly 24, and length: a 63-character secret portion vs exactly 64, and 1 more. Twin of \"Dynatrace Access and platform token (dt0c01, dt0s..): must be flagged (provider-documented) [legacy tier T1]\".",
+  "summary": "4 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 23-character public portion vs exactly 24, length: a 25-character public portion vs exactly 24, and length: a 63-character secret portion vs exactly 64, and 1 more. Twin of \"Dynatrace Access and platform token (dt0c01, dt0s..): must be flagged\".",
   "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
   "caseTypes": [
     "twin",
