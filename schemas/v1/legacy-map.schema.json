@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:legacy-map",
+  "title": "Legacy map",
+  "description": "Migration provenance, kept out of canonical identity: for every legacy suite, case and fixture, where it went in the canonical records, or why nothing carries it. Legacy names appear only on the `legacy` side of an entry (this is the provenance field); canonical ids on the other side are real records and are subject to the identity lint. It lets the compatibility exporter regenerate legacy names and lets a consumer trace every legacy fixture (ADR 0007). Lives at migration/legacy-map.json. Added in schema revision 1.2.0.",
+  "x-schemaRevision": "1.2.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "title", "source", "entries", "lifecycle"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "legacy-map" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "revision"],
+      "properties": {
+        "repository": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "revision": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/gitCommit" }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["legacy", "canonical", "relation"],
+        "properties": {
+          "legacy": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": { "enum": ["suite", "case", "fixture"] },
+              "id": { "description": "The legacy name, verbatim. The one place a suite, beta or issue coordinate is allowed.", "type": "string", "minLength": 1, "maxLength": 300 },
+              "path": { "type": "string", "minLength": 1, "maxLength": 300 }
+            }
+          },
+          "canonical": {
+            "description": "The canonical record that now carries it, or null when nothing does.",
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["type", "id"],
+                "properties": {
+                  "type": { "enum": ["case", "scenario", "fixture-plan", "fixture-set", "fixture"] },
+                  "id": { "type": "string", "minLength": 1, "maxLength": 200 }
+                }
+              }
+            ]
+          },
+          "relation": {
+            "description": "same: carried one to one under a new semantic id. merged: several legacy entries fold into one canonical record. reclassified-as-scenario / reclassified-as-projection: the legacy case was a scenario instance or a matrix cell, not a reasoning unit. dropped: no canonical counterpart (canonical is null).",
+            "enum": ["same", "merged", "reclassified-as-scenario", "reclassified-as-projection", "dropped"]
+          },
+          "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "relation": { "const": "dropped" } } },
+            "then": { "properties": { "canonical": { "type": "null" } }, "required": ["note"] },
+            "else": { "properties": { "canonical": { "type": "object" } } }
+          }
+        ]
+      }
+    },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  }
+}

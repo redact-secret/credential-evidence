@@ -1,6 +1,6 @@
 # 0001. Canonical record model
 
-- Status: accepted
+- Status: accepted; partly superseded by 0007 (identity, case grouping, fixture ids)
 - Date: 2026-09-30
 - Issue: #2 (part of #1)
 

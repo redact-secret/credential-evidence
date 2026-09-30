@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "truncated-body-near-miss",
+  "title": "Credential body cut short of its documented length",
+  "description": "A value with the right prefix whose body is shorter than the documented length, as left by a copy error or a truncated log line.",
+  "semantics": "A format contract fixes the body length; a value that does not reach it is not a valid credential of that family, but the same shape one character longer would be. The outcome is therefore set per projection.",
+  "expectedOutcomeClass": "by-projection",
+  "applicability": {
+    "appliesTo": "family-classes",
+    "classes": ["fixed-length-prefixed-token"],
+    "rationale": "Only families whose contract fixes a prefix and a body length have a meaningful near miss."
+  },
+  "evidenceBasis": {
+    "basis": "provider-documented",
+    "rationale": "The contract states the body length; a shorter value does not satisfy it.",
+    "sources": [
+      { "sourceId": "examplecloud-token-format-doc", "supports": "Documents the exc_live_ prefix and 32-character body." }
+    ],
+    "observedAt": "2026-09-30"
+  },
+  "lifecycle": "draft"
+}

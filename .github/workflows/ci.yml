@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Least privilege: the workflow only reads this repository. The legacy checkout
+# below is a public repository and needs no token scope beyond this.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned legacy revision (scripts/migrate/lib/legacy-source.mjs LEGACY_REVISION).
+  LEGACY_REVISION: ade8a10bd7922765110a68986b0690eb3861f2e5
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Checkout pinned legacy repository (read-only input for migration checks)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: redact-secret/redact-secret-benchmarks
+          ref: ${{ env.LEGACY_REVISION }}
+          path: legacy-benchmarks
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Validate schemas and records
+        run: npm run validate
+
+      - name: Identity lint
+        run: npm run lint:identity
+
+      - name: Test
+        run: npm test
+        env:
+          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
+          REQUIRE_LEGACY: "1"
+
+      - name: Migration checks
+        run: npm run migrate:check
+        env:
+          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks

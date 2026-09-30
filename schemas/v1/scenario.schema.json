@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:scenario",
+  "title": "Scenario",
+  "description": "A reusable semantic scenario: one named way a value can relate to a credential (documentation placeholder, prefix near miss, wrong alphabet, public identifier, templated reference ...), with the same meaning and the same scanner-neutral outcome class for every family it applies to. A scenario holds no per-family prose; family-specific cells are expressed as fixture-plan matrix projections. A reasoning unit that is specific to one situation is a case instead (ADR 0007). The id is a semantic slug and never carries legacy suite, milestone, issue, detector or release coordinates. Added in schema revision 1.2.0.",
+  "x-schemaRevision": "1.2.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "title", "description", "semantics", "expectedOutcomeClass", "applicability", "evidenceBasis", "lifecycle"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "scenario" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "description": "What the scenario is, in words a reader needs no other record to follow.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "semantics": { "description": "The rule that makes the outcome hold for every instance: what about the value, its position or its carrier decides it.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "expectedOutcomeClass": {
+      "description": "The scanner-neutral outcome every instance carries, or 'by-projection' when the outcome is set per matrix projection (for example a scenario whose twins flip the outcome).",
+      "oneOf": [{ "$ref": "urn:credential-evidence:schema:v1:common#/$defs/expectationOutcome" }, { "const": "by-projection" }]
+    },
+    "applicability": {
+      "description": "Which families the scenario can be instantiated for. There is no controlled family-class vocabulary yet (ADR 0007, open questions): classes are free slugs.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["appliesTo", "rationale"],
+      "properties": {
+        "appliesTo": { "enum": ["any-family", "families", "family-classes"] },
+        "families": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId" } },
+        "classes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" } },
+        "rationale": { "description": "Why these families or classes, and not others.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "appliesTo": { "const": "families" } } },
+          "then": { "required": ["families"], "not": { "required": ["classes"] } }
+        },
+        {
+          "if": { "properties": { "appliesTo": { "const": "family-classes" } } },
+          "then": { "required": ["classes"], "not": { "required": ["families"] } }
+        },
+        {
+          "if": { "properties": { "appliesTo": { "const": "any-family" } } },
+          "then": { "not": { "anyOf": [{ "required": ["families"] }, { "required": ["classes"] }] } }
+        }
+      ]
+    },
+    "evidenceBasis": {
+      "description": "How the outcome class is supported. Evidence tier and basis are data about the scenario, never part of its id.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["basis", "rationale", "sources", "observedAt"],
+      "properties": {
+        "basis": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/evidenceClass" },
+        "rationale": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+        "sources": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sourceRefs" },
+        "observedAt": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/dateOrDateTime" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "basis": { "enum": ["provider-documented", "tool-corroborated"] } } },
+          "then": { "properties": { "sources": { "minItems": 1 } } }
+        }
+      ]
+    },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "supersededBy": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "evidenceBasis": { "properties": { "basis": { "const": "unresolved" } } } } },
+      "then": { "properties": { "expectedOutcomeClass": { "const": "not-assertable" } } }
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // npm run validate [-- <dir> ...]
 // Validates the schemas themselves, then every JSON record under the given
-// directories (default: examples/valid and records/). Offline and deterministic.
+// directories (default: examples/valid, and records/ with migration/). Offline and
+// deterministic. Includes the identity lint (scripts/lib/identity.mjs, ADR 0007).
 //
 // Each default directory is its own universe: references and id uniqueness are
 // checked inside it, never across. examples/valid is a set of illustrative
@@ -13,7 +14,7 @@ import { join } from "node:path";
 import { createValidator, loadSchemas, repoRoot, validateTree } from "./lib/validator.mjs";
 
 const args = process.argv.slice(2);
-const universes = args.length ? [args] : [[join(repoRoot, "examples", "valid")], [join(repoRoot, "records")]];
+const universes = args.length ? [args] : [[join(repoRoot, "examples", "valid")], [join(repoRoot, "records"), join(repoRoot, "migration")]];
 
 let validator;
 try {

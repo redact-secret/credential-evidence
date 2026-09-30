@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:family",
   "title": "Credential family",
   "description": "The root semantic entity. Identity is <provider>:<family>, never a detector. Format facts live in format-contract records (many per family over time); the family only points at the current one. Mutable descriptive record.",
-  "x-schemaRevision": "1.1.0",
+  "x-schemaRevision": "1.2.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "provider", "name", "description", "lifecycle", "research"],

@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:fixture-plan",
+  "title": "Fixture plan (matrix projection)",
+  "description": "A declared family x scenario (or family x case) projection: which families are instantiated against which Scenarios or Cases, under which generation rule, from which inputs, with which lineage. It is the canonical home of what the legacy benchmark stored as thousands of template-worded matrix cells. A plan asserts no reasoning of its own: every cell points at a Case or Scenario that does, and executable content lives in fixture-set or fixture-projection records. Added in schema revision 1.2.0.",
+  "x-schemaRevision": "1.2.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "title", "matrix", "generation", "lineage", "lifecycle"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "fixture-plan" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "matrix": {
+      "description": "The cells: every selected family against every target. A target is the Case or Scenario that carries the reasoning.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["families", "targets"],
+      "properties": {
+        "families": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["select"],
+          "properties": {
+            "select": { "description": "listed: exactly the ids below. all-applicable: every family each scenario target's applicability admits.", "enum": ["listed", "all-applicable"] },
+            "ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId" } }
+          },
+          "allOf": [
+            { "if": { "properties": { "select": { "const": "listed" } } }, "then": { "required": ["ids"] }, "else": { "not": { "required": ["ids"] } } }
+          ]
+        },
+        "targets": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": { "enum": ["scenario", "case"] },
+              "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+              "expectedOutcome": { "description": "Required when the target scenario's outcome class is by-projection; otherwise, if given, it must equal the target's outcome.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/expectationOutcome" }
+            }
+          }
+        },
+        "carriers": { "description": "Carrier forms each cell is rendered in, for example env, header, structured-file.", "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" } }
+      }
+    },
+    "generation": {
+      "description": "How cells become content.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule", "generator"],
+      "properties": {
+        "rule": { "description": "Slug naming the generation rule.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+        "generator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "version"],
+          "properties": {
+            "name": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+            "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+            "sourceRevision": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/gitCommit" },
+            "entrypoint": { "type": "string", "minLength": 1, "maxLength": 300 }
+          }
+        },
+        "inputs": {
+          "description": "Records the generator reads besides the matrix itself (contracts, authored cases, fixtures).",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "id"],
+            "properties": {
+              "kind": { "enum": ["case", "scenario", "format-contract", "fixture-projection"] },
+              "id": { "type": "string", "minLength": 1, "maxLength": 200 }
+            }
+          }
+        },
+        "seed": { "type": "string", "minLength": 1, "maxLength": 64 }
+      }
+    },
+    "lineage": {
+      "description": "What the plan was derived from. A plan reclassified out of imported cases names the records it replaces, never the legacy suite: legacy names belong to migration/legacy-map.json.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin"],
+      "properties": {
+        "origin": { "enum": ["authored", "reclassified-from-cases"] },
+        "derivedFrom": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "id"],
+            "properties": {
+              "kind": { "enum": ["case", "scenario", "fixture-plan", "fixture-set"] },
+              "id": { "type": "string", "minLength": 1, "maxLength": 200 }
+            }
+          }
+        },
+        "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+      },
+      "allOf": [
+        { "if": { "properties": { "origin": { "const": "reclassified-from-cases" } } }, "then": { "required": ["derivedFrom"], "properties": { "derivedFrom": { "minItems": 1 } } } }
+      ]
+    },
+    "output": {
+      "description": "Fixture sets that record the plan's rendered content.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }
+    },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  }
+}
