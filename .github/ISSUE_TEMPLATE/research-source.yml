@@ -1,0 +1,65 @@
+name: Suggest or add a source for a claim
+description: Propose a provider, credential family, or source-backed fact to record.
+title: "research: "
+labels: ["research"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Maintained by the Redact Secret project. Do not paste any credential or credential-shaped value that may be real. Describe formats in words or as a grammar.
+  - type: input
+    id: subject
+    attributes:
+      label: Provider or credential family
+      description: A provider name is enough if you do not know the family.
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: Claim
+      description: The specific statement you propose to record (for example, a prefix, length, alphabet, or a documented placeholder).
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: URL or durable reference, who published it, the date you observed it, and the words in it that support the claim.
+    validations:
+      required: true
+  - type: dropdown
+    id: source_kind
+    attributes:
+      label: Who published the source
+      options:
+        - The provider or issuer (official docs, changelog, SDK)
+        - A tool or open-source artifact (name and revision)
+        - Someone else (blog, forum, etc.)
+        - I have no source yet
+    validations:
+      required: true
+  - type: dropdown
+    id: affiliation
+    attributes:
+      label: Your affiliation
+      options:
+        - Redact Secret project maintainer
+        - Contributor to Redact Secret repositories or employed by the project
+        - None of the above
+    validations:
+      required: true
+  - type: textarea
+    id: disclosure
+    attributes:
+      label: Other relationships to disclose
+      description: For example, you work on another scanner or for the provider. Write "none" if none.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: This issue contains no live, revoked, real-derived, customer, or incident credential material.
+          required: true
+        - label: I did not derive this claim only from what a scanner does.
+          required: true
