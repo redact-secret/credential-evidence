@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-213e-datadog-application-key-legacy",
+  "title": "Datadog Application key (legacy 40-hex): must be flagged",
+  "summary": "Synthetic Datadog Application key (legacy 40-hex) values built to the documented format appear in 4 inputs in environment files, HTTP headers, source code, and command and tool output. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "datadog:application-key-legacy",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "The pre-ddapp_ application key: a bare 40-character lowercase-hex value with no marker of its own, so, like datadog-api-key, it is scored as policy and only beside a same-line DD_APPLICATION_KEY / datadog marker. Datadog documents no grammar for it; trufflehog 3.97.4's datadogtoken detector and gitleaks 8.30.1's datadog-access-token rule (keyword- and assignment-gated `[a-z0-9]{40}`) both corroborate the 40-byte width, and Datadog's own validators (the Agent app-key check in keys.go, the CloudFormation and ARM templates cited on the datadog-application-key contract) accept `[a-f0-9]{40}` as an alternative to `ddapp_[a-zA-Z0-9]{34}`, so the generation stays live. Re-checked 2026-09-23 (redact-secret#671, PR #679): the product split this shape into its own `datadog-application-key-legacy` detector with the same same-line context gate; the benchmark family follows the product's registry, and the length twin rests on the tool and validator corroboration above rather than a provider page.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ce47b8450c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/213e.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/213e.mjs",
+      "note": "suite beta8-213e; group #213e · datadog-application-key-legacy; 4 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#213",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/213",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 context-twin debt for the legacy Datadog application key (#213, 213e)\" (beta8-213e); not yet reviewed."
+}

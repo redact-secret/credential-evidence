@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-databricks-personal-access-token-twin-boundary",
+  "title": "Databricks Personal access token: one-property twin (boundary)",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: two-digit rotation suffix vs the single digit both pinned tools corroborate (gitleaks: (?:-\\d)?; trufflehog: (-\\d)?). Twin of \"Databricks Personal access token: expected outcome not assertable\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. The outcome shows how the changed property is treated.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "databricks:personal-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Legacy tier T0: the evidence is unresolved and the fixtures were unscored, so no outcome is asserted. Not asserted: disputed property — the -<digits> rotation suffix (its existence, digit count and place in the secret span). No provider-owned source decides it and the research pass recorded it as searched-and-not-found, so the benchmark stops asserting it (docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md). Kept as history; the product's behaviour on this property is unmeasured for databricks-personal-access-token.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-e43d9c6cc7",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "detector-coverage-databricks-personal-access-token-unresolved",
+      "mutationKind": "boundary",
+      "note": "boundary: two-digit rotation suffix vs the single digit both pinned tools corroborate (gitleaks: (?:-\\d)?; trufflehog: (-\\d)?)"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group databricks-personal-access-token; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

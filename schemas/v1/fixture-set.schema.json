@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:fixture-set",
+  "title": "Fixture set (sharded fixture projections)",
+  "description": "A compact shard of executable fixture projections that share one origin: either hand-written fixtures of authored cases, or the recorded output of one documented generation rule. Each item is a projection of exactly one case and carries its own expected outcome and spans; the set is derived, never the canonical human record. Content is embedded as text next to its sha256 because the synthetic inputs are small and one file per fixture would not scale (ADR 0005). Added in schema revision 1.1.0.",
+  "x-schemaRevision": "1.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "title", "origin", "generated", "fixtures", "lifecycle"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "fixture-set" },
+    "id": { "description": "The collection slug: every fixture id in the set is <id>--<name>.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+    "origin": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": { "type": { "const": "authored-cases" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "rule", "generator"],
+          "properties": {
+            "type": { "const": "generation-rule" },
+            "rule": { "description": "Slug naming the generation rule; the set's cases are its inputs.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+            "generator": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "version", "sourceRevision", "entrypoint"],
+              "properties": {
+                "name": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+                "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+                "sourceRevision": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/gitCommit" },
+                "entrypoint": { "description": "Path of the generator source inside the generator's repository at sourceRevision.", "type": "string", "minLength": 1, "maxLength": 300 }
+              }
+            },
+            "seed": { "type": "string", "minLength": 1, "maxLength": 64 }
+          }
+        }
+      ]
+    },
+    "generated": { "type": "boolean" },
+    "fixtures": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "case", "path", "sha256", "text", "expected"],
+        "properties": {
+          "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/fixtureId" },
+          "case": { "description": "The case this fixture projects.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+          "path": {
+            "description": "Relative path the fixture is materialized at, below the set id; no absolute paths, no . or .. segments.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "pattern": "^[A-Za-z0-9._/-]+$",
+            "not": { "pattern": "^/|(^|/)\\.\\.?(/|$)|//" }
+          },
+          "context": { "description": "Carrier form, for example env, header, structured-file.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+          "lineage": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["relation", "of"],
+            "properties": {
+              "relation": { "enum": ["twin-of", "mutation-of", "metamorphic-of"] },
+              "of": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/fixtureId" },
+              "mutationKind": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+              "mutation": { "description": "What exactly was changed, in words.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+            }
+          },
+          "sha256": { "description": "SHA-256 of the UTF-8 bytes of text.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sha256" },
+          "text": { "description": "The exact fixture content.", "type": "string" },
+          "expected": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["outcome", "spans"],
+            "properties": {
+              "outcome": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/expectationOutcome" },
+              "spans": { "type": "array", "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/expectedSpan" } }
+            },
+            "if": { "properties": { "outcome": { "enum": ["must-not-flag", "not-assertable"] } } },
+            "then": { "properties": { "spans": { "maxItems": 0 } } }
+          }
+        }
+      }
+    },
+    "imported": {
+      "description": "Migration provenance: where the set came from in a legacy repository, pinned to a commit.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "revision", "path", "legacyId"],
+      "properties": {
+        "repository": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "revision": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/gitCommit" },
+        "path": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "legacyId": { "type": "string", "minLength": 1, "maxLength": 200 }
+      }
+    },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "origin": { "properties": { "type": { "const": "generation-rule" } }, "required": ["type"] } } },
+      "then": { "properties": { "generated": { "const": true } } },
+      "else": { "properties": { "generated": { "const": false } } }
+    }
+  ]
+}

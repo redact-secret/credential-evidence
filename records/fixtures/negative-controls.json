@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "negative-controls",
+  "title": "Negative controls",
+  "description": "Benign identifiers, placeholders, incomplete shapes, and ordinary text.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "legacy-suite-negative-controls",
+    "generator": {
+      "name": "redact-secret-benchmarks-fixture-generators",
+      "version": "legacy-ade8a10bd792",
+      "sourceRevision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+      "entrypoint": "fixtures/generated/build.mjs"
+    }
+  },
+  "generated": true,
+  "fixtures": [
+    {"id":"negative-controls--empty","case":"negative-controls-empty-inputs","path":"cases/empty.txt","sha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","text":"","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--whitespace","case":"negative-controls-empty-inputs","path":"cases/whitespace.txt","sha256":"7838f07af6ae27465dfc351adb76066600fe279aed1cf65cc4fcf3cd91ab64d8","text":" \t\r\n\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--empty-assignment","case":"negative-controls-placeholders","path":"cases/empty-assignment.txt","sha256":"5dd7db6a69a291e559a87f295517f5749de194756c72b0c043c32b1764d9eae2","text":"GITHUB_TOKEN=\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--shell-reference","case":"negative-controls-placeholders","path":"cases/shell-reference.txt","sha256":"0cae54ab809bc21e9dbc641660b31f7ec2737e962f934a40884b7523778e718c","text":"GITHUB_TOKEN=${GITHUB_TOKEN}\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--template-reference","case":"negative-controls-placeholders","path":"cases/template-reference.txt","sha256":"e9605aa52c214c007da5f0e984a68dcc15cc9f88ae0f46c8be0965700754f0db","text":"github_token: {{ secrets.github_token }}\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--redacted","case":"negative-controls-placeholders","path":"cases/redacted.txt","sha256":"70373029e269b534707d71a27770d35c8c93f26cb12565b4ed0cf84fc254906c","text":"GITHUB_TOKEN=[REDACTED]\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--masked","case":"negative-controls-placeholders","path":"cases/masked.txt","sha256":"9c50f6e19f5e98f879c0436b1ba1a8456ea9e9c5140ebd52f51b8fabe964bcad","text":"GITHUB_TOKEN=********\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--null-json","case":"negative-controls-placeholders","path":"cases/null-json.txt","sha256":"0ad109982e81019c91024907759963d947cb860bb37ebbf2964ca99905405e16","text":"{\"github_token\":null}\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--sha256","case":"negative-controls-public-identifiers","path":"cases/sha256.txt","sha256":"b13daffb2788f74f93214a4ef41e2c2cfcda56edd18fa3d3152e92678830be8a","text":"checksum=8d59ba5a559cf176e84fb4e81c187b32dc7880a6ea35a81f9cfbd6da43f2b044\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--commit-hash","case":"negative-controls-public-identifiers","path":"cases/commit-hash.txt","sha256":"c625c3e365790301fd5a2335aa3b46a8199bc640a1832489b87efff965c49f1f","text":"commit=f00367763e4c71a383b45030cd126c3cb91107ba\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--uuid","case":"negative-controls-public-identifiers","path":"cases/uuid.txt","sha256":"5f9677efd72fa89f917bc6049e3f5ec8bc3051bc1c168f6597a4da505ee83348","text":"request_id=85a3b910-b847-4ec7-8fb3-7ce4f7235c10\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--public-url","case":"negative-controls-public-identifiers","path":"cases/public-url.txt","sha256":"f117bad8dc7a454d26d15acca9d192387b8b1d53974492d3ba8756c9e51f14d6","text":"https://example.invalid/docs?section=authentication\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--public-email","case":"negative-controls-public-identifiers","path":"cases/public-email.txt","sha256":"666f9e138a7ca0b61e60ecce61c39e852edc0c5505130bfa46cb0677f323ebbe","text":"support@example.invalid\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--base64-text","case":"negative-controls-benign-encoded-text","path":"cases/base64-text.txt","sha256":"4966c6058b41fee979c33a77a693003d4b69ca06e8853e51aa0a6316c0d6fa7a","text":"message=VGhpcyBpcyBhIHB1YmxpYyBiZW5jaG1hcmsgZG9jdW1lbnQu\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--unicode-prose","case":"negative-controls-ordinary-text","path":"cases/unicode-prose.txt","sha256":"0f0d0f69389fc4dd2b2451fab2e6693b6432e8535669317ecdbfdd39da5e4b89","text":"🔑 密钥 means key; this sentence contains no credential.\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--token-variable","case":"negative-controls-ordinary-text","path":"cases/token-variable.txt","sha256":"b89b0d83bceaf07b4d617333d0a093c6ba106401f9bb50e864a7f6d50251d5db","text":"const githubToken = process.env.GITHUB_TOKEN;\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--prefix-only","case":"negative-controls-incomplete-shapes","path":"cases/prefix-only.txt","sha256":"572beddf42222ac0f79d950c83f49912ff4822936b472ee3b03dcd6d05b50bcc","text":"ghp_ gho_ ghu_ ghs_ ghr_ glpat- npm_ SG. xoxb-\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--short-github","case":"negative-controls-incomplete-shapes","path":"cases/short-github.txt","sha256":"c5482c19c158d71e12ed744d8a8054a272e5c610ccee965c74ee8b484186a52d","text":"GITHUB_TOKEN=ghp_abc123\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--short-gitlab","case":"negative-controls-incomplete-shapes","path":"cases/short-gitlab.txt","sha256":"27416e6d761fa3ce0de6a9bbecc0b88a942a300f758353c1b01639a46c28a4ab","text":"GITLAB_TOKEN=glpat-abc123\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--short-npm","case":"negative-controls-incomplete-shapes","path":"cases/short-npm.txt","sha256":"d9bfc207d2c7aefed00e91980408dad04803fc229c82cafed4e630b5ec56cfbf","text":"NPM_TOKEN=npm_abc123\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--short-sendgrid","case":"negative-controls-incomplete-shapes","path":"cases/short-sendgrid.txt","sha256":"e86111251a53ae4e81d347ea503f95ad1126f1f8ac55a87a62c406cf790e1ae7","text":"SENDGRID_KEY=SG.abc.def\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--short-slack","case":"negative-controls-incomplete-shapes","path":"cases/short-slack.txt","sha256":"ee5d17a504993378cefdeb982527e3a80fd313d50ba884cb8659581c39609f52","text":"SLACK_TOKEN=xoxb-123-456-abc\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--numbers","case":"negative-controls-ordinary-text","path":"cases/numbers.txt","sha256":"2b1132e8e0e1ac54d081ebd4de3e9a9d90c7400b3621ddfb34bf1e9d46d44753","text":"build=20260916 duration=1234567890 count=42\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"negative-controls--pem-label-only","case":"negative-controls-incomplete-shapes","path":"cases/pem-label-only.txt","sha256":"e4ddfe1463c6ab86739c032b4e6d991056ad499054fe4530e81e1020a010c1c7","text":"The PEM label is BEGIN PRIVATE KEY; no key material follows.\n","expected":{"outcome":"must-not-flag","spans":[]}}
+  ],
+  "imported": {
+    "repository": "redact-secret/redact-secret-benchmarks",
+    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+    "path": "fixtures/generated/build.mjs",
+    "legacyId": "negative-controls"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/build.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/build.mjs",
+      "note": "suite negative-controls; 24 fixtures"
+    }
+  ],
+  "notes": "Generated by fixtures/generated/build.mjs from public deterministic SHA-256 seeds; all credential-shaped values are synthetic and never provider-issued. Ground truth comes from construction, not scanner output. No live verification. Legacy review status: draft — independent human review required."
+}

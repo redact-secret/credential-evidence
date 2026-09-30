@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-379-connection-string-twin-context",
+  "title": "Connection-string password: one-property twin (context)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context:delimiter: the user:password ':' removed, so the value joins the user name; the value is kept byte-for-byte (basis: context) and context:host-delimiter: the '@' ending userinfo replaced by '/', so the value becomes a path segment; the value is kept byte-for-byte (basis: context). Twin of \"Connection-string password: must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:connection-string-password",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Negative twin of connection-string-psql-history: context:delimiter: the user:password ':' removed, so the value joins the user name; the value is kept byte-for-byte (basis: context). The value is unchanged and exactly one property of the assignment context differs; expected silence is project policy, as the positive's expectation is.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-937e771069",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#section-3.2.1"
+      }
+    ],
+    "observedAt": "2026-09-26"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-379-connection-string",
+      "mutationKind": "context",
+      "note": "context:host-delimiter: the '@' ending userinfo replaced by '/', so the value becomes a path segment; the value is kept byte-for-byte (basis: context)"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/379.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/379.mjs",
+      "note": "suite beta8-379; group #379 · connection-string; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#379",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/379",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.11 independent family evidence for fifteen selected credential families (#379)\" (beta8-379); not yet reviewed."
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-528h-paddle-api-key",
+  "title": "Paddle Billing API key (pdl_live_/pdl_sdbx_apikey_): must be flagged",
+  "summary": "Synthetic Paddle Billing API key (pdl_live_/pdl_sdbx_apikey_) values built to the documented format appear in 12 inputs across 7 carrier types. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "paddle:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Synthetic value matches the pinned lexical format contract. Provider issuance, payload/checksum validity and liveness are not claimed.",
+    "sources": [
+      {
+        "sourceId": "developer-paddle-com-20edbd1725",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-paddlehq-paddle-node-sdk-60b041a1c2",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-1465584e60",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-18d1cd2c7a",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#ruling-questions-for-the-maintainer"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised.",
+        "locator": "#issuecomment-5900447820"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/528h.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/528h.mjs",
+      "note": "suite beta8-528h; group #528h · paddle-api-key; 12 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#528",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.12 evidence for the Paddle Billing API key (#528, slice h)\" (beta8-528h); not yet reviewed."
+}

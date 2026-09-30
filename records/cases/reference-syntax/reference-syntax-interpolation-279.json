@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "reference-syntax-interpolation-279",
+  "title": "Interpolation and command substitution as credential values: must not be flagged",
+  "summary": "Values such as `$(registryPassword)`, `$(pass show ...)` or `#{ENV['DB_PASSWORD']}` across several languages. Covers 6 inputs.",
+  "rationale": "Interpolation defers the secret to run time. Flagging the syntax flags every correctly written pipeline.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "incidents": [
+    {
+      "id": "incident-292",
+      "failureMode": "false-alarm",
+      "summary": "Preserve Windows environment references and SQL bind parameters in contextual detection",
+      "observedAt": "2026-09-16",
+      "externalRefs": [
+        {
+          "system": "redact-secret-issue",
+          "id": "redact-secret#292",
+          "url": "https://github.com/redact-secret/redact-secret/issues/292",
+          "note": "Product issue where the failure mode was reported; product workflow status is not imported."
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "suite reference-syntax; group Interpolation · #279; 6 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Reference syntax\" (reference-syntax); not yet reviewed."
+}

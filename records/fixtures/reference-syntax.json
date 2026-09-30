@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "reference-syntax",
+  "title": "Reference syntax",
+  "description": "Code expressions, interpolation, and secret-manager references with paired literal-secret controls.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "legacy-suite-reference-syntax",
+    "generator": {
+      "name": "redact-secret-benchmarks-fixture-generators",
+      "version": "legacy-ade8a10bd792",
+      "sourceRevision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+      "entrypoint": "fixtures/generated/regressions.mjs"
+    }
+  },
+  "generated": true,
+  "fixtures": [
+    {"id":"reference-syntax--python-settings","case":"reference-syntax-code-expressions-278","path":"cases/python-settings.txt","sha256":"b1b2500d14737c3540fbe7938a50374df9d614dc16cce3cccb2541992ef16d5a","text":"password=settings.DATABASE_PASSWORD\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--typescript-config","case":"reference-syntax-code-expressions-278","path":"cases/typescript-config.txt","sha256":"9aae62e8938ed39ac1b586db2a0d1589b3c843d8c82105933abed1a32046d76e","text":"apiKey: config.anthropicApiKey,\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--terraform-resource","case":"reference-syntax-code-expressions-278","path":"cases/terraform-resource.txt","sha256":"ba22abafb6021ec9d66cce8a2327eec817c1007fc2ae3421a9df9f500db877df","text":"password = random_password.db.result\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--python-environ","case":"reference-syntax-code-expressions-278","path":"cases/python-environ.txt","sha256":"7a04b464240e487610f618921050730402950b1187f3f61c5224c25113ff84b0","text":"api_key=os.environ[\"OPENAI_API_KEY\"]\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--rust-type","case":"reference-syntax-code-expressions-278","path":"cases/rust-type.txt","sha256":"c51b939cc8724df11392f34d93dbf41aad2a9100e17ca68da755d3ea70a3ba6f","text":"pub api_key: Option<String>,\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--go-config","case":"reference-syntax-code-expressions-278","path":"cases/go-config.txt","sha256":"e81850f2fd2b594e19d7e2099259dd3c0911f6324556c8c088b9df1b118d41be","text":"password = cfg.RedisPassword\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--azure-macro","case":"reference-syntax-interpolation-279","path":"cases/azure-macro.txt","sha256":"fde3964d45c2ce89205a06d5b0c4cf91da07e2b7fb6e77161d11412d2f02a24f","text":"password: $(registryPassword)\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--shell-command","case":"reference-syntax-interpolation-279","path":"cases/shell-command.txt","sha256":"5f6efd60edbabced909b928adc1122a7229af6e814b0d2c082a18ee4ae35670c","text":"PASSWORD=\"$(pass show benchmark/database)\"\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--ruby-interpolation","case":"reference-syntax-interpolation-279","path":"cases/ruby-interpolation.txt","sha256":"2df7905902b8179b489801e723b3be110a97023871d6c679d3630256338a1d42","text":"password: \"#{ENV['DB_PASSWORD']}\"\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--env-substitution","case":"reference-syntax-interpolation-279","path":"cases/env-substitution.txt","sha256":"68d95be7bd960f573ca39b85cc37835187df26bf8ea75a60327ee377a3df793e","text":"{\"apiKey\":\"{env:ANTHROPIC_API_KEY}\"}\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--windows-env","case":"reference-syntax-interpolation-279","path":"cases/windows-env.txt","sha256":"2be92476798a3efeb2d98d504de0985a483942291234d5528a32e8cd4ae40af9","text":"PASSWORD=%DB_PASSWORD%\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--sql-bind","case":"reference-syntax-interpolation-279","path":"cases/sql-bind.txt","sha256":"7ae2ab3532fcdd0f15c01ed7e374574bee2ebb8358147461eea73bd4f33dc705","text":"password = :new_password_hash\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--onepassword","case":"reference-syntax-secret-references-280","path":"cases/onepassword.txt","sha256":"41137f617bd31a3d970cb40c58d0b5478c867ba107f753606b0e630f3afc1c5c","text":"PASSWORD=op://Benchmark/database/password\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--litellm-env","case":"reference-syntax-secret-references-280","path":"cases/litellm-env.txt","sha256":"7e8975d7588d3ca6b6f6575b629db77044473b883bf6639a201028379d363eae","text":"api_key: os.environ/ANTHROPIC_API_KEY\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--gcp-resource","case":"reference-syntax-secret-references-280","path":"cases/gcp-resource.txt","sha256":"8885b8aa6e6c7f0ec7241eaeb2123d6a9d4e04a1b031e7274018fd3df0ff812a","text":"secret: projects/example-project/secrets/api-key/versions/latest\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--vault-reference","case":"reference-syntax-secret-references-280","path":"cases/vault-reference.txt","sha256":"5906fd9d41e19f34c5d6005d1f9e0f4d079b0f4b11733ae8a8d47f7eeca73112","text":"password: ref+vault://benchmark/database#/password\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--aws-reference","case":"reference-syntax-secret-references-280","path":"cases/aws-reference.txt","sha256":"212041b2fd825a53de34a55d0a46a7014a46d668b1db2f4824d372a2831ccbb8","text":"secret: arn:aws:secretsmanager:us-east-1:000000000000:secret:benchmark\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--azure-keyvault","case":"reference-syntax-secret-references-280","path":"cases/azure-keyvault.txt","sha256":"148a594b4ce5dbf1e6360a08ce9383feb01e0b24d6887448eb1b0810690ee2a9","text":"password: @Microsoft.KeyVault(SecretUri=https://example.invalid/secrets/benchmark)\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--jinja","case":"reference-syntax-template-controls-263","path":"cases/jinja.txt","sha256":"5c7456251a85e56f9659c33b8eff12abcc31245204189d100b7756035cbda905","text":"password: \"{{ vault_db_password }}\"\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--shell-env","case":"reference-syntax-template-controls","path":"cases/shell-env.txt","sha256":"7a50fcb897fa241b41fb60cdb78db6bc523fa80bdee9a3114bfcee1585284ce9","text":"password=${DATABASE_PASSWORD}\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"reference-syntax--api-key","case":"reference-syntax-literal-secret-positive-controls","path":"cases/api-key.txt","sha256":"a2634036be9f09365eaf4487feed07e3378f8ddadabc01bd786c715819c1375c","text":"api_key=EhtusrVnuzqRtj3NryK68KnBx46zUwaxiiXI7lBM\n","expected":{"outcome":"must-flag","spans":[{"start":8,"end":48,"role":"secret"}]}},
+    {"id":"reference-syntax--password","case":"reference-syntax-literal-secret-positive-controls","path":"cases/password.txt","sha256":"bf7ec8df832b53777f3465cb8fead3502caf3123caebfe9f9657e5a452c68101","text":"password=H8LTJF2xOBCgMMmkqooPzLhjadIfQc8U\n","expected":{"outcome":"must-flag","spans":[{"start":9,"end":41,"role":"secret"}]}},
+    {"id":"reference-syntax--dotted-password","case":"reference-syntax-literal-secret-positive-controls","path":"cases/dotted-password.txt","sha256":"5ae4c0351440e25053e0b29da7e68ab64c568b57686695bb95bb5e7fb930e757","text":"password=SYNTHETIC.CExt8BpF8K0IULiFdg8GWgZUxrJAjAhd\n","expected":{"outcome":"must-flag","spans":[{"start":9,"end":51,"role":"secret"}]}},
+    {"id":"reference-syntax--quoted-password","case":"reference-syntax-literal-secret-positive-controls","path":"cases/quoted-password.txt","sha256":"b64fb2412d8935fa3cebf2d563e52a60120401819d30f2de10b90a1553852626","text":"password=\"4QlOmp0K54lObenWwJtcDGgQDvlRTtdY\"\n","expected":{"outcome":"must-flag","spans":[{"start":10,"end":42,"role":"secret","envelope":{"start":0,"end":43,"reason":"Quoted assignment: key name and enclosing quotes are not secret, but redacting them with the value is acceptable."}}]}},
+    {"id":"reference-syntax--client-secret","case":"reference-syntax-literal-secret-positive-controls","path":"cases/client-secret.txt","sha256":"bdb331a3b7ea7e4626ad60e015d7670a23fcfa2625d3f51ca91ec4719ca9e079","text":"client_secret=2w4RibjNB5Bo8rXPfWAA2GikB2XGag98DRGFMU6D\n","expected":{"outcome":"must-flag","spans":[{"start":14,"end":54,"role":"secret"}]}},
+    {"id":"reference-syntax--unicode-crlf","case":"reference-syntax-literal-secret-positive-controls","path":"cases/unicode-crlf.txt","sha256":"af851534c8193bbe30e134dd38dd42047c467599c83e11635743dff91c719487","text":"🔑\r\napi_key=4sUfcunqFJB5vV6QXR3NtCrjf4kDkPzgmJb5naJz\r\n","expected":{"outcome":"must-flag","spans":[{"start":14,"end":54,"role":"secret"}]}}
+  ],
+  "imported": {
+    "repository": "redact-secret/redact-secret-benchmarks",
+    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+    "path": "fixtures/generated/regressions.mjs",
+    "legacyId": "reference-syntax"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "suite reference-syntax; 26 fixtures"
+    }
+  ],
+  "notes": "Generated by fixtures/generated/build.mjs from public deterministic SHA-256 seeds; all credential-shaped values are synthetic and never provider-issued. Ground truth comes from construction, not scanner output. No live verification. Legacy review status: draft — independent human review required. Milestone-6-inspired false-positive controls plus literal-secret positives. Tested against the installed package version, not unpublished milestone code. Findings of any policy action count as detections."
+}

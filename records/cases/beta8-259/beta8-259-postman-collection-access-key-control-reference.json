@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-259-postman-collection-access-key-control-reference",
+  "title": "Postman Collection access key: benign reference controls",
+  "summary": "2 inputs holding references (variables, template expressions, secret-manager pointers) that name the credential without containing it.",
+  "rationale": "A reference is the safe way to use a secret. Reporting it punishes the practice the scanner exists to encourage.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "postman:collection-access-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [
+      {
+        "sourceId": "docs-github-com-14499c804f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "gitlab-com-7f4b938ca8",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "learning-postman-com-47b8667191",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "learning-postman-com-81df2b7b1c",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/259.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/259.mjs",
+      "note": "suite beta8-259; group #259 · postman-collection-access-key; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#259",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/259",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 evidence for Travis CI, Neon, Postman collection access keys and the Mailgun key triplet (#259)\" (beta8-259); not yet reviewed."
+}

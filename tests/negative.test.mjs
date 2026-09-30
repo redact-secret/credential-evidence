@@ -22,6 +22,7 @@ test("scanner support status at the root is rejected on every entity", () => {
     example("benign-sibling", "examplecloud-public-key-id"),
     example("case", "examplecloud-api-key-in-env-assignment"),
     example("fixture-projection", "env-assignment--api-key"),
+    example("fixture-set", "examplecloud-carriers"),
     example("evidence-review-history", "review-examplecloud-api-key-in-env-assignment"),
   ];
   for (const record of roots) {
@@ -187,4 +188,26 @@ test("review history events are typed and disclose affiliation", () => {
   rejected({ ...r, events: [{ ...e, type: "stable" }] }, /allowed values/);
   rejected({ ...r, events: [{ ...e, actor: { id: "x", role: "reviewer" } }] }, /affiliation/);
   rejected({ ...r, events: [{ ...e, actor: { ...e.actor, affiliation: "independent" } }] }, /allowed values/);
+});
+
+test("fixture sets: generated must match the origin, must-not-flag has no spans, paths stay relative", () => {
+  const set = example("fixture-set", "examplecloud-carriers");
+  rejected({ ...set, generated: false }, /must be equal to constant/);
+  rejected({ ...set, origin: { type: "authored-cases" } }, /must be equal to constant/);
+  rejected({ ...set, origin: { type: "generation-rule", rule: "r", generator: { name: "g", version: "1" } } }, /sourceRevision|entrypoint/);
+  rejected({ ...set, fixtures: [] }, /fewer than 1 items/);
+  const [a, b] = set.fixtures;
+  rejected({ ...set, fixtures: [{ ...a, expected: { outcome: "must-not-flag", spans: a.expected.spans } }, b] }, /must NOT have more than 0 items/);
+  rejected({ ...set, fixtures: [{ ...a, path: "../escape.txt" }, b] }, /must NOT be valid|pattern/);
+  rejected({ ...set, fixtures: [{ ...a, path: "/abs.txt" }, b] }, /must NOT be valid|pattern/);
+  rejected({ ...set, fixtures: [{ ...a, detectors: ["x"] }, b] }, /additional properties/);
+  rejected({ ...set, fixtures: [{ ...a, expected: { ...a.expected, spans: [{ ...a.expected.spans[0], envelope: { start: 1, end: 2 } }] } }, b] }, /reason/);
+});
+
+test("cases accept incidents with a failure mode and reject unknown modes", () => {
+  const c = example("case", "examplecloud-api-key-in-env-assignment");
+  const incident = { id: "incident-1", failureMode: "false-alarm", summary: "A placeholder was reported.", observedAt: "2026-09-30" };
+  assert.deepEqual(errorsOf({ ...c, incidents: [incident] }), []);
+  rejected({ ...c, incidents: [{ ...incident, failureMode: "stable" }] }, /allowed values/);
+  rejected({ ...c, incidents: [{ ...incident, status: "fixed" }] }, /additional properties/);
 });

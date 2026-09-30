@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "milestone-6-closed-265-nested-yaml-recall",
+  "title": "Nested YAML: schema words versus a literal password: must be flagged",
+  "summary": "YAML where a nested `password:` key holds a synthetic literal value. Covers 3 inputs.",
+  "rationale": "Nesting hides the connection between a key and its value. A scanner must tell a schema or a reference under a password key apart from a real literal in the same structure.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "high-signal-assignment-false-positive",
+    "regression-behavior",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Issue-specific literal/password range; expectations are the project’s masking policy.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "suite milestone-6-closed; group #265 · Nested YAML recall; 3 fixtures"
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#265",
+      "url": "https://github.com/redact-secret/redact-secret/issues/265",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.3 regressions\" (milestone-6-closed); not yet reviewed."
+}

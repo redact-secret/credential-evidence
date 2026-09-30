@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-mailgun-api-key-twin-alphabet",
+  "title": "Mailgun Private API key and HTTP webhook signing key: one-property twin (alphabet)",
+  "summary": "3 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one uppercase byte vs the tool-corroborated lowercase [a-z0-9] body. Twin of \"Mailgun Private API key and HTTP webhook signing key: must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. The outcome shows how the changed property is treated.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "mailgun:private-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Legacy tier T0: the evidence is unresolved and the fixtures were unscored, so no outcome is asserted. Not asserted: disputed property — whether a key- body may carry an uppercase letter. No provider-owned source decides it and the research pass recorded it as searched-and-not-found, so the benchmark stops asserting it (docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md). Kept as history; the product's behaviour on this property is unmeasured for mailgun-api-key.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-6d42dbdff7",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "detector-coverage-mailgun-api-key",
+      "mutationKind": "alphabet",
+      "note": "alphabet: one uppercase byte vs the tool-corroborated lowercase [a-z0-9] body"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group mailgun-api-key; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

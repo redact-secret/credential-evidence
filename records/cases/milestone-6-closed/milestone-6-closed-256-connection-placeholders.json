@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "milestone-6-closed-256-connection-placeholders",
+  "title": "Placeholder passwords in connection URIs: must be flagged",
+  "summary": "Connection URIs whose password only resembles a placeholder: filler characters ending in a real-looking character, or a placeholder word embedded in or prefixed to a real-looking value. Covers 3 inputs.",
+  "rationale": "Templates for connection strings are everywhere in documentation. A placeholder in the password position is an instruction to the reader, not a secret.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:connection-string-password",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "documentation-placeholder",
+    "partial-span-leakage",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Issue-specific literal/password range; expectations are the project’s masking policy.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "suite milestone-6-closed; group #256 · Connection placeholders; 3 fixtures"
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#256",
+      "url": "https://github.com/redact-secret/redact-secret/issues/256",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.3 regressions\" (milestone-6-closed); not yet reviewed."
+}

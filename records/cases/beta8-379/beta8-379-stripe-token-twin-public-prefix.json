@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-379-stripe-token-twin-public-prefix",
+  "title": "Stripe Live restricted key: one-property twin (public-prefix)",
+  "summary": "1 input is identical to a positive input except for one change: the prefix is that of a public sibling identifier rather than the secret. Legacy mutation notes: public-prefix: rk_live_ becomes pk_live_, the publishable namespace the provider documents as safe to expose (basis: provider). Twin of \"Stripe Live restricted key, Stripe Live secret key and 1 more: must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "stripe:restricted-key-live",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Negative twin of stripe-token-compose-restricted: public-prefix: rk_live_ becomes pk_live_, the publishable namespace the provider documents as safe to expose (basis: provider). The provider documents this namespace as public, so silence is provider-evidenced.",
+    "sources": [
+      {
+        "sourceId": "docs-stripe-com-3e992d348a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-a80307467e",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-379-stripe-token",
+      "mutationKind": "public-prefix",
+      "note": "public-prefix: rk_live_ becomes pk_live_, the publishable namespace the provider documents as safe to expose (basis: provider)"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/379.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/379.mjs",
+      "note": "suite beta8-379; group #379 · stripe-token; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#379",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/379",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.11 independent family evidence for fifteen selected credential families (#379)\" (beta8-379); not yet reviewed."
+}

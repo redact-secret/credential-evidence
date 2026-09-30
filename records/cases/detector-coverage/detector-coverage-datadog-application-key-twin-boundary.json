@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-datadog-application-key-twin-boundary",
+  "title": "Datadog Application key (ddapp_-prefixed): one-property twin (boundary)",
+  "summary": "3 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: missing \"_\" delimiter after the provider-documented ddapp_ (new) application-key prefix. Twin of \"Datadog Application key (ddapp_-prefixed): must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "datadog:application-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of datadog-application-key-prefixed-env-marker-bare: boundary: missing \"_\" delimiter after the provider-documented ddapp_ (new) application-key prefix. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-c95ca8dba1",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "docs-datadoghq-com-8ac796aa2a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-datadog-cloudformation-template-3712375810",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-datadog-datadog-agent-6d8a7a4a42",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L65-L70"
+      },
+      {
+        "sourceId": "github-com-datadog-datadog-agent-6e9157fb9a",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L16"
+      },
+      {
+        "sourceId": "github-com-datadog-terraform-module-datadog-agentless-scanner-a1086e9a45",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised.",
+        "locator": "#L12"
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ce47b8450c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "detector-coverage-datadog-application-key",
+      "mutationKind": "boundary",
+      "note": "boundary: missing \"_\" delimiter after the provider-documented ddapp_ (new) application-key prefix"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group datadog-application-key; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

@@ -34,6 +34,13 @@ export const LEGACY_PATHS = {
   fixtureProfiles: "benchmarks/support/fixture-profiles.json",
   policyQualified: "benchmarks/support/policy-qualified-credentials.json",
   detectors: "benchmarks/detectors.json",
+  categories: "benchmarks/categories.json",
+  scenarios: "benchmarks/scenarios.json",
+  generatedCorpora: "benchmarks/generated-corpora.json",
+  fixtureIndexFile: "benchmarks/fixture-index.json",
+  knownGapsFile: "benchmarks/known-gaps.json",
+  authoredCorpora: { accuracy: "fixtures/accuracy/corpus.json", "token-contexts": "fixtures/token-contexts/corpus.json", "real-world-shapes": "fixtures/real-world-shapes/corpus.json" },
+  fixtureBuild: "fixtures/generated/build.mjs",
 };
 
 /** Resolve the legacy checkout: --legacy arg, then env, then a sibling directory of this repo or any ancestor. */
@@ -54,14 +61,14 @@ export function findLegacyDir(explicit) {
 }
 
 /** Extract the pinned revision's read set into a temporary directory. Returns { root, cleanup }. */
-export function materializeLegacy(legacyDir, revision = LEGACY_REVISION) {
+export function materializeLegacy(legacyDir, revision = LEGACY_REVISION, paths = ["benchmarks", "scanners", "package.json"]) {
   try {
     execFileSync("git", ["-C", legacyDir, "cat-file", "-e", `${revision}^{commit}`], { stdio: "ignore" });
   } catch {
     throw new Error(`revision ${revision} is not present in ${legacyDir}; fetch it before importing`);
   }
   const root = mkdtempSync(join(tmpdir(), "legacy-benchmarks-"));
-  const archive = spawnSync("git", ["-C", legacyDir, "archive", "--format=tar", revision, "benchmarks", "scanners", "package.json"], {
+  const archive = spawnSync("git", ["-C", legacyDir, "archive", "--format=tar", revision, ...paths], {
     maxBuffer: 1 << 30,
   });
   if (archive.status !== 0) throw new Error(`git archive failed: ${archive.stderr}`);
@@ -86,5 +93,22 @@ export function loadContractRegistry(root) {
     { maxBuffer: 1 << 28, encoding: "utf8" },
   );
   if (out.status !== 0) throw new Error(`contract extraction failed: ${out.stderr}`);
+  return JSON.parse(out.stdout);
+}
+
+/**
+ * Run the legacy fixture generators in a child Node process (type stripping needs
+ * a flag) and return every generated corpus plus a reproduction check against the
+ * committed hash manifest. The generators are legacy code executed read-only over
+ * the extracted revision; nothing is interpreted beyond their JSON output.
+ */
+export function loadGeneratedCorpora(root) {
+  const script = join(here, "extract-fixtures.mjs");
+  const out = spawnSync(
+    process.execPath,
+    ["--experimental-strip-types", "--disable-warning=ExperimentalWarning", script, root],
+    { maxBuffer: 1 << 30, encoding: "utf8" },
+  );
+  if (out.status !== 0) throw new Error(`fixture generation failed: ${out.stderr}`);
   return JSON.parse(out.stdout);
 }

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-209-heroku-api-key-twin-prefix",
+  "title": "Heroku OAuth access token (HRKU-prefixed): one-property twin (prefix)",
+  "summary": "1 input is identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: the documented upper-case HRKU- prefix lower-cased (hrku-); body unchanged. Twin of \"Heroku OAuth access token (HRKU-prefixed): must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "heroku:oauth-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of heroku-api-key-bearer-header-g2: the documented upper-case HRKU- prefix lower-cased (hrku-); body unchanged. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "devcenter-heroku-com-7f4e69f806",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-12d270eca8",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-209-heroku-api-key",
+      "mutationKind": "prefix",
+      "note": "the documented upper-case HRKU- prefix lower-cased (hrku-); body unchanged"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/209.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/209.mjs",
+      "note": "suite beta8-209; group #209 · heroku-api-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#209",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/209",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 documented-stable hardening (#209)\" (beta8-209); not yet reviewed."
+}

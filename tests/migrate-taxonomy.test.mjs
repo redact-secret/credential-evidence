@@ -16,7 +16,8 @@ import { ownerOf, isProjectOwned } from "../scripts/migrate/lib/sources.mjs";
 
 const recordsDir = join(repoRoot, "records");
 const { errors, records } = validateTree([recordsDir]);
-const all = records.map((r) => r.record);
+// Cases and fixture sets (#4) live beside the taxonomy records; they are covered by migrate-cases.test.mjs.
+const all = records.map((r) => r.record).filter((r) => !["case", "fixture-set", "fixture-projection"].includes(r.kind));
 const byKind = (kind) => all.filter((r) => r.kind === kind);
 const owned = (r) => (r.externalRefs ?? []).some((x) => x.system === OWNED_SYSTEM);
 const importedRecords = all.filter(owned);

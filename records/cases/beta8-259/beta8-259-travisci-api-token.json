@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-259-travisci-api-token",
+  "title": "Travis CI API token: must be flagged",
+  "summary": "Synthetic Travis CI API token values built to the documented format appear in 8 inputs across 8 carrier types. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "travis-ci:api-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Registry detector travisci-api-token since redact-secret#523 (#773, registry pinned at 3144bb3); authored under #259 directly as a context-gated registry contract. Travis CI states no token shape. Both pinned peers corroborate a 22-character alphanumeric token gated on a travis keyword: gitleaks 8.30.1 travisci-access-token (a case-insensitive travis keyword before an assignment operator, then [a-z0-9]{22} under (?i)) and trufflehog 3.97.4 travisci (a travis prefix within its keyword window, then \\b[a-zA-Z0-9_]{22}\\b). The contract freezes their intersection, [A-Za-z0-9]{22}, recognised only beside a same-line travis keyword, so positives score as policy. It also requires at least one letter and one digit, matching the product grammar; about 2% of uniformly random 22-character tokens have no digit and fall outside that claim. The underscore trufflehog admits is not claimed, and the underscore twin records that peer difference. Travis build, job and repository ids are numeric and commit SHAs are 40 hex characters, so they are public-id controls. .travis.yml secure: values are RSA ciphertext and are encoded-value controls.",
+    "sources": [
+      {
+        "sourceId": "docs-travis-ci-com-87c3c11eb2",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-b634b5fb62",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/259.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/259.mjs",
+      "note": "suite beta8-259; group #259 · travisci-api-token; 8 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#259",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/259",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 evidence for Travis CI, Neon, Postman collection access keys and the Mailgun key triplet (#259)\" (beta8-259); not yet reviewed."
+}

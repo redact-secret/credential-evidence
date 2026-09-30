@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:common",
   "title": "Shared definitions for credential-evidence v1 records",
   "description": "Only $defs live here. Every entity schema references these so ID, date and link rules are defined exactly once.",
-  "x-schemaRevision": "1.0.0",
+  "x-schemaRevision": "1.1.0",
   "$defs": {
     "slug": {
       "description": "Lowercase ASCII words joined by single hyphens. No dates, versions or scanner names unless intrinsic to the entity.",
@@ -168,6 +168,28 @@
       },
       "if": { "properties": { "evidenceClass": { "enum": ["provider-documented", "tool-corroborated"] } } },
       "then": { "properties": { "sources": { "minItems": 1 } } }
+    },
+    "expectedSpan": {
+      "description": "An authored range inside fixture content: UTF-8 byte offsets, start inclusive, end exclusive. An optional envelope is a wider range that may be reported instead without being wrong (for example the whole connection URI around a password); the secret range itself must still be covered.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end", "role"],
+      "properties": {
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 1 },
+        "role": { "enum": ["secret", "companion"] },
+        "note": { "$ref": "#/$defs/text" },
+        "envelope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["start", "end", "reason"],
+          "properties": {
+            "start": { "type": "integer", "minimum": 0 },
+            "end": { "type": "integer", "minimum": 1 },
+            "reason": { "$ref": "#/$defs/text" }
+          }
+        }
+      }
     },
     "validityPeriod": {
       "description": "When a format was in effect at the provider. Null means unknown or unbounded, never 'today'.",

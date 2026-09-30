@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-263-postman-collection-access-key-twin-length",
+  "title": "Postman Collection access key: one-property twin (length)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 25 characters vs the 26 GitLab's rule and the provider's masked display give and length: 27 characters vs the 26 GitLab's rule and the provider's masked display give. Twin of \"Postman Collection access key: must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "postman:collection-access-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of postman-collection-access-key-twin-base-dotenv: length: 25 characters vs the 26 GitLab's rule and the provider's masked display give. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-github-com-14499c804f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "gitlab-com-7f4b938ca8",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "learning-postman-com-47b8667191",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "learning-postman-com-81df2b7b1c",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-263-postman-collection-access-key",
+      "mutationKind": "length",
+      "note": "length: 25 characters vs the 26 GitLab's rule and the provider's masked display give"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/263.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/263.mjs",
+      "note": "suite beta8-263; group #263 · postman-collection-access-key; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#263",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/263",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 empirical fixture-floor raise for ten T2 families (#263)\" (beta8-263); not yet reviewed."
+}

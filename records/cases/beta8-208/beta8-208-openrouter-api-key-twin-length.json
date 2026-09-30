@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-208-openrouter-api-key-twin-length",
+  "title": "OpenRouter Inference API key: one-property twin (length)",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 32 hex characters, half the documented 64, length: 63 hex characters vs the documented 64, and length: 65 hex characters vs the documented 64. Twin of \"OpenRouter Inference API key: must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "openrouter:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of openrouter-api-key-bearer-header: length: 65 hex characters vs the documented 64. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ca2eaaf3f5",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "openrouter-ai-0205f8794a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "openrouter-ai-3a44de405d",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "openrouter-ai-874b2368ac",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "openrouter-ai-8c4a3ebdcc",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-208-openrouter-api-key",
+      "mutationKind": "length",
+      "note": "length: 63 hex characters vs the documented 64"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/208.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/208.mjs",
+      "note": "suite beta8-208; group #208 · openrouter-api-key; 3 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#208",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/208",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 AI inference arrival evidence (#208)\" (beta8-208); not yet reviewed."
+}

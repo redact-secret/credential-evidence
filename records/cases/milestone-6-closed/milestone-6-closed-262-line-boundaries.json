@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "milestone-6-closed-262-line-boundaries",
+  "title": "Credential-named key whose value is on the next line: must be flagged",
+  "summary": "The same key with its value on the same line (also after a horizontal tab), which is a genuine assignment. Covers 2 inputs.",
+  "rationale": "Matching across a line break turns prompts and structure into false credentials. The value must be on the same logical line or in the same block.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "high-signal-assignment-false-positive",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Issue-specific literal/password range; expectations are the project’s masking policy.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "suite milestone-6-closed; group #262 · Line boundaries; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#262",
+      "url": "https://github.com/redact-secret/redact-secret/issues/262",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.3 regressions\" (milestone-6-closed); not yet reviewed."
+}

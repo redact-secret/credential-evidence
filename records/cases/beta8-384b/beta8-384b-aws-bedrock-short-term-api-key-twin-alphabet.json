@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-384b-aws-bedrock-short-term-api-key-twin-alphabet",
+  "title": "Amazon Bedrock Short-term API key (bedrock-api-key-): one-property twin (alphabet)",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: - (URL-safe Base64) as the first byte after the head, so the standard-Base64 body is empty. Twin of \"Amazon Bedrock Short-term API key (bedrock-api-key-): must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "aws-bedrock:short-term-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of aws-bedrock-short-term-api-key-python-environ: alphabet: - (URL-safe Base64) as the first byte after the head, so the standard-Base64 body is empty. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "aws-amazon-com-7280e99539",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-87e6578a36",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-e407319908",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-aws-aws-bedrock-token-generator-java-1593020a32",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-aws-aws-bedrock-token-generator-js-d0bffc020c",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-aws-aws-bedrock-token-generator-python-05652147db",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-awslabs-git-secrets-ba9043c9da",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-63b4ee983e",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-db6dccb374",
+        "supports": "Cited by the legacy assessment (third-party write-up); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-384b-aws-bedrock-short-term-api-key",
+      "mutationKind": "alphabet",
+      "note": "alphabet: - (URL-safe Base64) as the first byte after the head, so the standard-Base64 body is empty"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/384b.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/384b.mjs",
+      "note": "suite beta8-384b; group #384b · aws-bedrock-short-term-api-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#384",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.10 evidence for the Amazon Bedrock long-term and short-term API keys (#384, slice b)\" (beta8-384b); not yet reviewed."
+}

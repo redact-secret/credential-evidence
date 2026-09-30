@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "context-edges-encoding-twin-length",
+  "title": "Credential after multibyte or unusual text: one-property twin (length)",
+  "summary": "5 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 31 vs the 32 characters Datadog's own OpenAPI ApiKey schema fixes (minLength/maxLength 32), length: 35 vs contracted 36, and length: 41 vs the provider-documented maximum of 40 characters. Twin of \"Credential after multibyte or unusual text: must be flagged (provider-documented)\" and \"Credential after multibyte or unusual text: must be flagged (project-policy)\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "datadog:api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "github:classic-personal-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "microsoft-entra:application-client-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "cross-provider"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of bom: length: 35 vs contracted 36. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-datadoghq-com-f074e5c689",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-github-com-094b941a54",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#githubs-token-formats"
+      },
+      {
+        "sourceId": "github-com-datadog-documentation-669857053f",
+        "supports": "Cited by the legacy assessment (source); claim not itemised.",
+        "locator": "#L571-L577"
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-21418667b4",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-298b221e22",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-47abdbfdb5",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "learn-microsoft-com-2252ad3244",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "context-edges-encoding-flag-t3",
+      "mutationKind": "length",
+      "note": "length: 31 vs the 32 characters Datadog's own OpenAPI ApiKey schema fixes (minLength/maxLength 32)"
+    },
+    {
+      "type": "twin-of",
+      "target": "context-edges-encoding",
+      "mutationKind": "length",
+      "note": "length: 35 vs contracted 36"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/build.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/build.mjs",
+      "note": "suite context-edges; group Encoding; 5 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Context & boundaries\" (context-edges); not yet reviewed."
+}

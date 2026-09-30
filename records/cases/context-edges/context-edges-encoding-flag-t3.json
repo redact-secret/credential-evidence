@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "context-edges-encoding-flag-t3",
+  "title": "Credential after multibyte or unusual text: must be flagged (project-policy)",
+  "summary": "The value follows emoji, CJK text, combining marks or a byte order mark. Covers 4 inputs.",
+  "rationale": "Ranges are byte offsets. A scanner that counts characters or code units instead of bytes reports the wrong range once earlier text is multibyte.",
+  "caseTypes": [
+    "positive",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "datadog:api-key",
+      "role": "subject"
+    },
+    {
+      "family": "datadog:application-key-legacy",
+      "role": "subject"
+    },
+    {
+      "family": "twilio:api-key-secret",
+      "role": "subject"
+    },
+    {
+      "family": "twilio:auth-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "context-and-encoding",
+    "cross-provider"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Re-tiered 2026-09-23 (#112, provider evidence redact-secret#644): the key has no prefix, so the provider-stated exact length plus the DD-API-KEY/DD_API_KEY marker is the whole identifying element, and the family stays context-gated (CONTEXT_GATED): a bare 32-character value with no same-line datadog/dd marker has no grammar of its own. Retained limitations: the 32/32 constraint sits on the v1 key model only (v2's FullAPIKeyAttributes.key states no length, though nothing suggests v1 and v2 issue different shapes); the provider states no character class, and Datadog-owned validators (Agent scrubber, privateactionrunner keys.go, dd-trace-java) accept uppercase A-F while datadog-ci's masking regex and every observed value are lowercase, so a hand-uppercased key would be outside the lowercase-hex shape the tools corroborate. The bare 32-character shape, gated on a same-line datadog/dd marker, is corroborated by TruffleHog's datadogapikey detector; the pinned gitleaks datadog-access-token rule instead matches a 40-character body (the application-key length), not this one. The provider-documented marker is a method-level twin limitation: a context twin is reserved for policy-tier contracts, so only the length dimension carries a twin.",
+    "sources": [
+      {
+        "sourceId": "docs-datadoghq-com-f074e5c689",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-datadog-documentation-669857053f",
+        "supports": "Cited by the legacy assessment (source); claim not itemised.",
+        "locator": "#L571-L577"
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-21418667b4",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-b69e0147e3",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ce47b8450c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-d43abda452",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/build.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/build.mjs",
+      "note": "suite context-edges; group Encoding; 4 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Context & boundaries\" (context-edges); not yet reviewed."
+}

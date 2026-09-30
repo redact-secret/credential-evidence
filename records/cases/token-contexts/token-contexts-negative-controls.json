@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "token-contexts-negative-controls",
+  "title": "GitHub token variable reference and prose: must not be flagged",
+  "summary": "A variable reference to the token and ordinary prose about GitHub access. Covers 2 inputs.",
+  "rationale": "Neither holds a credential.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/token-contexts/corpus.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/token-contexts/corpus.json",
+      "note": "suite token-contexts; group Negative controls; 2 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"GitHub token contexts\" (token-contexts); not yet reviewed."
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "beta8-948",
+  "title": "Beta.11 replacement near-miss controls for the redact-secret#948 relabel (948)",
+  "description": "Synthetic near-miss controls that replace the 25 provider-named near-miss controls docs/decisions/2026-09-29-relabel-provider-named-near-miss-controls-under-948.md relabelled to policy/T3 on generic-token, so datadog-api-key, mailgun-api-key, postman-api-key, sentry-org-auth-token, sentry-user-auth-token and travisci-api-token keep their #206 cells. Each keeps its family's near-miss value shape in prose or a log line, never under a credential-named assignment. Values are synthetic, never provider-issued; no observation record is implied.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "legacy-suite-beta8-948",
+    "generator": {
+      "name": "redact-secret-benchmarks-fixture-generators",
+      "version": "legacy-ade8a10bd792",
+      "sourceRevision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+      "entrypoint": "fixtures/generated/beta8/948.mjs"
+    }
+  },
+  "generated": true,
+  "fixtures": [
+    {"id":"beta8-948--datadog-api-key-truncated-in-prose-near-miss","case":"beta8-948-datadog-api-key-control-near-miss","path":"cases/datadog-api-key-truncated-in-prose-near-miss.md","sha256":"2c7615720feba5bd6bcf26c600070528ea982eadd0346bf7a8e3107a7ac1f57a","text":"The agent rejected a truncated Datadog value (4589a4171b628b5b7ff4), 20 of the 32 hex characters, during setup.\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"beta8-948--mailgun-api-key-short-body-in-prose-near-miss","case":"beta8-948-mailgun-api-key-control-near-miss","path":"cases/mailgun-api-key-short-body-in-prose-near-miss.md","sha256":"0aa123a18bddc33df422026a9b59561ef6e2ec56c5b8d39811c4df899aa0f32e","text":"Mailgun rejected the pasted value key-ki44hd1u8ymgb724 because the body is 16 characters, not 32.\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"beta8-948--mailgun-api-key-short-body-in-log-near-miss","case":"beta8-948-mailgun-api-key-control-near-miss","path":"cases/mailgun-api-key-short-body-in-log-near-miss.log","sha256":"2edb0050bc970314b4dae914996d7680c6e56d34649f6b502f94a353937b8ebf","text":"2026-09-29T10:00:00Z WARN mailer: dropped a malformed value key-hr5cadzc35task266h95 (20-character body) from the import\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"beta8-948--postman-api-key-short-tail-in-prose-near-miss","case":"beta8-948-postman-api-key-control-near-miss","path":"cases/postman-api-key-short-tail-in-prose-near-miss.md","sha256":"82e51d58ad954d5310a0a477251a59cac308366f5bb9ad2f2185ca687dda140b","text":"The import skipped PMAK-95e7b6d6fca5677f2561a476-ef5cc4a9685130800b301c2dedbd9dc3d because its second part has 33 hex characters, not 34.\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"beta8-948--sentry-org-auth-token-missing-secret-in-log-near-miss","case":"beta8-948-sentry-org-auth-token-control-near-miss","path":"cases/sentry-org-auth-token-missing-secret-in-log-near-miss.log","sha256":"4a44571cc9c43d2cf4ab3634d52da148be3a7bd02df08363eaddbc3ccea44beb","text":"2026-09-29T10:00:00Z WARN sentry-cli: ignored an incomplete value sntrys_eyJpYXQiOjE3MjcxNzIwMDAuNzMwNDI3LCJ1cmwiOiJodHRwczovL3NlbnRyeS5pbyIsInJlZ2lvbl91cmwiOiJodHRwczovL3VzLnNlbnRyeS5pbyIsIm9yZyI6Im5pdGpuYWd3Z2QifQ== (no secret part)\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"beta8-948--sentry-org-auth-token-missing-payload-in-prose-near-miss","case":"beta8-948-sentry-org-auth-token-control-near-miss","path":"cases/sentry-org-auth-token-missing-payload-in-prose-near-miss.md","sha256":"ebd0641f0ea7a2ed1dd2aee2458f48b790087060bec0833e26609dfc2184684d","text":"A value such as sntrys_psDVrtQvuOZFAJiHY9wVB7WnFbmVjaghk09DXwqO3q9 lacks the JSON payload, so Sentry cannot read it as an organization token.\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"beta8-948--sentry-user-auth-token-half-body-in-prose-near-miss","case":"beta8-948-sentry-user-auth-token-control-near-miss","path":"cases/sentry-user-auth-token-half-body-in-prose-near-miss.md","sha256":"8ad0d97b3580e5c5b462072a299e438e209f8629503220d52465db8c8ac2eb2b","text":"The copied value sntryu_51ba648bde6d7afb32569d31c06d8e02 holds 32 of the 64 hex characters, so the upload step stopped.\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"beta8-948--sentry-user-auth-token-org-prefix-hex-in-log-near-miss","case":"beta8-948-sentry-user-auth-token-control-near-miss","path":"cases/sentry-user-auth-token-org-prefix-hex-in-log-near-miss.log","sha256":"58e49e7327783fd02b0d6cab398961ab7a783e0a97fe7cc165d7c3de09c715b4","text":"2026-09-29T10:00:00Z WARN sentry-cli: sntrys_ee87772cdfa76524e5f8dfacfed77ac052a8f4db3cb6b60c2c098b7962c5057a mixes the organization prefix with a personal hex body; ignored\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"beta8-948--travisci-api-token-short-in-prose-near-miss","case":"beta8-948-travisci-api-token-control-near-miss","path":"cases/travisci-api-token-short-in-prose-near-miss.md","sha256":"73c6c691a583b78353aa366a5772ecdea8c540eba7614120f2436fabc33fa727","text":"Travis CI refused MqihsgBXWsgnYVQhVGKD2 as it is 21 characters, one short of the 22 the service issues.\n","expected":{"outcome":"must-not-flag","spans":[]}}
+  ],
+  "imported": {
+    "repository": "redact-secret/redact-secret-benchmarks",
+    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+    "path": "fixtures/generated/beta8/948.mjs",
+    "legacyId": "beta8-948"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/948.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/948.mjs",
+      "note": "suite beta8-948; 9 fixtures"
+    }
+  ],
+  "notes": "Generated by fixtures/generated/build.mjs from public deterministic SHA-256 seeds; all credential-shaped values are synthetic and never provider-issued. Ground truth comes from construction, not scanner output. No live verification. Legacy review status: draft — independent human review required."
+}

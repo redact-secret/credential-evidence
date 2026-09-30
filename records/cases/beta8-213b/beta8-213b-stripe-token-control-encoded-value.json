@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-213b-stripe-token-control-encoded-value",
+  "title": "Stripe Live restricted key, Stripe Test restricted key and 2 more: benign encoded value controls",
+  "summary": "1 input holding benign encoded or hashed values of the same general shape.",
+  "rationale": "Hashes, checksums and encoded text share alphabets and lengths with credentials. Reporting them is a false alarm that grows with repository size.",
+  "caseTypes": [
+    "benign",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "stripe:restricted-key-live",
+      "role": "lookalike"
+    },
+    {
+      "family": "stripe:restricted-key-test",
+      "role": "lookalike"
+    },
+    {
+      "family": "stripe:secret-key-live",
+      "role": "lookalike"
+    },
+    {
+      "family": "stripe:secret-key-test",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "cross-family-interactions",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Public identifier or benign encoding constructed to contain no credential: silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-stripe-com-3e992d348a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-a80307467e",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/213b.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/213b.mjs",
+      "note": "suite beta8-213b; group #213b · stripe-token; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#213",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/213",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 documented-stable restoration, batch b (#213)\" (beta8-213b); not yet reviewed."
+}

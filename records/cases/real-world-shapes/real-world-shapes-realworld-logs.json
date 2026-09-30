@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "real-world-shapes-realworld-logs",
+  "title": "Realistic logs without secrets: must not be flagged",
+  "summary": "Access logs, error logs and deploy logs authored locally. Covers 20 inputs.",
+  "rationale": "Logs are dense with identifiers, ids and timestamps that resemble credentials.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Authored detector and arrival-target metadata intentionally assign no credential family; this fixture remains a global benchmark control.",
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Real-world-shaped synthetic content, authored locally and not ingested from any external source (docs/decisions/2026-09-21-add-untargeted-benign-corpus.md). No provider or tool evidence grounds its silence: expected silence is project policy (T3).",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/real-world-shapes/corpus.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/real-world-shapes/corpus.json",
+      "note": "suite real-world-shapes; group realworld-logs; 20 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Untargeted real-world shapes\" (real-world-shapes); not yet reviewed."
+}
