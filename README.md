@@ -143,7 +143,9 @@ This repository is initially migrating knowledge currently embedded in `redact-s
 
 The migration is intentionally not a big-bang cutover.
 
-Until parity is demonstrated, the existing benchmark repository remains authoritative for current Redact Secret release qualification.
+Until parity is demonstrated and downstream consumers have switched, the existing benchmark repository remains authoritative for current Redact Secret release qualification.
+
+Status after #6: the canonical records exist (#2 to #5) and a deterministic exporter produces the legacy benchmark inputs and the credential-eval corpus snapshot from them (`npm run export:legacy`). At the pinned legacy revision the parity report shows zero unexplained differences (`docs/migration/parity-report.md`). **The cutover has not happened:** no downstream consumer has switched, so no legacy file may be deleted or frozen. What remains, and the cutover rule, are in `docs/migration/cutover.md`.
 
 Migration work is tracked under:
 
@@ -172,6 +174,8 @@ records/              # canonical records; layout in docs/decisions/0004
   fixtures/<suite>.json  # sharded fixture projections of cases; authored or generated (#4)
   variants/ siblings/                                 # reserved
 
+dist/legacy-projection/ # gitignored: derived legacy-compatible projection (npm run export:legacy); its manifest is committed in docs/migration/
+
 fixtures/materialized/  # gitignored: executable fixtures materialized from records/ (npm run fixtures:materialize)
 
 scripts/
@@ -179,7 +183,8 @@ scripts/
   lib/validator.mjs
   materialize-fixtures.mjs   # npm run fixtures:materialize: files + manifest for credential-eval
   migrate/            # import-taxonomy.mjs, import-cases.mjs (npm run migrate:taxonomy, migrate:cases); future schema migrations
-  export/             # future legacy-compatible exports
+  export/             # legacy-projection.mjs (npm run export:legacy): legacy-compatible projection + credential-eval snapshot
+  parity/             # run.mjs (npm run parity): projection versus the pinned legacy files; rules.json, inventory.json
 
 tests/                # npm test
 
@@ -204,6 +209,10 @@ npm run migrate:taxonomy:check   # regenerate the taxonomy records from the pinn
 npm run migrate:cases:check      # regenerate cases and fixture sets (runs the legacy generators) and diff
 npm run fixtures:materialize     # write fixtures/materialized/ (gitignored) from records/
 npm run fixtures:materialize:check   # verify the records, the digest and any existing output
+npm run export:legacy            # write dist/legacy-projection/ (gitignored) and docs/migration/legacy-projection-manifest.json
+npm run export:legacy:check      # regenerate in memory; fail if the committed manifest or the output differs
+npm run parity                   # compare the projection with the pinned legacy files; write docs/migration/parity-report.md
+npm run parity:check             # fail on any unexplained difference or a stale report
 ```
 
 `examples/valid` and `records/` are validated as separate universes, so an
@@ -213,7 +222,7 @@ a checkout of `redact-secret-benchmarks` (`--legacy <path>` or
 only commit `ade8a10bd7922765110a68986b0690eb3861f2e5` of it. Tests that compare
 against that checkout skip when it is absent unless `REQUIRE_LEGACY=1`.
 
-The model and its rules are recorded in `docs/decisions/0001` to `0005`; what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`.
+The model and its rules are recorded in `docs/decisions/0001` to `0006`; what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`.
 
 Cases are the human unit (`records/cases/`); fixtures are their executable
 projections (`records/fixtures/`). A fixture set is either authored (hand-written
@@ -230,6 +239,6 @@ The site is a consumer of this repository, not the owner of the facts.
 
 ## Status
 
-Early migration and schema-design phase.
+Late migration phase: canonical records, governance, compatibility export and parity proof exist; downstream cutover is pending (`docs/migration/cutover.md`).
 
 Do not treat the current repository structure as stable until the migration epic closes.
