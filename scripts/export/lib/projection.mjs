@@ -1,9 +1,13 @@
 // Pure, deterministic projection of canonical records into the input shapes that
 // `redact-secret-benchmarks` consumers read (see docs/decisions/0006).
 //
-// `buildProjection({ records, vocabulary })` takes parsed, schema-valid records and
-// returns every artifact as text. No clock, no network, no randomness, no legacy
-// checkout. Everything is sorted by stable id.
+// `buildProjection({ records, legacyMaps, vocabulary, ... })` takes parsed, schema-valid
+// canonical records plus the legacy map and returns every artifact as text. No clock, no
+// network, no randomness, no legacy checkout. Everything is sorted by stable id.
+//
+// Names: canonical fixtures (fixtures.mjs) carry canonical ids and paths only. Every legacy
+// name (`beta8-*` suites, legacy fixture ids, corpus paths, navigation scenario ids) is
+// regenerated from the legacy map by legacy-map.mjs, the single join point (ADR 0009).
 //
 // Boundary: a projection is derived, lossy by design, and never an assertion. It
 // carries no detector assignment, support status, release milestone or product
@@ -11,11 +15,13 @@
 // states exactly what, and it is regenerated with every projection.
 
 import { createHash } from "node:crypto";
-import { buildLegacyView } from "./view.mjs";
+import { collectFixtures } from "./fixtures.mjs";
+import { loadLegacyNames, nameFixtures } from "./legacy-map.mjs";
 
-export const GENERATOR = { name: "credential-evidence/legacy-projection", version: "1.1.0" };
+export const GENERATOR = { name: "credential-evidence/legacy-projection", version: "2.0.0" };
 export const MANIFEST_FORMAT = "credential-evidence/legacy-projection-manifest";
 export const MANIFEST_FORMAT_VERSION = 1;
+export const LEGACY_ID_MAP_FORMAT = "credential-evidence/legacy-id-map";
 export const OVERLAY_FORMAT = "credential-evidence/legacy-projection-overlay-interface";
 
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
@@ -53,15 +59,15 @@ export function indexRecords(records) {
   for (const r of records) (by[r.kind] ??= []).push(r);
   for (const k of Object.keys(by)) by[k].sort((a, b) => cmp(a.id, b.id));
   const map = (kind) => new Map((by[kind] ?? []).map((r) => [r.id, r]));
-  return { by, providers: map("provider"), families: map("family"), contracts: map("format-contract"), sources: map("evidence-source"), reviews: map("evidence-review-history"), cases: map("case"), sets: map("fixture-set"), scenarios: map("scenario"), plans: map("fixture-plan"), maps: by["legacy-map"] ?? [] };
+  return { by, providers: map("provider"), families: map("family"), contracts: map("format-contract"), sources: map("evidence-source"), reviews: map("evidence-review-history"), cases: map("case"), sets: map("fixture-set"), scenarios: map("scenario"), plans: map("fixture-plan") };
 }
 
 /** Rebuild a legacy URL from a sourceRef: base URL (exact legacy URL if the locator was a repository) plus the fragment locator. */
 function urlOf(ref, sources) {
   const src = sources.get(ref.sourceId);
   if (!src) throw new Error(`unknown evidence source ${ref.sourceId}`);
-  const legacy = (src.externalRefs ?? []).find((r) => r.system === "legacy-url");
-  return (legacy ? legacy.id : src.locator.url) + (ref.locator ?? "");
+  const legacyUrl = (src.externalRefs ?? []).find((r) => r.system === "legacy-url");
+  return (legacyUrl ? legacyUrl.id : src.locator.url) + (ref.locator ?? "");
 }
 
 const claimOf = (contract, id) => (contract?.claims ?? []).find((c) => c.id === id);
@@ -130,14 +136,14 @@ function buildDossiers(ix) {
 
 const legacyScenarioIds = (vocabulary) => new Set(vocabulary.scenarios.map((s) => s.id));
 
-function buildScenarios(view, vocabulary) {
+function buildScenarios(catalog, vocabulary) {
   const legacy = legacyScenarioIds(vocabulary);
-  const used = new Set(view.fixtures.flatMap((f) => f.scenarioIds.filter((id) => legacy.has(id))));
+  const used = new Set(catalog.fixtures.flatMap((f) => f.scenarioIds.filter((id) => legacy.has(id))));
   return { schemaVersion: 1, scenarios: vocabulary.scenarios.filter((s) => used.has(s.id)).map((s) => ({ id: s.id, title: s.title, description: s.description })) };
 }
 
-function buildCategories(view, vocabulary) {
-  return view.suites.map((s) => ({ id: s.id, title: s.title, description: s.description, kind: vocabulary.categoryKind, corpus: s.corpus }));
+function buildCategories(catalog, vocabulary) {
+  return catalog.suites.map((s) => ({ id: s.id, title: s.title, description: s.description, kind: vocabulary.categoryKind, corpus: s.corpus }));
 }
 
 /** Inverse of the importer's tier mapping: (outcome, basis) to the legacy (kind, tier). T0 has no recoverable kind. */
@@ -154,35 +160,36 @@ function legacyAssessment(outcome, basis) {
  * outcome is not must-flag (an unresolved T0 fixture: its candidate spans are not canonical) cannot satisfy that,
  * so a twin of such a fixture is projected without twin fields. The lineage stays canonical (fixture lineage).
  */
-const positiveOf = (view, f) => view.byId.get(f.item.lineage.of);
-const hasRealPositive = (view, f) => positiveOf(view, f)?.outcome === "must-flag";
-const twinName = (view, f) => {
-  const positive = positiveOf(view, f);
-  if (!positive) throw new Error(`fixture ${f.id}: lineage.of ${f.item.lineage.of} is not a fixture`);
-  if (positive.suite !== f.suite) throw new Error(`fixture ${f.id}: twin and positive belong to different legacy suites`);
+const positiveOf = (catalog, f) => catalog.byCanonicalId.get(f.fixture.item.lineage.of);
+const hasRealPositive = (catalog, f) => positiveOf(catalog, f)?.fixture.outcome === "must-flag";
+const twinName = (catalog, f) => {
+  const positive = positiveOf(catalog, f);
+  if (!positive) throw new Error(`fixture ${f.fixture.id}: lineage.of ${f.fixture.item.lineage.of} is not a fixture`);
+  if (positive.suite !== f.suite) throw new Error(`fixture ${f.fixture.id}: twin and positive belong to different legacy suites`);
   return positive;
 };
 
-function buildCorpora(ix, view, vocabulary) {
+function buildCorpora(ix, catalog, vocabulary) {
   void vocabulary;
   const out = new Map();
-  for (const suite of view.suites) {
-    const fixtures = view.fixtures
+  for (const suite of catalog.suites) {
+    const fixtures = catalog.fixtures
       .filter((f) => f.suite === suite.id)
       .map((f) => {
-        const { kind, tier } = legacyAssessment(f.outcome, f.evidence.basis);
-        const item = f.item;
+        const { fixture } = f;
+        const { kind, tier } = legacyAssessment(fixture.outcome, fixture.evidence.basis);
+        const item = fixture.item;
         const o = {
           id: f.name,
           path: f.legacyPath,
-          group: f.groupId,
+          group: fixture.targetId,
           content: item.text,
           expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.note ? { note: sp.note } : {}), ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
-          assessment: { kind, tier, reason: f.evidence.rationale, sources: uniqSorted(f.evidence.sources.map((r) => urlOf(r, ix.sources))) },
+          assessment: { kind, tier, reason: fixture.evidence.rationale, sources: uniqSorted(fixture.evidence.sources.map((r) => urlOf(r, ix.sources))) },
         };
         if (item.context) o.contextAxis = item.context;
-        if (item.lineage && hasRealPositive(view, f)) {
-          o.twinOf = twinName(view, f).name;
+        if (item.lineage && hasRealPositive(catalog, f)) {
+          o.twinOf = twinName(catalog, f).name;
           if (item.lineage.mutation) o.mutation = item.lineage.mutation;
           if (item.lineage.mutationKind) o.mutationKind = item.lineage.mutationKind;
         }
@@ -193,25 +200,25 @@ function buildCorpora(ix, view, vocabulary) {
   return out;
 }
 
-function buildSemantics(view, vocabulary) {
+function buildSemantics(catalog, vocabulary) {
   const legacy = legacyScenarioIds(vocabulary);
   const rows = [];
   let reviewedAt = "";
-  for (const f of view.fixtures) {
-    const row = { slug: f.slug, familyIds: f.families, scenarioIds: uniqSorted(f.scenarioIds.filter((id) => legacy.has(id))) };
-    if (f.unscopedReason) row.unscopedReason = f.unscopedReason;
+  for (const f of catalog.fixtures) {
+    const row = { slug: f.slug, familyIds: f.fixture.families, scenarioIds: uniqSorted(f.scenarioIds.filter((id) => legacy.has(id))) };
+    if (f.fixture.unscopedReason) row.unscopedReason = f.fixture.unscopedReason;
     rows.push(row);
-    if (f.evidence.observedAt > reviewedAt) reviewedAt = f.evidence.observedAt;
+    if (f.fixture.evidence.observedAt > reviewedAt) reviewedAt = f.fixture.evidence.observedAt;
   }
   rows.sort((a, b) => cmp(a.slug, b.slug));
   return { schemaVersion: 1, reviewedAt, fixtures: rows };
 }
 
-function buildIndex({ view, semantics, scenarios, taxonomy }) {
+function buildIndex({ catalog, semantics, scenarios, taxonomy }) {
   const semBySlug = new Map(semantics.fixtures.map((r) => [r.slug, r]));
-  const corpusOf = new Map(view.suites.map((s) => [s.id, s.corpus]));
+  const corpusOf = new Map(catalog.suites.map((s) => [s.id, s.corpus]));
   const fixtures = [];
-  for (const f of view.fixtures) {
+  for (const f of catalog.fixtures) {
     const sem = semBySlug.get(f.slug);
     fixtures.push({
       slug: f.slug,
@@ -220,7 +227,7 @@ function buildIndex({ view, semantics, scenarios, taxonomy }) {
       scenarioIds: sem.scenarioIds,
       ...(sem.unscopedReason ? { unscopedReason: sem.unscopedReason } : {}),
       provenance: { categoryId: f.suite },
-      ...(f.item.lineage && hasRealPositive(view, f) ? { relations: { twinOf: twinName(view, f).slug } } : {}),
+      ...(f.fixture.item.lineage && hasRealPositive(catalog, f) ? { relations: { twinOf: twinName(catalog, f).slug } } : {}),
     });
   }
   fixtures.sort((a, b) => a.slug.localeCompare(b.slug, "en"));
@@ -237,33 +244,38 @@ function buildIndex({ view, semantics, scenarios, taxonomy }) {
 // --------------------------------------------- credential-eval corpus snapshot
 
 /** Compact JSON with object keys sorted by byte order at every depth (credential-eval docs/contracts/identity.md). */
-function canonicalJson(value) {
+export function canonicalJson(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
   if (value && typeof value === "object") return `{${Object.keys(value).sort(cmp).map((k) => `${JSON.stringify(k)}:${canonicalJson(value[k])}`).join(",")}}`;
   return JSON.stringify(value);
 }
 
 /**
- * The input document credential-eval reads (`credential-eval/corpus-snapshot/v1`). Same truth as the legacy
- * corpora, in the evaluator's own contract: one case per fixture, grouping carries the legacy kind and tier
- * (which credential-eval keeps for partitioning), the canonical evidence class and, when the case has exactly one
- * family, that family. `targets` (the detector assignment) is an overlay and is absent.
+ * The input document credential-eval reads (`credential-eval/corpus-snapshot/v1`), in canonical names: case id = the
+ * canonical fixture id, path = its materialized path (`<set>/<name>/<file>`), `grouping.group` = the canonical Case or
+ * Scenario id, twin lineage by canonical id. One case per fixture, same truth as the legacy corpora. `grouping` carries
+ * the legacy kind and tier (which credential-eval keeps for partitioning), the canonical evidence class and, when the
+ * fixture has exactly one family, that family. `targets` (the detector assignment) is an overlay and is absent.
+ *
+ * No legacy name appears in it (credential-eval's case ids are a closed grammar with no room for provenance). A consumer
+ * that has to compare against a run over the legacy corpus re-keys through `credential-eval/legacy-id-map.json`.
  */
-function buildCorpusSnapshot(view, { sourceDigest, schemaRevision }) {
+function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
+  const byId = new Map(fixtures.map((f) => [f.id, f]));
   const cases = [];
-  for (const f of view.fixtures) {
+  for (const f of fixtures) {
     const { kind, tier } = legacyAssessment(f.outcome, f.evidence.basis);
-    const grouping = { kind, tier, group: f.groupId, evidence_class: f.evidence.basis };
+    const grouping = { kind, tier, group: f.targetId, evidence_class: f.evidence.basis };
     if (f.families.length === 1) grouping.family = f.families[0];
     const item = f.item;
     const out = {
-      id: f.slug,
-      path: `${f.suite}/${f.legacyPath}`,
+      id: f.id,
+      path: f.materializedPath,
       content: item.text,
       expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
       grouping,
     };
-    if (item.lineage?.mutation && hasRealPositive(view, f)) out.twin = { twin_of: twinName(view, f).slug, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
+    if (item.lineage?.mutation && byId.get(item.lineage.of)?.outcome === "must-flag") out.twin = { twin_of: item.lineage.of, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
     cases.push(out);
   }
   cases.sort((a, b) => cmp(a.id, b.id));
@@ -275,6 +287,23 @@ function buildCorpusSnapshot(view, { sourceDigest, schemaRevision }) {
       evidence_schema: `credential-evidence/schema/${schemaRevision}`,
       corpus_digest: `sha256:${sha256(canonicalJson(cases))}`,
     },
+    cases,
+  };
+}
+
+/**
+ * The re-keying table between the snapshot (canonical ids and paths) and a run over the legacy corpus (legacy fixture
+ * ids and `<suite>/<path>` paths), generated from the legacy map. It is a compatibility artifact for the dual run; it
+ * is never read by credential-eval's validator and never part of the snapshot.
+ */
+function buildLegacyIdMap(catalog, snapshot) {
+  const cases = catalog.fixtures.map((f) => ({ id: f.fixture.id, path: f.fixture.materializedPath, legacyId: f.slug, legacyPath: `${f.suite}/${f.legacyPath}` }));
+  cases.sort((a, b) => cmp(a.id, b.id));
+  return {
+    format: LEGACY_ID_MAP_FORMAT,
+    formatVersion: 1,
+    note: "Generated from migration/legacy-map. Re-keys credential-eval/corpus-snapshot.json (canonical ids) to the legacy fixture ids and corpus paths. Not canonical data and not an input of credential-eval.",
+    snapshotCorpusDigest: snapshot.identity.corpus_digest,
     cases,
   };
 }
@@ -351,23 +380,25 @@ function buildOverlayInterface({ taxonomy, index }) {
 // ------------------------------------------------------------------ entry point
 
 /**
- * @param {{ records: object[], vocabulary: object, sourceDigest: string, schemaRevision: string }} input
+ * @param {{ records: object[], legacyMaps: object[], vocabulary: object, sourceDigest: string, schemaRevision: string }} input
  * @returns {{ artifacts: Map<string, string>, manifest: object, manifestText: string, stats: object }}
  */
-export function buildProjection({ records, vocabulary, sourceDigest, schemaRevision }) {
+export function buildProjection({ records, legacyMaps, vocabulary, sourceDigest, schemaRevision }) {
   const ix = indexRecords(records);
   if (!ix.sets.size || !ix.families.size) throw new Error("records/ has no fixture sets or families; run the importers first");
-  if (!ix.maps.length) throw new Error("migration/ has no legacy map; the legacy projection needs it to name suites and fixtures (run npm run migrate:cases)");
-  const view = buildLegacyView(ix);
+  // canonical fixtures, then the legacy names joined from the legacy map: the only place a legacy name enters
+  const fixtures = collectFixtures(ix);
+  const catalog = nameFixtures(fixtures, loadLegacyNames(legacyMaps, vocabulary));
   const taxonomy = buildTaxonomy(ix, vocabulary);
   const dossiers = buildDossiers(ix);
-  const scenarios = buildScenarios(view, vocabulary);
-  const categories = buildCategories(view, vocabulary);
-  const semantics = buildSemantics(view, vocabulary);
-  const index = buildIndex({ view, semantics, scenarios, taxonomy });
-  const corpora = buildCorpora(ix, view, vocabulary);
+  const scenarios = buildScenarios(catalog, vocabulary);
+  const categories = buildCategories(catalog, vocabulary);
+  const semantics = buildSemantics(catalog, vocabulary);
+  const index = buildIndex({ catalog, semantics, scenarios, taxonomy });
+  const corpora = buildCorpora(ix, catalog, vocabulary);
   const overlay = buildOverlayInterface({ taxonomy, index });
-  const snapshot = buildCorpusSnapshot(view, { sourceDigest, schemaRevision });
+  const snapshot = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision });
+  const legacyIds = buildLegacyIdMap(catalog, snapshot);
 
   const artifacts = new Map();
   artifacts.set("benchmarks/support/taxonomy.json", json(taxonomy));
@@ -378,6 +409,7 @@ export function buildProjection({ records, vocabulary, sourceDigest, schemaRevis
   artifacts.set("benchmarks/fixture-index.json", json(index));
   for (const [path, corpus] of corpora) artifacts.set(path, json(corpus));
   artifacts.set("credential-eval/corpus-snapshot.json", json(snapshot));
+  artifacts.set("credential-eval/legacy-id-map.json", json(legacyIds));
   artifacts.set("overlay-interface.json", json(overlay));
 
   const source = { kind: "records-tree-sha256", digest: sourceDigest };
@@ -404,8 +436,9 @@ export function buildProjection({ records, vocabulary, sourceDigest, schemaRevis
     artifacts,
     manifest,
     manifestText: json(manifest),
-    projected: { taxonomy, dossiers, scenarios, categories, semantics, index, corpora, overlay, snapshot },
-    view,
+    projected: { taxonomy, dossiers, scenarios, categories, semantics, index, corpora, overlay, snapshot, legacyIds },
+    catalog,
+    fixtures,
     stats: { families: taxonomy.families.length, providers: taxonomy.providers.length, fixtures: index.fixtures.length, corpora: corpora.size },
   };
 }
