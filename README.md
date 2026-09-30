@@ -168,12 +168,17 @@ examples/
 
 records/              # canonical records; layout in docs/decisions/0004
   providers/ families/ contracts/ reviews/ sources/   # taxonomy import (#3)
+  cases/<suite>/     # authored Cases: scenario, why it matters, expected outcome, evidence (#4)
+  fixtures/<suite>.json  # sharded fixture projections of cases; authored or generated (#4)
   variants/ siblings/                                 # reserved
+
+fixtures/materialized/  # gitignored: executable fixtures materialized from records/ (npm run fixtures:materialize)
 
 scripts/
   validate.mjs        # npm run validate
   lib/validator.mjs
-  migrate/            # import-taxonomy.mjs (npm run migrate:taxonomy); future schema migrations
+  materialize-fixtures.mjs   # npm run fixtures:materialize: files + manifest for credential-eval
+  migrate/            # import-taxonomy.mjs, import-cases.mjs (npm run migrate:taxonomy, migrate:cases); future schema migrations
   export/             # future legacy-compatible exports
 
 tests/                # npm test
@@ -195,17 +200,27 @@ Requires Node 22 or newer. The validator is offline and deterministic.
 npm ci
 npm run validate   # schemas, examples/valid and records/: shape, IDs, cross-references
 npm test           # positive and negative cases, imported records, round trips
-npm run migrate:taxonomy:check   # regenerate records/ from the pinned legacy revision and diff
+npm run migrate:taxonomy:check   # regenerate the taxonomy records from the pinned legacy revision and diff
+npm run migrate:cases:check      # regenerate cases and fixture sets (runs the legacy generators) and diff
+npm run fixtures:materialize     # write fixtures/materialized/ (gitignored) from records/
+npm run fixtures:materialize:check   # verify the records, the digest and any existing output
 ```
 
 `examples/valid` and `records/` are validated as separate universes, so an
-illustrative example may reuse the id of a real record. The taxonomy import needs
+illustrative example may reuse the id of a real record. The taxonomy and case imports need
 a checkout of `redact-secret-benchmarks` (`--legacy <path>` or
 `LEGACY_BENCHMARKS_DIR`; a sibling directory is found automatically) and reads
 only commit `ade8a10bd7922765110a68986b0690eb3861f2e5` of it. Tests that compare
 against that checkout skip when it is absent unless `REQUIRE_LEGACY=1`.
 
-The model and its rules are recorded in `docs/decisions/0001` to `0004`; what the taxonomy import kept, dropped and could not map is in `docs/migration/taxonomy-report.md`.
+The model and its rules are recorded in `docs/decisions/0001` to `0005`; what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`.
+
+Cases are the human unit (`records/cases/`); fixtures are their executable
+projections (`records/fixtures/`). A fixture set is either authored (hand-written
+inputs) or generated (the recorded output of a documented generation rule, never
+canonical). `npm run fixtures:materialize` turns them into plain files and a
+manifest so a consumer such as credential-eval needs no case semantics; see
+`docs/decisions/0005-cases-and-fixture-sets.md`.
 
 ## Public future
 

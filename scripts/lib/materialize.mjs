@@ -1,0 +1,63 @@
+// Materialize executable fixtures from cases and fixture sets.
+//
+// Pure and deterministic: `buildMaterialization` maps schema-valid `fixture-set` and
+// `case` records to a file tree plus a manifest. A consumer (credential-eval) reads
+// the tree and the manifest and needs no case semantics: each manifest entry already
+// says which file to scan, whether it must, must not or may be flagged, and the
+// exact byte ranges.
+//
+// The tree is derived data. It is never committed; `npm run fixtures:materialize --
+// --check` verifies it (or the records it would be built from) against the digest.
+
+import { createHash } from "node:crypto";
+
+export const MATERIALIZE_VERSION = "1.0.0";
+export const MANIFEST_FORMAT = "credential-evidence/materialized-fixtures";
+export const MANIFEST_FORMAT_VERSION = 1;
+
+const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+
+/**
+ * @param {{ sets: object[], cases: object[] }} input  schema-valid records
+ * @returns {{ files: Map<string, Buffer>, manifest: object, manifestText: string, digest: string }}
+ */
+export function buildMaterialization({ sets, cases }) {
+  const caseById = new Map(cases.map((c) => [c.id, c]));
+  const files = new Map();
+  const entries = [];
+  for (const set of [...sets].sort((a, b) => cmp(a.id, b.id))) {
+    for (const item of set.fixtures) {
+      const c = caseById.get(item.case);
+      if (!c) throw new Error(`fixture ${item.id}: unknown case ${item.case}`);
+      const bytes = Buffer.from(item.text, "utf8");
+      if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) throw new Error(`fixture ${item.id}: sha256 does not match text`);
+      const path = `${set.id}/${item.path}`;
+      if (files.has(path)) throw new Error(`fixture ${item.id}: duplicate materialized path ${path}`);
+      files.set(path, bytes);
+      const entry = {
+        id: item.id,
+        path,
+        sha256: item.sha256,
+        bytes: bytes.length,
+        expected: { outcome: item.expected.outcome, spans: item.expected.spans },
+        case: item.case,
+        families: c.families.map((f) => f.family).sort(cmp),
+        generated: set.generated,
+      };
+      if (item.context) entry.context = item.context;
+      if (item.lineage) entry.lineage = { relation: item.lineage.relation, of: item.lineage.of, ...(item.lineage.mutationKind ? { mutationKind: item.lineage.mutationKind } : {}) };
+      entries.push(entry);
+    }
+  }
+  entries.sort((a, b) => cmp(a.id, b.id));
+  const digest = createHash("sha256").update(JSON.stringify(entries)).digest("hex");
+  const manifest = {
+    format: MANIFEST_FORMAT,
+    formatVersion: MANIFEST_FORMAT_VERSION,
+    generator: `scripts/materialize-fixtures.mjs ${MATERIALIZE_VERSION}`,
+    digest,
+    count: entries.length,
+    fixtures: entries,
+  };
+  return { files, manifest, manifestText: `${JSON.stringify(manifest, null, 2)}\n`, digest };
+}
