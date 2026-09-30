@@ -12,6 +12,8 @@
 //   ctx.caseOf(path)               the canonical target of the fixture the path belongs to, as a case-like record
 //                                  { id, families, expectation: { outcome, basis, rationale } } (the fixture's own evidence), or undefined
 //   ctx.recordedSourceBases        Set of URLs that exist as canonical evidence sources
+//   ctx.familyDossierClass(id)     evidence class of the family's dossier-research claim, or undefined
+//   ctx.recomputeDigest(path)      the legacy digestJson of the projected document a fixture-index digest field covers
 
 const DOWNGRADE_NOTE = /^Legacy tier T[12] \((tool-corroborated|provider-documented)\), but /;
 
@@ -82,6 +84,12 @@ export const PREDICATES = {
     const target = d.path.endsWith(".relations.twinOf") ? d.legacy : ctx.legacy(d.path.replace(/\.(twinOf|mutation|mutationKind)$/, ".twinOf"));
     return typeof target === "string" && ctx.caseOfKey(target)?.expectation.outcome === "not-assertable";
   },
+
+  /** The dossier tier projects as T0 because the family's dossier-research claim is recorded as unresolved evidence (the importer downgrade), not because of a value the projection chose. */
+  "dossier-claim-unresolved": (d, ctx) => ctx.familyDossierClass(ctx.keyOf(d.path)) === "unresolved",
+
+  /** The projected digest is the legacy digestJson of the projected document it covers, recomputed here: the digest differs from legacy because the content it covers differs, and it is self-consistent. */
+  "digest-self-consistent": (d, ctx) => typeof d.projected === "string" && ctx.recomputeDigest(d.path) === d.projected,
 
   /** The fixture's canonical case has at least one family, which replaces the legacy unscoped marker (case-level union). */
   "case-has-families": (d, ctx) => (ctx.caseOf(d.path)?.families ?? []).length > 0,

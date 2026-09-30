@@ -12,7 +12,7 @@ import { generate } from "../scripts/export/legacy-projection.mjs";
 import { repoRoot } from "../scripts/lib/validator.mjs";
 import { compareDocs, flatten, satisfies } from "../scripts/parity/lib/diff.mjs";
 import { openLegacy } from "../scripts/parity/lib/legacy.mjs";
-import { compilePattern, loadRules, runParity } from "../scripts/parity/lib/parity.mjs";
+import { checkOverlayRules, compilePattern, loadRules, runParity } from "../scripts/parity/lib/parity.mjs";
 import { PREDICATES } from "../scripts/parity/lib/predicates.mjs";
 import { renderParityReport, verdictOf } from "../scripts/parity/lib/report.mjs";
 
@@ -80,6 +80,22 @@ describe("explained-difference rules", () => {
     for (const forbidden of ["fixtures[*].content", "fixtures[*].id", "fixtures[*].path", "families[*].id", "families[*].name", "families[*].description", "fixtures[*].slug"]) {
       assert.ok(!covered.some((p) => compilePattern(p).test(forbidden)), `a rule covers ${forbidden}`);
     }
+  });
+
+  test("a product-state rule names the overlay that carries the field, and the overlay interface must declare that field", () => {
+    const dropped = rules.filter((r) => r.class === "product-state-dropped");
+    assert.ok(dropped.length >= 4);
+    for (const r of dropped) assert.ok(r.overlay, r.id);
+    const overlays = { overlays: [
+      { id: "corpus-fixture-extras", merge: "set the listed fields", shape: "{ detectors?, arrivalTargets?, expectedAction?, policyFamily?, policyConformance?, formatReason?, issue?, assessment.contract? }" },
+      { id: "taxonomy-support-status", merge: "set families[].supportStatus", shape: "family id -> pending" },
+      { id: "fixture-provenance", merge: "set fixtures[].provenance.issue, .milestone, .release", shape: "slug -> {}" },
+    ] };
+    checkOverlayRules(rules, overlays);
+    // an overlay that does not declare a field cannot excuse its removal
+    const stripped = { overlays: overlays.overlays.map((o) => (o.id === "corpus-fixture-extras" ? { ...o, shape: "{ detectors? }" } : o)) };
+    assert.throws(() => checkOverlayRules(rules, stripped), /does not declare the field/);
+    assert.throws(() => checkOverlayRules(rules, { overlays: [] }), /is not in overlay-interface/);
   });
 
   test("patterns: [*] is an array key, {} one object key, trailing .** anything deeper", () => {
@@ -159,6 +175,13 @@ describe("projection versus the pinned legacy revision", { skip: skipReason ?? f
       const fam = Object.values(d.providers)[0].families[0];
       fam.research.researchedAt = "1999-01-01";
     });
+    edit("benchmarks/fixture-index.json", (d) => {
+      d.identity.digest = "0".repeat(64);
+    });
+    edit("benchmarks/support/dossier-frontmatter.json", (d) => {
+      const fam = Object.values(d.providers).flatMap((p) => p.families).find((f) => f.research.tier === "T1");
+      fam.research.tier = "T0";
+    });
     const tampered = runParity({ legacyRoot: legacy.root, inputs, projection: { ...projection, artifacts }, rulesPath, inventoryPath });
     const patterns = new Set(tampered.unexplained.map((d) => `${d.artifact}:${d.pattern}`));
     const reported = (artifact, suffix) => [...patterns].some((p) => p.startsWith(`${artifact}:`) && p.endsWith(suffix));
@@ -167,7 +190,9 @@ describe("projection versus the pinned legacy revision", { skip: skipReason ?? f
     assert.ok(reported("corpus", "fixtures[*].assessment.tier"), "a tier change that is not a recorded downgrade");
     assert.ok(reported("index", "fixtures[*].familyIds[*]"), "a family link no peer in the case has");
     assert.ok(reported("dossiers", "research.researchedAt"), "a changed research date");
-    assert.ok(tampered.unexplained.length >= 4);
+    assert.ok(reported("index", "identity.digest"), "a digest that is not the digest of the projected content");
+    assert.ok(reported("dossiers", "research.tier"), "a dossier tier that the canonical claim does not record as unresolved");
+    assert.ok(tampered.unexplained.length >= 6);
     assert.ok(!verdictOf(tampered));
   });
 

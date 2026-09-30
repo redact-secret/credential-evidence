@@ -61,3 +61,14 @@ jobs:
         run: npm run migrate:check
         env:
           LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
+
+      - name: Legacy projection is current (manifest and, if present, output)
+        run: npm run export:legacy:check
+
+      - name: Parity against the pinned legacy revision (0 unexplained, report current)
+        run: npm run parity:check
+        env:
+          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
+
+      - name: Fixture materialization check (records verified, digest matches the cases report)
+        run: npm run fixtures:materialize:check

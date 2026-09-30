@@ -8,7 +8,7 @@ import { join } from "node:path";
 import Ajv from "ajv";
 import Ajv2020 from "ajv/dist/2020.js";
 import { GENERATOR } from "../../export/lib/projection.mjs";
-import { indexRecords } from "../../export/lib/projection.mjs";
+import { digestJson, indexRecords } from "../../export/lib/projection.mjs";
 import { compareFlat, flatten, satisfies } from "./diff.mjs";
 import { consumersOf, entryCount, loadLegacyDocs, runLegacyChecks, sizeOf } from "./legacy.mjs";
 import { evaluatePredicate, PREDICATES } from "./predicates.mjs";
@@ -40,6 +40,7 @@ export function loadRules(path) {
     for (const k of ["id", "class", "artifact", "patterns", "change", "justification"]) if (!r[k]) throw new Error(`rule ${r.id}: missing ${k}`);
     if (r.justification.length < 40) throw new Error(`rule ${r.id}: justification is too short to be a justification`);
     if (r.predicate && !PREDICATES[r.predicate]) throw new Error(`rule ${r.id}: unknown predicate ${r.predicate}`);
+    if (r.class === "product-state-dropped" && !r.overlay) throw new Error(`rule ${r.id}: a product-state-dropped rule must name the overlay that carries the dropped field`);
     return { ...r, regexes: r.patterns.map(compilePattern) };
   });
 }
@@ -52,7 +53,28 @@ const matches = (rule, artifact, d, ctx) => {
   return rule.predicate ? evaluatePredicate(rule.predicate, d, ctx) : true;
 };
 
+/**
+ * A rule that says "this is product state, supplied by an overlay" is checked against the overlay interface the projection
+ * itself publishes: the named overlay must exist and must name every field the rule lets through (its last path segment).
+ * A field that no overlay declares cannot be excused as overlay-carried.
+ */
+export function checkOverlayRules(rules, overlayInterface) {
+  const byId = new Map(overlayInterface.overlays.map((o) => [o.id, o]));
+  for (const r of rules) {
+    if (!r.overlay) continue;
+    const o = byId.get(r.overlay);
+    if (!o) throw new Error(`rule ${r.id}: overlay '${r.overlay}' is not in overlay-interface.json`);
+    const declared = `${o.merge} ${o.shape}`;
+    for (const p of r.patterns) {
+      const field = p.replace(/\[\*\]$/, "").split(".").pop();
+      if (!declared.includes(field)) throw new Error(`rule ${r.id}: overlay '${r.overlay}' does not declare the field '${field}' that the rule excuses`);
+    }
+  }
+}
+
 // --------------------------------------------------------------- context
+
+const claimOf = (contract, id) => (contract?.claims ?? []).find((c) => c.id === id);
 
 const firstKey = (path) => {
   const i = path.indexOf("[");
@@ -60,7 +82,7 @@ const firstKey = (path) => {
   return i < 0 || j < 0 ? undefined : path.slice(i + 1, j);
 };
 
-function buildContext({ ix, docId, artifact, legacyFlat, setIdOfCorpus, casesOfSlug, fixtureOfSlug, caseMembers, evidenceMembers }) {
+function buildContext({ ix, projectedOf, docId, artifact, legacyFlat, setIdOfCorpus, casesOfSlug, fixtureOfSlug, caseMembers, evidenceMembers }) {
   const isCorpus = artifact === "corpus";
   const setId = isCorpus ? setIdOfCorpus.get(docId.slice("corpus:".length)) : undefined;
   const slugOf = (key) => (isCorpus ? `${setId}--${key}` : key);
@@ -78,6 +100,20 @@ function buildContext({ ix, docId, artifact, legacyFlat, setIdOfCorpus, casesOfS
   return {
     docId,
     recordedSourceBases,
+    familyDossierClass: (id) => {
+      const f = ix.families.get(id);
+      return f ? claimOf(ix.contracts.get(f.currentContract ?? `${f.id}@1`), "dossier-research")?.evidenceClass : undefined;
+    },
+    recomputeDigest: (path) => {
+      const index = projectedOf.get("fixture-index");
+      if (path === "identity.digest") {
+        const { identity, ...payload } = index;
+        void identity;
+        return digestJson(payload);
+      }
+      const covered = { "sources.reviewedMetadata.digest": "fixture-semantics", "sources.taxonomy.digest": "taxonomy", "sources.scenarios.digest": "scenarios" }[path];
+      return covered ? digestJson(projectedOf.get(covered)) : undefined;
+    },
     keyOf: firstKey,
     legacy: (path) => legacyFlat.leaves.get(path)?.value,
     legacyPathsWithPrefix: (prefix) => [...legacyFlat.leaves.keys()].filter((p) => p.startsWith(prefix)),
@@ -125,6 +161,7 @@ function schemaConformance(root, projectedDocs) {
 export function runParity({ legacyRoot, inputs, projection, rulesPath, inventoryPath }) {
   const ix = indexRecords(inputs.records);
   const rules = loadRules(rulesPath);
+  checkOverlayRules(rules, projection.projected.overlay);
   const inventory = JSON.parse(readFileSync(inventoryPath, "utf8")).files;
   const { docs, dossiers, categories } = loadLegacyDocs(legacyRoot);
 
@@ -146,14 +183,14 @@ export function runParity({ legacyRoot, inputs, projection, rulesPath, inventory
   }
 
   const setIdOfCorpus = new Map(projectedOf.get("categories").map((c) => [c.corpus, c.id]));
-  const view = projection.view;
-  const casesOfSlug = new Map(view.fixtures.map((f) => [f.slug, f.peer]));
-  const fixtureOfSlug = view.bySlug;
+  const catalog = projection.catalog;
+  const casesOfSlug = new Map(catalog.fixtures.map((f) => [f.slug, f.fixture.target]));
+  const fixtureOfSlug = new Map(catalog.fixtures.map((f) => [f.slug, f.fixture]));
   const caseMembers = new Map();
   const evidenceMembers = new Map();
-  for (const f of view.fixtures) {
-    if (f.caseId) caseMembers.set(f.caseId, [...(caseMembers.get(f.caseId) ?? []), f.slug]);
-    evidenceMembers.set(f.evidenceKey, [...(evidenceMembers.get(f.evidenceKey) ?? []), f.slug]);
+  for (const { slug, fixture: f } of catalog.fixtures) {
+    if (f.caseId) caseMembers.set(f.caseId, [...(caseMembers.get(f.caseId) ?? []), slug]);
+    evidenceMembers.set(f.evidenceKey, [...(evidenceMembers.get(f.evidenceKey) ?? []), slug]);
   }
 
   const ruleStats = new Map(rules.map((r) => [r.id, { rule: r, count: 0, entities: new Set(), docs: new Set(), examples: [] }]));
@@ -169,7 +206,7 @@ export function runParity({ legacyRoot, inputs, projection, rulesPath, inventory
     if (!projected) throw new Error(`no projected document for legacy ${docId}`);
     const legacyFlat = flatten(legacy.doc);
     const cmpRes = compareFlat(legacyFlat, flatten(projected));
-    const ctx = buildContext({ ix, docId, artifact: legacy.artifact, legacyFlat, setIdOfCorpus, casesOfSlug, fixtureOfSlug, caseMembers, evidenceMembers });
+    const ctx = buildContext({ ix, projectedOf, docId, artifact: legacy.artifact, legacyFlat, setIdOfCorpus, casesOfSlug, fixtureOfSlug, caseMembers, evidenceMembers });
     let explained = 0;
     for (const d of cmpRes.diffs) {
       const rule = rules.find((r) => matches(r, legacy.artifact, d, ctx));
@@ -230,6 +267,13 @@ export function runParity({ legacyRoot, inputs, projection, rulesPath, inventory
     inventory: inventoryRows,
     dossiers: { excluded: dossiers.excluded, proseBytes: dossiers.proseBytes },
     categoriesLegacy: categories.length,
+    legacyNames: {
+      revision: catalog.suites.length ? inputs.legacyMaps[0].source.revision : "",
+      suites: catalog.suites.length,
+      fixtures: catalog.fixtures.length,
+      navigationScenarios: new Set(catalog.fixtures.flatMap((f) => f.scenarioIds)).size,
+      navigationLinks: catalog.fixtures.reduce((s, f) => s + f.scenarioIds.length, 0),
+    },
     caseCount: ix.cases.size,
     scenarioCount: ix.scenarios.size,
     planCount: ix.plans.size,

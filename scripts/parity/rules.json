@@ -146,6 +146,7 @@
       "artifact": "corpus",
       "patterns": ["fixtures[*].detectors[*]", "fixtures[*].arrivalTargets[*]", "fixtures[*].assessment.contract"],
       "change": "removed",
+      "overlay": "corpus-fixture-extras",
       "justification": "Which product detector is expected to fire (detectors, arrivalTargets, assessment.contract) is a scanner/product assignment. Canonical data is scanner-neutral and never records it (ADR 0005, what is dropped). A consumer supplies it through the `fixture-detectors` and `corpus-fixture-extras` overlays (overlay-interface.json)."
     },
     {
@@ -154,6 +155,7 @@
       "artifact": "corpus",
       "patterns": ["fixtures[*].expectedAction", "fixtures[*].policyFamily", "fixtures[*].policyConformance"],
       "change": "removed",
+      "overlay": "corpus-fixture-extras",
       "justification": "Expected product action (warn/redact/block), policy-family bookkeeping and the policy-conformance subset flag are Redact Secret policy, not credential facts (ADR 0005, what is dropped). Supplied by the `corpus-fixture-extras` overlay."
     },
     {
@@ -162,6 +164,7 @@
       "artifact": "corpus",
       "patterns": ["fixtures[*].formatReason", "fixtures[*].issue"],
       "change": "removed",
+      "overlay": "corpus-fixture-extras",
       "justification": "formatReason repeats prose already carried as the assessment reason; `issue` is the product issue a fixture was written for, kept canonically only as an externalRefs pointer on the case (ADR 0005). Supplied by the `corpus-fixture-extras` overlay when a consumer needs them."
     },
     {
@@ -178,6 +181,7 @@
       "artifact": "taxonomy",
       "patterns": ["families[*].supportStatus"],
       "change": "removed",
+      "overlay": "taxonomy-support-status",
       "justification": "supportStatus is Redact Secret qualification (stable/provisional/pending), which canonical data must never carry (ARCHITECTURE: evidence model). Supplied by the `taxonomy-support-status` overlay."
     },
     {
@@ -206,6 +210,7 @@
       "change": "changed",
       "projected": { "equals": "T0" },
       "legacy": { "in": ["T1", "T2", null] },
+      "predicate": "dossier-claim-unresolved",
       "justification": "The dossier tier is re-expressed as the evidence class of the dossier research claim (ADR 0004). A T2 claim without artifacts from two distinct owners imports as unresolved, which projects back as T0; a dossier with no tier (null) and a researched verdict also imports as unresolved, and T0 is the projection's reading. Both are counted in docs/migration/taxonomy-report.md (downgrade:tool-corroborated-fewer-than-two-owners)."
     },
     {
@@ -259,6 +264,7 @@
       "artifact": "index",
       "patterns": ["fixtures[*].provenance.issue", "fixtures[*].provenance.milestone", "fixtures[*].provenance.release"],
       "change": "removed",
+      "overlay": "fixture-provenance",
       "justification": "The product issue, release milestone and release a fixture belongs to are Redact Secret release bookkeeping. Canonical cases keep the product issue only as an externalRefs pointer at case level. Supplied by the `fixture-provenance` overlay."
     },
     {
@@ -267,6 +273,7 @@
       "artifact": "index",
       "patterns": ["sources.reviewedMetadata.digest", "sources.taxonomy.digest", "identity.digest"],
       "change": "changed",
+      "predicate": "digest-self-consistent",
       "justification": "These digests are SHA-256 over the reviewed metadata, the taxonomy and the index content. Those inputs differ by the explained differences listed in this report (including legacy array order), so the digests cannot match. The projected index is self-consistent: the legacy fixtureIndexProblems check, run over it in this report, finds none. Consumers that pin the legacy identity digest (peer-observations) must re-key to the projected identity."
     }
   ]
