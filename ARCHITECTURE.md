@@ -168,6 +168,8 @@ The migration proceeds in layers:
 6. cutover
 ```
 
+Status: layers 1 to 5 are done (#2 to #6). Layer 6, the cutover, is not: no downstream consumer has switched (`docs/migration/cutover.md`).
+
 The existing benchmark repository remains authoritative for active product qualification until:
 
 - canonical import is complete;
@@ -185,6 +187,8 @@ Exported artifacts are derived and should identify:
 - schema revision;
 - generation command/tool version;
 - artifact digest where useful.
+
+Implemented by `scripts/export/legacy-projection.mjs` (`npm run export:legacy`, decision `docs/decisions/0006`): the output is written to a gitignored directory and only its provenance manifest is committed. The manifest lists, per artifact, the source revision (a digest of `records/`), the schema revision, the generator name and version and a sha256. Fields that legacy consumers need but canonical data deliberately lacks (detector assignments, support status, release milestones, product pins, known-gap workflow) are not emitted; `overlay-interface.json` states what a downstream must supply. `npm run parity` proves the projection against the legacy files at a pinned revision and classifies every difference.
 
 Legacy output shape must not constrain the canonical schema forever.
 
