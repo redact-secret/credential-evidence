@@ -84,7 +84,7 @@
       "additionalProperties": false,
       "required": ["path", "sha256"],
       "properties": {
-        "path": { "type": "string", "minLength": 1, "maxLength": 300, "pattern": "^[A-Za-z0-9._/-]+$", "not": { "pattern": "(^|/)\\.\\.?(/|$)" } },
+        "path": { "type": "string", "minLength": 1, "maxLength": 300, "pattern": "^[A-Za-z0-9._/-]+$", "description": "Relative, repository-contained path; no absolute paths, no . or .. segments.", "not": { "pattern": "^/|(^|/)\\.\\.?(/|$)|//" } },
         "sha256": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sha256" },
         "mediaType": { "type": "string", "minLength": 1, "maxLength": 100 },
         "context": { "description": "Carrier form, for example shell-assignment, json, yaml, logfmt.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }
