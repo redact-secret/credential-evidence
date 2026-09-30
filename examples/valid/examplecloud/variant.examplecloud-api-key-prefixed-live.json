@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "variant",
+  "id": "examplecloud-api-key-prefixed-live",
+  "family": "examplecloud:api-key",
+  "contract": "examplecloud:api-key@2",
+  "name": "Prefixed live key",
+  "variantType": "format-revision",
+  "description": "Format introduced on 2024-07-01 to make keys recognisable; replaced the unprefixed hex form.",
+  "effective": { "from": "2024-07-01", "until": null },
+  "replaces": "examplecloud-api-key-unprefixed-hex",
+  "history": [
+    {
+      "observedAt": "2026-09-29",
+      "occurredAt": "2024-07-01",
+      "change": "introduced",
+      "note": "Prefixed keys announced for issuance from 2024-07-01.",
+      "sources": [
+        {
+          "sourceId": "examplecloud-legacy-key-announcement",
+          "supports": "Announces the prefixed format and its start date."
+        }
+      ]
+    }
+  ],
+  "lifecycle": "reviewed"
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "aws:iam-user-access-key@1",
+  "family": "aws:iam-user-access-key",
+  "revision": 1,
+  "period": "current",
+  "validity": { "from": null, "until": null },
+  "supersedes": null,
+  "structure": {
+    "prefixes": ["AKIA"],
+    "components": [{ "name": "prefix", "role": "prefix", "description": "Literal AKIA identifies a long-term IAM user access key ID." }]
+  },
+  "claims": [
+    {
+      "id": "akia-prefix",
+      "statement": "Access key IDs for IAM users start with AKIA.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        { "sourceId": "aws-iam-identifiers", "supports": "Lists AKIA as the prefix for IAM user access keys." }
+      ]
+    }
+  ],
+  "lifecycle": "reviewed"
+}

@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:fixture-projection",
+  "title": "Fixture projection and lineage",
+  "description": "An executable projection of a case, a reviewed contract, or a documented generation rule. It is derived, never the canonical human record: every projection names its origin, and generated ones record generator, inputs and version. Expected spans are byte-offset facts about the content; the semantic outcome comes from the origin.",
+  "x-schemaRevision": "1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "origin", "generated", "content", "expected"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "fixture-projection" },
+    "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/fixtureId" },
+    "origin": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "case"],
+          "properties": {
+            "type": { "const": "authored-case" },
+            "case": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "contract"],
+          "properties": {
+            "type": { "const": "reviewed-contract" },
+            "contract": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/contractId" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "rule", "generator", "inputs"],
+          "properties": {
+            "type": { "const": "generation-rule" },
+            "rule": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+            "generator": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "version"],
+              "properties": {
+                "name": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+                "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+                "sourceRevision": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/gitCommit" }
+              }
+            },
+            "inputs": {
+              "description": "The authored records this fixture was generated from.",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "id"],
+                "properties": {
+                  "kind": { "enum": ["case", "format-contract", "fixture-projection"] },
+                  "id": { "type": "string", "minLength": 1, "maxLength": 200 }
+                }
+              }
+            },
+            "seed": { "type": "string", "minLength": 1, "maxLength": 64 }
+          }
+        }
+      ]
+    },
+    "generated": { "type": "boolean" },
+    "lineage": {
+      "description": "Relation to another fixture (twin or mutation), mirroring the case relations at the executable level.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relation", "of"],
+      "properties": {
+        "relation": { "enum": ["twin-of", "mutation-of", "metamorphic-of"] },
+        "of": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/fixtureId" },
+        "mutationKind": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1, "maxLength": 300, "pattern": "^[A-Za-z0-9._/-]+$", "description": "Relative, repository-contained path; no absolute paths, no . or .. segments.", "not": { "pattern": "^/|(^|/)\\.\\.?(/|$)|//" } },
+        "sha256": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sha256" },
+        "mediaType": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "context": { "description": "Carrier form, for example shell-assignment, json, yaml, logfmt.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["outcome", "spans"],
+      "properties": {
+        "outcome": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/expectationOutcome" },
+        "spans": {
+          "description": "Authored ranges: UTF-8 byte offsets, start inclusive, end exclusive. Empty for must-not-flag.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["start", "end", "role"],
+            "properties": {
+              "start": { "type": "integer", "minimum": 0 },
+              "end": { "type": "integer", "minimum": 1 },
+              "role": { "enum": ["secret", "companion"] },
+              "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+            }
+          }
+        }
+      },
+      "if": { "properties": { "outcome": { "enum": ["must-not-flag", "not-assertable"] } } },
+      "then": { "properties": { "spans": { "maxItems": 0 } } }
+    },
+    "imported": {
+      "description": "Migration provenance: where this record came from in a legacy repository, pinned to a commit.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "revision", "path", "legacyId"],
+      "properties": {
+        "repository": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "revision": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/gitCommit" },
+        "path": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "legacyId": { "type": "string", "minLength": 1, "maxLength": 200 }
+      }
+    },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "origin": { "properties": { "type": { "const": "generation-rule" } }, "required": ["type"] } } },
+      "then": { "properties": { "generated": { "const": true } } },
+      "else": { "properties": { "generated": { "const": false } } }
+    }
+  ]
+}

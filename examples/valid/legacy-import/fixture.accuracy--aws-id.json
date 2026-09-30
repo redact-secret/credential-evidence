@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-projection",
+  "id": "accuracy--aws-id",
+  "origin": { "type": "authored-case", "case": "aws-access-key-id-assignment" },
+  "generated": false,
+  "content": {
+    "path": "examples/content/accuracy--aws-id.txt",
+    "sha256": "00169a74df45055abfae9c32dc5f77e2da4ccbed01d5f5201ea31baeffee7f9f",
+    "mediaType": "text/plain",
+    "context": "shell-assignment"
+  },
+  "expected": {
+    "outcome": "must-flag",
+    "spans": [{ "start": 18, "end": 38, "role": "secret", "note": "Synthetic credential-shaped test value; never issued by a provider." }]
+  },
+  "imported": {
+    "repository": "redact-secret/redact-secret-benchmarks",
+    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+    "path": "fixtures/accuracy/corpus.json",
+    "legacyId": "accuracy--aws-id"
+  },
+  "externalRefs": [
+    { "system": "redact-secret-detector", "id": "aws-access-key", "note": "Legacy fixture-detectors.json entry; optional mapping only." }
+  ]
+}

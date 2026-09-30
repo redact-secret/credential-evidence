@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-retired-hex-key-in-config",
+  "title": "Retired unprefixed hex key in a configuration line",
+  "summary": "A 32-character hex string appears under EXAMPLECLOUD_KEY; that was the format before 2024-07-01.",
+  "rationale": "Old keys may persist in old files, but the format is indistinguishable from any other hex string, so the evidence does not support a firm expectation either way.",
+  "caseTypes": ["positive"],
+  "families": [{ "family": "examplecloud:api-key", "role": "subject", "contract": "examplecloud:api-key@1" }],
+  "scenarios": ["credential-shape-grammar"],
+  "expectation": {
+    "outcome": "may-flag",
+    "basis": "project-policy",
+    "rationale": "The retired format is documented, but whether such keys are still accepted is an open question, so a scanner may flag or not.",
+    "sources": [
+      { "sourceId": "examplecloud-legacy-key-announcement", "supports": "Documents the retired unprefixed hex format." }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft"
+}

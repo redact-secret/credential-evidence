@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-aws-iam-user-access-key",
+  "subject": { "kind": "family", "id": "aws:iam-user-access-key" },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-20",
+      "actor": { "id": "legacy-import", "role": "automation", "affiliation": "project-maintainer" },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-20. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+          "pin": { "kind": "commit-permalink", "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5" }
+        }
+      ],
+      "externalRefs": [
+        { "system": "github-issue", "id": "redact-secret/redact-secret-benchmarks#36", "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/36" }
+      ]
+    }
+  ]
+}

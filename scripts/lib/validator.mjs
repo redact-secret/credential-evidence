@@ -1,0 +1,268 @@
+// Dependency-light validator for credential-evidence records.
+//
+// Pure and deterministic: reads local schema files only, never touches the
+// network, and returns errors sorted so output is stable across runs.
+
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import Ajv2020 from "ajv/dist/2020.js";
+
+const here = dirname(fileURLToPath(import.meta.url));
+export const repoRoot = resolve(here, "..", "..");
+export const schemaDir = join(repoRoot, "schemas");
+
+export const KINDS = [
+  "provider",
+  "family",
+  "format-contract",
+  "evidence-source",
+  "variant",
+  "benign-sibling",
+  "case",
+  "fixture-projection",
+  "evidence-review-history",
+];
+
+const schemaUrn = (version, name) => `urn:credential-evidence:schema:v${version}:${name}`;
+
+export function loadSchemas(dir = schemaDir) {
+  const schemas = [];
+  for (const versionDir of readdirSync(dir).filter((d) => /^v[1-9][0-9]*$/.test(d)).sort()) {
+    const full = join(dir, versionDir);
+    for (const file of readdirSync(full).filter((f) => f.endsWith(".schema.json")).sort()) {
+      schemas.push({ file: join(versionDir, file), schema: JSON.parse(readFileSync(join(full, file), "utf8")) });
+    }
+  }
+  return schemas;
+}
+
+export function createValidator(schemas = loadSchemas()) {
+  const ajv = new Ajv2020({ strict: true, strictTypes: false, strictRequired: false, allErrors: true });
+  ajv.addKeyword("x-schemaRevision");
+  for (const { schema } of schemas) ajv.addSchema(schema);
+  const compiled = new Map();
+  for (const { schema } of schemas) {
+    if (!schema.$id.endsWith(":common")) compiled.set(schema.$id, ajv.getSchema(schema.$id));
+  }
+  return {
+    /** Schema-validate one record. Returns a list of error strings. */
+    validateRecord(record) {
+      if (record === null || typeof record !== "object" || Array.isArray(record)) return ["record must be a JSON object"];
+      if (typeof record.kind !== "string") return ["missing string field 'kind'"];
+      if (!KINDS.includes(record.kind)) return [`unknown kind '${record.kind}'`];
+      if (!Number.isInteger(record.schemaVersion)) return ["missing integer field 'schemaVersion'"];
+      const validate = compiled.get(schemaUrn(record.schemaVersion, record.kind));
+      if (!validate) return [`no schema for kind '${record.kind}' schemaVersion ${record.schemaVersion}`];
+      if (validate(record)) return [];
+      return validate.errors.map((e) => `${e.instancePath || "/"} ${e.message}${paramText(e)}`).sort();
+    },
+  };
+}
+
+function paramText(e) {
+  const p = e.params ?? {};
+  if (p.additionalProperty) return ` '${p.additionalProperty}'`;
+  if (p.missingProperty) return ` '${p.missingProperty}'`;
+  if (p.allowedValues) return ` (${p.allowedValues.join(", ")})`;
+  return "";
+}
+
+/** Recursively list .json files under a directory, sorted. */
+export function listJson(dir) {
+  const out = [];
+  const walk = (d) => {
+    for (const name of readdirSync(d).sort()) {
+      const p = join(d, name);
+      const st = statSync(p);
+      if (st.isDirectory()) walk(p);
+      else if (name.endsWith(".json")) out.push(p);
+    }
+  };
+  walk(dir);
+  return out;
+}
+
+const key = (kind, id) => `${kind}:${id}`;
+
+/**
+ * Semantic checks that JSON Schema cannot express: uniqueness, referential
+ * integrity, contract chains, historical pinning and case/fixture agreement.
+ * `entries` is [{ path, record }] of schema-valid records.
+ */
+export function checkIntegrity(entries) {
+  const errors = [];
+  const err = (path, msg) => errors.push(`${path}: ${msg}`);
+  const byKind = new Map(KINDS.map((k) => [k, new Map()]));
+
+  for (const { path, record } of entries) {
+    const bucket = byKind.get(record.kind);
+    if (!bucket) continue;
+    if (bucket.has(record.id)) err(path, `duplicate ${record.kind} id '${record.id}' (also ${bucket.get(record.id).path})`);
+    else bucket.set(record.id, { path, record });
+  }
+  const get = (kind, id) => byKind.get(kind).get(id)?.record;
+  const has = (kind, id) => byKind.get(kind).has(id);
+
+  const checkSourceRefs = (path, refs, where, needsPinned) => {
+    for (const [i, ref] of (refs ?? []).entries()) {
+      const src = get("evidence-source", ref.sourceId);
+      if (!src) {
+        err(path, `${where}.sources[${i}] cites unknown evidence-source '${ref.sourceId}'`);
+      } else if (needsPinned && src.locator.pin.kind === "live-unpinned") {
+        err(path, `${where} states a historical fact but cites live-unpinned source '${ref.sourceId}'; pin it to a commit, archive snapshot or digest`);
+      }
+    }
+  };
+
+  for (const { path, record: r } of entries) {
+    switch (r.kind) {
+      case "family": {
+        if (!r.id.startsWith(`${r.provider}:`)) err(path, `family id '${r.id}' must start with its provider '${r.provider}:'`);
+        if (!has("provider", r.provider)) err(path, `unknown provider '${r.provider}'`);
+        if (r.currentContract != null) {
+          const c = get("format-contract", r.currentContract);
+          if (!c) err(path, `currentContract '${r.currentContract}' does not exist`);
+          else if (c.family !== r.id) err(path, `currentContract '${r.currentContract}' belongs to family '${c.family}'`);
+        }
+        break;
+      }
+      case "format-contract": {
+        if (r.id !== `${r.family}@${r.revision}`) err(path, `id '${r.id}' must equal '${r.family}@${r.revision}'`);
+        if (!has("family", r.family)) err(path, `unknown family '${r.family}'`);
+        if (r.supersedes != null) {
+          const prev = get("format-contract", r.supersedes);
+          if (!prev) err(path, `supersedes unknown contract '${r.supersedes}'`);
+          else {
+            if (prev.family !== r.family) err(path, `supersedes contract of another family '${prev.family}'`);
+            if (prev.revision >= r.revision) err(path, `supersedes revision ${prev.revision} which is not older than ${r.revision}`);
+          }
+        } else if (r.revision !== 1) {
+          err(path, "only revision 1 may have supersedes: null");
+        }
+        for (const [i, c] of r.claims.entries()) {
+          checkSourceRefs(path, c.sources, `claims[${i}]`, c.temporality === "historical");
+        }
+        break;
+      }
+      case "evidence-source": {
+        const times = r.observations.map((o) => o.observedAt);
+        if (times.some((t, i) => i > 0 && t < times[i - 1])) err(path, "observations must be in non-decreasing observedAt order (append-only log)");
+        break;
+      }
+      case "variant": {
+        if (!has("family", r.family)) err(path, `unknown family '${r.family}'`);
+        if (r.contract != null) {
+          const c = get("format-contract", r.contract);
+          if (!c) err(path, `unknown contract '${r.contract}'`);
+          else if (c.family !== r.family) err(path, `contract '${r.contract}' belongs to family '${c.family}'`);
+        }
+        if (r.replaces != null && !has("variant", r.replaces)) err(path, `replaces unknown variant '${r.replaces}'`);
+        for (const [i, h] of r.history.entries()) checkSourceRefs(path, h.sources, `history[${i}]`, true);
+        break;
+      }
+      case "benign-sibling": {
+        for (const f of r.families) if (!has("family", f)) err(path, `unknown family '${f}'`);
+        checkSourceRefs(path, r.sources, "sources", false);
+        break;
+      }
+      case "case": {
+        for (const [i, f] of r.families.entries()) {
+          if (!has("family", f.family)) err(path, `families[${i}] unknown family '${f.family}'`);
+          if (f.contract) {
+            const c = get("format-contract", f.contract);
+            if (!c) err(path, `families[${i}] unknown contract '${f.contract}'`);
+            else if (c.family !== f.family) err(path, `families[${i}] contract '${f.contract}' belongs to family '${c.family}'`);
+          }
+        }
+        for (const rel of r.relations ?? []) {
+          if (rel.target === r.id) err(path, "case relates to itself");
+          else if (!has("case", rel.target)) err(path, `relation ${rel.type} targets unknown case '${rel.target}'`);
+        }
+        if (r.supersededBy && !has("case", r.supersededBy)) err(path, `supersededBy unknown case '${r.supersededBy}'`);
+        checkSourceRefs(path, r.expectation.sources, "expectation", false);
+        break;
+      }
+      case "fixture-projection": {
+        const o = r.origin;
+        if (o.type === "authored-case") {
+          const c = get("case", o.case);
+          if (!c) err(path, `origin.case '${o.case}' does not exist`);
+          else if (c.expectation.outcome !== r.expected.outcome) {
+            err(path, `expected.outcome '${r.expected.outcome}' disagrees with case '${o.case}' outcome '${c.expectation.outcome}'`);
+          }
+        } else if (o.type === "reviewed-contract") {
+          if (!has("format-contract", o.contract)) err(path, `origin.contract '${o.contract}' does not exist`);
+        } else {
+          const kinds = { case: "case", "format-contract": "format-contract", "fixture-projection": "fixture-projection" };
+          for (const inp of o.inputs) {
+            if (!has(kinds[inp.kind], inp.id)) err(path, `origin.inputs references unknown ${inp.kind} '${inp.id}'`);
+          }
+        }
+        if (r.lineage) {
+          if (r.lineage.of === r.id) err(path, "lineage points at itself");
+          else if (!has("fixture-projection", r.lineage.of)) err(path, `lineage.of unknown fixture '${r.lineage.of}'`);
+        }
+        for (const [i, s] of r.expected.spans.entries()) {
+          if (s.end <= s.start) err(path, `expected.spans[${i}] end must be greater than start`);
+        }
+        break;
+      }
+      case "evidence-review-history": {
+        const targets = {
+          provider: "provider",
+          family: "family",
+          "format-contract": "format-contract",
+          "evidence-source": "evidence-source",
+          variant: "variant",
+          "benign-sibling": "benign-sibling",
+          case: "case",
+          "fixture-projection": "fixture-projection",
+        };
+        if (!has(targets[r.subject.kind], r.subject.id)) err(path, `subject ${r.subject.kind} '${r.subject.id}' does not exist`);
+        r.events.forEach((e, i) => {
+          if (e.seq !== i + 1) err(path, `events[${i}].seq must be ${i + 1} (strictly increasing from 1, no gaps)`);
+        });
+        break;
+      }
+      default:
+        break;
+    }
+  }
+  return errors.sort();
+}
+
+/**
+ * Validate every record under the given directories.
+ * Returns { records, errors } with errors sorted by path.
+ */
+export function validateTree(dirs, { root = repoRoot, validator = createValidator() } = {}) {
+  const errors = [];
+  const valid = [];
+  let total = 0;
+  for (const dir of dirs) {
+    let files;
+    try {
+      files = listJson(dir);
+    } catch (e) {
+      if (e.code === "ENOENT") continue;
+      throw e;
+    }
+    for (const file of files) {
+      total += 1;
+      const rel = relative(root, file);
+      let record;
+      try {
+        record = JSON.parse(readFileSync(file, "utf8"));
+      } catch (e) {
+        errors.push(`${rel}: invalid JSON (${e.message})`);
+        continue;
+      }
+      const problems = validator.validateRecord(record);
+      if (problems.length) for (const p of problems) errors.push(`${rel}: ${p}`);
+      else valid.push({ path: rel, record });
+    }
+  }
+  errors.push(...checkIntegrity(valid));
+  return { total, records: valid, errors: errors.sort() };
+}

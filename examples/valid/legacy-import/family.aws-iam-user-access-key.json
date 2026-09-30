@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "aws:iam-user-access-key",
+  "provider": "aws",
+  "name": "IAM user access key",
+  "description": "Long-term access key ID for an IAM user, prefixed AKIA.",
+  "lifecycle": "reviewed",
+  "currentContract": "aws:iam-user-access-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-20",
+    "issues": ["redact-secret/redact-secret-benchmarks#36"]
+  },
+  "externalRefs": [
+    { "system": "redact-secret-detector", "id": "aws-access-key", "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference." }
+  ]
+}
