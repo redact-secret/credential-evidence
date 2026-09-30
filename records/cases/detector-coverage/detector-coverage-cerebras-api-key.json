@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-cerebras-api-key",
+  "title": "Cerebras Inference API key (csk-): must be flagged (provider-documented) [legacy tier T1]",
+  "summary": "Synthetic Cerebras Inference API key (csk-) values built to the documented format appear in 3 inputs. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "cerebras:inference-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Synthetic value matches the pinned lexical format contract. Provider issuance, payload/checksum validity and liveness are not claimed.",
+    "sources": [
+      {
+        "sourceId": "github-com-betterleaks-betterleaks-4fda03f3d2",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-cerebras-vscode-cerebras-chat-415bbc2af0",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#discussion_r2453931915"
+      },
+      {
+        "sourceId": "github-com-cerebras-vscode-cerebras-chat-415bbc2af0",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#discussion_r2462008982"
+      },
+      {
+        "sourceId": "github-com-cerebras-vscode-cerebras-chat-41c0b8f492",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-cerebras-vscode-cerebras-chat-bcfd224605",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L176"
+      },
+      {
+        "sourceId": "github-com-cerebras-vscode-cerebras-chat-d1a9029089",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L113"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-26407f5ce9",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5852413851"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5871306275"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5880547337"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-dedd5534a8",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-eaf3fa15e3",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-fc5f396543",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group cerebras-api-key; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

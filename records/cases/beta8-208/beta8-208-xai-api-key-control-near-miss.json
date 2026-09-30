@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-208-xai-api-key-control-near-miss",
+  "title": "xAI API key: benign near miss controls",
+  "summary": "1 input holding near-miss values that resemble the format but break it (truncated, wrong separator, wrong prefix or too short).",
+  "rationale": "Incomplete or malformed values are not issued credentials. They test whether the format's structure, and not only its look, is what identifies a credential.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "xai:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Malformed-by-construction control: prefix-only, truncated, mis-delimited or public-material shape of a contracted family. Expected silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-x-ai-11243dc8b9",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-x-ai-c34a6dcd60",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-berriai-litellm-b23fc78a80",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-4e12624b83",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/208.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/208.mjs",
+      "note": "suite beta8-208; group #208 · xai-api-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#208",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/208",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 AI inference arrival evidence (#208)\" (beta8-208); not yet reviewed."
+}

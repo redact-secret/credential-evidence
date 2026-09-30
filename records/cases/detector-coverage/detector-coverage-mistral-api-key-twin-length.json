@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-mistral-api-key-twin-length",
+  "title": "Mistral AI Studio API key (unprefixed): one-property twin (length) (tool-corroborated) [legacy tier T2]",
+  "summary": "3 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 31 vs contracted 32. Twin of \"Mistral AI Studio API key (unprefixed): must be flagged (project-policy) [legacy tier T3]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "mistral:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of mistral-api-key-key-shape-bare: length: 31 vs contracted 32. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-github-com-14499c804f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-mistral-ai-4e159cce0a",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "docs-mistral-ai-521bb6e577",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-betterleaks-betterleaks-2b320ccd40",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-google-osv-scalibr-fda69da02d",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-mistralai-client-python-5afb4d9ae3",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-30a090690a",
+        "supports": "Cited by the legacy assessment (third-party write-up); claim not itemised."
+      },
+      {
+        "sourceId": "pkg-go-dev-bf99dc25b4",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "detector-coverage-mistral-api-key",
+      "mutationKind": "length",
+      "note": "length: 31 vs contracted 32"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group mistral-api-key; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-434g-composio-user-api-key-twin-length",
+  "title": "Composio User API key (uak_): one-property twin (length)",
+  "summary": "4 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 42 body bytes vs exactly 43, length: 44 body bytes vs exactly 43 (rejected, never truncated), and length: a 44-byte body vs exactly 43, and 1 more. Twin of \"Composio User API key (uak_): must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "composio:user-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of composio-user-api-key-bearer-header: length: 44 body bytes vs exactly 43 (rejected, never truncated). Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-composio-dev-7990e7985f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-composiohq-composio-0468adb9c1",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L801"
+      },
+      {
+        "sourceId": "github-com-composiohq-composio-aa4a440b9c",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L23"
+      },
+      {
+        "sourceId": "github-com-composiohq-composio-bb6dbe3db1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-composiohq-composio-d411a858a4",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L426-L427"
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-d9034c81c6",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-55eacc0745",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-600e29e0fd",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5852413851"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5871306275"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-fb496527b7",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-e448eaa4d3",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-e4196de46d",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ec332ca01e",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-434g-composio-user-api-key",
+      "mutationKind": "length",
+      "note": "length: 42 body bytes vs exactly 43"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/434g.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/434g.mjs",
+      "note": "suite beta8-434g; group #434g · composio-user-api-key; 4 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#434",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/434",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.11 evidence for the Composio project, org and user API keys (#434, slice g)\" (beta8-434g); not yet reviewed."
+}

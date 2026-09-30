@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-212-pinecone-api-key-legacy-twin-context",
+  "title": "Pinecone Legacy API key (bare UUID): one-property twin (context)",
+  "summary": "12 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context: Api-Key header renamed X-Project-Id; the UUID is kept byte-for-byte. A bare UUID beside a Pinecone project/index/database/service-account id name is a public identifier shape, not a legacy key, context: PINECONE_API_KEY renamed PINECONE_DATABASE_ID; the UUID is kept byte-for-byte. A bare UUID beside a Pinecone project/index/database/service-account id name is a public identifier shape, not a legacy key, and context: PINECONE_API_KEY renamed PINECONE_INDEX_ID; the UUID is kept byte-for-byte. A bare UUID beside a Pinecone project/index/database/service-account id name is a public identifier shape, not a legacy key, and 9 more. Twin of \"Pinecone Legacy API key (bare UUID): must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "pinecone:legacy-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Negative twin of pinecone-api-key-legacy-actions-env: context: PINECONE_API_KEY renamed PINECONE_DATABASE_ID; the UUID is kept byte-for-byte. A bare UUID beside a Pinecone project/index/database/service-account id name is a public identifier shape, not a legacy key. The value is unchanged and exactly one property of the assignment context differs; expected silence is project policy, as the positive's expectation is.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-212-pinecone-api-key-legacy",
+      "mutationKind": "context",
+      "note": "context: PINECONE_API_KEY renamed PINECONE_PROJECT_ID; the UUID is kept byte-for-byte. A bare UUID beside a Pinecone project/index/database/service-account id name is a public identifier shape, not a legacy key"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/212.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/212.mjs",
+      "note": "suite beta8-212; group #212 · pinecone-api-key-legacy; 12 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#212",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/212",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 second-wave arrival evidence (#212)\" (beta8-212); not yet reviewed."
+}

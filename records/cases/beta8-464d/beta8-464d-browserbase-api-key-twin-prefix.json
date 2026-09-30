@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-464d-browserbase-api-key-twin-prefix",
+  "title": "Browserbase API key (bb_live_): one-property twin (prefix)",
+  "summary": "1 input is identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: BB_LIVE_ vs the case-sensitive bb_live_. Twin of \"Browserbase API key (bb_live_): must be flagged (provider-documented) [legacy tier T1]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "browserbase:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Legacy tier T2 (tool-corroborated), but the cited sources do not include artifacts from two distinct owners, so the corroboration rule of docs/governance/evidence-classes.md is not met; the legacy expectation is recorded as project-policy pending review. Negative twin of browserbase-api-key-bearer-header: prefix: BB_LIVE_ vs the case-sensitive bb_live_. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "github-com-browserbase-cookbook-c3d705fa12",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L383"
+      },
+      {
+        "sourceId": "github-com-browserbase-cookbook-ce3da5483a",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L22-L31"
+      },
+      {
+        "sourceId": "github-com-browserbase-stagehand-44c22b1842",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L12"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-597777ed89",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5871306275"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5880547337"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-cdacbe4f68",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-fc5f396543",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-464d-browserbase-api-key",
+      "mutationKind": "prefix",
+      "note": "prefix: BB_LIVE_ vs the case-sensitive bb_live_"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/464d.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/464d.mjs",
+      "note": "suite beta8-464d; group #464d · browserbase-api-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#464",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/464",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.12 evidence for the Browserbase API key (bb_live_) (#464, slice d)\" (beta8-464d); not yet reviewed."
+}

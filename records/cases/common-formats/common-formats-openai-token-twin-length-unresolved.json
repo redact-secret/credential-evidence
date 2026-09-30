@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "common-formats-openai-token-twin-length-unresolved",
+  "title": "OpenAI Secret API key: one-property twin (length) (unresolved)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 73-character left segment vs contracted 74. Twin of \"OpenAI Secret API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. The outcome shows how the changed property is treated.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "openai:secret-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Legacy tier T0: the evidence is unresolved and the fixtures were unscored, so no outcome is asserted. Not asserted: disputed property — the sk-svcacct- service-account key segment widths (73/74 read as a non-key). No provider-owned source decides it and the research pass recorded it as searched-and-not-found, so the benchmark stops asserting it (docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md). Kept as history; the product's behaviour on this property is unmeasured for openai-token.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ef5e1a98b3",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "common-formats-openai-token",
+      "mutationKind": "length",
+      "note": "length: 73-character left segment vs contracted 74"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/common-formats.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/common-formats.mjs",
+      "note": "suite common-formats; group openai-token; 2 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Reviewed credential formats\" (common-formats); not yet reviewed."
+}

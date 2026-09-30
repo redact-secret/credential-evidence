@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "common-formats-docker-token-twin-length",
+  "title": "Docker Hub OAuth access token and Docker Hub Personal access token: one-property twin (length)",
+  "summary": "4 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: 26 vs contracted 27 and length: 31 vs contracted 32. Twin of \"Docker Hub OAuth access token and Docker Hub Personal access token: must be flagged (provider-documented) [legacy tier T1]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "docker:oauth-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "docker:personal-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of docker-token-oat-plain: length: 31 vs contracted 32. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-docker-com-270a27919d",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "docs-docker-com-b09f952ef1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ebdc5bc440",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "common-formats-docker-token",
+      "mutationKind": "length",
+      "note": "length: 26 vs contracted 27"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/common-formats.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/common-formats.mjs",
+      "note": "suite common-formats; group docker-token; 4 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Reviewed credential formats\" (common-formats); not yet reviewed."
+}

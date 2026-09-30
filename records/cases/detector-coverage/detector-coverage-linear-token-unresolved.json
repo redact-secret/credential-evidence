@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-linear-token-unresolved",
+  "title": "Linear Personal API key: expected outcome not assertable",
+  "summary": "3 inputs related to Linear Personal API key that resemble the format but are not issued credentials (a bare prefix, a short body, a mask or a reference). The legacy evidence for this expectation is unresolved.",
+  "rationale": "A value that only resembles a credential is not one. Reporting it is a false alarm, and it shows whether structure and context, not appearance, decide the outcome.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "linear:personal-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Legacy tier T0: the evidence is unresolved and the fixtures were unscored, so no outcome is asserted. Re-checked 2026-09-22 (#127, following #45): Linear documents no OAuth access-token grammar, and neither pinned tool registers a lin_oauth_ pattern — trufflehog's linearapi and gitleaks's linear-api-key detectors both match only lin_api_. redact-secret#551 briefly turned this guard's floor into an exact length on tool-agreement grounds shared with other families, but redact-secret#570/#571 (closed; no tracked issue remains open) found that regressed real oauth tokens and restored it to an open, unevidenced floor (RunLength::OpenFloor) — confirming, not resolving, the same gap. Pending until a pinned scanner registration or Linear documentation describes this shape.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-17488fa96d",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "linear-app-4474ab72a9",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group linear-token; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

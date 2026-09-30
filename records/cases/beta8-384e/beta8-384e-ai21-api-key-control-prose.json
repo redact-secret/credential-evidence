@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-384e-ai21-api-key-control-prose",
+  "title": "AI21 Labs API key (unprefixed): benign prose controls",
+  "summary": "2 inputs holding prose or log lines that mention the credential type without a credential.",
+  "rationale": "Text about credentials (rotation notices, error messages) is common and contains none. It tests whether the surrounding words alone decide the outcome.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "ai21:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [
+      {
+        "sourceId": "docs-ai21-com-11aa0fbc1a",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "docs-litellm-ai-c6dfd519b8",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-cunnymessiah-keychecker-9e67758ceb",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised.",
+        "locator": "#L242"
+      },
+      {
+        "sourceId": "github-com-mcerqua-llm-runner-router-fc3b25980a",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised.",
+        "locator": "#L287-L290"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-6fe667e9a0",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-d0cddb721f",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-vulnetix-cli-be4de27552",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised.",
+        "locator": "#L25"
+      },
+      {
+        "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-7ba503c98b",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-9bd570cae8",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/384e.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/384e.mjs",
+      "note": "suite beta8-384e; group #384e · ai21-api-key; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#384",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.10 evidence for keyword-gated Mistral, Cohere, Deepgram, AI21 and Exa keys (#384, slice e)\" (beta8-384e); not yet reviewed."
+}

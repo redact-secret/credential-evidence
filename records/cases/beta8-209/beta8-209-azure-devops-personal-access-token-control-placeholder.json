@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-209-azure-devops-personal-access-token-control-placeholder",
+  "title": "Azure DevOps Personal access token: benign placeholder controls",
+  "summary": "1 input holding documentation placeholders and example values for the credential.",
+  "rationale": "Documentation is written to be copied. A placeholder was never issued, so reporting it is noise, and a scanner that stays silent on it must not also stay silent on a real value in the same position.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "azure-devops:personal-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "documentation-placeholder",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [
+      {
+        "sourceId": "learn-microsoft-com-70b19a2f7e",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "learn-microsoft-com-774e2e3e9b",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#pat-format"
+      }
+    ],
+    "observedAt": "2026-09-23"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/209.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/209.mjs",
+      "note": "suite beta8-209; group #209 · azure-devops-personal-access-token; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#209",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/209",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 documented-stable hardening (#209)\" (beta8-209); not yet reviewed."
+}

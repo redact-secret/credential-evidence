@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-528f-crates-io-token-twin-length",
+  "title": "crates.io API token (cio): one-property twin (length)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value's length differs from the contracted length. Legacy mutation notes: length: a 31-byte body vs exactly 32 and length: a 33-byte body vs exactly 32. Twin of \"crates.io API token (cio): must be flagged (provider-documented) [legacy tier T1]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "crates-io:api-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Legacy tier T2 (tool-corroborated), but the cited sources do not include artifacts from two distinct owners, so the corroboration rule of docs/governance/evidence-classes.md is not met; the legacy expectation is recorded as project-policy pending review. Negative twin of crates-io-token-dotenv: length: a 31-byte body vs exactly 32. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-0f368adfb1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-0ff93144ed",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#ruling-questions-for-the-maintainer"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised.",
+        "locator": "#issuecomment-5900447282"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5852413851"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-rust-lang-crates-io-72a03988b4",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L21-L102"
+      },
+      {
+        "sourceId": "github-com-rust-lang-crates-io-8fcc76bccc",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L10-L91"
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-528f-crates-io-token",
+      "mutationKind": "length",
+      "note": "length: a 31-byte body vs exactly 32"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/528f.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/528f.mjs",
+      "note": "suite beta8-528f; group #528f · crates-io-token; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#528",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.12 evidence for crates.io API and trusted-publishing tokens (#528, slice f)\" (beta8-528f); not yet reviewed."
+}

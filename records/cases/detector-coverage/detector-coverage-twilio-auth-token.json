@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-twilio-auth-token",
+  "title": "Twilio Account auth token: must be flagged (project-policy) [legacy tier T3]",
+  "summary": "Synthetic Twilio Account auth token values built to the documented format appear in 3 inputs. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "twilio:auth-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Twilio documents the Auth Token's functional role but no character-class grammar. The bare 32-character lowercase-hex shape, gated on a same-line Account SID or the word \"twilio\", is corroborated by TruffleHog's twilio detector; no pinned gitleaks rule covers this bare value.",
+    "sources": [
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-d43abda452",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-22"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group twilio-auth-token; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

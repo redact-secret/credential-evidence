@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-213f-mailchimp-api-key",
+  "title": "Mailchimp Marketing API key: must be flagged (tool-corroborated) [legacy tier T2]",
+  "summary": "Synthetic Mailchimp Marketing API key values built to the documented format appear in 1 input in URLs. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "mailchimp:marketing-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Synthetic value matches the pinned lexical format contract. Provider issuance, payload/checksum validity and liveness are not claimed.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-44311e553b",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/213f.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/213f.mjs",
+      "note": "suite beta8-213f; group #213f · mailchimp-api-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#213",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/213",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 replacement fixtures for provider-undecided properties (#213, 213f)\" (beta8-213f); not yet reviewed."
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-434a-doppler-personal-token-control-encoded-value",
+  "title": "Doppler Personal token (dp.pt.): benign encoded value controls",
+  "summary": "1 input holding benign encoded or hashed values of the same general shape.",
+  "rationale": "Hashes, checksums and encoded text share alphabets and lengths with credentials. Reporting them is a false alarm that grows with repository size.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "doppler:personal-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Public identifier or benign encoding constructed to contain no credential: silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-doppler-com-7a28d9952f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-github-com-14499c804f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-49dcd8ebec",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-600e29e0fd",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-962d6eb235",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-fb496527b7",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-68f0f6d2ec",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/434a.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/434a.mjs",
+      "note": "suite beta8-434a; group #434a · doppler-personal-token; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#434",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/434",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.11 evidence for Doppler tokens (#434, slice a)\" (beta8-434a); not yet reviewed."
+}

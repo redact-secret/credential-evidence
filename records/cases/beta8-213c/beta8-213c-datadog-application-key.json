@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-213c-datadog-application-key",
+  "title": "Datadog Application key (ddapp_-prefixed): must be flagged (provider-documented) [legacy tier T1]",
+  "summary": "Synthetic Datadog Application key (ddapp_-prefixed) values built to the documented format appear in 5 inputs in CI configuration, container and orchestration configuration, environment files, shell exports, and structured files (JSON, YAML, TOML). Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "datadog:application-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Synthetic value matches the pinned lexical format contract. Provider issuance, payload/checksum validity and liveness are not claimed.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-c95ca8dba1",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "docs-datadoghq-com-8ac796aa2a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-datadog-cloudformation-template-3712375810",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-datadog-datadog-agent-6d8a7a4a42",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L65-L70"
+      },
+      {
+        "sourceId": "github-com-datadog-datadog-agent-6e9157fb9a",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L16"
+      },
+      {
+        "sourceId": "github-com-datadog-terraform-module-datadog-agentless-scanner-a1086e9a45",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised.",
+        "locator": "#L12"
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ce47b8450c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/213c.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/213c.mjs",
+      "note": "suite beta8-213c; group #213c · datadog-application-key; 5 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#213",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/213",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 stable restoration evidence (#213, 213c)\" (beta8-213c); not yet reviewed."
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-aws-bedrock-long-term-api-key-benign",
+  "title": "Amazon Bedrock Long-term API key (ABSK): must not be flagged (tool-corroborated)",
+  "summary": "2 inputs related to Amazon Bedrock Long-term API key (ABSK) that resemble the format but are not issued credentials (a bare prefix, a short body, a mask or a reference).",
+  "rationale": "A value that only resembles a credential is not one. Reporting it is a false alarm, and it shows whether structure and context, not appearance, decide the outcome.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "aws-bedrock:long-term-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Malformed-by-construction control: prefix-only, truncated, mis-delimited or public-material shape of a contracted family. Expected silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "aws-amazon-com-7280e99539",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-7f4d1f8e7b",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-87e6578a36",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-e407319908",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-awslabs-git-secrets-ba9043c9da",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-a7afc0fda5",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-525c6ca8d5",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-63b4ee983e",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "wiz-io-15cbaedd9e",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group aws-bedrock-long-term-api-key; 2 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

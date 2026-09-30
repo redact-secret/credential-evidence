@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-384a-anthropic-api01-key-control-placeholder",
+  "title": "Anthropic Enterprise organization key (sk-ant-api01-): benign placeholder controls (project-policy) [legacy tier T3]",
+  "summary": "2 inputs holding documentation placeholders and example values for the credential.",
+  "rationale": "Documentation is written to be copied. A placeholder was never issued, so reporting it is noise, and a scanner that stays silent on it must not also stay silent on a real value in the same position.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "anthropic:compliance-access-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "documentation-placeholder",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-33dc3121b8",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-7a9fc1dd47",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "platform-claude-com-2aaa0e2386",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "platform-claude-com-864b183d97",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "platform-claude-com-c9def02fc9",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-27"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/384a.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/384a.mjs",
+      "note": "suite beta8-384a; group #384a · anthropic-api01-key; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#384",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.10 evidence for the Anthropic api01/admin01 prefixes and the OpenAI admin key (#384, slice a)\" (beta8-384a); not yet reviewed."
+}

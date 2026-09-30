@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-ai21-api-key",
+  "title": "AI21 Labs API key (unprefixed): must be flagged (project-policy) [legacy tier T3]",
+  "summary": "Synthetic AI21 Labs API key (unprefixed) values built to the documented format appear in 3 inputs. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "ai21:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Context-gated family (#384, product redact-secret#868; research #784, T2 by redact-secret#1013). No AI21 page, staff statement or SDK code states a shape, so nothing reaches T1. The redact-secret#1013 pass (frozen at redact-secret add1188f) found the corroborated route without any provider material: the Vulnetix vnx-sec-315 peer rule (an ai21 key name then exactly 32 alphanumerics) and two independent implementations (keychecker, LLM-Runner-Router) that accept exactly [A-Za-z0-9]{32}: 3 references, 3 owners, 2 non-summary classes. AI21-committed key literals in its public example code (six, each 32 mixed alphanumerics, none a UUID) are of unknown validity; whether they count as provider examples is maintainer ruling Q-AI, so they are not counted and appear only as bounded evidence in the empirical record. Kingfisher (2025-07 to its 2026-08 deletion) read a UUID and octocode reads 40-64 alphanumerics; the contract claims exactly 32 and excludes both. The value is recognised only beside a same-line AI21_API_KEY name, an api.ai21.com host or an AI21 SDK constructor, so its positives score as project policy and its twins keep the value and change only the context; no bare-value claim is made, since a bare 32-character run collides with hashes, UUID fragments and other providers' keys.",
+    "sources": [
+      {
+        "sourceId": "docs-ai21-com-11aa0fbc1a",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "docs-litellm-ai-c6dfd519b8",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-cunnymessiah-keychecker-9e67758ceb",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised.",
+        "locator": "#L242"
+      },
+      {
+        "sourceId": "github-com-mcerqua-llm-runner-router-fc3b25980a",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised.",
+        "locator": "#L287-L290"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-6fe667e9a0",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-d0cddb721f",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-vulnetix-cli-be4de27552",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised.",
+        "locator": "#L25"
+      },
+      {
+        "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-7ba503c98b",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "raw-githubusercontent-com-ai21labs-ai21-python-9bd570cae8",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group ai21-api-key; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

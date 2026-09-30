@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "milestone-6-closed-263-fully-delimited-templates",
+  "title": "Fully delimited template expressions: must be flagged",
+  "summary": "Values that only begin a template or embed one between real-looking text, so they are not fully delimited template expressions. Covers 2 inputs.",
+  "rationale": "A template expression is a reference to a secret, not the secret. Flagging it, or flagging only its inside, breaks templates that are correct.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage",
+    "regression-behavior",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Mutated documentation, placeholder, template, mask or reference. Expected masking follows a redact-secret issue decision, not a universal secret definition.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "suite milestone-6-closed; group #263 · Fully delimited templates; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#263",
+      "url": "https://github.com/redact-secret/redact-secret/issues/263",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.3 regressions\" (milestone-6-closed); not yet reviewed."
+}

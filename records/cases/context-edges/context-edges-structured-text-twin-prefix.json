@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "context-edges-structured-text-twin-prefix",
+  "title": "Credential in JSON, YAML, TOML and similar structured text: one-property twin (prefix)",
+  "summary": "9 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix namespace: NRAX- vs the provider-documented NRAK- user-key prefix, prefix namespace: glsx_ vs the provider-documented glsa service-account prefix, and prefix namespace: glx_ vs the provider-documented glc_ access-policy token prefix. Twin of \"Credential in JSON, YAML, TOML and similar structured text: must be flagged (provider-documented)\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "grafana:cloud-access-policy-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "grafana:service-account-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "new-relic:user-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "cross-provider"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of grafana-cloud-access-policy-token-json: prefix namespace: glx_ vs the provider-documented glc_ access-policy token prefix. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-newrelic-com-38b425f411",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-105f1b824c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-784a9018a4",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "grafana-com-3a64d31c68",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "grafana-com-a0ba1e71f3",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "context-edges-structured-text",
+      "mutationKind": "prefix",
+      "note": "prefix namespace: glx_ vs the provider-documented glc_ access-policy token prefix"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/build.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/build.mjs",
+      "note": "suite context-edges; group Structured text; 9 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Context & boundaries\" (context-edges); not yet reviewed."
+}

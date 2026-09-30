@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-464a-daytona-api-key-control-near-miss",
+  "title": "Daytona API key (dtn_): benign near miss controls",
+  "summary": "3 inputs holding near-miss values that resemble the format but break it (truncated, wrong separator, wrong prefix or too short).",
+  "rationale": "Incomplete or malformed values are not issued credentials. They test whether the format's structure, and not only its look, is what identifies a credential.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "daytona:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Malformed-by-construction control: prefix-only, truncated, mis-delimited or public-material shape of a contracted family. Expected silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "daytona-io-c57b1a926f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-daytonaio-daytona-a29ac4eb1b",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L27"
+      },
+      {
+        "sourceId": "github-com-daytonaio-daytona-ff023af7a3",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L8-L18"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-7b91cf8d8b",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-801a922726",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-81e9ea9805",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5852413851"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5880547337"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/464a.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/464a.mjs",
+      "note": "suite beta8-464a; group #464a · daytona-api-key; 3 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#464",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/464",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.12 evidence for the Daytona API key (#464, slice a)\" (beta8-464a); not yet reviewed."
+}

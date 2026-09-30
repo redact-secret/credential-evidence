@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-207-supabase-token-twin-public-prefix",
+  "title": "Supabase Project secret key: one-property twin (public-prefix)",
+  "summary": "2 inputs are identical to a positive input except for one change: the prefix is that of a public sibling identifier rather than the secret. Legacy mutation notes: public-prefix: sb_publishable_ (documented \"safe to expose online\", supabase.com/docs/guides/api/api-keys) replaces sb_secret_; the 31-character body is unchanged and public-prefix: sb_publishable_ (documented safe to expose) replaces sb_secret_ in the same createClient call; body unchanged. Twin of \"Supabase Project secret key: must be flagged (provider-documented) [legacy tier T1]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "supabase:secret-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Negative twin of supabase-token-create-client: public-prefix: sb_publishable_ (documented safe to expose) replaces sb_secret_ in the same createClient call; body unchanged. The provider documents this namespace as public, so silence is provider-evidenced.",
+    "sources": [
+      {
+        "sourceId": "github-com-supabase-supabase-67d8548d1a",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "supabase-com-73d939b464",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "supabase-com-877b0772be",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-207-supabase-token",
+      "mutationKind": "public-prefix",
+      "note": "public-prefix: sb_publishable_ (documented \"safe to expose online\", supabase.com/docs/guides/api/api-keys) replaces sb_secret_; the 31-character body is unchanged"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/207.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/207.mjs",
+      "note": "suite beta8-207; group #207 · supabase-token; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#207",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/207",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 low-coverage hardening (#207)\" (beta8-207); not yet reviewed."
+}

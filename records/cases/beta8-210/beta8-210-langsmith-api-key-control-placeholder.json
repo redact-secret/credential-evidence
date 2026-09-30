@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-210-langsmith-api-key-control-placeholder",
+  "title": "LangSmith (LangChain) API key (personal access token or service key): benign placeholder controls",
+  "summary": "3 inputs holding documentation placeholders and example values for the credential.",
+  "rationale": "Documentation is written to be copied. A placeholder was never issued, so reporting it is noise, and a scanner that stays silent on it must not also stay silent on a real value in the same position.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "langsmith:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "documentation-placeholder",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [
+      {
+        "sourceId": "api-smith-langchain-com-4f237be282",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-langchain-com-d2c419f327",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-ghostsecurity-poltergeist-4014ce762f",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-langchain-ai-langsmith-sdk-46127e1a51",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-praetorian-inc-titus-753d4191a5",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-d13cecec18",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-e37e2dd21c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/210.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/210.mjs",
+      "note": "suite beta8-210; group #210 · langsmith-api-key; 3 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#210",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/210",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 · LangSmith and Langfuse arrival evidence\" (beta8-210); not yet reviewed."
+}

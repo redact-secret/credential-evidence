@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-207-firebase-server-key-control-prose",
+  "title": "Firebase Legacy FCM server key: benign prose controls",
+  "summary": "1 input holding prose or log lines that mention the credential type without a credential.",
+  "rationale": "Text about credentials (rotation notices, error messages) is common and contains none. It tests whether the surrounding words alone decide the outcome.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "firebase:server-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [
+      {
+        "sourceId": "github-com-projectdiscovery-nuclei-templates-cb00285b1a",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/207.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/207.mjs",
+      "note": "suite beta8-207; group #207 · firebase-server-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#207",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/207",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 low-coverage hardening (#207)\" (beta8-207); not yet reviewed."
+}

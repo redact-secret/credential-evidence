@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "common-formats-shopify-token-twin-boundary",
+  "title": "Shopify Custom app access token: one-property twin (boundary)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: missing \"_\" delimiter after the shpat prefix (the documented shpat_/shppa_ prefixes each include the trailing underscore). Twin of \"Shopify Custom app access token and Shopify Public app access token: must be flagged (provider-documented)\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "shopify:custom-app-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of shopify-token-shpat-plain: boundary: missing \"_\" delimiter after the shpat prefix (the documented shpat_/shppa_ prefixes each include the trailing underscore). Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-19bb1c1e31",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "shopify-dev-198f512ad9",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "common-formats-shopify-token",
+      "mutationKind": "boundary",
+      "note": "boundary: missing \"_\" delimiter after the shpat prefix (the documented shpat_/shppa_ prefixes each include the trailing underscore)"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/common-formats.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/common-formats.mjs",
+      "note": "suite common-formats; group shopify-token; 2 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Reviewed credential formats\" (common-formats); not yet reviewed."
+}

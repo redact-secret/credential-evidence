@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-mailchimp-api-key-flag",
+  "title": "Unclassified assignment literal: must be flagged (project-policy) [legacy tier T3]",
+  "summary": "Synthetic Unclassified assignment literal values built to the documented format appear in 2 inputs. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Relabelled by docs/decisions/2026-09-29-relabel-provider-named-near-miss-controls-under-948.md: was must-not-flag/T2 on mailchimp-api-key (a malformed-by-construction near miss, expected silence); is policy/T3 on generic-token with the value after MAILCHIMP_API_KEY= as the secret span, expected action redact. Random or secret-shaped material under the provider's own credential variable is a credential under the amended project policy (redact-secret#948, amendment of decision-redact-provider-named-credential-assignments, 2026-09-29): generic-token claims it at the generic floors (redact at 16 bytes and entropy 3.0, else warn). No mailchimp-api-key provider-format claim is made.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group mailchimp-api-key; 2 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

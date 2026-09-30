@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-379-twilio-auth-token-control-public-id",
+  "title": "Twilio Account auth token: benign public id controls (project-policy) [legacy tier T2]",
+  "summary": "2 inputs holding public identifiers that sit next to the credential and look like it but are not secret.",
+  "rationale": "Providers publish identifiers (account, key or client ids) beside their secrets. Reporting one is a false alarm, and redacting it removes information a reader legitimately needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "twilio:auth-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Legacy tier T2 (tool-corroborated), but the cited sources do not include artifacts from two distinct owners, so the corroboration rule of docs/governance/evidence-classes.md is not met; the legacy expectation is recorded as project-policy pending review. Public identifier constructed to contain no credential: silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-d43abda452",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-22"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/379.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/379.mjs",
+      "note": "suite beta8-379; group #379 · twilio-auth-token; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#379",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/379",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.11 independent family evidence for fifteen selected credential families (#379)\" (beta8-379); not yet reviewed."
+}

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-212-pinecone-api-key-legacy",
+  "title": "Pinecone Legacy API key (bare UUID): must be flagged",
+  "summary": "Synthetic Pinecone Legacy API key (bare UUID) values built to the documented format appear in 12 inputs across 9 carrier types. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "pinecone:legacy-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Context-constrained arrival family (#228, #212): a legacy Pinecone API key is a bare 8-4-4-4-12 lowercase-hex UUID, lexically identical to the Pinecone key id, project id, service-account id and any other UUID, so no bare-value rule can separate it. It is recognised only beside a same-line Pinecone API-key identifier (PINECONE_API_KEY, pinecone.init(api_key=...), an Api-Key header to a pinecone.io host), scores as policy, and its twins keep the UUID byte-for-byte and change only that identifier. The UUID shape is corroborated by unpinned tools and community placeholders only (betterleaks pinecone-api-key.1 \"version 1 (UUID format)\" keyword-gated, GitGuardian \"Pinecone API Key\" v1); no provider source states it, and whether UUID keys still authenticate or can still be issued is unknown.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "incidents": [
+    {
+      "id": "incident-702",
+      "failureMode": "missed-credential",
+      "summary": "Legacy bare-UUID Pinecone API key missed under provider-named identifiers (PINECONE_API_KEY=, pinecone_api_key:, api_key=) while the same UUID under apiKey/Api-Key is redacted",
+      "observedAt": "2026-09-24",
+      "externalRefs": [
+        {
+          "system": "redact-secret-issue",
+          "id": "redact-secret#702",
+          "url": "https://github.com/redact-secret/redact-secret/issues/702",
+          "note": "Product issue where the failure mode was reported; product workflow status is not imported."
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/212.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/212.mjs",
+      "note": "suite beta8-212; group #212 · pinecone-api-key-legacy; 12 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#212",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/212",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 second-wave arrival evidence (#212)\" (beta8-212); not yet reviewed."
+}

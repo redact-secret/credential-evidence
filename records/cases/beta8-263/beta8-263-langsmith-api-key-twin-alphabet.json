@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-263-langsmith-api-key-twin-alphabet",
+  "title": "LangSmith (LangChain) API key (personal access token or service key): one-property twin (alphabet) (tool-corroborated) [legacy tier T2]",
+  "summary": "1 input is identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: the last tail character replaced by g, outside lowercase hex. Twin of \"LangSmith (LangChain) API key (personal access token or service key): must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "langsmith:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of langsmith-api-key-twin-base-ci: alphabet: the last tail character replaced by g, outside lowercase hex. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "api-smith-langchain-com-4f237be282",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-langchain-com-d2c419f327",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-ghostsecurity-poltergeist-4014ce762f",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-langchain-ai-langsmith-sdk-46127e1a51",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-praetorian-inc-titus-753d4191a5",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-d13cecec18",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-e37e2dd21c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-263-langsmith-api-key",
+      "mutationKind": "alphabet",
+      "note": "alphabet: the last tail character replaced by g, outside lowercase hex"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/263.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/263.mjs",
+      "note": "suite beta8-263; group #263 · langsmith-api-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#263",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/263",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 empirical fixture-floor raise for ten T2 families (#263)\" (beta8-263); not yet reviewed."
+}

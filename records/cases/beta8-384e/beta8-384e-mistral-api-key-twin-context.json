@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-384e-mistral-api-key-twin-context",
+  "title": "Mistral AI Studio API key (unprefixed): one-property twin (context)",
+  "summary": "12 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context: CODESTRAL_API_KEY renamed CODESTRAL_TRACE_ID, an identifier name; the value is kept byte-for-byte, context: MISTRAL_API_KEY renamed MISTRAL_KEY_ID, an identifier name; the value is kept byte-for-byte, and context: the Mistral constructor replaced by an unrelated Widget constructor; the value is kept byte-for-byte, and 5 more. Twin of \"Mistral AI Studio API key (unprefixed): must be flagged (project-policy) [legacy tier T3]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "mistral:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Negative twin of mistral-api-key-compose-env: context: MISTRAL_API_KEY renamed MISTRAL_KEY_ID, an identifier name; the value is kept byte-for-byte. The value is unchanged and exactly one property of the assignment context differs; expected silence is project policy, as the positive's expectation is.",
+    "sources": [
+      {
+        "sourceId": "docs-github-com-14499c804f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-mistral-ai-4e159cce0a",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "docs-mistral-ai-521bb6e577",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-betterleaks-betterleaks-2b320ccd40",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-google-osv-scalibr-fda69da02d",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-mistralai-client-python-5afb4d9ae3",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-30a090690a",
+        "supports": "Cited by the legacy assessment (third-party write-up); claim not itemised."
+      },
+      {
+        "sourceId": "pkg-go-dev-bf99dc25b4",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-384e-mistral-api-key",
+      "mutationKind": "context",
+      "note": "context: MISTRAL_API_KEY renamed MISTRAL_KEY_ID, an identifier name; the value is kept byte-for-byte"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/384e.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/384e.mjs",
+      "note": "suite beta8-384e; group #384e · mistral-api-key; 12 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#384",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.10 evidence for keyword-gated Mistral, Cohere, Deepgram, AI21 and Exa keys (#384, slice e)\" (beta8-384e); not yet reviewed."
+}

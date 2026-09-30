@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-207-sentry-org-auth-token-twin-prefix",
+  "title": "Sentry Organization auth token: one-property twin (prefix)",
+  "summary": "2 inputs are identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: prefix: eyK vs the eyJ marker every base64 JSON object starts with and prefix: sntryx_ vs sntrys_; Sentry's token-type enum has no sntryx_. Twin of \"Sentry Organization auth token: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "sentry:organization-auth-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of sentry-org-auth-token-actions-env: prefix: sntryx_ vs sntrys_; Sentry's token-type enum has no sntryx_. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-441ec78148",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-207-sentry-org-auth-token",
+      "mutationKind": "prefix",
+      "note": "prefix: sntryx_ vs sntrys_; Sentry's token-type enum has no sntryx_"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/207.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/207.mjs",
+      "note": "suite beta8-207; group #207 · sentry-org-auth-token; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#207",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/207",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 low-coverage hardening (#207)\" (beta8-207); not yet reviewed."
+}

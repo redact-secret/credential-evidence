@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-259-travisci-api-token-control-near-miss",
+  "title": "Travis CI API token: benign near miss controls (tool-corroborated) [legacy tier T2]",
+  "summary": "1 input holding near-miss values that resemble the format but break it (truncated, wrong separator, wrong prefix or too short).",
+  "rationale": "Incomplete or malformed values are not issued credentials. They test whether the format's structure, and not only its look, is what identifies a credential.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "travis-ci:api-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Malformed-by-construction control: prefix-only, truncated, mis-delimited or public-material shape of a contracted family. Expected silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-travis-ci-com-87c3c11eb2",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-b634b5fb62",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/259.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/259.mjs",
+      "note": "suite beta8-259; group #259 · travisci-api-token; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#259",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/259",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 evidence for Travis CI, Neon, Postman collection access keys and the Mailgun key triplet (#259)\" (beta8-259); not yet reviewed."
+}

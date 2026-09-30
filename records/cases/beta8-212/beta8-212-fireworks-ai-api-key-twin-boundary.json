@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-212-fireworks-ai-api-key-twin-boundary",
+  "title": "Fireworks AI API key: one-property twin (boundary)",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: hyphen delimiter (fw- vs the documented fw_); provider code accepts only fw_/fpk_ prefixes. One community report writes fw-, recorded as a contradiction, not evidence and boundary: prefix delimiter dropped (fw + body vs the documented fw_). Twin of \"Fireworks AI API key: must be flagged (provider-documented) [legacy tier T1]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "fireworks-ai:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of fireworks-ai-api-key-dotenv: boundary: hyphen delimiter (fw- vs the documented fw_); provider code accepts only fw_/fpk_ prefixes. One community report writes fw-, recorded as a contradiction, not evidence. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-fireworks-ai-2c538b56f2",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-fireworks-ai-be755a9468",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-fw-ai-fireconnect-ec566fa039",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-212-fireworks-ai-api-key",
+      "mutationKind": "boundary",
+      "note": "boundary: hyphen delimiter (fw- vs the documented fw_); provider code accepts only fw_/fpk_ prefixes. One community report writes fw-, recorded as a contradiction, not evidence"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/212.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/212.mjs",
+      "note": "suite beta8-212; group #212 · fireworks-ai-api-key; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#212",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/212",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 second-wave arrival evidence (#212)\" (beta8-212); not yet reviewed."
+}

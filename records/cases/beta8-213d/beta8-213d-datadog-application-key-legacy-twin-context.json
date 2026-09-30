@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-213d-datadog-application-key-legacy-twin-context",
+  "title": "Datadog Application key (legacy 40-hex): one-property twin (context) (project-policy) [legacy tier T3]",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context: the DD_APPLICATION_KEY marker replaced by BUILD_COMMIT; the value is unchanged and context: the same-line DD_APPLICATION_KEY marker replaced by GIT_COMMIT_SHA, an ordinary 40-hex companion; the value is unchanged. Twin of \"Datadog Application key (legacy 40-hex): must be flagged (project-policy) [legacy tier T3]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "datadog:application-key-legacy",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Negative twin of datadog-application-key-legacy-actions-env: context: the DD_APPLICATION_KEY marker replaced by BUILD_COMMIT; the value is unchanged. The value is unchanged and exactly one property of the assignment context differs; expected silence is project policy, as the positive's expectation is.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-ce47b8450c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-213d-datadog-application-key-legacy",
+      "mutationKind": "context",
+      "note": "context: the same-line DD_APPLICATION_KEY marker replaced by GIT_COMMIT_SHA, an ordinary 40-hex companion; the value is unchanged"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/213d.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/213d.mjs",
+      "note": "suite beta8-213d; group #213d · datadog-application-key-legacy; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#213",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/213",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 empirical-route fixture debt (#213, 213d)\" (beta8-213d); not yet reviewed."
+}

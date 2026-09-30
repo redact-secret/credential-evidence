@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-384a-openai-admin-api-key-control-public-id",
+  "title": "OpenAI Admin API key (sk-admin-): benign public id controls (tool-corroborated) [legacy tier T2]",
+  "summary": "2 inputs holding public identifiers that sit next to the credential and look like it but are not secret.",
+  "rationale": "Providers publish identifiers (account, key or client ids) beside their secrets. Reporting one is a false alarm, and redacting it removes information a reader legitimately needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "openai:admin-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Public identifier constructed to contain no credential: silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-42a7f537cb",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-b2b6ce3e81",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-f8cda0acf9",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-77740cd8a7",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-c17ff75762",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "platform-openai-com-850ad6cc47",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/384a.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/384a.mjs",
+      "note": "suite beta8-384a; group #384a · openai-admin-api-key; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#384",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.10 evidence for the Anthropic api01/admin01 prefixes and the OpenAI admin key (#384, slice a)\" (beta8-384a); not yet reviewed."
+}

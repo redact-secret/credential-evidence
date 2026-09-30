@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "accuracy",
+  "title": "Detection accuracy",
+  "description": "Exact secret detection across identical, synthetic files.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {"id":"accuracy--github-token","case":"accuracy-token-formats","path":"github-token.txt","sha256":"a7acd87c9feb751042d820d13893c7f425d23d287cfb4e7e0b08adee06fb43bd","text":"GITHUB_TOKEN=ghp_SYNTHETIC000000000000000000000000000\n","expected":{"outcome":"must-flag","spans":[{"start":13,"end":53,"role":"secret"}]}},
+    {"id":"accuracy--aws-id","case":"accuracy-token-formats","path":"aws-id.txt","sha256":"00169a74df45055abfae9c32dc5f77e2da4ccbed01d5f5201ea31baeffee7f9f","text":"AWS_ACCESS_KEY_ID=AKIASYNTHETICAAAAAAA\n","expected":{"outcome":"must-flag","spans":[{"start":18,"end":38,"role":"secret"}]}},
+    {"id":"accuracy--bearer-header","case":"accuracy-context","path":"bearer-header.txt","sha256":"ddc87dc20ebd6ec6831a8acda229143913f286976eb1dd741b6b20be72592493","text":"Authorization: Bearer SYNTHETIC_BENCHMARK_TOKEN_00000000\n","expected":{"outcome":"must-flag","spans":[{"start":22,"end":56,"role":"secret"}]}},
+    {"id":"accuracy--unicode-prefix","case":"accuracy-context","path":"unicode-prefix.txt","sha256":"92c700800b9130ec1ffe70aa209b41cb4ff9fd2489e651834e1d61143f3c88ce","text":"🔑 GITHUB_TOKEN=ghp_SYNTHETIC000000000000000000000000000\n","expected":{"outcome":"must-flag","spans":[{"start":18,"end":58,"role":"secret"}]}},
+    {"id":"accuracy--quoted-token","case":"accuracy-context","path":"quoted-token.txt","sha256":"083e14408cc55bcf3fb45a47f3e06c52e1fdab022fd618974a97e82210fbd108","text":"const token = \"ghp_SYNTHETIC000000000000000000000000000\";\n","expected":{"outcome":"must-flag","spans":[{"start":15,"end":55,"role":"secret"}]}},
+    {"id":"accuracy--empty-config","case":"accuracy-negative-controls-benign","path":"empty-config.txt","sha256":"a7c159c36c2a84c1862c2a43165696d97ac796f2c9008aaf65a8552357e5d5b1","text":"API_KEY=\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"accuracy--placeholder","case":"accuracy-negative-controls-benign","path":"placeholder.txt","sha256":"6a68235c7c03f920c0d807799768e55ea80aadc7a43d60c5715d87aaff7fc311","text":"API_KEY=${API_KEY}\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"accuracy--documentation","case":"accuracy-negative-controls-benign","path":"documentation.txt","sha256":"62566c63c322a572890d4f712188c142c7617f22ca79ef0b90e406c63b4e87c0","text":"Set your API key in the environment before running.\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"accuracy--public-id","case":"accuracy-negative-controls","path":"public-id.txt","sha256":"a840ff3db76bfec20e47e842c8daba0629a46564f3a39cc9a80815b2448f661e","text":"request_id=12345678-1234-1234-1234-123456789abc\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"accuracy--ordinary-text","case":"accuracy-negative-controls-benign","path":"ordinary-text.txt","sha256":"1f0dcca136e70f86a37ab85fa204e21fb8f036a407d387ae90a0a224694977ab","text":"Hello, benchmark. No credentials here.\n","expected":{"outcome":"must-not-flag","spans":[]}}
+  ],
+  "imported": {
+    "repository": "redact-secret/redact-secret-benchmarks",
+    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+    "path": "fixtures/accuracy/corpus.json",
+    "legacyId": "accuracy"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/accuracy/corpus.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/accuracy/corpus.json",
+      "note": "suite accuracy; 10 fixtures"
+    }
+  ],
+  "notes": "Hand-written by the legacy benchmark authors; every credential-shaped value is synthetic and was never issued by a provider (legacy fixtures README). Legacy review status: draft — independent human review required."
+}

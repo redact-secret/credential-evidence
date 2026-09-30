@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "detector-coverage-azure-devops-personal-access-token",
+  "title": "Azure DevOps Personal access token: must be flagged (project-policy)",
+  "summary": "Synthetic Azure DevOps Personal access token values built to the documented format appear in 3 inputs. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "azure-devops:personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Microsoft Purview's detailed pattern says the 84 characters are a-z, A-Z or 0-9 with AZDO fixed at positions 76-80, while its Format summary also says letters, digits and special characters. The detailed pattern and credential example agree with this contract; the contradictory summary is retained as a limitation. The pinned TruffleHog rule still targets the legacy 52-character form and is not corroboration for this shape.",
+    "sources": [
+      {
+        "sourceId": "learn-microsoft-com-70b19a2f7e",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "learn-microsoft-com-774e2e3e9b",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#pat-format"
+      }
+    ],
+    "observedAt": "2026-09-23"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/detector-coverage.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/detector-coverage.mjs",
+      "note": "suite detector-coverage; group azure-devops-personal-access-token; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Detector coverage\" (detector-coverage); not yet reviewed."
+}

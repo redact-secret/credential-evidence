@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "sendgrid-regressions-provider-detection",
+  "title": "SendGrid key in provider-specific fields: must be flagged",
+  "summary": "The complete SendGrid key shape (base62 body, URL-safe `-`/`_`, trailing `-`) bare and in provider-named environment fields. Covers 9 inputs.",
+  "rationale": "The complete shape has punctuation inside and at the end of the value. Extent errors here either drop the last characters or split the value at a separator.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Source-backed lexical shape in an explicit context test; repeated shapes are not independent provider coverage.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-f377f65c30",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "support-sendgrid-com-135e975bd1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "suite sendgrid-regressions; group Provider detection; 9 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"SendGrid regressions\" (sendgrid-regressions); not yet reviewed."
+}

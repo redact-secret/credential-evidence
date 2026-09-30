@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-528j-axiom-token-twin-alphabet",
+  "title": "Axiom API token (xaat-): one-property twin (alphabet)",
+  "summary": "2 inputs are identical to a positive input except for one change: a character outside the documented alphabet is present. Legacy mutation notes: alphabet: one body byte as uppercase hex, not observed in any provider source and alphabet: one body byte replaced by g, outside hex. Twin of \"Axiom API token (xaat-): must be flagged (provider-documented) [legacy tier T1]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "axiom:api-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of axiom-token-json-api-key: alphabet: one body byte replaced by g, outside hex. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "axiom-co-4ea8c3b1bd",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-axiomhq-axiom-go-ad10e312ab",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L7-L18"
+      },
+      {
+        "sourceId": "github-com-axiomhq-axiom-go-d13312d798",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-6a491dfce9",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised.",
+        "locator": "#issuecomment-5900447540"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-735ef8da7d",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5871306275"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-528j-axiom-token",
+      "mutationKind": "alphabet",
+      "note": "alphabet: one body byte as uppercase hex, not observed in any provider source"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/528j.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/528j.mjs",
+      "note": "suite beta8-528j; group #528j · axiom-token; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#528",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.12 evidence for Axiom API and personal tokens (#528, slice j)\" (beta8-528j); not yet reviewed."
+}

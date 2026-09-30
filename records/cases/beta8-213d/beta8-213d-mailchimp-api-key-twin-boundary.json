@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-213d-mailchimp-api-key-twin-boundary",
+  "title": "Mailchimp Marketing API key: one-property twin (boundary) (tool-corroborated) [legacy tier T2]",
+  "summary": "1 input is identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: boundary: \"_\" instead of the documented \"-\" before the us<N> data-center suffix; body and suffix unchanged. Twin of \"Mailchimp Marketing API key: must be flagged (tool-corroborated) [legacy tier T2]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "mailchimp:marketing-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of mailchimp-api-key-client-log: boundary: \"_\" instead of the documented \"-\" before the us<N> data-center suffix; body and suffix unchanged. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-44311e553b",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-213d-mailchimp-api-key",
+      "mutationKind": "boundary",
+      "note": "boundary: \"_\" instead of the documented \"-\" before the us<N> data-center suffix; body and suffix unchanged"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/213d.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/213d.mjs",
+      "note": "suite beta8-213d; group #213d · mailchimp-api-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#213",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/213",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 empirical-route fixture debt (#213, 213d)\" (beta8-213d); not yet reviewed."
+}

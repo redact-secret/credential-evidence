@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-384e-exa-api-key-twin-context",
+  "title": "Exa API key (no evidenced shape): one-property twin (context)",
+  "summary": "8 inputs are identical to a positive input except for one change: the value is unchanged but the carrier lacks the marker that makes the value identifiable. Legacy mutation notes: context: EXA_API_KEY renamed EXA_API_KEY_ID, a documented identifier field; the value is kept byte-for-byte, context: EXA_API_KEY renamed EXA_KEY_ID, a documented identifier field; the value is kept byte-for-byte, and context: the Exa constructor replaced by an unrelated Widget constructor; the value is kept byte-for-byte, and 3 more. Twin of \"Exa API key (no evidenced shape): must be flagged\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "exa:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Negative twin of exa-api-key-curl-x-api-key: context: the api.exa.ai host replaced by api.example.invalid, so no Exa name remains on the line; the value is kept byte-for-byte. The value is unchanged and exactly one property of the assignment context differs; expected silence is project policy, as the positive's expectation is.",
+    "sources": [
+      {
+        "sourceId": "exa-ai-52e8ddacd7",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "exa-ai-91bc8f7a79",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-exa-labs-exa-mcp-server-084da3f431",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-exa-labs-exa-py-82670e87d5",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-14df00ae0b",
+        "supports": "Cited by the legacy assessment (third-party write-up); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-27"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-384e-exa-api-key",
+      "mutationKind": "context",
+      "note": "context: EXA_API_KEY renamed EXA_KEY_ID, a documented identifier field; the value is kept byte-for-byte"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/384e.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/384e.mjs",
+      "note": "suite beta8-384e; group #384e · exa-api-key; 8 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#384",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.10 evidence for keyword-gated Mistral, Cohere, Deepgram, AI21 and Exa keys (#384, slice e)\" (beta8-384e); not yet reviewed."
+}

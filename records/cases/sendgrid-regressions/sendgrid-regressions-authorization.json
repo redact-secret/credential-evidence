@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "sendgrid-regressions-authorization",
+  "title": "SendGrid key in a Bearer header: must be flagged",
+  "summary": "The SendGrid key shape as a Bearer credential. Covers 3 inputs.",
+  "rationale": "The header name and scheme are not secret, but the whole key must be covered.",
+  "caseTypes": [
+    "positive",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "generic:bearer-token",
+      "role": "subject"
+    },
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "cross-family-interactions",
+    "cross-provider",
+    "partial-span-leakage",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Source-backed lexical shape in an explicit context test; repeated shapes are not independent provider coverage.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-f377f65c30",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "support-sendgrid-com-135e975bd1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "suite sendgrid-regressions; group Authorization; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"SendGrid regressions\" (sendgrid-regressions); not yet reviewed."
+}

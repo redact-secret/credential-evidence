@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-434c-e2b-api-key-control-placeholder",
+  "title": "Team API key (e2b_): benign placeholder controls",
+  "summary": "2 inputs holding documentation placeholders and example values for the credential.",
+  "rationale": "Documentation is written to be copied. A placeholder was never issued, so reporting it is noise, and a scanner that stays silent on it must not also stay silent on a real value in the same position.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "e2b:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "documentation-placeholder",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [
+      {
+        "sourceId": "docs-e2b-dev-a2491a5898",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-e2b-dev-f8a28ba5d9",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-e2b-dev-infra-3651da9dbf",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-e2b-dev-infra-874a8d1a98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#L15-L74"
+      },
+      {
+        "sourceId": "github-com-e2b-dev-infra-9fe135a8a6",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L307"
+      },
+      {
+        "sourceId": "github-com-e2b-dev-infra-f4ab078445",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised.",
+        "locator": "#L3"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-600e29e0fd",
+        "supports": "Cited by the legacy assessment (project research note); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#issuecomment-5852413851"
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-benchmarks-fb496527b7",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-c71ac2464d",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-db9d15eae3",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/434c.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/434c.mjs",
+      "note": "suite beta8-434c; group #434c · e2b-api-key; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#434",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/434",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.11 evidence for the E2B API key (#434, slice c)\" (beta8-434c); not yet reviewed."
+}

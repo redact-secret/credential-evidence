@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-379-new-relic-license-key-twin-prefix",
+  "title": "New Relic License key: one-property twin (prefix)",
+  "summary": "1 input is identical to a positive input except for one change: the prefix differs from the contracted prefix (another namespace or a near-identical spelling). Legacy mutation notes: literal marker: FFFFNRAL -> FFFFNRAI on an otherwise valid 40-character value (the NRAL suffix is provider-documented) (basis: provider). Twin of \"New Relic License key: must be flagged (provider-documented) [legacy tier T1]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "new-relic:license-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "credential-shape-grammar"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Negative twin of new-relic-license-key-actions-step-env: literal marker: FFFFNRAL -> FFFFNRAI on an otherwise valid 40-character value (the NRAL suffix is provider-documented) (basis: provider). Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-newrelic-com-2c4c786e81",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "docs-newrelic-com-38b4eebb6b",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "docs-newrelic-com-5f3799e076",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "docs-newrelic-com-925733b4af",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-d0f8135b0e",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-379-new-relic-license-key",
+      "mutationKind": "prefix",
+      "note": "literal marker: FFFFNRAL -> FFFFNRAI on an otherwise valid 40-character value (the NRAL suffix is provider-documented) (basis: provider)"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/379.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/379.mjs",
+      "note": "suite beta8-379; group #379 · new-relic-license-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#379",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/379",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.11 independent family evidence for fifteen selected credential families (#379)\" (beta8-379); not yet reviewed."
+}

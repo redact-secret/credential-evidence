@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-209-azure-devops-personal-access-token-twin-boundary",
+  "title": "Azure DevOps Personal access token: one-property twin (boundary) (project-policy) [legacy tier T2]",
+  "summary": "2 inputs are identical to a positive input except for one change: the value is cut, extended or delimited so that it no longer ends where the format ends. Legacy mutation notes: the AZDO signature moved one position earlier (0-based offsets 75-78, not the documented 76-79); length and alphabet unchanged and the fixed signature written in lower case (azdo) instead of the documented AZDO; every other byte unchanged. Twin of \"Azure DevOps Personal access token: must be flagged (provider-documented) [legacy tier T1]\".",
+  "rationale": "A twin changes exactly one property, so the expected outcome differs from the positive for that one reason. Reporting the twin is a false alarm, and it shows that the changed property is part of what identifies the credential.",
+  "caseTypes": [
+    "twin",
+    "mutation",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "azure-devops:personal-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "context-and-encoding",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Legacy tier T2 (tool-corroborated), but the cited sources do not include artifacts from two distinct owners, so the corroboration rule of docs/governance/evidence-classes.md is not met; the legacy expectation is recorded as project-policy pending review. Negative twin of azure-devops-personal-access-token-env-ext-pat: the AZDO signature moved one position earlier (0-based offsets 75-78, not the documented 76-79); length and alphabet unchanged. Exactly one structural property differs from the positive; silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "learn-microsoft-com-70b19a2f7e",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "learn-microsoft-com-774e2e3e9b",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised.",
+        "locator": "#pat-format"
+      }
+    ],
+    "observedAt": "2026-09-23"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "beta8-209-azure-devops-personal-access-token",
+      "mutationKind": "boundary",
+      "note": "the AZDO signature moved one position earlier (0-based offsets 75-78, not the documented 76-79); length and alphabet unchanged"
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/209.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/209.mjs",
+      "note": "suite beta8-209; group #209 · azure-devops-personal-access-token; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#209",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/209",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 documented-stable hardening (#209)\" (beta8-209); not yet reviewed."
+}

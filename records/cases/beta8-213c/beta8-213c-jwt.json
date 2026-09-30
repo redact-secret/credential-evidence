@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-213c-jwt",
+  "title": "JSON Web Token: must be flagged (project-policy) [legacy tier T3]",
+  "summary": "Synthetic JSON Web Token values built to the documented format appear in 6 inputs in environment files, HTTP headers, log lines, structured files (JSON, YAML, TOML), command and tool output, and URLs. Each input records the exact byte range of the secret.",
+  "rationale": "A credential that a scanner misses in an ordinary carrier is leaked. Carriers differ in quoting, delimiters and surrounding text, so a hit on one carrier does not show coverage of another.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:jwt",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "context-and-encoding",
+    "partial-span-leakage",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Legacy JWT is expired, fabricated and HS256. TruffleHog explicitly skips HMAC JWTs; that is a policy difference. Re-checked 2026-09-20 (#46): RFC 7519 §3 requires base64url encoding for every segment; base64url never uses \"+\" (only base64's own alphabet does), backing an alphabet twin alongside the existing boundary (missing-signature) twin.",
+    "sources": [
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-327290882c",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "rfc-editor-org-7bb6aaba0f",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-23"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/213c.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/213c.mjs",
+      "note": "suite beta8-213c; group #213c · jwt; 6 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#213",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/213",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.8 stable restoration evidence (#213, 213c)\" (beta8-213c); not yet reviewed."
+}

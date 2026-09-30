@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-384e-exa-api-key-control-reference",
+  "title": "Exa API key (no evidenced shape): benign reference controls",
+  "summary": "2 inputs holding references (variables, template expressions, secret-manager pointers) that name the credential without containing it.",
+  "rationale": "A reference is the safe way to use a secret. Reporting it punishes the practice the scanner exists to encourage.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "exa:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "regression-behavior",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.",
+    "sources": [
+      {
+        "sourceId": "exa-ai-52e8ddacd7",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "exa-ai-91bc8f7a79",
+        "supports": "Cited by the legacy assessment (source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-exa-labs-exa-mcp-server-084da3f431",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-exa-labs-exa-py-82670e87d5",
+        "supports": "Cited by the legacy assessment (provider SDK source); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-14df00ae0b",
+        "supports": "Cited by the legacy assessment (third-party write-up); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+        "supports": "Cited by the legacy assessment (issue or discussion); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-27"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/384e.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/384e.mjs",
+      "note": "suite beta8-384e; group #384e · exa-api-key; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#384",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.10 evidence for keyword-gated Mistral, Cohere, Deepgram, AI21 and Exa keys (#384, slice e)\" (beta8-384e); not yet reviewed."
+}

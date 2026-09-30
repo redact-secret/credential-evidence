@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "beta8-948-datadog-api-key-control-near-miss",
+  "title": "Datadog API key: benign near miss controls",
+  "summary": "1 input holding near-miss values that resemble the format but break it (truncated, wrong separator, wrong prefix or too short).",
+  "rationale": "Incomplete or malformed values are not issued credentials. They test whether the format's structure, and not only its look, is what identifies a credential.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "datadog:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-controls-and-twins",
+    "high-signal-assignment-false-positive",
+    "regression-behavior"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Malformed-by-construction control: prefix-only, truncated, mis-delimited or public-material shape of a contracted family. Expected silence follows from construction.",
+    "sources": [
+      {
+        "sourceId": "docs-datadoghq-com-f074e5c689",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-datadog-documentation-669857053f",
+        "supports": "Cited by the legacy assessment (source); claim not itemised.",
+        "locator": "#L571-L577"
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-21418667b4",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-24"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-cases-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/beta8/948.mjs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/beta8/948.mjs",
+      "note": "suite beta8-948; group #948 · datadog-api-key; 1 fixture"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#948",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/948",
+      "note": "Legacy benchmark issue the suite slice was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Imported as a draft from the legacy suite \"Beta.11 replacement near-miss controls for the redact-secret#948 relabel (948)\" (beta8-948); not yet reviewed."
+}
