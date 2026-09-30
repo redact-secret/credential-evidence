@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:case",
   "title": "Case",
   "description": "The authored unit of human reasoning: what happened, why it matters, the scanner-neutral expected outcome and the evidence for it. A case relates to zero or more families (many-to-many); the relation is stored here only, families never list their cases. Executable fixtures are separate fixture-projection records that point back here.",
-  "x-schemaRevision": "1.2.0",
+  "x-schemaRevision": "1.3.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "title", "summary", "rationale", "caseTypes", "families", "expectation", "lifecycle"],
@@ -43,7 +43,7 @@
       "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text"
     },
     "scenarios": {
-      "description": "Free-form scenario tags (slugs) for navigation; not a controlled vocabulary in v1.",
+      "description": "Ids of the Scenario records this case instantiates or is an instance of (schema revision 1.3.0; before it these were free-form navigation tags). Each id must resolve to a scenario record; the validator checks it.",
       "type": "array",
       "uniqueItems": true,
       "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }

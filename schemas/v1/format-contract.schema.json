@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:format-contract",
   "title": "Format contract",
   "description": "What can be stated from evidence about one credential family's format during one period. A family may have many contracts over time (@1, @2, ...). A published revision is immutable: a changed understanding is a new revision that supersedes the old one. Contracts describe facts and carry no detection code.",
-  "x-schemaRevision": "1.2.0",
+  "x-schemaRevision": "1.3.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "family", "revision", "period", "validity", "supersedes", "structure", "claims", "lifecycle"],

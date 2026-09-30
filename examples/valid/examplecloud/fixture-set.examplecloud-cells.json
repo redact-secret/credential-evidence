@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "examplecloud-cells",
+  "title": "ExampleCloud key matrix cells",
+  "description": "Two cells of the ExampleCloud near-miss plan, each with the evidence entry that supports that value. Shows a fixture that projects a plan cell instead of a Case.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "carrier-template",
+    "generator": {
+      "name": "examplecloud-carrier-renderer",
+      "version": "1.0.0",
+      "sourceRevision": "1111111111111111111111111111111111111111",
+      "entrypoint": "generators/carrier-template.mjs"
+    }
+  },
+  "generated": true,
+  "evidence": {
+    "ev-body-length": {"basis":"provider-documented","rationale":"The contract states a 32-character body; this value has 30 characters.","sources":[{"sourceId":"examplecloud-token-format-doc","supports":"Documents the exc_live_ prefix and 32-character body."}],"observedAt":"2026-09-30"},
+    "ev-placeholder": {"basis":"project-policy","rationale":"An angle-bracket name is a placeholder by the project's documentation-placeholder rule.","sources":[],"observedAt":"2026-09-30"}
+  },
+  "fixtures": [
+    {"id":"examplecloud-cells--api-key-truncated-shell","cell":{"plan":"examplecloud-api-key-near-misses","scenario":"truncated-body-near-miss","families":["examplecloud:api-key"]},"path":"api-key-truncated-shell/api-key.env","context":"shell-assignment","evidence":"ev-body-length","sha256":"588dfdc162d138ddd6fd4a865236777eb02a1008c90899af40cd09a7447c1b0b","text":"EXAMPLECLOUD_API_KEY=exc_live_a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5\n","expected":{"outcome":"must-not-flag","spans":[]}},
+    {"id":"examplecloud-cells--api-key-placeholder-shell","cell":{"plan":"examplecloud-api-key-near-misses","scenario":"documentation-placeholder","families":["examplecloud:api-key"]},"path":"api-key-placeholder-shell/api-key.env","context":"shell-assignment","evidence":"ev-placeholder","sha256":"81e5f2d89f4bca3a8c5b4491d4663880dea38520e5d1044730e6f841e979e652","text":"EXAMPLECLOUD_API_KEY=<your-api-key>\n","expected":{"outcome":"must-not-flag","spans":[]}}
+  ],
+  "lifecycle": "draft"
+}
