@@ -160,25 +160,21 @@ The exact layout is not frozen yet, but the intended separation is:
 
 ```text
 schemas/
-  provider/
-  family/
-  contract/
-  case/
-  evidence/
+  v1/                 # versioned JSON Schemas (draft 2020-12), see docs/decisions/
 
-providers/
-families/
-cases/
-sources/
+examples/
+  valid/              # synthetic example records, validated by CI
+  content/            # synthetic fixture bytes for the examples
 
-fixtures/
-  authored/
-  generated/
+records/              # canonical records (empty until #3 and #4 import data)
 
 scripts/
-  validate
-  migrate
-  export
+  validate.mjs        # npm run validate
+  lib/validator.mjs
+  migrate/            # future schema migrations
+  export/             # future legacy-compatible exports
+
+tests/                # npm test
 
 docs/
   methodology/
@@ -187,6 +183,18 @@ docs/
 ```
 
 Schemas are versioned contracts. Generated data must never silently become the canonical source.
+
+## Validation
+
+Requires Node 22 or newer. The validator is offline and deterministic.
+
+```bash
+npm ci
+npm run validate   # schemas, examples/valid and records/: shape, IDs, cross-references
+npm test           # positive and negative cases
+```
+
+The model and its rules are recorded in `docs/decisions/0001` to `0003`.
 
 ## Public future
 
