@@ -3,6 +3,7 @@
 // Pure and deterministic: reads local schema files only, never touches the
 // network, and returns errors sorted so output is stable across runs.
 
+import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,6 +22,7 @@ export const KINDS = [
   "benign-sibling",
   "case",
   "fixture-projection",
+  "fixture-set",
   "evidence-review-history",
 ];
 
@@ -104,6 +106,26 @@ export function checkIntegrity(entries) {
   const get = (kind, id) => byKind.get(kind).get(id)?.record;
   const has = (kind, id) => byKind.get(kind).has(id);
 
+  // Fixture ids share one namespace across single projections and set items.
+  const fixtureIds = new Map();
+  const claimFixtureId = (path, id) => {
+    if (fixtureIds.has(id)) err(path, `duplicate fixture id '${id}' (also ${fixtureIds.get(id)})`);
+    else fixtureIds.set(id, path);
+  };
+  for (const { path, record } of entries) {
+    if (record.kind === "fixture-projection") claimFixtureId(path, record.id);
+    else if (record.kind === "fixture-set") for (const item of record.fixtures) claimFixtureId(path, item.id);
+  }
+  // Cases that at least one fixture projects (case -> fixture integrity).
+  const projected = new Set();
+  for (const { record } of entries) {
+    if (record.kind === "fixture-projection" && record.origin.type === "authored-case") projected.add(record.origin.case);
+    if (record.kind === "fixture-projection" && record.origin.type === "generation-rule") {
+      for (const inp of record.origin.inputs) if (inp.kind === "case") projected.add(inp.id);
+    }
+    if (record.kind === "fixture-set") for (const item of record.fixtures) projected.add(item.case);
+  }
+
   const checkSourceRefs = (path, refs, where, needsPinned) => {
     for (const [i, ref] of (refs ?? []).entries()) {
       const src = get("evidence-source", ref.sourceId);
@@ -181,6 +203,9 @@ export function checkIntegrity(entries) {
         }
         if (r.supersededBy && !has("case", r.supersededBy)) err(path, `supersededBy unknown case '${r.supersededBy}'`);
         checkSourceRefs(path, r.expectation.sources, "expectation", false);
+        if (r.expectation.outcome !== "not-assertable" && !projected.has(r.id)) {
+          err(path, `case '${r.id}' has an assertable expectation but no fixture projects it`);
+        }
         break;
       }
       case "fixture-projection": {
@@ -201,10 +226,36 @@ export function checkIntegrity(entries) {
         }
         if (r.lineage) {
           if (r.lineage.of === r.id) err(path, "lineage points at itself");
-          else if (!has("fixture-projection", r.lineage.of)) err(path, `lineage.of unknown fixture '${r.lineage.of}'`);
+          else if (!fixtureIds.has(r.lineage.of)) err(path, `lineage.of unknown fixture '${r.lineage.of}'`);
         }
         for (const [i, s] of r.expected.spans.entries()) {
           if (s.end <= s.start) err(path, `expected.spans[${i}] end must be greater than start`);
+        }
+        break;
+      }
+      case "fixture-set": {
+        for (const [n, item] of r.fixtures.entries()) {
+          const where = `fixtures[${n}] '${item.id}'`;
+          if (!item.id.startsWith(`${r.id}--`)) err(path, `${where}: id must start with the set id '${r.id}--'`);
+          const c = get("case", item.case);
+          if (!c) err(path, `${where}: case '${item.case}' does not exist`);
+          else if (c.expectation.outcome !== item.expected.outcome) {
+            err(path, `${where}: expected.outcome '${item.expected.outcome}' disagrees with case '${item.case}' outcome '${c.expectation.outcome}'`);
+          }
+          const bytes = Buffer.from(item.text, "utf8");
+          if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) err(path, `${where}: sha256 does not match text`);
+          for (const [i, s] of item.expected.spans.entries()) {
+            if (s.end <= s.start) err(path, `${where}: expected.spans[${i}] end must be greater than start`);
+            else if (s.end > bytes.length) err(path, `${where}: expected.spans[${i}] ends after the content (${bytes.length} bytes)`);
+            const e = s.envelope;
+            if (e && (e.end <= e.start || e.start > s.start || e.end < s.end || e.end > bytes.length)) {
+              err(path, `${where}: expected.spans[${i}].envelope must enclose the span and stay inside the content`);
+            }
+          }
+          if (item.lineage) {
+            if (item.lineage.of === item.id) err(path, `${where}: lineage points at itself`);
+            else if (!fixtureIds.has(item.lineage.of)) err(path, `${where}: lineage.of unknown fixture '${item.lineage.of}'`);
+          }
         }
         break;
       }

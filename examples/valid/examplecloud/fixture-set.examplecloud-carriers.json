@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "examplecloud-carriers",
+  "title": "ExampleCloud key in quoted carriers",
+  "description": "Quoted variants of the ExampleCloud key assignment, generated from the authored cases by one documented rule.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "carrier-double-quoted",
+    "generator": {
+      "name": "example-carrier-generator",
+      "version": "1.0.0",
+      "sourceRevision": "1111111111111111111111111111111111111111",
+      "entrypoint": "generators/carriers.mjs"
+    }
+  },
+  "generated": true,
+  "fixtures": [
+    {"id":"examplecloud-carriers--api-key-double-quoted","case":"examplecloud-api-key-in-env-assignment","path":"env/api-key-double-quoted.txt","context":"shell-assignment","sha256":"637f567a573cf21a346e9037b89ceaf18963af8ea4907d8949f2a4babc443ac2","text":"EXAMPLECLOUD_API_KEY=\"exc_live_SYNTHETICEXAMPLEKEY0000000000000\"\n","expected":{"outcome":"must-flag","spans":[{"start":22,"end":63,"role":"secret","note":"Synthetic value; never issued.","envelope":{"start":21,"end":64,"reason":"The quotes are not secret, but redacting them with the value is acceptable."}}]}},
+    {"id":"examplecloud-carriers--api-key-double-quoted-truncated-twin","case":"examplecloud-api-key-truncated-body-twin","path":"env/api-key-double-quoted-truncated-twin.txt","context":"shell-assignment","lineage":{"relation":"twin-of","of":"examplecloud-carriers--api-key-double-quoted","mutationKind":"truncate-body","mutation":"body shortened from 32 to 24 characters"},"sha256":"e62152d0d3f3bd99b7c25823b0f816f6e4b95a111a31b3ca3d2f425ec5a55fd9","text":"EXAMPLECLOUD_API_KEY=\"exc_live_SYNTHETICEXAMPLEKEY0000\"\n","expected":{"outcome":"must-not-flag","spans":[]}}
+  ],
+  "lifecycle": "draft"
+}

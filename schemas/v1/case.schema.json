@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:case",
   "title": "Case",
   "description": "The authored unit of human reasoning: what happened, why it matters, the scanner-neutral expected outcome and the evidence for it. A case relates to zero or more families (many-to-many); the relation is stored here only, families never list their cases. Executable fixtures are separate fixture-projection records that point back here.",
-  "x-schemaRevision": "1.0.0",
+  "x-schemaRevision": "1.1.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "title", "summary", "rationale", "caseTypes", "families", "expectation", "lifecycle"],
@@ -86,6 +86,26 @@
           "target": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
           "mutationKind": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
           "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+        }
+      }
+    },
+    "incidents": {
+      "description": "Known historical incidents or failure modes this case guards against, described without naming a scanner's verdict as truth. Added in schema revision 1.1.0 (additive).",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "failureMode", "summary", "observedAt"],
+        "properties": {
+          "id": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+          "failureMode": {
+            "description": "false-alarm: a value that is not a credential was reported. missed-credential: a credential was not reported. partial-coverage: only part of a credential was covered.",
+            "enum": ["false-alarm", "missed-credential", "partial-coverage"]
+          },
+          "summary": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+          "observedAt": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/dateOrDateTime" },
+          "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" }
         }
       }
     },

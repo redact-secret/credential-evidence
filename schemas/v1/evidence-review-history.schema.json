@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:evidence-review-history",
   "title": "Evidence review history",
   "description": "Append-only log of who looked at one evidence record, when, and what they concluded. It describes the evidence, never a product status: no event type means stable, provisional, pending or any release decision. Product workflow steps (issue filed, fix shipped) are recorded, if at all, as externalRefs on an event.",
-  "x-schemaRevision": "1.0.0",
+  "x-schemaRevision": "1.1.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "subject", "events"],

@@ -65,3 +65,28 @@ test("review history subject and sequence must be consistent", () => {
 test("source observations are append-only in time order", () => {
   expectError(integrityAfter((entries, rec) => { rec("evidence-source", "examplecloud-token-format-doc").observations.reverse(); }), /non-decreasing/);
 });
+
+test("fixture set items must resolve their case, agree with it, match their digest and keep spans inside the content", () => {
+  const set = (rec) => rec("fixture-set", "examplecloud-carriers");
+  expectError(integrityAfter((entries, rec) => { set(rec).fixtures[0].case = "gone"; }), /case 'gone' does not exist/);
+  expectError(integrityAfter((entries, rec) => { set(rec).fixtures[0].expected = { outcome: "must-not-flag", spans: [] }; }), /disagrees with case/);
+  expectError(integrityAfter((entries, rec) => { set(rec).fixtures[0].text += "x"; }), /sha256 does not match text/);
+  expectError(integrityAfter((entries, rec) => { set(rec).fixtures[0].expected.spans[0].end = 9999; }), /ends after the content/);
+  expectError(integrityAfter((entries, rec) => { set(rec).fixtures[0].expected.spans[0].envelope = { start: 30, end: 40, reason: "x" }; }), /envelope must enclose/);
+  expectError(integrityAfter((entries, rec) => { set(rec).fixtures[1].lineage.of = "gone--nope"; }), /lineage\.of unknown fixture/);
+  expectError(integrityAfter((entries, rec) => { set(rec).fixtures[0].id = "other--api-key"; }), /must start with the set id/);
+});
+
+test("a fixture id may not be claimed twice across projections and set items", () => {
+  expectError(integrityAfter((entries, rec) => { rec("fixture-set", "examplecloud-carriers").fixtures[0].id = "env-assignment--api-key"; }), /duplicate fixture id/);
+});
+
+test("an assertable case with no fixture projection is reported", () => {
+  const errors = integrityAfter((entries) => {
+    const at = entries.findIndex((e) => e.record.kind === "fixture-set" && e.record.id === "examplecloud-carriers");
+    entries.splice(at, 1);
+    const twin = entries.findIndex((e) => e.record.kind === "fixture-projection" && e.record.id === "env-assignment--api-key-truncated-twin");
+    entries.splice(twin, 1);
+  });
+  expectError(errors, /has an assertable expectation but no fixture projects it/);
+});
