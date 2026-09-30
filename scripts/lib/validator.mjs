@@ -8,6 +8,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
+import { checkIdentity, loadBaseline } from "./identity.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = resolve(here, "..", "..");
@@ -24,6 +25,9 @@ export const KINDS = [
   "fixture-projection",
   "fixture-set",
   "evidence-review-history",
+  "scenario",
+  "fixture-plan",
+  "legacy-map",
 ];
 
 const schemaUrn = (version, name) => `urn:credential-evidence:schema:v${version}:${name}`;
@@ -259,6 +263,63 @@ export function checkIntegrity(entries) {
         }
         break;
       }
+      case "scenario": {
+        const a = r.applicability;
+        for (const f of a.families ?? []) if (!has("family", f)) err(path, `applicability.families unknown family '${f}'`);
+        if (r.supersededBy && !has("scenario", r.supersededBy)) err(path, `supersededBy unknown scenario '${r.supersededBy}'`);
+        checkSourceRefs(path, r.evidenceBasis.sources, "evidenceBasis", false);
+        break;
+      }
+      case "fixture-plan": {
+        const m = r.matrix;
+        for (const f of m.families.ids ?? []) if (!has("family", f)) err(path, `matrix.families unknown family '${f}'`);
+        for (const [i, t] of m.targets.entries()) {
+          const target = get(t.type, t.id);
+          if (!target) {
+            err(path, `matrix.targets[${i}] unknown ${t.type} '${t.id}'`);
+            continue;
+          }
+          if (t.type === "case") {
+            if (t.expectedOutcome && t.expectedOutcome !== target.expectation.outcome) {
+              err(path, `matrix.targets[${i}] expectedOutcome '${t.expectedOutcome}' disagrees with case '${t.id}' outcome '${target.expectation.outcome}'`);
+            }
+            if (m.families.select === "all-applicable") err(path, `matrix.targets[${i}] is a case; a case has no applicability, so families must be 'listed'`);
+            continue;
+          }
+          if (target.expectedOutcomeClass === "by-projection") {
+            if (!t.expectedOutcome) err(path, `matrix.targets[${i}] scenario '${t.id}' is by-projection; expectedOutcome is required`);
+          } else if (t.expectedOutcome && t.expectedOutcome !== target.expectedOutcomeClass) {
+            err(path, `matrix.targets[${i}] expectedOutcome '${t.expectedOutcome}' disagrees with scenario '${t.id}' outcome class '${target.expectedOutcomeClass}'`);
+          }
+          const a = target.applicability;
+          if (a.appliesTo === "families" && m.families.select === "listed") {
+            for (const f of m.families.ids) if (!a.families.includes(f)) err(path, `family '${f}' is outside the applicability of scenario '${t.id}'`);
+          }
+        }
+        for (const [i, inp] of (r.generation.inputs ?? []).entries()) {
+          if (!has(inp.kind, inp.id)) err(path, `generation.inputs[${i}] unknown ${inp.kind} '${inp.id}'`);
+        }
+        for (const [i, d] of (r.lineage.derivedFrom ?? []).entries()) {
+          if (d.kind === "fixture-set" ? !has("fixture-set", d.id) : !has(d.kind, d.id)) err(path, `lineage.derivedFrom[${i}] unknown ${d.kind} '${d.id}'`);
+          if (d.kind === "fixture-plan" && d.id === r.id) err(path, "lineage.derivedFrom names the plan itself");
+        }
+        for (const s of r.output ?? []) if (!has("fixture-set", s)) err(path, `output names unknown fixture-set '${s}'`);
+        break;
+      }
+      case "legacy-map": {
+        const seen = new Set();
+        const canonicalKinds = { case: "case", scenario: "scenario", "fixture-plan": "fixture-plan", "fixture-set": "fixture-set" };
+        for (const [i, e] of r.entries.entries()) {
+          const k = `${e.legacy.type}:${e.legacy.id}`;
+          if (seen.has(k)) err(path, `entries[${i}] duplicate legacy ${e.legacy.type} '${e.legacy.id}'`);
+          seen.add(k);
+          const c = e.canonical;
+          if (!c) continue;
+          const ok = c.type === "fixture" ? fixtureIds.has(c.id) : has(canonicalKinds[c.type], c.id);
+          if (!ok) err(path, `entries[${i}] canonical ${c.type} '${c.id}' does not exist`);
+        }
+        break;
+      }
       case "evidence-review-history": {
         const targets = {
           provider: "provider",
@@ -269,6 +330,8 @@ export function checkIntegrity(entries) {
           "benign-sibling": "benign-sibling",
           case: "case",
           "fixture-projection": "fixture-projection",
+          scenario: "scenario",
+          "fixture-plan": "fixture-plan",
         };
         if (!has(targets[r.subject.kind], r.subject.id)) err(path, `subject ${r.subject.kind} '${r.subject.id}' does not exist`);
         r.events.forEach((e, i) => {
@@ -287,7 +350,7 @@ export function checkIntegrity(entries) {
  * Validate every record under the given directories.
  * Returns { records, errors } with errors sorted by path.
  */
-export function validateTree(dirs, { root = repoRoot, validator = createValidator() } = {}) {
+export function validateTree(dirs, { root = repoRoot, validator = createValidator(), identity = true } = {}) {
   const errors = [];
   const valid = [];
   let total = 0;
@@ -315,5 +378,9 @@ export function validateTree(dirs, { root = repoRoot, validator = createValidato
     }
   }
   errors.push(...checkIntegrity(valid));
+  if (identity) {
+    const scopePrefixes = dirs.map((d) => relative(root, resolve(d)).split("\\").join("/"));
+    errors.push(...checkIdentity(valid, loadBaseline(), { scopePrefixes }));
+  }
   return { total, records: valid, errors: errors.sort() };
 }

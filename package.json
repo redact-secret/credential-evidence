@@ -9,6 +9,8 @@
   },
   "scripts": {
     "validate": "node scripts/validate.mjs",
+    "lint:identity": "node scripts/lint-identity.mjs",
+    "migrate:check": "npm run migrate:taxonomy:check && npm run migrate:cases:check",
     "migrate:taxonomy": "node scripts/migrate/import-taxonomy.mjs",
     "migrate:taxonomy:check": "node scripts/migrate/import-taxonomy.mjs --check",
     "migrate:cases": "node scripts/migrate/import-cases.mjs",
@@ -19,8 +21,8 @@
     "export:legacy:check": "node scripts/export/legacy-projection.mjs --check",
     "parity": "node scripts/parity/run.mjs",
     "parity:check": "node scripts/parity/run.mjs --check",
-    "test":"node --test \"tests/**/*.test.mjs\"",
-    "check": "npm run validate && npm test"
+    "test": "node --test \"tests/**/*.test.mjs\"",
+    "check": "npm run validate && npm run lint:identity && npm test"
   },
   "dependencies": {
     "ajv": "8.20.0",
