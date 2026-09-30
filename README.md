@@ -161,7 +161,7 @@ Migration work is tracked under:
 - #4 — first-class Case model and fixture lineage
 - #5 — evidence governance and external contribution policy
 - #6 — compatibility export and cutover parity
-- #12 — correction: no legacy coordinates in canonical identity; Scenario and fixture plans; reclassify the imported cases (stage A: rule, schema, lint, CI; stage B: the data)
+- #12 — correction: no legacy coordinates in canonical identity; Scenario and fixture plans; reclassify the imported cases (stage A: rule, schema, lint, CI; stage B: the data; stage C: the legacy map as a first-class exporter input, canonical credential-eval snapshot, hardened parity, dual run)
 
 ## Expected repository shape
 
@@ -195,8 +195,9 @@ scripts/
   lib/identity.mjs, lint-identity.mjs   # npm run lint:identity (ADR 0007); no baseline
   materialize-fixtures.mjs   # npm run fixtures:materialize: files + manifest for credential-eval
   migrate/            # import-taxonomy.mjs, import-cases.mjs (npm run migrate:taxonomy, migrate:cases); future schema migrations
-  export/             # legacy-projection.mjs (npm run export:legacy): legacy-compatible projection + credential-eval snapshot
+  export/             # legacy-projection.mjs (npm run export:legacy): legacy-compatible projection + credential-eval snapshot; lib/legacy-map.mjs is the only place legacy names are joined (ADR 0009)
   parity/             # run.mjs (npm run parity): projection versus the pinned legacy files; rules.json, inventory.json
+  dual-run/           # dual-run.mjs (npm run dual-run -- --credential-eval <dir>): credential-eval over the canonical and the legacy corpus; not in CI
 
 tests/                # npm test
 

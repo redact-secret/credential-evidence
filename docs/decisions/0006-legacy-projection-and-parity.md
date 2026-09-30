@@ -3,6 +3,7 @@
 - Status: accepted
 - Date: 2026-09-30
 - Issue: #6 (part of #1)
+- Amended by: ADR 0009 (exporter inputs; the credential-eval snapshot uses canonical ids and paths, legacy ids ride in `legacy-id-map.json`; generator 2.0.0)
 
 ## Context
 

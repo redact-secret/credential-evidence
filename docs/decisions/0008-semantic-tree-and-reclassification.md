@@ -69,6 +69,8 @@ ADR 0007 asked for a controlled family-class vocabulary so `family-classes` appl
 
 ### 7. The compatibility exporter and the parity harness read through a legacy view (minimum adapter)
 
+> Replaced by ADR 0009 (stage C): `view.mjs` is deleted; the legacy map is a first-class exporter input joined in one module, and the credential-eval snapshot is in canonical names. The bullets below describe stage B only.
+
 Stage C reworks the exporter. Stage B only keeps it running: `scripts/export/lib/view.mjs` joins each canonical fixture to its legacy suite, id, corpus path and navigation scenario ids through the map, and the exporter and parity read records through it. What changed, honestly:
 
 - Projected categories are the 67 legacy suites (from the map); canonical sets are by provider.
@@ -92,5 +94,5 @@ Stage C reworks the exporter. Stage B only keeps it running: `scripts/export/lib
 - Family classes (section 5).
 - Whether a Case may carry fixtures stronger than its basis, or should state the set of bases (today: the weakest, with each fixture's own entry).
 - The evidence reason of a fixture is the legacy assessment reason, collapsed; a reviewer may want a per-Case, authored expectation reason to replace it once evidence is reviewed.
-- Legacy navigation scenario ids live in the map; whether the exporter should derive them from canonical records (stage C).
+- Legacy navigation scenario ids live in the map; whether the exporter should derive them from canonical records (answered by ADR 0009: no, they stay map-only legacy data; Scenarios are the canonical navigation).
 - Generators still live in the legacy repository (ADR 0005); the plans record their entrypoint and revision, not code.
