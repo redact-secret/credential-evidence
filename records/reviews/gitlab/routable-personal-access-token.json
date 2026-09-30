@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-gitlab-routable-personal-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "gitlab:routable-personal-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/4fb78827f1ddf5b3106f25130ca510a836ada186/docs/audits/evidence/1012/gitlab-routable-personal-access-token.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "4fb78827f1ddf5b3106f25130ca510a836ada186"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1012",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1012"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1022",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1022"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#518",
+          "url": "https://github.com/redact-secret/redact-secret/issues/518"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#473",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/473"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#528",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for gitlab:routable-personal-access-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Measured as the Beta.12 unscored arrival family gitlab-routable-personal-access-token (benchmarks/lib/beta8/1012c.ts; #1012 research, T1 provider code; the length holder and CRC are enforced as provider offline checks). The product reports it whole inside gitlab-token under the shared gitlab_token finding type (redact-secret#1022), so its findings carry no family evidence of their own and no detector is mapped here; the registry gitlab-token contract stays the legacy 20-byte body."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'gitlab-routable-personal-access-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#1012 READY-T1; product redact-secret#1022, which reports the routable token whole under gitlab-token's gitlab_token finding type). A GitLab personal access token authenticates as its user to the REST and GraphQL APIs, Git over HTTPS and the registry within its scopes; every new PAT has been routable since the routable_pat flag was removed on 2025-07-24. T1 under R1 and R9: GitLab's generator, its decoder, the model that binds glpat- to the generator and the design document state the prefix, the unpadded base64url payload of 27–300, both . separators, the 2-character base36 version (01 today), the 2-character base36 payload-length holder and the 7-character base36 CRC32 over every byte from g through the length holder; GitLab-authored rules agree. The length holder and the CRC are provider offline checks, so `validate` enforces them and a value that fails either is outside the contract (a checksum or length-holder twin). The current generator caps the payload at 235 characters; the design cap 300 is used. Excluded: the legacy glpat- + 20 shape (the gitlab-token contract), the unversioned 2024-11 to 2025-04 routable form, instance or admin-custom prefixes (the CRC covers the custom prefix), and other routable GitLab prefixes (glrt- is gitlab-runner-authentication-token). Pinned peers: gitleaks 8.30.1 has only the unversioned routable rule (gitlab-pat-routable) and its legacy gitlab-pat rule reads a 20-byte slice of the payload; trufflehog 3.97.4 gitlab/v3 reads the versioned form over [a-zA-Z0-9=_-]{27,300} with unescaped dots and checks neither the length holder nor the CRC. Both labels map to gitlab-token (scanners/families.mjs), so a peer finding reads as co-detection, never as this family."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:routable-personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=gitlab:routable-personal-access-token]"
+    }
+  ]
+}

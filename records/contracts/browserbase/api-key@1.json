@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "browserbase:api-key@1",
+  "family": "browserbase:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^bb_live_[A-Za-z0-9]{20,}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "browserbase/cookbook scripts/verify.py CI gate (2026-09-25, a public Browserbase-organization member; R2): (?<!\\w)bb_live_[A-Za-z0-9]{20,}(?!\\w); the same author's import_sources.py filter uses the same body inside [A-Za-z0-9_-] boundaries; docs placeholders bb_live_... (R4); re-checked 2026-09-28: bb_live_ + at least 20 [A-Za-z0-9], open-ended; no separator or checksum; bb_test_ is not part of the family",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-browserbase-cookbook-c3d705fa12",
+          "supports": "bb_live_ + at least 20 [A-Za-z0-9], open-ended; no separator or checksum; bb_test_ is not part of the family",
+          "locator": "#L383"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: bb_live_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-browserbase-stagehand-44c22b1842",
+          "supports": "provider redaction regex bb_(live|test)_ (R2)",
+          "locator": "#L12"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+          "supports": "docs placeholders bb_live_... (R4)"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R4: a placeholder is T1 for its prefix",
+          "locator": "#issuecomment-5871306275"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: [A-Za-z0-9] (The stagehand redactor also admits _ and - after four alphanumerics; the contract keeps the gate's alphanumeric class.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-browserbase-cookbook-c3d705fa12",
+          "supports": "provider CI gate, R2",
+          "locator": "#L383"
+        },
+        {
+          "sourceId": "github-com-browserbase-cookbook-ce3da5483a",
+          "supports": "the same body class",
+          "locator": "#L22-L31"
+        }
+      ]
+    },
+    {
+      "id": "field-floor",
+      "statement": "floor: at least 20 body bytes, open-ended",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-browserbase-cookbook-c3d705fa12",
+          "supports": "{20,}",
+          "locator": "#L383"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R2",
+          "locator": "#issuecomment-5871306275"
+        }
+      ]
+    },
+    {
+      "id": "field-policy-upper-bound",
+      "statement": "policy-upper-bound: POLICY, not T1: the product caps the run at 128 bytes; an over-cap run is rejected whole, never truncated (Not a provider fact, and the provider gate is open-ended: positives reach 128 and no fixture asserts silence on 129.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+          "supports": "supported shape: project policy, the Apify precedent; no width is observed"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed; a _ or - glued after the run rejects the match (The two provider rules agree on _ and disagree on -; the handoff decides both, so this is a handoff boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-browserbase-cookbook-c3d705fa12",
+          "supports": "(?!\\w) rejects a glued _ but not a glued -",
+          "locator": "#L383"
+        },
+        {
+          "sourceId": "github-com-browserbase-cookbook-ce3da5483a",
+          "supports": "[A-Za-z0-9_-] boundaries reject both",
+          "locator": "#L22-L31"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-bb-test",
+      "statement": "bb-test: bb_test_ keys are issuance-gated: only a floor-5 regex and a T2 comment (Never a positive; a bb_test_ value of any length is a benign control.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+          "supports": "excluded shapes"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-cdacbe4f68",
+          "supports": "bb-test: bb_test_ keys are issuance-gated: only a floor-5 regex and a T2 comment"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: the BROWSERBASE_API_KEY environment variable, sent as the X-BB-API-Key header; Browserbase(api_key=...) and new Stagehand({ apiKey })",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+          "supports": "role and blast radius"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no browserbase rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no browserbase detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 12 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-browserbase-cookbook-c3d705fa12",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L383"
+        },
+        {
+          "sourceId": "github-com-browserbase-cookbook-ce3da5483a",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L22-L31"
+        },
+        {
+          "sourceId": "github-com-browserbase-stagehand-44c22b1842",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L12"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-597777ed89",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5880547337"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-cdacbe4f68",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-fc5f396543",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-browserbase-cookbook-c3d705fa12",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L383"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-cdacbe4f68",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-browserbase-cookbook-c3d705fa12",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L383"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4b764729a7",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "browserbase-api-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "browserbase-api-key:bb-test",
+      "note": "claim field-bb-test; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "browserbase-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "browserbase-api-key:floor",
+      "note": "claim field-floor; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "browserbase-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "browserbase-api-key:policy-upper-bound",
+      "note": "claim field-policy-upper-bound; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "browserbase-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "browserbase-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/464d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/464d.ts",
+      "note": "contracts['browserbase-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/browserbase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/browserbase.md",
+      "note": "families[id=browserbase:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=browserbase:api-key]"
+    }
+  ]
+}

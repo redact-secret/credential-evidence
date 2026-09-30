@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "langsmith:api-key",
+  "provider": "langsmith",
+  "name": "API key (personal access token or service key)",
+  "description": "LangSmith API key in its two documented roles, personal access token (lsv2_pt_) and workspace/org service key (lsv2_sk_); the 32+10 lowercase-hex segment grammar is tool-corroborated.",
+  "lifecycle": "draft",
+  "currentContract": "langsmith:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret#728",
+      "redact-secret/redact-secret-benchmarks#219"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/langsmith.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/langsmith.md",
+      "note": "families[id=langsmith:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=langsmith:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "langsmith-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

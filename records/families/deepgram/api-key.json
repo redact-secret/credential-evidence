@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "deepgram:api-key",
+  "provider": "deepgram",
+  "name": "API key (unprefixed)",
+  "description": "40 lowercase hex characters recognised only beside a same-line Deepgram name, host or SDK constructor; sent as Authorization: Token, not Bearer.",
+  "lifecycle": "draft",
+  "currentContract": "deepgram:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-27",
+    "issues": [
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#789",
+      "redact-secret/redact-secret#868",
+      "redact-secret/redact-secret#932",
+      "redact-secret/redact-secret#936",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/deepgram.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/deepgram.md",
+      "note": "families[id=deepgram:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=deepgram:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "deepgram-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

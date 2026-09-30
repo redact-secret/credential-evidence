@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-anthropic-admin-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "anthropic:admin-api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-27. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#775",
+          "url": "https://github.com/redact-secret/redact-secret/issues/775"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#862",
+          "url": "https://github.com/redact-secret/redact-secret/issues/862"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#882",
+          "url": "https://github.com/redact-secret/redact-secret/issues/882"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for anthropic:admin-api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.10 arrival family anthropic-admin01-key (#384, research redact-secret#775, product #862, #882). Same shared-detector reason as anthropic:compliance-access-key; since product PR #882 (redact-secret#774) it reports its own anthropic_admin_api_key finding type, so it is scored on its own arrival id by finding type. T1 prefix, tool-corroborated 93-character + AA body."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'anthropic-admin01-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#384, product redact-secret#862; research #775). The same T1-prefix, tool-corroborated-body split the registry anthropic-token contract records for sk-ant-api03-: two provider pages document sk-ant-admin01-, and the 93-character body plus a literal AA tail comes from three scanner rules (trufflehog 3.97.4, gitleaks, and betterleaks, which is a gitleaks fork and adds no independent corroboration). No length, alphabet or tail twin is authored on that tool-only field, and the product keeps a deliberate >= 20 byte superset. Admin keys are full-access credentials of the Console organization; the API also accepts OAuth org:admin bearer tokens and other key shapes, so an sk-ant-admin01- match is not the only admin credential. sk-ant-api03- and sk-ant-api01- are different provider classes and back prefix twins."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/anthropic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+      "note": "families[id=anthropic:admin-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=anthropic:admin-api-key]"
+    }
+  ]
+}

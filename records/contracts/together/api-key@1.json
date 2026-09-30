@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "together:api-key@1",
+  "family": "together:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^tgp_v1_[A-Za-z0-9_-]{43}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: betterleaks).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-39d10bcbe2",
+          "supports": "betterleaks: togetherai-api-key: tgp_v1_[A-Za-z0-9_-]{43} (Kingfisher's native rule, tgp_v1_ + 43 since 2025-08-27, predates it and is its own lineage; Kingfisher switched to a betterleaks alias only on 2026-08-21 — corrected by redact-secret#1013)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: tgp_v1_ (No provider source; the versioned prefix is a tool rule plus observation.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "andrewbaker-ninja-bb611d5671",
+          "supports": "community blog: keys look like tgp_v1_..."
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-39d10bcbe2",
+          "supports": "prefix: tgp_v1_"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-71f274a88b",
+          "supports": "code-search measurement, maintainer observation"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: 43 characters of [A-Za-z0-9_-] (50 in all) (Peer rules only for the width (betterleaks, Kingfisher native since 2025-08-27, CredSweeper since 2026-05-11: three owners, per redact-secret#1013) and n=4 observed bodies; entropy filter 3.0 in betterleaks.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-39d10bcbe2",
+          "supports": "body: 43 characters of [A-Za-z0-9_-] (50 in all)"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-71f274a88b",
+          "supports": "four full-length samples, first page only"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-keys",
+      "statement": "legacy-keys: deprecated legacy project-less keys with an undocumented format (A common belief of a 64-hex body was searched and found nowhere; it is not assumed.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-together-ai-f99499ef03",
+          "supports": "legacy keys are deprecated and cannot be scoped or revoked, only regenerated"
+        }
+      ]
+    },
+    {
+      "id": "field-other-versions",
+      "statement": "other-versions: whether tgp_v2_ or another version exists (No fixture asserts silence on a different version.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-39d10bcbe2",
+          "supports": "tgp_v2_ appears only as a negative test"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-71f274a88b",
+          "supports": "other-versions: whether tgp_v2_ or another version exists"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: TOGETHER_API_KEY environment variable, the api_key argument, Authorization: Bearer",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-together-ai-cd48c1fa75",
+          "supports": "transport: TOGETHER_API_KEY environment variable, the api_key argument, Authorization: Bearer"
+        },
+        {
+          "sourceId": "github-com-togethercomputer-together-python-fe5a4a35ba",
+          "supports": "provider code: api_key, then TOGETHER_API_KEY; optional TOGETHER_BASE_URL"
+        }
+      ]
+    },
+    {
+      "id": "field-checksum",
+      "statement": "checksum: no checksum or fixed inner segment is documented or observed",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-71f274a88b",
+          "supports": "checksum: no checksum or fixed inner segment is documented or observed"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 6 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "andrewbaker-ninja-bb611d5671",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-together-ai-cd48c1fa75",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-together-ai-f99499ef03",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-71f274a88b",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d23c540ff3",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-togethercomputer-together-python-fe5a4a35ba",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 6 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-together-ai-f99499ef03",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-e36d273cda",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-mongodb-kingfisher-e04a4ecf43",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L8"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-71a8b9b035",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-samsung-credsweeper-da6c4ccf00",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L1814-L1827"
+        },
+        {
+          "sourceId": "github-com-togethercomputer-together-py-3d8215d25b",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L205"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-together-ai-f99499ef03",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-39d10bcbe2",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "together-ai-api-key:body",
+      "note": "claim field-body; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "together-ai-api-key:checksum",
+      "note": "claim field-checksum; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "together-ai-api-key:legacy-keys",
+      "note": "claim field-legacy-keys; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "together-ai-api-key:other-versions",
+      "note": "claim field-other-versions; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "together-ai-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "together-ai-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384d.ts",
+      "note": "contracts['together-ai-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/together.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/together.md",
+      "note": "families[id=together:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=together:api-key]"
+    }
+  ]
+}

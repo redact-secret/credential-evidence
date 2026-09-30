@@ -1,0 +1,387 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "clickhouse-cloud:api-key@1",
+  "family": "clickhouse-cloud:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^4b1d[A-Za-z0-9]{38}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "gitleaks PR #1826 (merged 2025-04-16), authored by a ClickHouse employee: \"we specifically choose a prefix (4b1d...)\" and the rule 4b1d[A-Za-z0-9]{38}; 4b1d + 38 mixed-case alphanumeric examples in the provider-owned Terraform provider since 2023-05; a 42-byte unit-test fixture from 2024-07 (re-checked 2026-09-28): 4b1d + exactly 38 [A-Za-z0-9] (42 in all); no separator or checksum; T1 as of 2025-04-16 (R3), which sets aside the older 2023 39-byte knowledge-base example",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-19032cd51a",
+          "supports": "4b1d + exactly 38 [A-Za-z0-9] (42 in all); no separator or checksum; T1 as of 2025-04-16 (R3), which sets aside the older 2023 39-byte knowledge-base example"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: clickhouse-cloud-api-secret-key"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: 4b1d (T1 as of 2025-04-16. Provider staff wrote it in a third-party repository; the authorship, not the venue, is what R3 weighs.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clickhouse-terraform-provider-clickhouse-5f0f0e1564",
+          "supports": "4b1d example values since 2023-05",
+          "locator": "#L16"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-19032cd51a",
+          "supports": "staff statement, merged 2025-04-16"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R3: dated staff statement",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body-length: exactly 38 after the prefix (42 in all) (A single 2023 knowledge-base example is 39 bytes total; it is older, so R3 date order sets it aside.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clickhouse-terraform-provider-clickhouse-45b38b5202",
+          "supports": "a 2024 unit-test fixture, 42 bytes",
+          "locator": "#L20"
+        },
+        {
+          "sourceId": "github-com-clickhouse-terraform-provider-clickhouse-5f0f0e1564",
+          "supports": "provider example, 42 bytes",
+          "locator": "#L16"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-19032cd51a",
+          "supports": "staff-authored regex {38}"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "the maintainer accepted this on 2026-09-28",
+          "locator": "#issuecomment-5880547337"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: [A-Za-z0-9], mixed case",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-clickhouse-terraform-provider-clickhouse-5f0f0e1564",
+          "supports": "mixed-case examples",
+          "locator": "#L16"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-19032cd51a",
+          "supports": "staff-authored regex"
+        }
+      ]
+    },
+    {
+      "id": "field-policy-uppercase-guard",
+      "statement": "policy-uppercase-guard: POLICY, not T1: the product requires at least one uppercase letter in the 38 body bytes (False-positive policy that removes lowercase and hex digests starting 4b1d. The staff regex admits an all-lowercase body, so no fixture asserts silence on one; every positive is mixed case and every twin keeps a mixed-case body.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2c81160460",
+          "supports": "implementation notes: project policy; P(no uppercase in 38 random alphanumerics) about 1e-9"
+        }
+      ]
+    },
+    {
+      "id": "field-separators",
+      "statement": "separators: none; no checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-19032cd51a",
+          "supports": "separators: none; no checksum"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an alphanumeric, _ or - on either side is not claimed; 4b1d is valid hex, so mid-run occurrences must not match (Handoff boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2c81160460",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-key-id",
+      "statement": "key-id: the key ID (Basic-auth username) has no marker: 17 or 20 alphanumerics, unresolved (Not claimed; it appears only as an unmarked companion of a positive and as a public-id control.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "api-clickhouse-cloud-29a4183bb1",
+          "supports": "key-id: the key ID (Basic-auth username) has no marker: 17 or 20 alphanumerics, unresolved"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ca969a303d",
+          "supports": "key-id: the key ID (Basic-auth username) has no marker: 17 or 20 alphanumerics, unresolved"
+        }
+      ]
+    },
+    {
+      "id": "field-hashdata-secrets",
+      "statement": "hashdata-secrets: the API accepts a caller-supplied pre-hashed secret (hashData), so such a secret has no fixed shape (An accepted false negative; nothing is authored either way.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ca969a303d",
+          "supports": "hashdata-secrets: the API accepts a caller-supplied pre-hashed secret (hashData), so such a secret has no fixed shape"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: CLICKHOUSE_CLOUD_API_KEY / CLICKHOUSE_CLOUD_API_SECRET, the Terraform token_secret and HTTP Basic auth (key ID : secret)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "api-clickhouse-cloud-29a4183bb1",
+          "supports": "transport: CLICKHOUSE_CLOUD_API_KEY / CLICKHOUSE_CLOUD_API_SECRET, the Terraform token_secret and HTTP Basic auth (key ID : secret)"
+        },
+        {
+          "sourceId": "github-com-clickhouse-terraform-provider-clickhouse-5f0f0e1564",
+          "supports": "transport: CLICKHOUSE_CLOUD_API_KEY / CLICKHOUSE_CLOUD_API_SECRET, the Terraform token_secret and HTTP Basic auth (key ID : secret)",
+          "locator": "#L16"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: gitleaks 8.30.1 has clickhouse-cloud-api-secret-key, \\b(4b1d[A-Za-z0-9]{38})\\b with entropy 3 and no case guard: it agrees with the T1 grammar, misses a low-entropy body under its entropy floor, and \\b lets a glued - through; trufflehog 3.97.4 has no ClickHouse Cloud rule",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "clickhouse-cloud-api-secret-key"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no clickhouse detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 12 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "api-clickhouse-cloud-29a4183bb1",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-clickhouse-terraform-provider-clickhouse-45b38b5202",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L20"
+        },
+        {
+          "sourceId": "github-com-clickhouse-terraform-provider-clickhouse-5f0f0e1564",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L16"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-19032cd51a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2c81160460",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5880547337"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ca969a303d",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-df3c244d41",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-19032cd51a",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2c81160460",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ca969a303d",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-19032cd51a",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2c81160460",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:body-length",
+      "note": "claim field-body-length; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:hashdata-secrets",
+      "note": "claim field-hashdata-secrets; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:key-id",
+      "note": "claim field-key-id; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:policy-uppercase-guard",
+      "note": "claim field-policy-uppercase-guard; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:separators",
+      "note": "claim field-separators; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "clickhouse-cloud-api-secret:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/464b.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/464b.ts",
+      "note": "contracts['clickhouse-cloud-api-secret']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/clickhouse-cloud.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clickhouse-cloud.md",
+      "note": "families[id=clickhouse-cloud:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=clickhouse-cloud:api-key]"
+    }
+  ]
+}

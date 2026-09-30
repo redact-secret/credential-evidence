@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "twilio:auth-token@1",
+  "family": "twilio:auth-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (context twin: same-line twilio keyword or Account SID removed): Un-probeable record lifted 2026-09-24 (#207): the value is opaque and context-gated (CONTEXT_GATED), so #207 requires context twins and no bare-value claim. Each twin keeps the 32-character value byte-for-byte and removes only the same-line marker the detector contract names (the word twilio or the AC Account SID), per the context-twin decision; the twin is policy-tier, like the positive.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-29837630c7",
+          "supports": "Un-probeable record lifted 2026-09-24 (#207): the value is opaque and context-gated (CONTEXT_GATED), so #207 requires context twins and no bare-value claim. Each twin keeps the 32-character value byte-for-byte and removes only the same-line marker the detector contract names (the word twilio or the AC Account SID), per the context-twin decision; the twin is policy-tier, like the positive."
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-d43abda452",
+          "supports": "trufflehog 3.97.4: twilio/twilio"
+        }
+      ]
+    },
+    {
+      "id": "field-length",
+      "statement": "length: exactly 32 characters",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-twilio-twilio-cli-4e83454154",
+          "supports": "A client-side CLI check a hidden flag can skip",
+          "locator": "#L107-L119"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: lowercase hex per every scanner; Twilio-owned sample code accepts [a-z0-9]",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-23c0a9ba47",
+          "supports": "alphabet: lowercase hex per every scanner; Twilio-owned sample code accepts [a-z0-9]"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-d43abda452",
+          "supports": "alphabet: lowercase hex per every scanner; Twilio-owned sample code accepts [a-z0-9]"
+        }
+      ]
+    },
+    {
+      "id": "field-context-gate",
+      "statement": "context gate: opaque value with no prefix: recognised only beside a same-line Account SID (AC + 32 hex) or the word twilio; no bare-value claim",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-d43abda452",
+          "supports": "context gate: opaque value with no prefix: recognised only beside a same-line Account SID (AC + 32 hex) or the word twilio; no bare-value claim"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-8045062d3f",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-twilio-labs-serverless-toolkit-8c068b76b7",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-twilio-twilio-cli-4e83454154",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "twilio-com-e7679bb537",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "twilio-auth-token:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "twilio-auth-token:context gate",
+      "note": "claim field-context-gate; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "twilio-auth-token:length",
+      "note": "claim field-length; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['twilio-auth-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/twilio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/twilio.md",
+      "note": "families[id=twilio:auth-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=twilio:auth-token]"
+    }
+  ]
+}

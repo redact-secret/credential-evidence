@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-dynatrace-api-token",
+  "subject": {
+    "kind": "family",
+    "id": "dynatrace:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/dynatrace.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/4f220ea000b58fa2e0e431ad88dea4eccb393fb0/docs/audits/evidence/1014/dynatrace.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "4f220ea000b58fa2e0e431ad88dea4eccb393fb0"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1014",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1014"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1032",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1032"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#528",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for dynatrace:api-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family dynatrace-token (#528, product redact-secret#1032), contract in benchmarks/lib/beta8/528g.ts from the #1014 handoff dynatrace.md. T1 (provider docs; alphabet from the provider operator generator, R1). gitleaks 8.30.1 dynatrace-api-token (dt0c01 only) is mapped to this family; trufflehog 3.97.4 has no rule. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'dynatrace-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1032; #1014 handoff dynatrace.md, READY). Access and platform tokens authenticate the environment and account APIs; depending on scopes a token reads monitoring data (which can include payloads and logs), changes configuration, ingests data or manages the account. T1 for every fact: the docs state the structure, both lengths and the prefix table (dt0s01, dt0s02, dt0s03, dt0s04, dt0s06, dt0s08, dt0s09, dt0s16; dt0c01 by the docs request placeholder, R4), and the base32 alphabet is the provider generator (R1) and the docs example. The contract admits dt0 + c|s + any two digits, as the handoff decides. Excluded: the token identifier alone (safe to log), portions with lowercase or 0, 1, 8, 9 (never generated), other Dynatrace secrets in other shapes and the docs placeholder dt0c01.abc123.… (fails both widths). gitleaks 8.30.1 reads dt0c01 only and is case-insensitive over [a-z0-9], so it lags on every dt0s token and overreaches on lowercase and 0/1/8/9 twins; trufflehog 3.97.4 has no Dynatrace rule. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1039)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/dynatrace.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/dynatrace.md",
+      "note": "families[id=dynatrace:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=dynatrace:api-token]"
+    }
+  ]
+}

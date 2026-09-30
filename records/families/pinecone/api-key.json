@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "pinecone:api-key",
+  "provider": "pinecone",
+  "name": "API key (pcsk_)",
+  "description": "Current pcsk_<label>_<secret> API key; prefix from provider code, segment widths tool-corroborated.",
+  "lifecycle": "draft",
+  "currentContract": "pinecone:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret#730",
+      "redact-secret/redact-secret-benchmarks#228"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pinecone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pinecone.md",
+      "note": "families[id=pinecone:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=pinecone:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "pinecone-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

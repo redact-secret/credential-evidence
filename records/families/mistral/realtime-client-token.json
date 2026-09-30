@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "mistral:realtime-client-token",
+  "provider": "mistral",
+  "name": "Realtime client token (rt_)",
+  "description": "Short-lived rt_ token that a server mints with a Studio API key (POST /v1/client/sessions) and a browser sends in the Sec-WebSocket-Protocol header; the prefix and carrier are provider-documented, the body is not.",
+  "lifecycle": "draft",
+  "currentContract": null,
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-27",
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "T1 covers the rt_ prefix and carriers only; no source states body length, alphabet or checksum. Needs hands-on minting via POST /v1/client/sessions (checklist in"
+      }
+    ],
+    "issues": [
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#780",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mistral.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+      "note": "families[id=mistral:realtime-client-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mistral:realtime-client-token]"
+    }
+  ]
+}

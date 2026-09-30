@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-wandb-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "wandb:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/wandb.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/wandb.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#917",
+          "url": "https://github.com/redact-secret/redact-secret/issues/917"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#436",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/436"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for wandb:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector wandb-api-key since redact-secret#917 (registry pinned at 1127bf9); graduated from a Beta.11 arrival family (#436), contract in benchmarks/lib/beta8/436f.ts. T1 on the provider test constant (R5) and SDK validator (R1); length measured around 86 with no length asserted. trufflehog 3.97.4 registers only the keyword-gated legacy rule by default."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'wandb-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#436, product redact-secret#917; #860 handoff wandb.md, READY for wandb_v1_). T1: the prefix is a W&B-authored test constant (R5), the [A-Za-z0-9_] alphabet is the SDK validator and its error text (R1), and the docs say new keys are \"about 86 characters\", which every provider test fixture of a new key (wandb#10688, Weave #5732) makes exactly 86. By the orchestrator decision on redact-secret#917 the product matches a bounded tolerant range around 86 until an issuance check, so positives carry totals 85, 86 and 87 and no fixture asserts silence on any length. The 27/_/49 split is scanner-only (T2) and not required: positives carry it and a body without an inner _. On-prem keys are <host>-<key>; the host label is public and is authored as an envelope around the key, so a finding with or without it passes. Excluded: the legacy 40-hex key (generic context), client JWTs (jwt), OIDC identity-token files, wandb_v1_ placeholders, and a future wandb_v2_ (unknown, so never asserted). Graduated to a registry detector at the 1127bf9 re-pin (redact-secret PR #938)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/wandb.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/wandb.md",
+      "note": "families[id=wandb:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=wandb:api-key]"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-trufflesecurity-trufflehog-5d8fe1c289",
+  "sourceType": "scanner-rule-source",
+  "title": "github.com/trufflesecurity/trufflehog/issues/4551",
+  "publisher": "trufflesecurity/trufflehog",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/trufflesecurity/trufflehog/issues/4551",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012c.ts",
+      "note": "cited by contracts['gitlab-routable-personal-access-token'].fields; contracts['gitlab-routable-personal-access-token'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "cited by families[id=gitlab:routable-personal-access-token].research.sources"
+    }
+  ]
+}

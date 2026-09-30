@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "aws-bedrock:short-term-api-key",
+  "provider": "aws-bedrock",
+  "name": "Short-term API key (bedrock-api-key-)",
+  "description": "bedrock-api-key- prefixed Base64 pre-signed CallWithBearerToken URL, valid for at most 12 hours.",
+  "lifecycle": "draft",
+  "currentContract": "aws-bedrock:short-term-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-27",
+    "issues": [
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#779",
+      "redact-secret/redact-secret#864",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws-bedrock.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws-bedrock.md",
+      "note": "families[id=aws-bedrock:short-term-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=aws-bedrock:short-term-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "aws-bedrock-short-term-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

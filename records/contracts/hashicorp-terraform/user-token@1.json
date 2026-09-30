@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "hashicorp-terraform:user-token@1",
+  "family": "hashicorp-terraform:user-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "HCP Terraform/Enterprise 14+67-byte API token: three independent HCP Terraform API-reference pages (user-tokens, organization-tokens, team-tokens) each publish a full example token; every one of the three is exactly 14 bytes before the literal .atlasv1. marker and exactly 67 bytes after it, and the mirrored Terraform Enterprise organization-tokens page publishes the identical shape and example, confirming Cloud and Enterprise are one grammar rather than two. Neither page documents a checksum or any marker beyond the literal .atlasv1. tag [Legacy contract 'terraform-cloud-token' is shared by 3 families; this statement is not specific to one of them.]",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-21",
+      "sources": [
+        {
+          "sourceId": "developer-hashicorp-com-1ee95e81cd",
+          "supports": "three independent HCP Terraform API-reference pages (user-tokens, organization-tokens, team-tokens) each publish a full example token; every one of the three is exactly 14 bytes before the literal .atlasv1. marker and exactly 67 bytes after it, and the mirrored Terraform Enterprise organization-tokens page publishes the identical shape and example, confirming Cloud and Enterprise are one grammar rather than two. Neither page documents a checksum or any marker beyond the literal .atlasv1. tag"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; trufflehog 3.97.4). [Legacy contract 'terraform-cloud-token' is shared by 3 families; this statement is not specific to one of them.]",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-21",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-2f0c52aac0",
+          "supports": "trufflehog 3.97.4: terraformcloudpersonaltoken/terraformcloudpersonaltoken"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-21",
+      "sources": [
+        {
+          "sourceId": "developer-hashicorp-com-1ee95e81cd",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d36ef19f42",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['terraform-cloud-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/hashicorp-terraform.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-terraform.md",
+      "note": "families[id=hashicorp-terraform:user-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=hashicorp-terraform:user-token]"
+    }
+  ]
+}

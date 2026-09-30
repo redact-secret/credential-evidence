@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-trufflesecurity-trufflehog-e4196de46d",
+  "sourceType": "scanner-rule-source",
+  "title": "github.com/trufflesecurity/trufflehog/pull/5322",
+  "publisher": "trufflesecurity/trufflehog",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/trufflesecurity/trufflehog/pull/5322",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-28",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434g.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434g.ts",
+      "note": "cited by contracts['composio-api-key'].fields; contracts['composio-api-key'].references; contracts['composio-org-api-key'].fields; contracts['composio-org-api-key'].references; +2 more"
+    }
+  ]
+}

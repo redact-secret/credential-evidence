@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "openrouter:api-key@1",
+  "family": "openrouter:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^sk-or-v1-[0-9a-f]{64}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "OpenRouter guardrails secret-formats page (\"OpenRouter API key\"): OpenRouter's own secret-formats guardrail describes its API key as sk-or-v1- followed by 64 lowercase hexadecimal characters.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "openrouter-ai-8c4a3ebdcc",
+          "supports": "OpenRouter's own secret-formats guardrail describes its API key as sk-or-v1- followed by 64 lowercase hexadecimal characters."
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ca2eaaf3f5",
+          "supports": "trufflehog 3.97.4: OpenRouter: \\b(sk-or-v1-[0-9a-f]{64})\\b (feature-gated in 3.97.4)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: sk-or-v1-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "openrouter-ai-3a44de405d",
+          "supports": "prefix: sk-or-v1-"
+        },
+        {
+          "sourceId": "openrouter-ai-8c4a3ebdcc",
+          "supports": "prefix: sk-or-v1-"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: 64 lowercase hexadecimal characters (73 characters in total)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ca2eaaf3f5",
+          "supports": "tool: [0-9a-f]{64}"
+        },
+        {
+          "sourceId": "openrouter-ai-3a44de405d",
+          "supports": "create-key response example, hex-shaped"
+        },
+        {
+          "sourceId": "openrouter-ai-8c4a3ebdcc",
+          "supports": "a guardrail detection description, not a key-issuance specification"
+        }
+      ]
+    },
+    {
+      "id": "field-body-case",
+      "statement": "body-case: Whether OpenRouter accepts uppercase hex (betterleaks matches case-insensitively) (No uppercase-hex twin is authored.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-ea48428a8b",
+          "supports": "body-case: Whether OpenRouter accepts uppercase hex (betterleaks matches case-insensitively)"
+        }
+      ]
+    },
+    {
+      "id": "field-key-hash",
+      "statement": "key-hash: The public key hash (/api/v1/keys/{hash}) is 64 lowercase hex with no prefix; its relation to the key is undocumented",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "openrouter-ai-3a44de405d",
+          "supports": "key-hash: The public key hash (/api/v1/keys/{hash}) is 64 lowercase hex with no prefix; its relation to the key is undocumented"
+        }
+      ]
+    },
+    {
+      "id": "field-management-key",
+      "statement": "management-key: Management keys start with sk-or-mgmt-; body length and alphabet are undocumented (A separate family (openrouter:management-api-key), unsupported and unclaimed.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-openrouterteam-terraform-provider-openrouter-8b62c3f8d3",
+          "supports": "management-key: Management keys start with sk-or-mgmt-; body length and alphabet are undocumented"
+        },
+        {
+          "sourceId": "openrouter-ai-0205f8794a",
+          "supports": "management-key: Management keys start with sk-or-mgmt-; body length and alphabet are undocumented"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "openrouter-ai-0205f8794a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "openrouter-ai-3a44de405d",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "openrouter-ai-874b2368ac",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "openrouter-ai-3a44de405d",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "openrouter-ai-8c4a3ebdcc",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "openrouter-ai-3a44de405d",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "openrouter-ai-8c4a3ebdcc",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "openrouter-api-key:body",
+      "note": "claim field-body; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openrouter-api-key:body-case",
+      "note": "claim field-body-case; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openrouter-api-key:key-hash",
+      "note": "claim field-key-hash; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openrouter-api-key:management-key",
+      "note": "claim field-management-key; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "openrouter-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/208.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/208.ts",
+      "note": "contracts['openrouter-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/openrouter.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openrouter.md",
+      "note": "families[id=openrouter:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=openrouter:api-key]"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "okta:api-token",
+  "provider": "okta",
+  "name": "Management API token (SSWS)",
+  "description": "00-prefixed 42-character API token sent as Authorization: SSWS; recognized beside the SSWS scheme or a same-line okta keyword.",
+  "lifecycle": "draft",
+  "currentContract": "okta:api-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1013",
+      "redact-secret/redact-secret#315",
+      "redact-secret/redact-secret#694"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/okta.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/okta.md",
+      "note": "families[id=okta:api-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=okta:api-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "okta-api-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

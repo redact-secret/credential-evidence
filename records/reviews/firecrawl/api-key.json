@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-firecrawl-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "firecrawl:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firecrawl.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/firecrawl.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#908",
+          "url": "https://github.com/redact-secret/redact-secret/issues/908"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#434",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/434"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for firecrawl:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector firecrawl-api-key since redact-secret#908 (registry pinned at 1127bf9); graduated from a Beta.11 arrival family (#434 slice f, #860 Tier A handoff), contract in benchmarks/lib/beta8/434f.ts. T1."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'firecrawl-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#434, product redact-secret#908; #860 handoff firecrawl.md, READY). A Firecrawl key spends the team's crawl and scrape credits and is common in agent web tools and MCP servers. The prefix is documented and checked by the SDK and MCP server; the body is a dashless Postgres random UUIDv4 by the server normalizer, schema default and validator (R1), so the version and variant nibbles are enforced, rejecting 63 of 64 arbitrary 32-hex runs (an fc- + MD5, say) at no cost for issued keys. Excluded: legacy bare dashed UUIDs (not attributable), fc- + a dashed UUID (not an issued form), another UUID version or variant, uppercase hex, fco_ and fcmcp_. Neither pinned peer has a Firecrawl rule. Graduated to a registry detector at the 1127bf9 re-pin (redact-secret PR #938)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/firecrawl.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firecrawl.md",
+      "note": "families[id=firecrawl:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=firecrawl:api-key]"
+    }
+  ]
+}

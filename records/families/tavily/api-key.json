@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "tavily:api-key",
+  "provider": "tavily",
+  "name": "API key (tvly-)",
+  "description": "tvly- with an optional dev- segment and a 32-character alphanumeric body; tvly-prod- and production key widths are unresolved.",
+  "lifecycle": "draft",
+  "currentContract": "tavily:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-27",
+    "issues": [
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#786",
+      "redact-secret/redact-secret#867",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/tavily.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/tavily.md",
+      "note": "families[id=tavily:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=tavily:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "tavily-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

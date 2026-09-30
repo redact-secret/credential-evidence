@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "discord:bot-token@1",
+  "family": "discord:bot-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^(?:[A-Za-z0-9_-]{24}\\.[A-Za-z0-9_-]{6}\\.[A-Za-z0-9_-]{27}|[A-Za-z0-9_-]{24}\\.[A-Za-z0-9_-]{6}\\.[A-Za-z0-9_-]{38}|[A-Za-z0-9_-]{26}\\.[A-Za-z0-9_-]{6}\\.[A-Za-z0-9_-]{38})$"
+  },
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (three base64url segments: 24|26 . 6 . 27|38): Un-probeable record lifted 2026-09-24 (#207): twins mutate only segment widths no issued shape has (segment 3 of 37, segment 1 of 25), the dot delimiter, and a byte outside the base64url alphabet. The widths rest on community and dated empirical reports plus TruffleHog's 24/6/27 rule, never on Discord documentation, so every twin stays T2.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6a5eeb9a57",
+          "supports": "Un-probeable record lifted 2026-09-24 (#207): twins mutate only segment widths no issued shape has (segment 3 of 37, segment 1 of 25), the dot delimiter, and a byte outside the base64url alphabet. The widths rest on community and dated empirical reports plus TruffleHog's 24/6/27 rule, never on Discord documentation, so every twin stays T2."
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b0b33d981e",
+          "supports": "trufflehog 3.97.4: discordbottoken/discordbottoken"
+        }
+      ]
+    },
+    {
+      "id": "field-segments",
+      "statement": "segments: three base64url segments joined by two dots, no = padding",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6a5eeb9a57",
+          "supports": "segments: three base64url segments joined by two dots, no = padding"
+        }
+      ]
+    },
+    {
+      "id": "field-segment-1",
+      "statement": "segment 1: base64url of the bot user id as decimal ASCII: 24 characters for an 18-digit id, 26 for a 19-digit id (every bot created since 2022-07-22)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6a5eeb9a57",
+          "supports": "segment 1: base64url of the bot user id as decimal ASCII: 24 characters for an 18-digit id, 26 for a 19-digit id (every bot created since 2022-07-22)"
+        }
+      ]
+    },
+    {
+      "id": "field-segment-2",
+      "statement": "segment 2: 6 characters (a timestamp)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b0b33d981e",
+          "supports": "segment 2: 6 characters (a timestamp)"
+        }
+      ]
+    },
+    {
+      "id": "field-segment-3",
+      "statement": "segment 3: 27 characters before about May 2022, 38 since; older tokens keep 27 until reset",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6a5eeb9a57",
+          "supports": "segment 3: 27 characters before about May 2022, 38 since; older tokens keep 27 until reset"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-discord-com-8e431ea274",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-discord-discord-api-docs-c6a5245810",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-discord-net-discord-net-3b1fccd676",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-25bf4a7969",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "discord-bot-token:segment 1",
+      "note": "claim field-segment-1; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "discord-bot-token:segment 2",
+      "note": "claim field-segment-2; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "discord-bot-token:segment 3",
+      "note": "claim field-segment-3; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "discord-bot-token:segments",
+      "note": "claim field-segments; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['discord-bot-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/discord.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/discord.md",
+      "note": "families[id=discord:bot-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=discord:bot-token]"
+    }
+  ]
+}

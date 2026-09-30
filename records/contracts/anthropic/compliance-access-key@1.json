@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "anthropic:compliance-access-key@1",
+  "family": "anthropic:compliance-access-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^sk-ant-api01-[A-Za-z0-9_-]{20,}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "Key type table: Compliance Access Key (sk-ant-api01-...): the provider documents sk-ant-api01- as the prefix of a Claude Enterprise key and quotes \"sk-ant-api01- is a Compliance Access Key\"; it states no body length, alphabet or tail",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "platform-claude-com-2aaa0e2386",
+          "supports": "the provider documents sk-ant-api01- as the prefix of a Claude Enterprise key and quotes \"sk-ant-api01- is a Compliance Access Key\"; it states no body length, alphabet or tail"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: sk-ant-api01-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "platform-claude-com-2aaa0e2386",
+          "supports": "\"sk-ant-api01- is a Compliance Access Key\""
+        },
+        {
+          "sourceId": "platform-claude-com-864b183d97",
+          "supports": "table: Claude Enterprise organization key prefix"
+        }
+      ]
+    },
+    {
+      "id": "field-scope-of-prefix",
+      "statement": "scope-of-prefix: the prefix is the Enterprise organization key for any scope set (compliance, analytics, spend limits, members), not a compliance-only credential",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7a9fc1dd47",
+          "supports": "research finding 6"
+        },
+        {
+          "sourceId": "platform-claude-com-864b183d97",
+          "supports": "scope-of-prefix: the prefix is the Enterprise organization key for any scope set (compliance, analytics, spend limits, members), not a compliance-only credential"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: an opaque URL-safe run; the product floor is 20 bytes of [A-Za-z0-9_-] (assumption, not evidence) (No length, alphabet or AA-tail twin is authored. Positives use the api03/admin01 93-character + AA shape only as a subset of the floor.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7a9fc1dd47",
+          "supports": "no provider, tool or observation states a length for api01"
+        }
+      ]
+    },
+    {
+      "id": "field-aa-tail",
+      "statement": "aa-tail: whether api01 keys end in AA as api03 and admin01 rules assume (Not claimed either way.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7a9fc1dd47",
+          "supports": "hands-on checklist item"
+        }
+      ]
+    },
+    {
+      "id": "field-header",
+      "statement": "header: sent as x-api-key; the authentication page now recommends Authorization: Bearer for API keys",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "platform-claude-com-b68cbf8cc4",
+          "supports": "header: sent as x-api-key; the authentication page now recommends Authorization: Bearer for API keys"
+        },
+        {
+          "sourceId": "platform-claude-com-c9def02fc9",
+          "supports": "header: sent as x-api-key; the authentication page now recommends Authorization: Bearer for API keys"
+        }
+      ]
+    },
+    {
+      "id": "field-sibling-classes",
+      "statement": "sibling-classes: sk-ant-api03- (Claude API key) and sk-ant-admin01- (Admin API key) are different provider classes; sk-ant-oat01-/sk-ant-ort01- (OAuth) and other versions have no provider source (Only api03 and admin01 back prefix twins. No fixture asserts silence on api02, api04, oat01, ort01 or an unversioned prefix.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e96f3968c2",
+          "supports": "community request for oat01/ort01; no provider source"
+        },
+        {
+          "sourceId": "platform-claude-com-864b183d97",
+          "supports": "sibling-classes: sk-ant-api03- (Claude API key) and sk-ant-admin01- (Admin API key) are different provider classes; sk-ant-oat01-/sk-ant-ort01- (OAuth) and other versions have no provider source"
+        }
+      ]
+    },
+    {
+      "id": "field-encoded-form",
+      "statement": "encoded-form: whether a Base64-encoded copy is in family scope (No Base64 fixture is authored.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7a9fc1dd47",
+          "supports": "encoded-form: whether a Base64-encoded copy is in family scope"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 4 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-33dc3121b8",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7a9fc1dd47",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "platform-claude-com-864b183d97",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "platform-claude-com-c9def02fc9",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "platform-claude-com-2aaa0e2386",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "platform-claude-com-3a78dd7a53",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "platform-claude-com-864b183d97",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "support-claude-com-2c09db286e",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "platform-claude-com-2aaa0e2386",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "platform-claude-com-864b183d97",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "anthropic-api01-key:aa-tail",
+      "note": "claim field-aa-tail; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "anthropic-api01-key:body",
+      "note": "claim field-body; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "anthropic-api01-key:encoded-form",
+      "note": "claim field-encoded-form; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "anthropic-api01-key:header",
+      "note": "claim field-header; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "anthropic-api01-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "anthropic-api01-key:scope-of-prefix",
+      "note": "claim field-scope-of-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "anthropic-api01-key:sibling-classes",
+      "note": "claim field-sibling-classes; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384a.ts",
+      "note": "contracts['anthropic-api01-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/anthropic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+      "note": "families[id=anthropic:compliance-access-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=anthropic:compliance-access-key]"
+    }
+  ]
+}

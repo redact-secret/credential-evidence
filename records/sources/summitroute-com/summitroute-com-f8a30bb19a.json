@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "summitroute-com-f8a30bb19a",
+  "sourceType": "provider-documentation",
+  "title": "summitroute.com/blog/2018/06/20/aws_security_credential_formats/",
+  "publisher": "summitroute.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://summitroute.com/blog/2018/06/20/aws_security_credential_formats/",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012a.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012a.ts",
+      "note": "cited by contracts['aws-secret-access-key'].fields; contracts['aws-secret-access-key'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+      "note": "cited by families[id=aws:iam-user-secret-access-key].research.sources; families[id=aws:sts-temporary-access-key].research.sources"
+    }
+  ]
+}

@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "aws-bedrock:short-term-api-key@1",
+  "family": "aws-bedrock:short-term-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^bedrock-api-key-YmVkcm9jay5hbWF6b25hd3MuY29tLz9BY3Rpb249Q2FsbFdpdGhCZWFyZXJUb2tlbiZYLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsP[A-Za-z0-9+/]+={0,2}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "AUTH_PREFIX = \"bedrock-api-key-\" in AWS's Python, JS and Java token generators: AWS-authored generators (aws-bedrock-token-generator, Python, JS and Java) build the short-term key as bedrock-api-key- followed by the standard padded Base64 of a SigV4-presigned CallWithBearerToken URL plus &Version=1, and the AWS Security Blog prints the fixed 133-character Base64 head. Provider code and a provider blog are not a documentation page; the maintainer ruling of 2026-09-27 (redact-secret#779) accepts them as T1 evidence for the prefix, the fixed 133-character head and the standard padded Base64 alphabet only. Total length and the session-token part of the body stay T2",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-python-05652147db",
+          "supports": "AWS-authored generators (aws-bedrock-token-generator, Python, JS and Java) build the short-term key as bedrock-api-key- followed by the standard padded Base64 of a SigV4-presigned CallWithBearerToken URL plus &Version=1, and the AWS Security Blog prints the fixed 133-character Base64 head. Provider code and a provider blog are not a documentation page; the maintainer ruling of 2026-09-27 (redact-secret#779) accepts them as T1 evidence for the prefix, the fixed 133-character head and the standard padded Base64 alphabet only. Total length and the session-token part of the body stay T2"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: awslabs/git-secrets; gitleaks 8.30.1).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-awslabs-git-secrets-ba9043c9da",
+          "supports": "awslabs/git-secrets: bedrock-api-key-YmVkcm9jay5hbWF6b25hd3MuY29t"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: bedrock-api-key-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-java-1593020a32",
+          "supports": "AUTH_PREFIX"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-js-d0bffc020c",
+          "supports": "AUTH_PREFIX"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-python-05652147db",
+          "supports": "AUTH_PREFIX"
+        }
+      ]
+    },
+    {
+      "id": "field-fixed-head",
+      "statement": "fixed-head: the 133 Base64 characters after the prefix encode bedrock.amazonaws.com/?Action=CallWithBearerToken&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential (The weaker 28-character anchor used by gitleaks and git-secrets is a tool choice; the twins here differ from the positive within the first 28 characters of the head, so they hold under either anchor.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "aws-amazon-com-7280e99539",
+          "supports": "the blog regex prints the head"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-python-05652147db",
+          "supports": "host, Action and signing parameters"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body-alphabet: standard padded Base64 ([A-Za-z0-9+/], up to two trailing =) (The blog's printed body class is malformed; no source documents a URL-safe variant.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-java-1593020a32",
+          "supports": "Base64.getEncoder()"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-js-d0bffc020c",
+          "supports": "toString(\"base64\")"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-python-05652147db",
+          "supports": "base64.b64encode"
+        }
+      ]
+    },
+    {
+      "id": "field-version-suffix",
+      "statement": "version-suffix: the encoded payload ends with &Version=1",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-js-d0bffc020c",
+          "supports": "TOKEN_VERSION"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-python-05652147db",
+          "supports": "TOKEN_VERSION"
+        }
+      ]
+    },
+    {
+      "id": "field-total-length",
+      "statement": "total-length: about 500 characters for a key presigned without a session token and over 1000 with one; no bound is documented (Positives carry three sizes; no length twin is authored.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-db6dccb374",
+          "supports": "reconstruction by construction, about 500 without a session token"
+        },
+        {
+          "sourceId": "wiz-io-15cbaedd9e",
+          "supports": "over 1000 characters"
+        }
+      ]
+    },
+    {
+      "id": "field-lifetime",
+      "statement": "lifetime: valid for the shorter of 12 hours and the generating session",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-87e6578a36",
+          "supports": "lifetime: valid for the shorter of 12 hours and the generating session"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: AWS_BEARER_TOKEN_BEDROCK environment variable or Authorization: Bearer, shared with the long-term key",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-e407319908",
+          "supports": "transport: AWS_BEARER_TOKEN_BEDROCK environment variable or Authorization: Bearer, shared with the long-term key"
+        }
+      ]
+    },
+    {
+      "id": "field-console-output",
+      "statement": "console-output: whether a console-generated short-term key is byte-identical to the SDK output",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-db6dccb374",
+          "supports": "hands-on checklist item"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 7 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "aws-amazon-com-7280e99539",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-87e6578a36",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-e407319908",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-java-1593020a32",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-js-d0bffc020c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-63b4ee983e",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-db6dccb374",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 7 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "aws-amazon-com-7280e99539",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-72689d911e",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-87e6578a36",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-java-9322c323cb",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-js-89e0d930e7",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-python-8744420be8",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-54fe62ebde",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-87e6578a36",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-aws-aws-bedrock-token-generator-python-05652147db",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-bedrock-short-term-api-key:body-alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-bedrock-short-term-api-key:console-output",
+      "note": "claim field-console-output; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-bedrock-short-term-api-key:fixed-head",
+      "note": "claim field-fixed-head; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-bedrock-short-term-api-key:lifetime",
+      "note": "claim field-lifetime; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-bedrock-short-term-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-bedrock-short-term-api-key:total-length",
+      "note": "claim field-total-length; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-bedrock-short-term-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "aws-bedrock-short-term-api-key:version-suffix",
+      "note": "claim field-version-suffix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384b.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384b.ts",
+      "note": "contracts['aws-bedrock-short-term-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws-bedrock.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws-bedrock.md",
+      "note": "families[id=aws-bedrock:short-term-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=aws-bedrock:short-term-api-key]"
+    }
+  ]
+}

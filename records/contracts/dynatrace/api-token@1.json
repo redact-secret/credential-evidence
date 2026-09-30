@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "dynatrace:api-token@1",
+  "family": "dynatrace:api-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^dt0[cs][0-9]{2}\\.[A-Z2-7]{24}\\.[A-Z2-7]{64}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "Dynatrace docs \"Token format\" (updated 2026-08-04): three components separated by dots, a prefix that identifies the token type, a 24-character public portion and a 64-character secret portion; Dynatrace/dynatrace-operator pkg/util/dttoken/token.go (2a39d88, 2026-07-22): base32.StdEncoding truncated to each portion; re-checked 2026-09-29: dt0 + c|s + 2 digits + . + exactly 24 [A-Z2-7] + . + exactly 64 [A-Z2-7], 96 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "dt0 + c|s + 2 digits + . + exactly 24 [A-Z2-7] + . + exactly 64 [A-Z2-7], 96 in all"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: dynatrace-api-token: dt0c01\\.(?i)[a-z0-9]{24}\\.[a-z0-9]{64} (dt0c01 only, case-insensitive alphanumeric)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: dt0 + c or s + two digits (the docs table lists dt0s01..dt0s16; dt0c01 is the classic prefix in the docs request examples)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "prefix table and request examples"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R4: a placeholder is T1 for its prefix",
+          "locator": "#issuecomment-5871306275"
+        }
+      ]
+    },
+    {
+      "id": "field-layout",
+      "statement": "layout: <prefix>.<24-character public portion>.<64-character secret portion>; 96 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "\"three components separated by dots\"; 24 and 64"
+        },
+        {
+          "sourceId": "github-com-dynatrace-dynatrace-operator-2781fabe4e",
+          "supports": "the same format comment",
+          "locator": "#L14-L58"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: uppercase base32 [A-Z2-7] in both portions",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "the full-length example uses only A-Z and 2-7"
+        },
+        {
+          "sourceId": "github-com-dynatrace-dynatrace-operator-2781fabe4e",
+          "supports": "base32.StdEncoding",
+          "locator": "#L14-L58"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-token-identifier",
+      "statement": "token-identifier: the prefix plus public portion \"can be safely displayed in the UI and can be used for logging purposes\" (A token identifier alone is a benign control; inside a full token it is part of the one span.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "token-identifier: the prefix plus public portion \"can be safely displayed in the UI and can be used for logging purposes\""
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: the byte before dt0 and the byte after the secret portion are not [A-Za-z0-9_.-] (Handoff boundary decision, not a provider statement. Read literally it would reject the URL-encoded OpenTelemetry header Authorization=Api-Token%20<token>, where the byte before dt0 is 0; that form is a documented transport, so it is authored as a positive and measures whether an implementation handles it. A .x glued after the token leaves a contract-valid token before the dot, so it is not authored as a twin (#84); the trailing-glue twin appends _x.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-00da714af7",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: Authorization: Api-Token <token> (the documented scheme); DT_API_TOKEN; a DynaKube secret apiToken; an OpenTelemetry exporter header Authorization=Api-Token%20<token>",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "transport: Authorization: Api-Token <token> (the documented scheme); DT_API_TOKEN; a DynaKube secret apiToken; an OpenTelemetry exporter header Authorization=Api-Token%20<token>"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-00da714af7",
+          "supports": "test axes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: gitleaks 8.30.1 dynatrace-api-token dt0c01\\.(?i)[a-z0-9]{24}\\.[a-z0-9]{64} (entropy 4, no boundary) reads dt0c01 only: it lags on every dt0s token and overreaches on lowercase and 0/1/8/9 bodies, leading glue and a 65-byte secret portion (it matches the first 64). Mapped to dynatrace-token. No Dynatrace rule in trufflehog 3.97.4",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "dynatrace-api-token"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no dynatrace detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 10 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-dynatrace-dynatrace-operator-2781fabe4e",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L14-L58"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-00da714af7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-151809a444",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5900447540"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-dynatrace-dynatrace-operator-2781fabe4e",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L14-L58"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-00da714af7",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-dynatrace-com-d3cbf4f5ff",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-00da714af7",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "dynatrace-token:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "dynatrace-token:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "dynatrace-token:layout",
+      "note": "claim field-layout; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "dynatrace-token:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "dynatrace-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "dynatrace-token:token-identifier",
+      "note": "claim field-token-identifier; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "dynatrace-token:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/528g.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/528g.ts",
+      "note": "contracts['dynatrace-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/dynatrace.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/dynatrace.md",
+      "note": "families[id=dynatrace:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=dynatrace:api-token]"
+    }
+  ]
+}

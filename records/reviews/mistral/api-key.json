@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-mistral-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "mistral:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/mistral-api-key.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#781",
+          "url": "https://github.com/redact-secret/redact-secret/issues/781"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#866",
+          "url": "https://github.com/redact-secret/redact-secret/issues/866"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#868",
+          "url": "https://github.com/redact-secret/redact-secret/issues/868"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for mistral:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector mistral-api-key since redact-secret#868 (registry pinned at cfe2aec); graduated from a Beta.10 arrival family (#384, research #781), contract in benchmarks/lib/beta8/384e.ts. T2, context-gated, no bare-value claim; generic coverage already redacts labelled forms, so the family adds the SDK-call-argument forms."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'mistral-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Context-gated arrival family (#384, product redact-secret#868; research #781). No Mistral page or SDK code states a prefix, length or alphabet (the SDK does no validation), so nothing reaches T1. Three tool rules that read as one assertion (osv-scalibr, betterleaks, pleno-dlp) agree on exactly 32 alphanumeric characters with a mandatory Mistral context, and none is a pinned peer. GitHub lists a partner pattern without publishing its shape. The value is recognised only beside a same-line mistral or codestral name, an api.mistral.ai host or a Mistral SDK constructor, so its positives score as project policy and its twins keep the value and change only the context. A bare 32-character run is indistinguishable from an MD5, a request id or another provider's key, so no bare-value claim is made. The realtime token (#780, an rt_ shape) and the Codestral key shape are not members of this family."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mistral.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+      "note": "families[id=mistral:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mistral:api-key]"
+    }
+  ]
+}

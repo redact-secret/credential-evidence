@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "pinecone:legacy-api-key@1",
+  "family": "pinecone:legacy-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (Api-Key header and PINECONE_API_KEY): the provider documents the API key as sent in the Api-Key header and read from PINECONE_API_KEY; it states no key grammar. The context twins keep the UUID and replace that identifier with a Pinecone project/index/database/service-account id name, whose values the Admin API documents as UUIDs",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-pinecone-io-9359d617d4",
+          "supports": "the provider documents the API key as sent in the Api-Key header and read from PINECONE_API_KEY; it states no key grammar. The context twins keep the UUID and replace that identifier with a Pinecone project/index/database/service-account id name, whose values the Admin API documents as UUIDs"
+        }
+      ]
+    },
+    {
+      "id": "field-value-shape",
+      "statement": "value shape: bare UUID [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-gitguardian-com-adf89e9c3f",
+          "supports": "value shape: bare UUID [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-afabcac273",
+          "supports": "pinecone-api-key.1, keyword-gated, medium confidence"
+        }
+      ]
+    },
+    {
+      "id": "field-supported-context",
+      "statement": "supported context: same-line Pinecone API-key identifier or Api-Key header to a pinecone.io host",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-pinecone-io-9359d617d4",
+          "supports": "Api-Key header and PINECONE_API_KEY env var"
+        },
+        {
+          "sourceId": "pinecone-io-ce5c157534",
+          "supports": "legacy pinecone.init(api_key, environment) pairing"
+        }
+      ]
+    },
+    {
+      "id": "field-issuance-status",
+      "statement": "issuance status: undated switch from UUID to pcsk_; current validity of UUID keys unknown",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-pinecone-io-8d6757945e",
+          "supports": "issuance status: undated switch from UUID to pcsk_; current validity of UUID keys unknown"
+        }
+      ]
+    },
+    {
+      "id": "legacy-contract-tier",
+      "statement": "The legacy contract records this grammar as project masking policy (tier T3), not as a provider format.",
+      "evidenceClass": "project-policy",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": []
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-25",
+      "sources": [
+        {
+          "sourceId": "docs-pinecone-io-9359d617d4",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-25",
+      "sources": [
+        {
+          "sourceId": "docs-pinecone-io-9359d617d4",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "pinecone-api-key-legacy:issuance status",
+      "note": "claim field-issuance-status; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "pinecone-api-key-legacy:supported context",
+      "note": "claim field-supported-context; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "pinecone-api-key-legacy:value shape",
+      "note": "claim field-value-shape; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/212.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/212.ts",
+      "note": "contracts['pinecone-api-key-legacy']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pinecone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pinecone.md",
+      "note": "families[id=pinecone:legacy-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=pinecone:legacy-api-key]"
+    }
+  ]
+}

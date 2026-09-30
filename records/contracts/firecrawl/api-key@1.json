@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "firecrawl:api-key@1",
+  "family": "firecrawl:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^fc-[0-9a-f]{12}4[0-9a-f]{3}[89ab][0-9a-f]{15}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "parseApi.ts strips fc- and re-inserts the 8-4-4-4-12 dashes (last changed 2026-05-15, re-checked 2026-09-28); api_keys.key is uuid().defaultRandom(): the docs and SDK document the fc- prefix; provider server code (ruling R1) makes the body a dashless lowercase random UUIDv4 (32 hex, version nibble 4, variant 8/9/a/b), 35 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-d9b255c69a",
+          "supports": "the docs and SDK document the fc- prefix; provider server code (ruling R1) makes the body a dashless lowercase random UUIDv4 (32 hex, version nibble 4, variant 8/9/a/b), 35 in all"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: fc-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-firecrawl-dev-f34bd42c06",
+          "supports": "prefix: fc-"
+        },
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-af437e3661",
+          "supports": "startsWith('fc-')",
+          "locator": "#L154"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 32 lowercase hex: a dashless UUID",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-cf146f8a99",
+          "supports": "uuid(\"key\").defaultRandom()",
+          "locator": "#L68-L72"
+        },
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-d9b255c69a",
+          "supports": "body: exactly 32 lowercase hex: a dashless UUID"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-uuid-v4-nibbles",
+      "statement": "uuid-v4-nibbles: body byte 12 is 4 and body byte 16 is one of 8 9 a b (The validator would accept versions 1–8; issued keys are v4, so other nibbles back twins.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-0e36f901ab",
+          "supports": "UUID_RE",
+          "locator": "#L757-L795"
+        },
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-cf146f8a99",
+          "supports": "a Postgres random UUIDv4",
+          "locator": "#L68-L72"
+        }
+      ]
+    },
+    {
+      "id": "field-separators",
+      "statement": "separators: none after the prefix; no checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-d9b255c69a",
+          "supports": "separators: none after the prefix; no checksum"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed; CSS and calendar classes such as fc-daygrid-day are glued or fail the body",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-29c138169c",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-keys",
+      "statement": "legacy-keys: bare dashed UUID keys from before 2024-04-16 are still accepted by parseApi (Not attributable to Firecrawl: excluded, and never a benign control either (a dashed UUID is authored only as a request id).)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-d9b255c69a",
+          "supports": "legacy passthrough"
+        }
+      ]
+    },
+    {
+      "id": "field-other-credentials",
+      "statement": "other-credentials: fco_ OAuth access tokens and fcmcp_ MCP delegated credentials have no documented fixed grammar (Not authored either way.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-29c138169c",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no firecrawl rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no firecrawl detector directory"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 12 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-firecrawl-dev-f34bd42c06",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-0e36f901ab",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L757-L795"
+        },
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-844f10787c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-af437e3661",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L154"
+        },
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-cf146f8a99",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L68-L72"
+        },
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-d9b255c69a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-21c2e0f908",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-29c138169c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-600e29e0fd",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-fb496527b7",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-firecrawl-firecrawl-844f10787c",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2fcac45583",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-firecrawl-dev-f34bd42c06",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-29c138169c",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "firecrawl-api-key:body",
+      "note": "claim field-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firecrawl-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firecrawl-api-key:legacy-keys",
+      "note": "claim field-legacy-keys; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firecrawl-api-key:other-credentials",
+      "note": "claim field-other-credentials; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firecrawl-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firecrawl-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firecrawl-api-key:separators",
+      "note": "claim field-separators; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firecrawl-api-key:uuid-v4-nibbles",
+      "note": "claim field-uuid-v4-nibbles; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434f.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434f.ts",
+      "note": "contracts['firecrawl-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/firecrawl.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firecrawl.md",
+      "note": "families[id=firecrawl:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=firecrawl:api-key]"
+    }
+  ]
+}

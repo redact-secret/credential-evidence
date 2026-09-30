@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-docker-oauth-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "docker:oauth-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/docker.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/647/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#566",
+          "url": "https://github.com/redact-secret/redact-secret/issues/566"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#647",
+          "url": "https://github.com/redact-secret/redact-secret/issues/647"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#708",
+          "url": "https://github.com/redact-secret/redact-secret/issues/708"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'docker-token', a contract shared by 2 families (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-tiered 2026-09-23 (#112, provider evidence redact-secret#647/#648; OAT width redact-secret#708). The dckr_oat_ branch accepts both exact widths: 27, the only width any Docker-authored artefact shows (the Hub API example; docker/portcullis rules.go, whose comment says it copies the PAT shape), and 32, which comes from TruffleHog 3.97.4 alone (trufflehog PR #4062); the scanners that state 32 trace back to it, so their count is not independent evidence. Each width is exact, so 28-31 and 33 still fail. The empirical measurement of a freshly issued OAT that would settle 27 versus 32 remains open (redact-secret#647); product main accepts both widths since redact-secret#708 (fix dc855b6; known gap product-708 fixed), and the published 0.1.0-beta.6 package still rejects the 27-byte body. The Hub spec's dckr_pat_ examples carry 15-character placeholder bodies and are not a width source. The taxonomy label docker:oauth-access-token says \"OAuth\", but Docker (and GitHub's docker_organization_access_token pattern) call it an Organization Access Token. Docker-owned scanner rules (docker/portcullis alphanumeric only, docker/mcp-gateway without \"_\") are narrower than this alphabet; they are code, not documentation, and public-string tallies contradict them."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/docker.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/docker.md",
+      "note": "families[id=docker:oauth-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=docker:oauth-access-token]"
+    }
+  ]
+}

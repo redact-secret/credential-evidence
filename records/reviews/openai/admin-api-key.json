@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-openai-admin-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "openai:admin-api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openai.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/openai-admin-api-key.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#777",
+          "url": "https://github.com/redact-secret/redact-secret/issues/777"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#863",
+          "url": "https://github.com/redact-secret/redact-secret/issues/863"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#882",
+          "url": "https://github.com/redact-secret/redact-secret/issues/882"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for openai:admin-api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.10 arrival family openai-admin-api-key (#384, research redact-secret#777, product #863, #882). openai-token already recognises sk-admin-; since product PR #882 (redact-secret#774) it reports its own openai_admin_api_key finding type (previously the shared openai_api_key type), so it is scored on its own arrival id by finding type rather than borrowing the status of openai:secret-api-key. T2."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'openai-admin-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#384, product redact-secret#863; research #777). T2: no OpenAI documentation states a length or alphabet for sk-admin- keys. Gitleaks corroborates the marker-bearing 58 + T3BlbkFJ + 58 shape with three test vectors, trufflehog 3.97.4 matches exactly that shape in its dedicated openaiadmin detector (PR #4689, which is why the generic openai detector skips sk-admin-: a move, not an exclusion; corrected by redact-secret#1013), and openai/codex fixes the prefix set and the T3BlbkFJ watermark for the OpenAI family. The product decision recorded in redact-secret#863 contracts sk-admin- under the same marker-gated 58/74-byte grammar as sk-proj- and sk-svcacct-, so the shipped detector admits 58/58 and 74/74 and no mixed width. The benchmark claim is 58/58 only (redact-secret#1013): no source anywhere shows a 74/74 admin value, so 74/74 is outside the claim and no fixture asserts it either way, while the product keeps accepting it (security-first). No source shows a 74/74 admin value: only the gitleaks union shared with sk-proj-/sk-svcacct- admits it, while trufflehog openaiadmin, nuclei-templates and poltergeist admit 58/58 only (redact-secret#1013 recommends taking 74/74 out of the positive set). A marker-less sk-admin- body (the 124-character trufflehog request) is out of contract: no source shows such a key, so it is authored as a negative twin, and the product accepts a false negative for it when bare or in unquoted env, YAML or tool-call text."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/openai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openai.md",
+      "note": "families[id=openai:admin-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=openai:admin-api-key]"
+    }
+  ]
+}

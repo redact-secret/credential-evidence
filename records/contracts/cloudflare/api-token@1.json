@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "cloudflare:api-token@1",
+  "family": "cloudflare:api-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^cfut_[A-Za-z0-9]{40}[a-f0-9]{8}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "cfut_ scannable format: cfut_ prefix documented as the scannable token format; 40+8 body structure is tool-corroborated",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-17",
+      "sources": [
+        {
+          "sourceId": "developers-cloudflare-com-9c62373205",
+          "supports": "cfut_ prefix documented as the scannable token format; 40+8 body structure is tool-corroborated"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-17",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-5fe0dbd5c1",
+          "supports": "trufflehog 3.97.4: cloudflareapitoken/v2/cloudflareapitoken"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-21",
+      "sources": [
+        {
+          "sourceId": "developers-cloudflare-com-62600e2992",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "developers-cloudflare-com-9c62373205",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ad710ad4d0",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['cloudflare-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cloudflare.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cloudflare.md",
+      "note": "families[id=cloudflare:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=cloudflare:api-token]"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-heroku-oauth-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "heroku:oauth-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/heroku.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#235",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/235"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for heroku:oauth-access-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): redact-secret#312 (product PR #675) landed on the product main after 0.1.0-beta.6 and froze the 65-character HRKU-AA grammar only. #209 (research #235): changelog-items/3175 documents the 41-character HRKU-<uuid> generation as the previous length, so it is in this family's contract, not an undocumented-width variant; the AA start of the 65-character form is example- and tool-observed, not provider-stated. The pre-2024 bare-UUID generation is heroku:legacy-api-key."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'heroku-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-checked 2026-09-24 (#235, consumed by #209). Heroku documents three generations of the OAuth access token, each \"continue[s] to work … until they're regenerated\": G0, a bare UUID granted before 2024-04-01 (changelog-items/2842), which is the separate context-gated heroku-api-key-legacy contract; G1, HRKU- plus a UUID, 41 characters, granted 2024-04-01 through 2025-04-22 (changelog-items/2842, 2800, 3175; the oauth article's own response examples and heroku/cli's generated types still show it); and G2, HRKU- plus 60 characters, 65 in total, granted from 2025-04-23 (changelog-items/3175, 3176). An earlier revision of this contract called G1 an \"undocumented-width variant\"; the provider names 41 as the previous length, so `pattern` now accepts both HRKU- generations. The two pinned tools cover only G2: gitleaks 8.30.1's heroku-api-key-v2 rule (`\\b((HRKU-AA[0-9a-zA-Z_-]{58}))`, keyword hrku-aa, entropy 4, trailing delimiter) and trufflehog 3.97.4's heroku/v2 detector both match exactly HRKU-AA plus 58 bytes of [A-Za-z0-9_-]; a G1 token is an expected false negative for both (GitLab's rule, not pinned, covers G1 only). The AA start of G2 is kept in `pattern` as observed grammar (the provider's worked examples and both pinned tools), not as provider-stated grammar: trufflehog#4510 disputes it and osv-scalibr does not pin it, so no fixture asserts silence on a non-AA 65-character value. The authentication article's 40-character hex .netrc example is an undated fourth shape recorded unresolved. Refresh tokens, client secrets, grant codes and session tokens are bare UUIDs and secrets that no family claims; they are never benign controls here. redact-secret#312 (PR #675) froze the G2 grammar only on the product side."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/heroku.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/heroku.md",
+      "note": "families[id=heroku:oauth-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=heroku:oauth-access-token]"
+    }
+  ]
+}

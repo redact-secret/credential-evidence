@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-notion-integration-token",
+  "subject": {
+    "kind": "family",
+    "id": "notion:integration-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#514",
+          "url": "https://github.com/redact-secret/redact-secret/issues/514"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#729",
+          "url": "https://github.com/redact-secret/redact-secret/issues/729"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#225",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/225"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for notion:integration-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): notion-token's contract review states this current ntn_-prefixed format has no contract here; the pinned gitleaks rule targets it instead of the legacy secret_ shape. Measured as the Beta.8 arrival family notion-integration-token (#211, research #225), separate from notion:legacy-integration-token: the ntn_ prefix is provider-documented, the 11-digit + 35-character body is tool-only and provisional, and PAT/OAuth/org-bot roles that may share the prefix are not merged into it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'notion-integration-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival contract (#211, research #225, observed 2026-09-24). T2: Notion documents the ntn_ prefix (2024-09-25 rollout; secret_ tokens keep working as the separate legacy family) and advises against regex validation because the format may change. The 11-digit + 35-alphanumeric body is tool-only and traces to one contributor (gitleaks #1890 lineage) plus secretlint; flare-redact disagrees (40–50, no digit run) and Notion's own docs placeholder has no digit run. Twins therefore mutate only the prefix spelling, case, separator, a glued leading letter or a non-alphanumeric byte — never the digit run or the length. PAT, OAuth, org-bot and internal-integration roles are not merged: positives are internal-integration contexts only, and other ntn_ roles are neither positives nor controls. The pinned trufflehog 3.97.4 notion detector matches secret_ only."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/notion.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+      "note": "families[id=notion:integration-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=notion:integration-token]"
+    }
+  ]
+}

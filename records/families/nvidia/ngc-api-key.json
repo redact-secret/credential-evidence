@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "nvidia:ngc-api-key",
+  "provider": "nvidia",
+  "name": "API key (nvapi-)",
+  "description": "nvapi- + at least 60 [A-Za-z0-9_-], open-ended (provider-authored floor, R2); the 128-byte cap is product policy. NGC Personal, NGC Service and build.nvidia.com keys share the prefix.",
+  "lifecycle": "draft",
+  "currentContract": "nvidia:ngc-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#972",
+      "redact-secret/redact-secret-benchmarks#464"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/nvidia.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/nvidia.md",
+      "note": "families[id=nvidia:ngc-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=nvidia:ngc-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "nvidia-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

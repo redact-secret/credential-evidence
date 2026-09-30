@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-mailchimp-marketing-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "mailchimp:marketing-api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-25. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailchimp.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/582/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#582",
+          "url": "https://github.com/redact-secret/redact-secret/issues/582"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#697",
+          "url": "https://github.com/redact-secret/redact-secret/issues/697"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#698",
+          "url": "https://github.com/redact-secret/redact-secret/issues/698"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#699",
+          "url": "https://github.com/redact-secret/redact-secret/issues/699"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for mailchimp:marketing-api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): redact-secret#313 (product PR #678) landed on the product main after 0.1.0-beta.6; the pinned published package predates it. Mandrill (transactional) keys are a separate product and not this family."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'mailchimp-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Mailchimp's own fundamentals page (mailchimp.com/developer/marketing/docs/fundamentals/, observed 2026-09-23) states the key shape only by example — \"if your API key is 0123456789abcdef0123456789abcde-us6, then the data center subdomain is us6\" — and that example body is 31 hex bytes, documentation noise against both pinned tools' 32: trufflehog 3.97.4's mailchimp detector matches [0-9a-f]{32}-us[0-9]{1,2} anywhere, gitleaks 8.30.1's mailchimp-api-key rule a keyword-plus-assignment-gated [a-f0-9]{32}-us\\d\\d with exactly two digits. This contract adopts the one-or-two-digit range the provider's own single-digit example corroborates, so a single-digit-datacenter key is an expected gitleaks false negative. The value has a grammar (unlike twilio-auth-token's bare hex) and is scored on it, but every positive carries the same-line mailchimp keyword gitleaks and the product both require; a keyword-less key is an accepted product false negative not fixtured here, per the new-relic-license-key precedent for keyword-gated grammars. Audience/list/campaign ids are far shorter than 32 hex bytes and a bare -us<N> suffix never matches without the body. redact-secret#313 (PR #678) froze the identical grammar on the product side. Since 2026-09-24 (docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md) the claim covers us<N> data-center suffixes only: whether any other literal (keyhacks admits any [0-9a-z]{2,5}, e.g. eu6) is ever issued is not stated by Mailchimp, so no scored fixture asserts silence on it. Likewise whether the body may carry g-z letters (the 2009 staff regex and keyhacks admit [0-9a-z]; both provider examples are hex) is outside the claim: the pattern claims hex bodies only and no scored fixture asserts silence on a g-z byte."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailchimp.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailchimp.md",
+      "note": "families[id=mailchimp:marketing-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mailchimp:marketing-api-key]"
+    }
+  ]
+}

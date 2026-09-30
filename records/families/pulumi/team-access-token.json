@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "pulumi:team-access-token",
+  "provider": "pulumi",
+  "name": "Team access token",
+  "description": "Pulumi Cloud team access token; identical grammar to the personal token.",
+  "lifecycle": "draft",
+  "currentContract": "pulumi:team-access-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-21",
+    "issues": [
+      "redact-secret/redact-secret#522",
+      "redact-secret/redact-secret-benchmarks#67"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pulumi.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pulumi.md",
+      "note": "families[id=pulumi:team-access-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=pulumi:team-access-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "pulumi-access-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

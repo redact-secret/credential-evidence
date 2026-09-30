@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "developer-hashicorp-com-1ee95e81cd",
+  "sourceType": "provider-documentation",
+  "title": "developer.hashicorp.com/terraform/cloud-docs/api-docs/user-tokens",
+  "publisher": "developer.hashicorp.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://developer.hashicorp.com/terraform/cloud-docs/api-docs/user-tokens",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-21",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-providerSource, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['terraform-cloud-token'].providerSource"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/hashicorp-terraform.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-terraform.md",
+      "note": "cited by families[id=hashicorp-terraform:user-token].research.sources"
+    }
+  ]
+}

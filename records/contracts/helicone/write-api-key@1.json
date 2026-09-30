@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "helicone:write-api-key@1",
+  "family": "helicone:write-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^pk-helicone-(?:eu-)?(?:rl-)?[a-z0-9]{7}(?:-[a-z0-9]{7}){3}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "worker apiKeyRegex.ts pk- alternatives (re-checked 2026-09-28): provider validator regexes (ruling R1): pk-helicone- with optional -eu and -rl, then four 7-byte [a-z0-9] groups; the docs name pk- as a write-only key",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-helicone-helicone-92ae12e8a4",
+          "supports": "provider validator regexes (ruling R1): pk-helicone- with optional -eu and -rl, then four 7-byte [a-z0-9] groups; the docs name pk- as a write-only key"
+        }
+      ]
+    },
+    {
+      "id": "field-role-prefix",
+      "statement": "role-prefix: pk- (write-only)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-helicone-ai-d38ccdd2b1",
+          "supports": "role-prefix: pk- (write-only)"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-92ae12e8a4",
+          "supports": "role-prefix: pk- (write-only)"
+        }
+      ]
+    },
+    {
+      "id": "field-provider-segment",
+      "statement": "provider-segment: -helicone",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-helicone-helicone-92ae12e8a4",
+          "supports": "provider-segment: -helicone"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-f8ce889eaf",
+          "supports": "provider-segment: -helicone"
+        }
+      ]
+    },
+    {
+      "id": "field-optional-segments",
+      "statement": "optional-segments: -eu then -rl, each optional, in that order",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-helicone-ai-d38ccdd2b1",
+          "supports": "eu role"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-92ae12e8a4",
+          "supports": "-rl added 2025-04-29; re-checked 2026-09-28"
+        }
+      ]
+    },
+    {
+      "id": "field-groups",
+      "statement": "groups: - + four groups of exactly 7 [a-z0-9], joined by -",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-helicone-helicone-92ae12e8a4",
+          "supports": "groups: - + four groups of exactly 7 [a-z0-9], joined by -"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-f8ce889eaf",
+          "supports": "base32, lowercased"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet-narrowing",
+      "statement": "alphabet-narrowing: the generator library emits RFC 4648 base32 ([a-z2-7], last byte of each group in {a,i,q,y}) (Not enforced and not asserted by any twin: positives stay inside base32 as a generator hint only.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R8: no alphabet narrowing from a third-party library",
+          "locator": "#issuecomment-5871306275"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed, so a fifth group or glued suffix is rejected; / delimits the gateway URL-path form",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e1d926e2d6",
+          "supports": "implementation notes, URL path"
+        }
+      ]
+    },
+    {
+      "id": "field-exact-width-placeholder",
+      "statement": "exact-width-placeholder: pk-helicone-xxxxxxx-xxxxxxx-xxxxxxx-xxxxxxx has the exact shape and is claimed (the #867 placeholder precedent) (An accepted false positive: authored neither as a positive nor as a benign control.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e1d926e2d6",
+          "supports": "benign list: accepted behavior, not benign"
+        }
+      ]
+    },
+    {
+      "id": "field-unattributable-shapes",
+      "statement": "unattributable-shapes: the legacy bare sk- + 4x7, customer-portal -cp- keys and -gov combinations carry no helicone token or are unresolved (Helicone credentials outside the contract: authored as twins, never as benign controls. -gov is not authored.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-helicone-helicone-92ae12e8a4",
+          "supports": "unattributable-shapes: the legacy bare sk- + 4x7, customer-portal -cp- keys and -gov combinations carry no helicone token or are unresolved"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-f8ce889eaf",
+          "supports": "-gov produced but matched by no worker regex"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no helicone rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no helicone detector directory"
+        }
+      ]
+    },
+    {
+      "id": "field-pk-policy",
+      "statement": "pk-policy: pk- is a credential with write permission, not a public identifier; placing it in a URL path is a transport convenience",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-helicone-ai-d38ccdd2b1",
+          "supports": "pk-policy: pk- is a credential with write permission, not a public identifier; placing it in a URL path is a transport convenience"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e1d926e2d6",
+          "supports": "decision: pk- policy"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 12 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-helicone-ai-d38ccdd2b1",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-5c6d36b08a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-5d52038da4",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-92ae12e8a4",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-helicone-helicone-f8ce889eaf",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-600e29e0fd",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-8f9e36f7ba",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-fb496527b7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e1d926e2d6",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-helicone-helicone-5d52038da4",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6ff31e60b4",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-helicone-ai-d38ccdd2b1",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-e1d926e2d6",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:alphabet-narrowing",
+      "note": "claim field-alphabet-narrowing; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:exact-width-placeholder",
+      "note": "claim field-exact-width-placeholder; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:groups",
+      "note": "claim field-groups; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:optional-segments",
+      "note": "claim field-optional-segments; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:pk-policy",
+      "note": "claim field-pk-policy; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:provider-segment",
+      "note": "claim field-provider-segment; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:role-prefix",
+      "note": "claim field-role-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "helicone-write-api-key:unattributable-shapes",
+      "note": "claim field-unattributable-shapes; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434e.ts",
+      "note": "contracts['helicone-write-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/helicone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/helicone.md",
+      "note": "families[id=helicone:write-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=helicone:write-api-key]"
+    }
+  ]
+}

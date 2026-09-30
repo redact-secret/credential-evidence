@@ -1,0 +1,289 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "sonarqube:user-token@1",
+  "family": "sonarqube:user-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^squ_[0-9a-f]{40}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "SonarSource/sonarqube TokenGeneratorImpl.java (9ec5e86, last changed 2026-04-17) and TokenType.java: \"sq\" + type letter + \"_\" + Hex.encodeHexString(20 SecureRandom bytes); re-checked 2026-09-29: squ_ + exactly 40 lowercase hex, 44 in all; no checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-684105939d",
+          "supports": "squ_ + exactly 40 lowercase hex, 44 in all; no checksum",
+          "locator": "#L29-L46"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: sonar-api-token (keyword-gated; (?:squ_|sqp_|sqa_)?[a-z0-9=_-]{40})"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: squ_ (the user token type letter u)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-684105939d",
+          "supports": "SONARQUBE_TOKEN_PREFIX = \"sq\" + tokenType.getIdentifier() + \"_\"",
+          "locator": "#L29-L46"
+        },
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-d99e2b1105",
+          "supports": "u user, a global analysis, b project badge, p project analysis",
+          "locator": "#L24-L27"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 40 lowercase hex [0-9a-f] (20 SecureRandom bytes, Hex.encodeHexString); 44 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-684105939d",
+          "supports": "body: exactly 40 lowercase hex [0-9a-f] (20 SecureRandom bytes, Hex.encodeHexString); 44 in all",
+          "locator": "#L29-L46"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a token glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed (Handoff boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-bc73d9e981",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: SONAR_TOKEN; sonar-scanner -Dsonar.token= (and the legacy -Dsonar.login=); sonar.token in sonar-project.properties; Gradle systemProp.sonar.token",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-bc73d9e981",
+          "supports": "test axes"
+        }
+      ]
+    },
+    {
+      "id": "field-excluded-siblings",
+      "statement": "excluded-siblings: sqb_ + 40 hex project badge tokens are read-only and published in README badge URLs (Q5); unprefixed 40-hex legacy tokens (before 9.5) are SHA-1 shaped; SonarQube Cloud sqco_ is another product (sqb_ in a badge URL and a bare 40-hex git SHA are benign controls; legacy tokens and sqco_ are authored neither way.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Q5",
+          "locator": "#ruling-questions-for-the-maintainer"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-bc73d9e981",
+          "supports": "excluded shapes"
+        },
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-d99e2b1105",
+          "supports": "b project badge",
+          "locator": "#L24-L27"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: gitleaks 8.30.1 sonar-api-token is keyword-gated on sonar.login/sonar.token-style names with an optional squ_|sqp_|sqa_ prefix before [a-z0-9=_-]{40}: it lags on bare prose, chat and JSON \"token\" and reads every prefix under one label (mapped to sonarqube-token, so an analysis-token finding reads as co-detection). trufflehog 3.97.4 SonarCloud v1 wants a word-bounded bare [0-9a-z]{40} near \"sonar\" (legacy tokens only; it cannot match inside squ_ + 40) and v2 reads sqco_ + 59, so it lags on every positive and stays unmapped",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "sonar-api-token"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "sonarcloud/v2: sqco_"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-e7edcb0e26",
+          "supports": "SonarCloud v1"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 10 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#ruling-questions-for-the-maintainer"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5900447016"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b2f613035f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-bc73d9e981",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-684105939d",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L29-L46"
+        },
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-d99e2b1105",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L24-L27"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-bc73d9e981",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-684105939d",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L29-L46"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-bc73d9e981",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-sonarsource-sonarqube-684105939d",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L29-L46"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "sonarqube-token:body",
+      "note": "claim field-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sonarqube-token:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sonarqube-token:excluded-siblings",
+      "note": "claim field-excluded-siblings; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sonarqube-token:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sonarqube-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sonarqube-token:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/528c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/528c.ts",
+      "note": "contracts['sonarqube-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sonarqube.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sonarqube.md",
+      "note": "families[id=sonarqube:user-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=sonarqube:user-token]"
+    }
+  ]
+}

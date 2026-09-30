@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-daytona-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "daytona:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/daytona.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/daytona.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#970",
+          "url": "https://github.com/redact-secret/redact-secret/issues/970"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#464",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/464"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for daytona:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family daytona-api-key (#464, product redact-secret#970), contract in benchmarks/lib/beta8/464a.ts from the #860 handoff daytona.md. T1 as of v0.190.0 (R9, dated provider code); provider code went private after that release. Neither pinned scanner has a Daytona rule. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'daytona-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#464, product redact-secret#970; #860 handoff daytona.md, READY by ruling R9). T1 as of v0.190.0 (2026-06-23): the provider generator returns dtn_ + 32 random bytes hex-encoded, and the same inline form has existed since 2025-04-28 (R1). Core development moved to a private codebase in June 2026, so nothing public shows the live cloud still issues the shape; R9 extends R3's date rule to provider code, so the contract stands as of that date until a newer provider source contradicts it. Every later public source (the daytona/clients OpenAPI and CLI, helm-charts scripts, SDK 0.218.0, the docs dump) is prefix-only and none contradicts it. Without the prefix the body is SHA-256 shaped, so the prefix is load-bearing. The same generator mints region proxy, SSH-gateway and runner keys, which are lexically identical. Excluded: dtn_secret_ Secrets-feature placeholders, dtn_artifact_ stdout markers, unprefixed self-provisioned runner keys (openssl rand -hex 32), legacy self-hosted base64-UUID keys, caller-supplied values, DAYTONA_JWT_TOKEN (jwt keeps it) and dtn_*** or short OpenAPI placeholders. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1037)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/daytona.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/daytona.md",
+      "note": "families[id=daytona:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=daytona:api-key]"
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "xai:api-key@1",
+  "family": "xai:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^xai-[A-Za-z0-9_-]{80}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-4e12624b83",
+          "supports": "trufflehog 3.97.4: xAI: \\b(xai-[0-9a-zA-Z_]{80})\\b"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: xai-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-x-ai-11243dc8b9",
+          "supports": "prefix: xai-"
+        },
+        {
+          "sourceId": "docs-x-ai-c34a6dcd60",
+          "supports": "prefix: xai-"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body-length: 80 characters after xai- (Documented by example plus tool corroboration, not a provider-stated grammar; the contract is T2 for that reason.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-x-ai-c34a6dcd60",
+          "supports": "one example value in the API-key response schema; the prose states no length"
+        },
+        {
+          "sourceId": "github-com-berriai-litellm-b23fc78a80",
+          "supports": "community: a masked real key shows an 80-character body"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-4e12624b83",
+          "supports": "tool: {80}"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body-alphabet: [A-Za-z0-9] in every positive; TruffleHog admits _, betterleaks admits _ and - (The contract pattern admits _ and - so no control asserts silence on them.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-x-ai-c34a6dcd60",
+          "supports": "the example body is alphanumeric"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-4e12624b83",
+          "supports": "body-alphabet: [A-Za-z0-9] in every positive; TruffleHog admits _, betterleaks admits _ and -"
+        }
+      ]
+    },
+    {
+      "id": "field-right-boundary",
+      "statement": "right-boundary: Behaviour on an 81st word character: TruffleHog \\b rejects, osv-scalibr truncates to 80, Kingfisher anchors exactly",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-google-osv-scalibr-5c8e1472ab",
+          "supports": "right-boundary: Behaviour on an 81st word character: TruffleHog \\b rejects, osv-scalibr truncates to 80, Kingfisher anchors exactly"
+        }
+      ]
+    },
+    {
+      "id": "field-management-key",
+      "statement": "management-key: Management keys (XAI_MANAGEMENT_KEY) are a separate credential; tools report an xai-token- prefix (Not a member of this family and never used as a benign control of it (a real secret).)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-x-ai-a23d347f1d",
+          "supports": "provider: separate credential, no format"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-5c8e1472ab",
+          "supports": "tool: xai-token-[A-Za-z0-9]{80}"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-x-ai-11243dc8b9",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-x-ai-c34a6dcd60",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-berriai-litellm-b23fc78a80",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-x-ai-11243dc8b9",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-x-ai-a23d347f1d",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-x-ai-c34a6dcd60",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-x-ai-11243dc8b9",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "docs-x-ai-c34a6dcd60",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "xai-api-key:body-alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "xai-api-key:body-length",
+      "note": "claim field-body-length; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "xai-api-key:management-key",
+      "note": "claim field-management-key; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "xai-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "xai-api-key:right-boundary",
+      "note": "claim field-right-boundary; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/208.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/208.ts",
+      "note": "contracts['xai-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/xai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/xai.md",
+      "note": "families[id=xai:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=xai:api-key]"
+    }
+  ]
+}

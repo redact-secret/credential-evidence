@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-aws-sts-temporary-access-key",
+  "subject": {
+    "kind": "family",
+    "id": "aws:sts-temporary-access-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/4fb78827f1ddf5b3106f25130ca510a836ada186/docs/audits/evidence/1012/aws-sts-temporary-access-key.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "4fb78827f1ddf5b3106f25130ca510a836ada186"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1012",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1012"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1027",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1027"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#473",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/473"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#528",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/528"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for aws:sts-temporary-access-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Measured as the Beta.12 unscored arrival family aws-sts-temporary-access-key (benchmarks/lib/beta8/1012d.ts; #1012 research, T2: ASIA + exactly 16 [A-Z0-9]). The product claims ASIA inside aws-access-key under the shared aws_access_key_id finding type (redact-secret#1027), so its findings carry no family evidence of their own and no detector is mapped here; the registry aws-access-key contract stays AKIA-only. A bare ASIA id is an identifier and scores as project policy."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'aws-sts-temporary-access-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#1012 READY-T2; product redact-secret#1027, which claims ASIA inside aws-access-key under aws_access_key_id). A temporary (AWS STS) access key id: an identifier AWS says is \"unique only in combination with the secret access key and the session token\", so a bare id scores as project policy and this contract fixes its grammar only. The ASIA prefix is T1 (the IAM identifier-prefix table and GetAccessKeyInfo). The 16-character [A-Z0-9] body is T2: the AWS AssumeRole example (R5), AWS-owned ferret-scan (R2 not applied) and AWS-merged git-secrets, and peers from Truffle Security, gitleaks, Praetorian and Google. Contradictions bounded by the research record: [A-Z0-9] vs [A-Z2-7] (the wider class is kept; R8 forbids narrowing from a third-party rule) and 16–128 (API) vs exactly 20 (every example and rule; 20 is claimed). Excluded: ids of 17–128 characters or with lowercase, ABIA and ACCA and resource ids (AIDA, AROA, …), and the session token. The AWS docs EXAMPLE ids are authored neither way."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+      "note": "families[id=aws:sts-temporary-access-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=aws:sts-temporary-access-key]"
+    }
+  ]
+}

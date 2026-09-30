@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "slack:app-level-token",
+  "provider": "slack",
+  "name": "App-level token",
+  "description": "App-level token, prefixed xapp-.",
+  "lifecycle": "draft",
+  "currentContract": "slack:app-level-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1013",
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret#729",
+      "redact-secret/redact-secret-benchmarks#222",
+      "redact-secret/redact-secret-benchmarks#367"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:app-level-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=slack:app-level-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "slack-app-level-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

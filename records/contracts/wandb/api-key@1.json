@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "wandb:api-key@1",
+  "family": "wandb:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^wandb_v1_[A-Za-z0-9_]{76,78}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "wandb SDK validation.py at 98f93d6 ([\\w-]+, 40+; \"may only contain the letters A-Z, digits and underscores\"), the wandb_v1_ weave-claude-code test constant (R5), #10688 test keys of 86, docs \"about 86 characters\" (re-checked 2026-09-28): wandb_v1_ + [A-Za-z0-9_] to about 86 in all; every provider test fixture of a new key is exactly 86; no separator is required",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-wandb-wandb-361e874cba",
+          "supports": "wandb_v1_ + [A-Za-z0-9_] to about 86 in all; every provider test fixture of a new key is exactly 86; no separator is required",
+          "locator": "#L26-L63"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-345593bf93",
+          "supports": "trufflehog 3.97.4: Weights & Biases v2 (feature-gated, off by default): \\b(wandb_v1_[A-Za-z0-9]{27}_[A-Za-z0-9]{49})\\b"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: wandb_v1_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R5",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-wandb-weave-claude-code-4d8d66053e",
+          "supports": "W&B-authored test constant, 44 characters, placeholder-grade: prefix only",
+          "locator": "#L13"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: [A-Za-z0-9_]; a - is only the on-prem <host>- separator",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-361e874cba",
+          "supports": "fullmatch [\\w-]+ and the letters/digits/underscores error text",
+          "locator": "#L26-L63"
+        }
+      ]
+    },
+    {
+      "id": "field-total-length",
+      "statement": "total-length: about 86; exactly 86 in every provider test fixture of a new key (Positives carry 85, 86 and 87 (86 in most). No length twin is authored: the tolerant range is the product's, and the benchmark cannot prove any length is not a key.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-wandb-ai-8a5e4c6e11",
+          "supports": "\"about 86 characters\""
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b615988d82",
+          "supports": "orchestrator decision: a bounded tolerant range around 86"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-39f3efd61a",
+          "supports": "validator tests with keys of 39, 40 and 86"
+        }
+      ]
+    },
+    {
+      "id": "field-inner-split",
+      "statement": "inner-split: an _ after 27 body characters (the Key ID) (Positives carry both a split body and one with no inner _; neither is asserted as a negative.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2d045915ae",
+          "supports": "scanner-only, not required"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-345593bf93",
+          "supports": "27/_/49"
+        }
+      ]
+    },
+    {
+      "id": "field-host-prefix",
+      "statement": "host-prefix: self-managed keys are <host>-<key>; the host label is public (Authored as an envelope: the secret span is the wandb_v1_ key.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2d045915ae",
+          "supports": "local- + 86 in the Weave fixtures"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-361e874cba",
+          "supports": "dashes are allowed only because <host>- is split off",
+          "locator": "#L26-L63"
+        }
+      ]
+    },
+    {
+      "id": "field-other-versions",
+      "statement": "other-versions: whether a wandb_v2_ or another version exists (No fixture asserts silence on another version.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2d045915ae",
+          "supports": "a future wandb_v2_ is an accepted false negative"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-key",
+      "statement": "legacy-key: the legacy key is 40 lowercase hex (optionally <host>- + 40), with no anchor (Not this family. A bare 40-hex git SHA is a control; a legacy key under WANDB_API_KEY= is not authored either way.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b3c4aa3686",
+          "supports": "keyword-gated [0-9a-f]{40}"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-361e874cba",
+          "supports": "40+",
+          "locator": "#L26-L63"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: the WANDB_API_KEY environment variable, ~/.netrc for api.wandb.ai, sent as Basic api:<key>",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-wandb-ai-db1d8021d0",
+          "supports": "transport: the WANDB_API_KEY environment variable, ~/.netrc for api.wandb.ai, sent as Basic api:<key>"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: trufflehog 3.97.4 registers only the keyword-gated legacy v1 rule by default (v2 is feature-gated); gitleaks 8.30.1 has no W&B rule",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no wandb rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-b3c4aa3686",
+          "supports": "peer-lag: trufflehog 3.97.4 registers only the keyword-gated legacy v1 rule by default (v2 is feature-gated); gitleaks 8.30.1 has no W&B rule"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 12 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-wandb-ai-8a5e4c6e11",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-wandb-ai-db1d8021d0",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2d045915ae",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7526f66796",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-b615988d82",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-dc70f447d7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-361e874cba",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L26-L63"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-39f3efd61a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-wandb-weave-claude-code-4d8d66053e",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L13"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 5 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-wandb-ai-8a5e4c6e11",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-5b8a0aca77",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-361e874cba",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L26-L63"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-39f3efd61a",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-wandb-weave-claude-code-4d8d66053e",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L13"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "docs-wandb-ai-8a5e4c6e11",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-wandb-wandb-361e874cba",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L26-L63"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:host-prefix",
+      "note": "claim field-host-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:inner-split",
+      "note": "claim field-inner-split; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:legacy-key",
+      "note": "claim field-legacy-key; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:other-versions",
+      "note": "claim field-other-versions; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:total-length",
+      "note": "claim field-total-length; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "wandb-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/436f.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/436f.ts",
+      "note": "contracts['wandb-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/wandb.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/wandb.md",
+      "note": "families[id=wandb:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=wandb:api-key]"
+    }
+  ]
+}

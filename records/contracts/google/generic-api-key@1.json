@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "google:generic-api-key@1",
+  "family": "google:generic-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^AIza[A-Za-z0-9_-]{35}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "Google Cloud API key example: the provider page identifies the exposed key_string as an API key and shows an AIza-prefixed example; the 35-character suffix and alphabet remain gitleaks-corroborated",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-cloud-google-com-4b6eb8032c",
+          "supports": "the provider page identifies the exposed key_string as an API key and shows an AIza-prefixed example; the 35-character suffix and alphabet remain gitleaks-corroborated"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: AIza (The T1 tier rests on a single provider example (the supabase-management by-example precedent, redact-secret#642), the weakest basis of the seven families.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-cloud-google-com-4b6eb8032c",
+          "supports": "one AIza-prefixed example"
+        }
+      ]
+    },
+    {
+      "id": "field-total-length",
+      "statement": "total-length: 39 characters",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-cloud-google-com-4b6eb8032c",
+          "supports": "total-length: 39 characters"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: 35 characters of [A-Za-z0-9_-]",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "body: 35 characters of [A-Za-z0-9_-]"
+        }
+      ]
+    },
+    {
+      "id": "field-aq-dot-format",
+      "statement": "aq-dot-format: a newer AQ.-prefixed key format (Not fixtured in either direction.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-541c4d89f6",
+          "supports": "unconfirmed community reports"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-cloud-google-com-4b6eb8032c",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-991482f3da",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "google-api-key:aq-dot-format",
+      "note": "claim field-aq-dot-format; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "google-api-key:body",
+      "note": "claim field-body; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "google-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "google-api-key:total-length",
+      "note": "claim field-total-length; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['google-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/google.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/google.md",
+      "note": "families[id=google:generic-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=google:generic-api-key]"
+    }
+  ]
+}

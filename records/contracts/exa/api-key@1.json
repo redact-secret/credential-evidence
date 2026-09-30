@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "exa:api-key@1",
+  "family": "exa:api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (Team Management API key id, teamId and userId (format: uuid)): Exa documents the key id, the team id and the user id as UUIDs, and lists a key's id, name, rate limit and budget in its response with no field for the secret value. Context twins keep the UUID-shaped value and rename the assignment to one of those identifier names (EXA_KEY_ID, EXA_API_KEY_ID, EXA_TEAM_ID) or a request id, so silence follows from the documented identifier role",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "exa-ai-0a5369460f",
+          "supports": "Exa documents the key id, the team id and the user id as UUIDs, and lists a key's id, name, rate limit and budget in its response with no field for the secret value. Context twins keep the UUID-shaped value and rename the assignment to one of those identifier names (EXA_KEY_ID, EXA_API_KEY_ID, EXA_TEAM_ID) or a request id, so silence follows from the documented identifier role"
+        }
+      ]
+    },
+    {
+      "id": "field-secret-shape",
+      "statement": "secret-shape: no identifying prefix, length or alphabet is evidenced (Not claimed. A UUID-shaped carrier value is used only because one weak fragment suggests it.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-exa-labs-exa-py-82670e87d5",
+          "supports": "the SDK does no validation"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-14df00ae0b",
+          "supports": "no provider, tool or community source states a shape"
+        }
+      ]
+    },
+    {
+      "id": "field-identifier-fields",
+      "statement": "identifier-fields: key id, teamId and userId are UUIDs and public identifiers (Backs the id-like sibling twins.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "exa-ai-0a5369460f",
+          "supports": "format: uuid"
+        },
+        {
+          "sourceId": "exa-ai-52e8ddacd7",
+          "supports": "identifier-fields: key id, teamId and userId are UUIDs and public identifiers"
+        }
+      ]
+    },
+    {
+      "id": "field-context",
+      "statement": "context: EXA_API_KEY, the api_key constructor argument, x-api-key or Authorization: Bearer, and the hosted-MCP exaApiKey query parameter",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-exa-labs-exa-mcp-server-084da3f431",
+          "supports": "exaApiKey query, Bearer or x-api-key"
+        },
+        {
+          "sourceId": "github-com-exa-labs-exa-py-82670e87d5",
+          "supports": "reads EXA_API_KEY, sends x-api-key"
+        }
+      ]
+    },
+    {
+      "id": "field-service-keys",
+      "statement": "service-keys: service keys created through the Team Management API are a second credential class of unknown shape (Not claimed.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "exa-ai-52e8ddacd7",
+          "supports": "service-keys: service keys created through the Team Management API are a second credential class of unknown shape"
+        }
+      ]
+    },
+    {
+      "id": "field-exa-prefix",
+      "statement": "exa-prefix: an exa- prefix (Not evidence; not asserted either way.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-14df00ae0b",
+          "supports": "row 8: an untraceable search-summary claim, contradicted by the provider docs"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 6 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "exa-ai-52e8ddacd7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "exa-ai-91bc8f7a79",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-exa-labs-exa-mcp-server-084da3f431",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-exa-labs-exa-py-82670e87d5",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-14df00ae0b",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "legacy-contract-tier",
+      "statement": "The legacy contract records no adequate evidence for a grammar (tier T0).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": []
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict not-found, tier T0) cited 0 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": []
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "exa-ai-0a5369460f",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-exa-labs-exa-py-82670e87d5",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "exa-api-key:context",
+      "note": "claim field-context; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "exa-api-key:exa-prefix",
+      "note": "claim field-exa-prefix; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "exa-api-key:identifier-fields",
+      "note": "claim field-identifier-fields; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "exa-api-key:secret-shape",
+      "note": "claim field-secret-shape; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "exa-api-key:service-keys",
+      "note": "claim field-service-keys; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384e.ts",
+      "note": "contracts['exa-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/exa.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/exa.md",
+      "note": "families[id=exa:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=exa:api-key]"
+    }
+  ]
+}

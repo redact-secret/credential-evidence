@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-cohere-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "cohere:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-27. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cohere.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#782",
+          "url": "https://github.com/redact-secret/redact-secret/issues/782"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#868",
+          "url": "https://github.com/redact-secret/redact-secret/issues/868"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#932",
+          "url": "https://github.com/redact-secret/redact-secret/issues/932"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for cohere:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector cohere-api-key since redact-secret#868 (registry pinned at cfe2aec); graduated from a Beta.10 arrival family (#384, research #782), contract in benchmarks/lib/beta8/384e.ts. T2, context-gated, no bare-value claim."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'cohere-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Context-gated arrival family (#384, product redact-secret#868; research #782). No Cohere page or SDK code states a prefix, length or alphabet, and no source describes a shape difference between trial and production keys. The 40-alphanumeric shape is one pinned scanner rule: gitleaks 8.30.1 cohere-api-token, which needs a cohere or CO_API_KEY name before an assignment and calls the length an inference. TruffleHog 3.97.4 has no Cohere detector in the file tree checked. GitGuardian reports the detector as not prefixed. The value is recognised only beside a same-line cohere or CO_API_KEY name, a Cohere host or SDK constructor, so its positives score as project policy. A single blog says keys begin co-; it contradicts the two sources above and is not adopted, so no co- twin is authored (a co- key would still contain a valid 40-character run)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cohere.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cohere.md",
+      "note": "families[id=cohere:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=cohere:api-key]"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-together-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "together:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/together.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/together-api-key.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#783",
+          "url": "https://github.com/redact-secret/redact-secret/issues/783"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#867",
+          "url": "https://github.com/redact-secret/redact-secret/issues/867"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for together:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector together-ai-api-key since redact-secret#867 (registry pinned at cfe2aec); graduated from a Beta.10 arrival family (#384, research #783), contract in benchmarks/lib/beta8/384d.ts. T2; no pinned scanner has a Together rule (betterleaks only, a gitleaks lineage). The arrival id together-api-key was renamed to the detector id."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'together-ai-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#384, product redact-secret#867; research #783). T2 pending hands-on corroboration: no Together page, staff statement or SDK code states the tgp_v1_ prefix, a length or an alphabet. The shape rests on one scanner rule (betterleaks, with a negative test for a 32-character body and for tgp_v2_), a third-party blog that says keys look like tgp_v1_..., and a first-page GitHub code-search measurement in which the four full-length bodies were 43 base64url characters mixing upper case, lower case, digits, - and _. Neither pinned scanner has a Together rule. Together documents a second, deprecated legacy key population whose format is unknown, so legacy keys are not claimed and stay generic-token-only. Whether a tgp_v2_ exists is unknown, so no fixture asserts silence on it."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/together.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/together.md",
+      "note": "families[id=together:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=together:api-key]"
+    }
+  ]
+}

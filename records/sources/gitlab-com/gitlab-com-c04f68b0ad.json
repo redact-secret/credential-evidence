@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "gitlab-com-c04f68b0ad",
+  "sourceType": "provider-sdk-source",
+  "title": "gitlab.com/gitlab-org/gitlab/-/raw/master/lib/authn/token_field/base.rb",
+  "publisher": "gitlab.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://gitlab.com/gitlab-org/gitlab/-/raw/master/lib/authn/token_field/base.rb",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-25",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/212.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/212.ts",
+      "note": "cited by contracts['gitlab-runner-authentication-token'].fields"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "cited by families[id=gitlab:runner-authentication-token].research.sources"
+    }
+  ]
+}

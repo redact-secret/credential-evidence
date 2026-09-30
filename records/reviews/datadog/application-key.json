@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-datadog-application-key",
+  "subject": {
+    "kind": "family",
+    "id": "datadog:application-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-23. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/645/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#645",
+          "url": "https://github.com/redact-secret/redact-secret/issues/645"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#671",
+          "url": "https://github.com/redact-secret/redact-secret/issues/671"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#162",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/162"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for datadog:application-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): redact-secret#671 (product PR #679) split the legacy bare-hex generation into datadog:application-key-legacy; this family keeps the ddapp_ shape only."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'datadog-application-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-checked 2026-09-22 (redact-secret#162, product research at redact-secret#645): the legacy bare 40-character shape, gated on a same-line datadog/dd marker, is unchanged and corroborated only by TruffleHog's datadogtoken detector and gitleaks's datadog-access-token rule, neither of which accepts ddapp_. The current shape carries its own identifying grammar: a ddapp_ prefix Datadog documents on its own domain (personal-access-tokens and service-access-tokens comparison tables), plus a 34-character body corroborated only by Datadog-owned code (the Agent app-key validator, the Agent scrubber, CloudFormation and ARM templates) and AWS's partner doc. The Agent scrubber alone allows an underscore inside the body where every other Datadog-owned validator, and every corroborating source, states pure alphanumeric; that source is read as lenient-by-design, not as the real grammar, so `pattern` stays alphanumeric-only. Neither pinned scanner registers any rule for this shape. Re-checked 2026-09-23 (redact-secret#671, PR #679): the product split the legacy bare-hex generation into its own datadog-application-key-legacy detector, so that shape is the separate datadog-application-key-legacy contract here and this family now carries the ddapp_ shape only."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/datadog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+      "note": "families[id=datadog:application-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=datadog:application-key]"
+    }
+  ]
+}

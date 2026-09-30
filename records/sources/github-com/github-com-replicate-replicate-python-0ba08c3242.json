@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-replicate-replicate-python-0ba08c3242",
+  "sourceType": "other",
+  "title": "replicate/replicate-python @ main: replicate/client.py",
+  "publisher": "replicate/replicate-python",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/replicate/replicate-python",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-reference; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/208.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/208.ts",
+      "note": "cited by contracts['replicate-api-token'].references"
+    },
+    {
+      "system": "legacy-url",
+      "id": "https://github.com/replicate/replicate-python/blob/main/replicate/client.py",
+      "note": "Legacy link names ref 'main', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL."
+    }
+  ],
+  "notes": "Legacy URL pins ref 'main', which can move. Resolve it to a commit permalink before a reviewed claim depends on it."
+}

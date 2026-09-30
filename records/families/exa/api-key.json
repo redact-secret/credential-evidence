@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "exa:api-key",
+  "provider": "exa",
+  "name": "API key (no evidenced shape)",
+  "description": "No identifying prefix, length or alphabet is evidenced; only the key id, team id and user id are documented, as UUIDs.",
+  "lifecycle": "draft",
+  "currentContract": null,
+  "research": {
+    "state": "not-found",
+    "researchedAt": "2026-09-27",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "No source states a prefix, length or alphabet for the secret; one issued key would show whether it is a UUID (checklist in"
+      }
+    ],
+    "issues": [
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#787",
+      "redact-secret/redact-secret#866",
+      "redact-secret/redact-secret#868",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/exa.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/exa.md",
+      "note": "families[id=exa:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=exa:api-key]"
+    }
+  ]
+}

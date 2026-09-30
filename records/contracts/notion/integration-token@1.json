@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "notion:integration-token@1",
+  "family": "notion:integration-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^ntn_[0-9]{11}[A-Za-z0-9]{35}$"
+  },
+  "claims": [
+    {
+      "id": "candidate-source",
+      "statement": "Candidate provider source, not accepted as the provider source by the legacy contract (2024-09 Public API token prefix migration): the ntn_ prefix for newly generated tokens and the secret_ legacy relationship; no body grammar",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "developers-notion-com-5957290dd7",
+          "supports": "the ntn_ prefix for newly generated tokens and the secret_ legacy relationship; no body grammar"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; secretlint).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: notion-api-token"
+        },
+        {
+          "sourceId": "github-com-secretlint-secretlint-6f9fda9bdc",
+          "supports": "secretlint: secretlint-rule-notion"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: Newly generated Public API tokens begin with ntn_ from 2024-09-25; existing secret_ tokens keep working. (secret_ is the separate legacy family notion:legacy-integration-token (registry notion-token); it is never a control or twin here.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "developers-notion-com-5957290dd7",
+          "supports": "Changelog 2024-09-11. Also: Notion \"strongly advise[s] against\" regex identification; the format \"may change over time\"; treat tokens as opaque."
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: After ntn_: 11 digits then 35 alphanumerics (50 characters total). (Provider warns against exactly this kind of grammar. Positives use 11+35 so they satisfy gitleaks, secretlint, flare-redact (46 in 40–50), makenotion/lore's ntn_[A-Za-z0-9_-]{20,} redaction and the product; no twin mutates the digit run or the length.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-flare-collection-flare-redact-239ebf6404",
+          "supports": "Disagrees: ntn_[A-Za-z0-9]{40,50} with no digit run.",
+          "locator": "#L1472"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-1e74970108",
+          "supports": "Single contributor's samples; Betterleaks/Kingfisher/TruffleHog PR #4318 share the lineage (not independent)."
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-f86346b52b",
+          "supports": "gitleaks 8.30.1 notion-api-token: \\b(ntn_[0-9]{11}[A-Za-z0-9]{32}[A-Za-z0-9]{3})(?:[\\x60'\"\\s;]|\\\\[nr]|$), entropy 4.",
+          "locator": "#L2652"
+        },
+        {
+          "sourceId": "github-com-secretlint-secretlint-6f9fda9bdc",
+          "supports": "(?<!\\p{L})ntn_[0-9]{11}[A-Za-z0-9]{35}(?![A-Za-z0-9])."
+        }
+      ]
+    },
+    {
+      "id": "field-digit-run-semantics",
+      "statement": "digit-run-semantics: What the 11-digit run is (timestamp, per-workspace/bot id, random).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-1e74970108",
+          "supports": "\"11-digit timestamp\" claim; 11 digits fits neither epoch seconds nor ms; the three samples share one lead."
+        }
+      ]
+    },
+    {
+      "id": "field-role",
+      "statement": "role: Whether internal-integration, PAT, ntn-CLI and OAuth access tokens share one ntn_ grammar. (Roles are not merged: every positive is an internal-integration context (NOTION_TOKEN / NOTION_API_KEY / installation access token). PAT, OAuth and org-bot tokens are secrets of undetermined grammar, so they are neither positives nor controls; development_ntn_ is recorded, never asserted either way.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "developers-notion-com-4f6ca53427",
+          "supports": "PATs exist (2026); their prefix appears only in placeholders (ntn_***)."
+        },
+        {
+          "sourceId": "github-com-makenotion-lore-aa6e8eedfa",
+          "supports": "ntn_ PATs and CLI tokens are \"indistinguishable by prefix\"; development_ntn_ for dev-environment tokens."
+        },
+        {
+          "sourceId": "github-com-makenotion-notion-mcp-server-37ee8fba30",
+          "supports": "Comment: ntn_ for \"current internal & OAuth integration tokens\"."
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 3 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "developers-notion-com-a3b79d222a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-makenotion-lore-aa6e8eedfa",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-bdb36a8d4e",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "developers-notion-com-5957290dd7",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-f86346b52b",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L2652"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-efd0d58c50",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "developers-notion-com-5957290dd7",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "notion-integration-token:body",
+      "note": "claim field-body; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "notion-integration-token:digit-run-semantics",
+      "note": "claim field-digit-run-semantics; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "notion-integration-token:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "notion-integration-token:role",
+      "note": "claim field-role; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/211.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/211.ts",
+      "note": "contracts['notion-integration-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/notion.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+      "note": "families[id=notion:integration-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=notion:integration-token]"
+    }
+  ]
+}

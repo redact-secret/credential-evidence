@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "perplexity:api-key@1",
+  "family": "perplexity:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^pplx-[A-Za-z0-9]{48}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: gitleaks 8.30.1).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: pplx- (lowercase, one dash)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-perplexity-ai-62dafa6ee4",
+          "supports": "auth_token response field shown with a pplx- value; the example body is a shortened placeholder"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body length: exactly 48 characters after the prefix (53 total) (Tool-corroborated, not provider-stated. flare-redact perplexity_key uses {40,60}; the 47/49 twins record the peer difference, not a provider exclusion.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "perplexity-api-key: pplx-[a-zA-Z0-9]{48}"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-02380fc07b",
+          "supports": "maxTokenLength 53; probably shares lineage with gitleaks"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body alphabet: [A-Za-z0-9] (No provider statement; the official pplx CLI accepts any printable ASCII.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "body alphabet: [A-Za-z0-9]"
+        }
+      ]
+    },
+    {
+      "id": "field-analytics-key-and-mcp-oauth-token-shapes",
+      "statement": "analytics-key and MCP OAuth token shapes: undocumented; may or may not share pplx-",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-perplexity-ai-f7a324637e",
+          "supports": "analytics-key and MCP OAuth token shapes: undocumented; may or may not share pplx-"
+        }
+      ]
+    },
+    {
+      "id": "field-checksum-embedded-project-id-historical-versions",
+      "statement": "checksum, embedded project id, historical versions: none documented; pre-2025-04 and pre-2026-04 key shapes unknown",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-ce50661aba",
+          "supports": "checksum, embedded project id, historical versions: none documented; pre-2025-04 and pre-2026-04 key shapes unknown"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-perplexity-ai-62dafa6ee4",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-perplexity-ai-62dafa6ee4",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "perplexity-api-key:analytics-key and MCP OAuth token shapes",
+      "note": "claim field-analytics-key-and-mcp-oauth-token-shapes; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "perplexity-api-key:body alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "perplexity-api-key:body length",
+      "note": "claim field-body-length; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "perplexity-api-key:checksum, embedded project id, historical versions",
+      "note": "claim field-checksum-embedded-project-id-historical-versions; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "perplexity-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/212.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/212.ts",
+      "note": "contracts['perplexity-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/perplexity.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/perplexity.md",
+      "note": "families[id=perplexity:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=perplexity:api-key]"
+    }
+  ]
+}

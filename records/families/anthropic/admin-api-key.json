@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "anthropic:admin-api-key",
+  "provider": "anthropic",
+  "name": "Admin API key (sk-ant-admin01-)",
+  "description": "sk-ant-admin01- prefixed full-access Admin API key created by organization admins in the Claude Console.",
+  "lifecycle": "draft",
+  "currentContract": "anthropic:admin-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-27",
+    "issues": [
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#775",
+      "redact-secret/redact-secret#862",
+      "redact-secret/redact-secret#882"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/anthropic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+      "note": "families[id=anthropic:admin-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=anthropic:admin-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "anthropic-admin01-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

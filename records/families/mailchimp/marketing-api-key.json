@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "mailchimp:marketing-api-key",
+  "provider": "mailchimp",
+  "name": "Marketing API key",
+  "description": "32-hex API key followed by a literal -us and a one- or two-digit data-center number; recognized only beside a same-line mailchimp keyword.",
+  "lifecycle": "draft",
+  "currentContract": "mailchimp:marketing-api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-25",
+    "issues": [
+      "redact-secret/redact-secret#582",
+      "redact-secret/redact-secret#697",
+      "redact-secret/redact-secret#698",
+      "redact-secret/redact-secret#699"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailchimp.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailchimp.md",
+      "note": "families[id=mailchimp:marketing-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mailchimp:marketing-api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "mailchimp-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "openrouter:api-key",
+  "provider": "openrouter",
+  "name": "Inference API key",
+  "description": "sk-or-v1- followed by 64 lowercase hexadecimal characters (73 characters), per OpenRouter's secret-format documentation.",
+  "lifecycle": "draft",
+  "currentContract": "openrouter:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret#727",
+      "redact-secret/redact-secret-benchmarks#220"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/openrouter.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openrouter.md",
+      "note": "families[id=openrouter:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=openrouter:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "openrouter-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

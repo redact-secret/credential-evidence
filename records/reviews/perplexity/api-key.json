@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-perplexity-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "perplexity:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/perplexity.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#730",
+          "url": "https://github.com/redact-secret/redact-secret/issues/730"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#226",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/226"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for perplexity:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector perplexity-api-key since redact-secret#730 (registry pinned at f2082ab); graduated from a Beta.8 arrival family (#212, research #226), contract in benchmarks/lib/beta8/212.ts."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'perplexity-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Graduated arrival contract (registry detector since redact-secret#730). Lexical separability decided before authoring (#212): the provider-documented pplx- prefix plus a fixed 48-character alphanumeric body separates a key from every recorded confusable (pplx- model ids such as pplx-embed-v1-0.6b, package/host names, docs placeholders, masked values), none of which carries a 48-character alphanumeric run after the dash. The prefix is provider-documented (docs.perplexity.ai admin api-key-management); the body width and alphabet are tool-corroborated only (gitleaks 8.30.1 perplexity-api-key, osv-scalibr perplexityapikey, likely one lineage), and flare-redact's 40-60 range contradicts the exact 48. The contract is therefore T2: the weakest frozen field its positives and length twins depend on is a peer rule. The gitleaks false-positive convention (pplx- followed by 48 repeated \"x\") satisfies this pattern and is not authored as a control. The org Analytics API key and MCP OAuth tokens are other Perplexity credentials of undocumented shape; neither is claimed, and neither is a control. An OpenRouter sk-or-v1- key stored in PERPLEXITY_API_KEY is a real secret of another family and is not a control either."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/perplexity.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/perplexity.md",
+      "note": "families[id=perplexity:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=perplexity:api-key]"
+    }
+  ]
+}

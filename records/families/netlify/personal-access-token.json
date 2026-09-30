@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "netlify:personal-access-token",
+  "provider": "netlify",
+  "name": "Personal access token",
+  "description": "nfp_-prefixed personal access token: 36 bytes of [A-Za-z0-9_], 40 characters total.",
+  "lifecycle": "draft",
+  "currentContract": "netlify:personal-access-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-23",
+    "issues": [
+      "redact-secret/redact-secret#311",
+      "redact-secret/redact-secret#582"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/netlify.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/netlify.md",
+      "note": "families[id=netlify:personal-access-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=netlify:personal-access-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "netlify-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

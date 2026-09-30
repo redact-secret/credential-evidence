@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-hashicorp-terraform-user-token",
+  "subject": {
+    "kind": "family",
+    "id": "hashicorp-terraform:user-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-21",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-21. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-terraform.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/521/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#521",
+          "url": "https://github.com/redact-secret/redact-secret/issues/521"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#67",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/67"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-21",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'terraform-cloud-token', a contract shared by 3 families (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Two independently maintained tools recognize the family without agreeing with each other on the exact width: gitleaks 8.30.1's hashicorp-tf-api-token/hashicorp-tf-password rules use a looser 60-70-byte range over a wider [A-Za-z0-9_=-] tail alphabet, while trufflehog 3.97.4's terraformcloudpersonaltoken detector matches all three official examples exactly at the 14/67 width. This contract freezes the tighter, provider-confirmed exact width (matching trufflehog, not gitleaks' looser range) over the looser single-tool range, per the precedent already set for provider-backed exact-width contracts. HashiCorp's own documentation shows one identical grammar for user, organization, team, agent-pool and self-hosted Enterprise tokens, so one shape covers the full family with no branching logic. A malformed marker, a one-byte-short segment, or the documentation's own doc-style placeholder (xxxxxx.atlasv1.zzzzzzzzzzzzz, itself far short of the documented 14/67 widths) is a documented false negative rather than a fuzzy match."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/hashicorp-terraform.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-terraform.md",
+      "note": "families[id=hashicorp-terraform:user-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=hashicorp-terraform:user-token]"
+    }
+  ]
+}

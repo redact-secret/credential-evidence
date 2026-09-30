@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "generic:bearer-token@1",
+  "family": "generic:bearer-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (RFC 6750 b64token ABNF): credentials = \"Bearer\" 1*SP b64token, with b64token limited to ALPHA / DIGIT / \"-\" / \".\" / \"_\" / \"~\" / \"+\" / \"/\" and trailing \"=\"; no length is stated",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-6450ea2bfd",
+          "supports": "credentials = \"Bearer\" 1*SP b64token, with b64token limited to ALPHA / DIGIT / \"-\" / \".\" / \"_\" / \"~\" / \"+\" / \"/\" and trailing \"=\"; no length is stated",
+          "locator": "#section-2.1"
+        }
+      ]
+    },
+    {
+      "id": "field-scheme",
+      "statement": "scheme: case-insensitive \"Bearer\" followed by one or more spaces; the identifying element sits outside the secret span",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-6450ea2bfd",
+          "supports": "scheme: case-insensitive \"Bearer\" followed by one or more spaces; the identifying element sits outside the secret span",
+          "locator": "#section-2.1"
+        },
+        {
+          "sourceId": "rfc-editor-org-e593c606c9",
+          "supports": "scheme: case-insensitive \"Bearer\" followed by one or more spaces; the identifying element sits outside the secret span",
+          "locator": "#section-11.1"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: b64token: ALPHA / DIGIT / - . _ ~ + / with trailing = only",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-6450ea2bfd",
+          "supports": "alphabet: b64token: ALPHA / DIGIT / - . _ ~ + / with trailing = only",
+          "locator": "#section-2.1"
+        }
+      ]
+    },
+    {
+      "id": "field-length",
+      "statement": "length: none stated; RFC 6750 §5.2 leaves the token contents unspecified",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-6450ea2bfd",
+          "supports": "length: none stated; RFC 6750 §5.2 leaves the token contents unspecified",
+          "locator": "#section-5.2"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 1 reference without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-6450ea2bfd",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#section-2.1"
+        }
+      ]
+    },
+    {
+      "id": "legacy-contract-tier",
+      "statement": "The legacy contract records this grammar as project masking policy (tier T3), not as a provider format.",
+      "evidenceClass": "project-policy",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": []
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T3) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "project-policy",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9deaf5009b",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "rfc-editor-org-6450ea2bfd",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "bearer-token:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "bearer-token:length",
+      "note": "claim field-length; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "bearer-token:scheme",
+      "note": "claim field-scheme; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['bearer-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/generic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/generic.md",
+      "note": "families[id=generic:bearer-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=generic:bearer-token]"
+    }
+  ]
+}

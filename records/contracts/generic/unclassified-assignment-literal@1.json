@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "generic:unclassified-assignment-literal@1",
+  "family": "generic:unclassified-assignment-literal",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (context-twin decision (#36)): no provider exists for an arbitrary literal. The recorded decision is that the twin keeps the value and mutates exactly one property of the assignment context; silence is project policy, never a format claim",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-208c8a3242",
+          "supports": "no provider exists for an arbitrary literal. The recorded decision is that the twin keeps the value and mutates exactly one property of the assignment context; silence is project policy, never a format claim"
+        }
+      ]
+    },
+    {
+      "id": "legacy-contract-tier",
+      "statement": "The legacy contract records this grammar as project masking policy (tier T3), not as a provider format.",
+      "evidenceClass": "project-policy",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": []
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T3) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "project-policy",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c297e1becb",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "rfc-editor-org-274003a40e",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['generic-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/generic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/generic.md",
+      "note": "families[id=generic:unclassified-assignment-literal].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=generic:unclassified-assignment-literal]"
+    }
+  ]
+}

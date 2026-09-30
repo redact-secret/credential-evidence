@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "paddle:api-key@1",
+  "family": "paddle:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^pdl_(?:live|sdbx)_apikey_[a-z0-9]{26}_[A-Za-z0-9]{22}_[A-Za-z0-9]{3}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "Paddle docs \"API keys\" (observed 2026-09-29): \"They're 69 characters in length and always contain five underscores. You can use regex to match API keys: ^pdl_(live|sdbx)_apikey_[a-z\\d]{26}_[a-zA-Z\\d]{22}_[a-zA-Z\\d]{3}$\"; \"API keys are case-sensitive\"; keys created before 2025-05-06 are legacy 50-character lowercase alphanumeric strings: pdl_live_apikey_ or pdl_sdbx_apikey_ + 26 [a-z0-9] + _ + 22 [A-Za-z0-9] + _ + 3 [A-Za-z0-9], 69 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "pdl_live_apikey_ or pdl_sdbx_apikey_ + 26 [a-z0-9] + _ + 22 [A-Za-z0-9] + _ + 3 [A-Za-z0-9], 69 in all"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: pdl_live_apikey_ or pdl_sdbx_apikey_ (case-sensitive)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "the documented regex; \"API keys are case-sensitive\""
+        }
+      ]
+    },
+    {
+      "id": "field-id-segment",
+      "statement": "id-segment: exactly 26 [a-z0-9]",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "the documented regex"
+        },
+        {
+          "sourceId": "github-com-paddlehq-paddle-node-sdk-60b041a1c2",
+          "supports": "the apikey_ id layout"
+        }
+      ]
+    },
+    {
+      "id": "field-secret-segment",
+      "statement": "secret-segment: _ + exactly 22 [A-Za-z0-9]",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "the documented regex"
+        }
+      ]
+    },
+    {
+      "id": "field-suffix",
+      "statement": "suffix: _ + exactly 3 [A-Za-z0-9]; 69 in all with five underscores",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "\"69 characters in length and always contain five underscores\""
+        }
+      ]
+    },
+    {
+      "id": "field-key-id",
+      "statement": "key-id: apikey_ + 26 is the key id, returned by the API and in webhook payloads; it is not a secret (A bare key id is a benign control.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "key-id: apikey_ + 26 is the key id, returned by the API and in webhook payloads; it is not a secret"
+        },
+        {
+          "sourceId": "github-com-paddlehq-paddle-node-sdk-60b041a1c2",
+          "supports": "key-id: apikey_ + 26 is the key id, returned by the API and in webhook payloads; it is not a secret"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Q5: Paddle apikey_ ids stay unclaimed",
+          "locator": "#ruling-questions-for-the-maintainer"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-keys",
+      "statement": "legacy-keys: keys created before 2025-05-06 are 50 lowercase alphanumerics with no prefix and no secret-scanning support (Not this family; a legacy-shaped value is authored only outside a named context, as an encoded-value control.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "legacy-keys: keys created before 2025-05-06 are 50 lowercase alphanumerics with no prefix and no secret-scanning support"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed (Handoff boundary decision; the documented regex is anchored.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-1465584e60",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: PADDLE_API_KEY sent as Authorization: Bearer; the Paddle SDK constructor argument",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "transport: PADDLE_API_KEY sent as Authorization: Bearer; the Paddle SDK constructor argument"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-1465584e60",
+          "supports": "test axes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no Paddle rule in trufflehog 3.97.4 or gitleaks 8.30.1: both lag on every positive. betterleaks (unpinned, not measured here) copies the documented regex",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no paddle rule"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-1465584e60",
+          "supports": "tier rationale"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no paddle detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 9 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-paddlehq-paddle-node-sdk-60b041a1c2",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-1465584e60",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-18d1cd2c7a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#ruling-questions-for-the-maintainer"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5900447820"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-paddlehq-paddle-node-sdk-60b041a1c2",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-1465584e60",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "developer-paddle-com-20edbd1725",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-1465584e60",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:id-segment",
+      "note": "claim field-id-segment; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:key-id",
+      "note": "claim field-key-id; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:legacy-keys",
+      "note": "claim field-legacy-keys; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:secret-segment",
+      "note": "claim field-secret-segment; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:suffix",
+      "note": "claim field-suffix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "paddle-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/528h.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/528h.ts",
+      "note": "contracts['paddle-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/paddle.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/paddle.md",
+      "note": "families[id=paddle:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=paddle:api-key]"
+    }
+  ]
+}

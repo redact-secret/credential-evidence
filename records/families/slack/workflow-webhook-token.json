@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "slack:workflow-webhook-token",
+  "provider": "slack",
+  "name": "Workflow webhook token",
+  "description": "Workflow webhook trigger token, prefixed xwfp-.",
+  "lifecycle": "draft",
+  "currentContract": "slack:workflow-webhook-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#512",
+      "redact-secret/redact-secret-benchmarks#127",
+      "redact-secret/redact-secret-benchmarks#45"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:workflow-webhook-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=slack:workflow-webhook-token]"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-vercel-integration-token",
+  "subject": {
+    "kind": "family",
+    "id": "vercel:integration-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Imported from the legacy dossier: research verdict 'issuance-gated', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried. Legacy blockedBy: No provider source writes vci_ with the underscore; the 56-character body rests on peer rules only (1 class). Needs ruling Q-VC or one integration token measured (checklist in redact-secret#1013).",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/vercel.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#516",
+          "url": "https://github.com/redact-secret/redact-secret/issues/516"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#858",
+          "url": "https://github.com/redact-secret/redact-secret/issues/858"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#367",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/367"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#373",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/373"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#473",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/473"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for vercel:integration-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Product #858 records this semantic contract as pending/T0. Provider evidence establishes the vci stem but not the underscore, body grammar, or boundary; the current detector's vci_ branch is an implementation hypothesis. No scored fixture/profile cells exist, and the aggregate vercel-token detector is not attributed to this family."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:integration-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=vercel:integration-token]"
+    }
+  ]
+}

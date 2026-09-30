@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-supabase-supabase-67d8548d1a",
+  "sourceType": "provider-sdk-source",
+  "title": "supabase/supabase @ master: docker/utils/add-new-auth-keys.sh",
+  "publisher": "supabase/supabase",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/supabase/supabase",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['supabase-token'].fields; contracts['supabase-token'].references"
+    },
+    {
+      "system": "legacy-url",
+      "id": "https://github.com/supabase/supabase/blob/master/docker/utils/add-new-auth-keys.sh",
+      "note": "Legacy link names ref 'master', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL."
+    }
+  ],
+  "notes": "Legacy URL pins ref 'master', which can move. Resolve it to a commit permalink before a reviewed claim depends on it."
+}

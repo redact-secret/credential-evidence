@@ -1,0 +1,379 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "runpod:api-key@1",
+  "family": "runpod:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^rpa_[A-Za-z0-9]{31,}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "runpod/runpod-mcp src/alp/scrub.ts (added 2026-09-16, a provider-authored scrubber; R2): \\brpa_[A-Za-z0-9]{16,}\\b; the RunPod blog on scoped keys (2024-11): \"Any new keys will be created with an rpa_ prefix\"; re-checked 2026-09-28: rpa_ + [A-Za-z0-9], open-ended, provider floor 16; the contract floor 31 is policy under R10; no separator or checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-runpod-runpod-mcp-07eda23fe5",
+          "supports": "rpa_ + [A-Za-z0-9], open-ended, provider floor 16; the contract floor 31 is policy under R10; no separator or checksum",
+          "locator": "#L36"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: betterleaks (unpinned)).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-4fda03f3d2",
+          "supports": "betterleaks (unpinned): runpod.go: rpa_[A-Z0-9]{40}[A-Za-z0-9]{6} (tool-only, T2; the 46-byte layout is not part of the contract)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: rpa_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-runpod-runpod-mcp-07eda23fe5",
+          "supports": "provider scrubber, R2",
+          "locator": "#L36"
+        },
+        {
+          "sourceId": "runpod-io-8484d55cf5",
+          "supports": "\"Any new keys will be created with an rpa_ prefix\" (2024-11)"
+        }
+      ]
+    },
+    {
+      "id": "field-alphabet",
+      "statement": "alphabet: [A-Za-z0-9]",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-runpod-runpod-mcp-07eda23fe5",
+          "supports": "provider-authored scrubber, R2",
+          "locator": "#L36"
+        }
+      ]
+    },
+    {
+      "id": "field-provider-floor",
+      "statement": "provider-floor: the provider scrubber's floor is 16 body bytes, open-ended (T1, but the contract floor is higher: see policy-floor.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R2",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-runpod-runpod-mcp-07eda23fe5",
+          "supports": "{16,}",
+          "locator": "#L36"
+        }
+      ]
+    },
+    {
+      "id": "field-policy-floor",
+      "statement": "policy-floor: POLICY (R10), not T1: the contract floor is 31 body bytes, the first width above Redirect.pizza rpa_ + 30 (A policy boundary the handoff decides: the 30-byte twin asserts it and a 16-30 body is an accepted false negative. Every RunPod width seen is above it.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2f169be5c6",
+          "supports": "supported shape: policy floor 31"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R10: policy fills a partly stated grammar, at least as wide as the provider class",
+          "locator": "#issuecomment-5880547337"
+        }
+      ]
+    },
+    {
+      "id": "field-policy-upper-bound",
+      "statement": "policy-upper-bound: POLICY, not T1: the product caps the run at 128 bytes; an over-cap run is rejected whole, never truncated (Not a provider fact, and the provider scrubber is open-ended: positives reach 128 and no fixture asserts silence on 129.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2f169be5c6",
+          "supports": "supported shape: project policy, the Apify precedent"
+        }
+      ]
+    },
+    {
+      "id": "field-observed-layout",
+      "statement": "observed-layout: every observed body is 46 bytes: 40 uppercase-or-digit then 6 mixed alphanumerics (Not part of the contract; positives are authored in the 46-byte layout and outside it.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-4fda03f3d2",
+          "supports": "rpa_[A-Z0-9]{40}[A-Za-z0-9]{6}, unpinned"
+        },
+        {
+          "sourceId": "github-com-runpod-docs-ea055629d9",
+          "supports": "a withdrawn 48-character docs example"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed; a _ or - glued after the run rejects the match (Handoff boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2f169be5c6",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: the RUNPOD_API_KEY environment variable, sent as Authorization: Bearer; runpod.api_key = \"...\" and runpodctl config --apiKey",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-runpod-io-ccf7ed9351",
+          "supports": "transport: the RUNPOD_API_KEY environment variable, sent as Authorization: Bearer; runpod.api_key = \"...\" and runpodctl config --apiKey"
+        }
+      ]
+    },
+    {
+      "id": "field-other-credentials",
+      "statement": "other-credentials: S3-compatible rps_ secrets and access keys, and legacy unprefixed keys, are separate credentials with no researched shape (Not this family; an rps_ value is a benign control, never a positive.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2f169be5c6",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no RunPod rule in trufflehog 3.97.4 or gitleaks 8.30.1; betterleaks (unpinned, not measured here) uses rpa_[A-Z0-9]{40}[A-Za-z0-9]{6}, which is narrower than the contract (misses a lowercase or non-46 body) and would not match Redirect.pizza rpa_ + 30 either",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-4fda03f3d2",
+          "supports": "runpod.go, observed 2026-09-28; unpinned"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no runpod rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no runpod detector directory at the pinned version"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 13 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-runpod-io-ccf7ed9351",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2f169be5c6",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-553c6d0880",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6180ac2b2c",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-71b97935f4",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5880547337"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-6723a6d6a7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-fc5f396543",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-runpod-docs-ea055629d9",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-runpod-runpod-mcp-07eda23fe5",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L36"
+        },
+        {
+          "sourceId": "runpod-io-8484d55cf5",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2f169be5c6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-553c6d0880",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-runpod-runpod-mcp-07eda23fe5",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L36"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2f169be5c6",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-runpod-runpod-mcp-07eda23fe5",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L36"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:alphabet",
+      "note": "claim field-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:observed-layout",
+      "note": "claim field-observed-layout; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:other-credentials",
+      "note": "claim field-other-credentials; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:policy-floor",
+      "note": "claim field-policy-floor; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:policy-upper-bound",
+      "note": "claim field-policy-upper-bound; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:provider-floor",
+      "note": "claim field-provider-floor; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "runpod-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/464f.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/464f.ts",
+      "note": "contracts['runpod-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/runpod.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/runpod.md",
+      "note": "families[id=runpod:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=runpod:api-key]"
+    }
+  ]
+}

@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "inngest:signing-key@1",
+  "family": "inngest:signing-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^signkey-(?:prod|test|branch)-[0-9a-f]{64}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "inngest/inngest dabb03f: SigningKeyPrefixTest/Branch/Prod constants; self-hosting docs \"a valid hexadecimal string with an even number of characters\", openssl rand -hex 32 (re-checked 2026-09-28): signkey-prod-, signkey-test- or signkey-branch- + exactly 64 lowercase hex (77 or 79 in all); no checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-inngest-inngest-ecd74a6b60",
+          "supports": "signkey-prod-, signkey-test- or signkey-branch- + exactly 64 lowercase hex (77 or 79 in all); no checksum",
+          "locator": "#L15-L25"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: signkey-prod-, signkey-test- or signkey-branch-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-inngest-inngest-ecd74a6b60",
+          "supports": "SigningKeyPrefixTest/Branch/Prod",
+          "locator": "#L15-L25"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R1",
+          "locator": "#issuecomment-5852413851"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body-alphabet: lowercase hex [0-9a-f]; an even number of characters",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "inngest-com-50a37f92ab",
+          "supports": "\"a valid hexadecimal string with an even number of characters\"; openssl rand -hex 32"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body-length: exactly 64 (77 in all for prod/test, 79 for branch)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-inngest-inngest-js-29e443eac8",
+          "supports": "three signkey-test- fixtures of 64 lowercase hex"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "R5",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "inngest-com-50a37f92ab",
+          "supports": "openssl rand -hex 32"
+        }
+      ]
+    },
+    {
+      "id": "field-wire-form",
+      "statement": "wire-form: the SDK sends signkey-<env>- + SHA-256 hex of the key bytes as Bearer; it is accepted as the API credential and has the same shape",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-88b7225450",
+          "supports": "role and blast radius"
+        }
+      ]
+    },
+    {
+      "id": "field-other-labels",
+      "statement": "other-labels: a signkey-<label>- other than prod, test and branch (The twin on signkey-preview- records that exclusion.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-inngest-inngest-ecd74a6b60",
+          "supports": "only three constants",
+          "locator": "#L15-L25"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-88b7225450",
+          "supports": "a future label is an accepted false negative"
+        }
+      ]
+    },
+    {
+      "id": "field-uppercase-hex",
+      "statement": "uppercase-hex: the decoder accepts an uppercase-hex body the generator and fixtures never produce (The contract follows the issued grammar; the uppercase twin records the accepted false negative.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-88b7225450",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: INNGEST_SIGNING_KEY and INNGEST_SIGNING_KEY_FALLBACK environment variables, the signingKey client option and Authorization: Bearer",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "inngest-com-50a37f92ab",
+          "supports": "transport: INNGEST_SIGNING_KEY and INNGEST_SIGNING_KEY_FALLBACK environment variables, the signingKey client option and Authorization: Bearer"
+        }
+      ]
+    },
+    {
+      "id": "field-event-key",
+      "statement": "event-key: INNGEST_EVENT_KEY has no documented shape; self-hosted event keys are arbitrary strings (Not this family; only a literal non-key sentinel appears as a control.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-88b7225450",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: no rule in trufflehog 3.97.4 or gitleaks 8.30.1",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "no inngest rule"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-0c3307f9c8",
+          "supports": "no inngest detector directory"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 10 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-inngest-inngest-ecd74a6b60",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L15-L25"
+        },
+        {
+          "sourceId": "github-com-inngest-inngest-js-29e443eac8",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6d3fca49e3",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7526f66796",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-88b7225450",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5871306275"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-dc70f447d7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "inngest-com-50a37f92ab",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-inngest-inngest-ecd74a6b60",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L15-L25"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-0a061792f6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "inngest-com-50a37f92ab",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-28",
+      "sources": [
+        {
+          "sourceId": "github-com-inngest-inngest-ecd74a6b60",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L15-L25"
+        },
+        {
+          "sourceId": "inngest-com-50a37f92ab",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:body-alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:body-length",
+      "note": "claim field-body-length; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:event-key",
+      "note": "claim field-event-key; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:other-labels",
+      "note": "claim field-other-labels; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:uppercase-hex",
+      "note": "claim field-uppercase-hex; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "inngest-signing-key:wire-form",
+      "note": "claim field-wire-form; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/436c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/436c.ts",
+      "note": "contracts['inngest-signing-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/inngest.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/inngest.md",
+      "note": "families[id=inngest:signing-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=inngest:signing-key]"
+    }
+  ]
+}

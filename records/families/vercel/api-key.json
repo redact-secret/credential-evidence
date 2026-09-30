@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "vercel:api-key",
+  "provider": "vercel",
+  "name": "API key",
+  "description": "Modern Vercel API key identified by the provider-documented vck_ marker.",
+  "lifecycle": "draft",
+  "currentContract": null,
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "The vck_ marker is provider-backed but no full-length value is; the 56-character body rests on peer rules only (1 class). Needs ruling Q-VC or one AI Gateway key measured (checklist in redact-secret#1013)."
+      }
+    ],
+    "issues": [
+      "redact-secret/redact-secret#1013",
+      "redact-secret/redact-secret#516",
+      "redact-secret/redact-secret#858",
+      "redact-secret/redact-secret-benchmarks#367",
+      "redact-secret/redact-secret-benchmarks#373",
+      "redact-secret/redact-secret-benchmarks#473"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=vercel:api-key]"
+    }
+  ]
+}

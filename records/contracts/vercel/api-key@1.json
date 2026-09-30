@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "vercel:api-key@1",
+  "family": "vercel:api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict issuance-gated, tier T1) cited 9 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-blog-cb9bb341a1",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L182-L212"
+        },
+        {
+          "sourceId": "github-com-mongodb-kingfisher-81669063af",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L252-L299"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-dc028f2a36",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-secretlint-secretlint-d009796e7f",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L27-L58"
+        },
+        {
+          "sourceId": "github-com-vercel-vercel-240431b6c1",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L90"
+        },
+        {
+          "sourceId": "vercel-com-57aea7e685",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "vercel-com-770ae7d1d8",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "vercel-com-93c920690e",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 3 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-vercel-vercel-240431b6c1",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "vercel-com-57aea7e685",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "vercel-com-770ae7d1d8",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=vercel:api-key]"
+    }
+  ]
+}

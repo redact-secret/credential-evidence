@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "gitlab:routable-personal-access-token",
+  "provider": "gitlab",
+  "name": "Routable personal access token",
+  "description": "glpat- + an unpadded base64url payload of 27-300 + . + a 2-character base36 version + . + a 2-character base36 payload length + a 7-character base36 CRC32 (GitLab routable_token.rb).",
+  "lifecycle": "draft",
+  "currentContract": "gitlab:routable-personal-access-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1012",
+      "redact-secret/redact-secret#1022",
+      "redact-secret/redact-secret#518",
+      "redact-secret/redact-secret-benchmarks#473",
+      "redact-secret/redact-secret-benchmarks#528"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:routable-personal-access-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=gitlab:routable-personal-access-token]"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-trigger-dev-personal-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "trigger-dev:personal-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/trigger-dev.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/trigger-dev.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#904",
+          "url": "https://github.com/redact-secret/redact-secret/issues/904"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#434",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/434"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for trigger-dev:personal-access-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Scored arrival family trigger-dev-personal-access-token: the product types it inside the shared trigger-dev-token detector as trigger_dev_personal_access_token since redact-secret#904 (registry pinned at 1127bf9; scanners/families.mjs arrivalFindingTypes). Authored as a Beta.11 arrival family (#434 slice b, #860 Tier A handoff), contract in benchmarks/lib/beta8/434b.ts. T1."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'trigger-dev-personal-access-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#434, product redact-secret#904; #860 handoff trigger-dev.md, READY). T1 under ruling R1: the provider's PAT generator emits tr_pat_ plus 40 characters of [1-9a-km-z] (lowercase, no 0, no l), and the docs name the prefix. The PAT acts for a user across projects, so it is its own finding type. Neither pinned peer has a rule."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/trigger-dev.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/trigger-dev.md",
+      "note": "families[id=trigger-dev:personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=trigger-dev:personal-access-token]"
+    }
+  ]
+}

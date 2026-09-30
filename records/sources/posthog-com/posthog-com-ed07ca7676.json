@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "posthog-com-ed07ca7676",
+  "sourceType": "provider-documentation",
+  "title": "posthog.com/docs/api/personal-api-keys",
+  "publisher": "posthog.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://posthog.com/docs/api/personal-api-keys",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-28",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference, taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434d.ts",
+      "note": "cited by contracts['posthog-project-secret-api-key'].fields; contracts['posthog-project-secret-api-key'].references; contracts['posthog-token'].fields; contracts['posthog-token'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=posthog:personal-api-key].sources; families[id=posthog:project-secret-api-key].sources"
+    }
+  ]
+}

@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "mistral:api-key@1",
+  "family": "mistral:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^[A-Za-z0-9]{32}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (3 artifacts: betterleaks; osv-scalibr; pleno-dlp).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-2b320ccd40",
+          "supports": "betterleaks: mistral-api-key: mistral keyword + [A-Z0-9]{32}, case-insensitive (Kingfisher aliases it)"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-fda69da02d",
+          "supports": "osv-scalibr: mistralapikey: \\b[A-Za-z0-9]{32}\\b beside a mistral context within 200 characters"
+        },
+        {
+          "sourceId": "pkg-go-dev-bf99dc25b4",
+          "supports": "pleno-dlp: mistral detector: 32-character base62, keyword gate mandatory"
+        }
+      ]
+    },
+    {
+      "id": "field-shape",
+      "statement": "shape: 32 alphanumeric characters, no prefix (Three rules from one assertion; nothing is a measurement of a real key.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-2b320ccd40",
+          "supports": "shape: 32 alphanumeric characters, no prefix"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-fda69da02d",
+          "supports": "shape: 32 alphanumeric characters, no prefix"
+        },
+        {
+          "sourceId": "pkg-go-dev-bf99dc25b4",
+          "supports": "shape: 32 alphanumeric characters, no prefix"
+        }
+      ]
+    },
+    {
+      "id": "field-context",
+      "statement": "context: a same-line mistral/codestral name, api.mistral.ai host or Mistral constructor",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-2b320ccd40",
+          "supports": "mistral keyword"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-fda69da02d",
+          "supports": "context regex within 200 characters"
+        }
+      ]
+    },
+    {
+      "id": "field-body-case",
+      "statement": "body-case: upper- and lower-case letters both occur (The rules agree once case is folded; positives are mixed case.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-2b320ccd40",
+          "supports": "[A-Z0-9], case-insensitive"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-fda69da02d",
+          "supports": "[A-Za-z0-9]"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: MISTRAL_API_KEY, the api_key constructor argument, Authorization: Bearer",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-mistral-ai-4e159cce0a",
+          "supports": "transport: MISTRAL_API_KEY, the api_key constructor argument, Authorization: Bearer"
+        },
+        {
+          "sourceId": "github-com-mistralai-client-python-5afb4d9ae3",
+          "supports": "api_key=os.getenv(\"MISTRAL_API_KEY\", \"\")"
+        }
+      ]
+    },
+    {
+      "id": "field-sibling-shapes",
+      "statement": "sibling-shapes: the Codestral key and the realtime rt_ token (research #780) are separate credentials whose shape is undecided (Not claimed; never a control.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-30a090690a",
+          "supports": "Codestral: separate console tab, undocumented shape"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ab59a38a3b",
+          "supports": "sibling-shapes: the Codestral key and the realtime rt_ token (research #780) are separate credentials whose shape is undecided"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 6 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-mistral-ai-4e159cce0a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "docs-mistral-ai-521bb6e577",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-mistralai-client-python-5afb4d9ae3",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-3074dfa48a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-30a090690a",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 6 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-mistral-ai-4e159cce0a",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-5296f24a78",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitkraken-vscode-gitlens-fdeba291bf",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L156-L159"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-6576e42233",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-mistralai-platform-docs-public-b603239b8d",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L33436-L33455"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7fd69edcb6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "docs-mistral-ai-4e159cce0a",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-fda69da02d",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "mistral-api-key:body-case",
+      "note": "claim field-body-case; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "mistral-api-key:context",
+      "note": "claim field-context; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "mistral-api-key:shape",
+      "note": "claim field-shape; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "mistral-api-key:sibling-shapes",
+      "note": "claim field-sibling-shapes; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "mistral-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384e.ts",
+      "note": "contracts['mistral-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mistral.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+      "note": "families[id=mistral:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mistral:api-key]"
+    }
+  ]
+}

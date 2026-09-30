@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "heroku:oauth-access-token@1",
+  "family": "heroku:oauth-access-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^HRKU-(?:AA[A-Za-z0-9_-]{58}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "HRKU- prefixed OAuth access token (41-character 2024-04 and 65-character 2025-04 generations): the page states \"Heroku OAuth access tokens are 65 characters long and prefixed with HRKU-\" and shows a 65-character worked example beginning HRKU-AA (not reproduced here, since secret scanners classify it as a live token); its own response examples, changelog-items/2842 and changelog-items/3175 (\"increasing from 41 characters to 65 characters\") document the earlier 41-character HRKU-<uuid> generation. The literal AA after the dash is example- and tool-observed and the [A-Za-z0-9_-] body alphabet is tool-corroborated; neither is stated in prose",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-7f4e69f806",
+          "supports": "the page states \"Heroku OAuth access tokens are 65 characters long and prefixed with HRKU-\" and shows a 65-character worked example beginning HRKU-AA (not reproduced here, since secret scanners classify it as a live token); its own response examples, changelog-items/2842 and changelog-items/3175 (\"increasing from 41 characters to 65 characters\") document the earlier 41-character HRKU-<uuid> generation. The literal AA after the dash is example- and tool-observed and the [A-Za-z0-9_-] body alphabet is tool-corroborated; neither is stated in prose"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-12d270eca8",
+          "supports": "trufflehog 3.97.4: heroku/v2"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: HRKU-",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-37e1a700c3",
+          "supports": "prefix: HRKU-"
+        },
+        {
+          "sourceId": "devcenter-heroku-com-7f4e69f806",
+          "supports": "prefix: HRKU-"
+        }
+      ]
+    },
+    {
+      "id": "field-g2-total-length",
+      "statement": "g2-total-length: 65 characters for tokens granted from 2025-04-23",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-0834dafc78",
+          "supports": "g2-total-length: 65 characters for tokens granted from 2025-04-23"
+        },
+        {
+          "sourceId": "devcenter-heroku-com-7f4e69f806",
+          "supports": "\"65 characters long and prefixed with HRKU-\""
+        }
+      ]
+    },
+    {
+      "id": "field-g2-aa-start",
+      "statement": "g2-aa-start: the 60-character G2 body begins AA (Also pinned by gitleaks 8.30.1 and trufflehog 3.97.4 (tool); osv-scalibr does not pin it. Kept in `pattern` as observed/tool grammar, never as provider-stated; no non-AA twin or control asserts silence on it (#235).)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-7f4e69f806",
+          "supports": "worked example only; not stated in prose"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-d36b24fa88",
+          "supports": "disputed: a reporter says AA is not a fixed prefix; a vendor sample still matched it"
+        }
+      ]
+    },
+    {
+      "id": "field-g2-body-alphabet",
+      "statement": "g2-body-alphabet: [A-Za-z0-9_-]",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "g2-body-alphabet: [A-Za-z0-9_-]"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-156fdedde3",
+          "supports": "consistent with the provider examples, which contain \"_\""
+        }
+      ]
+    },
+    {
+      "id": "field-g2-checksum",
+      "statement": "g2-checksum: internal structure behind \"additional security checks for token validation\" (Undocumented; nothing relies on it.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-f7ed532b53",
+          "supports": "g2-checksum: internal structure behind \"additional security checks for token validation\""
+        }
+      ]
+    },
+    {
+      "id": "field-g1-generation",
+      "statement": "g1-generation: HRKU- plus a 36-character UUID, 41 characters, granted 2024-04-01 through 2025-04-22 and valid until regenerated (Corrects the earlier \"undocumented-width variant\" note. Pinned gitleaks and trufflehog do not match this generation (GitLab's rule matches only it).)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-37e1a700c3",
+          "supports": "before/after example: HRKU- plus the same UUID"
+        },
+        {
+          "sourceId": "devcenter-heroku-com-f7ed532b53",
+          "supports": "\"increasing from 41 characters to 65 characters\""
+        }
+      ]
+    },
+    {
+      "id": "field-g1-uuid-case",
+      "statement": "g1-uuid-case: lowercase 8-4-4-4-12 hex (Uppercase hex is unresolved; no case twin is authored.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-37e1a700c3",
+          "supports": "g1-uuid-case: lowercase 8-4-4-4-12 hex"
+        }
+      ]
+    },
+    {
+      "id": "field-g0-bare-uuid-generation",
+      "statement": "g0-bare-uuid-generation: bare UUID granted before 2024-04-01, valid until regenerated (Measured by the separate context-gated heroku-api-key-legacy contract (owned by #207); recorded here only as this credential's oldest generation.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-37e1a700c3",
+          "supports": "g0-bare-uuid-generation: bare UUID granted before 2024-04-01, valid until regenerated"
+        }
+      ]
+    },
+    {
+      "id": "field-forty-hex-netrc-example",
+      "statement": "forty-hex-netrc-example: a 40-character lowercase hex token in the authentication article's .netrc example (Undated, probably stale; neither a positive nor a control here, since silence on it would turn a hypothesis into a negative expectation.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-817454cac3",
+          "supports": "forty-hex-netrc-example: a 40-character lowercase hex token in the authentication article's .netrc example"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-37e1a700c3",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "devcenter-heroku-com-7f4e69f806",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "devcenter-heroku-com-f7ed532b53",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 3 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "devcenter-heroku-com-37e1a700c3",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "devcenter-heroku-com-7f4e69f806",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "devcenter-heroku-com-f7ed532b53",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:forty-hex-netrc-example",
+      "note": "claim field-forty-hex-netrc-example; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:g0-bare-uuid-generation",
+      "note": "claim field-g0-bare-uuid-generation; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:g1-generation",
+      "note": "claim field-g1-generation; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:g1-uuid-case",
+      "note": "claim field-g1-uuid-case; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:g2-aa-start",
+      "note": "claim field-g2-aa-start; legacy evidence basis=provider-example"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:g2-body-alphabet",
+      "note": "claim field-g2-body-alphabet; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:g2-checksum",
+      "note": "claim field-g2-checksum; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:g2-total-length",
+      "note": "claim field-g2-total-length; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "heroku-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['heroku-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/heroku.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/heroku.md",
+      "note": "families[id=heroku:oauth-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=heroku:oauth-access-token]"
+    }
+  ]
+}

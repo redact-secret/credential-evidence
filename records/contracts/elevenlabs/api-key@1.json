@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "elevenlabs:api-key@1",
+  "family": "elevenlabs:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^sk_[0-9a-f]{48}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "SpeechEngineServer docstring api_key=\"sk_...\" and the _residency_ suffix regex in elevenlabs-python and elevenlabs-js: ElevenLabs' own SDK source shows keys written sk_... and parses a data-residency suffix with _residency_[a-z0-9]+$ (elevenlabs-python speech_engine/resource.py, elevenlabs-js SpeechEngineResource.ts). No documentation page states the prefix, a length or an alphabet. Provider code is not documentation; T1 on it is the maintainer ruling of 2026-09-27 (redact-secret#788, huggingface:api-token precedent), scoped to the sk_ prefix and the _residency_ suffix grammar. The 48-hex body stays T2",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-python-e6d81503a1",
+          "supports": "ElevenLabs' own SDK source shows keys written sk_... and parses a data-residency suffix with _residency_[a-z0-9]+$ (elevenlabs-python speech_engine/resource.py, elevenlabs-js SpeechEngineResource.ts). No documentation page states the prefix, a length or an alphabet. Provider code is not documentation; T1 on it is the maintainer ruling of 2026-09-27 (redact-secret#788, huggingface:api-token precedent), scoped to the sk_ prefix and the _residency_ suffix grammar. The 48-hex body stays T2"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: betterleaks; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-208f5cf868",
+          "supports": "betterleaks: elevenlabs-api-key: sk_[0-9a-f]{48} beside an elevenlabs keyword (matched case-insensitively)"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-721f320626",
+          "supports": "trufflehog 3.97.4: ElevenLabs v2: \\b((?:sk)_[a-f0-9]{48})\\b, keyword-gated"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: sk_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-python-2fa082aaa1",
+          "supports": "prefix: sk_"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-python-e6d81503a1",
+          "supports": "docstring api_key=\"sk_...\""
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: 48 lowercase hexadecimal characters (51 in all) (Two tools (Kingfisher aliases betterleaks) and measured samples; no provider statement. T2 by the 2026-09-27 ruling: positives carry 48 hex, and the length and non-hex twins are recorded as disputed properties, not asserted.)",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-208f5cf868",
+          "supports": "body: 48 lowercase hexadecimal characters (51 in all)"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c7232226e3",
+          "supports": "measured fragments, all 48 hex"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-721f320626",
+          "supports": "body: 48 lowercase hexadecimal characters (51 in all)"
+        }
+      ]
+    },
+    {
+      "id": "field-body-case",
+      "statement": "body-case: uppercase hexadecimal (The tools disagree and no provider source decides it, so no uppercase twin is authored (docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md).)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-208f5cf868",
+          "supports": "semi-generic rule, case-insensitive"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-721f320626",
+          "supports": "case-sensitive [a-f0-9]"
+        }
+      ]
+    },
+    {
+      "id": "field-residency-suffix",
+      "statement": "residency-suffix: an optional _residency_<[a-z0-9]+> suffix for isolated environments (EU, India, Singapore) (Authored as an envelope beside the secret span; whether the finding includes it is the product's decision. No code-search fragment showed the suffix.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "elevenlabs-io-d95a8b1fd8",
+          "supports": "a different API URL with a different API key"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-js-b81fadea79",
+          "supports": "residency-suffix: an optional _residency_<[a-z0-9]+> suffix for isolated environments (EU, India, Singapore)"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-python-2fa082aaa1",
+          "supports": "_RESIDENCY_KEY_SUFFIX = re.compile(r\"_residency_[a-z0-9]+$\")"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-form",
+      "statement": "legacy-form: a bare 32-hex key from before the sk_ prefix (No provider source documents a 32-hex key. Not claimed, never a control.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-d37155eb07",
+          "supports": "v1: keyword-context [a-f0-9]{32}"
+        }
+      ]
+    },
+    {
+      "id": "field-header",
+      "statement": "header: sent in the xi-api-key HTTP header",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "elevenlabs-io-27f957bac2",
+          "supports": "header: sent in the xi-api-key HTTP header"
+        }
+      ]
+    },
+    {
+      "id": "field-sibling-prefixes",
+      "statement": "sibling-prefixes: sk_live_, sk_test_ and sk_org_ are Stripe key types; Pollinations plans sk_ + 32 characters (The Stripe shape is a scoped prefix twin (co-detected by stripe-token); it is never a benign control.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "sibling-prefixes: sk_live_, sk_test_ and sk_org_ are Stripe key types; Pollinations plans sk_ + 32 characters"
+        },
+        {
+          "sourceId": "github-com-pollinations-pollinations-d69e1445d7",
+          "supports": "community: a plan, not a shipped format"
+        }
+      ]
+    },
+    {
+      "id": "field-public-identifiers",
+      "statement": "public-identifiers: key_id, hint and hashed_xi_api_key are non-secret listing fields; single-use tokens are a separate credential (The listing examples are the literal word string, so no shape is claimed for them beyond what the controls construct.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "elevenlabs-io-27f957bac2",
+          "supports": "public-identifiers: key_id, hint and hashed_xi_api_key are non-secret listing fields; single-use tokens are a separate credential"
+        },
+        {
+          "sourceId": "elevenlabs-io-6a735a660e",
+          "supports": "public-identifiers: key_id, hint and hashed_xi_api_key are non-secret listing fields; single-use tokens are a separate credential"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 10 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-26",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "elevenlabs-io-27f957bac2",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "elevenlabs-io-6a735a660e",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "elevenlabs-io-d95a8b1fd8",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "elevenlabs-io-f90378e5ba",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-js-b81fadea79",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-python-2fa082aaa1",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-pollinations-pollinations-d69e1445d7",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c0e0cf7255",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c7232226e3",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "elevenlabs-io-27f957bac2",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-js-ee96d35935",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-python-f6c25441f0",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-python-fcd7f91a05",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-27",
+      "sources": [
+        {
+          "sourceId": "elevenlabs-io-27f957bac2",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-elevenlabs-elevenlabs-python-e6d81503a1",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "elevenlabs-api-key:body",
+      "note": "claim field-body; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "elevenlabs-api-key:body-case",
+      "note": "claim field-body-case; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "elevenlabs-api-key:header",
+      "note": "claim field-header; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "elevenlabs-api-key:legacy-form",
+      "note": "claim field-legacy-form; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "elevenlabs-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "elevenlabs-api-key:public-identifiers",
+      "note": "claim field-public-identifiers; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "elevenlabs-api-key:residency-suffix",
+      "note": "claim field-residency-suffix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "elevenlabs-api-key:sibling-prefixes",
+      "note": "claim field-sibling-prefixes; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384c.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384c.ts",
+      "note": "contracts['elevenlabs-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/elevenlabs.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/elevenlabs.md",
+      "note": "families[id=elevenlabs:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=elevenlabs:api-key]"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "learn-microsoft-com-b209e221d2",
+  "sourceType": "provider-documentation",
+  "title": "learn.microsoft.com/en-us/purview/sit-defn-azure-ad-client-secret",
+  "publisher": "learn.microsoft.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://learn.microsoft.com/en-us/purview/sit-defn-azure-ad-client-secret",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-22",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-twinSource; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['microsoft-entra-client-secret'].twinSource"
+    }
+  ]
+}

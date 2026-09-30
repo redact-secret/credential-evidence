@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-netlify-personal-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "netlify:personal-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-23. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/netlify.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/582/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#311",
+          "url": "https://github.com/redact-secret/redact-secret/issues/311"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#582",
+          "url": "https://github.com/redact-secret/redact-secret/issues/582"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for netlify:personal-access-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): redact-secret#311 (product PR #666) landed on the product main after 0.1.0-beta.6; the pinned published package predates it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-23",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'netlify-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Netlify's API guide (docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/) documents only how a personal access token is created and sent as a Bearer header; the prefix and 40-character total come from the provider's own token-format announcement, hosted on answers.netlify.com and written by Netlify staff. trufflehog 3.97.4's netlify/v2 detector pins exactly `\\b(nfp_[a-zA-Z0-9_]{36})\\b`, but only after a `netlify` keyword (PrefixRegex); gitleaks 8.30.1's netlify-access-token rule fixes no prefix at all — a keyword-plus-assignment-gated 40–46-byte body over [a-z0-9=_\\-], matched case-insensitively — so it corroborates only that a 40-byte nfp_ token in a netlify assignment is recognized, never the prefix. This contract, like the product, needs no keyword: the provider-documented prefix and exact length are self-identifying, so a bare token is a positive here and an expected false negative for both peers; the keyword-context positive records what each peer does when the keyword is present. The announcement itself states pre-2023-11 unprefixed tokens \"will be unaffected\"; that legacy shape (trufflehog's keyword-gated netlify/v1, gitleaks's keyword-gated 40–46-byte body) is shared by every pre-change Netlify token class, so it has no contract here, and the other four prefixed classes (nfc_/nfo_/nfu_/nfb_) are separate credentials outside this personal-access-token family. Build-hook URLs and site/account/deploy ids are out of scope. redact-secret#311 (PR #666) froze the identical grammar on the product side."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/netlify.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/netlify.md",
+      "note": "families[id=netlify:personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=netlify:personal-access-token]"
+    }
+  ]
+}

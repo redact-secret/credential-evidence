@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-google-osv-scalibr-fda69da02d",
+  "sourceType": "scanner-rule-source",
+  "title": "google/osv-scalibr @ main: veles/secrets/mistralapikey/detector.go",
+  "publisher": "google/osv-scalibr",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/google/osv-scalibr",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-26",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-field; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy taxonomy-source; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/384e.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/384e.ts",
+      "note": "cited by contracts['mistral-api-key'].corroboration; contracts['mistral-api-key'].fields"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "cited by families[id=mistral:api-key].sources"
+    },
+    {
+      "system": "legacy-url",
+      "id": "https://github.com/google/osv-scalibr/blob/main/veles/secrets/mistralapikey/detector.go",
+      "note": "Legacy link names ref 'main', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL."
+    }
+  ],
+  "notes": "Legacy URL pins ref 'main', which can move. Resolve it to a commit permalink before a reviewed claim depends on it."
+}

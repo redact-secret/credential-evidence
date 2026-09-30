@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-github-fine-grained-personal-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "github:fine-grained-personal-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/github.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/github-fine-grained-personal-access-token.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#517",
+          "url": "https://github.com/redact-secret/redact-secret/issues/517"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#729",
+          "url": "https://github.com/redact-secret/redact-secret/issues/729"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#223",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/223"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#367",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/367"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#371",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/371"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for github:fine-grained-personal-access-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Named explicitly in issue #502 as a family the github-token detector does not cover: its pattern only matches the ghp_/gho_/ghu_/ghs_/ghr_ underscore-plus-36-character-body shape, which github_pat_ does not fit. Measured as the Beta.8 arrival family github-fine-grained-pat (#211, research #223): only the github_pat_ prefix is provider-documented; the 22 + _ + 59 body is community/tool evidence kept provisional, with no checksum or fixed 11 lead claimed. Scored as the arrival family github-fine-grained-pat (#730; docs/decisions/2026-09-24-score-arrival-families-by-finding-type.md): the product types it inside the shared github-token detector as github_fine_grained_personal_access_token, so its findings carry the arrival id and its status comes from its own contract, profile and ledger rows. github-fine-grained-pat is not a registry detector id."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'github-fine-grained-pat' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival contract (#211, research #223, observed 2026-09-24). T2, not T1: GitHub documents only the github_pat_ prefix; the 22 + \"_\" + 59 body positives depend on rests on a community grammar (discussion 36441, the magnetikonline gist) that a GitHub PM endorsed in-thread, and on exact-82 tool rules (gitleaks 8.30.1, Nosey Parker, secretlint). No checksum, fixed \"11\" lead or GHES parity is claimed. Twins mutate only properties no source admits (prefix spelling, case, the \"_\" separator, a non-alphanumeric byte, a glued leading letter); none mutates width, because TruffleHog and r-lib/gh accept 36–255 and GitHub's 2021 guidance says tokens may grow to 255. The product matches this shape inside its shared github-token detector, so a product finding on a twin is recorded as co-detection by that family, not as a false alarm for this one."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/github.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/github.md",
+      "note": "families[id=github:fine-grained-personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=github:fine-grained-personal-access-token]"
+    }
+  ]
+}

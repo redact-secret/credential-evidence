@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-datadog-dd-sensitive-data-scanner-dfc45602b8",
+  "sourceType": "scanner-rule-source",
+  "title": "DataDog/dd-sensitive-data-scanner @ main: sds/src/secondary_validation/atlassian_token_checksum.rs",
+  "publisher": "DataDog/dd-sensitive-data-scanner",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/DataDog/dd-sensitive-data-scanner",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-22",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "cited by contracts['atlassian-api-token'].fields"
+    },
+    {
+      "system": "legacy-url",
+      "id": "https://github.com/DataDog/dd-sensitive-data-scanner/blob/main/sds/src/secondary_validation/atlassian_token_checksum.rs",
+      "note": "Legacy link names ref 'main', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL."
+    }
+  ],
+  "notes": "Legacy URL pins ref 'main', which can move. Resolve it to a commit permalink before a reviewed claim depends on it."
+}

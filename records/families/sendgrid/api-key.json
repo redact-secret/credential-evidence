@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "sendgrid:api-key",
+  "provider": "sendgrid",
+  "name": "API key",
+  "description": "SG. prefixed API key (full-access and restricted-access permission scopes share this format).",
+  "lifecycle": "draft",
+  "currentContract": "sendgrid:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-20",
+    "issues": [
+      "redact-secret/redact-secret-benchmarks#33"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sendgrid.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sendgrid.md",
+      "note": "families[id=sendgrid:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=sendgrid:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "sendgrid-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

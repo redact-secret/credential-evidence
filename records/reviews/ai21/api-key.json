@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-ai21-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "ai21:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/ai21.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/add1188fed9993723c59fbce8c867086b9d2049a/docs/audits/evidence/1013/ai21-api-key.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "add1188fed9993723c59fbce8c867086b9d2049a"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1013",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1013"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#774",
+          "url": "https://github.com/redact-secret/redact-secret/issues/774"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#784",
+          "url": "https://github.com/redact-secret/redact-secret/issues/784"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#868",
+          "url": "https://github.com/redact-secret/redact-secret/issues/868"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#384",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/384"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for ai21:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector ai21-api-key since redact-secret#868 (registry pinned at cfe2aec); graduated from a Beta.10 arrival family (#384, research #784), contract in benchmarks/lib/beta8/384e.ts. T0, context-gated: no provider statement and no scanner rule; pending."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'ai21-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Context-gated family (#384, product redact-secret#868; research #784, T2 by redact-secret#1013). No AI21 page, staff statement or SDK code states a shape, so nothing reaches T1. The redact-secret#1013 pass (frozen at redact-secret add1188f) found the corroborated route without any provider material: the Vulnetix vnx-sec-315 peer rule (an ai21 key name then exactly 32 alphanumerics) and two independent implementations (keychecker, LLM-Runner-Router) that accept exactly [A-Za-z0-9]{32}: 3 references, 3 owners, 2 non-summary classes. AI21-committed key literals in its public example code (six, each 32 mixed alphanumerics, none a UUID) are of unknown validity; whether they count as provider examples is maintainer ruling Q-AI, so they are not counted and appear only as bounded evidence in the empirical record. Kingfisher (2025-07 to its 2026-08 deletion) read a UUID and octocode reads 40-64 alphanumerics; the contract claims exactly 32 and excludes both. The value is recognised only beside a same-line AI21_API_KEY name, an api.ai21.com host or an AI21 SDK constructor, so its positives score as project policy and its twins keep the value and change only the context; no bare-value claim is made, since a bare 32-character run collides with hashes, UUID fragments and other providers' keys."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/ai21.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/ai21.md",
+      "note": "families[id=ai21:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=ai21:api-key]"
+    }
+  ]
+}

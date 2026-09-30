@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-new-relic-license-key",
+  "subject": {
+    "kind": "family",
+    "id": "new-relic:license-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/new-relic.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/656/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#656",
+          "url": "https://github.com/redact-secret/redact-secret/issues/656"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#672",
+          "url": "https://github.com/redact-secret/redact-secret/issues/672"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#754",
+          "url": "https://github.com/redact-secret/redact-secret/issues/754"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#160",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/160"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'new-relic-license-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-tiered 2026-09-23 (#112, provider evidence redact-secret#656). The provider source is a config-example comment (\"New Relic ingest license key (40 chars, suffix NRAL)\"), not a reference-page sentence. Retained contradiction: New Relic's own canonical page, docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/, still says \"The license key is a 40-character hexadecimal string\" and never mentions NRAL, which is not hex; the research reads it as describing the legacy key, but New Relic does not say so. A docker-monitoring troubleshooting page also says the license key \"Should be 40-character NRAK-prefixed key\", which conflicts with every other source (NRAK- is the User key prefix) and reads as a docs error. This pattern is stricter than the provider source: it requires FFFFNRAL (TruffleHog 3.97.4's newreliclicensekey detector matches exactly `\\b(([0-9a-f]{32}|eu01xx[0-9a-f]{26})FFFFNRAL)\\b`; no gitleaks rule targets the license key), where the provider proves only ...NRAL at 40 total. Two earlier, still-issued generations are corroborated by neither pinned tool and stay outside this pattern: a legacy all-hex 40-character key with no marker, and an intermediate 36-hex-plus-NRAL key (without the FFFF segment) that New Relic's own docs-website repository's internal key-format check script labels the \"OLD\" ingest key — provider-authored code hosted on github.com, not accepted as documentation here, per this file's existing precedent for e.g. sentry-org-auth-token and twilio-auth-token. Region prefixes other than eu01xx are likewise outside it. A fixture whose value does not match this pattern falls back to the policy classification already used for other multi-generation families (e.g. vault-token, slack-token)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/new-relic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/new-relic.md",
+      "note": "families[id=new-relic:license-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=new-relic:license-key]"
+    }
+  ]
+}

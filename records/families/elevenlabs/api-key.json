@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "elevenlabs:api-key",
+  "provider": "elevenlabs",
+  "name": "API key (sk_)",
+  "description": "sk_ + 48 lowercase hex, with an optional provider-code-evidenced _residency_<region> suffix, sent in the xi-api-key header.",
+  "lifecycle": "draft",
+  "currentContract": "elevenlabs:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-27",
+    "issues": [
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#788",
+      "redact-secret/redact-secret#865",
+      "redact-secret/redact-secret#866",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/elevenlabs.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/elevenlabs.md",
+      "note": "families[id=elevenlabs:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=elevenlabs:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "elevenlabs-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

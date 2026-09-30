@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-pypi-api-token",
+  "subject": {
+    "kind": "family",
+    "id": "pypi:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-22",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-22. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pypi.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#104",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/104"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#107",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/107"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-22",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'pypi-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-checked 2026-09-21 (#104/#107, docs/decisions/2026-09-21-author-pypi-macaroon-positives-synthetically.md): the prior review here read \"no lexical length contract\" from pypi.org/help alone; docs.pypi.org/api/secrets instead publishes the exact regex now used as this contract's pattern, and #104 verified it is also what the pinned scanners and this project's own product key on. A positive is additionally constructed as a well-formed libmacaroons v2 body (VERSION, LOCATION(\"pypi.org\"), IDENTIFIER, one caveat, SIGNATURE) per the linked decision record, not merely an arbitrary {85,}-byte run."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pypi.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pypi.md",
+      "note": "families[id=pypi:api-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=pypi:api-token]"
+    }
+  ]
+}

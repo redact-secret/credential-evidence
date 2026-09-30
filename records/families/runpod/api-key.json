@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "runpod:api-key",
+  "provider": "runpod",
+  "name": "API key (rpa_)",
+  "description": "rpa_ + at least 31 [A-Za-z0-9], open-ended: the provider scrubber's floor is 16 (R2), the floor of 31 is policy under R10 (it excludes Redirect.pizza rpa_ + 30), and the 128-byte cap is product policy.",
+  "lifecycle": "draft",
+  "currentContract": "runpod:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#974",
+      "redact-secret/redact-secret-benchmarks#464"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/runpod.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/runpod.md",
+      "note": "families[id=runpod:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=runpod:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "runpod-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

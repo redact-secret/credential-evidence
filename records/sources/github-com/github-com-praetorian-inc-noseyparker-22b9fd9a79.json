@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-praetorian-inc-noseyparker-22b9fd9a79",
+  "sourceType": "scanner-rule-source",
+  "title": "praetorian-inc/noseyparker @ 2e6e7f36ce36619852532bbe698d8cb7a26d2da7: crates/noseyparker/data/default/builtin/rules/google.yml",
+  "publisher": "praetorian-inc/noseyparker",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/praetorian-inc/noseyparker/blob/2e6e7f36ce36619852532bbe698d8cb7a26d2da7/crates/noseyparker/data/default/builtin/rules/google.yml",
+    "pin": {
+      "kind": "commit-permalink",
+      "commit": "2e6e7f36ce36619852532bbe698d8cb7a26d2da7"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-corroboration, contract-field, contract-reference, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/1012b.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/1012b.ts",
+      "note": "cited by contracts['google-oauth-client-secret'].corroboration; contracts['google-oauth-client-secret'].fields; contracts['google-oauth-client-secret'].references"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/google.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/google.md",
+      "note": "cited by families[id=google:oauth-client-secret].research.sources"
+    }
+  ]
+}

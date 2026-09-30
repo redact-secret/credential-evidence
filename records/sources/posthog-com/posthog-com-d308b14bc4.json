@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "posthog-com-d308b14bc4",
+  "sourceType": "provider-documentation",
+  "title": "posthog.com/docs/api",
+  "publisher": "posthog.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://posthog.com/docs/api",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-28",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, contract-reference; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/434d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/434d.ts",
+      "note": "cited by contracts['posthog-project-secret-api-key'].fields; contracts['posthog-project-secret-api-key'].references; contracts['posthog-token'].fields; contracts['posthog-token'].references"
+    }
+  ]
+}

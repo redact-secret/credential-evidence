@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "sentry:organization-auth-token@1",
+  "family": "sentry:organization-auth-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^sntrys_eyJ[A-Za-z0-9+/]{26,}={0,2}_[A-Za-z0-9+/]{43}$"
+  },
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (sntrys_ + base64(JSON facts) + _ + 43-character standard-base64 secret): Un-probeable record lifted 2026-09-24 (#207): Sentry's own generator and RFC 0091 (provider code on github.com; not yet accepted as documentation, so the tier stays T2) fix the sntrys_ prefix, the eyJ JSON marker, exactly two _ delimiters and a 43-character standard-base64 secret. Twins mutate one of those properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-sentry-d701bc8569",
+          "supports": "Un-probeable record lifted 2026-09-24 (#207): Sentry's own generator and RFC 0091 (provider code on github.com; not yet accepted as documentation, so the tier stays T2) fix the sntrys_ prefix, the eyJ JSON marker, exactly two _ delimiters and a 43-character standard-base64 secret. Twins mutate one of those properties."
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-441ec78148",
+          "supports": "trufflehog 3.97.4: sentryorgtoken/sentryorgtoken"
+        }
+      ]
+    },
+    {
+      "id": "field-structure",
+      "statement": "structure: sntrys_ + base64 of a JSON facts object (hence eyJ) + _ + secret; exactly two _",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-rfcs-c1786799c2",
+          "supports": "Sentry's merged RFC on github.com; whether it meets the provider-source bar is an open maintainer decision"
+        },
+        {
+          "sourceId": "github-com-getsentry-sentry-d701bc8569",
+          "supports": "structure: sntrys_ + base64 of a JSON facts object (hence eyJ) + _ + secret; exactly two _"
+        }
+      ]
+    },
+    {
+      "id": "field-payload-alphabet",
+      "statement": "payload alphabet: standard base64 (+ and /) with its = padding kept; never base64url",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-sentry-d701bc8569",
+          "supports": "payload alphabet: standard base64 (+ and /) with its = padding kept; never base64url"
+        }
+      ]
+    },
+    {
+      "id": "field-secret",
+      "statement": "secret: 32 random bytes as standard base64 with padding stripped: exactly 43 characters, no -, _ or =",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-sentry-cli-8faaf61642",
+          "supports": "secret: 32 random bytes as standard base64 with padding stripped: exactly 43 characters, no -, _ or ="
+        },
+        {
+          "sourceId": "github-com-getsentry-sentry-d701bc8569",
+          "supports": "secret: 32 random bytes as standard base64 with padding stripped: exactly 43 characters, no -, _ or ="
+        }
+      ]
+    },
+    {
+      "id": "field-payload-keys",
+      "statement": "payload keys: iat, url, region_url, org in that order; url may be null or empty on self-hosted installs",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-cedfbe05c6",
+          "supports": "payload keys: iat, url, region_url, org in that order; url may be null or empty on self-hosted installs"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-getsentry-rfcs-31baf1011e",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-getsentry-sentry-cli-a6965ecc71",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-getsentry-sentry-f55495449a",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-6eff8457e7",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "sentry-org-auth-token:payload alphabet",
+      "note": "claim field-payload-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sentry-org-auth-token:payload keys",
+      "note": "claim field-payload-keys; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sentry-org-auth-token:secret",
+      "note": "claim field-secret; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "sentry-org-auth-token:structure",
+      "note": "claim field-structure; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['sentry-org-auth-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sentry.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sentry.md",
+      "note": "families[id=sentry:organization-auth-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=sentry:organization-auth-token]"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-slack-user-token",
+  "subject": {
+    "kind": "family",
+    "id": "slack:user-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-27. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#730",
+          "url": "https://github.com/redact-secret/redact-secret/issues/730"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#229",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/229"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#367",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/367"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for slack:user-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): slack-token's contract lists xoxp- among the provider-documented prefixes but its pattern only matches xoxb-. Scored as the arrival family slack-user-token (#730; docs/decisions/2026-09-24-score-arrival-families-by-finding-type.md): the product types it inside the shared slack-token detector as slack_user_token, so its findings carry the arrival id and its status comes from its own contract, profile and ledger rows. slack-user-token is not a registry detector id."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-27",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'slack-user-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Lexical separability decided before authoring (#212): the provider-documented xoxp- prefix and the provider example's three dash-separated numeric sections followed by a secret section separate a user token from the recorded confusables (public T/U/B ids, masked sections, references, placeholders). The pattern deliberately freezes no numeric width and no secret alphabet or width: those are tool claims (gitleaks slack-user-token 10-13 digits and 28-34 [a-zA-Z0-9-]; noseyparker exactly 12 digits and 32 lowercase hex; trufflehog two sections and an open tail) and Slack says tokens may reach 255 characters. Twins therefore mutate only provider-documented properties (the xox stem and the p letter, the dash separator, the secret section itself). Kept separate and not claimed: rotating xoxe.xoxp- user/config tokens (scope undecided), the Slack CLI service-token xoxp-1-... shape, and the xoxc- browser session token. All three are real secrets and none is a control. The registry's detector-coverage slack-token shape-2 fixtures already carry xoxp- positives built to the product's frozen grammar; they target slack-token and are not this family's evidence."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:user-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=slack:user-token]"
+    }
+  ]
+}

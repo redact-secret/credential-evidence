@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "fireworks-ai:api-key@1",
+  "family": "fireworks-ai:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^fw_(?:[A-Za-z0-9]{22}|[A-Za-z0-9]{24})$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "fw_-prefixed API key: the provider documents only the fw_ prefix (examples are truncated); no body length or alphabet is stated",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-fireworks-ai-2c538b56f2",
+          "supports": "the provider documents only the fw_ prefix (examples are truncated); no body length or alphabet is stated"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: fw_ (lowercase, underscore)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-fireworks-ai-2c538b56f2",
+          "supports": "prefix: fw_ (lowercase, underscore)"
+        },
+        {
+          "sourceId": "docs-fireworks-ai-a866f5dd40",
+          "supports": "fw_... in the credential table and 401 guidance"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix-validation",
+      "statement": "prefix validation: provider tooling accepts a key only if it starts with fw_ or fpk_ (case-sensitive)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-fw-ai-fireconnect-1e33b73935",
+          "supports": "prefix validation: provider tooling accepts a key only if it starts with fw_ or fpk_ (case-sensitive)"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body length: 22 or 24 characters (25 or 27 total) (Separate observed hypotheses; not a negative boundary.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-d646d04359",
+          "supports": "aggregate prefix/length/charset counts of 9 public values; no value retained"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body alphabet: [A-Za-z0-9]; observed values avoided 0/O/I/l (base58-consistent) (The base58 reading is an inference; positives stay base58-consistent and no twin mutates the alphabet.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-d646d04359",
+          "supports": "body alphabet: [A-Za-z0-9]; observed values avoided 0/O/I/l (base58-consistent)"
+        }
+      ]
+    },
+    {
+      "id": "field-fpk-fire-pass-key",
+      "statement": "fpk_ Fire Pass key: documented second prefix under the same env var; body grammar unknown",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-fireworks-ai-be755a9468",
+          "supports": "fpk_ Fire Pass key: documented second prefix under the same env var; body grammar unknown"
+        }
+      ]
+    },
+    {
+      "id": "field-unprefixed-legacy-key",
+      "statement": "unprefixed legacy key: possible older unprefixed format (GitGuardian \"Not prefixed\")",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-gitguardian-com-203dcb35fc",
+          "supports": "unprefixed legacy key: possible older unprefixed format (GitGuardian \"Not prefixed\")"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 2 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-fireworks-ai-be755a9468",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-fw-ai-fireconnect-ec566fa039",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-fireworks-ai-1f63dc65b0",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-fireworks-ai-2c538b56f2",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-d70b4a41a6",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "docs-fireworks-ai-2c538b56f2",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "fireworks-ai-api-key:body alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=maintainer-observation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "fireworks-ai-api-key:body length",
+      "note": "claim field-body-length; legacy evidence basis=maintainer-observation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "fireworks-ai-api-key:fpk_ Fire Pass key",
+      "note": "claim field-fpk-fire-pass-key; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "fireworks-ai-api-key:prefix validation",
+      "note": "claim field-prefix-validation; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "fireworks-ai-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "fireworks-ai-api-key:unprefixed legacy key",
+      "note": "claim field-unprefixed-legacy-key; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/212.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/212.ts",
+      "note": "contracts['fireworks-ai-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/fireworks-ai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/fireworks-ai.md",
+      "note": "families[id=fireworks-ai:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=fireworks-ai:api-key]"
+    }
+  ]
+}

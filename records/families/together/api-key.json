@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "together:api-key",
+  "provider": "together",
+  "name": "Project API key (tgp_v1_)",
+  "description": "tgp_v1_ + 43 base64url characters; a deprecated legacy key population has an undocumented format and is not claimed.",
+  "lifecycle": "draft",
+  "currentContract": "together:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-29",
+    "issues": [
+      "redact-secret/redact-secret#1013",
+      "redact-secret/redact-secret#774",
+      "redact-secret/redact-secret#783",
+      "redact-secret/redact-secret#867",
+      "redact-secret/redact-secret-benchmarks#384"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/together.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/together.md",
+      "note": "families[id=together:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=together:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "together-ai-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

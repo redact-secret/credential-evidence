@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-pulumi-personal-access-token",
+  "subject": {
+    "kind": "family",
+    "id": "pulumi:personal-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-21",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-21. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pulumi.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#522",
+          "url": "https://github.com/redact-secret/redact-secret/issues/522"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#67",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/67"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-21",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'pulumi-access-token', a contract shared by 3 families (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Body length and alphabet are tool-corroborated, not provider-documented: gitleaks 8.30.1's pulumi-api-token rule and trufflehog 3.97.4's pulumi detector independently pin exactly 40 lowercase hexadecimal bytes after the prefix; neither registers any other length or alphabet, so this contract asserts none. Both tools pin the body to exactly 40 bytes rather than a floor, so a 39- or 41-byte body is an intentional false negative. github.com/plenoai/pleno-dlp, the second tool the product ADR cites for this family, is not one of this suite's pinned scanners and is recorded here only as prose, never as a pinned corroboration entry. All three token kinds (personal, organization, team) share this one prefix and body shape; Pulumi's own REST API reference documents no kind-specific prefix."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pulumi.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pulumi.md",
+      "note": "families[id=pulumi:personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=pulumi:personal-access-token]"
+    }
+  ]
+}

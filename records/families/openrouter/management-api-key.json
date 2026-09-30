@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "openrouter:management-api-key",
+  "provider": "openrouter",
+  "name": "Management API key",
+  "description": "sk-or-mgmt- prefixed management (formerly provisioning) key for the /api/v1/keys routes; cannot call completion endpoints. Body length and alphabet are undocumented.",
+  "lifecycle": "draft",
+  "currentContract": null,
+  "research": {
+    "state": "not-found",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret-benchmarks#220"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/openrouter.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openrouter.md",
+      "note": "families[id=openrouter:management-api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=openrouter:management-api-key]"
+    }
+  ]
+}

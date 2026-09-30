@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-postman-collection-access-key",
+  "subject": {
+    "kind": "family",
+    "id": "postman:collection-access-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-25. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/postman.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/582/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#582",
+          "url": "https://github.com/redact-secret/redact-secret/issues/582"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#700",
+          "url": "https://github.com/redact-secret/redact-secret/issues/700"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#259",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/259"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for postman:collection-access-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector postman-collection-access-key since redact-secret#700 (#773, registry pinned at 3144bb3), authored under #259. Postman documents the credential but no shape; the 26-character uppercase alphanumeric body follows GitLab's rule (T2)."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'postman-collection-access-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector postman-collection-access-key since redact-secret#700 (#773, registry pinned at 3144bb3); authored under #259 directly as a registry contract. Postman documents the collection access key (Share via API: \"Generate New Key to create a read-only collection access key. This key expires after 60 days of inactivity\") and tells users to remove sensitive data before sharing one. Its API reference renders the key masked as PMAT- + asterisks + 4 characters, a 26-character body by count (provider example, not a grammar statement). GitLab's secret-detection rule PostmanCollectionAccessKey matches \\bPMAT-[A-Z0-9]{26}\\b and gates validation on a postman or pstmn.io context; its examples are ULID-shaped, which is recorded as unresolved; GitHub secret scanning lists postman_collection_key as a partner pattern without publishing the expression. The contract freezes GitLab's uppercase alphanumeric body. The product (redact-secret#700) also accepts lowercase, a looser reading. No lowercase twin is authored, because the case is stated by one tool only. Neither pinned peer has a PMAT- rule. The PMAK- API key is a different, secret credential and is never a control. The prefix twin swaps PMAT- for PMAK- with the same 26-character body, which fits neither contract."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/postman.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/postman.md",
+      "note": "families[id=postman:collection-access-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=postman:collection-access-key]"
+    }
+  ]
+}

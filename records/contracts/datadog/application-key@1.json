@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "datadog:application-key@1",
+  "family": "datadog:application-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^ddapp_[A-Za-z0-9]{34}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "Access-token comparison table (mirrored at /account_management/service-access-tokens/): Application keys column: \"Identifiable prefix … ddapp_ (new)\" establishes ddapp_ as the identifying prefix of current-format application keys. Body length (34 characters) and alphabet are not stated on this page; both are corroborated only by Datadog-owned code and a third-party partner doc, never by a provider-domain page",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "docs-datadoghq-com-8ac796aa2a",
+          "supports": "Application keys column: \"Identifiable prefix … ddapp_ (new)\" establishes ddapp_ as the identifying prefix of current-format application keys. Body length (34 characters) and alphabet are not stated on this page; both are corroborated only by Datadog-owned code and a third-party partner doc, never by a provider-domain page"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (7 artifacts: AWS Secrets Manager partner doc; DataDog/cloudformation-template; DataDog/datadog-agent (Agent app-key validator); DataDog/datadog-agent (Agent log/config scrubber); DataDog/terraform-module-datadog-agentless-scanner; gitleaks 8.30.1; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-c95ca8dba1",
+          "supports": "AWS Secrets Manager partner doc: DatadogApplicationKey rotation guide"
+        },
+        {
+          "sourceId": "github-com-datadog-cloudformation-template-3712375810",
+          "supports": "DataDog/cloudformation-template: aws_quickstart/datadog_agentless_saas.yaml AllowedPattern"
+        },
+        {
+          "sourceId": "github-com-datadog-datadog-agent-6d8a7a4a42",
+          "supports": "DataDog/datadog-agent (Agent log/config scrubber): pkg/util/scrubber/default.go",
+          "locator": "#L65-L70"
+        },
+        {
+          "sourceId": "github-com-datadog-datadog-agent-6e9157fb9a",
+          "supports": "DataDog/datadog-agent (Agent app-key validator): pkg/privateactionrunner/util/keys.go",
+          "locator": "#L16"
+        },
+        {
+          "sourceId": "github-com-datadog-terraform-module-datadog-agentless-scanner-a1086e9a45",
+          "supports": "DataDog/terraform-module-datadog-agentless-scanner: azure/arm ValidatePattern",
+          "locator": "#L12"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ce47b8450c",
+          "supports": "trufflehog 3.97.4: datadogtoken/datadogtoken"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: ddapp_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "docs-datadoghq-com-8ac796aa2a",
+          "supports": "Application keys column: \"Identifiable prefix … ddapp_ (new)\""
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body-length: 34 characters after ddapp_ (40 total) (Every Datadog-owned validator (Agent keys.go, CloudFormation, ARM) agrees on 34; no provider-domain page states it. No length twin is authored.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-datadog-datadog-agent-6e9157fb9a",
+          "supports": "body-length: 34 characters after ddapp_ (40 total)",
+          "locator": "#L16"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-576426eb92",
+          "supports": "body-length: 34 characters after ddapp_ (40 total)"
+        }
+      ]
+    },
+    {
+      "id": "field-body-alphabet",
+      "statement": "body-alphabet: [A-Za-z0-9] (The scrubber's wider class is read as lenient-by-design (redact-secret#645); no alphabet twin is authored.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-datadog-datadog-agent-6d8a7a4a42",
+          "supports": "the Agent scrubber alone also allows \"_\"",
+          "locator": "#L65-L70"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-40-hex-generation",
+      "statement": "legacy-40-hex-generation: bare 40 lowercase hex, keyword-gated (The separate datadog-application-key-legacy contract; not this family.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-576426eb92",
+          "supports": "legacy-40-hex-generation: bare 40 lowercase hex, keyword-gated"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 5 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-datadoghq-com-8ac796aa2a",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-datadoghq-com-950ae67dab",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-datadog-cloudformation-template-09e57c27ad",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-datadog-datadog-agent-74e64e3986",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c2e4c9bc97",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-datadoghq-com-8ac796aa2a",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "datadog-application-key:body-alphabet",
+      "note": "claim field-body-alphabet; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "datadog-application-key:body-length",
+      "note": "claim field-body-length; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "datadog-application-key:legacy-40-hex-generation",
+      "note": "claim field-legacy-40-hex-generation; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "datadog-application-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['datadog-application-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/datadog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+      "note": "families[id=datadog:application-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=datadog:application-key]"
+    }
+  ]
+}

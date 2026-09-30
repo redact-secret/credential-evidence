@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "firebase:server-key@1",
+  "family": "firebase:server-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140}$"
+  },
+  "claims": [
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: nuclei-templates (projectdiscovery)).",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "github-com-projectdiscovery-nuclei-templates-cb00285b1a",
+          "supports": "nuclei-templates (projectdiscovery): firebase-fcm-server-key-disclosure.yaml"
+        }
+      ]
+    },
+    {
+      "id": "field-head",
+      "statement": "head: literal AAAA plus 7 characters (11 in total): the base64url of the 8-byte big-endian project number, so AAAA holds only while project numbers stay below 2^40",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-748c13816d",
+          "supports": "Head-to-project-number decoding is an aggregate empirical analysis; Google documents no AAAA prefix."
+        }
+      ]
+    },
+    {
+      "id": "field-delimiter",
+      "statement": "delimiter: a single : between head and body",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "github-com-projectdiscovery-nuclei-templates-cb00285b1a",
+          "supports": "delimiter: a single : between head and body"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body length: exactly 140 characters of [A-Za-z0-9_-] (140 is dominant from 2017 on (58 of 66 observed keys); late-2016 keys carry 162/167/183-character bodies and Google's 2017 blog gives a 175 total. No fixture asserts silence on those lengths.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-20",
+      "sources": [
+        {
+          "sourceId": "github-com-projectdiscovery-nuclei-templates-cb00285b1a",
+          "supports": "body length: exactly 140 characters of [A-Za-z0-9_-]"
+        }
+      ]
+    },
+    {
+      "id": "field-body-marker",
+      "statement": "body marker: every observed real body starts APA91b, the prefix FCM registration tokens also use (Positives carry it; the contract does not require it.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-748c13816d",
+          "supports": "body marker: every observed real body starts APA91b, the prefix FCM registration tokens also use"
+        }
+      ]
+    },
+    {
+      "id": "field-issuance",
+      "statement": "issuance: the legacy FCM API was shut down in June 2024 and no new server key can be issued",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-22",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-6367a006e9",
+          "supports": "issuance: the legacy FCM API was shut down in June 2024 and no new server key can be issued"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 5 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "firebase-google-com-75f018e0fa",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "firebase-googleblog-com-4be4c51eac",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-firebase-firebase-js-sdk-f3ae5ff43d",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-projectdiscovery-nuclei-templates-cb00285b1a",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-56c55fd2ba",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-24",
+      "sources": [
+        {
+          "sourceId": "github-com-projectdiscovery-nuclei-templates-cb00285b1a",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "firebase-server-key:body length",
+      "note": "claim field-body-length; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firebase-server-key:body marker",
+      "note": "claim field-body-marker; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firebase-server-key:delimiter",
+      "note": "claim field-delimiter; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firebase-server-key:head",
+      "note": "claim field-head; legacy evidence basis=community"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "firebase-server-key:issuance",
+      "note": "claim field-issuance; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['firebase-server-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/firebase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firebase.md",
+      "note": "families[id=firebase:server-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=firebase:server-key]"
+    }
+  ]
+}

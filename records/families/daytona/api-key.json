@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "daytona:api-key",
+  "provider": "daytona",
+  "name": "API key (dtn_)",
+  "description": "dtn_ + exactly 64 lowercase hex, T1 as of v0.190.0 (2026-06-23) under ruling R9; the same generator mints region proxy, SSH-gateway and runner keys, which are lexically identical.",
+  "lifecycle": "draft",
+  "currentContract": "daytona:api-key@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-28",
+    "issues": [
+      "redact-secret/redact-secret#860",
+      "redact-secret/redact-secret#970",
+      "redact-secret/redact-secret-benchmarks#464"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/daytona.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/daytona.md",
+      "note": "families[id=daytona:api-key]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=daytona:api-key]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "daytona-api-key",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

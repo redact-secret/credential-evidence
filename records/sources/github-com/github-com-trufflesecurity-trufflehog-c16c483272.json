@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "github-com-trufflesecurity-trufflehog-c16c483272",
+  "sourceType": "scanner-rule-source",
+  "title": "trufflesecurity/trufflehog @ 363923b901c911a9164f50b6c423f47c15372b1c: pkg/detectors/langsmith/langsmith.go",
+  "publisher": "trufflesecurity/trufflehog",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://github.com/trufflesecurity/trufflehog/blob/363923b901c911a9164f50b6c423f47c15372b1c/pkg/detectors/langsmith/langsmith.go",
+    "pin": {
+      "kind": "commit-permalink",
+      "commit": "363923b901c911a9164f50b6c423f47c15372b1c"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-24",
+      "outcome": "read",
+      "observer": "legacy-import",
+      "note": "Legacy import: date recorded by legacy contract-field, dossier-research; the exact read time was not recorded."
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/210.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/210.ts",
+      "note": "cited by contracts['langsmith-api-key'].fields"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/langsmith.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/langsmith.md",
+      "note": "cited by families[id=langsmith:api-key].research.sources"
+    }
+  ]
+}

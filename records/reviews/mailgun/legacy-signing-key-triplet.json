@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-mailgun-legacy-signing-key-triplet",
+  "subject": {
+    "kind": "family",
+    "id": "mailgun:legacy-signing-key-triplet"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-25. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/582/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#582",
+          "url": "https://github.com/redact-secret/redact-secret/issues/582"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#701",
+          "url": "https://github.com/redact-secret/redact-secret/issues/701"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#259",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/259"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for mailgun:legacy-signing-key-triplet (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.8 context-gated arrival family mailgun-api-key-triplet (#259). Since redact-secret#701 (#773, registry pinned at 3144bb3) the product mailgun-api-key detector also reports this shape under mailgun_api_key, inside the shared detector. It is no longer treated as a superseded legacy signing key: no issued key has been observed and the role is recorded uncertainty."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'mailgun-api-key-triplet' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Context-gated arrival family (#259, product redact-secret#701). Three sources describe a prefix-less <32 hex>-<8 hex>-<8 hex> value as Mailgun's newer private API key: a Mailgun-repository contributor (mailgun-go#72, 2019), customer reports (Discourse, 2018) and trufflehog#3870 (2025). Both pinned peers match the shape: gitleaks 8.30.1 mailgun-signing-key (keyword-gated, [a-h0-9]) and trufflehog 3.97.4 mailgun (its \"Hex MailGun Token\" pattern, chunk-keyword-gated). Mailgun documents no shape for any key, so no issued key is known and the contract is recorded uncertainty. Before this issue, the benchmark taxonomy listed the triplet as an unsupported legacy signing key; this issue corrects that reason. The triplet is recognised only beside a same-line mailgun keyword and scores as policy. Its twins keep the triplet and change only the context. The alphabet is lowercase hex, the intersection of both peers, so an uppercase triplet is a near-miss control rather than a twin."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailgun.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+      "note": "families[id=mailgun:legacy-signing-key-triplet].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mailgun:legacy-signing-key-triplet]"
+    }
+  ]
+}

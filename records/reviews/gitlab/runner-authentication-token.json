@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-gitlab-runner-authentication-token",
+  "subject": {
+    "kind": "family",
+    "id": "gitlab:runner-authentication-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-25. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/726/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#726",
+          "url": "https://github.com/redact-secret/redact-secret/issues/726"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#730",
+          "url": "https://github.com/redact-secret/redact-secret/issues/730"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#230",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/230"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for gitlab:runner-authentication-token (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Registry detector gitlab-runner-authentication-token since redact-secret#730 (registry pinned at f2082ab); graduated from a Beta.8 arrival family (#212, research #230), contract in benchmarks/lib/beta8/212.ts. glrtr-, instance-prefixed and unversioned routable variants are not claimed. gitlab-token contract covers glpat- only."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-25",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'gitlab-runner-authentication-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Graduated arrival contract (registry detector since redact-secret#730). Lexical separability decided before authoring (#212): the provider-documented glrt- prefix plus either a 20-character friendly-token body (optionally after the legacy t<hex>_ partition segment) or the routable <base64url>.<2 base36>.<2 base36 length><7 base36 CRC32> grammar separates a runner authentication token from the recorded confusables (s_<12 hex> system ids, 8-character short_sha values, runner ids, masked/REDACTED values, references). Only the glrt- prefix is provider-documented; the legacy body (Devise friendly_token, 20 chars) and the routable grammar and checksum come from GitLab's own code (routable_token.rb, runner.rb) and GitLab's provider-authored secret-detection rules, so the contract is T2. The routable checksum is recomputable offline: `validate` re-checks the base36 length holder and the CRC32, and the generator computes both over synthetic bytes. Not claimed: glrtr- tokens (documented prefix for runners registered with a registration token; current shape unverified), instance-prefixed <admin-prefix>-glrt- tokens (self-managed, feature-flagged), the unversioned single-dot routable design form, and exact issuance windows. glrtr- values, GR1348941 registration tokens and other gl-stem tokens are real secrets and are never controls. Pinned peers: gitleaks gitlab-runner-authentication-token matches the 20-character body (truncating longer tokens at 25 bytes) and its routable rule requires a t<d>_ segment and a single dot, so it matches neither GitLab's versioned routable shape; trufflehog 3.97.4 has no glrt- detector."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:runner-authentication-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=gitlab:runner-authentication-token]"
+    }
+  ]
+}

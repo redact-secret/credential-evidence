@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "mailchimp:marketing-api-key@1",
+  "family": "mailchimp:marketing-api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^[0-9a-f]{32}-us[0-9]{1,2}$"
+  },
+  "claims": [
+    {
+      "id": "mutable-property-source",
+      "statement": "Documentation for the one property varied in legacy twin fixtures (data-center suffix by example): the page states \"if your API key is 0123456789abcdef0123456789abcde-us6, then the data center subdomain is us6\" and that the <dc> URL prefix \"corresponds to the data center for your account\" — establishing a literal us<N> data-center suffix after the dash. It backs a marker twin only; the 32-byte hex body stays tool-corroborated and the positive tier is unchanged",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "mailchimp-com-d4bf745447",
+          "supports": "the page states \"if your API key is 0123456789abcdef0123456789abcde-us6, then the data center subdomain is us6\" and that the <dc> URL prefix \"corresponds to the data center for your account\" — establishing a literal us<N> data-center suffix after the dash. It backs a marker twin only; the 32-byte hex body stays tool-corroborated and the positive tier is unchanged"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-44311e553b",
+          "supports": "trufflehog 3.97.4: mailchimp/mailchimp"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T2) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-25",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-2bac414bd1",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "mailchimp-com-d4bf745447",
+          "supports": "Cited by the legacy dossier research for this family"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 1 source for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-25",
+      "sources": [
+        {
+          "sourceId": "mailchimp-com-d4bf745447",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['mailchimp-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailchimp.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailchimp.md",
+      "note": "families[id=mailchimp:marketing-api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=mailchimp:marketing-api-key]"
+    }
+  ]
+}

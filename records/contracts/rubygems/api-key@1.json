@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "rubygems:api-key@1",
+  "family": "rubygems:api-key",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "descriptivePattern": "^rubygems_[0-9a-f]{48}$"
+  },
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "rubygems/rubygems.org app/controllers/concerns/api_keyable.rb (d4cfcc9, last changed 2026-03-03): generate_rubygems_key returns \"rubygems_#{SecureRandom.hex(24)}\"; re-checked 2026-09-29: rubygems_ + exactly 48 lowercase hex (24 random bytes), 57 in all; no checksum",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-rubygems-rubygems-org-ac6d2d72ae",
+          "supports": "rubygems_ + exactly 48 lowercase hex (24 random bytes), 57 in all; no checksum",
+          "locator": "#L19-L21"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (2 artifacts: gitleaks 8.30.1; trufflehog 3.97.4).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks 8.30.1: rubygems-api-token: \\b(rubygems_[a-f0-9]{48}) + a trailing delimiter"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-edb35f1c3f",
+          "supports": "trufflehog 3.97.4: RubyGems: \\b(rubygems_[a-zA0-9]{48})\\b (a class typo: a-z, A and 0-9)"
+        }
+      ]
+    },
+    {
+      "id": "field-prefix",
+      "statement": "prefix: rubygems_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-rubygems-rubygems-org-ac6d2d72ae",
+          "supports": "prefix: rubygems_",
+          "locator": "#L19-L21"
+        }
+      ]
+    },
+    {
+      "id": "field-body",
+      "statement": "body: exactly 48 lowercase hex [0-9a-f] (SecureRandom.hex(24)); 57 in all",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-rubygems-rubygems-org-ac6d2d72ae",
+          "supports": "body: exactly 48 lowercase hex [0-9a-f] (SecureRandom.hex(24)); 57 in all",
+          "locator": "#L19-L21"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a key glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed (Handoff boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-82978451be",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-transport",
+      "statement": "transport: GEM_HOST_API_KEY; the :rubygems_api_key: line of ~/.gem/credentials; Authorization with the bare key (no scheme)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-82978451be",
+          "supports": "test axes"
+        }
+      ]
+    },
+    {
+      "id": "field-metadata-keys",
+      "statement": "metadata-keys: rubygems_version and rubygems_mfa_required are gemspec metadata keys, not credentials (Benign controls: they fail the 48-hex body.)",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-82978451be",
+          "supports": "excluded shapes"
+        }
+      ]
+    },
+    {
+      "id": "field-peer-lag",
+      "statement": "peer-lag: gitleaks 8.30.1 rubygems-api-token is \\b(rubygems_[a-f0-9]{48}) followed by a quote, backtick, whitespace, ; or end: it agrees with the grammar and lags only where the key is followed by another byte. trufflehog 3.97.4 RubyGems is \\b(rubygems_[a-zA0-9]{48})\\b, whose class admits any lowercase letter and A, so it overreaches on a non-hex body. Both labels map to rubygems-api-key",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "rubygems-api-token"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-edb35f1c3f",
+          "supports": "RubyGems"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 8 references without stating which property each supports.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-58f4c6223a",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5900447282"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-7266f57eea",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-82978451be",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-ac559a3b98",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#issuecomment-5852413851"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-benchmarks-aecd1a9677",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-eebd65be68",
+          "supports": "Listed as a reference by the legacy contract"
+        },
+        {
+          "sourceId": "github-com-rubygems-rubygems-org-ac6d2d72ae",
+          "supports": "Listed as a reference by the legacy contract",
+          "locator": "#L19-L21"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 2 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-82978451be",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-rubygems-rubygems-org-ac6d2d72ae",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L19-L21"
+        }
+      ]
+    },
+    {
+      "id": "taxonomy-sources",
+      "statement": "The legacy taxonomy lists 2 sources for this family. The taxonomy records no date; the dossier researchedAt is used as the observed-at date.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-82978451be",
+          "supports": "Listed as a source for this family in the legacy taxonomy"
+        },
+        {
+          "sourceId": "github-com-rubygems-rubygems-org-ac6d2d72ae",
+          "supports": "Listed as a source for this family in the legacy taxonomy",
+          "locator": "#L19-L21"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-field-claim",
+      "id": "rubygems-api-key:body",
+      "note": "claim field-body; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "rubygems-api-key:boundary",
+      "note": "claim field-boundary; legacy evidence basis=research-hypothesis"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "rubygems-api-key:metadata-keys",
+      "note": "claim field-metadata-keys; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "rubygems-api-key:peer-lag",
+      "note": "claim field-peer-lag; legacy evidence basis=tool"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "rubygems-api-key:prefix",
+      "note": "claim field-prefix; legacy evidence basis=provider-code"
+    },
+    {
+      "system": "legacy-field-claim",
+      "id": "rubygems-api-key:transport",
+      "note": "claim field-transport; legacy evidence basis=provider-documentation"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/lib/beta8/528d.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/lib/beta8/528d.ts",
+      "note": "contracts['rubygems-api-key']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/rubygems.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/rubygems.md",
+      "note": "families[id=rubygems:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=rubygems:api-key]"
+    }
+  ]
+}

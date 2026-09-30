@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "notion:integration-token",
+  "provider": "notion",
+  "name": "Integration token",
+  "description": "ntn_ prefixed integration token from Notion's 2024-09 rollout.",
+  "lifecycle": "draft",
+  "currentContract": "notion:integration-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-24",
+    "issues": [
+      "redact-secret/redact-secret#514",
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret#729",
+      "redact-secret/redact-secret-benchmarks#225"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/notion.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+      "note": "families[id=notion:integration-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=notion:integration-token]"
+    }
+  ]
+}

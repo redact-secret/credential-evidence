@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "databricks:personal-access-token",
+  "provider": "databricks",
+  "name": "Personal access token",
+  "description": "dapi-prefixed 32-hex personal access token, optionally suffixed -<digit> after rotation.",
+  "lifecycle": "draft",
+  "currentContract": "databricks:personal-access-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-25",
+    "issues": [
+      "redact-secret/redact-secret#582",
+      "redact-secret/redact-secret#697",
+      "redact-secret/redact-secret#698"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/databricks.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/databricks.md",
+      "note": "families[id=databricks:personal-access-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=databricks:personal-access-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "databricks-personal-access-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

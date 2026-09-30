@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "gitlab:runner-authentication-token",
+  "provider": "gitlab",
+  "name": "Runner authentication token",
+  "description": "glrt--prefixed runner authentication token: a 20-character legacy body, or the routable base64url payload with a base36 length holder and CRC32 checksum.",
+  "lifecycle": "draft",
+  "currentContract": "gitlab:runner-authentication-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-09-25",
+    "issues": [
+      "redact-secret/redact-secret#726",
+      "redact-secret/redact-secret#730",
+      "redact-secret/redact-secret-benchmarks#230"
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:runner-authentication-token]"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=gitlab:runner-authentication-token]"
+    },
+    {
+      "system": "redact-secret-detector",
+      "id": "gitlab-runner-authentication-token",
+      "note": "Legacy taxonomy.json detectors[] mapping, kept as an optional external reference."
+    }
+  ]
+}

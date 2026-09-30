@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "docker:personal-access-token@1",
+  "family": "docker:personal-access-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "provider-source",
+      "statement": "AI Governance API bearerAuth credential table (Format column: dckr_pat_*, dckr_oat_*): Docker's own API reference (docs.docker.com AI Governance API spec, bearerAuth credential table) states the Personal Access Token format as dckr_pat_* and the Organization Access Token format as dckr_oat_*, establishing both prefixes (the * is a glob, not a grammar). Body lengths and alphabet are not provider-stated, except that Docker's Hub API spec (createOrgAccessTokenResponse.token) shows an example OAT with a 27-character alphanumeric body, on example strength only. The 27-character dckr_pat_ body, the 32-character dckr_oat_ width and the [A-Za-z0-9_-] alphabet remain tool-corroborated [Legacy contract 'docker-token' is shared by 2 families; this statement is not specific to one of them.]",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-docker-com-b09f952ef1",
+          "supports": "Docker's own API reference (docs.docker.com AI Governance API spec, bearerAuth credential table) states the Personal Access Token format as dckr_pat_* and the Organization Access Token format as dckr_oat_*, establishing both prefixes (the * is a glob, not a grammar). Body lengths and alphabet are not provider-stated, except that Docker's Hub API spec (createOrgAccessTokenResponse.token) shows an example OAT with a 27-character alphanumeric body, on example strength only. The 27-character dckr_pat_ body, the 32-character dckr_oat_ width and the [A-Za-z0-9_-] alphabet remain tool-corroborated"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration",
+      "statement": "Pinned scanner rules are consistent with the contract grammar (1 artifact: trufflehog 3.97.4). [Legacy contract 'docker-token' is shared by 2 families; this statement is not specific to one of them.]",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-ebdc5bc440",
+          "supports": "trufflehog 3.97.4: dockerhub/v2/dockerhub"
+        }
+      ]
+    },
+    {
+      "id": "listed-references",
+      "statement": "The legacy contract lists 1 reference without stating which property each supports. [Legacy contract 'docker-token' is shared by 2 families; this statement is not specific to one of them.]",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-docker-com-270a27919d",
+          "supports": "Listed as a reference by the legacy contract"
+        }
+      ]
+    },
+    {
+      "id": "dossier-research",
+      "statement": "Legacy dossier research (verdict ready, tier T1) cited 3 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-23",
+      "sources": [
+        {
+          "sourceId": "docs-docker-com-270a27919d",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "docs-docker-com-b09f952ef1",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-9137924755",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/evaluation/domains/credential/assessment.ts",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/evaluation/domains/credential/assessment.ts",
+      "note": "contracts['docker-token']"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/docker.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/docker.md",
+      "note": "families[id=docker:personal-access-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=docker:personal-access-token]"
+    }
+  ]
+}

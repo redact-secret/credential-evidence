@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-discord-bot-token",
+  "subject": {
+    "kind": "family",
+    "id": "discord:bot-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T2 (tool-corroborated), researchedAt 2026-09-24. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/discord.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/646/README.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#646",
+          "url": "https://github.com/redact-secret/redact-secret/issues/646"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#670",
+          "url": "https://github.com/redact-secret/redact-secret/issues/670"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#128",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/128"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#159",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/159"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-24",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'discord-bot-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Discord's own single documented example matches the legacy 24/6/27 shape exactly, corroborated by TruffleHog's discordbottoken detector (its \\b-anchored regex matches only that exact width). Re-checked 2026-09-22 (redact-secret#646, redact-secret-benchmarks#159): no pinned scanner or Discord-owned page documents the current 24/6/38 or 26/6/38 shapes; the body-length change is corroborated only by third-party tool regexes and dated empirical reports (see redact-secret#646's broad-discovery and web-search passes), never by either pinned scanner, so it stays prose-only, not a `corroboration` entry. Gitleaks's discord-api-token and discord-client-secret rules target different, unrelated Discord credential shapes and are not cited."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/discord.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/discord.md",
+      "note": "families[id=discord:bot-token].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=discord:bot-token]"
+    }
+  ]
+}

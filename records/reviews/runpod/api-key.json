@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-runpod-api-key",
+  "subject": {
+    "kind": "family",
+    "id": "runpod:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "reviewed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-28. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/runpod.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/8b6a5fde52ecb4dfce13f09c7a947062d21483c7/docs/audits/evidence/860/runpod.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "8b6a5fde52ecb4dfce13f09c7a947062d21483c7"
+          }
+        }
+      ],
+      "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#860",
+          "url": "https://github.com/redact-secret/redact-secret/issues/860"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#974",
+          "url": "https://github.com/redact-secret/redact-secret/issues/974"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret-benchmarks#464",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/464"
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy taxonomy.json note for runpod:api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Beta.12 arrival family runpod-api-key (#464, product redact-secret#974), contract in benchmarks/lib/beta8/464f.ts from the #860 handoff runpod.md. T1 on the prefix and alphabet; the floor and cap are policy. Neither pinned scanner has a RunPod rule; unpinned betterleaks uses a narrower 46-byte layout. Since the 4fb7882 re-pin the product detector is in the pinned registry, so the row maps to it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-28",
+      "actor": {
+        "id": "legacy-import",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Legacy contract review text for 'runpod-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#464, product redact-secret#974; #860 handoff runpod.md, READY with an open-ended body by ruling R10). T1: the prefix is the provider blog and the alphabet and provider floor of 16 are a provider-authored scrubber (R2). POLICY under R10, not T1: a floor of 16 would claim Redirect.pizza's rpa_ + 30 tokens, so project policy raises it to 31, the first width above that shape, and every RunPod width seen (46 empirical; a withdrawn 48-character docs example) is above it; the 128-byte upper bound is policy too (a bounded run for streaming; rejected whole, never truncated). The alphabet stays the provider's [A-Za-z0-9]. The contract pattern therefore carries the policy floor and the twin at 30 says POLICY; a body of 16-30 is an accepted false negative (none known), positives reach 128 and nothing asserts silence on 129. The 46-byte body and the 40-upper-plus-6-mixed layout are tool and empirical facts, so positives are authored with and without that layout. Excluded: Redirect.pizza rpa_ + 30 (another issuer), RunPod S3-compatible rps_ secrets and access keys (another credential), legacy unprefixed keys, and rpa_..., rpa_xxxx, rpa_your_key placeholders. A Redirect.pizza token of 31 or more bytes, if one exists, would read as RunPod: misattributed, still redacted. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1037)."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/runpod.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/runpod.md",
+      "note": "families[id=runpod:api-key].research"
+    },
+    {
+      "system": "legacy-taxonomy-import",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "note": "families[id=runpod:api-key]"
+    }
+  ]
+}
