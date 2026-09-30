@@ -44,6 +44,8 @@ export function renderParityReport(r) {
     ["unexplained differences (leaf values)", n(totals.unexplained)],
     ["arrays that differed only in order (ignored, see Normalization)", n(r.orderOnlyTotal)],
     ["explained-difference rules", `${n(r.rules.length)} (all matched; unused: ${n(r.unusedRules.length)})`],
+    ["legacy suites, fixture ids and corpus paths regenerated from `migration/legacy-map` (ADR 0009)", `${n(r.legacyNames.suites)} suites, ${n(r.legacyNames.fixtures)} fixtures`],
+    ["legacy navigation scenario ids regenerated from the map (none is canonical)", `${n(r.legacyNames.navigationScenarios)} ids, ${n(r.legacyNames.navigationLinks)} fixture links`],
   ]));
   out.push("");
   out.push("A leaf value is one scalar (or one empty container) at a normalized path. A field present on one side only counts as one difference per leaf.");
@@ -68,11 +70,15 @@ export function renderParityReport(r) {
   out.push(table(["Class", "Leaf values"], [...explainedByClass].sort((a, b) => b[1] - a[1] || cmp(a[0], b[0])).map(([c, k]) => [c, n(k)])));
   out.push("");
   out.push(table(["Rule", "Class", "Artifact", "Change", "Leaf values", "Entities", "Example"], ruleRows.map((s) => [`\`${s.rule.id}\``, s.rule.class, s.rule.artifact, s.rule.change, n(s.count), n(s.entities.size), `\`${s.examples[0] ?? ""}\``.slice(0, 130)])));
+  const checkOf = (rule) => [rule.predicate ? `predicate \`${rule.predicate}\`` : null, rule.overlay ? `overlay \`${rule.overlay}\` declares the field` : null, rule.legacy || rule.projected ? "value constraint" : null].filter(Boolean).join(" + ") || "path only";
+  const pathOnly = ruleRows.filter((s) => checkOf(s.rule) === "path only");
+  out.push("");
+  out.push(`How each rule is machine-checked: ${n(ruleRows.length - pathOnly.length)} of ${n(ruleRows.length)} rules check their stated cause against the records, the legacy document, the projection itself or the overlay interface (a predicate, an overlay that must declare the dropped field, or a value constraint). ${pathOnly.length === 1 ? "1 is" : `${n(pathOnly.length)} are`} path-only: they drop a named legacy field that canonical data never carries (${pathOnly.map((s) => `\`${s.rule.id}\``).join(", ")}); the path list in each is explicit, a test keeps evidence fields uncoverable, and nothing broader than the named keys is excused.`);
   out.push("");
   out.push("### Justifications");
   out.push("");
   for (const s of ruleRows) {
-    out.push(`- \`${s.rule.id}\` (${s.rule.class}; ${n(s.count)} leaf values in ${n(s.entities.size)} entities${s.rule.predicate ? `; checked by \`${s.rule.predicate}\`` : ""}): ${s.rule.justification}`);
+    out.push(`- \`${s.rule.id}\` (${s.rule.class}; ${n(s.count)} leaf values in ${n(s.entities.size)} entities${s.rule.predicate ? `; checked by \`${s.rule.predicate}\`` : ""}${s.rule.overlay ? `; field declared by overlay \`${s.rule.overlay}\`` : ""}): ${s.rule.justification}`);
   }
   out.push("");
   out.push("## Unexplained differences");
@@ -121,7 +127,7 @@ export function renderParityReport(r) {
   out.push("## Not compared");
   out.push("");
   out.push(r.projectedOnly.length ? `- \`${r.projectedOnly.join("`, `")}\`: projected documents with no legacy counterpart.` : "- Every projected JSON document has a legacy counterpart that was compared, except the two metadata files below.");
-  out.push("- `credential-eval/corpus-snapshot.json` is credential-eval's input contract, not a legacy file. Its truth fields are the ones compared above; it is validated in `tests/export-legacy.test.mjs` and by credential-eval's own validator (docs/decisions/0006).");
+  out.push("- `credential-eval/corpus-snapshot.json` is credential-eval's input contract, not a legacy file, and is in canonical ids and paths (ADR 0009). Its truth fields (text, spans, kind, tier) are the ones compared above, under their legacy names; it is validated in `tests/export-legacy.test.mjs` and by credential-eval's own validator. `credential-eval/legacy-id-map.json` re-keys it to the legacy fixture ids and paths for a dual run; it has no legacy counterpart.");
   out.push("- `overlay-interface.json` and `provenance-manifest.json` are projection metadata with no legacy counterpart.");
   out.push("- Holdout and qualification data: never exported from this repository.");
   out.push("");
