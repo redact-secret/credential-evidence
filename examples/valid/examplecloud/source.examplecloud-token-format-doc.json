@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "examplecloud-token-format-doc",
+  "sourceType": "provider-documentation",
+  "title": "ExampleCloud API keys (fictional documentation page)",
+  "publisher": "ExampleCloud",
+  "publishedAt": "2024-07-01",
+  "locator": {
+    "url": "https://docs.example.com/api/keys",
+    "pin": {
+      "kind": "archive-snapshot",
+      "archiveUrl": "https://web.archive.org/web/20260929000000/https://docs.example.com/api/keys",
+      "capturedAt": "2026-09-29T00:00:00Z"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-09-29T09:30:00Z",
+      "outcome": "read",
+      "observer": "example-reviewer",
+      "contentDigest": "0000000000000000000000000000000000000000000000000000000000000001",
+      "note": "First read; documents the exc_live_ prefix and 32-character body."
+    },
+    {
+      "observedAt": "2026-09-30",
+      "outcome": "unchanged",
+      "observer": "example-reviewer",
+      "contentDigest": "0000000000000000000000000000000000000000000000000000000000000001"
+    }
+  ],
+  "lifecycle": "reviewed"
+}

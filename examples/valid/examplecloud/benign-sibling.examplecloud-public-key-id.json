@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "examplecloud-public-key-id",
+  "families": ["examplecloud:api-key"],
+  "siblingClass": "public-identifier",
+  "name": "Publishable key identifier",
+  "description": "exc_pub_ identifiers are meant to be embedded in client code and are not secrets, but share the exc_ prefix family.",
+  "samples": [{ "value": "exc_pub_SYNTHETICPUBLICID00000000000000", "origin": "synthetic" }],
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "examplecloud-token-format-doc",
+      "supports": "States that exc_pub_ identifiers are safe to expose in client code.",
+      "locator": "section 'Publishable keys'"
+    }
+  ],
+  "observedAt": "2026-09-30",
+  "lifecycle": "reviewed"
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "examplecloud:api-key@1",
+  "family": "examplecloud:api-key",
+  "revision": 1,
+  "period": "historical",
+  "validity": { "from": "2019-03-01", "until": "2024-06-30" },
+  "supersedes": null,
+  "structure": {
+    "prefixes": [],
+    "alphabet": { "name": "hex-lower" },
+    "length": { "exact": 32 },
+    "components": [{ "name": "body", "role": "body", "description": "Unprefixed 32-character lowercase hex string." }],
+    "descriptivePattern": "^[0-9a-f]{32}$"
+  },
+  "claims": [
+    {
+      "id": "original-format-unprefixed-hex",
+      "statement": "Until 2024-06-30 API keys were 32 lowercase hex characters with no prefix.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "examplecloud-legacy-key-announcement",
+          "supports": "States that unprefixed hex keys were replaced by exc_live_ keys on 2024-07-01.",
+          "locator": "second paragraph"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    { "id": "existing-keys-still-valid", "question": "Are unprefixed keys still accepted by the API today?", "raisedAt": "2026-09-29" }
+  ],
+  "lifecycle": "reviewed"
+}

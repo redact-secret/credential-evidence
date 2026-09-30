@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "examplecloud-docs-placeholder-key",
+  "families": ["examplecloud:api-key", "examplecloud:webhook-secret"],
+  "siblingClass": "documentation-placeholder",
+  "name": "Documentation placeholder value",
+  "description": "The documentation writes YOUR_API_KEY_HERE after the live prefix as a stand-in for an issued key.",
+  "samples": [{ "value": "exc_live_YOUR_API_KEY_HERE", "origin": "provider-documented-placeholder" }],
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "examplecloud-token-format-doc",
+      "supports": "Shows exc_live_YOUR_API_KEY_HERE as an example, not an issued key."
+    }
+  ],
+  "observedAt": "2026-09-30",
+  "lifecycle": "reviewed"
+}

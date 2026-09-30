@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "variant",
+  "id": "examplecloud-api-key-unprefixed-hex",
+  "family": "examplecloud:api-key",
+  "contract": "examplecloud:api-key@1",
+  "name": "Unprefixed hex key",
+  "variantType": "historical-form",
+  "description": "Original 32-character lowercase hex key with no prefix.",
+  "effective": { "from": "2019-03-01", "until": "2024-06-30" },
+  "replaces": null,
+  "history": [
+    {
+      "observedAt": "2026-09-29",
+      "occurredAt": "2024-06-30",
+      "change": "retired",
+      "note": "Stopped being issued when the prefixed format launched.",
+      "sources": [
+        {
+          "sourceId": "examplecloud-legacy-key-announcement",
+          "supports": "States that issuance of unprefixed keys ends on 2024-06-30."
+        }
+      ]
+    }
+  ],
+  "lifecycle": "reviewed"
+}
