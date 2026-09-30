@@ -113,7 +113,9 @@ One case may produce many executable fixtures. Generated fixtures must always pr
 
 A Case is reserved for a real reasoning unit (partial-span leakage, reference versus literal, public identifier versus secret, a chunk boundary). A **Scenario** is a reusable semantic scenario whose reasoning is the same for every family it applies to (documentation placeholder, prefix near miss, wrong alphabet). A **fixture plan** declares a family x Scenario (or Case) matrix projection with its generation rule and lineage and asserts nothing itself. The criteria are in `docs/decisions/0007`.
 
-Canonical ids and record paths never contain legacy suite names, beta, milestone or issue coordinates, detector ids, release or migration-source coordinates, and evidence tier or basis is never part of identity. Those live in `externalRefs` and `migration/legacy-map.json`. `npm run lint:identity` enforces this; the imported records from #4 still violate it and are listed in a shrinking baseline until #12 stage B renames them.
+Canonical ids and record paths never contain legacy suite names, beta, milestone or issue coordinates, detector ids, release or migration-source coordinates, and evidence tier or basis is never part of identity. Those live in `externalRefs` and `migration/legacy-map/`. `npm run lint:identity` enforces this with no baseline: any violation fails.
+
+The imported legacy data was reclassified in #12 stage B (`docs/decisions/0008`, `docs/migration/reclassification-report.md`): the 1,925 template-worded imported cases became 52 hand-authored Cases, 29 Scenarios and 5 fixture plans, and every one of the 5,925 fixtures is traceable through the legacy map.
 
 ## Evidence classes
 
@@ -175,12 +177,13 @@ examples/
 
 records/              # canonical records; layout in docs/decisions/0004
   providers/ families/ contracts/ reviews/ sources/   # taxonomy import (#3)
-  cases/<suite>/     # authored Cases: scenario, why it matters, expected outcome, evidence (#4)
-  fixtures/<suite>.json  # sharded fixture projections of cases; authored or generated (#4)
-  scenarios/ fixture-plans/                           # reusable scenarios and matrix projections (#12)
+  cases/<case>.json  # hand-authored Cases: what happened, why it matters, expected outcome, evidence (#12)
+  scenarios/<scenario>.json   # reusable semantic scenarios, written once (#12)
+  fixture-plans/<plan>.json   # family x scenario matrix projections (#12)
+  fixtures/<provider>.json    # sharded fixtures by provider, authored and generated apart; each projects a Case or a plan cell (#12)
   variants/ siblings/                                 # reserved
 
-migration/            # legacy-map.json: legacy suite/case/fixture -> canonical record (#12 stage B); validated with records/
+migration/legacy-map/  # one shard per legacy suite: legacy suite/case/fixture -> canonical records (#12); validated with records/
 
 dist/legacy-projection/ # gitignored: derived legacy-compatible projection (npm run export:legacy); its manifest is committed in docs/migration/
 
@@ -189,7 +192,7 @@ fixtures/materialized/  # gitignored: executable fixtures materialized from reco
 scripts/
   validate.mjs        # npm run validate
   lib/validator.mjs
-  lib/identity.mjs, lint-identity.mjs, lint/identity-baseline.json   # npm run lint:identity (ADR 0007)
+  lib/identity.mjs, lint-identity.mjs   # npm run lint:identity (ADR 0007); no baseline
   materialize-fixtures.mjs   # npm run fixtures:materialize: files + manifest for credential-eval
   migrate/            # import-taxonomy.mjs, import-cases.mjs (npm run migrate:taxonomy, migrate:cases); future schema migrations
   export/             # legacy-projection.mjs (npm run export:legacy): legacy-compatible projection + credential-eval snapshot
@@ -213,11 +216,11 @@ Requires Node 22 or newer. The validator is offline and deterministic.
 ```bash
 npm ci
 npm run validate   # schemas, examples/valid and records/: shape, IDs, cross-references
-npm run lint:identity   # no legacy coordinates in canonical ids and paths; baseline may only shrink (#12)
+npm run lint:identity   # no legacy coordinates in canonical ids and paths (ADR 0007); zero violations, no baseline
 npm run migrate:check   # both migration regeneration checks (need the pinned legacy checkout)
 npm test           # positive and negative cases, imported records, round trips
 npm run migrate:taxonomy:check   # regenerate the taxonomy records from the pinned legacy revision and diff
-npm run migrate:cases:check      # regenerate cases and fixture sets (runs the legacy generators) and diff
+npm run migrate:cases:check      # regenerate the semantic tree, the legacy map and the reports (runs the legacy generators) and diff
 npm run fixtures:materialize     # write fixtures/materialized/ (gitignored) from records/
 npm run fixtures:materialize:check   # verify the records, the digest and any existing output
 npm run export:legacy            # write dist/legacy-projection/ (gitignored) and docs/migration/legacy-projection-manifest.json
@@ -233,14 +236,16 @@ a checkout of `redact-secret-benchmarks` (`--legacy <path>` or
 only commit `ade8a10bd7922765110a68986b0690eb3861f2e5` of it. Tests that compare
 against that checkout skip when it is absent unless `REQUIRE_LEGACY=1`.
 
-The model and its rules are recorded in `docs/decisions/0001` to `0007` (0007 corrects parts of 0001 and 0005); what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`.
+The model and its rules are recorded in `docs/decisions/0001` to `0008` (0007 and 0008 correct parts of 0001 and 0005); what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`, and how each legacy case was reclassified is in `docs/migration/reclassification-report.md`.
 
-Cases are the human unit (`records/cases/`); fixtures are their executable
-projections (`records/fixtures/`). A fixture set is either authored (hand-written
-inputs) or generated (the recorded output of a documented generation rule, never
-canonical). `npm run fixtures:materialize` turns them into plain files and a
-manifest so a consumer such as credential-eval needs no case semantics; see
-`docs/decisions/0005-cases-and-fixture-sets.md`.
+Cases (`records/cases/`) and Scenarios (`records/scenarios/`) are the human units;
+fixtures are their executable projections (`records/fixtures/`), organised by provider.
+A fixture projects a Case, or a cell of a fixture plan (family x Scenario); each carries
+its own evidence entry, because evidence tier is data, not identity. A fixture set is
+either authored (hand-written inputs) or generated (the recorded output of a documented
+generation rule, never canonical). `npm run fixtures:materialize` turns them into plain
+files and a manifest so a consumer such as credential-eval needs no case semantics; see
+`docs/decisions/0005-cases-and-fixture-sets.md` and `0008`.
 
 ## Public future
 

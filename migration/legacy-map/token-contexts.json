@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "legacy-map",
+  "id": "token-contexts",
+  "title": "Legacy map for suite token-contexts",
+  "source": {
+    "repository": "redact-secret/redact-secret-benchmarks",
+    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+  },
+  "entries": [
+    {"legacy":{"type":"suite","id":"token-contexts","path":"fixtures/token-contexts/corpus.json","title":"GitHub token contexts","description":"One never-issued, credential-shaped token across four text contexts and two negative controls."},"canonical":[{"type":"case","id":"github-token-reference-and-prose"},{"type":"fixture-plan","id":"carrier-edge-matrix"},{"type":"fixture-plan","id":"one-property-twins"},{"type":"scenario","id":"crlf-line-endings"},{"type":"scenario","id":"environment-assignment"},{"type":"scenario","id":"multibyte-text-offsets"},{"type":"scenario","id":"structured-text-value"},{"type":"scenario","id":"wrong-length"}],"relation":"merged","note":"10 fixtures in 9 imported cases (1 case, 4 scenario, 4 projection); every fixture is listed below with its canonical id."},
+    {"legacy":{"type":"case","id":"token-contexts-crlf","path":"records/cases/token-contexts/token-contexts-crlf.json"},"canonical":[{"type":"scenario","id":"crlf-line-endings"},{"type":"fixture-plan","id":"carrier-edge-matrix"}],"relation":"reclassified-as-scenario","note":"rule carrier-scenario; legacy tier T1; 1 fixture"},
+    {"legacy":{"type":"case","id":"token-contexts-crlf-twin-length","path":"records/cases/token-contexts/token-contexts-crlf-twin-length.json"},"canonical":[{"type":"scenario","id":"wrong-length"},{"type":"fixture-plan","id":"one-property-twins"}],"relation":"reclassified-as-projection","note":"rule twin-projection; legacy tier T2; 1 fixture"},
+    {"legacy":{"type":"case","id":"token-contexts-environment","path":"records/cases/token-contexts/token-contexts-environment.json"},"canonical":[{"type":"scenario","id":"environment-assignment"},{"type":"fixture-plan","id":"carrier-edge-matrix"}],"relation":"reclassified-as-scenario","note":"rule carrier-scenario; legacy tier T1; 1 fixture"},
+    {"legacy":{"type":"case","id":"token-contexts-environment-twin-length","path":"records/cases/token-contexts/token-contexts-environment-twin-length.json"},"canonical":[{"type":"scenario","id":"wrong-length"},{"type":"fixture-plan","id":"one-property-twins"}],"relation":"reclassified-as-projection","note":"rule twin-projection; legacy tier T2; 1 fixture"},
+    {"legacy":{"type":"case","id":"token-contexts-json","path":"records/cases/token-contexts/token-contexts-json.json"},"canonical":[{"type":"scenario","id":"structured-text-value"},{"type":"fixture-plan","id":"carrier-edge-matrix"}],"relation":"reclassified-as-scenario","note":"rule carrier-scenario; legacy tier T1; 1 fixture"},
+    {"legacy":{"type":"case","id":"token-contexts-json-twin-length","path":"records/cases/token-contexts/token-contexts-json-twin-length.json"},"canonical":[{"type":"scenario","id":"wrong-length"},{"type":"fixture-plan","id":"one-property-twins"}],"relation":"reclassified-as-projection","note":"rule twin-projection; legacy tier T2; 1 fixture"},
+    {"legacy":{"type":"case","id":"token-contexts-negative-controls","path":"records/cases/token-contexts/token-contexts-negative-controls.json"},"canonical":{"type":"case","id":"github-token-reference-and-prose"},"relation":"same","note":"rule authored-case; legacy tier T3; 2 fixtures"},
+    {"legacy":{"type":"case","id":"token-contexts-unicode","path":"records/cases/token-contexts/token-contexts-unicode.json"},"canonical":[{"type":"scenario","id":"multibyte-text-offsets"},{"type":"fixture-plan","id":"carrier-edge-matrix"}],"relation":"reclassified-as-scenario","note":"rule carrier-scenario; legacy tier T1; 1 fixture"},
+    {"legacy":{"type":"case","id":"token-contexts-unicode-twin-length","path":"records/cases/token-contexts/token-contexts-unicode-twin-length.json"},"canonical":[{"type":"scenario","id":"wrong-length"},{"type":"fixture-plan","id":"one-property-twins"}],"relation":"reclassified-as-projection","note":"rule twin-projection; legacy tier T2; 1 fixture"},
+    {"legacy":{"type":"fixture","id":"token-contexts--crlf","path":"crlf.txt","scenarioIds":["context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-github--crlf"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--crlf-twin","path":"crlf-twin.txt","scenarioIds":["benign-controls-and-twins","context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-github--crlf-twin"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--env","path":"env.txt","scenarioIds":["context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-github--env"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--env-reference","path":"env-reference.txt","scenarioIds":["benign-controls-and-twins","context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-generic--env-reference"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--env-twin","path":"env-twin.txt","scenarioIds":["benign-controls-and-twins","context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-github--env-twin"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--json","path":"json.txt","scenarioIds":["context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-github--json"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--json-twin","path":"json-twin.txt","scenarioIds":["benign-controls-and-twins","context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-github--json-twin"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--ordinary-text","path":"ordinary-text.txt","scenarioIds":["benign-controls-and-twins","context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-provider-neutral--ordinary-text-github-token-reference-and-prose"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--unicode","path":"unicode.txt","scenarioIds":["context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-github--unicode"},"relation":"same"},
+    {"legacy":{"type":"fixture","id":"token-contexts--unicode-twin","path":"unicode-twin.txt","scenarioIds":["benign-controls-and-twins","context-and-encoding"]},"canonical":{"type":"fixture","id":"authored-github--unicode-twin"},"relation":"same"}
+  ],
+  "lifecycle": "draft",
+  "notes": "Migration provenance (ADR 0007, ADR 0008): where every legacy suite, imported case and fixture of this suite went. Legacy names appear only on the legacy side. `case` entries name the groups that the first import (issue #4) minted, which are superseded by this reclassification; their path is the file that import wrote."
+}

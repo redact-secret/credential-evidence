@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "benign-encoded-value",
+  "title": "Hash, digest or encoded value of the same general shape",
+  "description": "A hash, checksum, digest, UUID or base64 text that shares alphabet and length with a family's credentials: image digests, ETags, content MD5 headers, encoded identifiers.",
+  "semantics": "High-entropy text of a credential-like length is everywhere in repositories and is not secret. Appearance alone, without the format's structure or context, does not make a credential.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Any family whose alphabet and length coincide with common encoded values."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

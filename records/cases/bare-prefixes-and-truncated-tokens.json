@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "bare-prefixes-and-truncated-tokens",
+  "title": "Bare credential prefixes and tokens cut short of the format's length",
+  "summary": "A line listing bare prefixes (ghp_ gho_ ghu_ ghs_ ghr_ glpat- npm_ SG. xoxb-), and GITHUB_TOKEN, GITLAB_TOKEN and NPM_TOKEN assignments holding a prefix and six characters.",
+  "rationale": "A prefix alone, or a value shorter than the format allows, is not an issued credential. Prefix-only matching produces a false alarm on every list of token types in documentation.",
+  "caseTypes": [
+    "benign",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "generic:private-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "github:app-user-to-server-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "github:classic-personal-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "github:oauth-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "github:oauth-refresh-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "gitlab:legacy-personal-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "npm:granular-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "sendgrid:api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "slack:bot-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "format-near-miss"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. The values do not satisfy the documented length, so they are not credentials of those families.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/build.mjs#incomplete-shapes",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/build.mjs",
+      "note": "legacy suite negative-controls; group Incomplete shapes; 7 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (7 fixtures); draft, not yet reviewed."
+}

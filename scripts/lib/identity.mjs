@@ -1,27 +1,16 @@
 // Identity lint (ADR 0007): canonical ids and record file paths must not carry
-// migration coordinates. Pure and deterministic; reads nothing but its input and
-// the baseline file.
+// migration coordinates. Pure and deterministic; reads nothing but its input.
 //
 // Scope: the ids and repository-relative file paths of scenario, case,
 // fixture-plan and fixture-set records (plus the fixture ids inside a set).
 // Legacy names are allowed in provenance fields (externalRefs, `imported`,
 // migration/legacy-map.json), which this lint never reads.
 //
-// Baseline: stage A of #12 lands the rule before stage B renames the imported
-// records, so the records that violate today are listed in
-// scripts/lint/identity-baseline.json. The baseline may only shrink: a new
-// violation, a violation with more codes than baselined, or a baselined record
-// that no longer violates (fixed, renamed, deleted) all fail.
-
-import { readFileSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
+// There is no baseline: every violation fails. (Stage A of #12 landed the rule with
+// a shrinking baseline of the 1,992 imported records that violated it; stage B
+// renamed and reclassified them and deleted the baseline.)
 
 export const IDENTITY_KINDS = ["scenario", "case", "fixture-plan", "fixture-set"];
-export const BASELINE_PATH = join(repoRoot, "scripts", "lint", "identity-baseline.json");
-export const TRACKING = "https://github.com/redact-secret/credential-evidence/issues/12";
 
 // Suite names of the legacy benchmark at its pinned revision that are not
 // beta/milestone coordinates (ADR 0005 lists the 67 suites). Static on purpose:
@@ -54,7 +43,7 @@ const PATTERNS = [
 
 const startsWithName = (text, name) => text === name || text.startsWith(`${name}-`);
 
-function codesForText(text, { segments }) {
+export function codesForText(text, { segments }) {
   const codes = new Set();
   for (const [code, re] of PATTERNS) if (re.test(text)) codes.add(code);
   for (const name of LEGACY_SUITE_NAMES) {
@@ -82,7 +71,10 @@ export function identityViolations(record, path) {
   add(codesForText(String(record.id ?? "").toLowerCase(), { segments: false }));
   add(codesForText(pathText(path), { segments: true }));
   if (record.kind === "fixture-set") {
-    for (const item of record.fixtures ?? []) add(codesForText(String(item.id ?? "").toLowerCase(), { segments: false }));
+    for (const item of record.fixtures ?? []) {
+      add(codesForText(String(item.id ?? "").toLowerCase(), { segments: false }));
+      add(codesForText(String(item.path ?? "").toLowerCase(), { segments: true }));
+    }
   }
   return [...codes].sort();
 }
@@ -97,50 +89,11 @@ export function collectViolations(entries) {
   return Object.fromEntries(Object.entries(out).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
 }
 
-export function loadBaseline(file = BASELINE_PATH) {
-  try {
-    const parsed = JSON.parse(readFileSync(file, "utf8"));
-    return parsed.entries ?? {};
-  } catch (e) {
-    if (e.code === "ENOENT") return {};
-    throw e;
-  }
-}
-
-/**
- * Compare current violations with a baseline. Returns sorted error strings.
- * `scopePrefixes` (repo-relative directories, optional) limits the stale check to
- * baselined paths under the directories the caller scanned.
- */
-export function checkIdentity(entries, baseline = loadBaseline(), { scopePrefixes } = {}) {
+/** Error strings for every record whose canonical id or path carries a coordinate. */
+export function checkIdentity(entries) {
   const errors = [];
-  const actual = collectViolations(entries);
-  for (const [path, codes] of Object.entries(actual)) {
-    const allowed = baseline[path];
-    if (!allowed) {
-      errors.push(`${path}: identity lint: ${codes.join(", ")} in a canonical id or path (ADR 0007). Coordinates belong in externalRefs or migration/legacy-map.json; rename the record.`);
-      continue;
-    }
-    const extra = codes.filter((c) => !allowed.includes(c));
-    if (extra.length) errors.push(`${path}: identity lint: new violation ${extra.join(", ")} beyond the baseline (${allowed.join(", ")}); the baseline only shrinks`);
-  }
-  for (const [path, allowed] of Object.entries(baseline)) {
-    if (scopePrefixes && !scopePrefixes.some((p) => path.startsWith(`${p}/`))) continue;
-    const codes = actual[path] ?? [];
-    const gone = allowed.filter((c) => !codes.includes(c));
-    if (gone.length) {
-      errors.push(`${path}: identity lint: baseline lists ${gone.join(", ")} but the record no longer violates it (or is gone); remove it from scripts/lint/identity-baseline.json (npm run lint:identity -- --shrink) (${TRACKING})`);
-    }
+  for (const [path, codes] of Object.entries(collectViolations(entries))) {
+    errors.push(`${path}: identity lint: ${codes.join(", ")} in a canonical id or path (ADR 0007). Coordinates belong in externalRefs or migration/legacy-map; rename the record.`);
   }
   return errors.sort();
-}
-
-/** Serialize a baseline map (one record per line, sorted) and write it. */
-export function writeBaseline(map, file = BASELINE_PATH) {
-  const body = Object.entries(map)
-    .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
-    .map(([p, codes]) => `    ${JSON.stringify(p)}: ${JSON.stringify(codes)}`)
-    .join(",\n");
-  const text = `{\n  "description": "Records whose canonical id or path still carries a legacy suite, beta, milestone, issue or detector coordinate. Non-growing: lint:identity fails if a violation is added or if a listed record is fixed without being removed here. Stage B of #12 renames them and empties this file.",\n  "tracking": ${JSON.stringify(TRACKING)},\n  "entries": {\n${body}\n  }\n}\n`;
-  writeFileSync(file, text);
 }

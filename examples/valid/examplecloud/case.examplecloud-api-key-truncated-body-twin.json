@@ -7,7 +7,7 @@
   "rationale": "A twin that changes exactly one grammar property shows whether length is part of what makes the value a credential.",
   "caseTypes": ["twin", "benign"],
   "families": [{ "family": "examplecloud:api-key", "role": "lookalike", "contract": "examplecloud:api-key@2" }],
-  "scenarios": ["benign-controls-and-twins"],
+  "scenarios": ["truncated-body-near-miss"],
   "expectation": {
     "outcome": "must-not-flag",
     "basis": "tool-corroborated",

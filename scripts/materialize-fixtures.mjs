@@ -41,11 +41,12 @@ if (errors.length) {
 const all = records.map((r) => r.record);
 const sets = all.filter((r) => r.kind === "fixture-set");
 const cases = all.filter((r) => r.kind === "case");
+const scenarios = all.filter((r) => r.kind === "scenario");
 if (!sets.length) {
   console.error("FAIL: no fixture-set records under records/; run npm run migrate:cases");
   process.exit(1);
 }
-const built = buildMaterialization({ sets, cases });
+const built = buildMaterialization({ sets, cases, scenarios });
 
 function readTree(dir) {
   const found = new Map();

@@ -11,8 +11,9 @@
 // states exactly what, and it is regenerated with every projection.
 
 import { createHash } from "node:crypto";
+import { buildLegacyView } from "./view.mjs";
 
-export const GENERATOR = { name: "credential-evidence/legacy-projection", version: "1.0.0" };
+export const GENERATOR = { name: "credential-evidence/legacy-projection", version: "1.1.0" };
 export const MANIFEST_FORMAT = "credential-evidence/legacy-projection-manifest";
 export const MANIFEST_FORMAT_VERSION = 1;
 export const OVERLAY_FORMAT = "credential-evidence/legacy-projection-overlay-interface";
@@ -52,7 +53,7 @@ export function indexRecords(records) {
   for (const r of records) (by[r.kind] ??= []).push(r);
   for (const k of Object.keys(by)) by[k].sort((a, b) => cmp(a.id, b.id));
   const map = (kind) => new Map((by[kind] ?? []).map((r) => [r.id, r]));
-  return { by, providers: map("provider"), families: map("family"), contracts: map("format-contract"), sources: map("evidence-source"), reviews: map("evidence-review-history"), cases: map("case"), sets: map("fixture-set") };
+  return { by, providers: map("provider"), families: map("family"), contracts: map("format-contract"), sources: map("evidence-source"), reviews: map("evidence-review-history"), cases: map("case"), sets: map("fixture-set"), scenarios: map("scenario"), plans: map("fixture-plan"), maps: by["legacy-map"] ?? [] };
 }
 
 /** Rebuild a legacy URL from a sourceRef: base URL (exact legacy URL if the locator was a repository) plus the fragment locator. */
@@ -129,16 +130,14 @@ function buildDossiers(ix) {
 
 const legacyScenarioIds = (vocabulary) => new Set(vocabulary.scenarios.map((s) => s.id));
 
-function buildScenarios(ix, vocabulary) {
-  const used = new Set([...ix.cases.values()].flatMap((c) => c.scenarios ?? []));
+function buildScenarios(view, vocabulary) {
+  const legacy = legacyScenarioIds(vocabulary);
+  const used = new Set(view.fixtures.flatMap((f) => f.scenarioIds.filter((id) => legacy.has(id))));
   return { schemaVersion: 1, scenarios: vocabulary.scenarios.filter((s) => used.has(s.id)).map((s) => ({ id: s.id, title: s.title, description: s.description })) };
 }
 
-const corpusPathOf = (set, vocabulary) =>
-  set.origin.type === "authored-cases" ? vocabulary.corpusPaths.authored.replace("<id>", set.id) : vocabulary.corpusPaths.generated.replace("<id>", set.id);
-
-function buildCategories(ix, vocabulary) {
-  return [...ix.sets.values()].map((s) => ({ id: s.id, title: s.title, description: s.description, kind: vocabulary.categoryKind, corpus: corpusPathOf(s, vocabulary) }));
+function buildCategories(view, vocabulary) {
+  return view.suites.map((s) => ({ id: s.id, title: s.title, description: s.description, kind: vocabulary.categoryKind, corpus: s.corpus }));
 }
 
 /** Inverse of the importer's tier mapping: (outcome, basis) to the legacy (kind, tier). T0 has no recoverable kind. */
@@ -150,82 +149,79 @@ function legacyAssessment(outcome, basis) {
   return { kind: tier === "T3" ? "policy" : "must-redact", tier };
 }
 
-const suiteOf = (set) => set.id;
-const fixtureIdOf = (set, item) => (item.id.startsWith(`${suiteOf(set)}--`) ? item.id.slice(suiteOf(set).length + 2) : item.id);
-
 /**
  * The legacy corpus loader (validateCorpus) requires a twin's positive to carry a secret span. A positive whose
  * outcome is not must-flag (an unresolved T0 fixture: its candidate spans are not canonical) cannot satisfy that,
- * so a twin of such a fixture is projected without twin fields. The lineage stays canonical (case relation, fixture lineage).
+ * so a twin of such a fixture is projected without twin fields. The lineage stays canonical (fixture lineage).
  */
-const hasRealPositive = (set, item) => set.fixtures.find((x) => x.id === item.lineage.of)?.expected.outcome === "must-flag";
+const positiveOf = (view, f) => view.byId.get(f.item.lineage.of);
+const hasRealPositive = (view, f) => positiveOf(view, f)?.outcome === "must-flag";
+const twinName = (view, f) => {
+  const positive = positiveOf(view, f);
+  if (!positive) throw new Error(`fixture ${f.id}: lineage.of ${f.item.lineage.of} is not a fixture`);
+  if (positive.suite !== f.suite) throw new Error(`fixture ${f.id}: twin and positive belong to different legacy suites`);
+  return positive;
+};
 
-function buildCorpora(ix, vocabulary) {
+function buildCorpora(ix, view, vocabulary) {
+  void vocabulary;
   const out = new Map();
-  for (const set of ix.sets.values()) {
-    const fixtures = set.fixtures.map((item) => {
-      const c = ix.cases.get(item.case);
-      if (!c) throw new Error(`fixture ${item.id}: unknown case ${item.case}`);
-      const { kind, tier } = legacyAssessment(item.expected.outcome, c.expectation.basis);
-      const f = {
-        id: fixtureIdOf(set, item),
-        path: item.path,
-        group: c.id,
-        content: item.text,
-        expected: item.expected.spans.map((s) => ({ start: s.start, end: s.end, role: s.role, ...(s.note ? { note: s.note } : {}), ...(s.envelope ? { envelope: { start: s.envelope.start, end: s.envelope.end, reason: s.envelope.reason } } : {}) })),
-        assessment: { kind, tier, reason: c.expectation.rationale, sources: uniqSorted(c.expectation.sources.map((s) => urlOf(s, ix.sources))) },
-      };
-      if (item.context) f.contextAxis = item.context;
-      if (item.lineage && hasRealPositive(set, item)) {
-        f.twinOf = fixtureIdOf(set, { id: item.lineage.of });
-        if (item.lineage.mutation) f.mutation = item.lineage.mutation;
-        if (item.lineage.mutationKind) f.mutationKind = item.lineage.mutationKind;
-      }
-      return f;
-    });
-    out.set(corpusPathOf(set, vocabulary), { schemaVersion: 2, fixtures });
+  for (const suite of view.suites) {
+    const fixtures = view.fixtures
+      .filter((f) => f.suite === suite.id)
+      .map((f) => {
+        const { kind, tier } = legacyAssessment(f.outcome, f.evidence.basis);
+        const item = f.item;
+        const o = {
+          id: f.name,
+          path: f.legacyPath,
+          group: f.groupId,
+          content: item.text,
+          expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.note ? { note: sp.note } : {}), ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
+          assessment: { kind, tier, reason: f.evidence.rationale, sources: uniqSorted(f.evidence.sources.map((r) => urlOf(r, ix.sources))) },
+        };
+        if (item.context) o.contextAxis = item.context;
+        if (item.lineage && hasRealPositive(view, f)) {
+          o.twinOf = twinName(view, f).name;
+          if (item.lineage.mutation) o.mutation = item.lineage.mutation;
+          if (item.lineage.mutationKind) o.mutationKind = item.lineage.mutationKind;
+        }
+        return o;
+      });
+    out.set(suite.corpus, { schemaVersion: 2, fixtures });
   }
   return out;
 }
 
-function buildSemantics(ix, vocabulary) {
+function buildSemantics(view, vocabulary) {
   const legacy = legacyScenarioIds(vocabulary);
   const rows = [];
   let reviewedAt = "";
-  for (const set of ix.sets.values()) {
-    for (const item of set.fixtures) {
-      const c = ix.cases.get(item.case);
-      const row = {
-        slug: item.id,
-        familyIds: uniqSorted(c.families.map((f) => f.family)),
-        scenarioIds: uniqSorted((c.scenarios ?? []).filter((s) => legacy.has(s))),
-      };
-      if (c.unscopedReason) row.unscopedReason = c.unscopedReason;
-      rows.push(row);
-    }
+  for (const f of view.fixtures) {
+    const row = { slug: f.slug, familyIds: f.families, scenarioIds: uniqSorted(f.scenarioIds.filter((id) => legacy.has(id))) };
+    if (f.unscopedReason) row.unscopedReason = f.unscopedReason;
+    rows.push(row);
+    if (f.evidence.observedAt > reviewedAt) reviewedAt = f.evidence.observedAt;
   }
-  for (const c of ix.cases.values()) if (c.expectation.observedAt > reviewedAt) reviewedAt = c.expectation.observedAt;
   rows.sort((a, b) => cmp(a.slug, b.slug));
   return { schemaVersion: 1, reviewedAt, fixtures: rows };
 }
 
-function buildIndex({ ix, vocabulary, semantics, scenarios, taxonomy }) {
+function buildIndex({ view, semantics, scenarios, taxonomy }) {
   const semBySlug = new Map(semantics.fixtures.map((r) => [r.slug, r]));
+  const corpusOf = new Map(view.suites.map((s) => [s.id, s.corpus]));
   const fixtures = [];
-  for (const set of ix.sets.values()) {
-    const corpus = corpusPathOf(set, vocabulary);
-    for (const item of set.fixtures) {
-      const sem = semBySlug.get(item.id);
-      fixtures.push({
-        slug: item.id,
-        source: { categoryId: set.id, fixtureId: fixtureIdOf(set, item), corpus, path: item.path },
-        familyIds: sem.familyIds,
-        scenarioIds: sem.scenarioIds,
-        ...(sem.unscopedReason ? { unscopedReason: sem.unscopedReason } : {}),
-        provenance: { categoryId: set.id },
-        ...(item.lineage && hasRealPositive(set, item) ? { relations: { twinOf: item.lineage.of } } : {}),
-      });
-    }
+  for (const f of view.fixtures) {
+    const sem = semBySlug.get(f.slug);
+    fixtures.push({
+      slug: f.slug,
+      source: { categoryId: f.suite, fixtureId: f.name, corpus: corpusOf.get(f.suite), path: f.legacyPath },
+      familyIds: sem.familyIds,
+      scenarioIds: sem.scenarioIds,
+      ...(sem.unscopedReason ? { unscopedReason: sem.unscopedReason } : {}),
+      provenance: { categoryId: f.suite },
+      ...(f.item.lineage && hasRealPositive(view, f) ? { relations: { twinOf: twinName(view, f).slug } } : {}),
+    });
   }
   fixtures.sort((a, b) => a.slug.localeCompare(b.slug, "en"));
   const truth = { source: "category-corpora", fields: ["content", "expected", "assessment.kind", "assessment.tier", "assessment.sources"] };
@@ -253,24 +249,22 @@ function canonicalJson(value) {
  * (which credential-eval keeps for partitioning), the canonical evidence class and, when the case has exactly one
  * family, that family. `targets` (the detector assignment) is an overlay and is absent.
  */
-function buildCorpusSnapshot(ix, { sourceDigest, schemaRevision }) {
+function buildCorpusSnapshot(view, { sourceDigest, schemaRevision }) {
   const cases = [];
-  for (const set of ix.sets.values()) {
-    for (const item of set.fixtures) {
-      const c = ix.cases.get(item.case);
-      const { kind, tier } = legacyAssessment(item.expected.outcome, c.expectation.basis);
-      const grouping = { kind, tier, group: c.id, evidence_class: c.expectation.basis };
-      if (c.families.length === 1) grouping.family = c.families[0].family;
-      const out = {
-        id: item.id,
-        path: `${set.id}/${item.path}`,
-        content: item.text,
-        expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
-        grouping,
-      };
-      if (item.lineage?.mutation && hasRealPositive(set, item)) out.twin = { twin_of: item.lineage.of, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
-      cases.push(out);
-    }
+  for (const f of view.fixtures) {
+    const { kind, tier } = legacyAssessment(f.outcome, f.evidence.basis);
+    const grouping = { kind, tier, group: f.groupId, evidence_class: f.evidence.basis };
+    if (f.families.length === 1) grouping.family = f.families[0];
+    const item = f.item;
+    const out = {
+      id: f.slug,
+      path: `${f.suite}/${f.legacyPath}`,
+      content: item.text,
+      expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
+      grouping,
+    };
+    if (item.lineage?.mutation && hasRealPositive(view, f)) out.twin = { twin_of: twinName(view, f).slug, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
+    cases.push(out);
   }
   cases.sort((a, b) => cmp(a.id, b.id));
   return {
@@ -363,15 +357,17 @@ function buildOverlayInterface({ taxonomy, index }) {
 export function buildProjection({ records, vocabulary, sourceDigest, schemaRevision }) {
   const ix = indexRecords(records);
   if (!ix.sets.size || !ix.families.size) throw new Error("records/ has no fixture sets or families; run the importers first");
+  if (!ix.maps.length) throw new Error("migration/ has no legacy map; the legacy projection needs it to name suites and fixtures (run npm run migrate:cases)");
+  const view = buildLegacyView(ix);
   const taxonomy = buildTaxonomy(ix, vocabulary);
   const dossiers = buildDossiers(ix);
-  const scenarios = buildScenarios(ix, vocabulary);
-  const categories = buildCategories(ix, vocabulary);
-  const semantics = buildSemantics(ix, vocabulary);
-  const index = buildIndex({ ix, vocabulary, semantics, scenarios, taxonomy });
-  const corpora = buildCorpora(ix, vocabulary);
+  const scenarios = buildScenarios(view, vocabulary);
+  const categories = buildCategories(view, vocabulary);
+  const semantics = buildSemantics(view, vocabulary);
+  const index = buildIndex({ view, semantics, scenarios, taxonomy });
+  const corpora = buildCorpora(ix, view, vocabulary);
   const overlay = buildOverlayInterface({ taxonomy, index });
-  const snapshot = buildCorpusSnapshot(ix, { sourceDigest, schemaRevision });
+  const snapshot = buildCorpusSnapshot(view, { sourceDigest, schemaRevision });
 
   const artifacts = new Map();
   artifacts.set("benchmarks/support/taxonomy.json", json(taxonomy));
@@ -409,6 +405,7 @@ export function buildProjection({ records, vocabulary, sourceDigest, schemaRevis
     manifest,
     manifestText: json(manifest),
     projected: { taxonomy, dossiers, scenarios, categories, semantics, index, corpora, overlay, snapshot },
+    view,
     stats: { families: taxonomy.families.length, providers: taxonomy.providers.length, fixtures: index.fixtures.length, corpora: corpora.size },
   };
 }

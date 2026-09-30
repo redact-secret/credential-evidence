@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "realistic-application-logs",
+  "title": "Realistic access, error and deploy logs with no secret",
+  "summary": "Twenty locally authored log files: nginx access logs, application error logs and deploy logs full of ids, timestamps, hashes and request paths.",
+  "rationale": "Logs are the densest source of identifier-like strings in a repository and are scanned at volume. A false alarm here recurs on every line.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Authored detector and arrival-target metadata intentionally assign no credential family; this fixture remains a global benchmark control.",
+  "scenarios": [
+    "benign-encoded-value"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. Authored to contain no credential; the long values are ids, hashes and timestamps.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/real-world-shapes/corpus.json#realworld-logs",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/real-world-shapes/corpus.json",
+      "note": "legacy suite real-world-shapes; group realworld-logs; 20 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (20 fixtures); draft, not yet reviewed."
+}

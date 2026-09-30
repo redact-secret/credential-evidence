@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "sendgrid-key-in-markdown",
+  "title": "SendGrid keys inside Markdown code spans",
+  "summary": "The SendGrid key shape inside backticks after the words SendGrid credential:, in base62, URL-safe and trailing-dash forms.",
+  "rationale": "A report that spans the closing backtick redacts documentation text, and one that omits the trailing character leaves part of the key visible; a trailing dash right before the backtick is the edge case.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flagged. The key is in the documented format; the range excludes the backticks and includes the last character.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-f377f65c30",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "support-sendgrid-com-135e975bd1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs#documentation",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "legacy suite sendgrid-regressions; group Documentation; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (3 fixtures); draft, not yet reviewed."
+}

@@ -7,8 +7,10 @@
 //   ctx.docId                      id of the document being compared
 //   ctx.legacy(path)               legacy leaf value at a path of the same document, or undefined
 //   ctx.keyOf(path)                the first array key of a path (the fixture slug/id, category id, family id)
-//   ctx.peerPaths(path)            the same path for every other fixture of the same canonical case
-//   ctx.caseOf(path)               canonical case record of the fixture the path belongs to, or undefined
+//   ctx.peerPaths(path)            the same path for every other fixture the canonical grouping folds with this one
+//                                  (same Case for families and scenarios; same evidence entry for citations)
+//   ctx.caseOf(path)               the canonical target of the fixture the path belongs to, as a case-like record
+//                                  { id, families, expectation: { outcome, basis, rationale } } (the fixture's own evidence), or undefined
 //   ctx.recordedSourceBases        Set of URLs that exist as canonical evidence sources
 
 const DOWNGRADE_NOTE = /^Legacy tier T[12] \((tool-corroborated|provider-documented)\), but /;
@@ -23,13 +25,13 @@ const baseOf = (url) => {
 };
 
 export const PREDICATES = {
-  /** The added element is one the legacy document lists for another fixture of the same canonical case: the projection carries the case-level union. */
+  /** The added element is one the legacy document lists for another fixture the canonical grouping folds with this one: the projection carries the union of its Case (families, scenarios) or of its evidence entry (citations). */
   "added-from-peer-in-case": (d, ctx) => d.change === "added" && ctx.peerPaths(d.path).some((p) => ctx.legacy(p) !== undefined),
 
-  /** The projected value is the canonical case id of the fixture (the legacy display group is replaced by the case). */
-  "value-is-case-id": (d, ctx) => ctx.caseOf(d.path)?.id === d.projected,
+  /** The projected value is the canonical target id of the fixture: its Case, or for a matrix cell its Scenario (the legacy display group is replaced by it). */
+  "value-is-target-id": (d, ctx) => ctx.caseOf(d.path)?.id === d.projected,
 
-  /** The legacy per-fixture reason was collapsed to the case rationale: the most common legacy reason of the case (whitespace-normalized, possibly clipped), optionally after the importer recorded basis note. */
+  /** The legacy per-fixture reason was collapsed to the fixture's evidence reason: the most common legacy reason of its group (whitespace-normalized, possibly clipped), optionally after the importer recorded basis note. */
   "reason-collapsed-to-case": (d, ctx) => {
     const c = ctx.caseOf(d.path);
     if (!c || typeof d.projected !== "string" || d.projected !== c.expectation.rationale) return false;

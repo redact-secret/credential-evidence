@@ -76,7 +76,7 @@ Within major version 1; every existing record stays valid without change.
 
 Cross-record checks added to the validator: scenario families and sources resolve; plan targets, families, inputs, derivations and outputs resolve; plan outcomes agree with their target; a listed family lies inside a listed scenario applicability; every legacy-map canonical target exists and legacy entries are unique. `migration/` is validated together with `records/`.
 
-### 5. The lint has a shrinking baseline until stage B
+### 5. The lint has a shrinking baseline until stage B (removed by ADR 0008)
 
 The 1,992 imported cases and fixture sets (all of them) violate the rule today. Stage A lands the rule first, so `scripts/lint/identity-baseline.json` lists each violating record with its violation codes (tracked in #12, stage B removes every entry). The baseline is machine-checked to be non-growing: a new violating record, a baselined record that gains a violation code, and a baselined record that no longer violates (fixed, renamed or deleted) all fail `npm run lint:identity` and `npm run validate`. `npm run lint:identity -- --shrink` removes fixed entries and refuses to add any. Stage B is done when the baseline is empty, at which point the file and the `--shrink` mode are deleted.
 

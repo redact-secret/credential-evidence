@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "documentation-placeholder",
+  "title": "Documentation placeholder or example value",
+  "description": "A placeholder written for documentation: an angle-bracket name, an ellipsis, a mask, a REDACTED marker, or the provider's own published example value.",
+  "semantics": "Documentation is written to be copied. A placeholder was never issued, so reporting it is noise, and a scanner that stays silent on it must not also stay silent on a real value in the same position.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Any family can be documented with placeholders."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

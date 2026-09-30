@@ -8,7 +8,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
-import { checkIdentity, loadBaseline } from "./identity.mjs";
+import { checkIdentity } from "./identity.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = resolve(here, "..", "..");
@@ -127,8 +127,10 @@ export function checkIntegrity(entries) {
     if (record.kind === "fixture-projection" && record.origin.type === "generation-rule") {
       for (const inp of record.origin.inputs) if (inp.kind === "case") projected.add(inp.id);
     }
-    if (record.kind === "fixture-set") for (const item of record.fixtures) projected.add(item.case);
+    if (record.kind === "fixture-set") for (const item of record.fixtures) if (item.case) projected.add(item.case);
   }
+
+  const legacyMapped = new Map(); // legacy entity -> the map file that lists it (unique across shards)
 
   const checkSourceRefs = (path, refs, where, needsPinned) => {
     for (const [i, ref] of (refs ?? []).entries()) {
@@ -206,6 +208,7 @@ export function checkIntegrity(entries) {
           else if (!has("case", rel.target)) err(path, `relation ${rel.type} targets unknown case '${rel.target}'`);
         }
         if (r.supersededBy && !has("case", r.supersededBy)) err(path, `supersededBy unknown case '${r.supersededBy}'`);
+        for (const sid of r.scenarios ?? []) if (!has("scenario", sid)) err(path, `scenarios: '${sid}' is not a scenario record`);
         checkSourceRefs(path, r.expectation.sources, "expectation", false);
         if (r.expectation.outcome !== "not-assertable" && !projected.has(r.id)) {
           err(path, `case '${r.id}' has an assertable expectation but no fixture projects it`);
@@ -238,13 +241,52 @@ export function checkIntegrity(entries) {
         break;
       }
       case "fixture-set": {
+        const cited = new Set();
+        for (const [key, ev] of Object.entries(r.evidence ?? {})) {
+          checkSourceRefs(path, ev.sources, `evidence '${key}'`, false);
+        }
         for (const [n, item] of r.fixtures.entries()) {
           const where = `fixtures[${n}] '${item.id}'`;
           if (!item.id.startsWith(`${r.id}--`)) err(path, `${where}: id must start with the set id '${r.id}--'`);
-          const c = get("case", item.case);
-          if (!c) err(path, `${where}: case '${item.case}' does not exist`);
-          else if (c.expectation.outcome !== item.expected.outcome) {
-            err(path, `${where}: expected.outcome '${item.expected.outcome}' disagrees with case '${item.case}' outcome '${c.expectation.outcome}'`);
+          let ownEvidence;
+          if (item.case) {
+            const c = get("case", item.case);
+            if (!c) err(path, `${where}: case '${item.case}' does not exist`);
+            else if (c.expectation.outcome !== item.expected.outcome) {
+              err(path, `${where}: expected.outcome '${item.expected.outcome}' disagrees with case '${item.case}' outcome '${c.expectation.outcome}'`);
+            }
+            ownEvidence = c?.expectation;
+          } else {
+            const cell = item.cell;
+            const plan = get("fixture-plan", cell.plan);
+            const scenario = get("scenario", cell.scenario);
+            if (!plan) err(path, `${where}: cell.plan '${cell.plan}' does not exist`);
+            if (!scenario) err(path, `${where}: cell.scenario '${cell.scenario}' does not exist`);
+            ownEvidence = scenario?.evidenceBasis;
+            if (plan && scenario) {
+              const targets = plan.matrix.targets.filter((t) => t.type === "scenario" && t.id === cell.scenario);
+              if (!targets.length) err(path, `${where}: scenario '${cell.scenario}' is not a target of plan '${cell.plan}'`);
+              const allowed = new Set(targets.map((t) => t.expectedOutcome ?? (scenario.expectedOutcomeClass === "by-projection" ? undefined : scenario.expectedOutcomeClass)).filter(Boolean));
+              if (targets.length && !allowed.has(item.expected.outcome)) {
+                err(path, `${where}: expected.outcome '${item.expected.outcome}' is not an outcome plan '${cell.plan}' gives scenario '${cell.scenario}' (${[...allowed].join(", ") || "none"})`);
+              }
+              for (const f of cell.families) {
+                if (!has("family", f)) err(path, `${where}: cell family '${f}' does not exist`);
+                if (plan.matrix.families.select === "listed" && !plan.matrix.families.ids.includes(f)) err(path, `${where}: cell family '${f}' is not a family of plan '${cell.plan}'`);
+                if (scenario.applicability.appliesTo === "families" && !scenario.applicability.families.includes(f)) err(path, `${where}: cell family '${f}' is outside the applicability of scenario '${cell.scenario}'`);
+              }
+              if (plan.output && !plan.output.includes(r.id)) err(path, `${where}: plan '${cell.plan}' declares its output sets but does not list '${r.id}'`);
+            }
+          }
+          if (item.evidence !== undefined) {
+            const ev = r.evidence?.[item.evidence];
+            if (!ev) err(path, `${where}: evidence '${item.evidence}' is not in the set's evidence map`);
+            else {
+              cited.add(item.evidence);
+              if (ev.basis === "unresolved" && item.expected.outcome !== "not-assertable") err(path, `${where}: unresolved evidence requires outcome not-assertable`);
+            }
+          } else if (ownEvidence?.basis === "unresolved" && item.expected.outcome !== "not-assertable") {
+            err(path, `${where}: unresolved evidence requires outcome not-assertable`);
           }
           const bytes = Buffer.from(item.text, "utf8");
           if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) err(path, `${where}: sha256 does not match text`);
@@ -261,6 +303,7 @@ export function checkIntegrity(entries) {
             else if (!fixtureIds.has(item.lineage.of)) err(path, `${where}: lineage.of unknown fixture '${item.lineage.of}'`);
           }
         }
+        for (const key of Object.keys(r.evidence ?? {})) if (!cited.has(key)) err(path, `evidence '${key}' is cited by no fixture of the set`);
         break;
       }
       case "scenario": {
@@ -307,16 +350,15 @@ export function checkIntegrity(entries) {
         break;
       }
       case "legacy-map": {
-        const seen = new Set();
         const canonicalKinds = { case: "case", scenario: "scenario", "fixture-plan": "fixture-plan", "fixture-set": "fixture-set" };
         for (const [i, e] of r.entries.entries()) {
           const k = `${e.legacy.type}:${e.legacy.id}`;
-          if (seen.has(k)) err(path, `entries[${i}] duplicate legacy ${e.legacy.type} '${e.legacy.id}'`);
-          seen.add(k);
-          const c = e.canonical;
-          if (!c) continue;
-          const ok = c.type === "fixture" ? fixtureIds.has(c.id) : has(canonicalKinds[c.type], c.id);
-          if (!ok) err(path, `entries[${i}] canonical ${c.type} '${c.id}' does not exist`);
+          if (legacyMapped.has(k)) err(path, `entries[${i}] duplicate legacy ${e.legacy.type} '${e.legacy.id}' (also ${legacyMapped.get(k)})`);
+          else legacyMapped.set(k, path);
+          for (const c of [e.canonical ?? []].flat()) {
+            const ok = c.type === "fixture" ? fixtureIds.has(c.id) : has(canonicalKinds[c.type], c.id);
+            if (!ok) err(path, `entries[${i}] canonical ${c.type} '${c.id}' does not exist`);
+          }
         }
         break;
       }
@@ -379,8 +421,7 @@ export function validateTree(dirs, { root = repoRoot, validator = createValidato
   }
   errors.push(...checkIntegrity(valid));
   if (identity) {
-    const scopePrefixes = dirs.map((d) => relative(root, resolve(d)).split("\\").join("/"));
-    errors.push(...checkIdentity(valid, loadBaseline(), { scopePrefixes }));
+    errors.push(...checkIdentity(valid));
   }
   return { total, records: valid, errors: errors.sort() };
 }

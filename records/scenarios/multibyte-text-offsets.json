@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "multibyte-text-offsets",
+  "title": "Credential after multibyte or unusual text",
+  "description": "The value follows emoji, CJK text, combining marks or a byte order mark.",
+  "semantics": "Ranges are byte offsets. A scanner that counts characters or code units instead of bytes reports the wrong range once earlier text is multibyte, which leaves secret bytes exposed or redacts innocent text.",
+  "expectedOutcomeClass": "must-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Carrier-level."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

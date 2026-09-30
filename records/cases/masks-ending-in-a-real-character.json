@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "masks-ending-in-a-real-character",
+  "title": "Masks that end in a real character",
+  "summary": "Password: ********x and Password: •••••••x: mask characters followed by one ordinary character, under the same key.",
+  "rationale": "A masking rule based on a prefix of mask characters would treat a partially masked value as fully masked. A trailing real character means part of the secret is exposed, and the partial value is itself sensitive.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged. The value is not entirely mask characters, so at least one secret byte is visible and the value is reported.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs#264-masked-values",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "legacy suite milestone-6-closed; group #264 · Masked values; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#264",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/264",
+      "note": "Legacy benchmark issue the group was written for."
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#264",
+      "url": "https://github.com/redact-secret/redact-secret/issues/264",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (2 fixtures); draft, not yet reviewed."
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "partial-span-leakage",
+  "title": "Credential embedded in a longer structure",
+  "description": "A credential sits inside a longer structure (a connection URI, a header value, an otpauth URI, a JSON field) where reporting only part of the value, or only the structure around it, leaves secret bytes exposed.",
+  "semantics": "What must be covered is the whole secret, not a prefix of it or its wrapper. A wider report that still covers the secret is acceptable; a narrower one is a leak.",
+  "expectedOutcomeClass": "must-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "A property of how a value is reported, independent of the family."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

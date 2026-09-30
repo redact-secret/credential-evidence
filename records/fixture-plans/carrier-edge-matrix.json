@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "carrier-edge-matrix",
+  "title": "Carrier and input-edge matrix",
+  "description": "Carrier-level edge conditions (input boundaries, quoting, structured text, source literals, Markdown, multibyte text, line endings, several credentials, long inputs, plain assignments) applied to a listed set of formats. Each cell says: in this carrier the format must still be reported, with the exact extent.",
+  "matrix": {
+    "families": {
+      "select": "listed",
+      "ids": [
+        "datadog:api-key",
+        "datadog:application-key-legacy",
+        "discord:bot-token",
+        "github:classic-personal-access-token",
+        "grafana:cloud-access-policy-token",
+        "grafana:service-account-token",
+        "microsoft-entra:application-client-secret",
+        "new-relic:user-api-key",
+        "sentry:organization-auth-token",
+        "sentry:user-auth-token",
+        "telegram:bot-token",
+        "twilio:api-key-secret",
+        "twilio:auth-token"
+      ]
+    },
+    "targets": [
+      {
+        "type": "scenario",
+        "id": "credential-after-long-input"
+      },
+      {
+        "type": "scenario",
+        "id": "crlf-line-endings"
+      },
+      {
+        "type": "scenario",
+        "id": "environment-assignment"
+      },
+      {
+        "type": "scenario",
+        "id": "markdown-and-comment-value"
+      },
+      {
+        "type": "scenario",
+        "id": "multibyte-text-offsets"
+      },
+      {
+        "type": "scenario",
+        "id": "multiple-credentials-per-input"
+      },
+      {
+        "type": "scenario",
+        "id": "quoted-value-extent"
+      },
+      {
+        "type": "scenario",
+        "id": "source-code-string-literal"
+      },
+      {
+        "type": "scenario",
+        "id": "structured-text-value"
+      },
+      {
+        "type": "scenario",
+        "id": "value-at-input-edges"
+      }
+    ],
+    "coverage": "sparse"
+  },
+  "generation": {
+    "rule": "family-carrier-edge-matrix",
+    "generator": {
+      "name": "redact-secret-benchmarks-fixture-generators",
+      "version": "legacy-ade8a10bd792",
+      "sourceRevision": "ade8a10bd7922765110a68986b0690eb3861f2e5",
+      "entrypoint": "fixtures/generated/build.mjs"
+    }
+  },
+  "lineage": {
+    "origin": "reclassified-from-cases",
+    "derivedFrom": [
+      {
+        "kind": "scenario",
+        "id": "credential-after-long-input"
+      },
+      {
+        "kind": "scenario",
+        "id": "crlf-line-endings"
+      },
+      {
+        "kind": "scenario",
+        "id": "environment-assignment"
+      },
+      {
+        "kind": "scenario",
+        "id": "markdown-and-comment-value"
+      },
+      {
+        "kind": "scenario",
+        "id": "multibyte-text-offsets"
+      },
+      {
+        "kind": "scenario",
+        "id": "multiple-credentials-per-input"
+      },
+      {
+        "kind": "scenario",
+        "id": "quoted-value-extent"
+      },
+      {
+        "kind": "scenario",
+        "id": "source-code-string-literal"
+      },
+      {
+        "kind": "scenario",
+        "id": "structured-text-value"
+      },
+      {
+        "kind": "scenario",
+        "id": "value-at-input-edges"
+      }
+    ],
+    "note": "Reclassified out of the legacy imported cases, which were matrix cells; the correspondence is in migration/legacy-map."
+  },
+  "output": [
+    "authored-github",
+    "datadog",
+    "discord",
+    "github",
+    "grafana",
+    "microsoft-entra",
+    "new-relic",
+    "sentry",
+    "telegram",
+    "twilio"
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. The matrix is sparse: the content instantiates the cells below, not every family against every scenario."
+}

@@ -12,7 +12,7 @@ const scenario = () => clone(example("scenario", "documentation-placeholder"));
 const plan = () => clone(example("fixture-plan", "examplecloud-api-key-near-misses"));
 const map = () => clone(example("legacy-map", "examplecloud-import"));
 
-test("the 1.1 example records stay valid under schema revision 1.2.0", () => {
+test("the 1.1 and 1.2 example records stay valid under schema revision 1.3.0", () => {
   assert.deepEqual(errorsOf(example("case", "examplecloud-api-key-in-env-assignment")), []);
   assert.deepEqual(errorsOf(example("fixture-set", "examplecloud-carriers")), []);
   assert.deepEqual(errorsOf(example("fixture-projection", "env-assignment--api-key")), []);
@@ -181,4 +181,104 @@ test("review history can target a scenario and a fixture plan", () => {
     entries.find((e) => e.record.kind === "evidence-review-history").record.subject = { kind: "scenario", id: "missing" };
   });
   assert.ok(errors.some((e) => /subject scenario 'missing' does not exist/.test(e)));
+});
+
+// --- schema revision 1.3.0 (ADR 0008): cells, evidence, sparse coverage, fan-out map entries -----------
+
+const cellSet = () => clone(example("fixture-set", "examplecloud-cells"));
+
+test("fixture-set: an item projects exactly one of a case and a plan cell", () => {
+  assert.deepEqual(errorsOf(cellSet()), []);
+  const both = cellSet();
+  both.fixtures[0].case = "examplecloud-api-key-in-env-assignment";
+  rejected(both);
+  const neither = cellSet();
+  delete neither.fixtures[0].cell;
+  rejected(neither);
+  const noFamilies = cellSet();
+  noFamilies.fixtures[0].cell.families = [];
+  rejected(noFamilies);
+});
+
+test("fixture-set: evidence entries follow the evidence rules (supported bases need sources)", () => {
+  const s = cellSet();
+  s.evidence["ev-body-length"].sources = [];
+  rejected(s, /fewer than 1 items|must NOT have fewer/);
+  const t = cellSet();
+  t.evidence["ev-placeholder"].basis = "made-up";
+  rejected(t);
+});
+
+test("cells: the plan, scenario, families, outcome and output sets must all agree", () => {
+  const errors = integrityAfter((entries, get) => {
+    const set = get("fixture-set", "examplecloud-cells");
+    set.fixtures[0].cell.plan = "no-such-plan";
+    set.fixtures[1].cell.scenario = "truncated-body-near-miss";
+    set.fixtures[1].expected.outcome = "must-flag";
+    set.fixtures[1].expected.spans = [{ start: 21, end: 33, role: "secret" }];
+    set.fixtures[1].cell.families = ["examplecloud:webhook-secret"];
+    get("fixture-plan", "examplecloud-api-key-near-misses").output = ["examplecloud-carriers"];
+  });
+  assert.ok(errors.some((e) => /cell\.plan 'no-such-plan' does not exist/.test(e)), errors.join("\n"));
+  assert.ok(errors.some((e) => /is not an outcome plan 'examplecloud-api-key-near-misses' gives scenario 'truncated-body-near-miss'/.test(e)), errors.join("\n"));
+  assert.ok(errors.some((e) => /cell family 'examplecloud:webhook-secret' is not a family of plan/.test(e)));
+  assert.ok(errors.some((e) => /declares its output sets but does not list 'examplecloud-cells'/.test(e)));
+});
+
+test("cells: a scenario that is not a target of the plan is rejected, and an unresolved evidence entry needs not-assertable", () => {
+  const errors = integrityAfter((entries, get) => {
+    const set = get("fixture-set", "examplecloud-cells");
+    set.fixtures[0].cell.scenario = "documentation-placeholder";
+    get("fixture-plan", "examplecloud-api-key-near-misses").matrix.targets = [{ type: "scenario", id: "truncated-body-near-miss", expectedOutcome: "must-not-flag" }];
+    set.fixtures[1].expected.outcome = "must-flag";
+    set.fixtures[1].expected.spans = [{ start: 21, end: 33, role: "secret" }];
+    set.evidence["ev-placeholder"].basis = "unresolved";
+  });
+  assert.ok(errors.some((e) => /scenario 'documentation-placeholder' is not a target of plan/.test(e)), errors.join("\n"));
+  assert.ok(errors.some((e) => /unresolved evidence requires outcome not-assertable/.test(e)), errors.join("\n"));
+});
+
+test("evidence keys must resolve and be used", () => {
+  const errors = integrityAfter((entries, get) => {
+    const set = get("fixture-set", "examplecloud-cells");
+    set.fixtures[0].evidence = "ev-missing";
+    set.evidence["ev-unused"] = { basis: "project-policy", rationale: "x", sources: [], observedAt: "2026-09-30" };
+  });
+  assert.ok(errors.some((e) => /evidence 'ev-missing' is not in the set's evidence map/.test(e)));
+  assert.ok(errors.some((e) => /evidence 'ev-unused' is cited by no fixture/.test(e)));
+});
+
+test("case.scenarios are references to scenario records", () => {
+  assert.deepEqual(integrityAfter(() => {}), []);
+  const errors = integrityAfter((entries, get) => {
+    get("case", "examplecloud-docs-placeholder-under-credential-name").scenarios = ["documentation-placeholder", "not-a-scenario"];
+  });
+  assert.ok(errors.some((e) => /scenarios: 'not-a-scenario' is not a scenario record/.test(e)));
+});
+
+test("fixture-plan: coverage is complete or sparse", () => {
+  const p = plan();
+  p.matrix.coverage = "sparse";
+  assert.deepEqual(errorsOf(p), []);
+  p.matrix.coverage = "partial";
+  rejected(p);
+});
+
+test("legacy-map: one legacy entity may fan out to several canonical records; a legacy suite carries its title", () => {
+  const m = map();
+  m.entries[0].canonical = [{ type: "scenario", id: "documentation-placeholder" }, { type: "fixture-plan", id: "examplecloud-api-key-near-misses" }];
+  assert.deepEqual(errorsOf(m), []);
+  m.entries[0].canonical = [{ type: "scenario", id: "documentation-placeholder" }];
+  rejected(m);
+  const n = map();
+  n.entries[0].legacy = { type: "suite", id: "accuracy", path: "fixtures/accuracy/corpus.json", title: "Accuracy", description: "x", scenarioIds: ["regression-behavior"] };
+  assert.deepEqual(errorsOf(n), []);
+});
+
+test("legacy-map: a legacy entity is listed once across all shards", () => {
+  const errors = integrityAfter((entries) => {
+    const shard = entries.find((e) => e.record.kind === "legacy-map");
+    entries.push({ path: "examples/valid/examplecloud/legacy-map.second-shard.json", record: { ...clone(shard.record), id: "second-shard" } });
+  });
+  assert.ok(errors.some((e) => /duplicate legacy .* \(also /.test(e)), errors.join("\n"));
 });

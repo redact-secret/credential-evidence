@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "otpauth-seed-lookalikes",
+  "title": "otpauth URIs whose seed is not a valid Base32 seed, and a reference",
+  "summary": "otpauth:// URIs whose secret is lowercase, too short in its first secret parameter, or that has a second valid secret parameter after a short one, plus TOTP_URI=${TOTP_URI}.",
+  "rationale": "Only values that can be a Base32 seed are seeds. Lowercase letters or a stub in the first parameter mean the URI cannot drive a one-time-password generator, and reporting it is a false alarm.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:otp-seed",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "format-near-miss",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. Either the value cannot be a seed (lowercase, too short) or it is a reference.",
+    "sources": [
+      {
+        "sourceId": "github-com-google-google-authenticator-4c73b28585",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-26"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/policy-qualified-credentials.mjs#otpauth-uri",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/policy-qualified-credentials.mjs",
+      "note": "legacy suite policy-qualified-credentials; group otpauth-uri; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (3 fixtures); draft, not yet reviewed."
+}

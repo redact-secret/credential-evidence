@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "sendgrid-near-miss-values",
+  "title": "SendGrid near misses: short segments, a missing separator, masks and prose",
+  "summary": "Values that look like SendGrid keys with a shortened id segment, a shortened secret segment, a missing separator between the segments, a SG.[REDACTED].[REDACTED] mask, and a sentence describing the key format.",
+  "rationale": "A near miss is not an issued key. These prove that the SG. prefix alone does not decide: the segment lengths and the separator are part of the format, and masks and prose are not keys.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "documentation-placeholder",
+    "format-near-miss"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. The structural near misses break the documented format, and the mask and the sentence contain no key material.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-f377f65c30",
+        "supports": "Cited by the legacy assessment (open-source scanner rule); claim not itemised."
+      },
+      {
+        "sourceId": "support-sendgrid-com-135e975bd1",
+        "supports": "Cited by the legacy assessment (provider documentation); claim not itemised."
+      }
+    ],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/regressions.mjs#near-miss-negatives",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/regressions.mjs",
+      "note": "legacy suite sendgrid-regressions; group Near-miss negatives; 8 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 2 legacy groups (8 fixtures); draft, not yet reviewed."
+}

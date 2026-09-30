@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "ordinary-prose-code-and-numbers",
+  "title": "Unicode prose, safe token handling in code and numeric build metadata",
+  "summary": "A sentence with emoji and CJK text that says it contains no credential, a JavaScript line that reads a token from process.env, and a line of build numbers and durations.",
+  "rationale": "Text that discusses credentials, or code that handles them safely, contains none. Multibyte text and long digit runs are additional chances for offset and entropy mistakes.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Authored detector and arrival-target metadata intentionally assign no credential family; this fixture remains a global benchmark control.",
+  "scenarios": [
+    "prose-mention",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. The inputs mention or handle credentials without containing one.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/build.mjs#ordinary-text",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/build.mjs",
+      "note": "legacy suite negative-controls; group Ordinary text; 3 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (3 fixtures); draft, not yet reviewed."
+}

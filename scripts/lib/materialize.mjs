@@ -11,24 +11,29 @@
 
 import { createHash } from "node:crypto";
 
-export const MATERIALIZE_VERSION = "1.0.0";
+export const MATERIALIZE_VERSION = "2.0.0";
 export const MANIFEST_FORMAT = "credential-evidence/materialized-fixtures";
-export const MANIFEST_FORMAT_VERSION = 1;
+// Version 2 (schema revision 1.3.0): a fixture projects a Case or a fixture-plan cell, so `case` is optional and `target`, `plan` and `basis` are added.
+export const MANIFEST_FORMAT_VERSION = 2;
 
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 
 /**
- * @param {{ sets: object[], cases: object[] }} input  schema-valid records
+ * @param {{ sets: object[], cases: object[], scenarios: object[] }} input  schema-valid records
  * @returns {{ files: Map<string, Buffer>, manifest: object, manifestText: string, digest: string }}
  */
-export function buildMaterialization({ sets, cases }) {
+export function buildMaterialization({ sets, cases, scenarios = [] }) {
   const caseById = new Map(cases.map((c) => [c.id, c]));
+  const scenarioById = new Map(scenarios.map((s) => [s.id, s]));
   const files = new Map();
   const entries = [];
   for (const set of [...sets].sort((a, b) => cmp(a.id, b.id))) {
     for (const item of set.fixtures) {
-      const c = caseById.get(item.case);
-      if (!c) throw new Error(`fixture ${item.id}: unknown case ${item.case}`);
+      const c = item.case ? caseById.get(item.case) : undefined;
+      if (item.case && !c) throw new Error(`fixture ${item.id}: unknown case ${item.case}`);
+      const sc = item.cell ? scenarioById.get(item.cell.scenario) : undefined;
+      if (item.cell && !sc) throw new Error(`fixture ${item.id}: unknown scenario ${item.cell.scenario}`);
+      const basis = set.evidence?.[item.evidence]?.basis ?? c?.expectation.basis ?? sc?.evidenceBasis.basis;
       const bytes = Buffer.from(item.text, "utf8");
       if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) throw new Error(`fixture ${item.id}: sha256 does not match text`);
       const path = `${set.id}/${item.path}`;
@@ -40,8 +45,10 @@ export function buildMaterialization({ sets, cases }) {
         sha256: item.sha256,
         bytes: bytes.length,
         expected: { outcome: item.expected.outcome, spans: item.expected.spans },
-        case: item.case,
-        families: c.families.map((f) => f.family).sort(cmp),
+        target: item.case ? { type: "case", id: item.case } : { type: "scenario", id: item.cell.scenario, plan: item.cell.plan },
+        ...(item.case ? { case: item.case } : {}),
+        families: (c ? c.families.map((f) => f.family) : item.cell.families).slice().sort(cmp),
+        basis,
         generated: set.generated,
       };
       if (item.context) entry.context = item.context;

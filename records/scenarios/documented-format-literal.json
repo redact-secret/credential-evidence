@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "documented-format-literal",
+  "title": "Documented-format value in a realistic carrier",
+  "description": "A synthetic value that follows the format the provider documents for a credential family (right prefix, alphabet and length) appears in an ordinary carrier: an environment assignment, a header, a command line, SDK configuration, source code or a log line.",
+  "semantics": "The value's structure identifies it, not its carrier. A value in the documented format is a credential of that family wherever it sits, so it must be reported with the exact byte range of the secret; carrier syntax (quotes, delimiters, key names) is not part of the secret.",
+  "expectedOutcomeClass": "must-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Every family with a documented or evidenced format has instances; which formats are covered is listed by the plan, not assumed here."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

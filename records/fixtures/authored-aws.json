@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "authored-aws",
+  "title": "Amazon Web Services fixtures (authored)",
+  "description": "Hand-written fixtures whose credential family belongs to the provider Amazon Web Services. Each fixture projects a Case or a fixture-plan cell and carries its own evidence entry; the set is organised by provider, not by how the legacy benchmark grouped its suites.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "evidence": {
+    "ev-461377510c": {"basis":"project-policy","rationale":"Legacy SYNTHETIC/filler example; not an independently reviewed credential format. Original regression expectation retained.","sources":[],"observedAt":"2026-09-29"}
+  },
+  "fixtures": [
+    {"id":"authored-aws--aws-id","case":"early-filler-token-assignments","path":"aws-id/aws-id.txt","evidence":"ev-461377510c","sha256":"00169a74df45055abfae9c32dc5f77e2da4ccbed01d5f5201ea31baeffee7f9f","text":"AWS_ACCESS_KEY_ID=AKIASYNTHETICAAAAAAA\n","expected":{"outcome":"must-flag","spans":[{"start":18,"end":38,"role":"secret"}]}}
+  ],
+  "lifecycle": "draft",
+  "notes": "Hand-written by the legacy benchmark authors; every credential-shaped value is synthetic and was never issued by a provider (legacy fixtures README)."
+}

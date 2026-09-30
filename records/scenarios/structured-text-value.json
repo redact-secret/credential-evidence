@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "structured-text-value",
+  "title": "Credential in JSON, YAML, TOML and similar structured text",
+  "description": "The value is a field in a structured document: a JSON string, a YAML scalar, a TOML value.",
+  "semantics": "Real secrets live in configuration files. Structured syntax adds quoting, colons and nesting around the value without changing it, so the reported range must be the value, not its syntax.",
+  "expectedOutcomeClass": "must-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Carrier-level."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

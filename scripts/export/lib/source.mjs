@@ -5,7 +5,8 @@
 // The source revision is a tree digest, not a git commit: a commit id cannot be
 // recorded in a file committed in that same commit, and a digest of the exact bytes
 // read is stronger evidence of what the projection was built from. It covers every
-// `records/**/*.json` file and the vocabulary file.
+// `records/**/*.json` and `migration/**/*.json` file (the legacy map names the suites and
+// fixtures the projection speaks) and the vocabulary file.
 
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
@@ -15,7 +16,7 @@ import { listJson, repoRoot } from "../../lib/validator.mjs";
 export const VOCABULARY_PATH = "scripts/export/legacy-vocabulary.json";
 
 export function loadCanonicalInputs(root = repoRoot) {
-  const files = listJson(join(root, "records"));
+  const files = [...listJson(join(root, "records")), ...listJson(join(root, "migration"))];
   const records = [];
   const lines = [];
   for (const file of files) {

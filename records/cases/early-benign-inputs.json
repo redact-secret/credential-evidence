@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "early-benign-inputs",
+  "title": "Empty assignment, variable reference, documentation text, request id and ordinary text",
+  "summary": "Five benign inputs from the first corpus: an API_KEY assignment with no value, an API_KEY assigned a variable reference, a sentence telling the reader to set an API key, a greeting, and a UUID request id.",
+  "rationale": "The first negative controls. Each holds a credential-sounding word or an identifier-shaped value and no credential, so they show that the name, the word or the shape alone does not decide.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "credential-named-assignment-false-positive",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. There is no secret byte in any of them: the assignments are empty or a reference, the sentences are prose, and a UUID request id is a public identifier.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/accuracy/corpus.json#negative-controls",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/accuracy/corpus.json",
+      "note": "legacy suite accuracy; group Negative controls; 5 fixtures"
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 2 legacy groups (5 fixtures); draft, not yet reviewed."
+}

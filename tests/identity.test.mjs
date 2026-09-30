@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { test } from "node:test";
 import { join } from "node:path";
-import { checkIdentity, collectViolations, identityViolations, loadBaseline } from "../scripts/lib/identity.mjs";
+import { checkIdentity, collectViolations, identityViolations } from "../scripts/lib/identity.mjs";
 import { repoRoot, validateTree } from "../scripts/lib/validator.mjs";
 import { example, exampleEntries } from "./helpers.mjs";
 
@@ -81,56 +81,33 @@ test("coordinates are allowed in provenance: externalRefs, imported and the lega
   assert.deepEqual(identityViolations(map, "migration/legacy-map.json"), []);
 });
 
-test("baseline: a new violation fails", () => {
+test("a record with a coordinate in its id or path fails; there is no baseline to hide it in", () => {
   const entries = [{ path: at("beta8-207-x"), record: withId(scenario(), "beta8-207-x") }];
-  const errors = checkIdentity(entries, {});
+  const errors = checkIdentity(entries);
   assert.equal(errors.length, 1);
   assert.match(errors[0], /identity lint: beta-coordinate/);
+  assert.deepEqual(checkIdentity([{ path: at("documentation-placeholder"), record: scenario() }]), []);
 });
 
-test("baseline: a baselined violation passes", () => {
-  const entries = [{ path: at("beta8-207-x"), record: withId(scenario(), "beta8-207-x") }];
-  assert.deepEqual(checkIdentity(entries, { [at("beta8-207-x")]: ["beta-coordinate"] }), []);
+test("a coordinate in a fixture's path inside a set is rejected too", () => {
+  const set = structuredClone(example("fixture-set", "examplecloud-carriers"));
+  set.fixtures[0].path = "issue-254-changed-id/issue-254-changed-id.txt";
+  assert.deepEqual(identityViolations(set, at("examplecloud-carriers", "fixture-set")), ["issue-coordinate"]);
 });
 
-test("baseline: a baselined record with an additional violation code fails", () => {
-  const entries = [{ path: at("beta8-207-x"), record: withId(scenario(), "beta8-207-detector-x") }];
-  const errors = checkIdentity(entries, { [at("beta8-207-x")]: ["beta-coordinate"] });
-  assert.equal(errors.length, 1);
-  assert.match(errors[0], /new violation detector-identifier beyond the baseline/);
+test("the repository has zero violations and the baseline mechanics are gone", () => {
+  const { records } = validateTree([join(repoRoot, "records"), join(repoRoot, "migration")], { identity: false });
+  assert.deepEqual(collectViolations(records), {});
+  assert.deepEqual(checkIdentity(records), []);
+  assert.ok(!existsSync(join(repoRoot, "scripts", "lint", "identity-baseline.json")));
+  const lib = readFileSync(join(repoRoot, "scripts", "lib", "identity.mjs"), "utf8");
+  assert.doesNotMatch(lib, /loadBaseline|writeBaseline|BASELINE_PATH|--shrink/);
 });
 
-test("baseline: a fixed record that is still listed fails until removed", () => {
-  const clean = [{ path: at("documentation-placeholder"), record: scenario() }];
-  const errors = checkIdentity(clean, { [at("documentation-placeholder")]: ["beta-coordinate"] });
-  assert.equal(errors.length, 1);
-  assert.match(errors[0], /no longer violates it .* remove it from scripts\/lint\/identity-baseline\.json/);
-});
-
-test("baseline: a renamed or deleted record that is still listed fails", () => {
-  const errors = checkIdentity([], { [at("beta8-207-x")]: ["beta-coordinate"] });
-  assert.equal(errors.length, 1);
-  assert.match(errors[0], /no longer violates it/);
-});
-
-test("baseline: entries outside the scanned directories are not judged stale", () => {
-  const baseline = { "records/cases/a.json": ["beta-coordinate"] };
-  assert.deepEqual(checkIdentity([], baseline, { scopePrefixes: ["examples/valid"] }), []);
-  assert.equal(checkIdentity([], baseline, { scopePrefixes: ["records"] }).length, 1);
-});
-
-test("the committed baseline exactly matches the repository: every record listed still violates, none is missing", () => {
-  const { records } = validateTree([join(repoRoot, "records")], { identity: false });
-  const baseline = loadBaseline();
-  assert.ok(Object.keys(baseline).length > 0 || Object.keys(collectViolations(records)).length === 0);
-  assert.deepEqual(checkIdentity(records, baseline, { scopePrefixes: ["records"] }), []);
-  assert.deepEqual(Object.keys(collectViolations(records)), Object.keys(baseline).filter((p) => p.startsWith("records/")));
-});
-
-test("npm run lint:identity passes on the repository", () => {
+test("npm run lint:identity passes on the repository with zero violations", () => {
   const r = spawnSync(process.execPath, [join(repoRoot, "scripts", "lint-identity.mjs")], { cwd: repoRoot, encoding: "utf8" });
   assert.equal(r.status, 0, r.stderr);
-  assert.match(r.stdout, /^OK: /);
+  assert.match(r.stdout, /^OK: .* 0 violations/);
 });
 
 test("validateTree fails a new record that carries a coordinate and accepts a clean one", () => {

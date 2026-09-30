@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "aws-example-keys-one-character-off",
+  "title": "AWS example keys with one character changed",
+  "summary": "Two assignments that differ from the AWS documentation examples in a single character: the access key id ends in F instead of E, and the secret access key ends in EXAMPLEKEZ instead of EXAMPLEKEY.",
+  "rationale": "Silencing the documented example is only safe if the exemption is exact. A value one character away is no longer the published example, could be a real key, and must still be reported; matching on the EXAMPLE marker alone would hide it.",
+  "caseTypes": [
+    "positive",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "aws:iam-user-access-key",
+      "role": "subject"
+    },
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "documentation-placeholder"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged. Only the exact published literals are exempt by project policy; any other value in the same position is treated as a credential, and the range covers the whole value.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "externalRefs": [
+    {
+      "system": "legacy-benchmark-source",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:fixtures/generated/closed-milestone.mjs#254-aws-documentation-literals",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/fixtures/generated/closed-milestone.mjs",
+      "note": "legacy suite milestone-6-closed; group #254 · AWS documentation literals; 2 fixtures"
+    },
+    {
+      "system": "redact-secret-benchmarks-issue",
+      "id": "redact-secret-benchmarks#254",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/issues/254",
+      "note": "Legacy benchmark issue the group was written for."
+    },
+    {
+      "system": "redact-secret-issue",
+      "id": "redact-secret#254",
+      "url": "https://github.com/redact-secret/redact-secret/issues/254",
+      "note": "Product issue the legacy fixture was written for."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Reclassified from 1 legacy group (2 fixtures); draft, not yet reviewed."
+}

@@ -1,6 +1,6 @@
 # 0005. Cases, sharded fixture sets and materialization
 
-- Status: accepted; partly superseded by 0007 (identity, case grouping, fixture ids)
+- Status: accepted; partly superseded by 0007 (identity, case grouping, fixture ids) and 0008 (the per-suite layout: sets are by provider, cases are reclassified, tier is per-fixture evidence)
 - Date: 2026-09-30
 - Issue: #4 (part of #1)
 

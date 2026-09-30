@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "format-near-miss",
+  "title": "Near miss that breaks the format",
+  "description": "A value that resembles a family's format but breaks it: truncated, wrong separator, wrong prefix, too short, a bare prefix, a header name only.",
+  "semantics": "Incomplete or malformed values are not issued credentials. They test whether the format's structure, and not only its look, identifies a credential.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Any family's format can be approximated and broken."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

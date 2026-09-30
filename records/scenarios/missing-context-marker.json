@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "missing-context-marker",
+  "title": "Right value, carrier lacks the identifying marker",
+  "description": "A positive value with exactly one change: the value is unchanged but the carrier no longer contains the key name, prefix word or other marker that made the value identifiable.",
+  "semantics": "For formats without a distinctive prefix, the marker in the carrier is part of what makes a value a credential. The same bytes under a non-credential name are not reported.",
+  "expectedOutcomeClass": "must-not-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Applies to any family whose recognition depends on carrier context."
+  },
+  "evidenceBasis": {
+    "basis": "project-policy",
+    "rationale": "The scenario states a project rule of the benchmark's design. Whether a particular value is, for its family, an instance of the rule is a per-fixture question: each fixture carries its own evidence (provider documentation, corroborating artifacts or project policy) in its fixture set.",
+    "sources": [],
+    "observedAt": "2026-09-29"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
