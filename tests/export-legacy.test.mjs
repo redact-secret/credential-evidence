@@ -39,7 +39,7 @@ describe("legacy projection: determinism and provenance", () => {
     assert.equal(manifest.artifacts.length, projection.artifacts.size);
     assert.match(manifest.sourceRevision.digest, /^[0-9a-f]{64}$/);
     assert.equal(manifest.sourceRevision.kind, "records-tree-sha256");
-    assert.equal(manifest.schemaRevision, "1.4.0");
+    assert.equal(manifest.schemaRevision, "1.5.0");
     for (const e of manifest.artifacts) {
       const text = projection.artifacts.get(e.path);
       assert.ok(text !== undefined, e.path);
@@ -114,8 +114,11 @@ describe("legacy projection: content", () => {
         assert.equal(sha(f.content), m.fixture.item.sha256, m.slug);
         assert.equal(f.path, m.legacyPath);
         assert.equal(f.group, m.fixture.item.case ?? m.fixture.item.cell.scenario, "the legacy display group is the canonical Case or Scenario id");
-        assert.deepEqual(f.expected.map((s) => [s.start, s.end, s.role]), m.fixture.item.expected.spans.map((s) => [s.start, s.end, s.role]));
+        // an unresolved fixture's legacy spans are its non-asserting candidate reading (ADR 0012), never canonical expected spans
+        const legacySpans = m.fixture.item.candidateReading?.spans ?? m.fixture.item.expected.spans;
+        assert.deepEqual(f.expected.map((s) => [s.start, s.end, s.role]), legacySpans.map((s) => [s.start, s.end, s.role]));
         if (m.fixture.item.expected.outcome === "not-assertable") assert.equal(f.assessment.tier, "T0");
+        if (m.fixture.item.expected.outcome === "not-assertable") assert.equal(f.assessment.kind, m.fixture.item.candidateReading ? "must-redact" : "must-not-flag", m.slug);
         if (m.fixture.item.expected.outcome === "must-flag") assert.ok(["must-redact", "policy"].includes(f.assessment.kind), m.slug);
         if (m.fixture.item.expected.outcome === "must-not-flag") assert.equal(f.assessment.kind, "must-not-flag");
         // the tier the legacy file shows is the fixture's own evidence basis, not its Case's or Scenario's
@@ -159,14 +162,39 @@ describe("legacy projection: content", () => {
     assert.ok(!projection.artifacts.has("benchmarks/known-gaps.json"));
   });
 
-  test("a twin whose positive is unresolved is projected without twin fields, and the lineage stays canonical", () => {
+  test("an unresolved fixture's non-asserting candidate projects as legacy T0 candidate spans, and its twin keeps its twin fields (ADR 0012)", () => {
     const twin = catalog.bySlug.get("detector-coverage--databricks-personal-access-token-rotated-shape-bare-twin");
     assert.ok(twin?.fixture.item.lineage, "canonical lineage is kept");
-    const corpus = parsed("fixtures/generated/detector-coverage.json");
-    const f = corpus.fixtures.find((x) => x.id === "databricks-personal-access-token-rotated-shape-bare-twin");
-    assert.equal(f.twinOf, undefined);
     const positive = catalog.byCanonicalId.get(twin.fixture.item.lineage.of);
-    assert.notEqual(positive.fixture.outcome, "must-flag");
+    assert.equal(positive.fixture.outcome, "not-assertable");
+    assert.equal(positive.fixture.item.candidateReading.asserting, false);
+    assert.deepEqual(positive.fixture.item.expected.spans, [], "a candidate is never an expected span");
+    const corpus = parsed("fixtures/generated/detector-coverage.json");
+    const p = corpus.fixtures.find((x) => x.id === positive.name);
+    assert.deepEqual(p.assessment, { ...p.assessment, kind: "must-redact", tier: "T0" });
+    assert.deepEqual(p.expected.map((sp) => [sp.start, sp.end, sp.role]), positive.fixture.item.candidateReading.spans.map((sp) => [sp.start, sp.end, sp.role]));
+    const f = corpus.fixtures.find((x) => x.id === "databricks-personal-access-token-rotated-shape-bare-twin");
+    assert.equal(f.twinOf, positive.name);
+  });
+
+  test("candidates exist only on not-assertable fixtures, and a families override narrows its Case and reaches the index (ADR 0012)", () => {
+    const rows = collectFixtures(ix);
+    const withCandidate = rows.filter((r) => r.item.candidateReading);
+    assert.ok(withCandidate.length > 0);
+    for (const r of withCandidate) assert.equal(r.outcome, "not-assertable", r.id);
+    const overridden = rows.filter((r) => r.item.families);
+    assert.ok(overridden.length > 0);
+    const index = parsed("benchmarks/fixture-index.json");
+    const indexBySlug = new Map(index.fixtures.map((x) => [x.slug, x]));
+    for (const r of overridden) {
+      const caseFamilies = ix.cases.get(r.caseId).families.map((f) => f.family);
+      assert.ok(r.item.families.every((f) => caseFamilies.includes(f)), r.id);
+      assert.ok(r.item.families.length < caseFamilies.length, r.id);
+      assert.deepEqual(r.families, [...r.item.families].sort(), r.id);
+      const legacy = catalog.byCanonicalId.get(r.id);
+      assert.deepEqual(indexBySlug.get(legacy.slug).familyIds, r.families, r.id);
+      if (!r.families.length) assert.equal(indexBySlug.get(legacy.slug).unscopedReason, r.item.unscopedReason, r.id);
+    }
   });
 });
 
@@ -221,11 +249,26 @@ describe("credential-eval corpus snapshot", () => {
     }
   });
 
+  test("an unresolved case carries no expected span in the snapshot, whatever its candidate; its kind is the candidate's (ADR 0012)", () => {
+    const byId = new Map(snapshot.cases.map((c) => [c.id, c]));
+    let seen = 0;
+    for (const { item } of fixtures) {
+      if (item.expected.outcome !== "not-assertable") continue;
+      const c = byId.get(item.id);
+      assert.equal(c.grouping.tier, "T0", item.id);
+      assert.deepEqual(c.expected, [], item.id);
+      assert.equal(c.grouping.kind, item.candidateReading ? "must-redact" : "must-not-flag", item.id);
+      if (item.candidateReading) seen += 1;
+    }
+    assert.ok(seen > 0);
+    for (const c of snapshot.cases) if (c.twin) assert.ok(byId.get(c.twin.twin_of).expected.some((sp) => sp.role === "secret"), c.id);
+  });
+
   test("the corpus digest is credential-eval's rule: sha256 of canonical JSON of the cases sorted by id", () => {
     assert.equal(snapshot.identity.corpus_digest, `sha256:${sha(canon(snapshot.cases))}`);
     assert.equal(snapshot.identity.source, "credential-evidence");
     assert.equal(snapshot.identity.revision, `records-tree-sha256:${projection.manifest.sourceRevision.digest}`);
-    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.4.0");
+    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.5.0");
   });
 
   test("the legacy id map re-keys every snapshot case to its legacy fixture id and corpus path, and only the map says so", () => {

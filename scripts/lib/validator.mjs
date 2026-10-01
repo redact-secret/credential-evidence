@@ -267,6 +267,11 @@ export function checkIntegrity(entries) {
               err(path, `${where}: expected.outcome '${item.expected.outcome}' disagrees with case '${item.case}' outcome '${c.expectation.outcome}'`);
             }
             ownEvidence = c?.expectation;
+            if (c && item.families) {
+              const caseFamilies = new Set(c.families.map((f) => f.family));
+              for (const f of item.families) if (!caseFamilies.has(f)) err(path, `${where}: families override '${f}' is not a family of case '${item.case}'`);
+              if (item.families.length === caseFamilies.size && item.families.every((f) => caseFamilies.has(f))) err(path, `${where}: families override equals the families of case '${item.case}'; omit it`);
+            }
           } else {
             const cell = item.cell;
             const plan = get("fixture-plan", cell.plan);
@@ -308,6 +313,18 @@ export function checkIntegrity(entries) {
             if (e && (e.end <= e.start || e.start > s.start || e.end < s.end || e.end > bytes.length)) {
               err(path, `${where}: expected.spans[${i}].envelope must enclose the span and stay inside the content`);
             }
+          }
+          if (item.candidateReading) {
+            let previousEnd = 0;
+            for (const [i, s] of item.candidateReading.spans.entries()) {
+              if (s.end <= s.start) err(path, `${where}: candidateReading.spans[${i}] end must be greater than start`);
+              else if (s.end > bytes.length) err(path, `${where}: candidateReading.spans[${i}] ends after the content (${bytes.length} bytes)`);
+              if (s.start < previousEnd) err(path, `${where}: candidateReading.spans must be sorted and disjoint`);
+              previousEnd = s.end;
+              const e = s.envelope;
+              if (e && (e.end <= e.start || e.start > s.start || e.end < s.end || e.end > bytes.length)) err(path, `${where}: candidateReading.spans[${i}].envelope must enclose the span and stay inside the content`);
+            }
+            if (item.candidateReading.outcome === "must-flag" && !item.candidateReading.spans.some((s) => s.role === "secret")) err(path, `${where}: a must-flag candidateReading needs a secret span`);
           }
           if (item.lineage) {
             if (item.lineage.of === item.id) err(path, `${where}: lineage points at itself`);

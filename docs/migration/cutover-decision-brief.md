@@ -1,6 +1,8 @@
 # Cutover decision brief
 
-Issue #20 (follow-up to epic #1). This brief prepares the open maintainer decisions in `docs/migration/cutover.md` ("Open maintainer decisions") and the re-pin. It decides nothing. Each section gives the options, the evidence, the impact measured by the dual run (`docs/migration/dual-run-report.md`), a recommendation, and what a benchmark consumer sees.
+Issue #20 (follow-up to epic #1). This brief prepares the maintainer decisions in `docs/migration/cutover.md` ("Maintainer decisions") and the re-pin. It decides nothing.
+
+**Status (2026-10-01):** decisions 1 to 4 accepted as recommended, recorded in [ADR 0012](../decisions/0012-cutover-decisions-1-to-4.md): 1 = accept the canonical T3, restoration only through per-family evidence review (issues #41 to #72), option C rejected; 2 = option A, T0 candidate spans kept as non-asserting `candidateReading` (schema 1.5.0); 3 = option A, one-time re-key in `redact-secret-benchmarks`' switch pull request; 4 = option A, per-fixture `families` override (schema 1.5.0). Decision 5 (re-pin) is **deferred**. The measurements below are those the decisions were made on; they predate ADR 0012 and were not re-run. Each section gives the options, the evidence, the impact measured by the dual run (`docs/migration/dual-run-report.md`), a recommendation, and what a benchmark consumer sees.
 
 Measured at: legacy pin `ade8a10bd7922765110a68986b0690eb3861f2e5`, credential-eval `2410e3c370736d64388effb2210291d8fdac0aa2`, all five scanners at their pins (gitleaks 8.30.1, TruffleHog 3.97.4, `@redact-secret/core` 0.1.0-beta.11, `flare-redact` 1.6.1, `@openredaction/core` 1.1.5), 5,925 cases per side.
 
@@ -32,6 +34,8 @@ Point estimates, legacy to canonical (from the run artifacts; the Wilson bounds 
 
 ## 1. Evidence-tier downgrades (343 fixtures, T2 to T3)
 
+**Decided: B, with A as backlog (ADR 0012).**
+
 **What.** 343 fixtures that legacy holds at T2 project as T3: 253 `must-not-flag` controls stay controls at T3, and 90 `must-redact` positives become `policy`/T3. The importer applied `docs/governance/evidence-classes.md`: fewer than two distinct owners, or no provider-owned source, is project policy.
 
 **Measured impact.** No per-case change. `must-not-flag/T2` shrinks from 2,069 to 1,816 files and `must-not-flag/T3` grows from 1,397 to 1,650; `must-redact/T2` shrinks from 551 to 461 and `policy/T3` grows from 550 to 640. The per-tier rates in the table above move by up to 9.4 points (openredaction, `policy/T3`), in either direction depending on the scanner, because the moved fixtures do not perform like the rest of their old or new group.
@@ -48,6 +52,8 @@ Point estimates, legacy to canonical (from the run artifacts; the Wilson bounds 
 
 ## 2. Unresolved (T0) span loss (31 fixtures, plus 1 silent fixture and 3 twins)
 
+**Decided: A (ADR 0012). The silent fixture's companion spans stay dropped; the 3 twin links are projected again in the legacy projection.**
+
 **What.** 31 `must-redact` T0 fixtures lose their candidate spans and project as `must-not-flag`/T0; one more silent fixture loses companion spans; 3 twins of unresolved positives project without twin links (the lineage stays canonical).
 
 **Measured impact.** T0 is never scored, so no case result changes. Two aggregates change: `pending/T0.candidate_kinds` goes from 19 `must-not-flag` + 31 `must-redact` to 50 `must-not-flag`, and the 31 pending cases no longer count against `must-redact`, so `measurable_share` rises to 100% in `must-redact/T1` (from 97.7%) and `must-redact/T2` (from 94.7%) for every scanner. Both values stay above the default floor of 70%; nothing in the run flips measurable to not measurable.
@@ -62,6 +68,8 @@ Point estimates, legacy to canonical (from the run artifacts; the Wilson bounds 
 **For a benchmark consumer.** With B, `measurable_share` of the `must-redact` groups is higher than under legacy for every scanner, and `pending/T0` no longer says which T0 cases are candidate positives. Re-keyed per-case results are unaffected.
 
 ## 3. Fixture-index identity digests
+
+**Decided: A, in `redact-secret-benchmarks` (ADR 0012).**
 
 **What.** `identity.digest` and the three source digests of the projected `benchmarks/fixture-index.json` differ from legacy by design (different content: dropped product fields, canonical lineage). Each is self-consistent (parity rule `digest-self-consistent`).
 
@@ -78,6 +86,8 @@ Point estimates, legacy to canonical (from the run artifacts; the Wilson bounds 
 
 ## 4. Per-fixture family links (35 fixtures, 87 links)
 
+**Decided: A (ADR 0012).**
+
 **What.** Since stage B, fixtures of a Case that spans several families gain links the legacy index did not give them: 35 fixtures, 87 links, 34 of which change a single-family reading (the snapshot's `grouping.family` is set only when a fixture has exactly one family).
 
 **Measured impact.** 34 cases differ in `family`; 0 measurement differences in all five scanners. `grouping.family` scopes the twin reading, and no twin result changed.
@@ -92,6 +102,8 @@ Point estimates, legacy to canonical (from the run artifacts; the Wilson bounds 
 **For a benchmark consumer.** Per-family views (taxonomy pages, per-family counts, any future `by_target` grouping) count these 35 fixtures under more families than legacy did until A lands.
 
 ## 5. Re-pin
+
+**Deferred.**
 
 **What.** The importers, the exporter and the parity harness read the legacy repository at `ade8a10bd7922765110a68986b0690eb3861f2e5`. credential-eval's parity is pinned to `c403475476647bc98cc5864bccd7265eddebeb91`, and its parity report records a path-diff equivalence with `ade8a10` (only `benchmarks/feature-claims.json` differs, which nothing reads). Both repositories must re-prove together at any new pin.
 

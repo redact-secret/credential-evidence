@@ -12,17 +12,17 @@ The legacy repository stays authoritative. This report proves how far the genera
 
 | Measure | Value |
 | --- | --- |
-| projection source revision (records tree sha256) | `071d18b6640ec7d881e774f21f144c3c11a46a4821d66de2becefda80bbbf27d` |
-| schema revision | 1.4.0 |
-| projection digest (over every artifact digest) | `500551768239df3b2704fa2ab6c43d4e594197dd007e7b52b3c3f770830ac758` |
+| projection source revision (records tree sha256) | `bc709b746557478e2b0f12cf57be3a4995dad7be1b3f470089ab6c6be9837777` |
+| schema revision | 1.5.0 |
+| projection digest (over every artifact digest) | `098ac30865b04da7db758f65922eb9def42873f669ecf2abbba3d2fabef8498c` |
 | artifacts projected | 76 |
 | legacy documents compared | 73 |
 | legacy leaf values compared | 200,892 |
-| identical after normalization | 173,505 |
-| explained differences (leaf values) | 28,448 |
+| identical after normalization | 173,657 |
+| explained differences (leaf values) | 28,091 |
 | unexplained differences (leaf values) | 0 |
 | arrays that differed only in order (ignored, see Normalization) | 4,874 |
-| explained-difference rules | 28 (all matched; unused: 0) |
+| explained-difference rules | 21 (all matched; unused: 0) |
 | legacy suites, fixture ids and corpus paths regenerated from `migration/legacy-map` (ADR 0009) | 67 suites, 5,925 fixtures |
 | legacy navigation scenario ids regenerated from the map (none is canonical) | 5 ids, 11,941 fixture links |
 
@@ -36,9 +36,9 @@ A leaf value is one scalar (or one empty container) at a normalized path. A fiel
 | dossier frontmatter | 1 | 2,064 | 2,047 | 17 | 0 | 147 |
 | scenarios.json | 1 | 16 | 16 | 0 | 0 | 0 |
 | categories.json | 1 | 341 | 335 | 6 | 0 | 0 |
-| fixture-semantics.json | 1 | 24,162 | 24,154 | 95 | 0 | 1 |
-| fixture-index.json | 1 | 60,651 | 55,179 | 5,559 | 0 | 0 |
-| corpora (67 files) | 67 | 112,277 | 90,402 | 22,762 | 0 | 4,694 |
+| fixture-semantics.json | 1 | 24,162 | 24,162 | 0 | 0 | 1 |
+| fixture-index.json | 1 | 60,651 | 55,190 | 5,461 | 0 | 0 |
+| corpora (67 files) | 67 | 112,277 | 90,535 | 22,598 | 0 | 4,694 |
 
 ## Normalization (what is ignored, and nothing else)
 
@@ -54,35 +54,28 @@ Every explained difference matched a rule in `scripts/parity/rules.json`. A rule
 | --- | --- |
 | product-state-dropped | 16,837 |
 | presentation-substitute | 5,926 |
-| dropped-legacy-metadata | 2,692 |
-| lossy-import | 1,970 |
-| case-level-aggregation | 1,014 |
+| dropped-legacy-metadata | 2,723 |
+| lossy-import | 1,772 |
+| case-level-aggregation | 824 |
 | not-imported-scope | 6 |
 | derived-digest | 3 |
 
 | Rule | Class | Artifact | Change | Leaf values | Entities | Example |
 | --- | --- | --- | --- | --- | --- | --- |
 | `assessment-sources-case-union` | case-level-aggregation | corpus | added | 824 | 167 | `fixtures/generated/context-edges.json: fixtures[bare].assessment.sources[="https://docs.newrelic.com/docs/infrastructure-as-code/ |
-| `index-families-case-union` | case-level-aggregation | index | added | 87 | 35 | `fixtures[accuracy--aws-id].familyIds[="github:classic-personal-access-token"]` |
-| `semantics-families-case-union` | case-level-aggregation | semantics | added | 87 | 35 | `fixtures[accuracy--aws-id].familyIds[="github:classic-personal-access-token"]` |
-| `index-unscoped-replaced-by-case-families` | case-level-aggregation | index | removed | 8 | 4 | `fixtures[accuracy--documentation].familyIds` |
-| `semantics-unscoped-replaced-by-case-families` | case-level-aggregation | semantics | removed | 8 | 4 | `fixtures[accuracy--documentation].familyIds` |
 | `index-digests-derived` | derived-digest | index | changed | 3 | 3 | `sources.reviewedMetadata.digest` |
-| `span-note-boilerplate` | dropped-legacy-metadata | corpus | removed | 2,373 | 2,365 | `fixtures/accuracy/corpus.json: fixtures[github-token].expected[13:53].note` |
+| `span-note-boilerplate` | dropped-legacy-metadata | corpus | removed | 2,404 | 2,396 | `fixtures/accuracy/corpus.json: fixtures[github-token].expected[13:53].note` |
 | `corpus-suite-level-legacy-labels` | dropped-legacy-metadata | corpus | removed | 169 | 166 | `fixtures/accuracy/corpus.json: reviewStatus` |
 | `fixture-legacy-annotations` | dropped-legacy-metadata | corpus | removed | 150 | 150 | `fixtures/generated/common-formats.json: fixtures[github-token-ghp-plain].formatReason` |
 | `fixture-reason-collapsed-to-case` | lossy-import | corpus | changed | 1,214 | 1,214 | `fixtures/accuracy/corpus.json: fixtures[public-id].assessment.reason` |
 | `assessment-tier-downgraded-on-import` | lossy-import | corpus | changed | 343 | 343 | `fixtures/accuracy/corpus.json: fixtures[public-id].assessment.tier` |
-| `spans-not-carried-on-silent-or-unresolved` | lossy-import | corpus | removed | 128 | 32 | `fixtures/generated/beta8-209.json: fixtures[confluent-cloud-api-secret-secrets-manager-json-alphabet-twin].expected[15:31].start` |
 | `assessment-kind-follows-downgraded-tier` | lossy-import | corpus | changed | 90 | 90 | `fixtures/generated/beta8-207.json: fixtures[atlassian-api-token-env].assessment.kind` |
 | `assessment-sources-not-recorded` | lossy-import | corpus | removed | 68 | 34 | `fixtures/generated/beta8-1012a.json: fixtures[aws-secret-access-key-truncated-near-miss].assessment.sources[="https://github.com/ |
-| `empty-spans-marker-on-silent-or-unresolved` | lossy-import | corpus | added | 32 | 32 | `fixtures/generated/beta8-209.json: fixtures[confluent-cloud-api-secret-secrets-manager-json-alphabet-twin].expected` |
 | `assessment-sources-empty-marker` | lossy-import | corpus | added | 31 | 31 | `fixtures/generated/beta8-1012a.json: fixtures[aws-secret-access-key-truncated-near-miss].assessment.sources` |
-| `assessment-unresolved-kind-not-recoverable` | lossy-import | corpus | changed | 31 | 31 | `fixtures/generated/beta8-213d.json: fixtures[databricks-personal-access-token-actions-env].assessment.kind` |
 | `dossier-tier-unresolved-on-import` | lossy-import | dossiers | changed | 17 | 17 | `providers.aws.families[aws:sts-service-bearer-token].research.tier` |
-| `twin-fields-omitted-for-unresolved-positive` | lossy-import | corpus | removed | 9 | 3 | `fixtures/generated/detector-coverage.json: fixtures[databricks-personal-access-token-rotated-shape-bare-twin].twinOf` |
+| `spans-not-carried-on-silent-or-unresolved` | lossy-import | corpus | removed | 4 | 1 | `fixtures/generated/beta8-209.json: fixtures[confluent-cloud-api-secret-secrets-manager-json-alphabet-twin].expected[15:31].start` |
 | `taxonomy-source-not-a-url` | lossy-import | taxonomy | removed | 4 | 4 | `families[stripe:organization-api-key].sources[="benchmarks/lib/assessment.ts (classifyFixture variant guard: \"Variant support mu |
-| `index-twin-relation-omitted-for-unresolved-positive` | lossy-import | index | removed | 3 | 3 | `fixtures[detector-coverage--databricks-personal-access-token-rotated-shape-bare-twin].relations.twinOf` |
+| `empty-spans-marker-on-silent-or-unresolved` | lossy-import | corpus | added | 1 | 1 | `fixtures/generated/beta8-209.json: fixtures[confluent-cloud-api-secret-secrets-manager-json-alphabet-twin].expected` |
 | `category-calibration-only-not-imported` | not-imported-scope | categories | removed | 6 | 1 | `[shadow-scoring-authored].id` |
 | `fixture-group-replaced-by-case` | presentation-substitute | corpus | changed | 5,925 | 5,925 | `fixtures/accuracy/corpus.json: fixtures[github-token].group` |
 | `taxonomy-source-note-marked-generated` | presentation-substitute | taxonomy | changed | 1 | 1 | `sourceNote` |
@@ -91,31 +84,24 @@ Every explained difference matched a rule in `scripts/parity/rules.json`. A rule
 | `fixture-product-policy-fields` | product-state-dropped | corpus | removed | 162 | 134 | `fixtures/generated/beta8-1012a.json: fixtures[aws-secret-access-key-truncated-near-miss].expectedAction` |
 | `support-status-overlay` | product-state-dropped | taxonomy | removed | 4 | 4 | `families[vercel:integration-token].supportStatus` |
 
-How each rule is machine-checked: 27 of 28 rules check their stated cause against the records, the legacy document, the projection itself or the overlay interface (a predicate, an overlay that must declare the dropped field, or a value constraint). 1 is path-only: they drop a named legacy field that canonical data never carries (`corpus-suite-level-legacy-labels`); the path list in each is explicit, a test keeps evidence fields uncoverable, and nothing broader than the named keys is excused.
+How each rule is machine-checked: 20 of 21 rules check their stated cause against the records, the legacy document, the projection itself or the overlay interface (a predicate, an overlay that must declare the dropped field, or a value constraint). 1 is path-only: they drop a named legacy field that canonical data never carries (`corpus-suite-level-legacy-labels`); the path list in each is explicit, a test keeps evidence fields uncoverable, and nothing broader than the named keys is excused.
 
 ### Justifications
 
 - `assessment-sources-case-union` (case-level-aggregation; 824 leaf values in 167 entities; checked by `added-from-peer-in-case`): Canonical citations are recorded per evidence entry, not per fixture, so each projected fixture lists the union of the fixtures that share its entry. Checked: the added URL is cited by another fixture that shares the entry in the legacy corpus.
-- `index-families-case-union` (case-level-aggregation; 87 leaf values in 35 entities; checked by `added-from-peer-in-case`): Same cause as semantics-families-case-union, seen in the fixture index: family and scenario links are recorded per case in canonical records, so each projected fixture carries the union of its case. Checked: the added family or scenario is listed by legacy for another fixture of the same case.
-- `semantics-families-case-union` (case-level-aggregation; 87 leaf values in 35 entities; checked by `added-from-peer-in-case`): Canonical family and scenario links are recorded per case, so each projected fixture carries the union of its case. Checked: the added family or scenario is listed by legacy for another fixture of the same case.
-- `index-unscoped-replaced-by-case-families` (case-level-aggregation; 8 leaf values in 4 entities; checked by `case-has-families`): Same cause as semantics-unscoped-replaced-by-case-families, seen in the fixture index: an unscoped legacy fixture shares a case with scoped ones, so the case-level union gives it families and the unscoped reason no longer applies. Checked: the canonical case has at least one family.
-- `semantics-unscoped-replaced-by-case-families` (case-level-aggregation; 8 leaf values in 4 entities; checked by `case-has-families`): A legacy fixture with no family (an unscoped global control) shares a case with fixtures that do have families, so the case-level union gives it those families and the unscoped reason no longer applies. Checked: the canonical case has at least one family.
 - `index-digests-derived` (derived-digest; 3 leaf values in 3 entities; checked by `digest-self-consistent`): These digests are SHA-256 over the reviewed metadata, the taxonomy and the index content. Those inputs differ by the explained differences listed in this report (including legacy array order), so the digests cannot match. The projected index is self-consistent: the legacy fixtureIndexProblems check, run over it in this report, finds none. Consumers that pin the legacy identity digest (peer-observations) must re-key to the projected identity.
-- `span-note-boilerplate` (dropped-legacy-metadata; 2,373 leaf values in 2,365 entities): These three sentences repeat on every span and say only that the value is synthetic. That statement is recorded once per fixture set in `notes` (docs/governance/safety.md), so the importer kept a span note only when it was not one of these sentences. Checked: the dropped note is exactly one of the three.
+- `span-note-boilerplate` (dropped-legacy-metadata; 2,404 leaf values in 2,396 entities): These three sentences repeat on every span and say only that the value is synthetic. That statement is recorded once per fixture set in `notes` (docs/governance/safety.md), so the importer kept a span note only when it was not one of these sentences. Checked: the dropped note is exactly one of the three.
 - `corpus-suite-level-legacy-labels` (dropped-legacy-metadata; 169 leaf values in 166 entities): Suite-level legacy review labels (reviewStatus, scope, references, milestoneReview) describe the legacy review process and a product milestone. The construction statement and legacy review status survive as the fixture set's `notes` (ADR 0005); the milestone record is product release bookkeeping and is not imported.
 - `fixture-legacy-annotations` (dropped-legacy-metadata; 150 leaf values in 150 entities; field declared by overlay `corpus-fixture-extras`): formatReason repeats prose already carried as the assessment reason; `issue` is the product issue a fixture was written for, kept canonically only as an externalRefs pointer on the case (ADR 0005). Supplied by the `corpus-fixture-extras` overlay when a consumer needs them.
 - `fixture-reason-collapsed-to-case` (lossy-import; 1,214 leaf values in 1,214 entities; checked by `reason-collapsed-to-case`): Legacy carries one prose reason per fixture. A canonical evidence entry records one reason: the most common reason among the fixtures it was built from (whitespace-normalized, clipped at 2000 characters), after a note when the evidence basis was downgraded. The projection repeats the entry's reason on each fixture that cites it. Checked: the projected text is the entry's reason and equals a legacy reason of a fixture in the same case (or its clipped prefix).
 - `assessment-tier-downgraded-on-import` (lossy-import; 343 leaf values in 343 entities; checked by `basis-downgrade-recorded`): Legacy tier T2 is tool-corroborated. The evidence-classes rule (docs/governance/evidence-classes.md) needs artifacts from two distinct owners; where the cited sources do not have them the importer recorded the evidence as project-policy, which projects back as T3. The downgrade is written in the evidence reason (docs/migration/cases-report.md: T2 recorded as project-policy). Checked: the fixture's evidence basis is project-policy and its rationale carries the downgrade note.
-- `spans-not-carried-on-silent-or-unresolved` (lossy-import; 128 leaf values in 32 entities; checked by `spans-dropped-on-silent-or-unresolved`): Legacy carried companion spans on must-not-flag fixtures and candidate spans on unresolved (T0) fixtures. A silent control asserts no secret, and an unresolved fixture asserts nothing, so the importer dropped those spans and counted them (docs/migration/cases-report.md: companion-span-on-must-not-flag, t0-candidate-spans). Checked: the legacy fixture is must-not-flag or T0 and the canonical outcome is must-not-flag or not-assertable.
 - `assessment-kind-follows-downgraded-tier` (lossy-import; 90 leaf values in 90 entities; checked by `basis-downgrade-recorded`): Legacy kind must-redact exists only for tiers T1 and T2; project-policy positives are kind policy. A T2 fixture downgraded to T3 (assessment-tier-downgraded-on-import) therefore changes kind with its tier. Same predicate.
 - `assessment-sources-not-recorded` (lossy-import; 68 leaf values in 34 entities; checked by `source-not-recorded`): The taxonomy import mints an evidence source only for URLs cited by the legacy taxonomy, dossiers and contracts. A fixture assessment may cite a URL that none of those cite (for example a project-owned commit or issue link); the case import could not link it and dropped it, counted as assessment-source-not-in-taxonomy-import. Checked: the legacy citation is not a URL, or its base URL is not a canonical evidence source.
-- `empty-spans-marker-on-silent-or-unresolved` (lossy-import; 32 leaf values in 32 entities; checked by `spans-dropped-on-silent-or-unresolved`): The same dropped spans seen from the other side: the projected fixture has an empty span list where legacy had candidate or companion spans. Same predicate as spans-not-carried-on-silent-or-unresolved.
 - `assessment-sources-empty-marker` (lossy-import; 31 leaf values in 31 entities; checked by `all-legacy-sources-unrecorded`): The projected citation list is empty because every legacy citation of the fixture is unrecorded (assessment-sources-not-recorded). Checked: every legacy citation of the fixture fails the recorded-source test.
-- `assessment-unresolved-kind-not-recoverable` (lossy-import; 31 leaf values in 31 entities; checked by `legacy-tier-t0`): An unresolved (T0) fixture was unscored in legacy and is not-assertable here, with its candidate spans dropped, so whether it was authored as must-redact or must-not-flag is not canonical. The projection emits must-not-flag with no spans and tier T0. Legacy consumers key T0 on the tier (lattice groupKey 'pending/T0', scoring skips T0), not the kind. Checked: the legacy tier is T0 and the canonical outcome is not-assertable.
 - `dossier-tier-unresolved-on-import` (lossy-import; 17 leaf values in 17 entities; checked by `dossier-claim-unresolved`): The dossier tier is re-expressed as the evidence class of the dossier research claim (ADR 0004). A T2 claim without artifacts from two distinct owners imports as unresolved, which projects back as T0; a dossier with no tier (null) and a researched verdict also imports as unresolved, and T0 is the projection's reading. Both are counted in docs/migration/taxonomy-report.md (downgrade:tool-corroborated-fewer-than-two-owners).
-- `twin-fields-omitted-for-unresolved-positive` (lossy-import; 9 leaf values in 3 entities; checked by `twin-target-not-assertable`): The legacy corpus loader (validateCorpus) rejects a twin whose positive has no secret span. A positive that was unresolved (T0) is not-assertable here with its candidate spans dropped, so projecting the twin link would make the corpus unloadable. The projection omits twinOf, mutation and mutationKind on such twins; the lineage stays canonical (the fixture lineage in records/). Checked: the legacy twin target is a fixture whose canonical outcome is not-assertable.
+- `spans-not-carried-on-silent-or-unresolved` (lossy-import; 4 leaf values in 1 entities; checked by `spans-dropped-on-silent-or-unresolved`): Legacy carried companion spans on must-not-flag fixtures and candidate spans on unresolved (T0) fixtures. A silent control asserts no secret, so the importer dropped its companion spans and counted them (docs/migration/cases-report.md: companion-span-on-must-not-flag). Since ADR 0012 (decision 2) an unresolved fixture keeps its candidate spans as non-asserting data and the projection carries them, so this rule covers a T0 fixture only when it has no candidate. Checked: the legacy fixture is must-not-flag and so is the canonical one, or it is T0, canonical not-assertable and without a candidate.
 - `taxonomy-source-not-a-url` (lossy-import; 4 leaf values in 4 entities; checked by `source-not-recorded`): A legacy `sources` entry that is internal prose (for example 'benchmarks/lib/assessment.ts (classifyFixture variant guard...)') is not a citable source; the importer dropped it and counted it (dropped:taxonomy-source-not-a-url). Checked: the legacy entry is not an https URL.
-- `index-twin-relation-omitted-for-unresolved-positive` (lossy-import; 3 leaf values in 3 entities; checked by `twin-target-not-assertable`): Same as twin-fields-omitted-for-unresolved-positive, for the fixture index, whose legacy builder also requires the twin target to be a positive with a secret span.
+- `empty-spans-marker-on-silent-or-unresolved` (lossy-import; 1 leaf values in 1 entities; checked by `spans-dropped-on-silent-or-unresolved`): The same dropped spans seen from the other side: the projected fixture has an empty span list where legacy had companion spans (or candidate spans on a T0 fixture without a canonical candidate). Same predicate as spans-not-carried-on-silent-or-unresolved.
 - `category-calibration-only-not-imported` (not-imported-scope; 6 leaf values in 1 entities; checked by `calibration-only-category`): corpora/development/shadow-scoring-authored.json is a calibration-only tuning input (calibrationOnly: true), excluded from the published fixture index by legacy itself. It is not evidence and is not imported. Checked: the legacy category is marked calibrationOnly.
 - `fixture-group-replaced-by-case` (presentation-substitute; 5,925 leaf values in 5,925 entities; checked by `value-is-target-id`): The legacy display group label is not canonical. The canonical grouping of the same fixtures is the Case, or for a matrix cell its Scenario, so the projection fills `group` with that id. A legacy consumer that displays the group shows the Case or Scenario id. Checked: the projected value is the fixture's Case or Scenario id.
 - `taxonomy-source-note-marked-generated` (presentation-substitute; 1 leaf values in 1 entities): The legacy sourceNote is hand-written history of issue #502. The projection replaces it with an explicit generated-data marker so nobody mistakes the file for hand-authored legacy data.

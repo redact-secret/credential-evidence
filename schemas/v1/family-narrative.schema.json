@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:family-narrative",
   "title": "Family narrative",
   "description": "The structured, reviewable human reasoning about one credential family: what its credentials look like, how they are issued, how they change over time, what they collide with, and what is still open. One narrative per family, written in scanner-neutral language. Every statement cites a contract claim or an evidence source, or is explicitly unresolved and points at a review event. A narrative never carries support status, detector behaviour, scanner results or product workflow.",
-  "x-schemaRevision": "1.4.0",
+  "x-schemaRevision": "1.5.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "family", "lifecycle", "sections"],

@@ -10,7 +10,8 @@
 //   ctx.peerPaths(path)            the same path for every other fixture the canonical grouping folds with this one
 //                                  (same Case for families and scenarios; same evidence entry for citations)
 //   ctx.caseOf(path)               the canonical target of the fixture the path belongs to, as a case-like record
-//                                  { id, families, expectation: { outcome, basis, rationale } } (the fixture's own evidence), or undefined
+//                                  { id, families, expectation: { outcome, basis, rationale }, candidate } (the fixture's own evidence and
+//                                  family override; candidate is the non-asserting reading of an unresolved fixture), or undefined
 //   ctx.recordedSourceBases        Set of URLs that exist as canonical evidence sources
 //   ctx.familyDossierClass(id)     evidence class of the family's dossier-research claim, or undefined
 //   ctx.recomputeDigest(path)      the legacy digestJson of the projected document a fixture-index digest field covers
@@ -51,19 +52,19 @@ export const PREDICATES = {
     return !!c && c.expectation.basis === "project-policy" && DOWNGRADE_NOTE.test(c.expectation.rationale);
   },
 
-  /** The legacy fixture is tier T0 (unresolved, unscored): the canonical case is not-assertable and carries no spans and no recoverable kind. */
-  "legacy-tier-t0": (d, ctx) => {
-    const tierPath = d.path.replace(/\.(assessment\.kind|expected.*)$/, ".assessment.tier");
-    return ctx.legacy(tierPath) === "T0" && ctx.caseOf(d.path)?.expectation.outcome === "not-assertable";
-  },
-
-  /** The legacy fixture asserts silence (kind must-not-flag) or is unresolved (T0): companion and candidate spans are not carried. */
+  /**
+   * The legacy fixture asserts silence (kind must-not-flag) and the canonical one too, so its companion spans are not
+   * carried; or it is unresolved (T0) and the canonical fixture keeps no non-asserting candidate that would carry them.
+   * An unresolved fixture with a candidate projects its candidate spans (ADR 0012 decision 2), so this is no excuse for it.
+   */
   "spans-dropped-on-silent-or-unresolved": (d, ctx) => {
     const base = d.path.replace(/\.expected(\[.*)?$/, "");
     const kind = ctx.legacy(`${base}.assessment.kind`);
     const tier = ctx.legacy(`${base}.assessment.tier`);
-    const outcome = ctx.caseOf(d.path)?.expectation.outcome;
-    return (kind === "must-not-flag" || tier === "T0") && (outcome === "must-not-flag" || outcome === "not-assertable");
+    const target = ctx.caseOf(d.path);
+    const outcome = target?.expectation.outcome;
+    if (tier === "T0") return outcome === "not-assertable" && !target.candidate;
+    return kind === "must-not-flag" && outcome === "must-not-flag";
   },
 
   /** A legacy citation that is not a URL, or whose base URL is not a canonical evidence source (the taxonomy import never minted it). */
@@ -79,20 +80,11 @@ export const PREDICATES = {
   /** The legacy category is the calibration-only tuning input, which is not imported. */
   "calibration-only-category": (d, ctx) => ctx.legacy(`[${ctx.keyOf(d.path)}].calibrationOnly`) === true,
 
-  /** The twin's positive is an unresolved fixture (canonical outcome not-assertable, candidate spans dropped), so the legacy twin invariant (a positive with a secret span) cannot hold and the twin fields are not projected. */
-  "twin-target-not-assertable": (d, ctx) => {
-    const target = d.path.endsWith(".relations.twinOf") ? d.legacy : ctx.legacy(d.path.replace(/\.(twinOf|mutation|mutationKind)$/, ".twinOf"));
-    return typeof target === "string" && ctx.caseOfKey(target)?.expectation.outcome === "not-assertable";
-  },
-
   /** The dossier tier projects as T0 because the family's dossier-research claim is recorded as unresolved evidence (the importer downgrade), not because of a value the projection chose. */
   "dossier-claim-unresolved": (d, ctx) => ctx.familyDossierClass(ctx.keyOf(d.path)) === "unresolved",
 
   /** The projected digest is the legacy digestJson of the projected document it covers, recomputed here: the digest differs from legacy because the content it covers differs, and it is self-consistent. */
   "digest-self-consistent": (d, ctx) => typeof d.projected === "string" && ctx.recomputeDigest(d.path) === d.projected,
-
-  /** The fixture's canonical case has at least one family, which replaces the legacy unscoped marker (case-level union). */
-  "case-has-families": (d, ctx) => (ctx.caseOf(d.path)?.families ?? []).length > 0,
 };
 
 export function evaluatePredicate(name, diff, ctx) {

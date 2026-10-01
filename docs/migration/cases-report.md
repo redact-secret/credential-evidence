@@ -24,9 +24,9 @@ This report is generated with the records. It lists what the reclassifying impor
 | families referenced by a case or a cell | 160 of 173 |
 | cases with historical incidents | 7 |
 
-Size: `records/cases/` 52 files, 111 KiB; `records/scenarios/` 35 KiB; `records/fixture-plans/` 33 KiB; `records/fixtures/` 98 files, 5,547 KiB (919 KiB of fixture text); `migration/legacy-map/` 2,695 KiB.
+Size: `records/cases/` 52 files, 111 KiB; `records/scenarios/` 35 KiB; `records/fixture-plans/` 33 KiB; `records/fixtures/` 98 files, 5,552 KiB (919 KiB of fixture text); `migration/legacy-map/` 2,695 KiB.
 
-Materialization digest: the fixtures materialize (`npm run fixtures:materialize`) to a file tree and manifest with materialization digest: `347c605d88dd1f1574eac87d12ca6602267ed370c44eaaf908c4b2a835edf39b`. `npm run fixtures:materialize -- --check` verifies it.
+Materialization digest: the fixtures materialize (`npm run fixtures:materialize`) to a file tree and manifest with materialization digest: `282be700bbb17c181ba4fd58469ebd498eac127cbb382c8ca9b8da2c7d75f68b`. `npm run fixtures:materialize -- --check` verifies it.
 
 ## Fixture sets
 
@@ -159,7 +159,9 @@ Outcome comes from the legacy assessment kind and, for `policy`, from whether th
 | T2 recorded as `project-policy`: cited sources do not include two distinct owners | 343 |
 | T1 recorded below `provider-documented`: no cited source is provider-owned | 0 |
 
-T0 fixtures were unscored in the legacy benchmark, so they become `not-assertable` and their candidate spans are dropped. Evidence in `unresolved` never carries a must-flag or must-not-flag expectation.
+T0 fixtures were unscored in the legacy benchmark, so they become `not-assertable`. Their candidate spans are kept as non-asserting data (`candidateReading`, `asserting: false`; ADR 0012 decision 2), never as expected spans: 31 spans in 31 fixtures. Evidence in `unresolved` never carries a must-flag or must-not-flag expectation.
+
+Per-fixture family override (ADR 0012 decision 4): 35 fixtures of Cases that span several families carry their own narrower `families` list, which removes 87 family links the Case-level union would otherwise give them. The Cases are unchanged.
 
 ## Lineage
 
@@ -206,7 +208,6 @@ Nothing below is silently lost: each row is a legacy field or fact that the cano
 | `assessment.reason` variants collapsed to the most frequent one per evidence entry | 874 | An evidence entry has one reason; the other wordings are per-fixture repetitions (mostly "Negative twin of <fixture>: ..."). |
 | first-import case prose of template-worded cases (titles, summaries, rationales) | 1,839 | Generated from role templates plus family names; the reasoning each states is now one Scenario, written once. See the reclassification report. |
 | first-import `twin-of` relations between cases | 540 | A property of the legacy groups; the twin groups are scenario cells now. Fixture-level lineage is kept. |
-| T0 fixtures' candidate spans | 31 in 31 fixtures | Unscored and unresolved in legacy; `not-assertable` carries no spans. |
 | companion spans on must-not-flag fixtures | 1 | A companion span means "redacting is accepted, never required"; a must-not-flag fixture has no spans in the canonical model. |
 | boilerplate span notes | 2,404 | The standard synthetic-value sentence, already implied by the safety rule. |
 | assessment sources with no evidence-source record | 68 | Project-owned URLs (`https://github.com/redact-secret/redact-secret/blob/ec9224d9743066fe73d6e61e9843ef52bd853833/docs/decisions/2026-09-24-redact-provider-named-credential-assignments.md`, `https://github.com/redact-secret/redact-secret/issues/948`) that the taxonomy import did not carry. |

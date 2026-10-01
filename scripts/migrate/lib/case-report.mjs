@@ -77,7 +77,8 @@ export function renderCasesReport({ model, built, digest }) {
         ["T1 recorded below `provider-documented`: no cited source is provider-owned", n(c("basis:downgrade:T1-without-provider-source"))],
       ],
     ),
-    "T0 fixtures were unscored in the legacy benchmark, so they become `not-assertable` and their candidate spans are dropped. Evidence in `unresolved` never carries a must-flag or must-not-flag expectation.",
+    `T0 fixtures were unscored in the legacy benchmark, so they become \`not-assertable\`. Their candidate spans are kept as non-asserting data (\`candidateReading\`, \`asserting: false\`; ADR 0012 decision 2), never as expected spans: ${n(c("kept:t0-candidate-spans"))} spans in ${n(c("kept:t0-fixtures-with-candidate"))} fixtures. Evidence in \`unresolved\` never carries a must-flag or must-not-flag expectation.`,
+    `Per-fixture family override (ADR 0012 decision 4): ${n(c("fixtures:families-override"))} fixtures of Cases that span several families carry their own narrower \`families\` list, which removes ${n(c("fixtures:families-override-links-removed"))} family links the Case-level union would otherwise give them. The Cases are unchanged.`,
   );
 
   push(
@@ -124,7 +125,6 @@ export function renderCasesReport({ model, built, digest }) {
         ["`assessment.reason` variants collapsed to the most frequent one per evidence entry", n(c("collapsed:assessment-reason-variants")), "An evidence entry has one reason; the other wordings are per-fixture repetitions (mostly \"Negative twin of <fixture>: ...\")."],
         ["first-import case prose of template-worded cases (titles, summaries, rationales)", n(model.classificationCounts.projection), "Generated from role templates plus family names; the reasoning each states is now one Scenario, written once. See the reclassification report."],
         ["first-import `twin-of` relations between cases", n(model.classificationCounts.twinCases), "A property of the legacy groups; the twin groups are scenario cells now. Fixture-level lineage is kept."],
-        ["T0 fixtures' candidate spans", `${n(c("dropped:t0-candidate-spans"))} in ${n(c("dropped:t0-fixtures-with-spans"))} fixtures`, "Unscored and unresolved in legacy; `not-assertable` carries no spans."],
         ["companion spans on must-not-flag fixtures", n(c("dropped:companion-span-on-must-not-flag")), "A companion span means \"redacting is accepted, never required\"; a must-not-flag fixture has no spans in the canonical model."],
         ["boilerplate span notes", n(c("dropped:span-boilerplate-note")), "The standard synthetic-value sentence, already implied by the safety rule."],
         ["assessment sources with no evidence-source record", n(c("dropped:assessment-source-not-in-taxonomy-import")), `Project-owned URLs (${R.list("dropped:assessment-source-not-in-taxonomy-import").map((u) => `\`${u}\``).join(", ") || "none"}) that the taxonomy import did not carry.`],

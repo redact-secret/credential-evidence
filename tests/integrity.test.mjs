@@ -90,3 +90,27 @@ test("an assertable case with no fixture projection is reported", () => {
   });
   expectError(errors, /has an assertable expectation but no fixture projects it/);
 });
+
+// --- ADR 0012: per-fixture families override and non-asserting candidate reading
+
+test("a families override must narrow its Case's families", () => {
+  const point = (families) => (entries, rec) => {
+    const item = rec("fixture-set", "examplecloud-carriers").fixtures[0];
+    item.case = "examplecloud-api-key-beside-webhook-secret";
+    item.families = families;
+  };
+  const ok = integrityAfter(point(["examplecloud:api-key"]));
+  assert.ok(!ok.some((e) => /families override/.test(e)), ok.join("\n"));
+  expectError(integrityAfter(point(["aws:iam-user-access-key"])), /families override 'aws:iam-user-access-key' is not a family of case/);
+  expectError(integrityAfter(point(["examplecloud:webhook-secret", "examplecloud:api-key"])), /families override equals the families of case/);
+});
+
+test("a candidate reading must stay inside the content and propose a secret span", () => {
+  const withReading = (spans) => (entries, rec) => {
+    const item = rec("fixture-set", "examplecloud-carriers").fixtures[0];
+    item.candidateReading = { asserting: false, outcome: "must-flag", spans };
+  };
+  expectError(integrityAfter(withReading([{ start: 0, end: 100000, role: "secret" }])), /candidateReading\.spans\[0\] ends after the content/);
+  expectError(integrityAfter(withReading([{ start: 0, end: 2, role: "companion" }])), /a must-flag candidateReading needs a secret span/);
+  expectError(integrityAfter(withReading([{ start: 4, end: 8, role: "secret" }, { start: 2, end: 6, role: "secret" }])), /sorted and disjoint/);
+});

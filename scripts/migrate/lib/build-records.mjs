@@ -140,6 +140,7 @@ export function buildRecords({ model, taxonomy }) {
   }
   const caseRecords = [];
   const caseInfo = new Map();
+  const caseFamilies = new Map();
   for (const authored of [...CASES].sort((a, b) => cmp(a.id, b.id))) {
     const group = aggsOfCase.get(authored.id);
     if (!group) throw new Error(`authored case ${authored.id} has no legacy group`);
@@ -200,6 +201,7 @@ export function buildRecords({ model, taxonomy }) {
     record.notes = `${PROJECT_NOTE} Reclassified from ${group.length} legacy group${group.length === 1 ? "" : "s"} (${entries.length} fixtures); draft, not yet reviewed.`;
     caseRecords.push(record);
     caseInfo.set(authored.id, { aggs: group, fixtures: entries.length, basis, outcome, families: famIds.length });
+    caseFamilies.set(authored.id, famIds);
     files.set(`records/cases/${record.id}.json`, pretty(record));
     R.inc("records:case");
     for (const t of caseTypes) R.inc(`case-type:${t}`);
@@ -247,9 +249,13 @@ export function buildRecords({ model, taxonomy }) {
         R.inc("dropped:companion-span-on-must-not-flag", spans.length);
         spans = [];
       }
+      // ADR 0012 decision 2: an unresolved (T0) fixture keeps its candidate spans as non-asserting data, never as expected spans.
+      let candidate;
       if (e.outcome === "not-assertable" && spans.length) {
-        R.inc("dropped:t0-candidate-spans", spans.length);
-        R.inc("dropped:t0-fixtures-with-spans");
+        if (f.assessment.kind !== "must-redact" || !spans.some((s) => s.role === "secret")) throw new Error(`${e.slug}: T0 spans on a fixture that does not propose must-redact with a secret span`);
+        candidate = { asserting: false, outcome: "must-flag", spans };
+        R.inc("kept:t0-candidate-spans", spans.length);
+        R.inc("kept:t0-fixtures-with-candidate");
         spans = [];
       }
       const ev = e.agg.evidence;
@@ -258,8 +264,20 @@ export function buildRecords({ model, taxonomy }) {
       evidence[key] = ev;
       sourceEvidenceCount.perFixtureDistinct.add(key);
       const item = { id: e.newId };
-      if (e.cls.target.type === "case") item.case = e.cls.target.id;
-      else {
+      if (e.cls.target.type === "case") {
+        item.case = e.cls.target.id;
+        // ADR 0012 decision 4: a fixture narrower than its Case's family set keeps its own (legacy) family reading.
+        const ofCase = caseFamilies.get(item.case);
+        if (ofCase.some((x) => !e.families.includes(x))) {
+          item.families = e.families;
+          if (!e.families.length) {
+            if (!e.idx.unscopedReason) throw new Error(`${e.slug}: no family and no legacy unscoped reason`);
+            item.unscopedReason = clip(e.idx.unscopedReason, TEXT_MAX);
+          }
+          R.inc("fixtures:families-override");
+          R.inc("fixtures:families-override-links-removed", ofCase.length - e.families.length);
+        }
+      } else {
         const plan = scenarioById.get(e.cls.target.id).plan;
         if (!plan) throw new Error(`scenario ${e.cls.target.id} has fixtures but no plan`);
         item.cell = { plan, scenario: e.cls.target.id, families: e.families };
@@ -287,6 +305,7 @@ export function buildRecords({ model, taxonomy }) {
       item.sha256 = createHash("sha256").update(bytes).digest("hex");
       item.text = f.content;
       item.expected = { outcome: e.outcome, spans };
+      if (candidate) item.candidateReading = candidate;
       R.inc(`fixtures:${isGenerated ? "generated" : "authored"}`);
       R.inc(`fixture-outcome:${e.outcome}`);
       R.inc(`map:${f.assessment.kind}/${f.assessment.tier} -> ${e.outcome}`);

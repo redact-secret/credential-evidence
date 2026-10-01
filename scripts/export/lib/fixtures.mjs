@@ -10,7 +10,8 @@ const uniqSorted = (xs) => [...new Set(xs)].sort(cmp);
 /**
  * @param {{ sets: Map, cases: Map, scenarios: Map }} ix  from indexRecords
  * @returns {object[]} fixture rows sorted by canonical id:
- *   { id, set, item, caseId, targetId, families, unscopedReason, evidence, evidenceKey, outcome, materializedPath, target }
+ *   { id, set, item, caseId, targetId, families, unscopedReason, candidate, evidence, evidenceKey, outcome, materializedPath, target }
+ *   `families` honours a per-fixture override; `candidate` is the non-asserting reading of an unresolved fixture (never an expectation).
  *   `targetId` is the Case id, or for a plan cell the Scenario id; `target` mimics the record that carries the fixture's
  *   reasoning (id, families, the fixture's own expectation evidence) for the parity predicates.
  */
@@ -23,14 +24,18 @@ export function collectFixtures(ix) {
       if (!c && !scenario) throw new Error(`fixture ${item.id}: unresolved target`);
       const own = c ? c.expectation : scenario.evidenceBasis;
       const evidence = item.evidence !== undefined ? set.evidence[item.evidence] : own;
+      // A per-fixture families override (ADR 0012 decision 4) narrows the Case's families for this fixture only.
+      const caseFamilies = c ? (item.families ? c.families.filter((f) => item.families.includes(f.family)) : c.families) : undefined;
+      const unscopedReason = item.families ? item.unscopedReason : c?.unscopedReason;
       rows.push({
         id: item.id,
         set,
         item,
         caseId: item.case,
         targetId: c ? c.id : scenario.id,
-        families: c ? uniqSorted(c.families.map((f) => f.family)) : uniqSorted(item.cell.families),
-        unscopedReason: c?.unscopedReason,
+        families: c ? uniqSorted(caseFamilies.map((f) => f.family)) : uniqSorted(item.cell.families),
+        unscopedReason,
+        candidate: item.candidateReading,
         evidence,
         // evidence keys are content hashes, so equal evidence has one key in every set: fixtures that share it are folded together
         evidenceKey: item.evidence !== undefined ? item.evidence : `${item.case ?? item.cell.scenario}`,
@@ -38,9 +43,10 @@ export function collectFixtures(ix) {
         materializedPath: `${set.id}/${item.path}`,
         target: {
           id: c ? c.id : scenario.id,
-          families: c ? c.families : item.cell.families.map((family) => ({ family })),
+          families: c ? caseFamilies : item.cell.families.map((family) => ({ family })),
           expectation: { outcome: item.expected.outcome, basis: evidence.basis, rationale: evidence.rationale, sources: evidence.sources, observedAt: evidence.observedAt },
-          unscopedReason: c?.unscopedReason,
+          unscopedReason,
+          candidate: item.candidateReading,
         },
       });
     }

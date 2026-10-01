@@ -11,9 +11,11 @@
 
 import { createHash } from "node:crypto";
 
-export const MATERIALIZE_VERSION = "2.0.0";
+export const MATERIALIZE_VERSION = "2.1.0";
 export const MANIFEST_FORMAT = "credential-evidence/materialized-fixtures";
 // Version 2 (schema revision 1.3.0): a fixture projects a Case or a fixture-plan cell, so `case` is optional and `target`, `plan` and `basis` are added.
+// Schema revision 1.5.0 (ADR 0012) adds two optional entry facts within version 2: `families` honours a per-fixture
+// override, and an unresolved fixture may carry a non-asserting `candidateReading` next to its (empty) expected spans.
 export const MANIFEST_FORMAT_VERSION = 2;
 
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
@@ -47,11 +49,13 @@ export function buildMaterialization({ sets, cases, scenarios = [] }) {
         expected: { outcome: item.expected.outcome, spans: item.expected.spans },
         target: item.case ? { type: "case", id: item.case } : { type: "scenario", id: item.cell.scenario, plan: item.cell.plan },
         ...(item.case ? { case: item.case } : {}),
-        families: (c ? c.families.map((f) => f.family) : item.cell.families).slice().sort(cmp),
+        families: (item.families ?? (c ? c.families.map((f) => f.family) : item.cell.families)).slice().sort(cmp),
         basis,
         generated: set.generated,
       };
       if (item.context) entry.context = item.context;
+      // Non-asserting (ADR 0012 decision 2): never part of `expected`, never scored.
+      if (item.candidateReading) entry.candidateReading = { asserting: false, outcome: item.candidateReading.outcome, spans: item.candidateReading.spans };
       if (item.lineage) entry.lineage = { relation: item.lineage.relation, of: item.lineage.of, ...(item.lineage.mutationKind ? { mutationKind: item.lineage.mutationKind } : {}) };
       entries.push(entry);
     }
