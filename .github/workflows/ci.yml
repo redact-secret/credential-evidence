@@ -54,6 +54,9 @@ jobs:
       - name: Narrative lint
         run: npm run lint:narrative
 
+      - name: Skill lint
+        run: npm run lint:skills
+
       - name: Test
         run: npm test
         env:
