@@ -103,6 +103,7 @@ Recommended repository settings (maintainers, not code): GitHub immutable releas
 | Tag | Commit | Manifest digest | Notes |
 | --- | --- | --- | --- |
 | `snapshot-2026.10.01` | `adadf33096c417141897a4148d049a0a267c3278` | `54e47836b5c36a0b7c0871da8bfe227b041404ff2bc652e62566fe74ceab0182` | First snapshot release; 5,925 materialized fixtures. |
+| `snapshot-2026.10.01.2` | `a5362d6cfe644dcf069858ef9bd9cad4d7a96c4a` | `2557a72ae8dec3ca6d734a6c87b6db9cb4881543541693a4555fdfd9f7ba26d8` | Current pin target. Legacy reference `1020d2b5` (beta.12 re-pin, #74); ADR 0012 decisions 1–4; schema 1.5.0; 5,950 materialized fixtures (digest `d4ac653b…`); credential-eval snapshot digest `sha256:1bc5a07b…`. Supersedes `snapshot-2026.10.01` for new pins. |
 
 ## Withdrawn releases
 
