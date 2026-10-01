@@ -125,7 +125,6 @@ export default {
             cls: "tool-corroborated",
             text: "Access tokens begin ATCT and have the same 192-character layout as account API tokens: a fixed 12-character header (ATCTT3xFfGN0, differing from the API-token header in the fourth and fifth characters), a 171-character body from letters, digits, underscore and hyphen, one literal =, then 8 uppercase hexadecimal characters. One scanner's rule matches ATCTT3xFfG, a base64url-style body, = and 8 alphanumerics; a second scanner's rule matches the 12-character header, 80 to 800 body characters and the 8-hex tail.",
             cite: [TRUFFLEHOG_V2, CREDSWEEPER],
-            claims: ["dossier-research"],
           },
           {
             id: "crc32-suffix",
@@ -135,9 +134,8 @@ export default {
           },
           {
             id: "public-code-measurement",
-            unresolved: "A structure-only measurement of public code search results, recorded in a research note: 80 candidate values in 74 repositories, of which 73 were 192 characters, 79 carried the ATCTT3xFfGN0 header, 74 had the = at position 184 followed by 8 uppercase hex characters and 72 passed the CRC32 check. The values were not verified with Atlassian and some may be truncated or edited, so it is a lower-bound count that the cited source cannot reproduce.",
+            unresolved: "A structure-only measurement of public code search results, recorded only in a 2026-09-29 research pass that later contract research superseded and kept as history: 80 candidate values in 74 repositories, of which 73 were 192 characters, 79 carried the ATCTT3xFfGN0 header, 74 had the = at position 184 followed by 8 uppercase hex characters and 72 passed the CRC32 check. The values were not verified with Atlassian and some may be truncated or edited, so it is a lower-bound count that no source recorded for this family reproduces.",
             text: "Public code contains values with this exact layout, with the CRC32 holding on nearly all of them.",
-            lead: [RESEARCH_NOTE],
           },
           {
             id: "provider-states-prefix",
@@ -183,7 +181,6 @@ export default {
             cls: "tool-corroborated",
             text: "Access tokens share the layout of account API tokens (ATAT) and of the retired ATBB app passwords; the header differs, so a rule anchored on ATAT does not match them.",
             cite: [TRUFFLEHOG_V2, CREDSWEEPER],
-            claims: ["dossier-research"],
           },
           {
             id: "data-center-tokens",

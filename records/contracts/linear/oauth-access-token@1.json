@@ -14,17 +14,26 @@
   "claims": [
     {
       "id": "dossier-research",
-      "statement": "Legacy dossier research (verdict not-found, tier T0) cited 2 sources; the dossier does not attribute sources to individual properties.",
-      "evidenceClass": "unresolved",
+      "statement": "Legacy dossier research (verdict issuance-gated, tier T1) cited 4 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "provider-documented",
       "temporality": "current",
-      "observedAt": "2026-09-23",
+      "observedAt": "2026-09-29",
       "sources": [
         {
-          "sourceId": "github-com-redact-secret-redact-secret-991482f3da",
+          "sourceId": "github-com-linear-linear-solutions-267b9ae79e",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L11-L12"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-c9e2c107ca",
           "supports": "Final research evidence recorded by the legacy dossier"
         },
         {
           "sourceId": "linear-app-4474ab72a9",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "linear-app-9962a76ef6",
           "supports": "Cited by the legacy dossier research for this family"
         }
       ]
@@ -34,14 +43,14 @@
   "externalRefs": [
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/linear.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/linear.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/linear.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/linear.md",
       "note": "families[id=linear:oauth-access-token].research"
     },
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=linear:oauth-access-token]"
     }
   ]

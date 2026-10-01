@@ -2,33 +2,33 @@
   "schemaVersion": 1,
   "kind": "coverage-backlog",
   "rulesVersion": 1,
-  "asOf": "2026-09-29",
+  "asOf": "2026-09-30",
   "staleAfterMonths": 12,
   "totals": {
     "providers": 93,
     "families": 173,
     "scenarios": 29,
-    "items": 456,
+    "items": 465,
     "byPriority": {
       "P0": 1,
-      "P1": 4,
-      "P2": 408,
-      "P3": 43
+      "P1": 12,
+      "P2": 404,
+      "P3": 48
     },
     "byGapKind": {
-      "benign-siblings-missing": 150,
-      "cases-missing": 8,
-      "contract-missing": 4,
-      "narrative-unresolved-heavy": 108,
+      "benign-siblings-missing": 152,
+      "cases-missing": 10,
+      "contract-missing": 12,
+      "narrative-unresolved-heavy": 111,
       "new-provider": 24,
       "no-provider-source": 1,
-      "observation-unverified": 161
+      "observation-unverified": 155
     },
     "bySuggestedSkill": {
-      "author-case": 8,
-      "research-family": 263,
+      "author-case": 10,
+      "research-family": 276,
       "research-provider": 24,
-      "source-freshness": 161
+      "source-freshness": 155
     },
     "wishlistAlreadyRecorded": []
   },
@@ -62,6 +62,158 @@
       }
     },
     {
+      "id": "contract-missing:notion:integration-token",
+      "gapKind": "contract-missing",
+      "scope": {
+        "kind": "family",
+        "id": "notion:integration-token",
+        "provider": "notion"
+      },
+      "priority": "P1",
+      "score": 85,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "notion:integration-token",
+      "rationale": [
+        "+90 gap-kind: the family was researched but has no current format contract",
+        "+10 in-use: a Case or fixture plan already involves this family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "contracts": [
+          "notion:integration-token@1 (proposed)"
+        ]
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "contract-missing:notion:integration-token",
+        "branchHint": "coverage/contract-missing/notion-integration-token",
+        "prTitleTag": "[coverage:contract-missing:notion:integration-token]"
+      }
+    },
+    {
+      "id": "contract-missing:stripe:organization-api-key",
+      "gapKind": "contract-missing",
+      "scope": {
+        "kind": "family",
+        "id": "stripe:organization-api-key",
+        "provider": "stripe"
+      },
+      "priority": "P1",
+      "score": 85,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "stripe:organization-api-key",
+      "rationale": [
+        "+90 gap-kind: the family was researched but has no current format contract",
+        "+10 in-use: a Case or fixture plan already involves this family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "contracts": [
+          "stripe:organization-api-key@1 (proposed)"
+        ]
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "contract-missing:stripe:organization-api-key",
+        "branchHint": "coverage/contract-missing/stripe-organization-api-key",
+        "prTitleTag": "[coverage:contract-missing:stripe:organization-api-key]"
+      }
+    },
+    {
+      "id": "contract-missing:atlassian:access-token",
+      "gapKind": "contract-missing",
+      "scope": {
+        "kind": "family",
+        "id": "atlassian:access-token",
+        "provider": "atlassian"
+      },
+      "priority": "P1",
+      "score": 75,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "atlassian:access-token",
+      "rationale": [
+        "+90 gap-kind: the family was researched but has no current format contract",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "contracts": [
+          "atlassian:access-token@1 (proposed)"
+        ]
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "contract-missing:atlassian:access-token",
+        "branchHint": "coverage/contract-missing/atlassian-access-token",
+        "prTitleTag": "[coverage:contract-missing:atlassian:access-token]"
+      }
+    },
+    {
+      "id": "contract-missing:google:oauth2-credential",
+      "gapKind": "contract-missing",
+      "scope": {
+        "kind": "family",
+        "id": "google:oauth2-credential",
+        "provider": "google"
+      },
+      "priority": "P1",
+      "score": 75,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "google:oauth2-credential",
+      "rationale": [
+        "+90 gap-kind: the family was researched but has no current format contract",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "contracts": [
+          "google:oauth2-credential@1 (proposed)"
+        ]
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "contract-missing:google:oauth2-credential",
+        "branchHint": "coverage/contract-missing/google-oauth2-credential",
+        "prTitleTag": "[coverage:contract-missing:google:oauth2-credential]"
+      }
+    },
+    {
+      "id": "contract-missing:linear:oauth-access-token",
+      "gapKind": "contract-missing",
+      "scope": {
+        "kind": "family",
+        "id": "linear:oauth-access-token",
+        "provider": "linear"
+      },
+      "priority": "P1",
+      "score": 75,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "linear:oauth-access-token",
+      "rationale": [
+        "+90 gap-kind: the family was researched but has no current format contract",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "contracts": [
+          "linear:oauth-access-token@1 (proposed)"
+        ]
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "contract-missing:linear:oauth-access-token",
+        "branchHint": "coverage/contract-missing/linear-oauth-access-token",
+        "prTitleTag": "[coverage:contract-missing:linear:oauth-access-token]"
+      }
+    },
+    {
       "id": "contract-missing:mistral:realtime-client-token",
       "gapKind": "contract-missing",
       "scope": {
@@ -89,6 +241,96 @@
         "key": "contract-missing:mistral:realtime-client-token",
         "branchHint": "coverage/contract-missing/mistral-realtime-client-token",
         "prTitleTag": "[coverage:contract-missing:mistral:realtime-client-token]"
+      }
+    },
+    {
+      "id": "contract-missing:netlify:other-prefixed-tokens",
+      "gapKind": "contract-missing",
+      "scope": {
+        "kind": "family",
+        "id": "netlify:other-prefixed-tokens",
+        "provider": "netlify"
+      },
+      "priority": "P1",
+      "score": 75,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "netlify:other-prefixed-tokens",
+      "rationale": [
+        "+90 gap-kind: the family was researched but has no current format contract",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "contracts": [
+          "netlify:other-prefixed-tokens@1 (proposed)"
+        ]
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "contract-missing:netlify:other-prefixed-tokens",
+        "branchHint": "coverage/contract-missing/netlify-other-prefixed-tokens",
+        "prTitleTag": "[coverage:contract-missing:netlify:other-prefixed-tokens]"
+      }
+    },
+    {
+      "id": "contract-missing:openrouter:management-api-key",
+      "gapKind": "contract-missing",
+      "scope": {
+        "kind": "family",
+        "id": "openrouter:management-api-key",
+        "provider": "openrouter"
+      },
+      "priority": "P1",
+      "score": 75,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "openrouter:management-api-key",
+      "rationale": [
+        "+90 gap-kind: the family was researched but has no current format contract",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "contracts": [
+          "openrouter:management-api-key@1 (proposed)"
+        ]
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "contract-missing:openrouter:management-api-key",
+        "branchHint": "coverage/contract-missing/openrouter-management-api-key",
+        "prTitleTag": "[coverage:contract-missing:openrouter:management-api-key]"
+      }
+    },
+    {
+      "id": "contract-missing:slack:workflow-webhook-token",
+      "gapKind": "contract-missing",
+      "scope": {
+        "kind": "family",
+        "id": "slack:workflow-webhook-token",
+        "provider": "slack"
+      },
+      "priority": "P1",
+      "score": 75,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "slack:workflow-webhook-token",
+      "rationale": [
+        "+90 gap-kind: the family was researched but has no current format contract",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "contracts": [
+          "slack:workflow-webhook-token@1 (proposed)"
+        ]
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "contract-missing:slack:workflow-webhook-token",
+        "branchHint": "coverage/contract-missing/slack-workflow-webhook-token",
+        "prTitleTag": "[coverage:contract-missing:slack:workflow-webhook-token]"
       }
     },
     {
@@ -1310,35 +1552,6 @@
         "key": "narrative-unresolved-heavy:neon:api-key",
         "branchHint": "coverage/narrative-unresolved-heavy/neon-api-key",
         "prTitleTag": "[coverage:narrative-unresolved-heavy:neon:api-key]"
-      }
-    },
-    {
-      "id": "narrative-unresolved-heavy:notion:integration-token",
-      "gapKind": "narrative-unresolved-heavy",
-      "scope": {
-        "kind": "family",
-        "id": "notion:integration-token",
-        "provider": "notion"
-      },
-      "priority": "P2",
-      "score": 63,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "notion:integration-token",
-      "rationale": [
-        "+50 gap-kind: at least half of the narrative's statements are unresolved",
-        "+3 unresolved-share: 67% of statements unresolved (+1 per 5 points above 50%)",
-        "+10 in-use: a Case or fixture plan already involves this family"
-      ],
-      "facts": {
-        "statements": 9,
-        "unresolved": 6,
-        "share": 0.67
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "narrative-unresolved-heavy:notion:integration-token",
-        "branchHint": "coverage/narrative-unresolved-heavy/notion-integration-token",
-        "prTitleTag": "[coverage:narrative-unresolved-heavy:notion:integration-token]"
       }
     },
     {
@@ -3027,34 +3240,6 @@
       }
     },
     {
-      "id": "narrative-unresolved-heavy:stripe:organization-api-key",
-      "gapKind": "narrative-unresolved-heavy",
-      "scope": {
-        "kind": "family",
-        "id": "stripe:organization-api-key",
-        "provider": "stripe"
-      },
-      "priority": "P2",
-      "score": 60,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "stripe:organization-api-key",
-      "rationale": [
-        "+50 gap-kind: at least half of the narrative's statements are unresolved",
-        "+10 in-use: a Case or fixture plan already involves this family"
-      ],
-      "facts": {
-        "statements": 2,
-        "unresolved": 1,
-        "share": 0.5
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "narrative-unresolved-heavy:stripe:organization-api-key",
-        "branchHint": "coverage/narrative-unresolved-heavy/stripe-organization-api-key",
-        "prTitleTag": "[coverage:narrative-unresolved-heavy:stripe:organization-api-key]"
-      }
-    },
-    {
       "id": "narrative-unresolved-heavy:stripe:webhook-signing-secret",
       "gapKind": "narrative-unresolved-heavy",
       "scope": {
@@ -3108,34 +3293,6 @@
         "key": "narrative-unresolved-heavy:tavily:api-key",
         "branchHint": "coverage/narrative-unresolved-heavy/tavily-api-key",
         "prTitleTag": "[coverage:narrative-unresolved-heavy:tavily:api-key]"
-      }
-    },
-    {
-      "id": "narrative-unresolved-heavy:slack:workflow-webhook-token",
-      "gapKind": "narrative-unresolved-heavy",
-      "scope": {
-        "kind": "family",
-        "id": "slack:workflow-webhook-token",
-        "provider": "slack"
-      },
-      "priority": "P2",
-      "score": 53,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "slack:workflow-webhook-token",
-      "rationale": [
-        "+50 gap-kind: at least half of the narrative's statements are unresolved",
-        "+3 unresolved-share: 67% of statements unresolved (+1 per 5 points above 50%)"
-      ],
-      "facts": {
-        "statements": 3,
-        "unresolved": 2,
-        "share": 0.67
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "narrative-unresolved-heavy:slack:workflow-webhook-token",
-        "branchHint": "coverage/narrative-unresolved-heavy/slack-workflow-webhook-token",
-        "prTitleTag": "[coverage:narrative-unresolved-heavy:slack:workflow-webhook-token]"
       }
     },
     {
@@ -5227,30 +5384,6 @@
       }
     },
     {
-      "id": "benign-siblings-missing:notion:integration-token",
-      "gapKind": "benign-siblings-missing",
-      "scope": {
-        "kind": "family",
-        "id": "notion:integration-token",
-        "provider": "notion"
-      },
-      "priority": "P2",
-      "score": 50,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "notion:integration-token",
-      "rationale": [
-        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
-        "+10 in-use: a Case or fixture plan already involves this family"
-      ],
-      "facts": {},
-      "blockedBy": null,
-      "dedupe": {
-        "key": "benign-siblings-missing:notion:integration-token",
-        "branchHint": "coverage/benign-siblings-missing/notion-integration-token",
-        "prTitleTag": "[coverage:benign-siblings-missing:notion:integration-token]"
-      }
-    },
-    {
       "id": "benign-siblings-missing:notion:legacy-integration-token",
       "gapKind": "benign-siblings-missing",
       "scope": {
@@ -6043,30 +6176,6 @@
       }
     },
     {
-      "id": "benign-siblings-missing:stripe:organization-api-key",
-      "gapKind": "benign-siblings-missing",
-      "scope": {
-        "kind": "family",
-        "id": "stripe:organization-api-key",
-        "provider": "stripe"
-      },
-      "priority": "P2",
-      "score": 50,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "stripe:organization-api-key",
-      "rationale": [
-        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
-        "+10 in-use: a Case or fixture plan already involves this family"
-      ],
-      "facts": {},
-      "blockedBy": null,
-      "dedupe": {
-        "key": "benign-siblings-missing:stripe:organization-api-key",
-        "branchHint": "coverage/benign-siblings-missing/stripe-organization-api-key",
-        "prTitleTag": "[coverage:benign-siblings-missing:stripe:organization-api-key]"
-      }
-    },
-    {
       "id": "benign-siblings-missing:stripe:restricted-key-live",
       "gapKind": "benign-siblings-missing",
       "scope": {
@@ -6547,33 +6656,6 @@
       }
     },
     {
-      "id": "narrative-unresolved-heavy:netlify:other-prefixed-tokens",
-      "gapKind": "narrative-unresolved-heavy",
-      "scope": {
-        "kind": "family",
-        "id": "netlify:other-prefixed-tokens",
-        "provider": "netlify"
-      },
-      "priority": "P2",
-      "score": 50,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "netlify:other-prefixed-tokens",
-      "rationale": [
-        "+50 gap-kind: at least half of the narrative's statements are unresolved"
-      ],
-      "facts": {
-        "statements": 8,
-        "unresolved": 4,
-        "share": 0.5
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "narrative-unresolved-heavy:netlify:other-prefixed-tokens",
-        "branchHint": "coverage/narrative-unresolved-heavy/netlify-other-prefixed-tokens",
-        "prTitleTag": "[coverage:narrative-unresolved-heavy:netlify:other-prefixed-tokens]"
-      }
-    },
-    {
       "id": "new-provider:algolia",
       "gapKind": "new-provider",
       "scope": {
@@ -6711,6 +6793,131 @@
         "key": "new-provider:mongodb-atlas",
         "branchHint": "coverage/new-provider/mongodb-atlas",
         "prTitleTag": "[coverage:new-provider:mongodb-atlas]"
+      }
+    },
+    {
+      "id": "narrative-unresolved-heavy:notion:integration-token",
+      "gapKind": "narrative-unresolved-heavy",
+      "scope": {
+        "kind": "family",
+        "id": "notion:integration-token",
+        "provider": "notion"
+      },
+      "priority": "P2",
+      "score": 48,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "notion:integration-token",
+      "rationale": [
+        "+50 gap-kind: at least half of the narrative's statements are unresolved",
+        "+3 unresolved-share: 67% of statements unresolved (+1 per 5 points above 50%)",
+        "+10 in-use: a Case or fixture plan already involves this family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "statements": 9,
+        "unresolved": 6,
+        "share": 0.67
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "narrative-unresolved-heavy:notion:integration-token",
+        "branchHint": "coverage/narrative-unresolved-heavy/notion-integration-token",
+        "prTitleTag": "[coverage:narrative-unresolved-heavy:notion:integration-token]"
+      }
+    },
+    {
+      "id": "narrative-unresolved-heavy:linear:oauth-access-token",
+      "gapKind": "narrative-unresolved-heavy",
+      "scope": {
+        "kind": "family",
+        "id": "linear:oauth-access-token",
+        "provider": "linear"
+      },
+      "priority": "P2",
+      "score": 45,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "linear:oauth-access-token",
+      "rationale": [
+        "+50 gap-kind: at least half of the narrative's statements are unresolved",
+        "+10 unresolved-share: 100% of statements unresolved (+1 per 5 points above 50%)",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "statements": 5,
+        "unresolved": 5,
+        "share": 1
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "narrative-unresolved-heavy:linear:oauth-access-token",
+        "branchHint": "coverage/narrative-unresolved-heavy/linear-oauth-access-token",
+        "prTitleTag": "[coverage:narrative-unresolved-heavy:linear:oauth-access-token]"
+      }
+    },
+    {
+      "id": "narrative-unresolved-heavy:openrouter:management-api-key",
+      "gapKind": "narrative-unresolved-heavy",
+      "scope": {
+        "kind": "family",
+        "id": "openrouter:management-api-key",
+        "provider": "openrouter"
+      },
+      "priority": "P2",
+      "score": 45,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "openrouter:management-api-key",
+      "rationale": [
+        "+50 gap-kind: at least half of the narrative's statements are unresolved",
+        "+10 unresolved-share: 100% of statements unresolved (+1 per 5 points above 50%)",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "statements": 6,
+        "unresolved": 6,
+        "share": 1
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "narrative-unresolved-heavy:openrouter:management-api-key",
+        "branchHint": "coverage/narrative-unresolved-heavy/openrouter-management-api-key",
+        "prTitleTag": "[coverage:narrative-unresolved-heavy:openrouter:management-api-key]"
+      }
+    },
+    {
+      "id": "narrative-unresolved-heavy:stripe:organization-api-key",
+      "gapKind": "narrative-unresolved-heavy",
+      "scope": {
+        "kind": "family",
+        "id": "stripe:organization-api-key",
+        "provider": "stripe"
+      },
+      "priority": "P2",
+      "score": 45,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "stripe:organization-api-key",
+      "rationale": [
+        "+50 gap-kind: at least half of the narrative's statements are unresolved",
+        "+10 in-use: a Case or fixture plan already involves this family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "statements": 2,
+        "unresolved": 1,
+        "share": 0.5
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "narrative-unresolved-heavy:stripe:organization-api-key",
+        "branchHint": "coverage/narrative-unresolved-heavy/stripe-organization-api-key",
+        "prTitleTag": "[coverage:narrative-unresolved-heavy:stripe:organization-api-key]"
       }
     },
     {
@@ -7039,8 +7246,8 @@
       ],
       "facts": {
         "contract": "axiom:api-token@1",
-        "importOnlySources": 11,
-        "citedSources": 11
+        "importOnlySources": 12,
+        "citedSources": 12
       },
       "blockedBy": null,
       "dedupe": {
@@ -7067,8 +7274,8 @@
       ],
       "facts": {
         "contract": "axiom:personal-token@1",
-        "importOnlySources": 11,
-        "citedSources": 11
+        "importOnlySources": 12,
+        "citedSources": 12
       },
       "blockedBy": null,
       "dedupe": {
@@ -7123,8 +7330,8 @@
       ],
       "facts": {
         "contract": "bitwarden:secrets-manager-access-token@1",
-        "importOnlySources": 12,
-        "citedSources": 12
+        "importOnlySources": 13,
+        "citedSources": 13
       },
       "blockedBy": null,
       "dedupe": {
@@ -7235,8 +7442,8 @@
       ],
       "facts": {
         "contract": "clojars:deploy-token@1",
-        "importOnlySources": 9,
-        "citedSources": 9
+        "importOnlySources": 10,
+        "citedSources": 10
       },
       "blockedBy": null,
       "dedupe": {
@@ -7487,8 +7694,8 @@
       ],
       "facts": {
         "contract": "crates-io:api-token@1",
-        "importOnlySources": 10,
-        "citedSources": 10
+        "importOnlySources": 11,
+        "citedSources": 11
       },
       "blockedBy": null,
       "dedupe": {
@@ -7515,8 +7722,8 @@
       ],
       "facts": {
         "contract": "crates-io:trusted-publishing-token@1",
-        "importOnlySources": 10,
-        "citedSources": 10
+        "importOnlySources": 11,
+        "citedSources": 11
       },
       "blockedBy": null,
       "dedupe": {
@@ -8075,8 +8282,8 @@
       ],
       "facts": {
         "contract": "dynatrace:api-token@1",
-        "importOnlySources": 10,
-        "citedSources": 10
+        "importOnlySources": 11,
+        "citedSources": 11
       },
       "blockedBy": null,
       "dedupe": {
@@ -9083,8 +9290,8 @@
       ],
       "facts": {
         "contract": "honeycomb:ingest-key@1",
-        "importOnlySources": 13,
-        "citedSources": 13
+        "importOnlySources": 14,
+        "citedSources": 14
       },
       "blockedBy": null,
       "dedupe": {
@@ -9486,34 +9693,6 @@
       }
     },
     {
-      "id": "observation-unverified:notion:integration-token",
-      "gapKind": "observation-unverified",
-      "scope": {
-        "kind": "family",
-        "id": "notion:integration-token",
-        "provider": "notion"
-      },
-      "priority": "P2",
-      "score": 45,
-      "suggestedSkill": "source-freshness",
-      "suggestedInput": "notion:integration-token",
-      "rationale": [
-        "+35 gap-kind: every cited source was last observed only by an import, never re-read",
-        "+10 in-use: a Case or fixture plan already involves this family"
-      ],
-      "facts": {
-        "contract": "notion:integration-token@1",
-        "importOnlySources": 13,
-        "citedSources": 13
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "observation-unverified:notion:integration-token",
-        "branchHint": "coverage/observation-unverified/notion-integration-token",
-        "prTitleTag": "[coverage:observation-unverified:notion:integration-token]"
-      }
-    },
-    {
       "id": "observation-unverified:notion:legacy-integration-token",
       "gapKind": "observation-unverified",
       "scope": {
@@ -9755,8 +9934,8 @@
       ],
       "facts": {
         "contract": "paddle:api-key@1",
-        "importOnlySources": 9,
-        "citedSources": 9
+        "importOnlySources": 10,
+        "citedSources": 10
       },
       "blockedBy": null,
       "dedupe": {
@@ -9867,8 +10046,8 @@
       ],
       "facts": {
         "contract": "polar:api-credential@1",
-        "importOnlySources": 14,
-        "citedSources": 14
+        "importOnlySources": 15,
+        "citedSources": 15
       },
       "blockedBy": null,
       "dedupe": {
@@ -9895,8 +10074,8 @@
       ],
       "facts": {
         "contract": "polar:organization-access-token@1",
-        "importOnlySources": 14,
-        "citedSources": 14
+        "importOnlySources": 15,
+        "citedSources": 15
       },
       "blockedBy": null,
       "dedupe": {
@@ -10203,8 +10382,8 @@
       ],
       "facts": {
         "contract": "rubygems:api-key@1",
-        "importOnlySources": 9,
-        "citedSources": 9
+        "importOnlySources": 10,
+        "citedSources": 10
       },
       "blockedBy": null,
       "dedupe": {
@@ -10483,8 +10662,8 @@
       ],
       "facts": {
         "contract": "sonarqube:analysis-token@1",
-        "importOnlySources": 11,
-        "citedSources": 11
+        "importOnlySources": 12,
+        "citedSources": 12
       },
       "blockedBy": null,
       "dedupe": {
@@ -10511,42 +10690,14 @@
       ],
       "facts": {
         "contract": "sonarqube:user-token@1",
-        "importOnlySources": 11,
-        "citedSources": 11
+        "importOnlySources": 12,
+        "citedSources": 12
       },
       "blockedBy": null,
       "dedupe": {
         "key": "observation-unverified:sonarqube:user-token",
         "branchHint": "coverage/observation-unverified/sonarqube-user-token",
         "prTitleTag": "[coverage:observation-unverified:sonarqube:user-token]"
-      }
-    },
-    {
-      "id": "observation-unverified:stripe:organization-api-key",
-      "gapKind": "observation-unverified",
-      "scope": {
-        "kind": "family",
-        "id": "stripe:organization-api-key",
-        "provider": "stripe"
-      },
-      "priority": "P2",
-      "score": 45,
-      "suggestedSkill": "source-freshness",
-      "suggestedInput": "stripe:organization-api-key",
-      "rationale": [
-        "+35 gap-kind: every cited source was last observed only by an import, never re-read",
-        "+10 in-use: a Case or fixture plan already involves this family"
-      ],
-      "facts": {
-        "contract": "stripe:organization-api-key@1",
-        "importOnlySources": 2,
-        "citedSources": 2
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "observation-unverified:stripe:organization-api-key",
-        "branchHint": "coverage/observation-unverified/stripe-organization-api-key",
-        "prTitleTag": "[coverage:observation-unverified:stripe:organization-api-key]"
       }
     },
     {
@@ -10567,8 +10718,8 @@
       ],
       "facts": {
         "contract": "stripe:restricted-key-live@1",
-        "importOnlySources": 3,
-        "citedSources": 3
+        "importOnlySources": 7,
+        "citedSources": 7
       },
       "blockedBy": null,
       "dedupe": {
@@ -10595,8 +10746,8 @@
       ],
       "facts": {
         "contract": "stripe:restricted-key-test@1",
-        "importOnlySources": 3,
-        "citedSources": 3
+        "importOnlySources": 7,
+        "citedSources": 7
       },
       "blockedBy": null,
       "dedupe": {
@@ -10623,8 +10774,8 @@
       ],
       "facts": {
         "contract": "stripe:secret-key-live@1",
-        "importOnlySources": 3,
-        "citedSources": 3
+        "importOnlySources": 7,
+        "citedSources": 7
       },
       "blockedBy": null,
       "dedupe": {
@@ -10651,8 +10802,8 @@
       ],
       "facts": {
         "contract": "stripe:secret-key-test@1",
-        "importOnlySources": 3,
-        "citedSources": 3
+        "importOnlySources": 7,
+        "citedSources": 7
       },
       "blockedBy": null,
       "dedupe": {
@@ -11110,6 +11261,37 @@
       }
     },
     {
+      "id": "narrative-unresolved-heavy:google:oauth2-credential",
+      "gapKind": "narrative-unresolved-heavy",
+      "scope": {
+        "kind": "family",
+        "id": "google:oauth2-credential",
+        "provider": "google"
+      },
+      "priority": "P3",
+      "score": 42,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "google:oauth2-credential",
+      "rationale": [
+        "+50 gap-kind: at least half of the narrative's statements are unresolved",
+        "+7 unresolved-share: 83% of statements unresolved (+1 per 5 points above 50%)",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "statements": 6,
+        "unresolved": 5,
+        "share": 0.83
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "narrative-unresolved-heavy:google:oauth2-credential",
+        "branchHint": "coverage/narrative-unresolved-heavy/google-oauth2-credential",
+        "prTitleTag": "[coverage:narrative-unresolved-heavy:google:oauth2-credential]"
+      }
+    },
+    {
       "id": "narrative-unresolved-heavy:mistral:realtime-client-token",
       "gapKind": "narrative-unresolved-heavy",
       "scope": {
@@ -11138,98 +11320,6 @@
         "key": "narrative-unresolved-heavy:mistral:realtime-client-token",
         "branchHint": "coverage/narrative-unresolved-heavy/mistral-realtime-client-token",
         "prTitleTag": "[coverage:narrative-unresolved-heavy:mistral:realtime-client-token]"
-      }
-    },
-    {
-      "id": "benign-siblings-missing:atlassian:access-token",
-      "gapKind": "benign-siblings-missing",
-      "scope": {
-        "kind": "family",
-        "id": "atlassian:access-token",
-        "provider": "atlassian"
-      },
-      "priority": "P3",
-      "score": 40,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "atlassian:access-token",
-      "rationale": [
-        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family"
-      ],
-      "facts": {},
-      "blockedBy": null,
-      "dedupe": {
-        "key": "benign-siblings-missing:atlassian:access-token",
-        "branchHint": "coverage/benign-siblings-missing/atlassian-access-token",
-        "prTitleTag": "[coverage:benign-siblings-missing:atlassian:access-token]"
-      }
-    },
-    {
-      "id": "benign-siblings-missing:netlify:other-prefixed-tokens",
-      "gapKind": "benign-siblings-missing",
-      "scope": {
-        "kind": "family",
-        "id": "netlify:other-prefixed-tokens",
-        "provider": "netlify"
-      },
-      "priority": "P3",
-      "score": 40,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "netlify:other-prefixed-tokens",
-      "rationale": [
-        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family"
-      ],
-      "facts": {},
-      "blockedBy": null,
-      "dedupe": {
-        "key": "benign-siblings-missing:netlify:other-prefixed-tokens",
-        "branchHint": "coverage/benign-siblings-missing/netlify-other-prefixed-tokens",
-        "prTitleTag": "[coverage:benign-siblings-missing:netlify:other-prefixed-tokens]"
-      }
-    },
-    {
-      "id": "benign-siblings-missing:npm:legacy-token",
-      "gapKind": "benign-siblings-missing",
-      "scope": {
-        "kind": "family",
-        "id": "npm:legacy-token",
-        "provider": "npm"
-      },
-      "priority": "P3",
-      "score": 40,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "npm:legacy-token",
-      "rationale": [
-        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family"
-      ],
-      "facts": {},
-      "blockedBy": null,
-      "dedupe": {
-        "key": "benign-siblings-missing:npm:legacy-token",
-        "branchHint": "coverage/benign-siblings-missing/npm-legacy-token",
-        "prTitleTag": "[coverage:benign-siblings-missing:npm:legacy-token]"
-      }
-    },
-    {
-      "id": "benign-siblings-missing:slack:workflow-webhook-token",
-      "gapKind": "benign-siblings-missing",
-      "scope": {
-        "kind": "family",
-        "id": "slack:workflow-webhook-token",
-        "provider": "slack"
-      },
-      "priority": "P3",
-      "score": 40,
-      "suggestedSkill": "research-family",
-      "suggestedInput": "slack:workflow-webhook-token",
-      "rationale": [
-        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family"
-      ],
-      "facts": {},
-      "blockedBy": null,
-      "dedupe": {
-        "key": "benign-siblings-missing:slack:workflow-webhook-token",
-        "branchHint": "coverage/benign-siblings-missing/slack-workflow-webhook-token",
-        "prTitleTag": "[coverage:benign-siblings-missing:slack:workflow-webhook-token]"
       }
     },
     {
@@ -11513,6 +11603,37 @@
       }
     },
     {
+      "id": "narrative-unresolved-heavy:slack:workflow-webhook-token",
+      "gapKind": "narrative-unresolved-heavy",
+      "scope": {
+        "kind": "family",
+        "id": "slack:workflow-webhook-token",
+        "provider": "slack"
+      },
+      "priority": "P3",
+      "score": 38,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "slack:workflow-webhook-token",
+      "rationale": [
+        "+50 gap-kind: at least half of the narrative's statements are unresolved",
+        "+3 unresolved-share: 67% of statements unresolved (+1 per 5 points above 50%)",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "statements": 3,
+        "unresolved": 2,
+        "share": 0.67
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "narrative-unresolved-heavy:slack:workflow-webhook-token",
+        "branchHint": "coverage/narrative-unresolved-heavy/slack-workflow-webhook-token",
+        "prTitleTag": "[coverage:narrative-unresolved-heavy:slack:workflow-webhook-token]"
+      }
+    },
+    {
       "id": "narrative-unresolved-heavy:vercel:integration-token",
       "gapKind": "narrative-unresolved-heavy",
       "scope": {
@@ -11575,6 +11696,90 @@
       }
     },
     {
+      "id": "benign-siblings-missing:notion:integration-token",
+      "gapKind": "benign-siblings-missing",
+      "scope": {
+        "kind": "family",
+        "id": "notion:integration-token",
+        "provider": "notion"
+      },
+      "priority": "P3",
+      "score": 35,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "notion:integration-token",
+      "rationale": [
+        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
+        "+10 in-use: a Case or fixture plan already involves this family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "benign-siblings-missing:notion:integration-token",
+        "branchHint": "coverage/benign-siblings-missing/notion-integration-token",
+        "prTitleTag": "[coverage:benign-siblings-missing:notion:integration-token]"
+      }
+    },
+    {
+      "id": "benign-siblings-missing:stripe:organization-api-key",
+      "gapKind": "benign-siblings-missing",
+      "scope": {
+        "kind": "family",
+        "id": "stripe:organization-api-key",
+        "provider": "stripe"
+      },
+      "priority": "P3",
+      "score": 35,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "stripe:organization-api-key",
+      "rationale": [
+        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
+        "+10 in-use: a Case or fixture plan already involves this family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "benign-siblings-missing:stripe:organization-api-key",
+        "branchHint": "coverage/benign-siblings-missing/stripe-organization-api-key",
+        "prTitleTag": "[coverage:benign-siblings-missing:stripe:organization-api-key]"
+      }
+    },
+    {
+      "id": "narrative-unresolved-heavy:netlify:other-prefixed-tokens",
+      "gapKind": "narrative-unresolved-heavy",
+      "scope": {
+        "kind": "family",
+        "id": "netlify:other-prefixed-tokens",
+        "provider": "netlify"
+      },
+      "priority": "P3",
+      "score": 35,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "netlify:other-prefixed-tokens",
+      "rationale": [
+        "+50 gap-kind: at least half of the narrative's statements are unresolved",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {
+        "statements": 8,
+        "unresolved": 4,
+        "share": 0.5
+      },
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "narrative-unresolved-heavy:netlify:other-prefixed-tokens",
+        "branchHint": "coverage/narrative-unresolved-heavy/netlify-other-prefixed-tokens",
+        "prTitleTag": "[coverage:narrative-unresolved-heavy:netlify:other-prefixed-tokens]"
+      }
+    },
+    {
       "id": "narrative-unresolved-heavy:vercel:api-key",
       "gapKind": "narrative-unresolved-heavy",
       "scope": {
@@ -11605,114 +11810,6 @@
       }
     },
     {
-      "id": "observation-unverified:atlassian:access-token",
-      "gapKind": "observation-unverified",
-      "scope": {
-        "kind": "family",
-        "id": "atlassian:access-token",
-        "provider": "atlassian"
-      },
-      "priority": "P3",
-      "score": 35,
-      "suggestedSkill": "source-freshness",
-      "suggestedInput": "atlassian:access-token",
-      "rationale": [
-        "+35 gap-kind: every cited source was last observed only by an import, never re-read"
-      ],
-      "facts": {
-        "contract": "atlassian:access-token@1",
-        "importOnlySources": 7,
-        "citedSources": 7
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "observation-unverified:atlassian:access-token",
-        "branchHint": "coverage/observation-unverified/atlassian-access-token",
-        "prTitleTag": "[coverage:observation-unverified:atlassian:access-token]"
-      }
-    },
-    {
-      "id": "observation-unverified:netlify:other-prefixed-tokens",
-      "gapKind": "observation-unverified",
-      "scope": {
-        "kind": "family",
-        "id": "netlify:other-prefixed-tokens",
-        "provider": "netlify"
-      },
-      "priority": "P3",
-      "score": 35,
-      "suggestedSkill": "source-freshness",
-      "suggestedInput": "netlify:other-prefixed-tokens",
-      "rationale": [
-        "+35 gap-kind: every cited source was last observed only by an import, never re-read"
-      ],
-      "facts": {
-        "contract": "netlify:other-prefixed-tokens@1",
-        "importOnlySources": 8,
-        "citedSources": 8
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "observation-unverified:netlify:other-prefixed-tokens",
-        "branchHint": "coverage/observation-unverified/netlify-other-prefixed-tokens",
-        "prTitleTag": "[coverage:observation-unverified:netlify:other-prefixed-tokens]"
-      }
-    },
-    {
-      "id": "observation-unverified:npm:legacy-token",
-      "gapKind": "observation-unverified",
-      "scope": {
-        "kind": "family",
-        "id": "npm:legacy-token",
-        "provider": "npm"
-      },
-      "priority": "P3",
-      "score": 35,
-      "suggestedSkill": "source-freshness",
-      "suggestedInput": "npm:legacy-token",
-      "rationale": [
-        "+35 gap-kind: every cited source was last observed only by an import, never re-read"
-      ],
-      "facts": {
-        "contract": "npm:legacy-token@1",
-        "importOnlySources": 10,
-        "citedSources": 10
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "observation-unverified:npm:legacy-token",
-        "branchHint": "coverage/observation-unverified/npm-legacy-token",
-        "prTitleTag": "[coverage:observation-unverified:npm:legacy-token]"
-      }
-    },
-    {
-      "id": "observation-unverified:slack:workflow-webhook-token",
-      "gapKind": "observation-unverified",
-      "scope": {
-        "kind": "family",
-        "id": "slack:workflow-webhook-token",
-        "provider": "slack"
-      },
-      "priority": "P3",
-      "score": 35,
-      "suggestedSkill": "source-freshness",
-      "suggestedInput": "slack:workflow-webhook-token",
-      "rationale": [
-        "+35 gap-kind: every cited source was last observed only by an import, never re-read"
-      ],
-      "facts": {
-        "contract": "slack:workflow-webhook-token@1",
-        "importOnlySources": 1,
-        "citedSources": 1
-      },
-      "blockedBy": null,
-      "dedupe": {
-        "key": "observation-unverified:slack:workflow-webhook-token",
-        "branchHint": "coverage/observation-unverified/slack-workflow-webhook-token",
-        "prTitleTag": "[coverage:observation-unverified:slack:workflow-webhook-token]"
-      }
-    },
-    {
       "id": "cases-missing:atlassian:access-token",
       "gapKind": "cases-missing",
       "scope": {
@@ -11728,11 +11825,63 @@
         "+30 gap-kind: no Case and no fixture plan involves the family"
       ],
       "facts": {},
-      "blockedBy": null,
+      "blockedBy": [
+        "issuance-gated"
+      ],
       "dedupe": {
         "key": "cases-missing:atlassian:access-token",
         "branchHint": "coverage/cases-missing/atlassian-access-token",
         "prTitleTag": "[coverage:cases-missing:atlassian:access-token]"
+      }
+    },
+    {
+      "id": "cases-missing:google:oauth2-credential",
+      "gapKind": "cases-missing",
+      "scope": {
+        "kind": "family",
+        "id": "google:oauth2-credential",
+        "provider": "google"
+      },
+      "priority": "P3",
+      "score": 30,
+      "suggestedSkill": "author-case",
+      "suggestedInput": "google:oauth2-credential",
+      "rationale": [
+        "+30 gap-kind: no Case and no fixture plan involves the family"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "cases-missing:google:oauth2-credential",
+        "branchHint": "coverage/cases-missing/google-oauth2-credential",
+        "prTitleTag": "[coverage:cases-missing:google:oauth2-credential]"
+      }
+    },
+    {
+      "id": "cases-missing:linear:oauth-access-token",
+      "gapKind": "cases-missing",
+      "scope": {
+        "kind": "family",
+        "id": "linear:oauth-access-token",
+        "provider": "linear"
+      },
+      "priority": "P3",
+      "score": 30,
+      "suggestedSkill": "author-case",
+      "suggestedInput": "linear:oauth-access-token",
+      "rationale": [
+        "+30 gap-kind: no Case and no fixture plan involves the family"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "cases-missing:linear:oauth-access-token",
+        "branchHint": "coverage/cases-missing/linear-oauth-access-token",
+        "prTitleTag": "[coverage:cases-missing:linear:oauth-access-token]"
       }
     },
     {
@@ -11776,7 +11925,9 @@
         "+30 gap-kind: no Case and no fixture plan involves the family"
       ],
       "facts": {},
-      "blockedBy": null,
+      "blockedBy": [
+        "issuance-gated"
+      ],
       "dedupe": {
         "key": "cases-missing:netlify:other-prefixed-tokens",
         "branchHint": "coverage/cases-missing/netlify-other-prefixed-tokens",
@@ -11784,26 +11935,28 @@
       }
     },
     {
-      "id": "cases-missing:npm:legacy-token",
+      "id": "cases-missing:openrouter:management-api-key",
       "gapKind": "cases-missing",
       "scope": {
         "kind": "family",
-        "id": "npm:legacy-token",
-        "provider": "npm"
+        "id": "openrouter:management-api-key",
+        "provider": "openrouter"
       },
       "priority": "P3",
       "score": 30,
       "suggestedSkill": "author-case",
-      "suggestedInput": "npm:legacy-token",
+      "suggestedInput": "openrouter:management-api-key",
       "rationale": [
         "+30 gap-kind: no Case and no fixture plan involves the family"
       ],
       "facts": {},
-      "blockedBy": null,
+      "blockedBy": [
+        "issuance-gated"
+      ],
       "dedupe": {
-        "key": "cases-missing:npm:legacy-token",
-        "branchHint": "coverage/cases-missing/npm-legacy-token",
-        "prTitleTag": "[coverage:cases-missing:npm:legacy-token]"
+        "key": "cases-missing:openrouter:management-api-key",
+        "branchHint": "coverage/cases-missing/openrouter-management-api-key",
+        "prTitleTag": "[coverage:cases-missing:openrouter:management-api-key]"
       }
     },
     {
@@ -11822,7 +11975,9 @@
         "+30 gap-kind: no Case and no fixture plan involves the family"
       ],
       "facts": {},
-      "blockedBy": null,
+      "blockedBy": [
+        "issuance-gated"
+      ],
       "dedupe": {
         "key": "cases-missing:slack:workflow-webhook-token",
         "branchHint": "coverage/cases-missing/slack-workflow-webhook-token",
@@ -12157,6 +12312,84 @@
       }
     },
     {
+      "id": "benign-siblings-missing:atlassian:access-token",
+      "gapKind": "benign-siblings-missing",
+      "scope": {
+        "kind": "family",
+        "id": "atlassian:access-token",
+        "provider": "atlassian"
+      },
+      "priority": "P3",
+      "score": 25,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "atlassian:access-token",
+      "rationale": [
+        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "benign-siblings-missing:atlassian:access-token",
+        "branchHint": "coverage/benign-siblings-missing/atlassian-access-token",
+        "prTitleTag": "[coverage:benign-siblings-missing:atlassian:access-token]"
+      }
+    },
+    {
+      "id": "benign-siblings-missing:google:oauth2-credential",
+      "gapKind": "benign-siblings-missing",
+      "scope": {
+        "kind": "family",
+        "id": "google:oauth2-credential",
+        "provider": "google"
+      },
+      "priority": "P3",
+      "score": 25,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "google:oauth2-credential",
+      "rationale": [
+        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "benign-siblings-missing:google:oauth2-credential",
+        "branchHint": "coverage/benign-siblings-missing/google-oauth2-credential",
+        "prTitleTag": "[coverage:benign-siblings-missing:google:oauth2-credential]"
+      }
+    },
+    {
+      "id": "benign-siblings-missing:linear:oauth-access-token",
+      "gapKind": "benign-siblings-missing",
+      "scope": {
+        "kind": "family",
+        "id": "linear:oauth-access-token",
+        "provider": "linear"
+      },
+      "priority": "P3",
+      "score": 25,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "linear:oauth-access-token",
+      "rationale": [
+        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "benign-siblings-missing:linear:oauth-access-token",
+        "branchHint": "coverage/benign-siblings-missing/linear-oauth-access-token",
+        "prTitleTag": "[coverage:benign-siblings-missing:linear:oauth-access-token]"
+      }
+    },
+    {
       "id": "benign-siblings-missing:mistral:realtime-client-token",
       "gapKind": "benign-siblings-missing",
       "scope": {
@@ -12180,6 +12413,84 @@
         "key": "benign-siblings-missing:mistral:realtime-client-token",
         "branchHint": "coverage/benign-siblings-missing/mistral-realtime-client-token",
         "prTitleTag": "[coverage:benign-siblings-missing:mistral:realtime-client-token]"
+      }
+    },
+    {
+      "id": "benign-siblings-missing:netlify:other-prefixed-tokens",
+      "gapKind": "benign-siblings-missing",
+      "scope": {
+        "kind": "family",
+        "id": "netlify:other-prefixed-tokens",
+        "provider": "netlify"
+      },
+      "priority": "P3",
+      "score": 25,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "netlify:other-prefixed-tokens",
+      "rationale": [
+        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "benign-siblings-missing:netlify:other-prefixed-tokens",
+        "branchHint": "coverage/benign-siblings-missing/netlify-other-prefixed-tokens",
+        "prTitleTag": "[coverage:benign-siblings-missing:netlify:other-prefixed-tokens]"
+      }
+    },
+    {
+      "id": "benign-siblings-missing:openrouter:management-api-key",
+      "gapKind": "benign-siblings-missing",
+      "scope": {
+        "kind": "family",
+        "id": "openrouter:management-api-key",
+        "provider": "openrouter"
+      },
+      "priority": "P3",
+      "score": 25,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "openrouter:management-api-key",
+      "rationale": [
+        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "benign-siblings-missing:openrouter:management-api-key",
+        "branchHint": "coverage/benign-siblings-missing/openrouter-management-api-key",
+        "prTitleTag": "[coverage:benign-siblings-missing:openrouter:management-api-key]"
+      }
+    },
+    {
+      "id": "benign-siblings-missing:slack:workflow-webhook-token",
+      "gapKind": "benign-siblings-missing",
+      "scope": {
+        "kind": "family",
+        "id": "slack:workflow-webhook-token",
+        "provider": "slack"
+      },
+      "priority": "P3",
+      "score": 25,
+      "suggestedSkill": "research-family",
+      "suggestedInput": "slack:workflow-webhook-token",
+      "rationale": [
+        "+40 gap-kind: no benign sibling or lookalike case is recorded for the family",
+        "-15 blocked: the family records blockers (issuance-gated) that desk research may not clear"
+      ],
+      "facts": {},
+      "blockedBy": [
+        "issuance-gated"
+      ],
+      "dedupe": {
+        "key": "benign-siblings-missing:slack:workflow-webhook-token",
+        "branchHint": "coverage/benign-siblings-missing/slack-workflow-webhook-token",
+        "prTitleTag": "[coverage:benign-siblings-missing:slack:workflow-webhook-token]"
       }
     },
     {

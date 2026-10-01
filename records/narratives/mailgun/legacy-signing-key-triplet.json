@@ -12,7 +12,7 @@
         "text": "Dash-separated lowercase hexadecimal groups of 32, 8 and 8 characters with no prefix. Two scanner rules match the shape, and one of them requires a nearby mailgun keyword. No issued key of this shape has been observed.",
         "evidenceClass": "tool-corroborated",
         "temporality": "current",
-        "observedAt": "2026-09-25",
+        "observedAt": "2026-09-29",
         "citations": [
           {
             "kind": "claim",
@@ -33,7 +33,7 @@
         "text": "The triplet is the current private API key and not only a superseded signing key.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-25",
+        "observedAt": "2026-09-29",
         "leads": [
           {
             "kind": "claim",
@@ -52,7 +52,7 @@
         "text": "Mailgun's keys API documents keys as objects with a separate id, shown as two 8-character hexadecimal groups, and states no secret shape. That id is not the secret.",
         "evidenceClass": "provider-documented",
         "temporality": "current",
-        "observedAt": "2026-09-25",
+        "observedAt": "2026-09-29",
         "citations": [
           {
             "kind": "claim",
@@ -69,7 +69,7 @@
         "text": "An unrelated hexadecimal value of the same 32-8-8 layout is not a credential; the shape is recognized only beside a mailgun keyword.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-25",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 3,
           "reason": "Recorded in a research note without a cited source in this family's contract."
@@ -82,7 +82,7 @@
         "text": "Is the triplet the current key, a superseded signing key, or both?",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-25",
+        "observedAt": "2026-09-29",
         "leads": [
           {
             "kind": "claim",
@@ -99,8 +99,8 @@
   "externalRefs": [
     {
       "system": "legacy-dossier-narrative",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailgun.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/mailgun.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/mailgun.md",
       "note": "families[id=mailgun:legacy-signing-key-triplet] dossier body"
     }
   ]

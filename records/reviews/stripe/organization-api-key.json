@@ -16,18 +16,35 @@
         "role": "automation",
         "affiliation": "project-maintainer"
       },
-      "verdict": "supports",
-      "note": "Imported from the legacy dossier: research verdict 'ready', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried.",
+      "verdict": "inconclusive",
+      "note": "Imported from the legacy dossier: research verdict 'issuance-gated', tier T1 (provider-documented), researchedAt 2026-09-29. The verdict and tier are re-expressed as research.state and an evidence class; no product status is carried. Legacy blockedBy: Whether a live_ or test_ segment follows sk_org_, and the body length and alphabet; needs one organization API key measured (structure only). Product gap redact-secret#1030 is filed.",
       "evidence": [
         {
-          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/stripe.md",
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/stripe.md",
           "pin": {
             "kind": "commit-permalink",
-            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+            "commit": "1020d2b5905e8973098235e57c4cdca3359bba57"
+          }
+        },
+        {
+          "url": "https://github.com/redact-secret/redact-secret/blob/378581770a87751d72e27529796c4f790649fd00/docs/audits/evidence/1012/stripe-organization-api-key.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "378581770a87751d72e27529796c4f790649fd00"
           }
         }
       ],
       "externalRefs": [
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1012",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1012"
+        },
+        {
+          "system": "github-issue",
+          "id": "redact-secret/redact-secret#1030",
+          "url": "https://github.com/redact-secret/redact-secret/issues/1030"
+        },
         {
           "system": "github-issue",
           "id": "redact-secret/redact-secret#513",
@@ -54,20 +71,20 @@
         "role": "automation",
         "affiliation": "project-maintainer"
       },
-      "note": "Legacy taxonomy.json note for stripe:organization-api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): classifyFixture explicitly routes sk_org_ values to \"this variant needs a separate format contract; related detector support is not evidence of parity\", so it is not claimed by stripe-token's live/test secret-key pattern."
+      "note": "Legacy taxonomy.json note for stripe:organization-api-key (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): stripe-token's live/test secret-key pattern does not claim sk_org_ values. Since redact-secret#1030 (product #1101) classifyFixture resolves sk_org_, sk_org_live_ and sk_org_test_ followed by at least 20 [A-Za-z0-9] to this one family as policy/T3 rows at core's support-policy floor (not a provider grammar; no organization key issued or observed); other sk_org_ values and whsec_ stay pending."
     }
   ],
   "externalRefs": [
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/stripe.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/stripe.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/stripe.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/stripe.md",
       "note": "families[id=stripe:organization-api-key].research"
     },
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=stripe:organization-api-key]"
     }
   ]

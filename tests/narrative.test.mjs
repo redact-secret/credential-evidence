@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import { codesForNarrativeText, narrativeViolations } from "../scripts/lib/narrative-lint.mjs";
 import { listJson, repoRoot, validateTree } from "../scripts/lib/validator.mjs";
+import { LEGACY_REVISION } from "../scripts/migrate/lib/legacy-source.mjs";
 import { buildNarratives, loadAuthored, loadCanonical } from "../scripts/migrate/lib/narrative-build.mjs";
 import { errorsOf, example, integrityAfter } from "./helpers.mjs";
 
@@ -273,6 +274,6 @@ test("the compiler refuses a source the family's contract does not cite and an u
 test("the compiled records match the tree", async () => {
   const canonical = loadCanonical(repoRoot);
   const authored = await loadAuthored(repoRoot);
-  const { files } = buildNarratives({ authored, canonical, legacyRevision: "ade8a10bd7922765110a68986b0690eb3861f2e5" });
+  const { files } = buildNarratives({ authored, canonical, legacyRevision: LEGACY_REVISION });
   for (const [rel, text] of files) assert.equal(readFileSync(join(repoRoot, rel), "utf8"), text, `${rel} differs: run npm run migrate:narratives`);
 });

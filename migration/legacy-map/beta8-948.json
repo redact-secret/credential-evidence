@@ -5,7 +5,7 @@
   "title": "Legacy map for suite beta8-948",
   "source": {
     "repository": "redact-secret/redact-secret-benchmarks",
-    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+    "revision": "1020d2b5905e8973098235e57c4cdca3359bba57"
   },
   "entries": [
     {"legacy":{"type":"suite","id":"beta8-948","path":"fixtures/generated/beta8-948.json","title":"Beta.11 replacement near-miss controls for the redact-secret#948 relabel (948)","description":"Synthetic near-miss controls that replace the 25 provider-named near-miss controls docs/decisions/2026-09-29-relabel-provider-named-near-miss-controls-under-948.md relabelled to policy/T3 on generic-token, so datadog-api-key, mailgun-api-key, postman-api-key, sentry-org-auth-token, sentry-user-auth-token and travisci-api-token keep their #206 cells. Each keeps its family's near-miss value shape in prose or a log line, never under a credential-named assignment. Values are synthetic, never provider-issued; no observation record is implied."},"canonical":[{"type":"fixture-plan","id":"benign-and-near-miss-controls"},{"type":"scenario","id":"format-near-miss"}],"relation":"reclassified-as-projection","note":"9 fixtures in 6 imported cases (0 case, 0 scenario, 6 projection); every fixture is listed below with its canonical id."},

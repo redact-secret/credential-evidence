@@ -15,7 +15,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = resolve(here, "..", "..", "..");
 
 export const LEGACY_REPOSITORY = "redact-secret/redact-secret-benchmarks";
-export const LEGACY_REVISION = "ade8a10bd7922765110a68986b0690eb3861f2e5";
+export const LEGACY_REVISION = "1020d2b5905e8973098235e57c4cdca3359bba57";
 export const LEGACY_DIRNAME = "redact-secret-benchmarks";
 
 // Legacy paths that are read. Anything not listed here is not imported.

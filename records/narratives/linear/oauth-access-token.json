@@ -12,7 +12,7 @@
         "text": "An OAuth access token begins lin_oauth_.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-23",
+        "observedAt": "2026-09-29",
         "leads": [
           {
             "kind": "claim",
@@ -33,7 +33,7 @@
         "text": "The body after lin_oauth_ has a known length and alphabet.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-23",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 3,
           "reason": "The changelog gives no length or alphabet and no scanner rule covers the family; the 40-character API key length must not be reused."
@@ -46,7 +46,7 @@
         "text": "Linear's OAuth documentation shows an access token as a bare 64-character hexadecimal string with no prefix, which cannot be told apart from ordinary hexadecimal.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-23",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 4,
           "reason": "Recorded in a research note without a cited source in this family's contract."
@@ -59,7 +59,7 @@
         "text": "What are the length and alphabet of the lin_oauth_ body?",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-23",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 5,
           "reason": "One issued OAuth access token would settle it; none was issued."
@@ -70,7 +70,7 @@
         "text": "Is the unprefixed hexadecimal token still issued alongside the prefixed one?",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-23",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 6,
           "reason": "No source states whether the unprefixed token is still issued alongside the prefixed one."
@@ -81,8 +81,8 @@
   "externalRefs": [
     {
       "system": "legacy-dossier-narrative",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/linear.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/linear.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/linear.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/linear.md",
       "note": "families[id=linear:oauth-access-token] dossier body"
     }
   ],

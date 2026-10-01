@@ -4,7 +4,7 @@
   "id": "atlassian:access-token@1",
   "family": "atlassian:access-token",
   "revision": 1,
-  "period": "current",
+  "period": "proposed",
   "validity": {
     "from": null,
     "until": null
@@ -14,8 +14,8 @@
   "claims": [
     {
       "id": "dossier-research",
-      "statement": "Legacy dossier research (verdict ready, tier T2) cited 7 sources; the dossier does not attribute sources to individual properties.",
-      "evidenceClass": "tool-corroborated",
+      "statement": "Legacy dossier research (verdict issuance-gated, tier T0) cited 8 sources; the dossier does not attribute sources to individual properties.",
+      "evidenceClass": "unresolved",
       "temporality": "current",
       "observedAt": "2026-09-29",
       "sources": [
@@ -28,7 +28,7 @@
           "supports": "Cited by the legacy dossier research for this family"
         },
         {
-          "sourceId": "github-com-redact-secret-redact-secret-f34ccdcd76",
+          "sourceId": "github-com-redact-secret-redact-secret-cf24182bbb",
           "supports": "Final research evidence recorded by the legacy dossier"
         },
         {
@@ -44,6 +44,10 @@
           "supports": "Cited by the legacy dossier research for this family"
         },
         {
+          "sourceId": "support-atlassian-com-1b78eec243",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
           "sourceId": "support-atlassian-com-3c95767732",
           "supports": "Cited by the legacy dossier research for this family"
         }
@@ -54,14 +58,14 @@
   "externalRefs": [
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/atlassian.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/atlassian.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/atlassian.md",
       "note": "families[id=atlassian:access-token].research"
     },
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=atlassian:access-token]"
     }
   ]

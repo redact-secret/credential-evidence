@@ -4,7 +4,7 @@
   "id": "slack:workflow-webhook-token@1",
   "family": "slack:workflow-webhook-token",
   "revision": 1,
-  "period": "current",
+  "period": "proposed",
   "validity": {
     "from": null,
     "until": null
@@ -14,14 +14,27 @@
   "claims": [
     {
       "id": "dossier-research",
-      "statement": "Legacy dossier research (verdict ready, tier T1) cited 1 source; the dossier does not attribute sources to individual properties.",
+      "statement": "Legacy dossier research (verdict issuance-gated, tier T1) cited 4 sources; the dossier does not attribute sources to individual properties.",
       "evidenceClass": "provider-documented",
       "temporality": "current",
       "observedAt": "2026-09-29",
       "sources": [
         {
+          "sourceId": "docs-slack-dev-52c9d46af0",
+          "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
           "sourceId": "docs-slack-dev-8af6cd6628",
           "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-4efa1cc8a0",
+          "supports": "Final research evidence recorded by the legacy dossier"
+        },
+        {
+          "sourceId": "github-com-slackapi-python-slack-sdk-35144a2b84",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L4-L6"
         }
       ]
     }
@@ -30,14 +43,14 @@
   "externalRefs": [
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/slack.md",
       "note": "families[id=slack:workflow-webhook-token].research"
     },
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=slack:workflow-webhook-token]"
     }
   ]
