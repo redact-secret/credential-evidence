@@ -22,9 +22,10 @@ Hierarchy: `Provider -> Family -> Format contract / Evidence sources / Cases ...
 | Scenario | `scenario` | `record:new -- scenario <slug> --title <t>` | slug | `records/scenarios/<slug>.json` | `description`, `semantics`, `expectedOutcomeClass`, `applicability.rationale`, `evidenceBasis` | write per-family prose; see [case-vs-scenario.md](case-vs-scenario.md) |
 | Case | `case` | `record:new -- case <slug> --title <t> --type <t>` | slug | `records/cases/<slug>.json` | `summary`, `rationale`, `expectation` (outcome, basis, rationale, sources), `families[]`, optional `relations`, `incidents` | name a scanner in an expectation; derive the outcome from scanner output |
 
-Other kinds exist (`variant`, `benign-sibling`, `family-narrative`, `evidence-review-history`,
-`fixture-plan`, `fixture-set`, `legacy-map`) and have no scaffolder yet: copy the shape of an
-`examples/valid/examplecloud/` record and validate it.
+`record:new` also scaffolds `variant`, `benign-sibling`, `family-narrative`, `review` (an
+`evidence-review-history`) and `fixture` (an item of an authored `fixture-set`); see
+[docs/authoring.md](../../../docs/authoring.md). `fixture-plan`, `fixture-projection` and `legacy-map` have no
+scaffolder: copy the shape of an `examples/valid/examplecloud/` record and validate it.
 
 ## Id and slug rules
 

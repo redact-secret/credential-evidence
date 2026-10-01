@@ -16,13 +16,14 @@ differ, the rule wins and the page is the bug.
 | [case-vs-scenario.md](case-vs-scenario.md) | decide whether a situation is a Case, a Scenario or only a matrix projection |
 | [synthetic-safety.md](synthetic-safety.md) | write or review any credential-shaped value |
 | [neutrality-wording.md](neutrality-wording.md) | write prose, notes, rationales or a PR description |
+| [research-run.md](research-run.md) | run `research-provider`, `research-family` or `author-case`: headless defaults, stop conditions common to all three, the landing check, the exact output |
 
 ## Tooling the skills call
 
 Skills orchestrate; scripts do the mechanical work. Never hand-write a record's JSON shape.
 
 ```bash
-npm run record:new -- <provider|family|contract|source|scenario|case> <arg> [flags]   # skeleton, draft, TODO placeholders
+npm run record:new -- <provider|family|contract|source|scenario|case|variant|benign-sibling|family-narrative|review|fixture> <arg> [flags]   # skeleton, draft, TODO placeholders
 npm run record:check [-- <paths>]    # fast: schema, references, identity, narrative lint, placeholders
 npm run check                        # the gate: validate + lint:identity + lint:narrative + tests
 ```
