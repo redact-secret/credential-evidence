@@ -16,7 +16,7 @@
       ],
       "change": "removed",
       "predicate": "spans-dropped-on-silent-or-unresolved",
-      "justification": "Legacy carried companion spans on must-not-flag fixtures and candidate spans on unresolved (T0) fixtures. A silent control asserts no secret, and an unresolved fixture asserts nothing, so the importer dropped those spans and counted them (docs/migration/cases-report.md: companion-span-on-must-not-flag, t0-candidate-spans). Checked: the legacy fixture is must-not-flag or T0 and the canonical outcome is must-not-flag or not-assertable."
+      "justification": "Legacy carried companion spans on must-not-flag fixtures and candidate spans on unresolved (T0) fixtures. A silent control asserts no secret, so the importer dropped its companion spans and counted them (docs/migration/cases-report.md: companion-span-on-must-not-flag). Since ADR 0012 (decision 2) an unresolved fixture keeps its candidate spans as non-asserting data and the projection carries them, so this rule covers a T0 fixture only when it has no candidate. Checked: the legacy fixture is must-not-flag and so is the canonical one, or it is T0, canonical not-assertable and without a candidate."
     },
     {
       "id": "empty-spans-marker-on-silent-or-unresolved",
@@ -26,7 +26,7 @@
       "change": "added",
       "projected": { "equals": "[]" },
       "predicate": "spans-dropped-on-silent-or-unresolved",
-      "justification": "The same dropped spans seen from the other side: the projected fixture has an empty span list where legacy had candidate or companion spans. Same predicate as spans-not-carried-on-silent-or-unresolved."
+      "justification": "The same dropped spans seen from the other side: the projected fixture has an empty span list where legacy had companion spans (or candidate spans on a T0 fixture without a canonical candidate). Same predicate as spans-not-carried-on-silent-or-unresolved."
     },
     {
       "id": "span-note-boilerplate",
@@ -82,35 +82,6 @@
       "projected": { "equals": "policy" },
       "predicate": "basis-downgrade-recorded",
       "justification": "Legacy kind must-redact exists only for tiers T1 and T2; project-policy positives are kind policy. A T2 fixture downgraded to T3 (assessment-tier-downgraded-on-import) therefore changes kind with its tier. Same predicate."
-    },
-    {
-      "id": "assessment-unresolved-kind-not-recoverable",
-      "class": "lossy-import",
-      "artifact": "corpus",
-      "patterns": ["fixtures[*].assessment.kind"],
-      "change": "changed",
-      "legacy": { "equals": "must-redact" },
-      "projected": { "equals": "must-not-flag" },
-      "predicate": "legacy-tier-t0",
-      "justification": "An unresolved (T0) fixture was unscored in legacy and is not-assertable here, with its candidate spans dropped, so whether it was authored as must-redact or must-not-flag is not canonical. The projection emits must-not-flag with no spans and tier T0. Legacy consumers key T0 on the tier (lattice groupKey 'pending/T0', scoring skips T0), not the kind. Checked: the legacy tier is T0 and the canonical outcome is not-assertable."
-    },
-    {
-      "id": "twin-fields-omitted-for-unresolved-positive",
-      "class": "lossy-import",
-      "artifact": "corpus",
-      "patterns": ["fixtures[*].twinOf", "fixtures[*].mutation", "fixtures[*].mutationKind"],
-      "change": "removed",
-      "predicate": "twin-target-not-assertable",
-      "justification": "The legacy corpus loader (validateCorpus) rejects a twin whose positive has no secret span. A positive that was unresolved (T0) is not-assertable here with its candidate spans dropped, so projecting the twin link would make the corpus unloadable. The projection omits twinOf, mutation and mutationKind on such twins; the lineage stays canonical (the fixture lineage in records/). Checked: the legacy twin target is a fixture whose canonical outcome is not-assertable."
-    },
-    {
-      "id": "index-twin-relation-omitted-for-unresolved-positive",
-      "class": "lossy-import",
-      "artifact": "index",
-      "patterns": ["fixtures[*].relations.twinOf"],
-      "change": "removed",
-      "predicate": "twin-target-not-assertable",
-      "justification": "Same as twin-fields-omitted-for-unresolved-positive, for the fixture index, whose legacy builder also requires the twin target to be a positive with a secret span."
     },
     {
       "id": "assessment-sources-case-union",
@@ -221,42 +192,6 @@
       "change": "removed",
       "predicate": "calibration-only-category",
       "justification": "corpora/development/shadow-scoring-authored.json is a calibration-only tuning input (calibrationOnly: true), excluded from the published fixture index by legacy itself. It is not evidence and is not imported. Checked: the legacy category is marked calibrationOnly."
-    },
-    {
-      "id": "semantics-families-case-union",
-      "class": "case-level-aggregation",
-      "artifact": "semantics",
-      "patterns": ["fixtures[*].familyIds[*]", "fixtures[*].scenarioIds[*]"],
-      "change": "added",
-      "predicate": "added-from-peer-in-case",
-      "justification": "Canonical family and scenario links are recorded per case, so each projected fixture carries the union of its case. Checked: the added family or scenario is listed by legacy for another fixture of the same case."
-    },
-    {
-      "id": "semantics-unscoped-replaced-by-case-families",
-      "class": "case-level-aggregation",
-      "artifact": "semantics",
-      "patterns": ["fixtures[*].familyIds", "fixtures[*].unscopedReason"],
-      "change": "removed",
-      "predicate": "case-has-families",
-      "justification": "A legacy fixture with no family (an unscoped global control) shares a case with fixtures that do have families, so the case-level union gives it those families and the unscoped reason no longer applies. Checked: the canonical case has at least one family."
-    },
-    {
-      "id": "index-families-case-union",
-      "class": "case-level-aggregation",
-      "artifact": "index",
-      "patterns": ["fixtures[*].familyIds[*]", "fixtures[*].scenarioIds[*]"],
-      "change": "added",
-      "predicate": "added-from-peer-in-case",
-      "justification": "Same cause as semantics-families-case-union, seen in the fixture index: family and scenario links are recorded per case in canonical records, so each projected fixture carries the union of its case. Checked: the added family or scenario is listed by legacy for another fixture of the same case."
-    },
-    {
-      "id": "index-unscoped-replaced-by-case-families",
-      "class": "case-level-aggregation",
-      "artifact": "index",
-      "patterns": ["fixtures[*].familyIds", "fixtures[*].unscopedReason"],
-      "change": "removed",
-      "predicate": "case-has-families",
-      "justification": "Same cause as semantics-unscoped-replaced-by-case-families, seen in the fixture index: an unscoped legacy fixture shares a case with scoped ones, so the case-level union gives it families and the unscoped reason no longer applies. Checked: the canonical case has at least one family."
     },
     {
       "id": "index-provenance-overlay",

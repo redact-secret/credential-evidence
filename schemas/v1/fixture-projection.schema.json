@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:fixture-projection",
   "title": "Fixture projection and lineage",
   "description": "An executable projection of a case, a reviewed contract, or a documented generation rule. It is derived, never the canonical human record: every projection names its origin, and generated ones record generator, inputs and version. Expected spans are byte-offset facts about the content; the semantic outcome comes from the origin.",
-  "x-schemaRevision": "1.4.0",
+  "x-schemaRevision": "1.5.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "origin", "generated", "content", "expected"],

@@ -1,6 +1,6 @@
 # Cutover checklist
 
-Issues #6 and #12 (part of #1). Decision records: `docs/decisions/0006-legacy-projection-and-parity.md`, `0008-semantic-tree-and-reclassification.md`, `0009-legacy-map-as-exporter-input-and-canonical-snapshot.md`. Evidence: `docs/migration/parity-report.md`, `docs/migration/legacy-projection-manifest.json`, `docs/migration/dual-run-report.md`.
+Issues #6 and #12 (part of #1). Decision records: `docs/decisions/0006-legacy-projection-and-parity.md`, `0008-semantic-tree-and-reclassification.md`, `0009-legacy-map-as-exporter-input-and-canonical-snapshot.md`, `0012-cutover-decisions-1-to-4.md`. Evidence: `docs/migration/parity-report.md`, `docs/migration/legacy-projection-manifest.json`, `docs/migration/dual-run-report.md`.
 
 ## The rule
 
@@ -12,7 +12,7 @@ Both halves are required. Today:
 
 | Condition | State |
 | --- | --- |
-| Unexplained parity differences are zero | **Met at the pinned revision** `ade8a10bd7922765110a68986b0690eb3861f2e5`: 0 unexplained, 28,448 explained, 173,505 identical leaf values, 28 rules all used (`npm run parity:check`, also a CI step). The legacy `develop` head is now 78 commits ahead of the pin (`1020d2b`), and evidence inputs did change since the pin (new fixtures, contract rows, dossier frontmatter, `@redact-secret/core` beta.12); see the path diff in `docs/migration/cutover-decision-brief.md`. The count must be re-proven at the revision current when the cutover happens (see Re-pinning). |
+| Unexplained parity differences are zero | **Met at the pinned revision** `ade8a10bd7922765110a68986b0690eb3861f2e5`: 0 unexplained, 28,091 explained, 173,657 identical leaf values, 21 rules all used (`npm run parity:check`, also a CI step; before ADR 0012: 28,448 explained, 173,505 identical, 28 rules). The legacy `develop` head is now 78 commits ahead of the pin (`1020d2b`), and evidence inputs did change since the pin (new fixtures, contract rows, dossier frontmatter, `@redact-secret/core` beta.12); see the path diff in `docs/migration/cutover-decision-brief.md`. The count must be re-proven at the revision current when the cutover happens (see Re-pinning). |
 | Downstream consumers have switched | **Not met.** No consumer reads the projection, the snapshot or the canonical records in production. |
 
 So, today: **the legacy repository stays authoritative, nothing in it may be deleted or frozen, and it must keep being updated.** This repository proposes no deletion.
@@ -25,7 +25,7 @@ The cutover switches the **public, scanner-neutral evidence** that `redact-secre
 - Redact Secret's product-owned populations (regression corpus, policy/behavior corpus, candidate-specific regression cases, protected or holdout evidence) stay in `redact-secret-benchmarks` or another product-owned location. The cutover does not require them to move here, and no checklist item below depends on them moving.
 - Product policy stays downstream: support status, thresholds, detector assignments, known gaps, release pins and candidate acceptance (the overlays in `overlay-interface.json`, and credential-eval's `docs/qualification-boundary.md` for the measurement side).
 - When credential-eval measures several populations for one qualification, each keeps its own identity (for this repository: the snapshot identity and digest; see `docs/releases.md` for release identity, contents and pinning). The populations are not silently merged into one denominator.
-- The split itself changes no support status. Evidence class and support status are separate axes ([evidence classes](../governance/evidence-classes.md#evidence-class-and-product-support-status)); open decision 1 below is the concrete case.
+- The split itself changes no support status. Evidence class and support status are separate axes ([evidence classes](../governance/evidence-classes.md#evidence-class-and-product-support-status)); decision 1 below is the concrete case.
 
 ## What exists now
 
@@ -42,8 +42,8 @@ The cutover switches the **public, scanner-neutral evidence** that `redact-secre
 
 1. Generate, do not hand-author, the inputs in the table below: a build step checks out this repository at a pinned commit, runs `npm ci && npm run export:legacy`, and copies `dist/legacy-projection/` over the legacy paths.
 2. Supply the overlays in `overlay-interface.json`: `fixture-detectors`, `taxonomy-support-status`, `fixture-provenance`, `corpus-fixture-extras`, `pin-manifest` (recomputing corpus hashes over the projected corpora) and `known-gaps`. None of them is evidence; all stay in that repository or in credential-eval configuration.
-3. Re-key anything that pins the legacy fixture-index identity digest (peer observations): the projected identity and source digests differ by design.
-4. Decide the open maintainer questions below before `fixture-index.json` or the tiers become generated.
+3. Re-key anything that pins the legacy fixture-index identity digest (peer observations): the projected identity and source digests differ by design. Decided (ADR 0012, decision 3): a one-time re-key in the switch pull request, recomputing the projected digests and re-keying stored per-fixture results by canonical id through `credential-eval/legacy-id-map.json`; no translation table.
+4. Decisions 1 to 4 below are made (ADR 0012); the re-pin (decision 5) is still open and must be settled before `fixture-index.json` or the tiers become generated.
 5. Keep the legacy generators running until the canonical generation rule is reimplemented here (ADR 0005 open question): the projected generated corpora are the recorded output of those generators.
 
 | Legacy file | Projection | Overlay still needed |
@@ -52,8 +52,8 @@ The cutover switches the **public, scanner-neutral evidence** that `redact-secre
 | `benchmarks/support/dossiers/*.md` frontmatter | `benchmarks/support/dossier-frontmatter.json` (frontmatter only; the prose stays legacy and is not exported: canonical family narratives, ADR 0010, cover all 173 families and are not a legacy-compatible shape) | none |
 | `benchmarks/scenarios.json` | `benchmarks/scenarios.json` | none |
 | `benchmarks/categories.json` | `benchmarks/categories.json` | `calibrationOnly` entry is not imported |
-| `benchmarks/fixture-semantics.json`, `benchmarks/fixture-index.json` | same paths | `fixture-provenance`; per-fixture family links (see decisions) |
-| `fixtures/*/corpus.json`, `fixtures/generated/*.json` | same paths | `corpus-fixture-extras`; T0 kind and spans are not recoverable |
+| `benchmarks/fixture-semantics.json`, `benchmarks/fixture-index.json` | same paths (per-fixture family links follow the legacy reading since ADR 0012) | `fixture-provenance` |
+| `fixtures/*/corpus.json`, `fixtures/generated/*.json` | same paths (T0 candidate kind and spans projected from the non-asserting `candidateReading`, ADR 0012) | `corpus-fixture-extras` |
 | `benchmarks/fixture-detectors.json` | none | `fixture-detectors` |
 | `benchmarks/pin-manifest.json`, `benchmarks/known-gaps.json` | none | `pin-manifest`, `known-gaps` |
 | `benchmarks/generated-corpora.json` | none (superseded by the projection manifest) | none |
@@ -65,18 +65,18 @@ The cutover switches the **public, scanner-neutral evidence** that `redact-secre
 3. Re-run the dual run with the **pinned** TruffleHog 3.97.4 (not installed here; the installed 3.97.6 was used for both sides, so the comparison holds but no number is a pinned-version number), and with the adapters that were not run here (`redact-secret`, `flare-redact`, `openredaction` need the Node shim and packages). Compare run-level aggregates in credential-eval's parity (its issue #5); this repository compared per-case findings and measurements only.
 4. Supply `grouping.targets` (the detector assignment) from its adapter configuration, not from this repository.
 
-## Open maintainer decisions (decide before switching)
+## Maintainer decisions
 
-Options, measured impact and a recommendation for each: `docs/migration/cutover-decision-brief.md`.
+Options, measured impact and a recommendation for each: `docs/migration/cutover-decision-brief.md`. Decisions 1 to 4 were accepted as recommended and are recorded in [ADR 0012](../decisions/0012-cutover-decisions-1-to-4.md). They are **evidence-class** decisions. None of them is a support-status decision, and none by itself changes any Redact Secret support status: the `taxonomy-support-status` overlay stays the product's to set, in `redact-secret-benchmarks`.
 
-All are explained in the parity report; none is harmless by being explained. Each needs a maintainer, not an export change.
-
-1. **Evidence-tier downgrades (T2 to T3).** 343 fixtures that legacy holds at tier T2 are recorded as project-policy and project as T3, `policy`. That is the importer applying `docs/governance/evidence-classes.md` (fewer than two distinct owners, or no provider-owned source). Decide: strengthen the cited sources (an evidence review), accept T3, or declare the legacy tier authoritative and record the exception. Per-case measurement is unchanged by it (dual run: kind changes in 90 cases and 31 more with T0, zero measurement differences); aggregates grouped by tier shift. This is an **evidence-class** decision only. Whichever way it goes, it does not by itself change any Redact Secret support status: the product may keep a family empirically supported on product-owned evidence while the public record is `project-policy`, or, where a downgrade exposes a real evidence or coverage gap, change the status after an explicit policy review in `redact-secret-benchmarks`. The migration encodes neither outcome; the `taxonomy-support-status` overlay is the product's to set.
-2. **Unresolved (T0) span loss.** 31 must-redact T0 fixtures lose their candidate spans and project as `must-not-flag`, T0; one more silent fixture loses companion spans; 3 twins of unresolved positives project without twin links (the lineage stays canonical). Decide: keep the candidate spans as non-asserting data on the fixture, or accept the loss. Consumers must key T0 on the tier (legacy does).
-3. **Identity digests.** `identity.digest` and the three source digests of the fixture index differ from legacy by design (different content; each is self-consistent, `digest-self-consistent`). Decide how peer observations and any stored pin of the legacy digest are re-keyed (a one-time re-pin, or a translation table).
-4. **Per-fixture family links.** Since stage B only fixtures of a Case that spans several families gain links the legacy index did not give them: 35 fixtures (87 links), 34 of which change a single-family reading (dual run: no measurement difference). Options: an additive per-fixture `families` override on fixture-set items, or splitting those Cases by family set.
-5. **Legacy checkout ahead of the pin.** The legacy `develop` is 78 commits ahead (`1020d2b`) and evidence inputs changed; options and the re-runs each target requires are in `docs/migration/cutover-decision-brief.md`. Decide the revision to re-pin to and when (Re-pinning below), and whether the pin moves before or after the downstream switch.
+1. **Evidence-tier downgrades (T2 to T3): decided, accept the canonical T3.** 343 fixtures that legacy holds at T2 stay `project-policy` and project as T3. A fixture returns to T2 only through a per-family evidence review: one issue per affected family, #41 to #72 (32 families; 7 provider-neutral fixtures have no family). Declaring the legacy tier authoritative (option C) was rejected. Qualification that keys on tier decides its own reading in `redact-secret-benchmarks`.
+2. **Unresolved (T0) span loss: decided, keep the candidate spans as non-asserting data.** The 31 fixtures carry `candidateReading` (`asserting: false`, schema 1.5.0) and stay `not-assertable`. The legacy projection restores their kind (`must-redact`, T0), their spans and the 3 twin links. The credential-eval snapshot carries the candidate kind as a pending T0 kind but not the spans, which its v1 contract cannot express as non-asserting. T0 is never pass or fail.
+3. **Identity digests: decided, one-time re-key** in `redact-secret-benchmarks`' switch pull request, via `credential-eval/legacy-id-map.json`. Nothing to do here.
+4. **Per-fixture family links: decided, an additive per-fixture `families` override** on fixture-set items (schema 1.5.0). The 35 fixtures carry the legacy reading again; the Cases are unchanged.
+5. **Legacy checkout ahead of the pin: deferred.** The legacy `develop` is 78 commits ahead (`1020d2b`) and evidence inputs changed. The options and the re-runs each target requires are in `docs/migration/cutover-decision-brief.md`. Still to decide: the revision to re-pin to, when, and whether the pin moves before or after the downstream switch (Re-pinning below).
 6. **Legacy navigation scenario ids.** Decided in ADR 0009: they stay map-only legacy data; canonical navigation is the 29 Scenario records. Listed so a maintainer can overrule it.
+
+The dual-run report predates ADR 0012 and was not re-run. Its run-level differences for decisions 2 and 4 are expected to shrink, and per-case measurement was already identical.
 
 ## Epic #1 acceptance
 
@@ -84,11 +84,11 @@ Acceptance criteria of epic #1, as stated in its body (migration rule 1 to 4 and
 
 | # | Criterion | Result | Evidence and caveats |
 | --- | --- | --- | --- |
-| 1 | Migrated data has schema parity | PASS | Schema 1.4.0; `npm run validate` covers `records/` and `migration/`; 93 providers, 173 families with dossier frontmatter, 52 Cases, 29 Scenarios, 5 fixture plans, 98 fixture sets, all 5,925 fixtures traceable through the legacy map (`docs/migration/taxonomy-report.md`, `cases-report.md`, `reclassification-report.md`). Lossy items are the open decisions 1 and 2. |
-| 2 | Exported legacy projections reproduce current benchmark inputs | PASS at the pin, with caveats | 0 unexplained, 28,448 explained, 173,505 identical; legacy loaders (`fixtureIndexProblems`, `validateCorpus` on 67 corpora, four legacy schemas) accept the projection. Caveats: product state is an overlay, not reproduced; explained differences include the meaning-changing ones in decisions 1 to 4; "current" is the pin, not the legacy head (path diff clean, parity not re-run at the head). |
+| 1 | Migrated data has schema parity | PASS | Schema 1.5.0; `npm run validate` covers `records/` and `migration/`; 93 providers, 173 families with dossier frontmatter, 52 Cases, 29 Scenarios, 5 fixture plans, 98 fixture sets, all 5,925 fixtures traceable through the legacy map (`docs/migration/taxonomy-report.md`, `cases-report.md`, `reclassification-report.md`). Lossy items were decisions 1 and 2; decision 2 now keeps the T0 candidate spans as non-asserting data (ADR 0012). |
+| 2 | Exported legacy projections reproduce current benchmark inputs | PASS at the pin, with caveats | 0 unexplained, 28,091 explained, 173,657 identical; legacy loaders (`fixtureIndexProblems`, `validateCorpus` on 67 corpora, four legacy schemas) accept the projection. Caveats: product state is an overlay, not reproduced; explained differences include the meaning-changing ones of decisions 1 and 3 (decisions 2 and 4 are now carried, ADR 0012); "current" is the pin, not the legacy head (path diff clean, parity not re-run at the head). |
 | 3 | credential-eval consumes the new canonical data successfully | PASS for the input contract and a scanner run; adoption not done | The canonical-id snapshot is accepted by credential-eval's own validator and runs to `complete` under all five pinned scanners (gitleaks 8.30.1, TruffleHog 3.97.4, redact-secret, flare-redact, OpenRedaction; 5,925 cases). credential-eval's own parity work (its issue #5) and a switch of its baselines are not done. |
 | 4 | Dual-run comparison shows no unexplained semantic drift | PASS | All five scanners pinned (gitleaks 8.30.1, TruffleHog 3.97.4, redact-secret 0.1.0-beta.11, flare-redact 1.6.1, OpenRedaction 1.1.5): per-case findings and measurement identical in 5,925 of 5,925 cases for each; run-level aggregates 0 unexplained (group differences explained by decisions 1 and 2; totals unchanged). Report: `docs/migration/dual-run-report.md`. Redact Secret qualification on generated inputs is a downstream step, not part of this comparison. |
-| 5 | Credential facts and scanner-neutral expectations are canonical here | PASS | Records, Cases, Scenarios, provenance and lineage; no legacy coordinate in any canonical id or path (`npm run lint:identity`, zero violations, no baseline). Decisions 1 to 3 are evidence-review questions inside the canonical model. |
+| 5 | Credential facts and scanner-neutral expectations are canonical here | PASS | Records, Cases, Scenarios, provenance and lineage; no legacy coordinate in any canonical id or path (`npm run lint:identity`, zero violations, no baseline). Decisions 1 to 4 (ADR 0012) are evidence decisions inside the canonical model. |
 | 6 | Legacy benchmark inputs can be generated from them | PASS | `npm run export:legacy`, deterministic and checked in CI; overlays named in `overlay-interface.json`. |
 | 7 | No Redact Secret-specific qualification semantics are required to interpret the data | PASS | No support status, milestone, pin, detector assignment or expected action in canonical records or the snapshot (test: "no product state is invented"); the only detector names are optional mapping metadata (`redact-secret-detector` externalRefs) that an overlay replaces. |
 | 8 | Children #2 to #6 and #12 done | PASS | #2 to #6 merged; #12 stages A and B merged, stage C in the pull request that updates this file. |
@@ -105,7 +105,8 @@ Do these in order; tick only what is verified, in the pull request that does it.
 - [x] Legacy loaders accept the projection (`validateCorpus` on 67 corpora, `fixtureIndexProblems`, the four legacy schemas) (#6).
 - [x] Identity correction and reclassification (#12 stages A and B): no legacy coordinates in canonical ids or paths, 1,925 imported cases reclassified into 52 Cases, 29 Scenarios and 5 plans, every fixture in `migration/legacy-map/`.
 - [x] Stage C (#12): the legacy map is a first-class, strictly checked exporter input (no adapter view), legacy navigation scenario ids decided (ADR 0009), parity re-run with stronger checks (0 unexplained), credential-eval snapshot in canonical names accepted by credential-eval's validator, dual run of credential-eval over the canonical and the legacy corpus (gitleaks pinned, TruffleHog unpinned), CI runs the export, parity and materialize checks.
-- [ ] Maintainers decide the open questions above (tier downgrades, T0 span loss, identity digests, per-fixture families, re-pin).
+- [x] Maintainers decide decisions 1 to 4 (tier downgrades, T0 span loss, identity digests, per-fixture families): ADR 0012, schema 1.5.0, evidence-review issues #41 to #72.
+- [ ] Maintainers decide the re-pin (decision 5, deferred).
 - [ ] Re-pin: choose the legacy revision current at cutover, re-run `npm run migrate:taxonomy`, `npm run migrate:cases`, `npm run migrate:narratives`, `npm run export:legacy`, `npm run parity`; unexplained must still be zero.
 - [x] credential-eval dual run with the pinned TruffleHog 3.97.4 and all adapters, including run-level aggregates (`docs/migration/dual-run-report.md`). credential-eval's own legacy parity (its issue #5) is a separate document in that repository.
 - [ ] redact-secret-benchmarks builds its inputs from the projection plus overlays and its own release gates pass on the generated inputs. Its product-owned populations stay where they are and are measured as separate populations.

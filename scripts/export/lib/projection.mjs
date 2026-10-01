@@ -146,9 +146,13 @@ function buildCategories(catalog, vocabulary) {
   return catalog.suites.map((s) => ({ id: s.id, title: s.title, description: s.description, kind: vocabulary.categoryKind, corpus: s.corpus }));
 }
 
-/** Inverse of the importer's tier mapping: (outcome, basis) to the legacy (kind, tier). T0 has no recoverable kind. */
-function legacyAssessment(outcome, basis) {
-  if (outcome === "not-assertable") return { kind: "must-not-flag", tier: "T0" };
+/**
+ * Inverse of the importer's tier mapping: (outcome, basis) to the legacy (kind, tier). A T0 fixture's kind is the one its
+ * non-asserting candidate proposes (ADR 0012 decision 2), else must-not-flag. T0 is never scored, so the kind only says
+ * which population the evidence proposes.
+ */
+function legacyAssessment(outcome, basis, candidate) {
+  if (outcome === "not-assertable") return { kind: candidate?.outcome === "must-flag" ? "must-redact" : "must-not-flag", tier: "T0" };
   const tier = { "provider-documented": "T1", "tool-corroborated": "T2", "project-policy": "T3" }[basis];
   if (!tier) throw new Error(`cannot express basis ${basis} with outcome ${outcome}`);
   if (outcome === "must-not-flag") return { kind: "must-not-flag", tier };
@@ -156,12 +160,17 @@ function legacyAssessment(outcome, basis) {
 }
 
 /**
- * The legacy corpus loader (validateCorpus) requires a twin's positive to carry a secret span. A positive whose
- * outcome is not must-flag (an unresolved T0 fixture: its candidate spans are not canonical) cannot satisfy that,
- * so a twin of such a fixture is projected without twin fields. The lineage stays canonical (fixture lineage).
+ * The legacy corpus loader (validateCorpus) requires a twin's positive to carry a secret span. In the legacy projection
+ * a positive has one when it is must-flag, or when it is an unresolved T0 fixture whose non-asserting candidate carries
+ * a secret span (projected as legacy T0 candidate spans, ADR 0012 decision 2). A twin of any other positive is
+ * projected without twin fields; the lineage stays canonical (fixture lineage).
  */
 const positiveOf = (catalog, f) => catalog.byCanonicalId.get(f.fixture.item.lineage.of);
-const hasRealPositive = (catalog, f) => positiveOf(catalog, f)?.fixture.outcome === "must-flag";
+const legacySpansOf = (fixture) => (fixture.candidate ? fixture.candidate.spans : fixture.item.expected.spans);
+const hasRealPositive = (catalog, f) => {
+  const positive = positiveOf(catalog, f)?.fixture;
+  return positive !== undefined && (positive.outcome === "must-flag" || legacySpansOf(positive).some((sp) => sp.role === "secret"));
+};
 const twinName = (catalog, f) => {
   const positive = positiveOf(catalog, f);
   if (!positive) throw new Error(`fixture ${f.fixture.id}: lineage.of ${f.fixture.item.lineage.of} is not a fixture`);
@@ -177,14 +186,14 @@ function buildCorpora(ix, catalog, vocabulary) {
       .filter((f) => f.suite === suite.id)
       .map((f) => {
         const { fixture } = f;
-        const { kind, tier } = legacyAssessment(fixture.outcome, fixture.evidence.basis);
+        const { kind, tier } = legacyAssessment(fixture.outcome, fixture.evidence.basis, fixture.candidate);
         const item = fixture.item;
         const o = {
           id: f.name,
           path: f.legacyPath,
           group: fixture.targetId,
           content: item.text,
-          expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.note ? { note: sp.note } : {}), ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
+          expected: legacySpansOf(fixture).map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.note ? { note: sp.note } : {}), ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
           assessment: { kind, tier, reason: fixture.evidence.rationale, sources: uniqSorted(fixture.evidence.sources.map((r) => urlOf(r, ix.sources))) },
         };
         if (item.context) o.contextAxis = item.context;
@@ -264,7 +273,9 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
   const byId = new Map(fixtures.map((f) => [f.id, f]));
   const cases = [];
   for (const f of fixtures) {
-    const { kind, tier } = legacyAssessment(f.outcome, f.evidence.basis);
+    // A T0 case keeps the kind its candidate proposes (credential-eval counts it under pending/T0 candidate kinds), but the
+    // candidate spans are never expected spans: the v1 snapshot contract has no non-asserting span field, so they are left out.
+    const { kind, tier } = legacyAssessment(f.outcome, f.evidence.basis, f.candidate);
     const grouping = { kind, tier, group: f.targetId, evidence_class: f.evidence.basis };
     if (f.families.length === 1) grouping.family = f.families[0];
     const item = f.item;

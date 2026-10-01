@@ -203,6 +203,7 @@ describe("projection versus the pinned legacy revision", { skip: skipReason ?? f
     const tier = result.rules.find((s) => s.rule.id === "assessment-tier-downgraded-on-import");
     const kind = result.rules.find((s) => s.rule.id === "assessment-kind-follows-downgraded-tier");
     assert.ok(tier.entities.size >= kind.entities.size);
-    assert.ok(counts["twin-fields-omitted-for-unresolved-positive"] > 0);
+    // ADR 0012: candidate spans and per-fixture families are carried, so the rules that excused their loss are gone
+    for (const gone of ["twin-fields-omitted-for-unresolved-positive", "assessment-unresolved-kind-not-recoverable", "index-families-case-union", "semantics-families-case-union"]) assert.equal(counts[gone], undefined, gone);
   });
 });

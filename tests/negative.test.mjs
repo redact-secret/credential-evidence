@@ -204,6 +204,25 @@ test("fixture sets: generated must match the origin, must-not-flag has no spans,
   rejected({ ...set, fixtures: [{ ...a, expected: { ...a.expected, spans: [{ ...a.expected.spans[0], envelope: { start: 1, end: 2 } }] } }, b] }, /reason/);
 });
 
+test("fixture sets (schema 1.5.0, ADR 0012): candidate readings never assert, families overrides only on Case fixtures", () => {
+  const set = example("fixture-set", "examplecloud-carriers");
+  const [a, b] = set.fixtures;
+  const reading = { asserting: false, outcome: "must-flag", spans: a.expected.spans.map(({ start, end, role }) => ({ start, end, role })) };
+  const unresolved = { ...a, expected: { outcome: "not-assertable", spans: [] } };
+  assert.deepEqual(errorsOf({ ...set, fixtures: [{ ...unresolved, candidateReading: reading }, b] }), []);
+  rejected({ ...set, fixtures: [{ ...a, candidateReading: reading }, b] }, /must be equal to constant/);
+  rejected({ ...set, fixtures: [{ ...unresolved, candidateReading: { ...reading, asserting: true } }, b] }, /must be equal to constant/);
+  rejected({ ...set, fixtures: [{ ...unresolved, candidateReading: { ...reading, spans: [] } }, b] }, /fewer than 1 items/);
+  rejected({ ...set, fixtures: [{ ...unresolved, candidateReading: { ...reading, outcome: "must-not-flag" } }, b] }, /allowed values/);
+  assert.deepEqual(errorsOf({ ...set, fixtures: [{ ...a, families: ["examplecloud:api-key"] }, b] }), []);
+  rejected({ ...set, fixtures: [{ ...a, families: [] }, b] }, /unscopedReason/);
+  assert.deepEqual(errorsOf({ ...set, fixtures: [{ ...a, families: [], unscopedReason: "A global control with no family." }, b] }), []);
+  rejected({ ...set, fixtures: [{ ...a, unscopedReason: "No family." }, b] }, /families/);
+  rejected({ ...set, fixtures: [{ ...a, families: ["examplecloud:api-key"], unscopedReason: "No family." }, b] }, /must NOT have more than 0 items/);
+  const { case: _case, ...cellless } = a;
+  rejected({ ...set, fixtures: [{ ...cellless, cell: { plan: "p", scenario: "s", families: ["examplecloud:api-key"] }, families: ["examplecloud:api-key"] }, b] }, /case/);
+});
+
 test("cases accept incidents with a failure mode and reject unknown modes", () => {
   const c = example("case", "examplecloud-api-key-in-env-assignment");
   const incident = { id: "incident-1", failureMode: "false-alarm", summary: "A placeholder was reported.", observedAt: "2026-09-30" };
