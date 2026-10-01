@@ -203,6 +203,7 @@ scripts/
   record-new.mjs, lib/scaffold.mjs   # npm run record:new: valid draft skeletons (#22)
   record-check.mjs, lib/record-check.mjs   # npm run record:check: fast check of changed records (#22)
   materialize-fixtures.mjs   # npm run fixtures:materialize: files + manifest for credential-eval
+  research-run.mjs, lib/research-run.mjs   # npm run research:run: the unattended research harness (#25): one backlog item, dedupe, budget, gate, one PR or a needs-human issue; see docs/ops/research-cron.md
   migrate/            # import-taxonomy.mjs, import-cases.mjs, import-narratives.mjs (npm run migrate:taxonomy, migrate:cases, migrate:narratives); authored/ holds the hand-written narratives and reviewed source types; future schema migrations
   export/             # legacy-projection.mjs (npm run export:legacy): legacy-compatible projection + credential-eval snapshot; lib/legacy-map.mjs is the only place legacy names are joined (ADR 0009)
   parity/             # run.mjs (npm run parity): projection versus the pinned legacy files; rules.json, inventory.json
@@ -212,6 +213,7 @@ tests/                # npm test
 
 docs/
   authoring.md        # record:new and record:check: adding records without hand-writing their shape (#22)
+  ops/research-cron.md   # unattended research runs: contract, safety, budgets, gate, schedule examples (docs/ops/examples/ are disabled examples; no schedule is active) (#25)
   migration/          # generated migration reports
   methodology/
   governance/

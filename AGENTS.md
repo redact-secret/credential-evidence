@@ -72,3 +72,11 @@ place until the cutover; the scan and the tools say which records those are. Com
 A research or record PR is reviewed with `.agents/skills/review-research-pr/SKILL.md`
 (read-only; posts a checklist comment ending in `VERDICT: pass|fail|needs-human`, never
 approves or merges), which runs `npm run review:check -- <base>..<head>`.
+
+Unattended runs: `npm run research:run -- [--dry-run] [--kind <gap-kind>]` is the deterministic shell around one
+cron-style run (selection from the coverage backlog, dedupe against open PRs, branches and `needs-human`
+issues, budget, fetch allowlist, gate, one PR or one issue, run log under the gitignored `.research-runs/`); the
+`research-cron-run` skill and [docs/ops/research-cron.md](docs/ops/research-cron.md) are its contract. Always
+try `--dry-run` first. A run never merges, never touches migration importers, the legacy export, parity or
+records ownership, and the example schedules in `docs/ops/examples/` are inactive: activating one is the
+maintainer's decision.
