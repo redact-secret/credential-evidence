@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "mapbox-public-token-lookalike",
+  "families": [
+    "mapbox:secret-access-token"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Public access token (pk)",
+  "description": "A public access token has the same three-part dot-delimited shape as a secret token, with the header pk instead of sk. The provider documents public tokens as designed for client-side applications and safe to expose in browsers and apps, so one in client code is not a leaked secret. The sample is synthetic: its payload decodes to a fabricated example object and its signature is a placeholder word run, so Mapbox never issued it.",
+  "samples": [
+    { "value": "pk.eyJ1IjoiZXhhbXBsZS11c2VyIiwiYSI6ImV4YW1wbGUtcmVmZXJlbmNlIn0.SYNTHETICEXAMPLESIG000", "origin": "synthetic" }
+  ],
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "docs-mapbox-com-f48329e191",
+      "supports": "Public tokens are designed to be used in client-side applications, meaning they can be safely exposed in web browsers, mobile apps and other client environments; all public access tokens start with pk.",
+      "locator": "sections 'Token Patterns' and 'Public Tokens'"
+    },
+    {
+      "sourceId": "docs-mapbox-com-898fae45d0",
+      "supports": "A client application should only use a token with public scopes; secret-scope requests should never be exposed to the client.",
+      "locator": "section 'Public vs Secret Tokens'"
+    }
+  ],
+  "observedAt": "2026-10-01",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

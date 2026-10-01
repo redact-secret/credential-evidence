@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "mapbox:temporary-access-token@1",
+  "family": "mapbox:temporary-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "prefixes": ["tk."],
+    "separators": ["."]
+  },
+  "claims": [
+    {
+      "id": "three-dot-delimited-parts-tk-header",
+      "statement": "A temporary access token is a string of three dot-delimited parts (header, payload, signature) whose header is the literal tk; its payload carries the token's metadata directly.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "docs-mapbox-com-283c99738b",
+          "supports": "Each token is a string delimited by dots into three parts; the header is a literal value of either pk, sk or tk; tk tokens contain the contents of the metadata directly in the payload.",
+          "locator": "section 'Token format'"
+        }
+      ]
+    },
+    {
+      "id": "expiry-at-most-one-hour",
+      "statement": "A temporary access token can carry an expiration up to one hour in the future.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "docs-mapbox-com-c7bd0aa1ca",
+          "supports": "The Tokens API creates temporary tk tokens, which can support an expiration parameter up to 1 hour in the future.",
+          "locator": "section 'Token management' introduction"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "researched-beyond-existence",
+      "question": "Candidate only: alphabet, signature and length are not yet researched for this family.",
+      "raisedAt": "2026-10-01"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Records only what the provider's documentation states about the family's existence and lifetime."
+}
