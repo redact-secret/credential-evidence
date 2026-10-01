@@ -63,22 +63,54 @@ Those responsibilities belong elsewhere.
 
 ```text
 credential-evidence
-        │
-        ├──────────────▶ credential-evidence-site
-        │                     public knowledge surface
-        │
-        ▼
+  = public/shared canonical credential knowledge and scanner-neutral expectations
+
 credential-eval
+  = generic measurement engine
+
+redact-secret-benchmarks
+  = Redact Secret product qualification
+    + product-owned regression/policy/protected evidence
+```
+
+```text
+credential-evidence ──▶ credential-evidence-site   (public knowledge surface)
         │
-        ▼
-scanner observations
+        ▼ pinned snapshot
+credential-eval ◀── other evidence populations (product-owned, project-specific)
         │
-        └──────────────▶ product-specific qualification
+        ▼ run artifacts, one per population
+product-specific qualification (for Redact Secret: redact-secret-benchmarks)
 ```
 
 `credential-evidence` must remain meaningful if Redact Secret itself did not exist.
 
 That is the primary architectural test for changes to this repository.
+
+### One qualification input, not the qualification
+
+For Redact Secret, this repository is **one input source to qualification. It is not Redact Secret's qualification policy and it is not Redact Secret's only corpus.**
+
+- A Redact Secret qualification may consume several separately identified evidence populations: the canonical public `credential-evidence` snapshot, a Redact Secret regression corpus, a Redact Secret policy/behavior corpus, candidate-specific regression cases, and protected or holdout evidence where applicable. Only the first lives here.
+- `credential-eval` may measure all of them, but each population keeps its own provenance and identity. Populations are never silently merged into one denominator; combining or counting them is the product policy's job, done visibly. The measurement side of this rule is in credential-eval's `docs/qualification-boundary.md`.
+- Evidence class and product support status are **different axes**. An evidence class (`provider-documented`, `tool-corroborated`, `project-policy`, `unresolved`; legacy tiers T1, T2, T3, T0) says what supports a claim here. A support status (`stable`, `provisional`, `pending`, `unsupported`) is a downstream product decision. A canonical record may legitimately be `project-policy` while Redact Secret separately qualifies the same family as empirically supported from product-owned evidence. Conversely, a public downgrade that exposes a real evidence or coverage gap may still affect product qualification, but only after an explicit product policy review. Neither outcome follows automatically from a change here, and splitting the repositories changes neither. See [evidence classes](docs/governance/evidence-classes.md#evidence-class-and-product-support-status).
+
+### What a pinned snapshot guarantees
+
+A released, pinned `credential-evidence` snapshot gives a benchmark consumer:
+
+- canonical facts, Cases and provenance;
+- scanner-neutral expected outcomes;
+- stable semantic ids;
+- a snapshot identity and digest.
+
+It deliberately does not contain:
+
+- any Redact Secret support status;
+- product detector assignments as canonical evidence (detector names exist only as optional mapping metadata that a consumer overlay replaces);
+- any release or candidate policy.
+
+Release identity, contents and pinning: see [docs/releases.md](docs/releases.md).
 
 ## Cases, not just fixtures
 
@@ -152,6 +184,8 @@ This repository is initially migrating knowledge currently embedded in `redact-s
 The migration is intentionally not a big-bang cutover.
 
 Until parity is demonstrated and downstream consumers have switched, the existing benchmark repository remains authoritative for current Redact Secret release qualification.
+
+The migration moves **public, scanner-neutral evidence** here. It does not move Redact Secret's product-owned regression, policy/behavior, candidate or protected evidence, and the cutover does not require it to: that evidence stays in `redact-secret-benchmarks` (or another product-owned location) as its own population ([cutover](docs/migration/cutover.md#what-the-cutover-moves-and-what-it-does-not)).
 
 Status after #6: the canonical records exist (#2 to #5) and a deterministic exporter produces the legacy benchmark inputs and the credential-eval corpus snapshot from them (`npm run export:legacy`). At the pinned legacy revision the parity report shows zero unexplained differences (`docs/migration/parity-report.md`). **The cutover has not happened:** no downstream consumer has switched, so no legacy file may be deleted or frozen. What remains, and the cutover rule, are in `docs/migration/cutover.md`.
 
