@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "examplecloud:api-key@2",
+  "family": "examplecloud:api-key",
+  "revision": 2,
+  "period": "current",
+  "validity": {
+    "from": "2024-07-01",
+    "until": null
+  },
+  "structure": {
+    "prefixes": [
+      "exc_live_"
+    ],
+    "alphabet": {
+      "name": "base62"
+    },
+    "length": {
+      "exact": 32
+    },
+    "separators": [
+      "_"
+    ],
+    "components": [
+      {
+        "name": "prefix",
+        "role": "prefix",
+        "description": "Literal exc_live_."
+      },
+      {
+        "name": "body",
+        "role": "body",
+        "description": "32 base62 characters."
+      }
+    ],
+    "descriptivePattern": "^exc_live_[0-9A-Za-z]{32}$"
+  },
+  "claims": [
+    {
+      "id": "prefixed-live-key",
+      "statement": "Live API keys are exc_live_ followed by 32 base62 characters.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-30",
+      "sources": [
+        {
+          "sourceId": "examplecloud-token-format-doc",
+          "supports": "Documents the exc_live_ prefix and 32-character body.",
+          "locator": "section 'Key format'"
+        }
+      ]
+    },
+    {
+      "id": "sdk-parser-accepts-only-32",
+      "statement": "The SDK key parser rejects live keys whose body is not exactly 32 characters.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "examplecloud-sdk-key-parser",
+          "supports": "The parser enforces a 32-character body.",
+          "locator": "parseLiveKey"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "reviewed"
+}

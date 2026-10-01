@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "examplecloud:api-key@3",
+  "family": "examplecloud:api-key",
+  "revision": 3,
+  "period": "proposed",
+  "validity": {
+    "from": "2024-07-01",
+    "until": null
+  },
+  "structure": {
+    "prefixes": [
+      "exc_live_"
+    ],
+    "alphabet": {
+      "name": "base62"
+    },
+    "length": {
+      "exact": 32
+    },
+    "separators": [
+      "_"
+    ],
+    "components": [
+      {
+        "name": "prefix",
+        "role": "prefix",
+        "description": "Literal exc_live_."
+      },
+      {
+        "name": "body",
+        "role": "body",
+        "description": "32 base62 characters."
+      }
+    ],
+    "descriptivePattern": "^exc_live_[0-9A-Za-z]{32}$"
+  },
+  "claims": [
+    {
+      "id": "artifacts-agree",
+      "statement": "Artifacts A and B both treat the exc_live_ prefix as a live-key marker.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-09-30",
+      "sources": [
+        {
+          "sourceId": "fixture-rule-a",
+          "supports": "Documents the live key grammar.",
+          "locator": "rule 1"
+        },
+        {
+          "sourceId": "fixture-rule-b",
+          "supports": "Documents the live key grammar.",
+          "locator": "vector 4"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "supersedes": "examplecloud:api-key@2"
+}

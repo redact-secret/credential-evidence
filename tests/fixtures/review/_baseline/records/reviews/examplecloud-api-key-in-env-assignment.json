@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-examplecloud-api-key-in-env-assignment",
+  "subject": {
+    "kind": "case",
+    "id": "examplecloud-api-key-in-env-assignment"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-09-29",
+      "actor": {
+        "id": "example-author",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored from the provider documentation before any scanner was run."
+    },
+    {
+      "seq": 2,
+      "type": "reviewed",
+      "at": "2026-09-30T10:00:00Z",
+      "actor": {
+        "id": "example-reviewer",
+        "role": "reviewer",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "supports",
+      "note": "Confirmed the expectation against the archived documentation snapshot. Project-maintained review, not independent validation.",
+      "evidence": [
+        {
+          "url": "https://docs.example.com/api/keys",
+          "pin": {
+            "kind": "archive-snapshot",
+            "archiveUrl": "https://web.archive.org/web/20260929000000/https://docs.example.com/api/keys"
+          }
+        }
+      ]
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-30T12:00:00Z",
+      "actor": {
+        "id": "eval-run",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "A scanner observation disagreed with this expectation; recorded as an observation, the expectation stands.",
+      "externalRefs": [
+        {
+          "system": "example-scanner",
+          "id": "run-0001",
+          "url": "https://example.com/runs/0001"
+        }
+      ]
+    }
+  ]
+}
