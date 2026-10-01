@@ -57,6 +57,9 @@ jobs:
       - name: Skill lint
         run: npm run lint:skills
 
+      - name: Coverage report is current (docs/research)
+        run: npm run coverage:gaps:check
+
       - name: Test
         run: npm test
         env:
