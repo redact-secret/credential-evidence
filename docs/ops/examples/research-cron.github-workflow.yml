@@ -1,0 +1,133 @@
+# DISABLED EXAMPLE. This file is documentation: it lives outside .github/workflows/, so GitHub never runs it,
+# and its `schedule` trigger is commented out. Nothing in this repository activates it.
+#
+# To enable (a maintainer's decision, see docs/ops/research-cron.md "Activating a schedule"):
+#   1. cp docs/ops/examples/research-cron.github-workflow.yml .github/workflows/research-cron.yml
+#   2. uncomment `schedule` below, pick the cron time
+#   3. add the secrets named in the env blocks
+#   4. run it once by hand with dry_run=true and read the plan
+#
+# Safety posture: workflow permissions are read-only; the run job gets a repository-scoped bot token
+# (RESEARCH_BOT_TOKEN: contents rw, pull requests rw, issues rw, metadata r) and nothing else; the model
+# credential exists only in the agent step; the legacy checkout is public and needs no token; the run
+# never merges (branch protection stays on); concurrency stops two runs overlapping.
+
+name: Research cron (example, disabled)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Plan only: no branch, PR, issue or push"
+        type: boolean
+        default: true
+      kind:
+        description: "Optional gap kind to narrow the pool (for example contract-missing)"
+        type: string
+        default: ""
+  # schedule:
+  #   - cron: "17 4 * * 1-5"   # weekdays 04:17 UTC; one item per run
+
+permissions:
+  contents: read
+
+concurrency:
+  group: research-cron
+  cancel-in-progress: false
+
+env:
+  # Pinned legacy revision (scripts/migrate/lib/legacy-source.mjs LEGACY_REVISION), same as ci.yml.
+  LEGACY_REVISION: ade8a10bd7922765110a68986b0690eb3861f2e5
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75          # the runner's own limit is --max-minutes (default 30) plus gates
+    steps:
+      - name: Checkout (no persisted credentials; the runner pushes with its own token)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: develop           # or main while develop does not exist
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Checkout pinned legacy repository (read-only input for the ownership checks)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: redact-secret/redact-secret-benchmarks
+          ref: ${{ env.LEGACY_REVISION }}
+          path: legacy-benchmarks
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci --ignore-scripts
+
+      - name: Install the agent CLI (pin the version you tested)
+        run: npm install --global --ignore-scripts @anthropic-ai/claude-code@<pinned-version>
+
+      - name: Git identity and remote auth for the runner (token stays out of the agent step)
+        env:
+          GH_TOKEN: ${{ secrets.RESEARCH_BOT_TOKEN }}
+        run: |
+          git config user.name "research-agent"
+          git config user.email "research-agent@users.noreply.github.com"
+          gh auth setup-git
+
+      - name: Labels (idempotent)
+        env:
+          GH_TOKEN: ${{ secrets.RESEARCH_BOT_TOKEN }}
+        run: npm run research:run -- --ensure-labels
+
+      - name: Dry run (always; prints the plan)
+        env:
+          GH_TOKEN: ${{ secrets.RESEARCH_BOT_TOKEN }}
+        run: npm run research:run -- --dry-run ${{ inputs.kind && format('--kind {0}', inputs.kind) || '' }}
+
+      - name: Research run
+        if: ${{ github.event_name == 'schedule' || inputs.dry_run == false }}
+        env:
+          GH_TOKEN: ${{ secrets.RESEARCH_BOT_TOKEN }}          # reaches only the runner's gh/git calls
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}  # reaches only the agent process
+          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
+          RESEARCH_AGENT_CMD: >-
+            claude -p --permission-mode acceptEdits --max-turns 80
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,Bash(npm run record:new:*),Bash(npm run record:check:*),Bash(npm run source:observe:*),Bash(npm run coverage:gaps:*),Bash(npm run tidy:scan:*),Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)"
+        run: |
+          set +e
+          npm run research:run -- ${{ inputs.kind && format('--kind {0}', inputs.kind) || '' }}
+          code=$?
+          set -e
+          echo "research:run exit code: $code"
+          case "$code" in
+            0) ;;                                                   # PR opened (maybe draft), or nothing to do
+            3) echo "::notice::research run stopped for a human (needs-human issue or draft PR)" ;;
+            *) exit "$code" ;;                                      # 1 failed, 2 usage: alert
+          esac
+
+      - name: Upload run summary (JSON and markdown only; no worktree, no prompt)
+        if: always()
+        uses: actions/upload-artifact@<pinned-sha> # pin like the other actions
+        with:
+          name: research-run-summary
+          path: |
+            .research-runs/*/summary.json
+            .research-runs/*/summary.md
+          if-no-files-found: ignore
+          retention-days: 30
+
+  # Optional second job: review the PR the run opened with the read-only review-research-pr skill, then
+  # apply its VERDICT line. It never approves or merges. Left as a sketch: it needs the PR number from the
+  # summary (outputs.pr) and a separate bot login in --trusted-login.
+  #
+  # review:
+  #   needs: research
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: claude -p "/review-research-pr <pr-number>"      # posts the checklist comment, last line VERDICT:
+  #     - run: npm run research:run -- --consume-verdict <pr-number> --trusted-login <bot-login>
