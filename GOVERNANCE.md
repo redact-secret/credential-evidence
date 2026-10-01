@@ -58,6 +58,13 @@ researcher.
 - Evidence classes describe how well a claim is supported. They are not
   product states such as `stable`, `provisional`, or `pending`, and no such
   state is recorded here.
+- This repository is one evidence input to any product's qualification, not
+  that qualification and not its only corpus. A product may measure its own
+  separately identified evidence populations next to the public snapshot, and
+  a change of evidence class here does not change a product support status
+  automatically in either direction. See
+  [ARCHITECTURE.md](ARCHITECTURE.md#consumer-boundary) and
+  [evidence classes](docs/governance/evidence-classes.md#evidence-class-and-product-support-status).
 
 ## Policy pages
 

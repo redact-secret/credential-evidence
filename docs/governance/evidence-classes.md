@@ -161,3 +161,25 @@ Rules:
 - They do not say a scanner should detect a value. Detection expectations are
   stated separately, as semantic outcomes, with the class of their basis.
 - They are not confidence scores and are not combined arithmetically.
+
+## Evidence class and product support status
+
+Evidence class and product support status are separate axes. The class is
+recorded here and describes the basis of one claim. A support status (for
+Redact Secret: `stable`, `provisional`, `pending`, `unsupported`) is decided by
+the product, in the product's repository, from several inputs of which this
+repository's snapshot is only one.
+
+- A promotion or demotion here never changes a support status automatically,
+  in either direction. A claim may be `project-policy` (legacy tier T3) here
+  while Redact Secret qualifies the same family as empirically supported from
+  its own product-owned evidence.
+- A demotion that exposes an actual evidence or coverage gap may still matter
+  to a product. Acting on it is an explicit, reviewed decision under that
+  product's policy, not a consequence of the change here.
+- The class of a claim is decided on its evidence alone, under the rules above.
+  How a product would react is not a reason to promote, demote, or hold a
+  claim ([conflict of interest](neutrality.md#conflict-of-interest-handling)).
+- Legacy benchmark tiers map one to one onto classes (T1 `provider-documented`,
+  T2 `tool-corroborated`, T3 `project-policy`, T0 `unresolved`). The mapping
+  is a projection for legacy consumers. It does not carry product meaning.

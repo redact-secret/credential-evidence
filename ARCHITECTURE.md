@@ -140,6 +140,14 @@ pending
 
 Those are product-specific interpretations owned downstream.
 
+Evidence class and product support status are two independent axes. No change on one axis is applied automatically to the other, in either direction:
+
+- A canonical claim may legitimately be `project-policy` (legacy T3) here while Redact Secret, using its own product-owned evidence, qualifies the same family as empirically supported. A public downgrade (for example `tool-corroborated` to `project-policy`, legacy T2 to T3) does not by itself lower a product support status.
+- A public downgrade that exposes an actual evidence or coverage gap may still change product qualification, but only through an explicit, reviewed product policy decision in the product's repository.
+- No status upgrade follows from a class upgrade either.
+
+The migration must not encode either outcome. Rules: `docs/governance/evidence-classes.md`.
+
 ## Versioning
 
 Schemas must be explicitly versioned.
@@ -170,12 +178,57 @@ The migration proceeds in layers:
 
 Status: layers 1 to 5 are done (#2 to #6). Layer 6, the cutover, is not: no downstream consumer has switched (`docs/migration/cutover.md`). Layer 2 imported dossier frontmatter; the dossier prose enters only as reviewed, claim-backed family narratives (ADR 0010, #16), all 173 families (`docs/migration/narrative-report.md`).
 
+The cutover moves public, scanner-neutral evidence only. Product-owned regression, policy/behavior, candidate and protected evidence stays with the product and is not a cutover prerequisite (`docs/migration/cutover.md`).
+
 The existing benchmark repository remains authoritative for active product qualification until:
 
 - canonical import is complete;
 - compatibility export is deterministic;
 - downstream evaluation accepts the new source;
 - dual-run parity has no unexplained semantic differences.
+
+## Consumer boundary
+
+```text
+credential-evidence
+  = public/shared canonical credential knowledge and scanner-neutral expectations
+
+credential-eval
+  = generic measurement engine
+
+redact-secret-benchmarks
+  = Redact Secret product qualification
+    + product-owned regression/policy/protected evidence
+```
+
+This repository is one input source to Redact Secret qualification, not the qualification policy and not its only corpus. The same holds for any other product that consumes it.
+
+### Evidence populations
+
+A product qualification may consume several evidence populations, each separately identified:
+
+| Population | Owner | Lives here |
+| --- | --- | --- |
+| Canonical public `credential-evidence` snapshot | this repository | yes |
+| Redact Secret regression corpus | Redact Secret | no |
+| Redact Secret policy/behavior corpus | Redact Secret | no |
+| Candidate-specific regression cases | Redact Secret | no |
+| Protected or holdout evidence, where applicable | Redact Secret | no |
+
+`credential-eval` may measure each of them. Each run carries the identity of the population it measured (for this repository: the snapshot identity and digest), so the populations stay distinguishable by provenance. They are never silently merged into one denominator: a product that combines them does so in its own policy, with each population still visible. credential-eval states the same rule from the measurement side (`docs/qualification-boundary.md` in that repository).
+
+Product-owned populations are not candidates for import here merely because they are measured by the same engine. Product-owned material enters this repository only if it is re-authored as scanner-neutral evidence that passes the architectural test above, through the normal review rules.
+
+### Snapshot guarantee
+
+A released, pinned snapshot of this repository guarantees to a consumer:
+
+- canonical facts, Cases and provenance;
+- scanner-neutral expected outcomes;
+- stable semantic ids;
+- a snapshot identity and digest.
+
+It contains no Redact Secret support status, no product detector assignment as canonical evidence (detector names are optional mapping metadata only), and no release or candidate policy. Release identity, contents and pinning: see `docs/releases.md`.
 
 ## Export boundary
 
