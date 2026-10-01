@@ -12,6 +12,8 @@
     "lint:identity": "node scripts/lint-identity.mjs",
     "lint:narrative": "node scripts/lint-narrative.mjs",
     "lint:skills": "node scripts/lint-skills.mjs",
+    "record:new": "node scripts/record-new.mjs",
+    "record:check": "node scripts/record-check.mjs",
     "migrate:check": "npm run migrate:taxonomy:check && npm run migrate:cases:check && npm run migrate:narratives:check",
     "migrate:taxonomy": "node scripts/migrate/import-taxonomy.mjs",
     "migrate:taxonomy:check": "node scripts/migrate/import-taxonomy.mjs --check",
