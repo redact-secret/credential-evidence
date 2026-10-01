@@ -53,6 +53,14 @@ not a skill) and create records with `npm run record:new`, checking them with
 `npm run record:check` ([docs/authoring.md](docs/authoring.md)), instead of
 hand-writing record JSON.
 
+Research skills (one bounded unit per run, headless or interactive, always a pull request, never a merge):
+`research-provider` (a provider's candidate credential families from its official documentation),
+`research-family` (format contract, variants, benign siblings, narrative, sources for one family) and
+`author-case` (a Case only if it meets the ADR 0007 criteria, otherwise a Scenario or no record). They share
+[`.agents/skills/_shared/research-run.md`](.agents/skills/_shared/research-run.md): the headless defaults, the
+common stop conditions, the landing check against pipeline-owned directories, and the exact output (a change set
+plus research notes listing established, inferred and unresolved).
+
 Hygiene and backlog skills: `coverage-gaps` (what to work on next, from
 `npm run coverage:gaps` and [docs/research](docs/research/README.md)), `tidy-records`
 (mechanical clean-up, `npm run tidy:scan`) and `source-freshness` (re-observe sources,

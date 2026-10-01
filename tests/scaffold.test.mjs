@@ -28,11 +28,15 @@ const SAMPLES = {
   case: [["brand-new-case"], { title: "A brand new case", type: "benign", family: `${aws}=lookalike`, scenario: "documentation-placeholder" }],
 };
 
-test("every scaffold kind has a sample", () => {
-  assert.deepEqual(Object.keys(SAMPLES).sort(), [...SCAFFOLD_KINDS].sort());
+// variant, benign-sibling, family-narrative, review and fixture (issue #23) need records that
+// do not exist in the real index yet; tests/scaffold-research.test.mjs covers them.
+const RESEARCH_KINDS = ["variant", "benign-sibling", "family-narrative", "review", "fixture"];
+
+test("every scaffold kind has a sample or is covered by scaffold-research.test.mjs", () => {
+  assert.deepEqual([...Object.keys(SAMPLES), ...RESEARCH_KINDS].sort(), [...SCAFFOLD_KINDS].sort());
 });
 
-for (const kind of SCAFFOLD_KINDS) {
+for (const kind of Object.keys(SAMPLES)) {
   test(`${kind}: skeleton is schema-valid, draft, integrity- and identity-clean`, () => {
     const [args, opts] = SAMPLES[kind];
     const p = plan(kind, args, opts);

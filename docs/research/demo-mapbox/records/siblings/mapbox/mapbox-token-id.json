@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "mapbox-token-id",
+  "families": [
+    "mapbox:secret-access-token",
+    "mapbox:public-access-token",
+    "mapbox:temporary-access-token"
+  ],
+  "siblingClass": "non-secret-companion",
+  "name": "Token identifier",
+  "description": "The identifier of a token (the id property of its metadata, also the last segment of the token's page URL in the account dashboard). It sits beside tokens in listings and settings, but the provider states it is not the access token itself. Its own format is not documented, so no sample is recorded.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "docs-mapbox-com-283c99738b",
+      "supports": "The token id is not the access token itself, but an identifier for a specific pk, sk or tk token.",
+      "locator": "section 'Token metadata object', property id"
+    }
+  ],
+  "observedAt": "2026-10-01",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "mapbox-temporary-token-in-client-side-upload",
+  "title": "Temporary token embedded in a client-side upload script",
+  "summary": "A browser script that uploads data to Mapbox holds a temporary token (header tk) that the application obtained from the Tokens API for that one upload workload.",
+  "rationale": "The provider tells client applications to use a temporary token for sensitive operations such as uploads, and also says tokens with secret scopes must not be exposed to the client. A temporary token has the same three-part shape as the public and secret tokens, carries the scopes of its workload and expires within one hour. The documentation does not say whether such a token in client code is exposed secret material, so the situation is an open question, not an instance of a rule that applies to every family.",
+  "caseTypes": [
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "mapbox:temporary-access-token",
+      "role": "subject"
+    },
+    {
+      "family": "mapbox:secret-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "mapbox:public-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Not assertable. The provider's statements point in different directions: client applications should use temporary tokens for sensitive operations, yet tokens with secret scopes must not be exposed to the client, and a temporary token expires within one hour. Candidate outcomes for a maintainer to decide, as a recorded project-policy decision with a non-author reviewer: must be flagged (it carries secret scopes while it is live), may be flagged (it is short-lived by design), must not be flagged (the provider intends it in clients). A statement from Mapbox on whether a temporary token in client code counts as an exposed credential would settle it as provider-documented. No fixture exists, so nothing is asserted.",
+    "sources": [
+      {
+        "sourceId": "docs-mapbox-com-898fae45d0",
+        "supports": "If you need to do potentially sensitive operations in the client (for example, uploading new data or deleting styles) use the Tokens API to generate a temporary token for the specific workload; a client application should only use a token with public scopes.",
+        "locator": "section 'Public vs Secret Tokens'"
+      },
+      {
+        "sourceId": "docs-mapbox-com-c7bd0aa1ca",
+        "supports": "Do not expose access tokens with secret scopes; make all requests requiring a token with secret scopes on a server.",
+        "locator": "section on secret scopes"
+      },
+      {
+        "sourceId": "docs-mapbox-com-283c99738b",
+        "supports": "When creating a temporary token, the expiration must be no more than one hour in the future.",
+        "locator": "Create a temporary token, error responses"
+      }
+    ],
+    "observedAt": "2026-10-01"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

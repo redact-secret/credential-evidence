@@ -20,14 +20,24 @@ const USAGE = `usage: npm run record:new -- <kind> <arg> [flags]
                                         [--applies-to any-family|families|family-classes]
   case      <case-slug>                 --title <text> --type <t>[,<t>]... [--family <id>[@<rev>][=<role>]]...
                                         [--scenario <slug>]...
+  variant   <variant-slug>              --family <id> --name <name> --variant-type <t> --change <c>
+                                        [--contract <id>] [--replaces <variant-slug>] [--description <text>]
+  benign-sibling <sibling-slug>         --family <id>... --sibling-class <c> --name <name> [--description <text>]
+  family-narrative <provider>:<family-slug>   [--contract <id>]    (one unresolved placeholder per section)
+  review    <kind>:<subject-id>         --actor <slug> [--role author|automation|contributor] [--affiliation <a>]
+                                        [--event authored|observed|corrected|disputed] [--verdict <v>] [--note <text>]
+                                        [--unresolved <section>/<statement-id>=<reason>]... [--append]
+  fixture   <case-slug>                 --set <set-slug> --name <slug> (--text <value> | --text-file <path>)
+                                        [--secret <substring>]... [--context <slug>] [--path <p>] [--title <set title>]
+                                        (sha256, byte spans and outcome are computed; the case must be assertable)
 
 common: --date <YYYY-MM-DD> (default: today, UTC)   --dry-run (print, write nothing)   --root <dir>
 
 The skeleton is a draft. Every field to write holds ${PLACEHOLDER}; 'npm run validate' fails until none is left.
 Next: edit the file, then 'npm run record:check -- <path>'.`;
 
-const MULTI = ["alias", "family", "class", "type", "scenario"];
-const STRINGS = ["name", "title", "homepage", "description", "revision", "source-type", "observer", "observed-at", "applies-to", "date", "root"];
+const MULTI = ["alias", "family", "class", "type", "scenario", "secret", "unresolved"];
+const STRINGS = ["name", "title", "homepage", "description", "revision", "source-type", "observer", "observed-at", "applies-to", "date", "root", "variant-type", "change", "sibling-class", "contract", "replaces", "actor", "role", "affiliation", "event", "verdict", "note", "set", "text", "text-file", "context", "path"];
 
 let parsed;
 try {
@@ -37,6 +47,7 @@ try {
       ...Object.fromEntries(MULTI.map((k) => [k, { type: "string", multiple: true }])),
       ...Object.fromEntries(STRINGS.map((k) => [k, { type: "string" }])),
       "dry-run": { type: "boolean" },
+      append: { type: "boolean" },
       help: { type: "boolean", short: "h" },
     },
   });
@@ -63,7 +74,7 @@ try {
     process.stdout.write(serialize(plan.record));
   } else {
     writeRecord(plan, root);
-    console.log(`created ${plan.path}`);
+    console.log(`${plan.append ? "appended to" : "created"} ${plan.path}`);
   }
   if (plan.note) console.log(`note: ${plan.note}`);
   const todos = placeholderLocations(plan.record);

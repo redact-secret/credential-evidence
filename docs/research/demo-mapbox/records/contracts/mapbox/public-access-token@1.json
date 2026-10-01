@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "mapbox:public-access-token@1",
+  "family": "mapbox:public-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "prefixes": ["pk."],
+    "separators": ["."]
+  },
+  "claims": [
+    {
+      "id": "three-dot-delimited-parts-pk-header",
+      "statement": "A public access token is a string of three dot-delimited parts (header, payload, signature) whose header is the literal pk.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-01",
+      "sources": [
+        {
+          "sourceId": "docs-mapbox-com-283c99738b",
+          "supports": "Each token is a string delimited by dots into three parts: header, payload, and signature; the header is a literal value of either pk, sk or tk.",
+          "locator": "section 'Token format'"
+        },
+        {
+          "sourceId": "docs-mapbox-com-f48329e191",
+          "supports": "All public access tokens start with pk.",
+          "locator": "section 'Token Patterns'"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "researched-beyond-existence",
+      "question": "Candidate only: payload, signature and length are not yet researched for this family.",
+      "raisedAt": "2026-10-01"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Records only that the family exists in the provider's documentation."
+}
