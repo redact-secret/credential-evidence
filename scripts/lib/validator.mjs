@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import { checkIdentity } from "./identity.mjs";
 import { checkNarrativeLint } from "./narrative-lint.mjs";
+import { checkPlaceholders } from "./placeholders.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = resolve(here, "..", "..");
@@ -489,6 +490,7 @@ export function validateTree(dirs, { root = repoRoot, validator = createValidato
   if (identity) {
     errors.push(...checkIdentity(valid));
     errors.push(...checkNarrativeLint(valid));
+    errors.push(...checkPlaceholders(valid));
   }
   return { total, records: valid, errors: errors.sort() };
 }

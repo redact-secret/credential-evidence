@@ -47,3 +47,9 @@ Workflows under `.agents/skills/` are specialized for this evidence
 repository. Security scans must distinguish intentional synthetic
 credential-shaped fixtures from accidental real material.
 
+Skills that add or edit records read the shared references in
+[`.agents/skills/_shared/`](.agents/skills/_shared/README.md) (reference pages,
+not a skill) and create records with `npm run record:new`, checking them with
+`npm run record:check` ([docs/authoring.md](docs/authoring.md)), instead of
+hand-writing record JSON.
+
