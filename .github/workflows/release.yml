@@ -1,0 +1,197 @@
+name: Snapshot release
+
+# Manual only (ADR 0011, docs/releases.md). There is no push, tag or schedule trigger:
+# every evidence snapshot release is a maintainer's explicit decision.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag: snapshot-YYYY.MM.DD (today, UTC) or snapshot-YYYY.MM.DD.<n> (n >= 2) for a later release the same day"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+# One release at a time; never cancel a release in flight.
+concurrency:
+  group: snapshot-release
+  cancel-in-progress: false
+
+env:
+  # Pinned legacy revision (scripts/migrate/lib/legacy-source.mjs LEGACY_REVISION), as in ci.yml.
+  LEGACY_REVISION: ade8a10bd7922765110a68986b0690eb3861f2e5
+  RELEASE_TAG: ${{ inputs.tag }}
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Refuse anything but main
+        run: |
+          if [ "$GITHUB_REF" != "refs/heads/main" ]; then
+            echo "::error::releases are cut from main only (got $GITHUB_REF)"; exit 1
+          fi
+
+      - name: Refuse a malformed or non-current tag
+        run: |
+          if ! printf '%s' "$RELEASE_TAG" | grep -Eq '^snapshot-[0-9]{4}\.[0-9]{2}\.[0-9]{2}(\.([2-9]|[1-9][0-9]+))?$'; then
+            echo "::error::tag must be snapshot-YYYY.MM.DD or snapshot-YYYY.MM.DD.<n> with n >= 2"; exit 1
+          fi
+          today="$(date -u +%Y.%m.%d)"
+          case "$RELEASE_TAG" in
+            "snapshot-$today"|"snapshot-$today".*) ;;
+            *) echo "::error::the tag date must be today in UTC (snapshot-$today)"; exit 1 ;;
+          esac
+
+      - name: Refuse an existing tag or release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$(git ls-remote --tags "https://github.com/$GITHUB_REPOSITORY.git" "refs/tags/$RELEASE_TAG")" ]; then
+            echo "::error::tag $RELEASE_TAG already exists; tags are never moved, cut a new one"; exit 1
+          fi
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "::error::a release (possibly a draft) named $RELEASE_TAG already exists"; exit 1
+          fi
+
+  verify:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Checkout pinned legacy repository (read-only input for migration checks)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: redact-secret/redact-secret-benchmarks
+          ref: ${{ env.LEGACY_REVISION }}
+          path: legacy-benchmarks
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # The same checks as ci.yml, at the exact commit being released.
+      - name: Validate schemas and records
+        run: npm run validate
+
+      - name: Identity lint
+        run: npm run lint:identity
+
+      - name: Narrative lint
+        run: npm run lint:narrative
+
+      - name: Skill lint
+        run: npm run lint:skills
+
+      - name: Coverage report is current
+        run: npm run coverage:gaps:check
+
+      - name: Test
+        run: npm test
+        env:
+          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
+          REQUIRE_LEGACY: "1"
+
+      - name: Migration checks
+        run: npm run migrate:check
+        env:
+          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
+
+      - name: Legacy projection is current
+        run: npm run export:legacy:check
+
+      - name: Parity against the pinned legacy revision
+        run: npm run parity:check
+        env:
+          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
+
+      - name: Fixture materialization check
+        run: npm run fixtures:materialize:check
+
+      - name: Release bundle dry run (deterministic over two builds)
+        run: npm run release:check -- --tag "$RELEASE_TAG"
+
+  release:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # The only job that can write: it creates the tag and the release.
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build the bundle and the manifest
+        run: npm run release:bundle -- --tag "$RELEASE_TAG" --out "$RUNNER_TEMP/release"
+
+      - name: Verify the built assets
+        run: |
+          digest="$(cut -d' ' -f1 "$RUNNER_TEMP/release/release-manifest.json.sha256")"
+          npm run release:verify -- --dir "$RUNNER_TEMP/release" --tag "$RELEASE_TAG" --manifest-digest "$digest"
+          echo "MANIFEST_DIGEST=$digest" >> "$GITHUB_ENV"
+
+      - name: Create the release (draft, assets, then publish)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Re-check right before creating: a tag that appeared since preflight is never overwritten.
+          if [ -n "$(git ls-remote --tags "https://github.com/$GITHUB_REPOSITORY.git" "refs/tags/$RELEASE_TAG")" ]; then
+            echo "::error::tag $RELEASE_TAG appeared during the run; refusing"; exit 1
+          fi
+          notes="$RUNNER_TEMP/notes.md"
+          {
+            echo "Evidence snapshot \`$RELEASE_TAG\` from commit \`$GITHUB_SHA\`."
+            echo
+            echo "Pin it by tag and manifest digest:"
+            echo
+            echo "- tag: \`$RELEASE_TAG\`"
+            echo "- manifest digest (sha256 of \`release-manifest.json\`): \`$MANIFEST_DIGEST\`"
+            echo
+            echo "Verify after download as described in docs/releases.md. This release is immutable; a correction is a new release (ADR 0011)."
+            echo
+            echo "Maintained by the Redact Secret project; project-maintained evidence is not independent validation."
+          } > "$notes"
+          gh release create "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "$RELEASE_TAG" \
+            --notes-file "$notes" \
+            --draft \
+            "$RUNNER_TEMP"/release/*
+          gh release edit "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --draft=false --latest
+          echo "### Released \`$RELEASE_TAG\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "manifest digest \`$MANIFEST_DIGEST\`" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fetch the published release as a consumer would and verify it
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --dir "$RUNNER_TEMP/downloaded"
+          npm run release:verify -- --dir "$RUNNER_TEMP/downloaded" --tag "$RELEASE_TAG" --manifest-digest "$MANIFEST_DIGEST"

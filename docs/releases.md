@@ -1,0 +1,113 @@
+# Evidence snapshot releases
+
+How to fetch, verify and pin a released `credential-evidence` snapshot. The policy behind it (identity, guarantees, contents, immutability, retention) is [ADR 0011](decisions/0011-snapshot-release-policy.md).
+
+> Maintained by the Redact Secret project. Project-maintained evidence is not presented as independent validation.
+
+## What a pinned snapshot guarantees
+
+A released, pinned snapshot gives a consumer:
+
+- canonical facts, Cases and provenance;
+- scanner-neutral expected outcomes;
+- stable semantic ids;
+- a snapshot identity and digest.
+
+It deliberately does not contain:
+
+- any Redact Secret support status;
+- product detector assignments as canonical evidence (detector names exist only as optional mapping metadata that a consumer overlay replaces);
+- any release or candidate policy.
+
+The snapshot is one evidence population. A consumer that measures it next to other evidence populations (for Redact Secret: its regression, policy/behavior, candidate-specific and protected corpora) keeps each separately identified, by this snapshot's identity and digest for this one. Populations are never silently merged into one denominator. See [README: One qualification input, not the qualification](../README.md#one-qualification-input-not-the-qualification) and [ARCHITECTURE: Consumer boundary](../ARCHITECTURE.md#consumer-boundary).
+
+A release also guarantees that every check in `.github/workflows/ci.yml` was green at its commit on `main` when it was cut, and that two builds of its assets were byte-identical.
+
+## Identity
+
+- **Tag**: `snapshot-YYYY.MM.DD`, the UTC date the release was cut; `snapshot-YYYY.MM.DD.2`, `.3`, ... for later releases the same day.
+- **Manifest digest**: the SHA-256 of the bytes of the release's `release-manifest.json`.
+
+A pin is **both**: the tag says what to fetch, the manifest digest proves it is what you pinned. Record the pair once, when you adopt a release (from the release notes or `release-manifest.json.sha256`, after checking the release yourself), and verify against your recorded digest on every later fetch. Do not re-read the digest from the release each time; that checks nothing.
+
+Releases are immutable: a tag is never moved or reused and assets are never replaced. A correction is a new release whose notes name the release it supersedes. Old releases stay available indefinitely.
+
+## Assets
+
+| Asset | Logical path (in the manifest) | Content |
+| --- | --- | --- |
+| `release-manifest.json` | (the manifest) | Tag, source commit, records-tree digest, schema revision, generator version, fixture digest and generation rule, and `files[]` with `path`, `asset`, `bytes`, `sha256` per file, plus `filesDigest`. |
+| `release-manifest.json.sha256` | (the manifest digest) | `<hex>  release-manifest.json` (`sha256sum` format). |
+| `credential-eval-corpus-snapshot.json` | `credential-eval/corpus-snapshot.json` | The `credential-eval/corpus-snapshot/v1` input, in canonical ids (ADR 0009). |
+| `records-bundle.json` | `records/bundle.json` | Every canonical record and schema file byte for byte (`records[]`, `schemas[]`, each with `path`, `sha256`, `bytes`, `text`); the legacy map and exporter vocabulary by digest only (`compatibilityInputs[]`). |
+| `fixtures-materialized-manifest.json` | `fixtures/materialized-manifest.json` | The fixture materialization manifest (ADR 0005). The fixture tree is regenerated with `npm ci && npm run fixtures:materialize` at `sourceRevision.commit`; its `manifest.json` equals this asset and its digest equals the manifest's `fixtures.digest`. |
+
+## Fetch and verify
+
+```bash
+TAG=snapshot-2026.10.01            # your pinned tag
+PIN=<64-hex manifest digest>       # your pinned manifest digest
+gh release download "$TAG" -R redact-secret/credential-evidence -D "evidence-$TAG"
+cd "evidence-$TAG"
+
+# 1. The manifest is the one you pinned.
+echo "$PIN  release-manifest.json" | sha256sum -c -        # macOS: shasum -a 256 -c -
+
+# 2. The manifest is for this tag, and every file matches its sha256.
+jq -e --arg tag "$TAG" '.tag == $tag' release-manifest.json
+jq -r '.files[] | "\(.sha256)  \(.asset)"' release-manifest.json | sha256sum -c -
+```
+
+Or, from a checkout of this repository (no network, checks the same things plus `filesDigest` and sizes):
+
+```bash
+npm run release:verify -- --dir "evidence-$TAG" --tag "$TAG" --manifest-digest "$PIN"
+```
+
+Without `--manifest-digest` the command checks internal consistency only and says the release is not pinned.
+
+To check that a records file is canonical at the release, compare it with the bundle: each `records[]` entry carries the exact `text` and its `sha256`. The records-tree digest in `sourceRevision.recordsTree` is the SHA-256 of the sorted `<path> <sha256>` lines of `records[]` and `compatibilityInputs[]`, joined by newlines.
+
+## Consuming it from credential-eval
+
+`credential-eval` verifies the release itself before an official run (its `docs/official-runs.md`). Pass the downloaded snapshot as the corpus and the pinned pair as release flags:
+
+```bash
+credential-eval run --run-class official \
+  --corpus "evidence-$TAG/credential-eval-corpus-snapshot.json" \
+  --evidence-release "$TAG" \
+  --evidence-manifest "evidence-$TAG/release-manifest.json" \
+  --evidence-manifest-digest "sha256:$PIN" \
+  --config run-config.json --out artifact.json
+```
+
+It refuses the run (exit 4, no artifact) unless the manifest hashes to `$PIN`, its `tag` is `$TAG`, and its single `credential-eval/corpus-snapshot.json` entry matches the `--corpus` bytes. The artifact then records `manifest.evidence.release {tag, manifest_digest}` next to the snapshot's `revision` (the records-tree digest), `evidence_schema` and `corpus_digest`: the snapshot identity and digest of this evidence population.
+
+## Cutting a release (maintainers)
+
+1. Locally, at the commit you intend to release: `npm run release:check -- --tag snapshot-YYYY.MM.DD`. It builds the bundle twice in memory, requires identical bytes, verifies it and prints the manifest summary. It writes nothing.
+2. Merge to `main`, and wait for CI to be green.
+3. Dispatch the workflow with today's UTC date (add `.2`, `.3`, ... if a release was already cut today):
+
+   ```bash
+   gh workflow run release.yml -R redact-secret/credential-evidence --ref main -f tag=snapshot-YYYY.MM.DD
+   ```
+
+   It refuses anything but `main`, a malformed tag, a tag not dated today, and an existing tag or release; reruns every CI check at that commit; builds and verifies the assets; creates the release as a draft with the assets, publishes it; and downloads and verifies it again. The run summary and the release notes give the manifest digest.
+4. Announce the tag and manifest digest to consumers. Never edit, re-tag or delete a release; correct by cutting a new one.
+
+Recommended repository settings (maintainers, not code): GitHub immutable releases on, and a tag ruleset blocking updates and deletion of `snapshot-*`.
+
+## Releases
+
+| Tag | Commit | Manifest digest | Notes |
+| --- | --- | --- | --- |
+| (none yet) | | | |
+
+## Withdrawn releases
+
+Only for material the safety policy forbids (ADR 0011, section 5). A withdrawn tag is never reused.
+
+| Tag | Manifest digest | Reason | Replacement |
+| --- | --- | --- | --- |
+| (none) | | | |
