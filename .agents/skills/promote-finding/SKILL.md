@@ -23,3 +23,6 @@ The result must say what is established, what is inferred, what remains
 unresolved, and why the evidence class changed. It must not assign product
 support status or claim independent validation.
 
+The pull request this produces is checked by [`review-research-pr`](../review-research-pr/SKILL.md),
+the reviewer-side counterpart; run `npm run review:check -- <base>..<head>` on it before
+requesting review. That check never counts as the independent review the promotion needs.

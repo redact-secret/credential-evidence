@@ -60,3 +60,7 @@ Hygiene and backlog skills: `coverage-gaps` (what to work on next, from
 place until the cutover; the scan and the tools say which records those are. Commit the output of
 `npm run coverage:gaps` with any change that adds, fixes or re-observes a record
 (`npm run coverage:gaps:check` runs in CI).
+
+A research or record PR is reviewed with `.agents/skills/review-research-pr/SKILL.md`
+(read-only; posts a checklist comment ending in `VERDICT: pass|fail|needs-human`, never
+approves or merges), which runs `npm run review:check -- <base>..<head>`.
