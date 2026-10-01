@@ -199,6 +199,9 @@ scripts/
   lib/validator.mjs
   lib/identity.mjs, lint-identity.mjs   # npm run lint:identity (ADR 0007); no baseline
   lib/narrative-lint.mjs, lint-narrative.mjs   # npm run lint:narrative (ADR 0010); no baseline
+  lib/placeholders.mjs   # TODO(record:new) placeholder lint, run by validate (#22)
+  record-new.mjs, lib/scaffold.mjs   # npm run record:new: valid draft skeletons (#22)
+  record-check.mjs, lib/record-check.mjs   # npm run record:check: fast check of changed records (#22)
   materialize-fixtures.mjs   # npm run fixtures:materialize: files + manifest for credential-eval
   migrate/            # import-taxonomy.mjs, import-cases.mjs, import-narratives.mjs (npm run migrate:taxonomy, migrate:cases, migrate:narratives); authored/ holds the hand-written narratives and reviewed source types; future schema migrations
   export/             # legacy-projection.mjs (npm run export:legacy): legacy-compatible projection + credential-eval snapshot; lib/legacy-map.mjs is the only place legacy names are joined (ADR 0009)
@@ -208,6 +211,7 @@ scripts/
 tests/                # npm test
 
 docs/
+  authoring.md        # record:new and record:check: adding records without hand-writing their shape (#22)
   migration/          # generated migration reports
   methodology/
   governance/
@@ -225,6 +229,8 @@ npm ci
 npm run validate   # schemas, examples/valid and records/: shape, IDs, cross-references
 npm run lint:identity   # no legacy coordinates in canonical ids and paths (ADR 0007); zero violations, no baseline
 npm run lint:narrative  # no benchmark, product, detector, support-status or issue-workflow vocabulary in narratives (ADR 0010); no baseline
+npm run record:new -- <provider|family|contract|source|scenario|case> <arg> ...   # valid draft skeleton with TODO(record:new) placeholders; refuses duplicate ids and ADR 0007 coordinates (docs/authoring.md)
+npm run record:check [-- <paths>]   # fast subset of validate for changed records: schema, references, identity, narrative lint, placeholders
 npm run migrate:check   # both migration regeneration checks (need the pinned legacy checkout)
 npm test           # positive and negative cases, imported records, round trips
 npm run migrate:taxonomy:check   # regenerate the taxonomy records from the pinned legacy revision and diff
