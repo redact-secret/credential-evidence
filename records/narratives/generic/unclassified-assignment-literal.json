@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "generic:unclassified-assignment-literal",
+  "family": "generic:unclassified-assignment-literal",
+  "lifecycle": "draft",
+  "contract": "generic:unclassified-assignment-literal@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "no-shape",
+        "text": "There is no shape. An arbitrary literal is assigned to a sensitive-looking name such as client_secret, and entropy only selects confidence. RFC 6749 allows any printable ASCII for such values, and no provider exists for an arbitrary literal.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "rfc-editor-org-274003a40e"
+          }
+        ]
+      },
+      {
+        "id": "masking-policy",
+        "text": "Masking the literal is project policy and not a format claim: the assignment context is the only evidence.",
+        "evidenceClass": "project-policy",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "legacy-contract-tier"
+          },
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-applicable",
+        "text": "Issuance is not applicable.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The family has no provider."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "provider-values-in-assignments",
+        "text": "Every provider family whose value sits in an assignment overlaps this one; a named provider family is the better attribution.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/generic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/generic.md",
+      "note": "families[id=generic:unclassified-assignment-literal] dossier body"
+    }
+  ]
+}

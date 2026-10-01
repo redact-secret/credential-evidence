@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "hashicorp-vault:service-token",
+  "family": "hashicorp-vault:service-token",
+  "lifecycle": "draft",
+  "contract": "hashicorp-vault:service-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A standard Vault service token. Vault's tokens concept page documents the prefixes hvs., hvb. and hvr. and a minimum of 24 random characters after the prefix, and states that the token structure is opaque. This kind begins hvs..",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developer-hashicorp-com-449e83b314"
+          }
+        ]
+      },
+      {
+        "id": "tool-length",
+        "text": "The two scanner rules examined use a length of 90 to 120 characters for Vault tokens. That is corroboration and not a provider statement, since Vault does not publish the full structure.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "body-opaque",
+        "text": "The body beyond the 24-character minimum is opaque in Vault's documentation, so its alphabet and upper length are not provider-established.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "legacy-prefixes",
+        "text": "Older Vault tokens used one-letter prefixes, which differ from the hvs. prefix.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-grammar",
+        "text": "What alphabet and length does the body of a service token have beyond the 24-character minimum?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Vault states the structure is opaque and no issued token was examined."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/hashicorp-vault.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-vault.md",
+      "note": "families[id=hashicorp-vault:service-token] dossier body"
+    }
+  ]
+}

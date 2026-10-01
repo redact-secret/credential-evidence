@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "vercel:access-token",
+  "family": "vercel:access-token",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "not-a-family",
+        "text": "This record does not describe a single credential. It stands for the five prefixed Vercel token classes taken together, and no body grammar is stated for the group.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-770ae7d1d8"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-8ba2d5b3b4"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The research verdict is that this record is not a credential family: it is a label that groups five prefixed classes, so there is no shape of its own to research, and its former profile combined five hypotheses that must not be read as evidence for any modern class."
+        }
+      },
+      {
+        "id": "prefixes",
+        "text": "Vercel's changelog of 2026-02-09 gave each credential type a prefix: vcp for personal access tokens, vci for integration tokens, vca for app access tokens, vcr for app refresh tokens and vck for API keys. Each class is its own record.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-770ae7d1d8"
+          }
+        ]
+      },
+      {
+        "id": "opaque-body",
+        "text": "The provider calls the token body an opaque format not meant to be human-readable and states no length or alphabet.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-8ba2d5b3b4"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Vercel states the body is opaque and gives no length or alphabet for any class."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "legacy-24",
+        "text": "Before the prefixes, tokens were 24 alphanumeric characters with no marker. A scanner rule for Vercel still matches only a 24-character alphanumeric value labelled as Vercel's, and other scanners do the same, so the legacy form is corroborated but only in context.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-714bc5d343",
+            "locator": "#L25"
+          }
+        ]
+      },
+      {
+        "id": "legacy-rest-example",
+        "text": "Vercel's REST reference for creating an auth token shows an unprefixed 24-character bearer token beside a prefix of vcp_. The example data carries 2021-era timestamps and the generated SDK documentation copies it unchanged, so it predates the 2026 formats and is taken as the legacy form.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-94803cac22"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "bare-24-ids",
+        "text": "A bare 24-character alphanumeric value collides with Vercel identifiers, so the legacy form is recognisable only with a Vercel label beside it.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "legacy-still-issued",
+        "text": "Does Vercel still issue unprefixed tokens?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No source says whether Vercel still issues unprefixed tokens."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:access-token] dossier body"
+    }
+  ]
+}

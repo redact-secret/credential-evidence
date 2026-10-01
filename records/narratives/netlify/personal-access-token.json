@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "netlify:personal-access-token",
+  "family": "netlify:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "netlify:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-size",
+        "text": "Netlify's announcement of 2023-11-07 states that every Netlify authentication token starts with nf followed by one identifying character, nfp for a personal access token, and tells customers to allow 40 characters of storage. The underscore after nfp and the body alphabet are not written on the page.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "delimiter-and-body",
+        "text": "Two scanner rules agree on nfp_ followed by 36 characters from letters, digits and underscore, 40 characters in all.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "api-guide-bearer",
+        "text": "Netlify's API guide documents only creating a token and sending it as a Bearer header.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No Netlify personal access token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued for this research."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sibling-classes",
+        "text": "The other four nf classes (nfc, nfo, nfu, nfb, for CLI, OAuth, app and build tokens) share the scheme and length but are different credentials.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "pre-2023-unprefixed",
+        "text": "Tokens issued before 2023 share one unprefixed shape across all five classes, so that form cannot be labelled as a personal token. Site, account and deploy ids and preview URLs are not credentials.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "delimiter-alphabet",
+        "text": "What are the delimiter and body alphabet of a personal access token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No Netlify text states the underscore or the body alphabet for nfp_."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/netlify.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/netlify.md",
+      "note": "families[id=netlify:personal-access-token] dossier body"
+    }
+  ]
+}

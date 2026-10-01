@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "firecrawl:api-key",
+  "family": "firecrawl:api-key",
+  "lifecycle": "draft",
+  "contract": "firecrawl:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An API key begins fc-. The documentation and the provider's SDK and MCP code document the prefix.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The body is exactly 32 lowercase hexadecimal characters, 35 in all: a dashless random UUID version 4, so the 13th hex character is 4 and the 17th is one of 8, 9, a or b. There is no separator after the prefix and no checksum. This comes from provider server code: the key normalizer strips the prefix and re-inserts dashes in the 8-4-4-4-12 layout, the key column defaults to a random UUID, and the auth controller rejects anything that fails a UUID check.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-uuid-v4-nibbles"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          }
+        ]
+      },
+      {
+        "id": "version-acceptance",
+        "text": "The server's validator would accept UUID versions 1 through 8, but issued keys are version 4.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-uuid-v4-nibbles"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "use",
+        "text": "A key is set in the FIRECRAWL_API_KEY variable, sent as a bearer token, and spends the team's credits.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source in this family's contract; the credit-spending role and the Bearer carrier are from the overview of the research note."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No Firecrawl key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued for the research; the grammar rests on provider code."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "legacy-keys",
+        "text": "Bare dashed UUID keys from before 2024-04-16 are still accepted by the server's key parser. They carry no prefix, so they cannot be attributed to Firecrawl by shape.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-keys"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "short-prefix",
+        "text": "The short fc- start also appears in CSS and calendar class names, which do not match the body.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source: fc- is a short prefix that also appears in CSS and calendar class names such as fc-daygrid-day, which fail the 32-hex body."
+        }
+      },
+      {
+        "id": "dashed-uuid",
+        "text": "A bare dashed UUID is not attributable to Firecrawl: the legacy key form is indistinguishable from any other identifier of that shape.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-keys"
+          }
+        ]
+      },
+      {
+        "id": "other-credentials",
+        "text": "The fco_ OAuth access token (opaque, introspected) and the fcmcp_ delegated MCP credential (HMAC, base64url, up to 2048 characters) are separate credentials.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-other-credentials"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No fixed grammar is documented for these two credentials."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "unprefixed-in-dashboard",
+        "text": "Does the dashboard still show any unprefixed key?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No key was issued for the research, so it is not known whether the dashboard still shows any unprefixed key."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/firecrawl.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firecrawl.md",
+      "note": "families[id=firecrawl:api-key] dossier body"
+    }
+  ]
+}

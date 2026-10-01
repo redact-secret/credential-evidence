@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "databricks:personal-access-token",
+  "family": "databricks:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "databricks:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "A personal access token is the prefix dapi followed by 32 lowercase hexadecimal characters. Three scanner rules agree on this shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "purview-length",
+        "text": "Microsoft's data-classification definition for Azure Databricks tokens gives only a length of 32 characters and admits uppercase A to F, and its own example contradicts its pattern.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "learn-microsoft-com-40ace6ff87"
+          }
+        ]
+      },
+      {
+        "id": "provider-silent",
+        "text": "Databricks documents the dapi prefix, the 32-character length and the lowercase hexadecimal alphabet.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "docs-databricks-com-d111f9705a"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The provider's token page uses placeholders only; no Databricks page states the prefix, the length or the alphabet."
+        }
+      },
+      {
+        "id": "uppercase-hex",
+        "text": "A real token may contain uppercase hexadecimal characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Sources disagree and no token was measured; only one issued token could settle whether uppercase A to F can occur."
+        }
+      },
+      {
+        "id": "rotation-suffix",
+        "text": "A rotated token may be followed by a hyphen and a digit.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Four scanner rules mention a hyphen and a digit after a rotation, but their meaning, digit count and even existence differ, and no provider source states it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "A token authenticates REST and command-line calls to a workspace through an Authorization header with the Bearer scheme, the DATABRICKS_TOKEN environment variable, or a token line in the .databrickscfg profile file.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-databricks-com-d111f9705a"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No personal access token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No token was issued for this research; measuring case and suffix needs one issued token."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "public-values",
+        "text": "Workspace hostnames (dbc- and adb- prefixes) and the token id returned beside a token value are public. OAuth client secrets are a separately documented credential and not this family.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "uppercase-hex-question",
+        "text": "Can a real token contain A to F in uppercase?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Needs one issued token measured for case only."
+        }
+      },
+      {
+        "id": "suffix-question",
+        "text": "What is the hyphen-and-digit suffix, if it exists?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "Digit count and semantics differ across tools, and no provider source describes the suffix."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/databricks.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/databricks.md",
+      "note": "families[id=databricks:personal-access-token] dossier body"
+    }
+  ],
+  "notes": "The optional rotation suffix (a hyphen and a digit) is left out of the shape: it rests on scanner rules that disagree about its meaning, digit count and existence."
+}

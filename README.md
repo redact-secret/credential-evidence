@@ -163,7 +163,7 @@ Migration work is tracked under:
 - #4 — first-class Case model and fixture lineage
 - #5 — evidence governance and external contribution policy
 - #6 — compatibility export and cutover parity
-- #16 — dossier prose as claim-backed family narratives (ADR 0010): 22 of 173 families so far, 88 of 93 dossiers deferred (`docs/migration/narrative-report.md`)
+- #16 — dossier prose as claim-backed family narratives (ADR 0010): all 93 dossiers and 173 families (`docs/migration/narrative-report.md`)
 - #12 — correction: no legacy coordinates in canonical identity; Scenario and fixture plans; reclassify the imported cases (stage A: rule, schema, lint, CI; stage B: the data; stage C: the legacy map as a first-class exporter input, canonical credential-eval snapshot, hardened parity, dual run)
 
 ## Expected repository shape

@@ -20,14 +20,16 @@ import { inventoryDossiers, renderNarrativeReport } from "./lib/narrative-report
 
 const REPORT = "docs/migration/narrative-report.md";
 const DEFERRED_REASON =
-  "No narrative has been written for these dossiers yet. Migration is by review, one family at a time, and the families the credential-evidence site uses as representative pages come first (the migrated and partial rows above). No dossier is dropped: each deferred dossier stays at its pinned legacy path, its families keep their one-sentence `description`, contract claims and review history, and each is listed below for the next migration pass. Deferral is not a verdict on the dossier's content.";
+  "No narrative has been written for a deferred dossier yet. Migration is by review, one family at a time. A deferred dossier stays at its pinned legacy path, its families keep their one-sentence `description`, contract claims and review history, and each is listed below for the next migration pass. Deferral is not a verdict on the dossier's content.";
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
+const oi = args.indexOf("--only");
+const only = oi >= 0 ? args[oi + 1].split(",") : null; // dry run of some providers: compile and verify, write nothing
 const li = args.indexOf("--legacy");
 const legacyArg = li >= 0 ? args[li + 1] : undefined;
 for (const a of args) {
-  if (!["--check", "--legacy"].includes(a) && a !== legacyArg) {
+  if (!["--check", "--legacy", "--only"].includes(a) && a !== legacyArg && a !== (oi >= 0 ? args[oi + 1] : undefined)) {
     console.error(`unknown argument: ${a}`);
     process.exit(2);
   }
@@ -67,7 +69,7 @@ if (!canonical.families.size || !canonical.sources.size) {
   console.error("taxonomy records are missing; run npm run migrate:taxonomy first (issue #3)");
   process.exit(2);
 }
-const authored = await loadAuthored(repoRoot);
+const authored = (await loadAuthored(repoRoot)).filter((a) => !only || only.includes(a.data.provider));
 let built;
 try {
   built = buildNarratives({ authored, canonical, legacyRevision: LEGACY_REVISION });
@@ -76,6 +78,16 @@ try {
   process.exit(1);
 }
 
+if (only) {
+  try {
+    const built = buildNarratives({ authored, canonical, legacyRevision: LEGACY_REVISION });
+    console.log(`OK (dry run): ${built.rows.length} narrative(s) for ${only.join(", ")} compile and every citation resolves`);
+  } catch (e) {
+    console.error(e.message);
+    process.exit(1);
+  }
+  process.exit(0);
+}
 const legacyDir = findLegacyDir(legacyArg);
 const { root, cleanup } = materializeLegacy(legacyDir, LEGACY_REVISION, [LEGACY_PATHS.dossierDir]);
 let inventory;

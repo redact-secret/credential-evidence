@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "sonarqube:user-token",
+  "family": "sonarqube:user-token",
+  "lifecycle": "draft",
+  "contract": "sonarqube:user-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "A user token is the prefix squ_ followed by exactly 40 lowercase hexadecimal characters, 44 characters in all, with no checksum. SonarQube's token generator builds it as sq, a type letter, an underscore, and 20 random bytes hex-encoded; the type letter u marks a user token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-sonarsource-sonarqube-684105939d",
+            "locator": "#L29-L46"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-sonarsource-sonarqube-d99e2b1105",
+            "locator": "#L24-L27"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "A token is typically supplied through the SONAR_TOKEN environment variable, the sonar.token scanner property (or the older sonar.login), a sonar.token entry in a project properties file, or a Gradle system property.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "How a token is created in the product, and what it looks like in the interface, is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was issued; the grammar comes from the server's token generator, which needs no issued key to read."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sha1-shaped-body",
+        "text": "A 40-hex body alone has the shape of a SHA-1 digest such as a git commit id, so the squ_ prefix is what identifies the token. Project badge tokens (sqb_) are read-only and published in README badge URLs by design.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-excluded-siblings"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "legacy-and-cloud",
+        "text": "Tokens issued before SonarQube 9.5 are unprefixed 40-hex values, and SonarQube Cloud issues a differently prefixed token (sqco_); how they relate to the user token is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source for the unprefixed form and for the SonarQube Cloud sqco_ form."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sonarqube.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sonarqube.md",
+      "note": "families[id=sonarqube:user-token] dossier body"
+    }
+  ]
+}

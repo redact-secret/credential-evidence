@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "heroku:legacy-api-key",
+  "family": "heroku:legacy-api-key",
+  "lifecycle": "draft",
+  "contract": "heroku:legacy-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "bare-uuid",
+        "text": "The legacy token is an unprefixed lowercase 8-4-4-4-12 hexadecimal UUID, 36 characters, granted before 2024-04-01 and valid until regenerated. Heroku states no grammar in prose; the shape is one changelog example.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-shape"
+          },
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-37e1a700c3"
+          }
+        ]
+      },
+      {
+        "id": "no-marker",
+        "text": "The legacy shape has no marker of its own. Scanner rules for it only match beside a same-line heroku keyword.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-context-gate"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "hex-case",
+        "text": "The hexadecimal digits may be uppercase in some tokens.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-hex-case"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Provider examples are lowercase, two scanner rules accept uppercase and another does not, and no source says whether Heroku ever issued uppercase."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "no-new-issue",
+        "text": "A legacy token cannot be newly issued; new tokens carry the HRKU- prefix, in a 41-character and later a 65-character generation.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-later-generations"
+          },
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-7f4e69f806"
+          },
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-f7ed532b53"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "uuid-ids",
+        "text": "The token is structurally identical to Heroku app, release, request and user ids and to the OAuth client secret and refresh token, so a same-line keyword is the only gate. An app id on a HEROKU_APP_ID line is the known false positive.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-uuid-shaped-siblings"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; the contract holds the UUID-shaped siblings as an unresolved claim."
+        }
+      },
+      {
+        "id": "forty-hex",
+        "text": "A 40-character hexadecimal token may be a further older shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-40-hex-shape"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "An undated 40-character lowercase hexadecimal token appears in Heroku's authentication article and may be a stale example."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "uppercase-ever",
+        "text": "Was uppercase hexadecimal ever issued in the bare-UUID generation?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No provider example or measurement shows uppercase hexadecimal in the bare-UUID generation."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/heroku.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/heroku.md",
+      "note": "families[id=heroku:legacy-api-key] dossier body"
+    }
+  ]
+}

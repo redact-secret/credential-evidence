@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "aws-bedrock:short-term-api-key",
+  "family": "aws-bedrock:short-term-api-key",
+  "lifecycle": "draft",
+  "contract": "aws-bedrock:short-term-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-head-alphabet",
+        "text": "A short-term key begins bedrock-api-key- and continues with the standard padded Base64 of a SigV4-presigned CallWithBearerToken URL that ends in &Version=1. The first 133 Base64 characters after the prefix are constant: they encode the fixed host, action, algorithm and credential parameter names. AWS's Python, JavaScript and Java token generators and its security blog agree; the blog's printed body class is malformed and the intended one is standard Base64. No URL-safe variant is documented.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-fixed-head"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-version-suffix"
+          }
+        ]
+      },
+      {
+        "id": "total-length",
+        "text": "A key is about 500 characters when presigned without a session token and over 1000 with one.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-total-length"
+          },
+          {
+            "kind": "source",
+            "sourceId": "wiz-io-15cbaedd9e"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No source documents a length; a vendor blog gives the larger figure and no bound is stated by AWS."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "client-side-and-lifetime",
+        "text": "AWS's token generators mint the key client-side as a presigned URL. It is valid for the shorter of 12 hours and the lifetime of the session that generated it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-lifetime"
+          }
+        ]
+      },
+      {
+        "id": "transport",
+        "text": "As with the long-term key, it is passed in AWS_BEARER_TOKEN_BEDROCK or as an Authorization: Bearer header.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "revocation",
+        "text": "A short-term key is not listed and cannot be revoked individually; access is stopped by denying the session that generated it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-72689d911e"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Bedrock short-term key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued for this research; a comparison of console output with SDK output was drawn up but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "shares-header-with-long-term",
+        "text": "It shares the Authorization header and the environment variable with the long-term key; the prefix tells the two apart.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "decoded-access-key-id",
+        "text": "The decoded URL exposes an ASIA access key id, but the encoded form wraps it in Base64.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "claude-platform-keys",
+        "text": "Keys for Claude Platform on AWS use a different prefix and belong to a separate product.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Reported by one security vendor only; no AWS source was read."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "console-versus-sdk",
+        "text": "Is a console-issued short-term key byte-identical to one minted by an SDK?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-console-output"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No console-issued key has been compared with SDK output."
+        }
+      },
+      {
+        "id": "version-drift",
+        "text": "Will the &Version=1 marker change, and would a changed marker alter the key shape?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "All three SDKs have used &Version=1 since 2025-06 and nothing documents a change; no source states whether it will move."
+        }
+      },
+      {
+        "id": "regions-and-partitions",
+        "text": "Do keys for GovCloud and China partitions use a different host or shape?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "The GovCloud and China hosts and their scope were not read."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws-bedrock.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws-bedrock.md",
+      "note": "families[id=aws-bedrock:short-term-api-key] dossier body"
+    }
+  ]
+}

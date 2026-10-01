@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "helicone:write-api-key",
+  "family": "helicone:write-api-key",
+  "lifecycle": "draft",
+  "contract": "helicone:write-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "grammar",
+        "text": "Helicone write-only keys use the role pk. Helicone's authentication header page names pk- as the write-only key. The key is pk-helicone, then an optional -eu segment, then an optional -rl segment in that order, then a hyphen and four groups of exactly 7 characters from lowercase letters and digits joined by hyphens. The length is 43 characters, 46 with one optional segment, and 49 with both. This comes from Helicone's own worker validation expressions and key generators, which were unchanged when re-checked on 2026-09-28; the -rl segment was added on 2025-04-29.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-role-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-provider-segment"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-optional-segments"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-groups"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-helicone-helicone-92ae12e8a4"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-helicone-helicone-f8ce889eaf"
+          }
+        ]
+      },
+      {
+        "id": "alphabet-wider-than-generator",
+        "text": "Issued keys may use only a base32 subset of the lowercase-and-digit alphabet.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet-narrowing"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The generator's library emits only the base32 alphabet (a to z and 2 to 7, with the last character of each group one of a, i, q or y), but the provider's validation accepts the wider lowercase-and-digit class; the narrower alphabet is a generator detail and no source says keys are limited to it."
+        }
+      },
+      {
+        "id": "credential-not-public",
+        "text": "Helicone documents a pk- key as an API key with write permission, and no provider source calls it public. The documentation allows placing it in a URL path, which is a transport convenience and does not make it public.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-pk-policy"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-helicone-ai-d38ccdd2b1"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No Helicone key of this kind was issued.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued or observed for this record; the checklist also asks whether -gov combinations are accepted."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "unattributable-shapes",
+        "text": "A legacy bare sk- key followed by four groups of 7 characters, which has no helicone segment and is 34 characters long, cannot be attributed to Helicone and overlaps the generic sk- space. Customer-portal keys with a -cp- marker also carry no provider segment, and -gov combinations carry no helicone token or are unresolved.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-unattributable-shapes"
+          }
+        ]
+      },
+      {
+        "id": "placeholder-shape",
+        "text": "A placeholder made of pk-helicone and four groups of 7 letter x has the exact key shape, so it cannot be told from a real key by form.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-exact-width-placeholder"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in research notes as an accepted false positive; no source says Helicone documents such a placeholder."
+        }
+      },
+      {
+        "id": "no-scanner-rule",
+        "text": "Neither of the two scanners examined has a rule for Helicone keys.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-peer-lag"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "gov-combinations",
+        "text": "Does Helicone's validation accept keys with a -gov segment?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The dashboard generator can produce -gov combinations but no validation expression matches them, and only an issuance check on one would show whether they are accepted."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/helicone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/helicone.md",
+      "note": "families[id=helicone:write-api-key] dossier body"
+    }
+  ]
+}

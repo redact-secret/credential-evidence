@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "notion:integration-token",
+  "family": "notion:integration-token",
+  "lifecycle": "draft",
+  "contract": "notion:integration-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Public API tokens generated from 2024-09-25 begin ntn_, and existing secret_ tokens keep working.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After ntn_ come 11 digits and then 35 letters and digits, 50 characters in all. The body comes from one contributor's samples in a scanner issue, carried into several scanners; a secret-linting tool agrees on lengths and a redaction library disagrees (no digit run). Notion advises against regular-expression validation of its tokens.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "docs-placeholder",
+        "text": "Notion's documentation shows a placeholder with 33 lowercase letters after ntn_, which does not fit the 11-digit-plus-35 body.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "digit-run-meaning",
+        "text": "The 11-digit run has an identifiable meaning.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-digit-run-semantics"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Not documented whether the 11-digit run is a timestamp, a per-workspace or per-bot id, or random."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "where-created",
+        "text": "Internal connection tokens come from the developer portal's Configuration tab and personal access tokens from the settings page.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no token was issued."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "shared-prefix",
+        "text": "The same ntn_ prefix is documented for personal access tokens, and Notion's tooling also uses it for CLI tokens and connection tokens, possibly OAuth access tokens as well. Whether these roles share one body grammar is not known.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "developers-notion-com-4f6ca53427"
+          }
+        ]
+      },
+      {
+        "id": "siblings",
+        "text": "nrt_ (OAuth refresh token, one documentation sample of 13 digits and 32 letters and digits) and development_ntn_ are siblings. Ids such as the bot id, workspace id and personal access token record id are UUIDs and public.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "shared-body",
+        "text": "Do personal access tokens, CLI tokens, OAuth access tokens and internal tokens share one body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Personal, CLI, OAuth access and internal tokens are not shown to share one body; issued samples of each would settle it."
+        }
+      },
+      {
+        "id": "digit-run-repeats",
+        "text": "Does the 11-digit run repeat across tokens of one user, workspace or connection?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No source states whether the 11-digit run repeats across tokens of one user, workspace or connection."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/notion.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+      "note": "families[id=notion:integration-token] dossier body"
+    }
+  ]
+}

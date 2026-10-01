@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "firebase:server-key",
+  "family": "firebase:server-key",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "head-and-delimiter",
+        "text": "A key is a literal AAAA plus 7 more characters (an 11-character head that base64url-decodes to the 64-bit Firebase project number), a literal colon, then a body of characters from letters, digits, underscore and hyphen. The AAAA start holds only while project numbers stay below 2^40. A real key in the Firebase JavaScript SDK's own messaging integration test measures 11 characters, the colon, and 140.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-firebase-firebase-js-sdk-f3ae5ff43d"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-projectdiscovery-nuclei-templates-cb00285b1a"
+          }
+        ]
+      },
+      {
+        "id": "body-length",
+        "text": "The body is 140 characters in about 88 percent of keys from 2017 onward (58 of 66 unique real keys measured). Late-2016 keys have bodies of 162, 167 or 183 characters. Google's own only length statement, in a 2017 post, is a 175-character total, which the 140-character body does not match.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "firebase-googleblog-com-4be4c51eac"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-firebase-firebase-js-sdk-f3ae5ff43d"
+          }
+        ]
+      },
+      {
+        "id": "body-start",
+        "text": "Every real key measured has APA91b right after the colon, the same start FCM registration tokens use; it is a regularity of observed keys and not a documented requirement.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-firebase-firebase-js-sdk-f3ae5ff43d"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-projectdiscovery-nuclei-templates-cb00285b1a"
+          }
+        ]
+      },
+      {
+        "id": "no-provider-grammar",
+        "text": "The shape is not stated by the issuer.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "firebase-googleblog-com-4be4c51eac"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No Google page states the head, the body width or the alphabet; the scanner regexes available to compare trace to one 2020 write-up, so they are not independent corroboration."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "Legacy HTTP and XMPP server keys were sent as Authorization: key=<key>. Google stopped creating the older AIza-style legacy server key in March 2020 and pointed users to the newer Server key, which is this family; keys of this shape were still issued afterwards.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "firebase-googleblog-com-4be4c51eac"
+          },
+          {
+            "kind": "source",
+            "sourceId": "firebase-google-com-75f018e0fa"
+          }
+        ]
+      },
+      {
+        "id": "legacy-api-closed",
+        "text": "The legacy FCM HTTP and XMPP API shut down between June and July 2024, so no new server key can be issued and a fresh key cannot be checked. Leaked historical keys are the remaining exposure.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-6367a006e9"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "shutdown",
+        "text": "The legacy FCM API that these keys authenticated was shut down in June 2024.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-6367a006e9"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "registration-token",
+        "text": "FCM registration tokens look similar to server keys and share the APA91b body start; the 2017 post describes a 153-character registration token as a string that looks a lot like a server key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "firebase-googleblog-com-4be4c51eac"
+          }
+        ]
+      },
+      {
+        "id": "aiza-form",
+        "text": "The older AIza Google API key form is a different credential family.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; the AIza form is Google API key territory."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "provider-width-statement",
+        "text": "Does any provider statement establish the 140-character body width or the head layout?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No issuer source states the 140-character width or why the head starts with AAAA; the AAAA start follows from project numbers below 2^40."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/firebase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/firebase.md",
+      "note": "families[id=firebase:server-key] dossier body"
+    }
+  ]
+}

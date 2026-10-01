@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-atlassian-access-token",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "atlassian:access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Narrative rewritten from the legacy dossier in scanner-neutral language, with citations to evidence sources and contract claims. Drafted with AI assistance (Claude) under the named author; not reviewed. Dossier content that is not carried is accounted for in docs/migration/narrative-report.md.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'public-code-measurement' (shape) is recorded as unresolved: A structure-only measurement of public code search results, recorded in a research note: 80 candidate values in 74 repositories, of which 73 were 192 characters, 79 carried the ATCTT3xFfGN0 header, 74 had the = at position 184 followed by 8 uppercase hex characters and 72 passed the CRC32 check. The values were not verified with Atlassian and some may be truncated or edited, so it is a lower-bound count that the cited source cannot reproduce."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'provider-states-prefix' (shape) is recorded as unresolved: The prefix rests on a forum answer by an account labelled Atlassian Team (2025-08-25) that names ATCT for workspace, project and repository access tokens; whether a forum answer counts as provider documentation is undecided. The asker's own observation of the header is not an Atlassian statement."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'not-issued' (issuance) is recorded as unresolved: No token was issued for this research; a Bitbucket repository access token is free to mint and revoke and would settle the anchor-length question."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'anchor-length' (openQuestions) is recorded as unresolved: Staff say ATCT, tools use 10 or 12 characters and every observed value shares 12; no issued token has settled it."
+    },
+    {
+      "seq": 6,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'routes-share-header' (openQuestions) is recorded as unresolved: A token minted through each route (repository, project, workspace, admin key, service account) would show whether all routes share one header; only the repository route is partly evidenced."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/atlassian.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+      "note": "families[id=atlassian:access-token] dossier body"
+    }
+  ]
+}

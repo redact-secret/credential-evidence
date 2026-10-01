@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "groq:api-key",
+  "family": "groq:api-key",
+  "lifecycle": "draft",
+  "contract": "groq:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A Groq (GroqCloud) API key begins gsk_. Groq's documentation shows the prefix and states no length or alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "console-groq-com-dad042bbcd"
+          }
+        ]
+      },
+      {
+        "id": "body-52",
+        "text": "After the prefix come 52 letters and digits, 56 characters in all. Four scanner rules agree on 52, and a four-sample maintainer observation of public environment files also found 52 mixed-case alphanumerics.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-length-and-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "internal-segment",
+        "text": "An internal segment may sit inside the body at a fixed offset.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-fixed-segment"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A four-key observation of public files found the segment WGdyb3FY at body offsets 20 to 27; it is undocumented, used by no tool, and not a grammar requirement."
+        }
+      },
+      {
+        "id": "forty-eight",
+        "text": "A 48-character body has been reported.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-alternate-length"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "A scanner proposal and blogs that copy it say 48 characters with no primary source, and every scanner rule plus the observation above contradict it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No Groq API key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued; that needs a GroqCloud account."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "xai-keys",
+        "text": "xAI keys begin xai-, and mixing up the Grok and Groq environment variable names is seen in the wild.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "public-response-ids",
+        "text": "Groq response identifiers with the prefixes chatcmpl-, req_, file_ and batch_ are public.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "gsk-elsewhere",
+        "text": "The string gsk_ also occurs in unrelated identifiers, so the prefix alone is weak evidence.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "base64-form",
+        "text": "A base64-encoded form of the key has been reported.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-encoded-form"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "GitHub's pattern table lists a base64-encoded Groq form, but whether an encoded key belongs to the family is undecided and no grammar was recorded."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "segment-everywhere",
+        "text": "Is the segment WGdyb3FY present in every key, across projects and dates?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "Only four keys were observed."
+        }
+      },
+      {
+        "id": "pre-projects",
+        "text": "Do keys issued before projects existed differ in shape?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 10,
+          "reason": "No source covers keys issued before projects existed."
+        }
+      },
+      {
+        "id": "checksum",
+        "text": "Does the key contain a checksum?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 11,
+          "reason": "None was observed or documented."
+        }
+      },
+      {
+        "id": "github-versions",
+        "text": "What are the token versions GitHub lists for this type?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 12,
+          "reason": "GitHub's pattern table hints at more than one version and the older shape is unknown."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/groq.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/groq.md",
+      "note": "families[id=groq:api-key] dossier body"
+    }
+  ]
+}

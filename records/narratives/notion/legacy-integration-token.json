@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "notion:legacy-integration-token",
+  "family": "notion:legacy-integration-token",
+  "lifecycle": "draft",
+  "contract": "notion:legacy-integration-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Notion's changelog for the September 2024 prefix change documents secret_ as the legacy Public API token prefix that keeps working, with ntn_ for newly generated tokens.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After secret_ come 43 letters and digits.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Only one scanner rule is cited for the body; Notion says the token is opaque, that its format may change and advises against regular-expression validation, which covers bodies and not the documented prefixes."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "no-new-legacy",
+        "text": "No new secret_ token is issued, and none was observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "New tokens are ntn_, so a fresh legacy sample cannot be minted; Notion's own MCP server code still says secret_ marks legacy tokens while its README uses ntn_, and neither source is cited by this family's contract."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "still-valid",
+        "text": "Existing secret_ tokens keep working after the move to ntn_.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "ntn-successor",
+        "text": "Tokens generated after September 2024 begin ntn_ and are a separate family.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-ntn-successor"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The successor is a separate family whose values are secrets; this contract holds the relationship as unresolved."
+        }
+      },
+      {
+        "id": "secret-word-and-ids",
+        "text": "secret_ also appears as an OAuth client secret shape (unverified) and as an ordinary word in many strings. Page and database ids (UUIDs or 32 hexadecimal characters) and share-URL ids are public.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "still-issued",
+        "text": "Is secret_ still issued anywhere?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source states whether secret_ is still issued anywhere in 2026."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/notion.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+      "note": "families[id=notion:legacy-integration-token] dossier body"
+    }
+  ]
+}

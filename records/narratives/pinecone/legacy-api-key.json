@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "pinecone:legacy-api-key",
+  "family": "pinecone:legacy-api-key",
+  "lifecycle": "draft",
+  "contract": "pinecone:legacy-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "uuid-shape",
+        "text": "A legacy key is a lowercase hexadecimal UUID in the 8-4-4-4-12 layout, used before the pcsk_ form and paired with an environment name. Only a third-party secret catalog and one scanner rule describe it, and no provider source states the shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-value-shape"
+          }
+        ]
+      },
+      {
+        "id": "provider-silent",
+        "text": "The provider documents the key as sent in the Api-Key header and read from PINECONE_API_KEY but states no key grammar; it documents project, index, database and service account identifiers as UUIDs.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "still-issued",
+        "text": "New legacy UUID keys can still be issued.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-issuance-status"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Nothing indicates the console still issues UUID keys, and whether they still authenticate is unknown."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "other-uuids",
+        "text": "A legacy key is lexically identical to the other UUIDs in Pinecone output, such as project, service account and organization identifiers. A UUID under an identifier-named field (PINECONE_PROJECT_ID, X-Project-Id, indexId) is not a key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      },
+      {
+        "id": "context-only-policy",
+        "text": "As a masking policy and not a provider format, a legacy UUID is treated as a key only when it is the value assigned to a Pinecone API-key name on the same line; a bare UUID is not claimed.",
+        "evidenceClass": "project-policy",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "legacy-contract-tier"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "legacy-still-authenticates",
+        "text": "Do legacy UUID keys still authenticate, and when did Pinecone stop issuing them?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No source says whether legacy UUID keys still authenticate or when Pinecone stopped issuing them."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pinecone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pinecone.md",
+      "note": "families[id=pinecone:legacy-api-key] dossier body"
+    }
+  ]
+}

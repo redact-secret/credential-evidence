@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "huggingface:api-token",
+  "family": "huggingface:api-token",
+  "lifecycle": "draft",
+  "contract": "huggingface:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Hugging Face user access tokens begin hf_. The SDK reference for the hub package types an access token as the template hf_ followed by any string; this is a type annotation and not prose.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "huggingface-co-eb99766f3e"
+          }
+        ]
+      },
+      {
+        "id": "length-34",
+        "text": "The token is hf_ followed by 34 characters. The Hub OpenAPI specification's credential-revocation example shows hf_ plus 34 placeholder characters, while its schema states only a minimum length of 1 and a maximum of 200, so the length rests on one example.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "huggingface-co-8ac8f489bd"
+          }
+        ]
+      },
+      {
+        "id": "alphabet-split",
+        "text": "Two scanner rules are consistent with a 34-character body but split on the alphabet: one is letters-only and the other admits digits. Every observed sample and every letters-only expression is narrower than letters and digits, and no source says digits never occur.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "provider-code-alphabet",
+        "text": "Hugging Face's own code validates the body as 34 letters and digits.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Hugging Face's own current code and a retired validator are recorded in a research note as using letters and digits for the 34 characters, but the code locations are not recorded as sources, and code is not documentation."
+        }
+      },
+      {
+        "id": "other-hf-tokens",
+        "text": "Other documented hf_ tokens exist, such as hf_oauth_ and hf_jwt_ tokens, so a later underscore in a body does not prove it is not a Hugging Face token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no grammar is recorded for them."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "User access tokens are created from account settings, and no token was issued for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No token was issued; the only source for the user token's creation is a research note stating that tokens are created in account settings."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "api-org-variant",
+        "text": "Legacy organization tokens begin api_org_.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The api_org_ variant has no current source: a 2021 archived page shows a placeholder, staff say organization tokens are deprecated, and the current SDK rejects organization tokens at login."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "api-org-current-source",
+        "text": "Does a current provider source for the api_org_ shape exist?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source for a current api_org_ shape has been found."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/huggingface.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/huggingface.md",
+      "note": "families[id=huggingface:api-token] dossier body"
+    }
+  ]
+}

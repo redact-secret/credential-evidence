@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "ai21:api-key",
+  "family": "ai21:api-key",
+  "lifecycle": "draft",
+  "contract": "ai21:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "thirty-two-alphanumerics",
+        "text": "A key is 32 mixed-case letters and digits with no prefix. A peer scanner rule and two independent implementations agree on exactly 32 characters from that alphabet; no provider text states the shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-shape"
+          }
+        ]
+      },
+      {
+        "id": "no-prefix-or-checksum",
+        "text": "The key carries no prefix and no checksum.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix-and-checksum"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Neither a prefix nor a checksum was observed or documented, and the provider says nothing either way."
+        }
+      },
+      {
+        "id": "no-validation-in-sdk",
+        "text": "The provider's Python SDK reads the key from the AI21_API_KEY environment variable and sends it as a Bearer token, with no prefix, length or alphabet validation.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-context"
+          }
+        ]
+      },
+      {
+        "id": "provider-committed-literals",
+        "text": "AI21 staff committed key literals to the provider's own example code and a 2023 demo app: six literals, each 32 mixed-case alphanumerics and none a UUID.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-ai21labs-ai21-python-11619380ba",
+            "locator": "#L6"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Whether a provider-committed literal of unknown validity counts as a provider example or as a leak is an undecided maintainer question; the literals' validity was not tested."
+        }
+      },
+      {
+        "id": "other-widths-reported",
+        "text": "A UUID, or 40 to 64 alphanumerics, have been read as AI21 keys by other tools.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-other-widths"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "A removed scanner rule read a UUID after an ai21 keyword and another tool reads 40 to 64 alphanumerics; no provider source settles either, though every literal found contradicts both."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "studio-create-key",
+        "text": "Keys are created in AI21 Studio under Settings, then API Keys, with Create new key. The documentation says the key is shown once, that only its last characters are visible afterwards, and that anyone holding it can call the API.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-ai21-com-11aa0fbc1a"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No AI21 key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No key was issued for this research; a checklist of length, character set, fixed segments, case mix, the masked suffix shown afterwards and a second workspace was drawn up but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "context-gated",
+        "text": "Because the key has no prefix, a bare 32-character alphanumeric run is not distinctive; the surrounding AI21 name, host or SDK constructor is what ties a value to this credential.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-context"
+          }
+        ]
+      },
+      {
+        "id": "look-alike-strings",
+        "text": "MD5 and other 32-character hashes, dash-less UUIDs, session ids and other vendors' 32-byte keys have the same shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "non-secret-settings",
+        "text": "The AI21_API_HOST, AI21_API_VERSION and AI21_AWS_REGION settings, and the masked suffix the console shows after creation, are not credentials.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-non-secrets"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "real-shape",
+        "text": "Is 32 mixed-case alphanumerics correct for every key, and did Studio-era keys before the Jamba rebuild differ?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No issued key and no provider statement of the shape exist; keys from before the Jamba rebuild of Studio may differ."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/ai21.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/ai21.md",
+      "note": "families[id=ai21:api-key] dossier body"
+    }
+  ]
+}

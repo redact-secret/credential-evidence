@@ -105,7 +105,11 @@ describe("imported records (no legacy checkout needed)", () => {
       assert.deepEqual(dates, [...dates].sort(), `${s.id}: observations ordered`);
       for (const o of s.observations) assert.equal(o.observer, "legacy-import");
       const moving = (s.externalRefs ?? []).find((x) => x.system === "legacy-url");
-      if (moving) {
+      if (moving && s.locator.pin.kind === "archive-snapshot") {
+        // a web archive capture: the locator is the original URL, the pin is the capture, the exact URL is preserved
+        assert.equal(s.locator.pin.archiveUrl, moving.id);
+        assert.match(moving.id, /^https:\/\/web\.archive\.org\/web\/\d{14}\//);
+      } else if (moving) {
         // a moving ref cannot be a GitHub file locator: the repository is, the exact URL is preserved
         assert.equal(s.locator.pin.kind, "live-unpinned");
         assert.match(moving.id, /^https:\/\/(github\.com\/[^/]+\/[^/]+\/(blob|tree|raw)\/|raw\.githubusercontent\.com\/)/);

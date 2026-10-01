@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "grafana:cloud-access-policy-token",
+  "family": "grafana:cloud-access-policy-token",
+  "lifecycle": "draft",
+  "contract": "grafana:cloud-access-policy-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Grafana Cloud's agent-observability guide says tokens start with glc_, and the private data source connect learning path says the value must begin with glc_. The learning path's wording says the token name, which its context shows to mean the value.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "grafana-com-3a64d31c68"
+          },
+          {
+            "kind": "source",
+            "sourceId": "grafana-com-97bd73cfd0"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After the prefix comes a base64-alphabet body (letters, digits, plus and slash) of at least 32 characters. It is the base64 of a JSON object, so in practice it starts eyJ, and padding equals signs are not part of the matched grammar.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Only scanner rules supply the alphabet, the 32-character floor and the eyJ observation, and the contract holds that corroboration as an unresolved claim; Grafana states no body."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "upper-bound",
+        "text": "Is there an upper bound on the length of the body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "One scanner rule caps the body at 400 characters and another uses a narrower range beginning eyJ; no provider text settles the bound."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/grafana.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/grafana.md",
+      "note": "families[id=grafana:cloud-access-policy-token] dossier body"
+    }
+  ]
+}

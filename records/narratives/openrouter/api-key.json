@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "openrouter:api-key",
+  "family": "openrouter:api-key",
+  "lifecycle": "draft",
+  "contract": "openrouter:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "An inference API key is the prefix sk-or-v1- followed by 64 lowercase hexadecimal characters, 73 characters in total. OpenRouter's own secret-formats page for its guardrail states this shape, and the create-key reference example matches it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ]
+      },
+      {
+        "id": "scanner-agreement",
+        "text": "A scanner rule for OpenRouter keys matches the same prefix and 64-hexadecimal body.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ]
+      },
+      {
+        "id": "uppercase-hex",
+        "text": "An inference key body may contain uppercase hexadecimal characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-case"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No source states whether uppercase hexadecimal is accepted; one scanner rule matches case-insensitively and a few use looser classes than hexadecimal."
+        }
+      },
+      {
+        "id": "oauth-pkce-keys",
+        "text": "Keys obtained through the OAuth PKCE flow have the same shape as dashboard-issued keys.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "created-in-settings",
+        "text": "Inference keys are created in the account settings (free accounts can create one), are shown once at creation, and no earlier or later prefix version has been found.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no key was issued."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "key-hash",
+        "text": "The key hash returned by the API (used in /api/v1/keys/{hash}) is 64 lowercase hexadecimal characters with no prefix, the same body shape without sk-or-v1-. A bare 64-hexadecimal string is therefore not a key, and how the hash relates to the key is undocumented.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-key-hash"
+          }
+        ]
+      },
+      {
+        "id": "masked-label",
+        "text": "The label returned by the API is a masked form: sk-or-v1- plus a short head and tail of the key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "sk-or-mgmt-sibling",
+        "text": "Management keys start sk-or-mgmt-, sharing the sk-or- stem; they are a separate family.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-management-key"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "The management key prefix is stated only on Terraform-related pages, and no provider page documents its body."
+        }
+      },
+      {
+        "id": "other-sk-families",
+        "text": "OpenAI keys (sk-) and Anthropic keys (sk-ant-) are different families that also begin sk-.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "uppercase-accepted",
+        "text": "Does OpenRouter accept uppercase hexadecimal in an inference key?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "Issuing a key and testing an uppercase variant would settle it; none was issued."
+        }
+      },
+      {
+        "id": "hash-derivation",
+        "text": "Is the key hash derived from the key, for example as a SHA-256?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "The provider does not document how the hash is derived."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/openrouter.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openrouter.md",
+      "note": "families[id=openrouter:api-key] dossier body"
+    }
+  ]
+}

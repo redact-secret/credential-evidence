@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "slack:bot-token",
+  "family": "slack:bot-token",
+  "lifecycle": "draft",
+  "contract": "slack:bot-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-sections",
+        "text": "A bot token begins xoxb- and is divided into dash-separated sections, with the secret as the last section. Slack's tokens page lists the prefix and the structure and gives no section widths or alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-8af6cd6628"
+          }
+        ]
+      },
+      {
+        "id": "widths",
+        "text": "Scanner rules read two numeric sections of 10 to 13 digits each, followed by an alphanumeric secret. These widths are agreement among tools, not a Slack statement.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-attempted",
+        "text": "How a bot token is issued and what widths a real one has is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No bot token was issued for the research, so no real token was measured."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "secret-width",
+        "text": "What are the real widths of the numeric sections and of the secret?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No source states the secret width or alphabet and no issued token was inspected."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:bot-token] dossier body"
+    }
+  ]
+}

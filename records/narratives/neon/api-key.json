@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "neon:api-key",
+  "family": "neon:api-key",
+  "lifecycle": "draft",
+  "contract": "neon:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Neon's changelog of 2025-01-31 says newly created API keys are prefixed with napi_ so that secret scanning can rely on an identifiable marker, and that existing unprefixed keys stay valid. It states no body length or alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After napi_ come at least 64 letters and digits, read to the end of the run. One scanner rule matches exactly 64 and a masking library uses 64 as a floor. Two other widely used scanners have no Neon rule, and GitHub secret scanning lists a Neon key type without publishing its expression, which corroborates the prefix only.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "sixty-four-bit-wording",
+        "text": "Neon's API-keys page describes a key as a randomly generated 64-bit token, which fits no string length, and its only written example is not a shape, so the page is not used for the body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "neon-com-8be6eee7a8"
+          }
+        ]
+      },
+      {
+        "id": "legacy-unprefixed",
+        "text": "Keys issued before the prefix was introduced have no marker.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-keys"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The changelog says earlier keys stay valid and carry no marker, but no source describes what they look like."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "console-or-api",
+        "text": "Keys are created in the Neon Console or through the API.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no key was issued."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "benign-ids",
+        "text": "Project, branch and endpoint ids, pooled hostnames with a database name, and placeholders are benign. A Neon connection URI password is a different credential and never carries a napi_ key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "real-body-length",
+        "text": "What is the real body length of an issued key, and is it fixed?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "One issued key would settle whether the body is fixed or variable in length."
+        }
+      },
+      {
+        "id": "legacy-in-use",
+        "text": "Do unprefixed legacy keys still exist in use?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source states whether unprefixed keys remain in use or what they look like."
+        }
+      },
+      {
+        "id": "scoped-grammars",
+        "text": "Do personal, organization and project-scoped keys share one grammar?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No source states whether personal, organization and project-scoped keys share one grammar."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/neon.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/neon.md",
+      "note": "families[id=neon:api-key] dossier body"
+    }
+  ]
+}

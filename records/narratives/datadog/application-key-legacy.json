@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "datadog:application-key-legacy",
+  "family": "datadog:application-key-legacy",
+  "lifecycle": "draft",
+  "contract": "datadog:application-key-legacy@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "forty-hex",
+        "text": "A legacy application key is 40 lowercase hexadecimal characters with no prefix. Datadog's v1 API specification gives the application-key hash a length of 40; this is the only provider-domain statement and it states the length only.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-datadoghq-com-f074e5c689"
+          }
+        ]
+      },
+      {
+        "id": "provider-code",
+        "text": "Datadog-owned code (the Agent's key check, a CloudFormation template and an ARM script) accepts either 40 lowercase hexadecimal characters or the ddapp_ form, and the CloudFormation changelog names the first the legacy 40-character hex format. Two scanner rules match the same shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-datadog-datadog-agent-74e64e3986"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-datadog-cloudformation-template-09e57c27ad"
+          }
+        ]
+      },
+      {
+        "id": "uppercase",
+        "text": "A legacy key may contain uppercase hexadecimal characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The Agent's log scrubber alone also accepts uppercase, while other Datadog validators do not; no provider source settles it."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "legacy-status",
+        "text": "Datadog describes application keys as legacy features after the third quarter of 2026.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; release notes that might date it were login-gated and not read."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sha1-shape",
+        "text": "SHA-1 digests and Git commit ids have the same shape, so a bare 40-character hexadecimal value cannot be attributed to Datadog; it is claimed only beside an application-key or Datadog marker on the same line.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "uppercase-question",
+        "text": "Does uppercase hexadecimal ever appear in a legacy key?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Datadog's own validators disagree and no issued key was measured."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/datadog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+      "note": "families[id=datadog:application-key-legacy] dossier body"
+    }
+  ]
+}

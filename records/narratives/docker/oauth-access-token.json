@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "docker:oauth-access-token",
+  "family": "docker:oauth-access-token",
+  "lifecycle": "draft",
+  "contract": "docker:oauth-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An organization access token begins dckr_oat_. Docker's AI Governance API reference lists the format in its credential table; Docker and GitHub secret scanning both call this credential an Organization Access Token, while the project's family label reads OAuth access token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-docker-com-b09f952ef1"
+          }
+        ]
+      },
+      {
+        "id": "hub-example",
+        "text": "Docker's Hub API example shows a body of 27 alphanumeric characters, and every Docker-authored artefact that shows a width shows 27.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-docker-com-270a27919d"
+          }
+        ]
+      },
+      {
+        "id": "body-32",
+        "text": "The body is 32 characters, as one scanner rule states.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No Docker statement settles 27 against 32; the scanner rule that gives 32 is the origin of the other scanners that state it, so they are not independent, and the scanner claim is itself unresolved."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "plan-requirement",
+        "text": "Issuing an organization access token needs an organization owner on a Team or Business plan.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No organization access token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No token was issued for this research; a fresh token is the only thing that can settle 27 against 32."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "pat-width",
+        "text": "A body of the width of one token kind under the prefix of the other is a boundary case between the personal and organization families.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-grammar",
+        "text": "What are the body width and alphabet of a freshly issued organization access token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Needs one freshly issued organization access token."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/docker.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/docker.md",
+      "note": "families[id=docker:oauth-access-token] dossier body"
+    }
+  ]
+}

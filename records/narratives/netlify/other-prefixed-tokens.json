@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "netlify:other-prefixed-tokens",
+  "family": "netlify:other-prefixed-tokens",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-classes",
+        "text": "The 2023-11-07 announcement names all five classes, says every new token starts with nf plus one identifying character, and tells customers with fixed-size fields to allow 40 characters. This family covers nfc_ (Netlify CLI), nfo_ (OAuth access token), nfu_ (the web app) and nfb_ (build), each assumed to be 40 characters in all. The announcement does not write the underscore, the body length or the alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "answers-netlify-com-cdc209f44b"
+          }
+        ]
+      },
+      {
+        "id": "underscore-personal-only",
+        "text": "Netlify's own MCP server tests use an nfp_ placeholder, which shows the underscore for the personal class only.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-netlify-netlify-mcp-36fa346c26"
+          }
+        ]
+      },
+      {
+        "id": "scanner-coverage",
+        "text": "A scanner's second-version Netlify rule (behind a netlify keyword) encodes nfp_ only. Independent tools that do key on the other class letters (with body widths from 20 to 36 up to 40 or more) all derive the letters from the announcement and disagree on the body, so they corroborate the prefix set and nothing about the body.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-57b847f514"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-bzzimmy-kestrel-5327fc0813"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-koki-develop-mask-go-36ff47865b"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-puck-security-geiger-86f497c4b6"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-testpatterndev-patterns-a056851410"
+          }
+        ]
+      },
+      {
+        "id": "body-alphabet-observed",
+        "text": "The body is 36 letters and digits after the prefix.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The observed body alphabet rests on a structure-only measurement of public code that is not a cited source; no real nfo_, nfu_ or nfb_ value was observed, so the underscore and the 36-character alphanumeric body for those three rest on analogy with nfp_ and nfc_."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "mint-cost",
+        "text": "A CLI login token and an OAuth token are cheap to mint and revoke; app and build tokens are minted by the platform for sessions and builds.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no token was issued."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "distinct-credentials",
+        "text": "Each class is a distinct credential, so none is a benign sibling or a positive for the personal access token family.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "answers-netlify-com-cdc209f44b"
+          }
+        ]
+      },
+      {
+        "id": "nfc-snake-case",
+        "text": "nfc_ also opens ordinary snake_case names, which the 36-character body rather than the prefix separates. Pre-2023 unprefixed tokens are a separate variant, and site, account and deploy ids are not credentials.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "other-body-shapes",
+        "text": "Are the nfo_, nfu_ and nfb_ bodies the same 36 alphanumeric characters as nfp_ and nfc_?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "One issued token per class would settle whether the nfo_, nfu_ and nfb_ bodies match the 36 alphanumeric characters of nfp_ and nfc_."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/netlify.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/netlify.md",
+      "note": "families[id=netlify:other-prefixed-tokens] dossier body"
+    }
+  ]
+}

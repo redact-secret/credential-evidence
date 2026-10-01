@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "dynatrace:api-token",
+  "family": "dynatrace:api-token",
+  "lifecycle": "draft",
+  "contract": "dynatrace:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "layout",
+        "text": "A token has three parts separated by dots: a prefix, a 24-character public portion and a 64-character secret portion, 96 characters in all. The prefix is dt0, then c or s, then two digits. Both portions use uppercase base32 characters (A to Z and 2 to 7).",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-layout"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dynatrace-com-d3cbf4f5ff"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-dynatrace-dynatrace-operator-2781fabe4e",
+            "locator": "#L14-L58"
+          }
+        ]
+      },
+      {
+        "id": "prefix-table",
+        "text": "The documentation's prefix table lists dt0s01 through dt0s16; dt0c01 is the classic access-token prefix shown in the documentation's request examples.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "alphabet-source",
+        "text": "Dynatrace's own operator code generates each portion as standard base32 encoding truncated to the portion length, which is where the alphabet comes from; the documentation example agrees.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-dynatrace-dynatrace-operator-2781fabe4e",
+            "locator": "#L14-L58"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "scope",
+        "text": "Access tokens and platform tokens authenticate the environment and account APIs. Depending on their scopes they read monitoring data (which can include payloads and logs), change configuration, ingest data or manage the account.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-dynatrace-com-d3cbf4f5ff"
+          }
+        ]
+      },
+      {
+        "id": "transport",
+        "text": "The documented carriers are the Authorization header with the Api-Token scheme, the DT_API_TOKEN variable, a DynaKube secret field named apiToken, and an OpenTelemetry exporter header in which the space after the scheme is URL-encoded.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Dynatrace token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was issued for the research; the grammar rests on provider documentation and provider code."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "token-identifier",
+        "text": "The token identifier, meaning the prefix plus the public portion, is documented as safe to display in the interface and to log. It is not the secret, although inside a full token it is part of the same string.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-token-identifier"
+          }
+        ]
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/dynatrace.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/dynatrace.md",
+      "note": "families[id=dynatrace:api-token] dossier body"
+    }
+  ]
+}

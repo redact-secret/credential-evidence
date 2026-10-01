@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "mistral:api-key",
+  "family": "mistral:api-key",
+  "lifecycle": "draft",
+  "contract": "mistral:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "no-prefix-32-alnum",
+        "text": "A Studio API key has no prefix and is 32 letters and digits, recognised by scanner rules only beside Mistral context on the same line (a mistral or codestral name, the api.mistral.ai host or a Mistral constructor argument). The rules come from one repeated assertion rather than three measurements of real keys, and both upper- and lowercase letters occur in their positives.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-shape"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-context"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-case"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "provider-example",
+        "text": "Provider prose states no shape and the SDK types the key as a plain optional string without validation, but Mistral's own public API schema for the key-management object shows one full-length example key of exactly 32 letters and digits.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mistralai-platform-docs-public-b603239b8d"
+          }
+        ]
+      },
+      {
+        "id": "client-validator",
+        "text": "An editor extension's provider integration validates a Mistral key as exactly 32 letters and digits, which agrees with the provider example. Two further client projects are reported to do the same.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitkraken-vscode-gitlens-fdeba291bf"
+          }
+        ]
+      },
+      {
+        "id": "second-prefixed-key",
+        "text": "A second, prefixed Studio key generation exists.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A third-party scanner catalogue lists a second, prefixed Mistral key with an undisclosed prefix; no Mistral source mentions one."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The key is supplied as the MISTRAL_API_KEY environment variable, as the api_key argument of the client, and as an Authorization Bearer header.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "console-creation",
+        "text": "The key-management page of Mistral's administration documentation covers creating keys in the console.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-mistral-ai-521bb6e577"
+          }
+        ]
+      },
+      {
+        "id": "console-details",
+        "text": "The console's Create new key action takes a name and an expiry, may take a few minutes before the key is usable, and offers a connector scope option. Codestral keys use a separate console tab and their shape is undocumented.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note from the console without a cited source in this family's contract; no key was issued."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "hex-near-mistral",
+        "text": "Any 32-character hash, request id or other vendor's 32-character key near the word mistral looks the same. Model ids such as mistral-large-latest are benign.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "realtime-token",
+        "text": "The realtime client token is minted with this key and has a different shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-sibling-shapes"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The shape of the realtime client token is recorded as a separate family; this contract holds no claim for the sibling."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "always-32",
+        "text": "Is the Studio key always 32 letters and digits, and did earlier keys differ?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "One issued key would settle whether every key is 32 letters and digits and whether keys created before workspaces differ."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mistral.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+      "note": "families[id=mistral:api-key] dossier body"
+    }
+  ]
+}

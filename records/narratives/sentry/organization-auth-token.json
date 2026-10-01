@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "sentry:organization-auth-token",
+  "family": "sentry:organization-auth-token",
+  "lifecycle": "draft",
+  "contract": "sentry:organization-auth-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "structure",
+        "text": "An organization auth token is the prefix sntrys_, a base64-encoded JSON object of facts about the token (which makes the payload start eyJ), a second underscore, and a secret. A valid token has exactly two underscores. Sentry's design RFC states the prefix and the facts-then-secret structure.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-structure"
+          },
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-getsentry-rfcs-31baf1011e"
+          }
+        ]
+      },
+      {
+        "id": "payload-alphabet",
+        "text": "The payload uses standard base64, with plus and slash, and keeps any equals-sign padding; it is never base64url. Sentry's generator is the authority here, and scanner rules that assume a base64url alphabet or a fixed total length are contradicted by it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-payload-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "secret",
+        "text": "The secret is 32 random bytes in standard base64 with the padding stripped, exactly 43 characters with no hyphen, underscore or equals sign. The RFC calls the secret recipe an implementation detail; the generator and the command-line tool confirm it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-secret"
+          }
+        ]
+      },
+      {
+        "id": "payload-keys",
+        "text": "The payload keys are iat, url, region_url and org in that order, and url may be null or empty on self-hosted installs.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-payload-keys"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The key order and the null-or-empty url on self-hosted installs rest on a project research note, not on a Sentry source."
+        }
+      },
+      {
+        "id": "measured-lengths",
+        "text": "Measured payloads run 96 to 152 characters and whole tokens 147 to 203 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note as seven measured tokens without a cited source."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "ci-upload-purpose",
+        "text": "The token was designed for CI uploads such as source maps; the design RFC is titled for CI upload tokens.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-structure"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-getsentry-rfcs-31baf1011e"
+          }
+        ]
+      },
+      {
+        "id": "not-attempted",
+        "text": "How a user creates this token is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Issuance was not attempted and no freshly issued token was checked."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "no-web-page-states-format",
+        "text": "Does any Sentry documentation page state this token's format?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "An absence claim recorded in a research note: no page on Sentry's documentation, product, developer or command-line sites was found stating the format. The search is not itself an evidence record."
+        }
+      },
+      {
+        "id": "no-issued-token",
+        "text": "Does a freshly issued organization auth token match the shape recorded here?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No organization auth token was issued or compared for the research; the shape rests on Sentry's published code."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sentry.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sentry.md",
+      "note": "families[id=sentry:organization-auth-token] dossier body"
+    }
+  ]
+}

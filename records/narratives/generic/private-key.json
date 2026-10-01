@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "generic:private-key",
+  "family": "generic:private-key",
+  "lifecycle": "draft",
+  "contract": "generic:private-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "pem-envelope",
+        "text": "A PEM-encoded private key uses the textual encoding of RFC 7468: a line beginning -----BEGIN followed by a label, base64 body lines, and a matching -----END line with the same label. The BEGIN and END lines belong to the secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "rfc-editor-org-41f2b096bc"
+          }
+        ]
+      },
+      {
+        "id": "json-escaped-form",
+        "text": "Service-account key files in JSON embed the PEM as a string with literal backslash-n escapes in place of line breaks.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "local-generation",
+        "text": "No provider is involved: a private key is generated locally with any standard tool.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No source is cited; this is a statement about how synthetic examples are made."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "label-decides",
+        "text": "PEM certificates and public keys share the envelope and are not secrets; the label decides.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "rfc-editor-org-41f2b096bc"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "grammar-depth",
+        "text": "Which labels, line endings and termination forms count as the same family?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note; the depth of the label, termination and line-ending grammar is not decided by a cited source."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/generic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/generic.md",
+      "note": "families[id=generic:private-key] dossier body"
+    }
+  ]
+}

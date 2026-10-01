@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "mailgun:public-validation-key",
+  "family": "mailgun:public-validation-key",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Mailgun never states the shape. The prefix pubkey- comes from the log filter of Mailgun's own Python SDK, which scrubs Mailgun private and public key patterns with the expression (key-|pubkey-) followed by word characters and hyphens.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mailgun-mailgun-python-12e2110f6b"
+          }
+        ]
+      },
+      {
+        "id": "scanner-shape",
+        "text": "A scanner rule gives pubkey- followed by 32 lowercase hexadecimal characters behind a mailgun keyword, and about thirty tools copy it or its ancestors. Other scanners have no pubkey- rule. A measurement of public code found 17 candidates of that form, 16 of them hexadecimal-only.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "what-it-is",
+        "text": "It is the account's Verifications Public Key (also called the Public Validation Key), shown on the dashboard's API Security page beside the HTTP webhook signing key and the private keys. It authenticated the public email-validation endpoint.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "help-mailgun-com-fd5ec66416"
+          }
+        ]
+      },
+      {
+        "id": "regenerate-endpoint",
+        "text": "A regenerate call named public key under the keys API still exists and returns the account public key, with no shape stated.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "dropped-from-docs",
+        "text": "Current Mailgun documentation no longer shows the public validation key: the validation overview and the authentication page use the private key only, and the version 4 validation endpoint has no public variant.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "documented-public",
+        "text": "Mailgun's help center says the public validation endpoint is meant to be used within front-end applications, that its key has an initial monthly limit to protect it, and that the private endpoint is for back-end code. The provider therefore presents the key as one for front-end use, in the same exclusion as other keys documented as safe to expose.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "help-mailgun-com-fd5ec66416"
+          }
+        ]
+      },
+      {
+        "id": "demo-in-browser",
+        "text": "Mailgun's own validator demo (a jQuery plugin, last changed in 2019) puts the key in browser JavaScript with the comment to replace it with the account's public API key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mailgun-validator-demo-1122b14ad4"
+          }
+        ]
+      },
+      {
+        "id": "heroku-two-key",
+        "text": "A 2018 reproduction of Mailgun's validation guide tells readers to use the public key in publicly accessible code.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-32e61a4d2e"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "A third-party page reproducing Mailgun's guide is not provider documentation; it is a lead only."
+        }
+      },
+      {
+        "id": "counter-evidence",
+        "text": "Mailgun's Python SDK and Ruby test suite still treat the value as sensitive to log, the help center says exhausting the public verification limit can disable the account, and a third-party security check rates a match high and calls the key deprecated.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "docs-gitlab-com-b8ed442b44"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-mailgun-mailgun-ruby-1cb8be0367"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "These points are conservative log hygiene in two SDKs and a third-party rating; none says the key grants account access, and the record does not settle whether a redactor should mask it."
+        }
+      },
+      {
+        "id": "help-keys-page",
+        "text": "The help center's page on finding API keys and SMTP credentials also lists the account keys.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "help-mailgun-com-1fcd5f6cb8"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Not read in the research pass in a way the record states beyond the page's title."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailgun.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+      "note": "families[id=mailgun:public-validation-key] dossier body"
+    }
+  ]
+}

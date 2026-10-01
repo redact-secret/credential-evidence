@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "gitlab:runner-authentication-token",
+  "family": "gitlab:runner-authentication-token",
+  "lifecycle": "draft",
+  "contract": "gitlab:runner-authentication-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Runner authentication tokens begin glrt-, or glrtr- when created through a registration token. GitLab's token overview and its runner creation workflow page document both prefixes.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-gitlab-com-9382f6bad2"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-gitlab-com-d2cbff5d5d"
+          }
+        ]
+      },
+      {
+        "id": "legacy-body",
+        "text": "The legacy body is 20 characters of a URL-safe alphabet from GitLab's friendly-token routine: letters, digits, underscore and hyphen, with l, I, O and 0 replaced. This comes from GitLab server code, not documentation.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-body"
+          }
+        ]
+      },
+      {
+        "id": "partition-segment",
+        "text": "An optional t, a hexadecimal partition number and an underscore (runner types 1 to 3) may sit between the prefix and the 20-character body. GitLab's runner model strips it as a legacy form, and a forum post from March 2025 shows one.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-partition-segment"
+          }
+        ]
+      },
+      {
+        "id": "routable-body",
+        "text": "From GitLab 18.0 the body is routable: a base64url payload of 27 to 300 characters, a dot, a 2-character base36 version, a dot, a 2-character base36 payload length, and a 7-character base36 CRC32 of everything before it. The payload is 16 random bytes, sorted key:value routing lines and a trailing length byte.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-routable-grammar"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-routable-checksum"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-routable-version"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "creation",
+        "text": "A runner authentication token is returned when a runner is created, through the runner creation workflow in the web interface or the user runners API endpoint.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-gitlab-com-d2cbff5d5d"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No runner authentication token, and no glrtr- token, was issued or observed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was issued or observed for this record, and a registration-token creation was not attempted."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "routable-since-18",
+        "text": "Routable runner tokens appear from GitLab 18.0; earlier tokens use the 20-character body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-routable-version"
+          }
+        ]
+      },
+      {
+        "id": "registration-tokens",
+        "text": "Registration tokens, the fixed prefix GR1348941 followed by 20 characters, are a separate and deprecated class that registers runners rather than authenticating as one, and registration tokens before 2022 were unprefixed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a source in this family's contract."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "other-gl-prefixes",
+        "text": "Other gl prefixes in GitLab's token overview, such as glpat-, gldt- and glcbt-, are real GitLab secrets and not clean negatives for this family.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-gitlab-com-9382f6bad2"
+          }
+        ]
+      },
+      {
+        "id": "glrtr-superstring",
+        "text": "The glrtr- prefix starts with the letters glrt but not with glrt-, so a rule written for glrt- does not match it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "public-ids",
+        "text": "Runner ids and system ids made of s_ plus 12 hexadecimal characters are public identifiers and not secrets.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a source in this family's contract."
+        }
+      },
+      {
+        "id": "instance-prefixed",
+        "text": "Instance-prefixed tokens, written as an instance prefix, a hyphen and then glrt-, exist behind a feature flag.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-glrtr-instance-prefix-unversioned-routable-form"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The shape of instance-prefixed tokens is unverified without a self-managed observation; a research note says they sit behind a feature flag and are documented as not production ready."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "partition-before-routable",
+        "text": "Does a t, hexadecimal and underscore segment ever precede a routable payload?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No observed token combines the partition segment with a routable payload."
+        }
+      },
+      {
+        "id": "glrtr-routable",
+        "text": "Is glrtr- routable?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-glrtr-instance-prefix-unversioned-routable-form"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "A token created through a registration token is needed; the shape is presumed to be the routable form with the glrtr- prefix and is not verified."
+        }
+      },
+      {
+        "id": "unversioned-routable-runner",
+        "text": "Was the unversioned single-dot routable form ever issued for runners?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-glrtr-instance-prefix-unversioned-routable-form"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "No self-managed observation exists."
+        }
+      },
+      {
+        "id": "partition-window",
+        "text": "In which versions was the partition-prefixed shape minted?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "Only one forum sighting dated March 2025 is known; no source gives the window."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:runner-authentication-token] dossier body"
+    }
+  ]
+}

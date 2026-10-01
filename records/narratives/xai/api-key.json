@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "xai:api-key",
+  "family": "xai:api-key",
+  "lifecycle": "draft",
+  "contract": "xai:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A Grok API key begins with xai-, shown in the provider's quickstart and in its management API reference.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-x-ai-11243dc8b9"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-x-ai-c34a6dcd60"
+          }
+        ]
+      },
+      {
+        "id": "body-80",
+        "text": "The key's body after the prefix is 80 characters. The provider's API-key response schema shows one example with an 80-character alphanumeric body and its prose never states the length, so this is documented by example. A third-party error message that masks a key (LiteLLM) also shows an 80-character body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-x-ai-c34a6dcd60"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-berriai-litellm-b23fc78a80"
+          }
+        ]
+      },
+      {
+        "id": "body-alphabet",
+        "text": "Every positive example body uses letters and digits only. Scanner rules disagree about whether underscore and hyphen may appear: one admits an underscore, another admits both, and others accept letters and digits only.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "alphabet-open",
+        "text": "It is not established whether the body can contain an underscore or a hyphen.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "docs-x-ai-c34a6dcd60"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The documentation never states the alphabet in prose, and no real key containing an underscore or hyphen was seen."
+        }
+      },
+      {
+        "id": "right-boundary",
+        "text": "It is not established how a key followed by further word characters should be read.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-right-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Scanner rules differ on a value with an 81st word character: one rejects it, one truncates to 80 and one anchors exactly; no provider source settles it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "console",
+        "text": "A key is created from the API Keys page of the xAI console, belongs to a team, and its full value is returned once at creation. The official Python SDK reads XAI_API_KEY and validates nothing.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "docs-x-ai-11243dc8b9"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for this research; the console flow and the show-once behaviour are recorded in a research note without a cited page."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "management-key",
+        "text": "A management key (XAI_MANAGEMENT_KEY) for the Management API is a separate credential. One scanner reports an xai-token- prefix followed by 80 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-management-key"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-x-ai-a23d347f1d"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Provider documentation gives no format for a management key; only a scanner source reports an xai-token- prefix."
+        }
+      },
+      {
+        "id": "public-neighbours",
+        "text": "Public values next to keys include the apiKeyId and teamId UUIDs, access-control strings such as api-key:endpoint:chat, the xai-org and xai-sdk names, and the redacted form of xai- followed by an ellipsis and four characters. A Groq gsk_ value stored under XAI_API_KEY is not an xAI key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "beta-era-shape",
+        "text": "Did keys issued in 2024 use another shape?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No source was found for the shape of keys issued in 2024 before the current format."
+        }
+      },
+      {
+        "id": "project-sub-prefixes",
+        "text": "Are there project-scoped sub-prefixes of xai-?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "A search summary claimed project-scoped sub-prefixes, but no fetched page supports it."
+        }
+      },
+      {
+        "id": "management-prefix-real",
+        "text": "Is the xai-token- management prefix real?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "Only one scanner source reports the xai-token- prefix."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/xai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/xai.md",
+      "note": "families[id=xai:api-key] dossier body"
+    }
+  ]
+}

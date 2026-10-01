@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "mistral:realtime-client-token",
+  "family": "mistral:realtime-client-token",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-opaque-body",
+        "text": "The realtime client token begins rt_ and its body is opaque. It is minted by the client sessions endpoint, returned as the client secret value, and sent by the browser in the Sec-WebSocket-Protocol header as the word realtime, a comma and the token, which the page describes as the only supported transport. The token is scoped to a single model and reusable until it expires. The Python SDK types the value as a plain string.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-mistral-ai-0126ee7066"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-mistralai-client-python-0f82c7749e"
+          }
+        ]
+      },
+      {
+        "id": "body-grammar",
+        "text": "The token body has a known length and alphabet.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No source states the length, alphabet or checksum; they are unknown until a token is minted."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "requires-studio-key",
+        "text": "Minting needs a Studio key holding the create_client_session permission.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no token was minted."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "lifetime",
+        "text": "The token lifetime is about 900 seconds.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "docs-mistral-ai-0126ee7066"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The page states about 900 seconds while its own example and search snippets suggest 60 seconds, and the SDK exposes a ttl_seconds setting, so the lifetime is configurable and the documentation drifts."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "rt-identifier-prefix",
+        "text": "The prefix rt_ is a common identifier prefix (for example rt_config and rt_timeout), so a rule on the prefix alone would match unrelated names. The token is not the Studio key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "bearer-acceptance",
+        "text": "Does the realtime endpoint accept the token as an Authorization Bearer value?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source states whether the realtime endpoint accepts the token as a Bearer value."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mistral.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+      "note": "families[id=mistral:realtime-client-token] dossier body"
+    }
+  ],
+  "notes": "Prefix and carriers are covered; body grammar, lifetime and issuance checks are unresolved because no token was minted."
+}

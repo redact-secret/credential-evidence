@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "mailchimp:marketing-api-key",
+  "family": "mailchimp:marketing-api-key",
+  "lifecycle": "draft",
+  "contract": "mailchimp:marketing-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "layout",
+        "text": "A key is a run of hexadecimal characters, a literal -us and a one- or two-digit data center number. Scanner rules agree on a 32-character hexadecimal body; they differ on how many digits follow -us, on whether uppercase hexadecimal is accepted and on whether a nearby keyword is required.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "provider-example",
+        "text": "The provider states the shape only through examples. Its fundamentals page shows a key with a 31-character hexadecimal body followed by -us6, and says the data center subdomain of the API host is the us-number suffix of the key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      },
+      {
+        "id": "wordpress-example",
+        "text": "Mailchimp's own WordPress plugin shows a key with 32 hexadecimal characters and -us19.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "length-by-count",
+        "text": "Every scanner rule, a 2009 staff post and 111 of 115 public code candidates use 32 characters; 2 of the 115 candidates contained uppercase A to F.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "non-us-and-letters",
+        "text": "Data center literals other than us, and body letters g to z, occur in issued keys.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No source shows a key whose data center literal is not us or whose body has letters beyond f."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "account-page",
+        "text": "Keys are created on the account's API key page, and afterwards the interface shows only the first four characters of a key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no key was issued."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "dc-label-public",
+        "text": "The data center label (us followed by a number) names the API host the account uses and is not secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      },
+      {
+        "id": "md5-like-body",
+        "text": "A 32-character hexadecimal run on its own matches any MD5-style digest, so the data center suffix or a nearby Mailchimp keyword is what makes a match meaningful. The four-character preview shown in the interface is public.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "advice-against-regex",
+        "text": "A 2009 staff post advises against validating keys by regular expression because the format may change.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-length-today",
+        "text": "Is the body 31 or 32 characters today?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "The provider's example has 31 body characters; one issued key would settle whether the body is 31 or 32 characters today."
+        }
+      },
+      {
+        "id": "uppercase-hex",
+        "text": "Can a real key contain uppercase hexadecimal?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "Scanners disagree and no source states whether a real key can contain A to F."
+        }
+      },
+      {
+        "id": "non-us-literals",
+        "text": "Are data center literals other than us ever issued?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 10,
+          "reason": "No source shows one."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailchimp.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailchimp.md",
+      "note": "families[id=mailchimp:marketing-api-key] dossier body"
+    }
+  ]
+}

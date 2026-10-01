@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "wandb:api-key",
+  "family": "wandb:api-key",
+  "lifecycle": "draft",
+  "contract": "wandb:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A current Weights & Biases API key begins with wandb_v1_. The prefix appears as a constant in a test file of W&B's own Weave tooling.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-wandb-weave-claude-code-4d8d66053e",
+            "locator": "#L13"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "The body uses letters, digits and underscore. W&B's SDK validator accepts word characters and a dash, the dash being needed only for the host prefix of a self-managed key, and its error message says a key may contain only letters, digits and underscores.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-wandb-wandb-361e874cba",
+            "locator": "#L26-L63"
+          }
+        ]
+      },
+      {
+        "id": "total-length",
+        "text": "The documentation says W&B now issues longer API keys of about 86 characters, and every provider test value of a new key is exactly 86 characters in total (a 77-character body after the prefix). The SDK validator tests use lengths of 39, 40 and 86.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-total-length"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-wandb-ai-8a5e4c6e11"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-wandb-wandb-39f3efd61a"
+          }
+        ]
+      },
+      {
+        "id": "host-prefix",
+        "text": "A key issued by a self-managed deployment is written as the host label, a dash, then the key. The host label is public and is outside the key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-host-prefix"
+          }
+        ]
+      },
+      {
+        "id": "inner-split",
+        "text": "It is not established whether the body always contains an underscore after its first 27 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-inner-split"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Scanner rules split the body after 27 characters with an underscore (the key id), but the reviewed provider sources do not require a separator, and both split and unsplit bodies appear in samples."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "A key is supplied through the WANDB_API_KEY environment variable or the netrc file entry for api.wandb.ai, and is sent as HTTP Basic authentication with the user name api. It reads and writes every project the user or service account can reach.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-wandb-ai-db1d8021d0"
+          }
+        ]
+      },
+      {
+        "id": "no-issuance",
+        "text": "It is not confirmed that a key issued today is exactly 86 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued for this research, so the documented word about is not confirmed against a freshly issued key."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "legacy-40-hex",
+        "text": "The legacy key is 40 lowercase hexadecimal characters, optionally preceded by a host label, with no prefix. That makes it indistinguishable from a SHA-1 digest or a git commit id, and it is not part of this family.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-key"
+          }
+        ]
+      },
+      {
+        "id": "client-jwts",
+        "text": "Internal client JSON Web Tokens are a different credential and are handled as JWTs.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "length-variance",
+        "text": "Is a key issued today always 86 characters, or does the length vary?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The documentation says about 86 and every provider test uses exactly 86; one issuance check would settle whether the length can vary."
+        }
+      },
+      {
+        "id": "later-versions",
+        "text": "Does a wandb_v2_ or later key version exist?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-other-versions"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source documents a wandb_v2_ or any later version."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/wandb.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/wandb.md",
+      "note": "families[id=wandb:api-key] dossier body"
+    }
+  ]
+}

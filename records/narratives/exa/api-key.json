@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "exa:api-key",
+  "family": "exa:api-key",
+  "lifecycle": "draft",
+  "contract": "exa:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "secret-shape-not-established",
+        "text": "The grammar of the API key secret is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-secret-shape"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No provider page, staff statement, SDK code or scanner rule states a prefix, length or alphabet for the secret."
+        }
+      },
+      {
+        "id": "identifier-fields",
+        "text": "The Team Management API documents the key id, the team id and the user id as UUIDs, and a key's response lists its id, name, rate limit and budget with no field for the secret value. The documentation does not say whether the secret equals the id.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-identifier-fields"
+          },
+          {
+            "kind": "source",
+            "sourceId": "exa-ai-0a5369460f"
+          }
+        ]
+      },
+      {
+        "id": "uuid-measurement",
+        "text": "The secret may be a lowercase UUID.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "One weak code-search measurement found a UUID-shaped value in 1 of 10 assignments and none in 15 in a second pass; that is not a distribution and no source states it."
+        }
+      },
+      {
+        "id": "exa-prefix",
+        "text": "An exa- prefix on the key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-exa-prefix"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The claim came from an untraceable search summary and is contradicted by the provider pages."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "carriers",
+        "text": "Keys are created in the web dashboard and sent as the x-api-key header or as a bearer token. The usual carriers are the EXA_API_KEY variable, the api_key constructor argument, and a query parameter on the hosted MCP server URL.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-context"
+          }
+        ]
+      },
+      {
+        "id": "service-keys",
+        "text": "Service keys are a second credential class.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-service-keys"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "A Team Management API issues service keys; no source states their shape or whether it differs from an ordinary key."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No Exa key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No key was issued for the research, so total length, UUID layout and whether the secret differs from the key id were not checked."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "uuid-identifiers",
+        "text": "Every UUID in Exa responses and logs (key id, team id, user id, request ids) would share the possible secret shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-identifier-fields"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Follows from the possible UUID shape, which is itself not established."
+        }
+      },
+      {
+        "id": "placeholders",
+        "text": "The placeholders your-api-key and YOUR-EXA-API-KEY are not credentials.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "secret-grammar",
+        "text": "Is the secret a lowercase UUID, and does it differ from the key id?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "One issued key would show whether the secret is a lowercase UUID."
+        }
+      },
+      {
+        "id": "format-drift",
+        "text": "Has the key format changed over time?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 10,
+          "reason": "No changelog entry on key format was found."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/exa.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/exa.md",
+      "note": "families[id=exa:api-key] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "together:api-key",
+  "family": "together:api-key",
+  "lifecycle": "draft",
+  "contract": "together:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-width",
+        "text": "A current project API key is the lowercase prefix tgp_v1_ followed by 43 characters drawn from letters, digits, underscore and hyphen, 50 characters in all. The width rests on three independent scanner rules (betterleaks, Kingfisher, CredSweeper) and on four full-length samples seen in public code search.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-e36d273cda"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-e04a4ecf43",
+            "locator": "#L8"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-samsung-credsweeper-da6c4ccf00",
+            "locator": "#L1814-L1827"
+          }
+        ]
+      },
+      {
+        "id": "provider-cli-redactor",
+        "text": "Together's own command-line client redacts keys with an expression that confirms the tgp_ prefix and a body of letters, digits, underscore and hyphen, with no length stated.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-togethercomputer-together-py-3d8215d25b",
+            "locator": "#L205"
+          }
+        ]
+      },
+      {
+        "id": "no-provider-format-page",
+        "text": "Together's documentation does not state the key's prefix, length or alphabet, so the exact 43-character body is not provider-confirmed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "docs-together-ai-f99499ef03"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No provider page or staff statement was found that states the prefix, length or alphabet; the documentation establishes only issuance, the environment variable and the legacy population."
+        }
+      },
+      {
+        "id": "checksum",
+        "text": "It is not established whether the body carries a checksum.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No checksum or fixed inner segment is documented or observed in any reviewed source."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "project-keys-page",
+        "text": "Keys are created from a project's API keys page, shown once, optionally given an expiration date, and sent as a bearer token. Current keys are project-scoped, and the documentation names TOGETHER_API_KEY as the conventional environment variable.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-together-ai-f99499ef03"
+          }
+        ]
+      },
+      {
+        "id": "sample-issuance",
+        "text": "Whether keys issued with different project or expiry settings share the same prefix, width and alphabet has not been checked against an issued key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for this research; the planned checks (prefix, total length of 50, alphabet, project and expiry variants) were not performed."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "legacy-keys",
+        "text": "The documentation states that a population of deprecated legacy keys exists. They cannot be scoped or revoked, only regenerated.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-together-ai-f99499ef03"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "benign-lookalikes",
+        "text": "The string tgp appears only in unrelated project names. The TOGETHER_BASE_URL variable, model names and 64-character hex digests are benign. A scanner rule for a bare 64-hex Together key is a sibling shape and does not corroborate this format.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "legacy-format",
+        "text": "What does a deprecated legacy key look like, and how many accounts still hold one?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-keys"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "The legacy key format is undocumented; a commonly repeated 64-hex belief was searched for and found in no source except one scanner rule, so it is not recorded as a grammar."
+        }
+      },
+      {
+        "id": "version-drift",
+        "text": "Does the v1 segment imply later versions?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-other-versions"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "A tgp_v2_ prefix appears only as a scanner negative case; no source says a second version exists."
+        }
+      },
+      {
+        "id": "length-stability",
+        "text": "Is the 43-character body fixed?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "Bodies of 26 and 31 characters seen in code search are unexplained and were not used to widen the grammar."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/together.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/together.md",
+      "note": "families[id=together:api-key] dossier body"
+    }
+  ]
+}

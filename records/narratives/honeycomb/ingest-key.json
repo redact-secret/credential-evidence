@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "honeycomb:ingest-key",
+  "family": "honeycomb:ingest-key",
+  "lifecycle": "draft",
+  "contract": "honeycomb:ingest-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An ingest key starts with hc, one lowercase letter, then ik_ for an environment key or ic_ for a classic key. Honeycomb's authentication page says the letter varies and is assigned at key creation, and two of its SDKs carry the classic expression.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-honeycomb-io-542c231450"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-honeycombio-libhoney-py-f4015fc65a",
+            "locator": "#L11-L18"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-honeycombio-libhoney-go-d832019f17",
+            "locator": "#L74-L178"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After the prefix come exactly 58 lowercase letters and digits, 64 characters in all. The key is the key id and the secret concatenated with no separator. The length comes from the documentation placeholder and from a 64-byte gate in the Go SDK.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-honeycomb-io-542c231450"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-honeycombio-libhoney-go-d832019f17",
+            "locator": "#L74-L178"
+          }
+        ]
+      },
+      {
+        "id": "transport",
+        "text": "An ingest key is passed in the HONEYCOMB_API_KEY variable, the X-Honeycomb-Team header, the OpenTelemetry exporter headers variable or collector headers map, and the SDK initialisation call.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No Honeycomb key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No key was issued; the grammar rests on provider documentation and SDK code."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "non-secret-ids",
+        "text": "The first 26 characters of the body are the key id, a non-secret identifier. Configuration-key and environment ids, with prefixes hc?lk_ and hc?en_, are also non-secret, and a 26-character run alone is not an ingest key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-key-id"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-honeycomb-io-542c231450"
+          }
+        ]
+      },
+      {
+        "id": "management-key",
+        "text": "A management key is hc, a letter, mk_, 26 characters, a colon and 32 characters, and manages environments and API keys for the team.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-management-key"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The prefix and segment lengths of a management key are documented but the alphabet of both segments was not found, and an issued key would settle it."
+        }
+      },
+      {
+        "id": "classic-config-keys",
+        "text": "Configuration keys (22 unprefixed alphanumerics) and classic keys (32 hexadecimal characters) have no distinctive shape. One scanner rule is keyword-gated on Honeycomb and matches only those two shapes, so it misses every ingest key.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-peer-lag"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "management-alphabets",
+        "text": "What are the alphabet classes of the two segments of a management key?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-management-key"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "One issued and revoked key, structure only, would settle the alphabet classes of the 26- and 32-character segments; the documentation placeholder is digits only."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/honeycomb.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/honeycomb.md",
+      "note": "families[id=honeycomb:ingest-key] dossier body"
+    }
+  ]
+}

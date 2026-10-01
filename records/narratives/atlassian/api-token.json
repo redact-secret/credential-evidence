@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "atlassian:api-token",
+  "family": "atlassian:api-token",
+  "lifecycle": "draft",
+  "contract": "atlassian:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "header-observed",
+        "text": "Current account API tokens begin ATAT and share a fixed 12-character header, ATATT3xFfGF0. A scanner's validator treats the same layout as carrying a checksum suffix.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-datadog-dd-sensitive-data-scanner-0609e2b514"
+          }
+        ]
+      },
+      {
+        "id": "provider-states-prefix",
+        "text": "Atlassian states that account API tokens begin ATAT.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "community-atlassian-com-3582e12b20"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The prefix rests on one answer by an account labelled Atlassian Team on a community forum (2025-08-25); whether a forum answer counts as provider documentation is an undecided maintainer ruling, and no Atlassian documentation page, API specification or changelog states the prefix."
+        }
+      },
+      {
+        "id": "total-length-and-suffix",
+        "text": "A current token is 192 characters: the 12-character header, a 171-character body from letters, digits, underscore and hyphen, one literal =, then 8 uppercase hexadecimal characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-minimum-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-fixed-header"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-total-length-and-suffix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-redact-secret-redact-secret-f34ccdcd76"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The 192-character layout was confirmed on one freshly issued key and in a customer report of five keys, both recorded in a research note, which is below the number of observations required to assert it."
+        }
+      },
+      {
+        "id": "crc32-suffix",
+        "text": "Two scanner implementations treat the final 8 hexadecimal characters as an uppercase CRC32 of everything before them, the = included. The check was not confirmed on a key issued for this research.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum"
+          }
+        ]
+      },
+      {
+        "id": "length-called-varied",
+        "text": "Atlassian's support page on managing API tokens states no lexical shape and calls the token length varied.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "support-atlassian-com-7cba7e2659"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The statement comes from Atlassian's own support page, but that source is recorded with a scanner-rule role and cannot back a provider-documented statement until its type is reviewed."
+        }
+      },
+      {
+        "id": "tokens-opaque-2022",
+        "text": "In 2022 an Atlassian staff member said that tokens are opaque and clients cannot depend on their format.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "community-developer-atlassian-com-84216ce1c6"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "A staff post on a developer forum is a discussion, not provider documentation, and it predates the 2023 format change."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "account-tokens",
+        "text": "Account API tokens are used with the account email through Basic authentication for Jira, Confluence and Bitbucket.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "support-atlassian-com-7cba7e2659"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in the research overview without a cited source; the support page on managing API tokens is the provider's documentation but it was not read for this statement."
+        }
+      },
+      {
+        "id": "not-issued-for-checksum",
+        "text": "A checksum check against a freshly issued key has not been performed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "One key was issued by a maintainer for the header check; a further freshly issued key would settle whether the CRC32 holds, and none has been issued."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "older-tokens-expired",
+        "text": "Tokens created before the prefixed format were unprefixed, and the support page states that all older tokens expired by 2026-05-12.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "support-atlassian-com-7cba7e2659"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "The statement comes from Atlassian's own support page, but that source is recorded with a scanner-rule role and cannot back a provider-documented statement until its type is reviewed."
+        }
+      },
+      {
+        "id": "unprefixed-24-characters",
+        "text": "Tokens created before 2023-01-18 were unprefixed and 24 characters long.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sibling-prefixes",
+        "text": "ATBB (Bitbucket app passwords, which stopped working on 2026-06-09) and ATCT (Bitbucket access tokens) share the layout of this token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "community-atlassian-com-3582e12b20"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 10,
+          "reason": "The forum answer is not provider documentation, and the date app passwords stopped working has no cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "provider-prefix-statement",
+        "text": "Does any provider-authored source state the ATAT prefix, length, alphabet and suffix of an account API token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 11,
+          "reason": "Whether a forum answer by an Atlassian-labelled account counts as provider documentation is undecided; length, alphabet, the = delimiter and the CRC32 suffix are empirical only."
+        }
+      },
+      {
+        "id": "crc32-on-real-keys",
+        "text": "Is the trailing 8-character hexadecimal suffix a CRC32 on real keys?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 12,
+          "reason": "One freshly issued key would answer it; none has been issued."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/atlassian.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+      "note": "families[id=atlassian:api-token] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "mailgun:private-api-key",
+  "family": "mailgun:private-api-key",
+  "lifecycle": "draft",
+  "contract": "mailgun:private-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "key-prefix-32",
+        "text": "The shape recorded is the literal key- followed by 32 characters from lowercase letters and digits. One scanner rule matches it without a keyword, another requires a mailgun keyword and hexadecimal characters only, and a third agrees. Mailgun's own PHP SDK test uses a signing key with letters beyond f, so the body is not hexadecimal-only.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "provider-example-signing-key",
+        "text": "The one provider example of the key- shape is for the HTTP webhook signing key, shown in the account management reference, so this family covers the private API key and the signing key under one shape.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "documentation-mailgun-com-ab003ac25a"
+          }
+        ]
+      },
+      {
+        "id": "case",
+        "text": "The body is lowercase only.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No source states whether the body is case-sensitive or whether uppercase occurs."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No Mailgun private key was issued or observed for this record, and the account help articles on keys were not read.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Help-center articles returned an access-denied status in the research pass and were not read; no key was issued."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "pubkey-and-key-id",
+        "text": "The public validation key (beginning pubkey-) and the 8-8 hexadecimal key id shown for key objects in the documentation are different values. A 32-8-8 hexadecimal triplet may be the current private key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "fresh-key-shape",
+        "text": "Which shape does a freshly issued private API key have: key- plus 32 characters or the 32-8-8 triplet? Which does a fresh signing key have?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Three third-party sources say the current private key is a prefix-less 32-8-8 triplet, so key- may be the older shape; an issued key would settle which shape a fresh private key and a fresh signing key have."
+        }
+      },
+      {
+        "id": "body-case",
+        "text": "Is the key- body case-sensitive?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source settles it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailgun.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+      "note": "families[id=mailgun:private-api-key] dossier body"
+    }
+  ]
+}

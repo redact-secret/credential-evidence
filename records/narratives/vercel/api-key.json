@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "vercel:api-key",
+  "family": "vercel:api-key",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "marker",
+        "text": "The AI Gateway API Keys page and the vercel ai-gateway CLI page show vck_ followed by an ellipsis, and a mask of vck_ plus four dots plus four digits. Vercel's CLI, AI SDK and Terraform tests use short vck_ dummy values. The marker with its underscore is therefore provider-backed.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-770ae7d1d8"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-57aea7e685"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-93c920690e"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-vercel-vercel-240431b6c1",
+            "locator": "#L90"
+          }
+        ]
+      },
+      {
+        "id": "no-full-value",
+        "text": "It is not established that an API key is vck_ followed by 56 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-57aea7e685"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-93c920690e"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No provider source shows a full-length vck_ value, and no page states a grammar for the body."
+        }
+      },
+      {
+        "id": "peer-rules",
+        "text": "Kingfisher and Betterleaks state vck_ plus 56 with synthetic examples, Betterleaks copying Kingfisher's, and secretlint covers the marker only. GitHub's secret scanning lists a type for the class that names it and states no shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-81669063af",
+            "locator": "#L252-L299"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+            "locator": "#L182-L212"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-secretlint-secretlint-d009796e7f",
+            "locator": "#L27-L58"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-blog-cb9bb341a1"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "no-sample",
+        "text": "None of the shape properties has been checked against an issued key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No AI Gateway key was issued for this research; creating one key in the dashboard and recording its structure, then revoking it, would settle the length and alphabet."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "compromised-report",
+        "text": "The AI Gateway documentation describes an unauthenticated route, POST /external/compromised_secret, for reporting a leaked key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-57aea7e685"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "shared-generator",
+        "text": "Do the five Vercel classes share one generator and one 56-character body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No source says whether the five classes share one generator, so the structure of vcp_ and vca_ may not extend to vck_."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:api-key] dossier body"
+    }
+  ]
+}

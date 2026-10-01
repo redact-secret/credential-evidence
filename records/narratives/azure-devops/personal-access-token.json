@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "azure-devops:personal-access-token",
+  "family": "azure-devops:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "azure-devops:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "length-and-signature",
+        "text": "A token is 84 characters long with the fixed signature AZDO at zero-based offsets 76 to 79: 76 characters, then AZDO, then 4 characters. Microsoft's article words this as positions 76 through 80, which spans five positions for a four-character marker; only the zero-based half-open reading fits the worked example on Microsoft's Purview page.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-total-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-signature"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "Every position outside the signature is a letter or digit, case-sensitive. The Purview page's own format summary says letters, digits and special characters, which contradicts its detailed pattern and its worked example; the detailed pattern is followed here.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "random-portion",
+        "text": "The provider says 52 of the 84 characters are random and does not say what the other 32 hold, so only the length, marker position and alphabet are claims.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "learn-microsoft-com-774e2e3e9b",
+            "locator": "#pat-format"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "purpose",
+        "text": "Azure DevOps issues personal access tokens for its REST APIs and for Git operations; Microsoft publishes the current format.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "learn-microsoft-com-774e2e3e9b",
+            "locator": "#pat-format"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Azure DevOps token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was issued for this research."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "legacy-52-character",
+        "text": "The previous token format is a 52-character alphanumeric value with no embedded marker and no distinguishing structure.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-52-character-generation"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded as an unsupported variant in a tracking note; no provider source for the older format was read for this record."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "purview-alphabet-contradiction",
+        "text": "Does a real token ever contain a character outside letters and digits, as the Purview format summary implies?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "An issued token containing a non-alphanumeric character would settle which of the page's two alphabet statements is right."
+        }
+      },
+      {
+        "id": "non-random-characters",
+        "text": "What do the 32 non-random characters of the token hold?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No source says what the 32 non-random characters contain."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/azure-devops.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/azure-devops.md",
+      "note": "families[id=azure-devops:personal-access-token] dossier body"
+    }
+  ]
+}

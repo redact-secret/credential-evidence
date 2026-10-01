@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "postman:collection-access-key",
+  "family": "postman:collection-access-key",
+  "lifecycle": "draft",
+  "contract": "postman:collection-access-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-masked-display",
+        "text": "A collection access key begins PMAT-. The provider renders it masked as PMAT- followed by asterisks and four trailing characters, 26 in all, and states no alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      },
+      {
+        "id": "body-26-uppercase",
+        "text": "One scanner rule (GitLab's secret-detection rules) matches PMAT- followed by exactly 26 uppercase letters and digits, which agrees with the length implied by the masked display.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "gitlab-com-7f4b938ca8"
+          }
+        ]
+      },
+      {
+        "id": "lowercase-accepted",
+        "text": "The body accepts lowercase letters as well as uppercase.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "gitlab-com-7f4b938ca8"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Only one scanner rule states the alphabet, and a research note says the product accepts either case without a cited source."
+        }
+      },
+      {
+        "id": "ulid-body",
+        "text": "The body may be a ULID.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "gitlab-com-7f4b938ca8"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Every example in the one scanner rule has the shape of a ULID (26 Crockford base32 characters with a timestamp prefix), but no source says the body is one."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "sharing-and-api",
+        "text": "A collection access key is a read-only credential for one collection, created by sharing the collection and also through the collection access keys API; it expires after 60 days without use.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-credential"
+          },
+          {
+            "kind": "source",
+            "sourceId": "learning-postman-com-e637862051"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Postman collection access key was issued for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued or observed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "url-parameter",
+        "text": "The key appears as the access_key query parameter of the shared collection URL.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-credential"
+          }
+        ]
+      },
+      {
+        "id": "pmak-distinct",
+        "text": "PMAK- API keys are distinct credentials.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "partner-list",
+        "text": "GitHub's secret-scanning partner list names a postman_collection_key type beside postman_api_key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "pmat-uppercase",
+        "text": "Is the PMAT- alphabet always uppercase?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Only one scanner rule states the alphabet and no key was issued."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/postman.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/postman.md",
+      "note": "families[id=postman:collection-access-key] dossier body"
+    }
+  ]
+}

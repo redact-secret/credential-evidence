@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "e2b:api-key",
+  "family": "e2b:api-key",
+  "lifecycle": "draft",
+  "contract": "e2b:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "A team API key is the prefix e2b_ followed by exactly 40 lowercase hexadecimal characters, 44 in all, with no separator and no checksum. The provider's key package sets the prefix and generates 20 random bytes, hex-encoded; its legacy SQL generator and a local-development seed test agree. The grammar comes from provider code, because the documentation names the variable and shows placeholders only.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          }
+        ]
+      },
+      {
+        "id": "uppercase-accepted",
+        "text": "The server-side verifier accepts an uppercase-hex body that the generator never issues, so the issued grammar is lowercase only.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-uppercase-hex"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The key is carried in the E2B_API_KEY environment variable and sent in the X-API-Key header. It creates and controls sandboxes on the team's quota.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No E2B key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No key was issued for the research; the prefix and the 20-byte key length were unchanged when re-checked on 2026-09-28."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "retired-user-token",
+        "text": "A separate user access token of the form sk_e2b_ plus 40 hex characters was retired on 2026-08-01. It is another credential class, not a benign sibling.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-retired-user-token"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "hex-body-ambiguous",
+        "text": "The 40-hex body alone is shaped like a SHA-1 digest or a git commit id, so the prefix carries the identification.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source: a 40-hex string alone has the shape of a SHA-1 digest or a git commit id, so the e2b_ prefix is what identifies the key."
+        }
+      },
+      {
+        "id": "package-names",
+        "text": "Package names beginning e2b_ do not match the key grammar because their remainder is not 40 hex characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source: names such as e2b_code_interpreter share the prefix but fail the exact-40-hex body."
+        }
+      },
+      {
+        "id": "inside-user-token",
+        "text": "The text e2b_ inside the retired sk_e2b_ user token is not a team API key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "A glue-boundary rule, not a provider statement: the contract records the boundary as unresolved."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "console-key-shape",
+        "text": "Does a key issued from the console have 44 characters in total and a lowercase hex body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No console-issued key was inspected; confirming the 44-character total and lowercase hex on one issued key is an optional check."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/e2b.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/e2b.md",
+      "note": "families[id=e2b:api-key] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "aws-bedrock:long-term-api-key",
+  "family": "aws-bedrock:long-term-api-key",
+  "lifecycle": "draft",
+  "contract": "aws-bedrock:long-term-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-alphabet",
+        "text": "A long-term key begins ABSK and continues with standard Base64 (letters, digits, plus and slash, up to two trailing = pad characters). AWS's own security blog prints this scan pattern; a blog is not a format specification, so only the prefix and alphabet rest on it. No source documents a URL-safe variant.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "console-head",
+        "text": "For a key created in the console, ABSK is followed by QmVkcm9ja0FQSUtleS, the Base64 of BedrockAPIKey-. This holds only when the IAM user name starts with BedrockAPIKey-.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-console-head"
+          }
+        ]
+      },
+      {
+        "id": "total-length",
+        "text": "A console key measured 132 characters and a secondary key (a +1 user name) works out to 136 by layout arithmetic. Scanner rules tolerate a wider band of lengths; that band is the scanner authors' choice, not provider-stated.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-total-length"
+          }
+        ]
+      },
+      {
+        "id": "decoded-structure",
+        "text": "Decoded, a key reads BedrockAPIKey-, a user name, -at-, the 12-digit account id, a colon, then 44 random bytes as Base64.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-decoded-structure"
+          },
+          {
+            "kind": "source",
+            "sourceId": "wiz-io-15cbaedd9e"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A security vendor's note says the structure is subject to change, and the IAM API reference supports only the split between a public alias and the secret."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "service-specific-credential",
+        "text": "AWS issues a long-term key as an IAM service-specific credential; the credential's public alias is separate from its secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-public-alias"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-7f4d1f8e7b"
+          }
+        ]
+      },
+      {
+        "id": "transport",
+        "text": "The key is passed in the AWS_BEARER_TOKEN_BEDROCK environment variable or as an Authorization: Bearer header.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "console-and-cli",
+        "text": "A key is created in the Bedrock console or with aws iam create-service-specific-credential, is shown once, and an IAM user can hold at most two.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-87e6578a36"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; the user guide's key reference was listed but not matched to these details."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No Bedrock long-term key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for this research; a checklist of length, padding and the decoded head was drawn up but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "public-alias",
+        "text": "The decoded BedrockAPIKey-<user>-at-<account> alias is a public identifier; only the part after the colon is secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-public-alias"
+          }
+        ]
+      },
+      {
+        "id": "access-key-ids",
+        "text": "A long-term key is distinct from AKIA and ASIA access key ids and from the public credential alias.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "not-prefixed-claim",
+        "text": "A third-party reference states that the key carries no prefix.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "A third-party reference page says the key is not prefixed, which contradicts AWS's blog; that page is not recorded as a source of this family."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "length-universal",
+        "text": "Is 132 characters universal, or does it depend on the layout (a secondary key, other IAM user names)?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No source gives a provider length; issued keys with a secondary key and other user names would settle it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws-bedrock.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws-bedrock.md",
+      "note": "families[id=aws-bedrock:long-term-api-key] dossier body"
+    }
+  ]
+}

@@ -11,6 +11,8 @@ const GITHUB_FILE = /^https:\/\/github\.com\/([^/\s]+)\/([^/\s]+)\/(blob|tree|ra
 const GITHUB_RAW = /^https:\/\/raw\.githubusercontent\.com\/([^/\s]+)\/([^/\s]+)\/([^/\s?]+)(?:\/([^\s?]*))?/;
 const GITHUB_COMMIT = /^https:\/\/github\.com\/([^/\s]+)\/([^/\s]+)\/commit\/([0-9a-f]{40})(?:[/?]|$)/;
 const GITHUB_THREAD = /^https:\/\/github\.com\/[^/\s]+\/[^/\s]+\/(issues|pull|discussions)\//;
+// A Wayback Machine capture is an archive snapshot by construction: its path carries the capture time and the original URL.
+const WAYBACK = /^https:\/\/web\.archive\.org\/web\/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})\/(https?:\/\/[^\s]+)$/;
 const PROJECT_ORG = /^https:\/\/github\.com\/redact-secret\//;
 
 export const slugify = (s) =>
@@ -35,6 +37,10 @@ export function splitUrl(raw) {
 
 /** Pin classification of one base URL, honoring the schema rule for GitHub file links. */
 export function pinFor(base) {
+  const wb = WAYBACK.exec(base);
+  if (wb) {
+    return { kind: "archive-snapshot", url: wb[7], archiveUrl: base, capturedAt: `${wb[1]}-${wb[2]}-${wb[3]}T${wb[4]}:${wb[5]}:${wb[6]}Z` };
+  }
   let m = GITHUB_FILE.exec(base);
   if (m) {
     const [, owner, repo, , ref, path = ""] = m;

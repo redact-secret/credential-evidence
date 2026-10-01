@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "axiom:personal-token",
+  "family": "axiom:personal-token",
+  "lifecycle": "draft",
+  "contract": "axiom:personal-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-uuid-body",
+        "text": "A personal access token is xapt- followed by a lowercase-hex UUID, 41 characters in all. The documentation says it starts with xapt-; the Go SDK checks that prefix at runtime, and its test values use the same UUID layout for both token kinds.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The token is used with an organization id: AXIOM_TOKEN together with AXIOM_ORG_ID, or an Authorization: Bearer header with the x-axiom-org-id header.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "access",
+        "text": "A personal access token carries the user's full console and API access, including queries over every ingested log.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in the research overview without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No Axiom personal access token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued for this research; a structure-only check would confirm the layout and letter case."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "placeholders",
+        "text": "Documentation placeholders such as xaat-your-api-token do not follow the UUID layout.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-placeholders"
+          }
+        ]
+      },
+      {
+        "id": "bare-uuid",
+        "text": "A bare UUID is not distinctive; the xapt- prefix is what ties a value to this credential.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "personal-token-layout",
+        "text": "Is every personal access token body a lowercase UUID?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The layout is shared from the SDK's test values for both kinds; no documentation example shows a personal token body, and none was issued."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/axiom.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/axiom.md",
+      "note": "families[id=axiom:personal-token] dossier body"
+    }
+  ]
+}

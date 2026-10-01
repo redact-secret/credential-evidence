@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "composio:user-api-key",
+  "family": "composio:user-api-key",
+  "lifecycle": "draft",
+  "contract": "composio:user-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A Composio user key begins with uak_. The provider's authentication documentation names the prefix, the SDK defines it as a constant that an executing prefix check uses, and the command-line login flow issues such keys.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-composio-dev-7990e7985f"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-composiohq-composio-aa4a440b9c"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-composiohq-composio-0468adb9c1"
+          }
+        ]
+      },
+      {
+        "id": "body-43",
+        "text": "The body is exactly 43 characters. A dated statement by Composio's Head of Security (2026-09-17, posted on a public scanner issue) gives uak_ plus 43 nanoid characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "The body is a URL-safe nanoid drawn from letters, digits, underscore and hyphen, so a body may begin or end with an underscore or a hyphen. The keys use an underscore-separated scheme with no checksum and no further separators.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "no-checksum",
+        "text": "The key has no separators and no checksum.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The statement that no checksum exists is held in a contract claim that is itself unresolved; it rests on one staff comment and no provider specification."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "login-flow",
+        "text": "User keys are issued by the command-line login command.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-composiohq-composio-0468adb9c1"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No user key was issued or observed to confirm the 43-character body.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No user key was issued for this research; one login-issued key was to be measured as confirmation but was not."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "contains-ak",
+        "text": "The only overlap is the shared ak_ substring, which a leading boundary rules out.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The boundary rule is an authoring choice recorded in an unresolved contract claim, not a provider statement."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "comment-shows-20",
+        "text": "A comment in the provider's command-line code shows a user key with a 20-character body, against the staff-stated 43. Is 43 the width of a key issued today, and did an older 20-character format ever exist?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-code-comment-width"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "A code comment in the provider's command-line source shows a 20-character body, but it is a comment in a file dated 2025-06 and does not override the staff statement; no dated provider source settles which width applies."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/composio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/composio.md",
+      "note": "families[id=composio:user-api-key] dossier body"
+    }
+  ]
+}

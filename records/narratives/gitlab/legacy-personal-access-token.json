@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "gitlab:legacy-personal-access-token",
+  "family": "gitlab:legacy-personal-access-token",
+  "lifecycle": "draft",
+  "contract": "gitlab:legacy-personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "GitLab's token overview documents the glpat- prefix for personal access tokens. The same prefix also covers impersonation tokens and project and group access tokens.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-gitlab-com-9382f6bad2"
+          }
+        ]
+      },
+      {
+        "id": "body-20",
+        "text": "The legacy body is 20 characters of letters, digits, underscore and hyphen after the prefix. This comes from two scanner rules that agree with each other; GitLab's token overview does not state the body.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "routable-form-separate",
+        "text": "The token overview does not cover routable personal access tokens, which share the glpat- prefix but carry a longer payload and a checksum. They form a separate family.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "admin-configured-prefix",
+        "text": "What do personal access tokens look like on an instance where an administrator has changed the prefix?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note as an administrator-configurable prefix without a source in this family's contract; no shape is known."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:legacy-personal-access-token] dossier body"
+    }
+  ]
+}

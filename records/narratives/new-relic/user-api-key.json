@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "new-relic:user-api-key",
+  "family": "new-relic:user-api-key",
+  "lifecycle": "draft",
+  "contract": "new-relic:user-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "New Relic's documentation says most user keys begin with the prefix NRAK-, so a user key without it is a case the provider documents as possible. The documentation page shows only a masked NRAK- placeholder.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After NRAK- come 27 uppercase letters and digits, according to two scanner rules that agree.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No New Relic user key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No key was issued for this research."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "license-key-doc-error",
+        "text": "NRAK- appears on one New Relic documentation page as the expected prefix of a license key, which reads as a documentation error.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/new-relic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/new-relic.md",
+      "note": "families[id=new-relic:user-api-key] dossier body"
+    }
+  ]
+}

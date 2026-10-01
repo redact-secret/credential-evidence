@@ -223,7 +223,7 @@ const narrativeDir = join(repoRoot, "records", "narratives");
 const narratives = existsSync(narrativeDir) ? listJson(narrativeDir).map((f) => JSON.parse(readFileSync(f, "utf8"))) : [];
 
 test("the migration set is present, one narrative per family, all draft", () => {
-  assert.ok(narratives.length >= 22, `expected at least 22 narratives, found ${narratives.length}`);
+  assert.equal(narratives.length, 173, "every family has a narrative");
   assert.equal(new Set(narratives.map((n) => n.id)).size, narratives.length);
   for (const n of narratives) {
     assert.equal(n.id, n.family);
@@ -248,7 +248,7 @@ test("every migrated statement traces to a claim or source, or is unresolved wit
       }
     }
   }
-  assert.ok(statements >= 100);
+  assert.ok(statements >= 1000);
 });
 
 test("the compiler refuses a source the family's contract does not cite and an unsupported claim", async () => {

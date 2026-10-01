@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "atlassian:access-token",
+  "family": "atlassian:access-token",
+  "lifecycle": "draft",
+  "contract": "atlassian:access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-header",
+        "text": "Access tokens begin ATCT and have the same 192-character layout as account API tokens: a fixed 12-character header (ATCTT3xFfGN0, differing from the API-token header in the fourth and fifth characters), a 171-character body from letters, digits, underscore and hyphen, one literal =, then 8 uppercase hexadecimal characters. One scanner's rule matches ATCTT3xFfG, a base64url-style body, = and 8 alphanumerics; a second scanner's rule matches the 12-character header, 80 to 800 body characters and the 8-hex tail.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "dossier-research"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-a7ee6ad5e4"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-samsung-credsweeper-da6c4ccf00"
+          }
+        ]
+      },
+      {
+        "id": "crc32-suffix",
+        "text": "The trailing 8 characters are a CRC32 of everything before them, the = included, in a scanner's filter and in a separate structure-only measurement of public code.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-samsung-credsweeper-da6c4ccf00"
+          }
+        ]
+      },
+      {
+        "id": "public-code-measurement",
+        "text": "Public code contains values with this exact layout, with the CRC32 holding on nearly all of them.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-redact-secret-redact-secret-f34ccdcd76"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A structure-only measurement of public code search results, recorded in a research note: 80 candidate values in 74 repositories, of which 73 were 192 characters, 79 carried the ATCTT3xFfGN0 header, 74 had the = at position 184 followed by 8 uppercase hex characters and 72 passed the CRC32 check. The values were not verified with Atlassian and some may be truncated or edited, so it is a lower-bound count that the cited source cannot reproduce."
+        }
+      },
+      {
+        "id": "provider-states-prefix",
+        "text": "Atlassian states that workspace, project and repository access tokens begin ATCT.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "community-atlassian-com-3582e12b20"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The prefix rests on a forum answer by an account labelled Atlassian Team (2025-08-25) that names ATCT for workspace, project and repository access tokens; whether a forum answer counts as provider documentation is undecided. The asker's own observation of the header is not an Atlassian statement."
+        }
+      },
+      {
+        "id": "provider-pages-no-shape",
+        "text": "Atlassian's Bitbucket page on access tokens shows only {repository_access_token} and {workspace_access_token} placeholders and states no shape.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "support-atlassian-com-3c95767732"
+          }
+        ]
+      },
+      {
+        "id": "admin-keys-same-header",
+        "text": "A trufflehog contributor reported the same header and exactly 192 characters for organization admin API keys (2024-07-15), so the ATCT header spans more than Bitbucket access tokens. Service-account API keys were not checked.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-6da30135d8"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "auth-scheme",
+        "text": "An access token is sent as a Bearer token, or with x-token-auth as the Basic user name for git over HTTPS.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "support-atlassian-com-3c95767732"
+          }
+        ]
+      },
+      {
+        "id": "client-chooses-scheme-by-header",
+        "text": "A third-party Bitbucket client chooses Bearer for a value starting ATCTT3x and Basic with the account email for one starting ATATT3x.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-praetorian-inc-trajan-93baf27ef6"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No access token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No token was issued for this research; a Bitbucket repository access token is free to mint and revoke and would settle the anchor-length question."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "layout-shared-with-api-token",
+        "text": "Access tokens share the layout of account API tokens (ATAT) and of the retired ATBB app passwords; the header differs, so a rule anchored on ATAT does not match them.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "dossier-research"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-a7ee6ad5e4"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-samsung-credsweeper-da6c4ccf00"
+          }
+        ]
+      },
+      {
+        "id": "data-center-tokens",
+        "text": "Bitbucket Data Center HTTP access tokens (prefix BBDC-) and Jira and Confluence Data Center personal access tokens are different credentials, not this family.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-samsung-credsweeper-da6c4ccf00"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "anchor-length",
+        "text": "How many leading characters are fixed for an access token: the 4-character prefix, 10 or 12?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Staff say ATCT, tools use 10 or 12 characters and every observed value shares 12; no issued token has settled it."
+        }
+      },
+      {
+        "id": "routes-share-header",
+        "text": "Do repository, project, workspace, organization admin and service-account routes all share the ATCTT3xFfGN0 header?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "A token minted through each route (repository, project, workspace, admin key, service account) would show whether all routes share one header; only the repository route is partly evidenced."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/atlassian.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+      "note": "families[id=atlassian:access-token] dossier body"
+    }
+  ]
+}

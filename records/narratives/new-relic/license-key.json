@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "new-relic:license-key",
+  "family": "new-relic:license-key",
+  "lifecycle": "draft",
+  "contract": "new-relic:license-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "suffix-and-length",
+        "text": "New Relic's own documentation describes the ingest license key as 40 characters with the literal suffix NRAL, and its eBPF install pages show elided examples ending FFFFNRAL.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-newrelic-com-5f3799e076"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-newrelic-com-38b4eebb6b"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-newrelic-com-925733b4af"
+          }
+        ]
+      },
+      {
+        "id": "current-generation",
+        "text": "The current generation is 32 lowercase hexadecimal characters followed by FFFFNRAL (40 in all), or for the EU region eu01xx, 26 hexadecimal characters and FFFFNRAL.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The hexadecimal body, the FFFF segment and the eu01xx region prefix rest on New Relic-authored code (its CLI's license-key format check and the documentation site's key checker) and one scanner rule; none of those sources is cited by this family's contract."
+        }
+      },
+      {
+        "id": "older-generations",
+        "text": "An older generation is 36 hexadecimal characters followed by NRAL, and a legacy 40-character all-hexadecimal key has no marker.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "canonical-page-contradicts",
+        "text": "The canonical API-keys page still calls the license key a 40-character hexadecimal string, which contradicts the NRAL suffix unless it describes the legacy key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-newrelic-com-2c4c786e81"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No New Relic license key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for this research; an empirical check of fresh Ingest - License keys was planned but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sha1-collision",
+        "text": "The legacy all-hexadecimal shape collides with SHA-1 digests and commit ids.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "older-nral-issued",
+        "text": "Is the 36-hexadecimal NRAL generation still issued?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source states whether the 36-hexadecimal NRAL generation is still issued."
+        }
+      },
+      {
+        "id": "region-prefixes",
+        "text": "Which region prefixes exist beyond eu01xx?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "A real EU key was reported with a single x (eu01x) and staff said parsers read up to the first x; the report is not in this family's contract, and New Relic code also maps other region prefixes (us01, gov01, jp)."
+        }
+      },
+      {
+        "id": "docs-disagree",
+        "text": "Which description of the license key is right where the documentation pages disagree?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "Two documentation pages disagree (the hexadecimal description and an NRAK-prefixed license key); provider clarification would settle both."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/new-relic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/new-relic.md",
+      "note": "families[id=new-relic:license-key] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "gitlab:routable-personal-access-token",
+  "family": "gitlab:routable-personal-access-token",
+  "lifecycle": "draft",
+  "contract": "gitlab:routable-personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "grammar",
+        "text": "The prefix is glpat-, then an unpadded base64url payload, a dot, a 2-character base36 version, a dot, a 2-character base36 payload length, and a 7-character base36 CRC32. GitLab's rules bound the payload at 27 to 300 characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-grammar"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-payload"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          },
+          {
+            "kind": "source",
+            "sourceId": "gitlab-com-99b63f7212"
+          }
+        ]
+      },
+      {
+        "id": "payload-content",
+        "text": "The payload is 16 random bytes followed by a routing payload of newline-separated key:value pairs and a trailing length byte. The routing keys are limited to c, g, o, p, u and t, with at least one of c or o, and the routing payload is capped at 159 bytes. Personal access tokens declare the o (organization) and u (user) keys.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-payload"
+          },
+          {
+            "kind": "source",
+            "sourceId": "gitlab-com-7cbf055dae"
+          },
+          {
+            "kind": "source",
+            "sourceId": "gitlab-com-98476466c7"
+          }
+        ]
+      },
+      {
+        "id": "version-and-length",
+        "text": "The version is currently 1, written 01. The length holder is the payload length in two base36 characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-version"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-length-holder"
+          }
+        ]
+      },
+      {
+        "id": "checksum",
+        "text": "The checksum is the base36 zlib CRC32 of every byte from the start of the prefix through the length holder, zero-padded to 7 characters. GitLab's decoder verifies it, so a token can be checked offline.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum"
+          }
+        ]
+      },
+      {
+        "id": "excluded-forms",
+        "text": "The 20-character legacy glpat- form, the unversioned routable form, instance or custom prefixes, and glrt- tokens are not this family.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-excluded-forms"
+          }
+        ]
+      },
+      {
+        "id": "overall-length-in-change-request",
+        "text": "The merge request that introduced the format, opened 2024-10-15 behind the routable_pat flag, gives 43 to 316 characters overall.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "gitlab-com-8c889c799d"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The change request is an issue-tracker entry typed as other, and its overall length of 43 to 316 characters differs from the 46 to 319 bytes derived from the code."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "rollout",
+        "text": "Routable personal access tokens began in GitLab 18.0 and became unconditional in 18.3, and the versioned form is the default from 18.3.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "gitlab-com-aa03c14a3e"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "A GitLab work item states this but is an issue-tracker entry and not documentation; the fetch of it carried no date."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No routable personal access token was issued or observed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No token was issued or observed for this record; the checksum can be checked offline from the published code alone."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "readable-routing",
+        "text": "The routing payload decodes to readable text, so a decoded token shows its routing keys in the clear.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-payload"
+          }
+        ]
+      },
+      {
+        "id": "other-gl-prefixes",
+        "text": "GitLab's token overview lists other prefixes beginning gl, each for a different token type, and the 20-character legacy glpat- form is a different family.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-excluded-forms"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-gitlab-com-9382f6bad2"
+          }
+        ]
+      },
+      {
+        "id": "peer-lag-and-overreach",
+        "text": "One scanner rule reads only the unversioned single-dot form and so misses the versioned default. Another scanner's rule accepts both dots but also allows an equals sign in the payload and checks neither the length holder nor the checksum. GitLab's own rules do not allow the equals sign, and the generator emits unpadded base64url.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-peer-lag"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-952be122b5"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-e8f92281f8"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-5d8fe1c289"
+          }
+        ]
+      },
+      {
+        "id": "hard-coded-version",
+        "text": "A hard-coded .01. version segment and tokens over 54 characters were reported as drift from the format, so neither the version value nor the version segment's existence should be assumed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-semgrep-semgrep-network-broker-f55f76adc7"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-436944e185"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "A scanner vendor's issue reports this drift; it is an issue-tracker report and not a provider document."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "unversioned-ever-issued",
+        "text": "Was the unversioned single-dot routable form ever issued in production?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source shows the unversioned single-dot form outside pre-release; only the versioned form is confirmed as the 18.3 default."
+        }
+      },
+      {
+        "id": "which-instances-mint",
+        "text": "Which instances mint routable personal access tokens?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "A research note says self-managed instances below 18.0 keep the 20-character form, without a source."
+        }
+      },
+      {
+        "id": "design-doc-status",
+        "text": "Does the routable tokens design document match what the code emits?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "handbook-gitlab-com-0a96642893"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "The design document in GitLab's handbook is still marked proposed and was not re-read in full, so it corroborates nothing on its own."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:routable-personal-access-token] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "google:generic-api-key",
+  "family": "google:generic-api-key",
+  "lifecycle": "draft",
+  "contract": "google:generic-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-length",
+        "text": "A Google API key begins AIza and is 39 characters long. Google Cloud's API keys page states this only through one example string, introduced as an encrypted string; it states no prefix rule and no grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-total-length"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-cloud-google-com-4b6eb8032c"
+          }
+        ]
+      },
+      {
+        "id": "body-35",
+        "text": "After the prefix come 35 characters of letters, digits, underscore and hyphen.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Only a scanner rule for Google Cloud keys supplies the 35-character body, and the contract holds that corroboration as an unresolved claim; Google states no body."
+        }
+      },
+      {
+        "id": "gemini-split",
+        "text": "A Gemini-oriented rule reads the same 39 characters as the prefix AIzaSy followed by 33 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "A second scanner rule that splits the key as AIzaSy plus 33 characters, and a third tool agreeing on 35, are recorded in a research note without a source URL in this family's contract."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "gemini-same-shape",
+        "text": "Gemini keys and Maps keys have the same shape as other Google API keys and are not a separate family.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract; restriction to an API is not visible in the key's bytes."
+        }
+      },
+      {
+        "id": "authorization-keys",
+        "text": "The API keys page now describes authorization keys that authenticate as a service account, and gives no string format for them.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-cloud-google-com-4b6eb8032c"
+          }
+        ]
+      },
+      {
+        "id": "aq-prefix",
+        "text": "Service-account authorization keys may begin AQ. followed by a dot.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-aq-dot-format"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "An AQ. prefix has been reported for such keys but does not appear on the API keys page, and no source states the format."
+        }
+      },
+      {
+        "id": "firebase-web-key",
+        "text": "A Firebase Web SDK apiKey has the same shape as a Google API key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "public-identifiers",
+        "text": "An OAuth client ID ending apps.googleusercontent.com and a service account email address are public identifiers and not secrets.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-alphabet",
+        "text": "Does an issued key confirm the 35-character body alphabet?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "Only one provider example exists and it shows the prefix and total length; an issued key would confirm the 35-character alphabet."
+        }
+      },
+      {
+        "id": "aq-format",
+        "text": "Does the AQ. key format exist, and how does Google describe it?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-aq-dot-format"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "No source states whether an AQ. prefix exists or what Google says about it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/google.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/google.md",
+      "note": "families[id=google:generic-api-key] dossier body"
+    }
+  ]
+}

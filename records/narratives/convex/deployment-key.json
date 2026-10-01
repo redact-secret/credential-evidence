@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "convex:deployment-key",
+  "family": "convex:deployment-key",
+  "lifecycle": "draft",
+  "contract": "convex:deployment-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "composition",
+        "text": "A key is an optional type lead, a name, exactly one vertical bar, and an encrypted body. The whole string is the credential, public name part included. The provider's key-format code joins the name and the encrypted body with the bar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-join"
+          }
+        ]
+      },
+      {
+        "id": "type-lead",
+        "text": "The type lead is prod: or dev: followed by a cloud deployment name (lowercase words and a number, joined by hyphens), or preview: or project: followed by a team slug, a colon and a project slug. A key for a self-hosted or default instance has no type lead and is an admin key, led by the instance or deployment name; the self-hosted default name is convex-self-hosted.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-typed-lead"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-untyped-name"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-convex-dev-c0edd8f0d1"
+          }
+        ]
+      },
+      {
+        "id": "hex-body",
+        "text": "After the bar the body is lowercase hexadecimal that starts with 01, the key encryptor's version byte. Its length is always even and falls in 74 to 96 hex characters: a 29-byte envelope plus a proto of 8 to 19 bytes. The band is derived from the generator code, not stated by the provider.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-version"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          }
+        ]
+      },
+      {
+        "id": "name-bound",
+        "text": "Names and the preview and project slugs fit a lowercase alphanumeric-and-hyphen class of at most 63 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-slugs"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The character class and the 63-character bound for names and slugs are an authoring policy, not a provider statement; no source gives a slug grammar."
+        }
+      },
+      {
+        "id": "cloud-body",
+        "text": "The current cloud deploy-key body begins eyJ2; its alphabet, padding and length are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-cloud-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-convex-dev-c0edd8f0d1"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Only a truncated documentation example is available; the issuer is closed source, and the length and Base64 flavour were not established. Issuance research narrowed the structure to the Base64 of a JSON object tagged v2, but did not fix it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "environment-variables",
+        "text": "Deploy keys are supplied through CONVEX_DEPLOY_KEY and self-hosted admin keys through CONVEX_SELF_HOSTED_ADMIN_KEY, and a key is sent as an Authorization header with the scheme Convex.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Convex key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for this research; a structure-only check of the cloud body was named as the most valuable next step but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "public-selectors",
+        "text": "Deployment selectors of the form CONVEX_DEPLOYMENT=<type>:<name>, hostnames such as <name>.convex.cloud and <name>.convex.site, and bare deployment names are public and carry no bar and no body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-non-secrets"
+          }
+        ]
+      },
+      {
+        "id": "legacy-bare-key",
+        "text": "A bare legacy key from before version 0.16.0 has no anchor that separates it from other values.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "preview-branch-name",
+        "text": "A preview deployment key can read preview:<branch-name>| with a name of up to 40 characters, where colon and bar are mapped to underscore. Such a name can fall outside the bounded name class, which is an accepted miss.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in an issuance research note that is not a source of this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "cloud-body-grammar",
+        "text": "What are the alphabet (standard or URL-safe Base64), padding and length of the cloud eyJ2 body, and does the key's scope change the length?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Needs one issued key checked for structure only."
+        }
+      },
+      {
+        "id": "slug-grammar",
+        "text": "What is the team and project slug grammar for preview: and project: keys?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "No source states the slug grammar; issuance research also found a wider preview:<branch-name>| form."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/convex.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/convex.md",
+      "note": "families[id=convex:deployment-key] dossier body"
+    }
+  ],
+  "notes": "Covers the hex-body deployment, project and admin keys. The current cloud deploy-key body, which begins eyJ2, is recorded only as unresolved because its alphabet, padding and length are not established."
+}

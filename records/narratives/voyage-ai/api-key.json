@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "voyage-ai:api-key",
+  "family": "voyage-ai:api-key",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefixes",
+        "text": "A key from the standalone Voyage AI dashboard begins with pa-, and a MongoDB Atlas model API key begins with al-. MongoDB's own pipeline test code states both prefixes, and Voyage AI's Python SDK routes an al- key to the MongoDB endpoint.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-labs-ai-ml-pipeline-testing-08e95b5826",
+            "locator": "#L134-L146"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-voyage-ai-voyageai-python-afb5496a20"
+          }
+        ]
+      },
+      {
+        "id": "regional-prefix",
+        "text": "MongoDB's documentation says prefixes encode the key's scope and gives al-eu- for EU-scoped keys.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "mongodb-com-765bfa4e09"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-docs-87ac839efb",
+            "locator": "#L119-L121"
+          }
+        ]
+      },
+      {
+        "id": "name-limit",
+        "text": "The documented limit of 250 characters applies to the name given to a key, as the Atlas Admin API schema shows, and not to the key itself.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-openapi-e316639242",
+            "locator": "#L1781-L1798"
+          }
+        ]
+      },
+      {
+        "id": "body-43",
+        "text": "The Atlas Admin API schema example shows one full-length key, al- followed by 43 letters and digits, with a masked form of al- then asterisks and the last four characters. That is one example and not a stated grammar, and it gives 46 characters for the unscoped forms.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-openapi-e316639242",
+            "locator": "#L1781-L1798"
+          }
+        ]
+      },
+      {
+        "id": "body-scanner-rules",
+        "text": "Scanner rules for the body (betterleaks and Kingfisher) were written by a MongoDB engineer who says so, so every source for the 43-character body speaks with one MongoDB voice. They allow letters, digits, underscore and hyphen, and third-party code checks only the pa- prefix.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-c8e42a8e5d"
+          }
+        ]
+      },
+      {
+        "id": "body-grammar",
+        "text": "It is not established that the body is always 43 characters, per prefix or overall, or whether underscore and hyphen can appear in it.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-openapi-e316639242",
+            "locator": "#L1781-L1798"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The body length and alphabet are not stated by any provider page; the only evidence is one schema example and scanner rules from the same issuer, and the length of a scoped al-eu- key can only be shown by an issued key."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "two-issuers",
+        "text": "Voyage AI, now operated by MongoDB, has two issuers: a standalone dashboard that issues keys for the Voyage AI API, and MongoDB Atlas, which issues model API keys for the MongoDB endpoint and regional endpoints. Both send the key as a bearer token and the SDK reads VOYAGE_API_KEY.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "mongodb-com-765bfa4e09"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-voyage-ai-voyageai-python-afb5496a20"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The overview is recorded in a research note, and no key was issued for this research; the cited sources establish the prefixes and the endpoint routing but not the dashboards."
+        }
+      },
+      {
+        "id": "issued-sample",
+        "text": "None of the key properties has been checked against an issued key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued; the planned checks (one standalone and one Atlas key: prefix, body length, underscore and hyphen, regional variants, masked list view and signup-issued keys) were not performed."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "legacy-keys",
+        "text": "Legacy keys issued before the pa- prefix are undocumented.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No reviewed source describes keys issued at signup before the pa- prefix existed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "short-prefixes",
+        "text": "The two-letter prefixes pa- and al- are common in slugs and transliterations, and a 43-character base64url value matches a SHA-256 digest. Placeholders such as pa-your-key-here and model names such as voyage-3 are benign, and key ids and names are public.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "pa-provenance",
+        "text": "Where does the provider itself document the pa- prefix?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No provider documentation page states the pa- prefix; only MongoDB-owned test code does."
+        }
+      },
+      {
+        "id": "us-scoped",
+        "text": "Do other region-scoped prefixes such as al-us- exist?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "An al-us- prefix is implied by al-eu- but is not stated in any source found."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/voyage-ai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/voyage-ai.md",
+      "note": "families[id=voyage-ai:api-key] dossier body"
+    }
+  ]
+}

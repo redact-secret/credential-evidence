@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "doppler:cli-token",
+  "family": "doppler:cli-token",
+  "lifecycle": "draft",
+  "contract": "doppler:cli-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "A token of this type begins dp.ct., followed by a body of 40 to 44 letters and digits, with no separator inside the body and no checksum documented. Every documented example and the one observed token have a 43-character body; the documented band is the contract.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-doppler-com-7a28d9952f"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "scope",
+        "text": "A command-line token has user-wide scope.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-doppler-com-7a28d9952f"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "no-other-dp-issuer",
+        "text": "No other issuer using the dp. prefix was found.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source; the search that found no other issuer is not itself an evidence record."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-length",
+        "text": "Are bodies of this type always 43 characters long?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token of this type was issued for the research; one issued token would narrow the documented 40 to 44 band, not change it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/doppler.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/doppler.md",
+      "note": "families[id=doppler:cli-token] dossier body"
+    }
+  ]
+}

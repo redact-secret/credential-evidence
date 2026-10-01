@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "polar:organization-access-token",
+  "family": "polar:organization-access-token",
+  "lifecycle": "draft",
+  "contract": "polar:organization-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-length",
+        "text": "An organization access token is the prefix polar_oat_ followed by exactly 43 letters and digits, 53 characters in all. The provider's server code adds the prefix, and its token generator fixes the body length.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          }
+        ]
+      },
+      {
+        "id": "checksum",
+        "text": "The body is 37 random letters and digits followed by a 6-character checksum: the CRC32 of the 37 characters written in base62 (digit order 0-9, A-Z, a-z) and zero-padded. The service that issues these tokens postdates the introduction of the checksum, so there is only one era.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum"
+          },
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "checksum-corroboration-only",
+        "text": "A failed checksum does not by itself show that a value is not a token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-policy-checksum"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The treatment of a failed checksum is a project choice, not a provider statement: a shape-valid value with a mismatching checksum is still treated as a token."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The token is read from POLAR_ACCESS_TOKEN and sent as Authorization: Bearer; the Python and JavaScript SDKs take it as access_token or accessToken.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Polar organization access token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued; the grammar rests on the provider's server code."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "webhook-secrets",
+        "text": "Polar webhook secrets are whsec_ followed by 43 characters from the same generator. The whsec_ prefix is already used for Stripe webhook signing secrets, so it does not identify a Polar credential.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-webhook-secret"
+          }
+        ]
+      },
+      {
+        "id": "public-and-short-lived",
+        "text": "polar_ci_ is a public OAuth client identifier and polar_c_ and polar_cl_ checkout client secrets are handed to the browser by design; session, authorization-code and verification tokens are short-lived.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-public-and-short-lived-siblings"
+          }
+        ]
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/polar.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/polar.md",
+      "note": "families[id=polar:organization-access-token] dossier body"
+    }
+  ]
+}

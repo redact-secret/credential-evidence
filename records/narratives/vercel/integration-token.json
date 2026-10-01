@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "vercel:integration-token",
+  "family": "vercel:integration-token",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "stem",
+        "text": "Vercel's changelog names the stem vci for integration tokens and prints no value.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-770ae7d1d8"
+          }
+        ]
+      },
+      {
+        "id": "underscore-and-body",
+        "text": "It is not established that an integration token is vci_ followed by 56 characters, as the sibling classes with provider examples are.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-81669063af",
+            "locator": "#L92-L132"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+            "locator": "#L81-L114"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-secretlint-secretlint-d009796e7f",
+            "locator": "#L27-L58"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No Vercel page, specification or source writes vci_ with the underscore or shows a value; the underscore, 56-character body and alphabet come from scanner rules only, from three owners but one source class."
+        }
+      },
+      {
+        "id": "peer-rules",
+        "text": "Kingfisher, Betterleaks and secretlint have rules for the class. Kingfisher's and Betterleaks's examples are synthetic values; Betterleaks copies Kingfisher's examples; secretlint accepts 20 to 60 letters and digits. GitHub's vercel_integration_access_token type names the class and not a shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-81669063af",
+            "locator": "#L92-L132"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+            "locator": "#L81-L114"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-secretlint-secretlint-d009796e7f",
+            "locator": "#L27-L58"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-blog-cb9bb341a1"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "oauth-exchange",
+        "text": "Integration tokens are obtained by creating an integration and running the OAuth code exchange.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-ffbea1d3b7"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Whether OAuth code exchange now returns vci_ tokens is undocumented; the Building Integrations page still shows unprefixed 24-character access-token and client values in its examples, which look legacy or stale."
+        }
+      },
+      {
+        "id": "no-sample",
+        "text": "None of the shape properties has been checked against an issued token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No integration token was issued for this research; the planned check (marker with underscore, total length 60, body alphabet and whether the last 6 characters checksum the previous 50) was not performed."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "shared-generator",
+        "text": "Do the five classes share one generator, so that the structure of vcp_ and vca_ extends to vci_?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No source says whether the five classes share one generator."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:integration-token] dossier body"
+    }
+  ]
+}

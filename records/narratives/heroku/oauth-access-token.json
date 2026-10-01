@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "heroku:oauth-access-token",
+  "family": "heroku:oauth-access-token",
+  "lifecycle": "draft",
+  "contract": "heroku:oauth-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Heroku's Platform API authenticates with OAuth access tokens. Tokens granted since 2024-04-01 carry the prefix HRKU-. Heroku documents the change in its OAuth article and its changelog, and also calls the token an API key in places such as the Dashboard and the command-line tool's HEROKU_API_KEY variable.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-7f4e69f806"
+          },
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-37e1a700c3"
+          }
+        ]
+      },
+      {
+        "id": "generation-uuid",
+        "text": "The first prefixed generation is HRKU- followed by a lowercase 8-4-4-4-12 hexadecimal UUID, 41 characters in all, granted from 2024-04-01 through 2025-04-22 and valid until regenerated.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-g1-generation"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-g1-uuid-case"
+          }
+        ]
+      },
+      {
+        "id": "generation-65",
+        "text": "The second generation is 65 characters long and has been granted since 2025-04-23: HRKU- plus a 60-character body. The OAuth article's prose says 65, while its own response examples still show the 41-character form.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-g2-total-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-7f4e69f806"
+          }
+        ]
+      },
+      {
+        "id": "aa-start",
+        "text": "Every 65-character example starts with the letters AA after the prefix. Two scanner rules pin this start and a third does not. Heroku does not state it.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-g2-aa-start"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "body-alphabet",
+        "text": "The 60-character body uses letters, digits, underscore and hyphen.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-g2-body-alphabet"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Only a scanner rule supplies the letters, digits, underscore and hyphen alphabet of the 60-character body, and the contract holds it as an unresolved claim."
+        }
+      },
+      {
+        "id": "security-checks",
+        "text": "The 65-character form may carry an internal structure or checksum.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-g2-checksum"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Heroku's changelog mentions additional security checks for token validation, which may mean an internal structure or checksum; nothing documents it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "creation-paths",
+        "text": "A token is created with the command-line authorizations:create command (non-expiring by default), from the Dashboard, or through the OAuth flows, and can be revoked from the Dashboard.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no token was created for this record."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "old-generations-valid",
+        "text": "Tokens granted before 2024-04-01 were bare UUIDs and, like the 41-character generation, stay valid until regenerated.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-g1-generation"
+          },
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-37e1a700c3"
+          },
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-f7ed532b53"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "bare-uuid-legacy",
+        "text": "The bare-UUID token granted before 2024-04-01 has the same shape as the part after HRKU- in the 41-character generation.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "devcenter-heroku-com-37e1a700c3"
+          }
+        ]
+      },
+      {
+        "id": "uuid-secrets",
+        "text": "The OAuth refresh token and client secret are also bare UUIDs, and app, release, request and authorization ids are public UUIDs printed beside the token in command-line output.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "forty-hex",
+        "text": "A 40-character hexadecimal token may be a further older shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-forty-hex-netrc-example"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "An undated 40-character lowercase hexadecimal token appears in an example in Heroku's authentication article and may be a stale example."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "aa-always",
+        "text": "Does AA act as a version tag or header, and is it always present in the 65-character form?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-d36b24fa88"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Only examples show the AA start; a trufflehog issue discusses it and one contributor's fresh tokens all matched, but no provider text says whether it is a version tag or header or always present."
+        }
+      },
+      {
+        "id": "mint-41",
+        "text": "Can Heroku still mint a 41-character token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "Provider text says old tokens stay valid but does not say whether new 41-character tokens can still be minted."
+        }
+      },
+      {
+        "id": "dashboard-key-shape",
+        "text": "Which shape does a fresh Dashboard API key have?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "No source says which shape a fresh Dashboard API key has."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/heroku.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/heroku.md",
+      "note": "families[id=heroku:oauth-access-token] dossier body"
+    }
+  ]
+}

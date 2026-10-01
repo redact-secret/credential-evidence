@@ -63,11 +63,12 @@ Additive: the new kind and `family-narrative` as a review-history subject kind. 
 ## Consequences
 
 - A reader can answer shape, issuance, lifecycle, collision and open-question for a migrated family from canonical data alone, and can follow every statement to a source or see that it is unresolved.
-- The first migration set is five providers, 22 families, 148 statements (57 unresolved). 88 of 93 dossiers are deferred, each listed with its families in the report. Deferral is not a verdict on a dossier.
+- All 93 dossiers and 173 families have a narrative: 1,341 statements, 721 of them unresolved, because a statement is cited only when a source the family's contract already holds supports it. Four families are `partial` (their `notes` say what is left out). The report lists every unresolved count per dossier. A high unresolved share is the honest reading of the legacy prose, not a defect to hide: most dossier sentences about issuance and collisions never had a cited source.
 - The legacy export and its manifest digest change, because the digest covers `records/`; `npm run export:legacy`, `parity` and `dual-run` outputs are regenerated.
 
 ## Open questions
 
-- The representative families the site shows are chosen here from what the site is expected to need (a provider with a shared prefix table, a not-found and a rejected family, a context-gated secret); the site owns the final list.
+- Which families the site shows as representative pages is the site's call. All families are migrated, so the choice only decides which narratives are reviewed first.
+- 721 unresolved statements are review work: each is a candidate for a provider source that would turn it into a cited statement.
 - Whether the lint's "core" and "stable" bans are too broad is decided by what authors hit. A false positive is fixed by rewording, not by an allowlist.
-- Review of the 22 narratives is a human step; none is `reviewed`.
+- Review of the 173 narratives is a human step; none is `reviewed`.

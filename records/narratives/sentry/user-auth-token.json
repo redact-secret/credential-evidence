@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "sentry:user-auth-token",
+  "family": "sentry:user-auth-token",
+  "lifecycle": "draft",
+  "contract": "sentry:user-auth-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "A user auth token is the prefix sntryu_ followed by 64 lowercase hexadecimal characters, which is 32 random bytes hex-encoded. Sentry's server code builds it this way and cannot emit uppercase, and its command-line tool requires the body to decode to exactly 32 bytes.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      },
+      {
+        "id": "legacy-unprefixed",
+        "text": "User tokens created before the prefix shipped (April 2024) are bare 64 hexadecimal characters, remain valid, and fall outside the prefixed shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-unprefixed-tokens"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source for the date of the change that introduced the prefix."
+        }
+      },
+      {
+        "id": "docs-name",
+        "text": "Sentry's documentation calls these tokens personal tokens.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited Sentry page."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-attempted",
+        "text": "How a user creates this token and what scope it carries is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Issuance was not attempted and no maintainer observed an issued token."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sibling-prefixes",
+        "text": "The prefixes sntrys_, sntrya_ and sntryi_ belong to other Sentry token types, so the sntryu_ prefix is what marks a user token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "no-web-page-states-format",
+        "text": "Does any Sentry documentation page state this token's format?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "An absence claim recorded in a research note: no page on Sentry's documentation, product, developer or command-line sites was found stating the format. The search is not itself an evidence record."
+        }
+      },
+      {
+        "id": "no-issued-token",
+        "text": "Does a freshly issued user auth token match the shape recorded here?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No user auth token was issued or compared for the research; the shape rests on Sentry's published code."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sentry.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sentry.md",
+      "note": "families[id=sentry:user-auth-token] dossier body"
+    }
+  ]
+}

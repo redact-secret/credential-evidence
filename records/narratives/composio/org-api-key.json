@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "composio:org-api-key",
+  "family": "composio:org-api-key",
+  "lifecycle": "draft",
+  "contract": "composio:org-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A Composio organization API key begins with oak_. The provider's authentication documentation and its SDK source name the prefix, and the documentation names the x-org-api-key request header that carries the key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "body-20",
+        "text": "The body is exactly 20 characters. A dated statement by Composio's Head of Security (2026-09-17, posted on a public scanner issue) gives oak_ plus 20 nanoid characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "The body is a URL-safe nanoid drawn from letters, digits, underscore and hyphen, so a body may begin or end with an underscore or a hyphen. The keys use an underscore-separated scheme with no checksum and no further separators.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "no-checksum",
+        "text": "The key has no separators and no checksum.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The statement that no checksum exists is held in a contract claim that is itself unresolved; it rests on one staff comment and no provider specification."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No organization key was issued or observed to confirm the stated width.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No organization key was issued for this research; an optional check of one key was listed but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "contains-ak",
+        "text": "The prefix oak_ contains ak_, so a project-key reading must not match inside it; the leading boundary separates them. The four-character prefix is distinctive enough that a mixed-case check on the body is harmless but not needed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The boundary rule is an authoring choice recorded in an unresolved contract claim, not a provider statement."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/composio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/composio.md",
+      "note": "families[id=composio:org-api-key] dossier body"
+    }
+  ]
+}
