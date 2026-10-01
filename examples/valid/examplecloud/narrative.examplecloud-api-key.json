@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "examplecloud:api-key",
+  "family": "examplecloud:api-key",
+  "lifecycle": "reviewed",
+  "contract": "examplecloud:api-key@2",
+  "sections": {
+    "shape": [
+      {
+        "id": "live-key-layout",
+        "text": "A live API key is exc_live_ followed by 32 base62 characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-30",
+        "citations": [
+          { "kind": "claim", "claimId": "prefixed-live-key" },
+          { "kind": "source", "sourceId": "examplecloud-token-format-doc", "locator": "section 'Key format'" }
+        ]
+      },
+      {
+        "id": "parser-enforces-length",
+        "text": "The vendor's SDK parser rejects a live key whose body is not exactly 32 characters, which agrees with the documented layout.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [{ "kind": "claim", "claimId": "sdk-parser-accepts-only-32" }]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "retired-hex-form",
+        "text": "Before 2024-07-01 keys were unprefixed hex strings; that form is no longer issued but values may persist in old configuration.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-09-29",
+        "citations": [{ "kind": "source", "sourceId": "examplecloud-legacy-key-announcement" }]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "rotation-interval",
+        "text": "Does ExampleCloud force rotation of live keys after a fixed interval?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-30",
+        "unresolved": { "reviewEvent": 2, "reason": "The reviewed documentation page states no rotation interval and no other source was found." },
+        "leads": [{ "kind": "source", "sourceId": "examplecloud-token-format-doc" }]
+      }
+    ]
+  },
+  "notes": "Fictional example. A reviewed narrative needs a review by someone who did not author it."
+}

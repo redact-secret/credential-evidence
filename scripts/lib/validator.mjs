@@ -9,6 +9,7 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import { checkIdentity } from "./identity.mjs";
+import { checkNarrativeLint } from "./narrative-lint.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = resolve(here, "..", "..");
@@ -17,6 +18,7 @@ export const schemaDir = join(repoRoot, "schemas");
 export const KINDS = [
   "provider",
   "family",
+  "family-narrative",
   "format-contract",
   "evidence-source",
   "variant",
@@ -128,6 +130,14 @@ export function checkIntegrity(entries) {
       for (const inp of record.origin.inputs) if (inp.kind === "case") projected.add(inp.id);
     }
     if (record.kind === "fixture-set") for (const item of record.fixtures) if (item.case) projected.add(item.case);
+  }
+
+  // evidence-review-history of each narrative, by narrative id (subject kind family-narrative)
+  const narrativeHistory = new Map();
+  for (const { path, record } of entries) {
+    if (record.kind !== "evidence-review-history" || record.subject.kind !== "family-narrative") continue;
+    if (narrativeHistory.has(record.subject.id)) err(path, `a second review history for narrative '${record.subject.id}' (also ${narrativeHistory.get(record.subject.id).id})`);
+    else narrativeHistory.set(record.subject.id, record);
   }
 
   const legacyMapped = new Map(); // legacy entity -> the map file that lists it (unique across shards)
@@ -362,10 +372,66 @@ export function checkIntegrity(entries) {
         }
         break;
       }
+      case "family-narrative": {
+        const family = get("family", r.family);
+        if (r.id !== r.family) err(path, `id '${r.id}' must equal family '${r.family}' (one narrative per family)`);
+        if (!family) err(path, `unknown family '${r.family}'`);
+        const contract = r.contract == null ? undefined : get("format-contract", r.contract);
+        if (r.contract != null) {
+          if (!contract) err(path, `contract '${r.contract}' does not exist`);
+          else if (contract.family !== r.family) err(path, `contract '${r.contract}' belongs to family '${contract.family}'`);
+        }
+        const history = narrativeHistory.get(r.id);
+        const seen = new Set();
+        for (const [section, statements] of Object.entries(r.sections)) {
+          for (const [i, s] of statements.entries()) {
+            const where = `sections.${section}[${i}] '${s.id}'`;
+            if (seen.has(s.id)) err(path, `${where}: duplicate statement id (ids are unique across all sections)`);
+            seen.add(s.id);
+            let providerBacked = false;
+            for (const c of [...(s.citations ?? []), ...(s.leads ?? [])]) {
+              const lead = (s.leads ?? []).includes(c);
+              if (c.kind === "claim") {
+                const claim = contract?.claims.find((x) => x.id === c.claimId);
+                if (r.contract == null) err(path, `${where}: cites claim '${c.claimId}' but the narrative names no contract`);
+                else if (!claim) err(path, `${where}: cites unknown claim '${c.claimId}' of contract '${r.contract}'`);
+                else {
+                  if (claim.evidenceClass === "unresolved" && !lead) err(path, `${where}: cites claim '${c.claimId}', which is itself unresolved; an unresolved claim cannot support a statement (it may be a lead)`);
+                  if (claim.evidenceClass === "provider-documented" && !lead) providerBacked = true;
+                }
+              } else {
+                const src = get("evidence-source", c.sourceId);
+                if (!src) err(path, `${where}: cites unknown evidence-source '${c.sourceId}'`);
+                else {
+                  if (s.temporality === "historical" && src.locator.pin.kind === "live-unpinned") {
+                    err(path, `${where}: states a historical fact but cites live-unpinned source '${c.sourceId}'; pin it to a commit, archive snapshot or digest`);
+                  }
+                  if (!lead && ["provider-documentation", "provider-sdk-source"].includes(src.sourceType)) providerBacked = true;
+                }
+              }
+            }
+            if (s.evidenceClass === "provider-documented" && !providerBacked) {
+              err(path, `${where}: class provider-documented needs a provider-authored citation (a provider-documentation or provider-sdk-source source, or a provider-documented claim); see docs/governance/evidence-classes.md`);
+            }
+            if (s.unresolved) {
+              const ev = history?.events.find((e) => e.seq === s.unresolved.reviewEvent);
+              if (!history) err(path, `${where}: unresolved, but no evidence-review-history has subject family-narrative '${r.id}'`);
+              else if (!ev) err(path, `${where}: unresolved.reviewEvent ${s.unresolved.reviewEvent} is not an event of review history '${history.id}'`);
+            }
+          }
+        }
+        if (r.lifecycle === "reviewed") {
+          const authors = new Set((history?.events ?? []).filter((e) => e.type === "authored").map((e) => e.actor.id));
+          const reviews = (history?.events ?? []).filter((e) => e.type === "reviewed" && e.verdict === "supports" && !authors.has(e.actor.id));
+          if (!reviews.length) err(path, "lifecycle 'reviewed' needs a 'reviewed' event with verdict 'supports' by an actor who did not author the narrative (docs/governance/attribution.md, review independence)");
+        }
+        break;
+      }
       case "evidence-review-history": {
         const targets = {
           provider: "provider",
           family: "family",
+          "family-narrative": "family-narrative",
           "format-contract": "format-contract",
           "evidence-source": "evidence-source",
           variant: "variant",
@@ -422,6 +488,7 @@ export function validateTree(dirs, { root = repoRoot, validator = createValidato
   errors.push(...checkIntegrity(valid));
   if (identity) {
     errors.push(...checkIdentity(valid));
+    errors.push(...checkNarrativeLint(valid));
   }
   return { total, records: valid, errors: errors.sort() };
 }

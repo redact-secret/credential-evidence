@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "stripe:organization-api-key",
+  "family": "stripe:organization-api-key",
+  "lifecycle": "draft",
+  "contract": "stripe:organization-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "The prefix sk_org_ is named on Stripe's key-types page and on its organization-keys page. Neither page gives a body length or alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "dossier-research"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-stripe-com-3e992d348a"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-stripe-com-c0e9f4600e"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-grammar",
+        "text": "What are the length and alphabet of the body of an organization API key?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The prefix is the only documented property; the body grammar is undecided, and the shape is not asserted beyond the prefix."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/stripe.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/stripe.md",
+      "note": "families[id=stripe:organization-api-key] dossier body"
+    }
+  ]
+}

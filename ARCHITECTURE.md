@@ -168,7 +168,7 @@ The migration proceeds in layers:
 6. cutover
 ```
 
-Status: layers 1 to 5 are done (#2 to #6). Layer 6, the cutover, is not: no downstream consumer has switched (`docs/migration/cutover.md`).
+Status: layers 1 to 5 are done (#2 to #6). Layer 6, the cutover, is not: no downstream consumer has switched (`docs/migration/cutover.md`). Layer 2 imported dossier frontmatter; the dossier prose enters only as reviewed, claim-backed family narratives (ADR 0010, #16), 22 of 173 families so far (`docs/migration/narrative-report.md`).
 
 The existing benchmark repository remains authoritative for active product qualification until:
 

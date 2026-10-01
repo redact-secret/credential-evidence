@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "github:fine-grained-personal-access-token",
+  "family": "github:fine-grained-personal-access-token",
+  "lifecycle": "draft",
+  "contract": "github:fine-grained-personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Fine-grained personal access tokens begin with github_pat_. The token-formats table lists the prefix and nothing else: it states no length, alphabet or segment split.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-github-com-094b941a54",
+            "locator": "#githubs-token-formats"
+          }
+        ]
+      },
+      {
+        "id": "layout-22-59",
+        "text": "The reviewed layout is github_pat_, then 22 alphanumeric characters, an underscore, and 59 alphanumeric characters, 93 characters in all. The split first appeared as a community expression that a GitHub product manager for identity endorsed on 2022-10-24 (\"purely a high-entropy string that's looked up on our backend ... Your regex looks good though\"). Three GitHub-owned redaction and data-loss-prevention rules, and one full-length value in the REST documentation's \"Revoke a list of credentials\" example, carry exactly this layout; GitHub-owned code redacts tokens and does not generate or validate them.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "dossier-research"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-community-community-9d8445a97c",
+            "locator": "#discussioncomment-3951965"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-github-copilotforxcode-71ec92f237",
+            "locator": "#L65"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-github-gh-aw-firewall-06ca8faabc",
+            "locator": "#L64-L65"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-github-gh-aw-mcpg-8d09470961",
+            "locator": "#L44"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-github-docs-d2e72af5b7",
+            "locator": "#L29"
+          }
+        ]
+      },
+      {
+        "id": "wider-scanner-widths",
+        "text": "Scanner rules that admit other widths (an 82-character body of word characters in several rules, and a 36 to 255 range in another) are supersets of the 22 plus 59 layout.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          }
+        ]
+      },
+      {
+        "id": "no-checksum-claimed",
+        "text": "No body checksum and no fixed leading digits are claimed for the 22 plus 59 layout.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No provider source states a checksum for this token; a third-party README claims one, and the staff comment reads against it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "issuance-path",
+        "text": "A fine-grained token is created under Settings, Developer settings, Personal access tokens, Fine-grained tokens. The token exists before an organization approves it.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The settings path is recorded in a research note without a cited source, and no fine-grained token was issued or observed for this research."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "revocation",
+        "text": "A leaked fine-grained token is revoked by its owner, or by GitHub after a report.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source; revocation was not attempted."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "separate-token-types",
+        "text": "Classic personal access tokens (ghp_) and GitHub App server-to-server tokens (ghs_) are listed beside github_pat_ as separate token types, so they are separate secret families and not benign twins of this one.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-github-com-094b941a54",
+            "locator": "#githubs-token-formats"
+          }
+        ]
+      },
+      {
+        "id": "identifier-contains-prefix",
+        "text": "A snake_case identifier in code that contains the text github_pat_, such as a function name, is not a token, and an open-ended pattern for the prefix matches it.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Observation from research with no cited source."
+        }
+      },
+      {
+        "id": "token-id-public",
+        "text": "A fine-grained token's token_id appears in API calls and audit logs; it is an identifier and not the secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-c231f4ae03"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "leading-digits",
+        "text": "Does a fresh fine-grained token always start with two fixed digits, and is the first segment truly opaque?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Community sources say the first segment starts with 11 and none is provider-stated. GitHub's own REST example value starts with two letters, so a fixed 11 is not universal."
+        }
+      },
+      {
+        "id": "checksum",
+        "text": "Does the body of a fine-grained token carry a checksum?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "The community README says yes; GitHub staff words and the 2021 engineering post, which describes a CRC32 in the last six characters, cover a different scheme."
+        }
+      },
+      {
+        "id": "ghes-parity",
+        "text": "Do GitHub Enterprise Server and GHE.com issue the same shape as github.com?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "The general-availability announcement says GHES support was expected in 3.17 and does not state whether the format is the same."
+        }
+      },
+      {
+        "id": "provider-statement-ruling",
+        "text": "Does the staff endorsement, or GitHub-owned redaction code, count as a provider statement of the 22 plus 59 grammar?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "A maintainer ruling on the evidence-class boundary has not been made; until it is the layout stays corroborated and not provider-documented."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/github.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/github.md",
+      "note": "families[id=github:fine-grained-personal-access-token] dossier body"
+    }
+  ]
+}

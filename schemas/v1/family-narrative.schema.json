@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:credential-evidence:schema:v1:family-narrative",
+  "title": "Family narrative",
+  "description": "The structured, reviewable human reasoning about one credential family: what its credentials look like, how they are issued, how they change over time, what they collide with, and what is still open. One narrative per family, written in scanner-neutral language. Every statement cites a contract claim or an evidence source, or is explicitly unresolved and points at a review event. A narrative never carries support status, detector behaviour, scanner results or product workflow.",
+  "x-schemaRevision": "1.4.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "id", "family", "lifecycle", "sections"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "family-narrative" },
+    "id": {
+      "description": "Equal to the family id; the validator enforces it. A family has at most one narrative.",
+      "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId"
+    },
+    "family": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId" },
+    "lifecycle": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/lifecycle" },
+    "contract": {
+      "description": "The format-contract revision whose claims this narrative cites. Required when any statement cites a claim.",
+      "$ref": "urn:credential-evidence:schema:v1:common#/$defs/contractId"
+    },
+    "sections": {
+      "description": "Fixed sections. A section that is absent is not covered by this narrative; it is not a statement that nothing is known.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "shape": { "$ref": "#/$defs/statements" },
+        "issuance": { "$ref": "#/$defs/statements" },
+        "lifecycle": { "$ref": "#/$defs/statements" },
+        "collisions": { "$ref": "#/$defs/statements" },
+        "openQuestions": { "$ref": "#/$defs/statements" }
+      }
+    },
+    "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" },
+    "notes": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+  },
+  "$defs": {
+    "statements": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/statement" }
+    },
+    "citation": {
+      "oneOf": [
+        {
+          "description": "A claim of the narrative's contract revision.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "claimId"],
+          "properties": {
+            "kind": { "const": "claim" },
+            "claimId": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }
+          }
+        },
+        {
+          "description": "An evidence-source record. The statement is the exact claim the source is cited for.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "sourceId"],
+          "properties": {
+            "kind": { "const": "source" },
+            "sourceId": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+            "locator": { "description": "Section, anchor, line or page inside the source.", "type": "string", "minLength": 1, "maxLength": 300 }
+          }
+        }
+      ]
+    },
+    "statement": {
+      "description": "One falsifiable statement. Either cited (a non-unresolved class and at least one citation) or unresolved (class unresolved, no citation, a review event that records why).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "evidenceClass", "temporality", "observedAt"],
+      "properties": {
+        "id": { "description": "Unique within the narrative.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+        "text": { "type": "string", "minLength": 1, "maxLength": 1200, "pattern": "^[^\\r\\n]+$" },
+        "evidenceClass": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/evidenceClass" },
+        "temporality": { "enum": ["current", "historical"] },
+        "observedAt": { "description": "When a person last confirmed the statement against its citations. Not the authoring date.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/dateOrDateTime" },
+        "citations": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/citation" } },
+        "leads": {
+          "description": "Unresolved statements only: sources or claims that point at the statement without establishing it, kept so a reader can follow the trail. A lead never counts as support.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/citation" }
+        },
+        "unresolved": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["reviewEvent", "reason"],
+          "properties": {
+            "reviewEvent": {
+              "description": "seq of the event in this narrative's evidence-review-history that records why the statement is unresolved.",
+              "type": "integer",
+              "minimum": 1
+            },
+            "reason": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": ["citations"],
+          "not": { "anyOf": [{ "required": ["unresolved"] }, { "required": ["leads"] }] },
+          "properties": { "evidenceClass": { "enum": ["provider-documented", "tool-corroborated", "project-policy"] } }
+        },
+        {
+          "required": ["unresolved"],
+          "not": { "required": ["citations"] },
+          "properties": { "evidenceClass": { "const": "unresolved" } }
+        }
+      ]
+    }
+  }
+}

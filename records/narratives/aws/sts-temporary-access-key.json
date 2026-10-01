@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "aws:sts-temporary-access-key",
+  "family": "aws:sts-temporary-access-key",
+  "lifecycle": "draft",
+  "contract": "aws:sts-temporary-access-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "asia-prefix",
+        "text": "A temporary access key ID issued by STS begins with ASIA. The IAM prefix table lists it as the temporary (STS) access key ID prefix, and the programmatic-access page says ASIA keys come from STS operations.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-59c608844f",
+            "locator": "#identifiers-prefixes"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-dc376a81fa"
+          }
+        ]
+      },
+      {
+        "id": "length-20",
+        "text": "The ID is 20 characters: the four-character prefix and a 16-character body. The provider's own example is 20 uppercase letters and digits, and AWS-owned and peer rules agree. The STS Credentials type allows 16 to 128 word characters for the key ID, a range no example or rule uses.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-1e7f14016c"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-f4520419ab"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-awslabs-git-secrets-57d690e6e4"
+          }
+        ]
+      },
+      {
+        "id": "body-alphabet",
+        "text": "The body is read as letters and digits (A-Z and 0-9). No provider source says which characters are issued. One scanner rule narrowed it to base32 (A-Z and 2-7) in April 2025 without maintainer discussion; the other reviewed rules accept any uppercase letter or digit. An independent 2020 observation found only base32 characters, and a 2018 write-up also gives base32, but neither is a provider statement.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-4127284f03"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-8f07f73a57"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-yelp-detect-secrets-385a46e487"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-awslabs-git-secrets-57d690e6e4"
+          },
+          {
+            "kind": "source",
+            "sourceId": "awsteele-com-b4e7b24a61"
+          },
+          {
+            "kind": "source",
+            "sourceId": "summitroute-com-f8a30bb19a"
+          }
+        ]
+      },
+      {
+        "id": "session-token-unspecified",
+        "text": "The secret access key and the session token that accompany an ASIA key ID have no documented alphabet or length; the AssumeRole page says the session token size is not fixed. Documentation examples of the token are base64-shaped, and one scanner rule matches 100 or more base64 characters, which is a heuristic and not a grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-companion"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-f4520419ab"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-cf4da7cc86"
+          }
+        ]
+      },
+      {
+        "id": "base32-observation",
+        "text": "The 2020 write-up dates a change in the internal structure of the key ID to 27 to 29 March 2019 and observed none of the characters 0, 1, 8 or 9 in the body.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "awsteele-com-b4e7b24a61"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "sts-operations",
+        "text": "ASIA key IDs are created by STS operations. They are usable only together with a secret access key and a session token, so the key ID alone authenticates nothing.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-companion"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-59c608844f",
+            "locator": "#identifiers-prefixes"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-dc376a81fa"
+          }
+        ]
+      },
+      {
+        "id": "not-minted",
+        "text": "No ASIA key was issued or observed for this record; the shape above rests on documentation, AWS-owned code and independent write-ups.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Nothing was minted for this research: STS issuance needs an AWS account and was not attempted, so no issued value was observed."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "prefixes-may-vary",
+        "text": "AWS warns that identifier prefixes may vary based on when the identifier was created, so the prefix table describes the present and not every historical value.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-59c608844f",
+            "locator": "#identifiers-prefixes"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "bare-key-id-weak",
+        "text": "A bare ASIA key ID is the weakest half of the credential. A scanner that reports it with confidence does so only with a paired secret or session token, as GitHub's secret-scanning pattern for temporary AWS key IDs requires a secret and a token.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-peer-lag"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-github-com-14499c804f"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-cf4da7cc86"
+          }
+        ]
+      },
+      {
+        "id": "same-prefix-table",
+        "text": "AKIA, ABIA and ACCA IDs sit in the same prefix table and share the four-letter-plus-body layout, so the prefix is what separates the kinds.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-59c608844f",
+            "locator": "#identifiers-prefixes"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "digit-outside-base32",
+        "text": "Does any ASIA key ID carry a digit outside the base32 range 2-7? An earlier research note says legacy values do; no reviewed source shows one, so a base32-only reading cannot be ruled out or confirmed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No reviewed source shows an ASIA key with a digit outside 2-7, and none shows that none exists."
+        }
+      },
+      {
+        "id": "structure-undocumented",
+        "text": "The meaning of the fifth and last characters of the key ID and the encoding of the account ID inside it are reverse-engineered and undocumented by AWS, so they are not part of the format.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The structure is reverse-engineered, and AWS marks it as subject to change."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+      "note": "families[id=aws:sts-temporary-access-key] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "anthropic:admin-api-key",
+  "family": "anthropic:admin-api-key",
+  "lifecycle": "draft",
+  "contract": "anthropic:admin-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An Admin API key begins sk-ant-admin01-. Two Anthropic pages document it, and one writes it sk-ant-admin... without the version segment.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-864b183d97"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-b68cbf8cc4"
+          }
+        ]
+      },
+      {
+        "id": "body-93-aa",
+        "text": "After the prefix the body is 93 characters of letters, digits, underscore and hyphen, then AA, 110 characters in all. Only scanner rules state this and Anthropic states no length. Two of the three rules share a lineage (a rule set and its fork), so only the third is independent corroboration.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "header",
+        "text": "The Admin API page sends the key in the x-api-key header. A Bearer header appears there for an OAuth org:admin token, so an admin key is not the only credential seen in that API's requests.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-header"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-b68cbf8cc4"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "console-admin",
+        "text": "An organization admin creates the key in Claude Console under Settings, Admin keys. It is shown once, and a Console admin key has full access to every endpoint that accepts an Admin API key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-864b183d97"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "selectable-expiry",
+        "text": "The key's expiration is chosen when it is created.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-864b183d97"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sibling-classes",
+        "text": "The sk-ant-api03- Claude API key and the sk-ant-api01- Enterprise organization key are different classes and differ from the admin key by one prefix segment.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-sibling-classes"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-2aaa0e2386"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-864b183d97"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "admin-body-grammar",
+        "text": "Is the admin key body always 93 characters plus AA, and does an admin02 version exist?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Anthropic's text states neither the always-93-plus-AA body nor a second version; confirming it needs a second key issued with a different expiry."
+        }
+      },
+      {
+        "id": "admin-version",
+        "text": "Is sk-ant-admin- without a version segment a real spelling, and is there a version other than admin01?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-b68cbf8cc4"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "admin01 is the only documented version; the unversioned spelling appears on one page and no source documents admin02."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/anthropic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+      "note": "families[id=anthropic:admin-api-key] dossier body"
+    }
+  ]
+}

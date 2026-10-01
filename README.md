@@ -117,6 +117,8 @@ Canonical ids and record paths never contain legacy suite names, beta, milestone
 
 The imported legacy data was reclassified in #12 stage B (`docs/decisions/0008`, `docs/migration/reclassification-report.md`): the 1,925 template-worded imported cases became 52 hand-authored Cases, 29 Scenarios and 5 fixture plans, and every one of the 5,925 fixtures is traceable through the legacy map.
 
+A **family narrative** (`family-narrative`, ADR 0010) is the structured human reasoning about one family: its shape, issuance, lifecycle, collisions and open questions. Every statement cites a contract claim or an evidence source, or is explicitly `unresolved` and points at a review event; none states support status, detector behaviour or scanner results. Narratives are rewritten from the legacy dossier prose by review, never copied, and stay `draft` until someone other than the author reviews them. `docs/migration/narrative-report.md` accounts for all 93 dossiers.
+
 ## Evidence classes
 
 The repository may distinguish evidence quality such as:
@@ -161,6 +163,7 @@ Migration work is tracked under:
 - #4 — first-class Case model and fixture lineage
 - #5 — evidence governance and external contribution policy
 - #6 — compatibility export and cutover parity
+- #16 — dossier prose as claim-backed family narratives (ADR 0010): 22 of 173 families so far, 88 of 93 dossiers deferred (`docs/migration/narrative-report.md`)
 - #12 — correction: no legacy coordinates in canonical identity; Scenario and fixture plans; reclassify the imported cases (stage A: rule, schema, lint, CI; stage B: the data; stage C: the legacy map as a first-class exporter input, canonical credential-eval snapshot, hardened parity, dual run)
 
 ## Expected repository shape
@@ -177,6 +180,8 @@ examples/
 
 records/              # canonical records; layout in docs/decisions/0004
   providers/ families/ contracts/ reviews/ sources/   # taxonomy import (#3)
+  narratives/<provider>/<family>.json   # claim-backed family narrative: shape, issuance, lifecycle, collisions, open questions (#16, ADR 0010)
+  narrative-reviews/<provider>/<family>.json   # review history of each narrative; unresolved statements point at its events
   cases/<case>.json  # hand-authored Cases: what happened, why it matters, expected outcome, evidence (#12)
   scenarios/<scenario>.json   # reusable semantic scenarios, written once (#12)
   fixture-plans/<plan>.json   # family x scenario matrix projections (#12)
@@ -193,8 +198,9 @@ scripts/
   validate.mjs        # npm run validate
   lib/validator.mjs
   lib/identity.mjs, lint-identity.mjs   # npm run lint:identity (ADR 0007); no baseline
+  lib/narrative-lint.mjs, lint-narrative.mjs   # npm run lint:narrative (ADR 0010); no baseline
   materialize-fixtures.mjs   # npm run fixtures:materialize: files + manifest for credential-eval
-  migrate/            # import-taxonomy.mjs, import-cases.mjs (npm run migrate:taxonomy, migrate:cases); future schema migrations
+  migrate/            # import-taxonomy.mjs, import-cases.mjs, import-narratives.mjs (npm run migrate:taxonomy, migrate:cases, migrate:narratives); authored/ holds the hand-written narratives and reviewed source types; future schema migrations
   export/             # legacy-projection.mjs (npm run export:legacy): legacy-compatible projection + credential-eval snapshot; lib/legacy-map.mjs is the only place legacy names are joined (ADR 0009)
   parity/             # run.mjs (npm run parity): projection versus the pinned legacy files; rules.json, inventory.json
   dual-run/           # dual-run.mjs (npm run dual-run -- --credential-eval <dir>): credential-eval over the canonical and the legacy corpus; not in CI
@@ -218,10 +224,12 @@ Requires Node 22 or newer. The validator is offline and deterministic.
 npm ci
 npm run validate   # schemas, examples/valid and records/: shape, IDs, cross-references
 npm run lint:identity   # no legacy coordinates in canonical ids and paths (ADR 0007); zero violations, no baseline
+npm run lint:narrative  # no benchmark, product, detector, support-status or issue-workflow vocabulary in narratives (ADR 0010); no baseline
 npm run migrate:check   # both migration regeneration checks (need the pinned legacy checkout)
 npm test           # positive and negative cases, imported records, round trips
 npm run migrate:taxonomy:check   # regenerate the taxonomy records from the pinned legacy revision and diff
 npm run migrate:cases:check      # regenerate the semantic tree, the legacy map and the reports (runs the legacy generators) and diff
+npm run migrate:narratives:check # compile the authored narratives, verify every citation, and diff the records and the report
 npm run fixtures:materialize     # write fixtures/materialized/ (gitignored) from records/
 npm run fixtures:materialize:check   # verify the records, the digest and any existing output
 npm run export:legacy            # write dist/legacy-projection/ (gitignored) and docs/migration/legacy-projection-manifest.json

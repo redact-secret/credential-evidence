@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-examplecloud-api-key",
+  "subject": { "kind": "family-narrative", "id": "examplecloud:api-key" },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-09-29",
+      "actor": { "id": "example-author", "role": "author", "affiliation": "project-maintainer" },
+      "note": "Narrative written from the provider documentation and the contract claims."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": { "id": "example-author", "role": "author", "affiliation": "project-maintainer" },
+      "verdict": "not-assertable",
+      "note": "Statement 'rotation-interval' (openQuestions) is recorded as unresolved: the reviewed documentation page states no rotation interval and no other source was found."
+    },
+    {
+      "seq": 3,
+      "type": "reviewed",
+      "at": "2026-09-30T11:00:00Z",
+      "actor": { "id": "example-reviewer", "role": "reviewer", "affiliation": "project-maintainer" },
+      "verdict": "supports",
+      "note": "Checked each statement against its citations. Project-maintained review, not independent validation."
+    }
+  ]
+}
