@@ -102,7 +102,7 @@ Recommended repository settings (maintainers, not code): GitHub immutable releas
 
 | Tag | Commit | Manifest digest | Notes |
 | --- | --- | --- | --- |
-| (none yet) | | | |
+| `snapshot-2026.10.01` | `adadf33096c417141897a4148d049a0a267c3278` | `54e47836b5c36a0b7c0871da8bfe227b041404ff2bc652e62566fe74ceab0182` | First snapshot release; 5,925 materialized fixtures. |
 
 ## Withdrawn releases
 
