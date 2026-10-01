@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "aws:sts-service-bearer-token",
+  "family": "aws:sts-service-bearer-token",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "abia-key-id",
+        "text": "AWS documents that the access key ID inside an STS service bearer token begins with ABIA. It does not describe the bearer token string itself.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-d8bc0c362f"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-59c608844f",
+            "locator": "#identifiers-prefixes"
+          }
+        ]
+      },
+      {
+        "id": "token-type-string",
+        "text": "The CodeArtifact API types the returned authorization token only as a string, with no length, alphabet or prefix, and states a life between 15 minutes and 12 hours.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-8f86716297"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-dfff72ece4"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "services-call-get-token",
+        "text": "Services such as CodeArtifact (and, by the same permission, ECR Public) call the sts:GetServiceBearerToken operation and hand the token back to the caller.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-d8bc0c362f"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-dfff72ece4"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "short-lived",
+        "text": "The CodeArtifact authorization token lives between 15 minutes and 12 hours.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-8f86716297"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "bare-abia-id",
+        "text": "A bare ABIA value that turns up in text is an identifier shaped like the other key IDs, not a bearer token, and belongs with the key-ID layout. Scanner rules that mention ABIA list it only as an access-key-ID prefix.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-4127284f03"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-53adcd93e2"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-hashicorp-aws-sdk-go-base-894e07bf40"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-bishopfox-jsluice-b7f6bf7bff"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "token-format-documented",
+        "text": "Does AWS document the format of the CodeArtifact or ECR Public bearer token, or has anyone published a decoded structure? Nothing reviewed does, so the family has no grammar for the value that actually authenticates.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Searches of AWS documentation, SDK and CLI source, blogs, forum threads and code search found the ABIA prefix and the permission only; none states the token's shape. Reddit and Stack Overflow pages could not be read."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+      "note": "families[id=aws:sts-service-bearer-token] dossier body"
+    }
+  ]
+}

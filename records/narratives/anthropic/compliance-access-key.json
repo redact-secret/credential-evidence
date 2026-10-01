@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "anthropic:compliance-access-key",
+  "family": "anthropic:compliance-access-key",
+  "lifecycle": "draft",
+  "contract": "anthropic:compliance-access-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An Enterprise organization key begins sk-ant-api01-. Anthropic's documentation says \"sk-ant-api01- is a Compliance Access Key\" and lists it as the Claude Enterprise organization key prefix.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-2aaa0e2386"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-864b183d97"
+          }
+        ]
+      },
+      {
+        "id": "scope-not-encoded",
+        "text": "The same prefix is used for any scope set (compliance, analytics, spend limits, members), so the value does not say compliance and the scope is not encoded in it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-scope-of-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-864b183d97"
+          }
+        ]
+      },
+      {
+        "id": "header",
+        "text": "The Admin API page sends API keys in the x-api-key header; the authentication page now recommends an Authorization Bearer header and calls x-api-key legacy.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-header"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-b68cbf8cc4"
+          }
+        ]
+      },
+      {
+        "id": "body-unknown",
+        "text": "The length, alphabet and tail of the body after sk-ant-api01- are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No provider, scanner or observation states a length for this prefix; the body of the api03 key must not be extrapolated to it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "organization-settings",
+        "text": "The key is created in the claude.ai organization settings under API and is shown once. Anthropic's help center article covers issuance and that the key is shown once, and nothing about the body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "support-claude-com-2c09db286e"
+          }
+        ]
+      },
+      {
+        "id": "enterprise-parent-organization",
+        "text": "Creating one needs a Claude Enterprise parent organization, its primary owner or an organization owner, and the Compliance API enabled. A standalone Console organization cannot create one.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "support-claude-com-2c09db286e"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-2aaa0e2386"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-3a78dd7a53"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "no-expiry",
+        "text": "The key does not expire on its own.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source; no key was issued to observe expiry."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sibling-classes",
+        "text": "The sk-ant-api03- Claude API key and the sk-ant-admin01- Admin API key differ from this key only in the prefix segment and are distinct credential classes.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-2aaa0e2386"
+          },
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-864b183d97"
+          }
+        ]
+      },
+      {
+        "id": "third-party-guides",
+        "text": "Third-party integration guides name Enterprise api01 keys as a confusable and reject the wrong type, and vendor pages that repeat the prefix disagree with Anthropic on where the key is created.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "api01-body",
+        "text": "What are the length, alphabet and tail of an sk-ant-api01- key, and does it end in AA like the api03 and admin01 keys?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "One issued Enterprise key would settle length, alphabet and whether it ends in AA; until then the body is unresearched."
+        }
+      },
+      {
+        "id": "api01-history",
+        "text": "Was api01 ever a general key generation before it became the Enterprise organization key prefix?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "One unsourced blog says api01 and api02 were older general key generations, which Anthropic's Enterprise use of api01 appears to contradict; no provider source reconciles them."
+        }
+      },
+      {
+        "id": "oauth-siblings",
+        "text": "Do sk-ant-oat01- and sk-ant-ort01- have a provider source and, if so, a family of their own?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "A scanner request names these two prefixes for Claude Code OAuth tokens; no provider source was found for either."
+        }
+      },
+      {
+        "id": "analytics-key",
+        "text": "Does the Analytics API key have a documented prefix?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "platform-claude-com-2aaa0e2386"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "The compliance-access page lists an Analytics API key without a prefix, so there is nothing to describe yet."
+        }
+      },
+      {
+        "id": "forum-coverage",
+        "text": "Do community posts that could not be read show a different api01 or admin01 shape?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "The Reddit archive was rate-limited partway through the research, so the absence of community posts on api01 and admin01 is weak evidence."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/anthropic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/anthropic.md",
+      "note": "families[id=anthropic:compliance-access-key] dossier body"
+    }
+  ]
+}

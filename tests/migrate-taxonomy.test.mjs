@@ -17,7 +17,11 @@ import { ownerOf, isProjectOwned } from "../scripts/migrate/lib/sources.mjs";
 const recordsDir = join(repoRoot, "records");
 const { errors, records } = validateTree([recordsDir]);
 // Scenarios, cases, fixture plans and fixture sets live beside the taxonomy records; they are covered by migrate-cases.test.mjs.
-const all = records.map((r) => r.record).filter((r) => !["case", "fixture-set", "fixture-projection", "scenario", "fixture-plan", "legacy-map"].includes(r.kind));
+// Family narratives and the review histories of narratives (hand-authored, ADR 0010) are covered by narrative.test.mjs.
+const all = records
+  .map((r) => r.record)
+  .filter((r) => !["case", "fixture-set", "fixture-projection", "scenario", "fixture-plan", "legacy-map", "family-narrative"].includes(r.kind))
+  .filter((r) => !(r.kind === "evidence-review-history" && r.subject.kind === "family-narrative"));
 const byKind = (kind) => all.filter((r) => r.kind === kind);
 const owned = (r) => (r.externalRefs ?? []).some((x) => x.system === OWNED_SYSTEM);
 const importedRecords = all.filter(owned);

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "aws:iam-user-access-key",
+  "family": "aws:iam-user-access-key",
+  "lifecycle": "draft",
+  "contract": "aws:iam-user-access-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "akia-prefix",
+        "text": "The access key ID of an IAM user's long-term access key begins with the four characters AKIA.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-59c608844f",
+            "locator": "#identifiers-prefixes"
+          }
+        ]
+      },
+      {
+        "id": "body-base32",
+        "text": "The 20-character ID is AKIA followed by a 16-character body from the base32 alphabet (A-Z and 2-7). AWS does not state the body length or alphabet in prose, so this rests on corroborating scanner rules and not on a provider statement.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "paired-secret",
+        "text": "The key ID is issued with a separate 40-character secret access key. The 40-character length is likewise corroborated by scanner rules only.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sibling-prefixes",
+        "text": "The same prefix table lists ASIA (temporary STS access key IDs), ABIA and ACCA next to AKIA. Each names a different credential kind, so an AKIA body shape does not establish which kind a value is.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-59c608844f",
+            "locator": "#identifiers-prefixes"
+          }
+        ]
+      },
+      {
+        "id": "aida-not-a-key",
+        "text": "AIDA is the prefix of an IAM user's unique ID. It is an identifier and not an access key, although it has the same four-letter shape.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-aws-amazon-com-59c608844f",
+            "locator": "#identifiers-prefixes"
+          }
+        ]
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/aws.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/aws.md",
+      "note": "families[id=aws:iam-user-access-key] dossier body"
+    }
+  ]
+}

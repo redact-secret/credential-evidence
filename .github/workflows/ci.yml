@@ -51,6 +51,9 @@ jobs:
       - name: Identity lint
         run: npm run lint:identity
 
+      - name: Narrative lint
+        run: npm run lint:narrative
+
       - name: Test
         run: npm test
         env:

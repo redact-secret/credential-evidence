@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "openai:admin-api-key",
+  "family": "openai:admin-api-key",
+  "lifecycle": "draft",
+  "contract": "openai:admin-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An organization Admin API key begins sk-admin-. OpenAI's credential-broker code names the prefix and the watermark; no provider page states the length or alphabet.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-openai-codex-86981d0327",
+            "locator": "#L13-L23"
+          }
+        ]
+      },
+      {
+        "id": "structure-58-58",
+        "text": "The reviewed structure is sk-admin-, then 58 characters of letters, digits, underscore and hyphen, the marker T3BlbkFJ, then 58 more: 133 characters in all. One scanner's three admin test values are all 58 and 58, a second scanner's dedicated admin rule requires the marker and exactly 58 and 58, and two further rules match 58, the marker and 58. With OpenAI's own broker code that is five references from five owners.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-marker"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-segment-widths"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-2046c4f630",
+            "locator": "#L14"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-49539ec7a3",
+            "locator": "#L26-L29"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-projectdiscovery-nuclei-templates-a6ef28c40c",
+            "locator": "#L23"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-ghostsecurity-poltergeist-66724636ca",
+            "locator": "#L36"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-openai-codex-86981d0327",
+            "locator": "#L13-L23"
+          }
+        ]
+      },
+      {
+        "id": "width-74-only-by-union",
+        "text": "No source anywhere shows a 74-by-74 admin key. One scanner's rule admits that width only through the width union it shares with sk-proj- and sk-svcacct- keys, so the width is outside what the evidence supports.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-2046c4f630",
+            "locator": "#L14"
+          }
+        ]
+      },
+      {
+        "id": "marker-less-body",
+        "text": "A marker-less sk-admin- body of any length is unevidenced, including the 124-character body in one scanner feature request.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-77740cd8a7"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A single unsourced request describes a marker-less body; no issued key shows one. The 124-character length equals 58 plus the 8-character marker plus 58."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "created-by-owner",
+        "text": "An organization owner creates an admin key. The Admin API guide states its scope: an admin key cannot call endpoints that are not administration endpoints, and its documented environment variable is OPENAI_ADMIN_KEY.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "developers-openai-com-8ac1b033d0"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No OpenAI admin key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No admin key was issued for this research; a checklist of prefix, the two segment widths, marker offset, alphabet and whether the key is shown once was drawn up but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "shared-namespace",
+        "text": "An admin key shares the sk- namespace and the watermark grammar with sk-proj- and sk-svcacct- keys, so the segment after sk- is what tells the kinds apart.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-openai-codex-86981d0327",
+            "locator": "#L13-L23"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-2046c4f630",
+            "locator": "#L14"
+          }
+        ]
+      },
+      {
+        "id": "resource-id-public",
+        "text": "The admin key resource id (beginning key_) and the redacted value the API displays are public identifiers and not the secret.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note as a checklist item; its shape was recorded and not observed, and no source is cited for it."
+        }
+      },
+      {
+        "id": "blog-widths",
+        "text": "Some blog posts conflate the 164-character project widths and a floor of 40 characters with the admin key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Two blog pages state these figures; the scanner test values for admin keys contradict them, so they are not used."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "admin-widths-and-marker",
+        "text": "Does a real admin key carry the marker, and is it 58 and 58 only or also 74 and 74?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "One issued admin key would show whether the marker is always present and whether 74-by-74 occurs."
+        }
+      },
+      {
+        "id": "provider-code-as-provider-statement",
+        "text": "Does a staff forum post, or provider code published on GitHub, count as a provider statement of the key grammar?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "The written bar treats provider code that is only an allow-list as not a grammar statement, so the class stays tool-corroborated; whether that distinction holds is a maintainer decision that has not been recorded for OpenAI."
+        }
+      },
+      {
+        "id": "forum-coverage",
+        "text": "Do community reports on forums that could not be read show a different admin key shape?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "Reddit could not be read in either research pass, so the absence of reports there is weak evidence."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/openai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/openai.md",
+      "note": "families[id=openai:admin-api-key] dossier body"
+    }
+  ]
+}

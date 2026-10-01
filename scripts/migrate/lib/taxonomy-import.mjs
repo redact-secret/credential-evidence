@@ -13,6 +13,7 @@
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import YAML from "yaml";
+import reviewedSourceTypes from "../authored/source-types.mjs";
 import { LEGACY_PATHS, LEGACY_REPOSITORY, LEGACY_REVISION, loadContractRegistry, readLegacyJson, readLegacyText } from "./legacy-source.mjs";
 import { clip, isProjectOwned, ownerOf, pinFor, publisherFor, shapeRole, slugify, sourceIdFor, splitUrl, strongestRole, titleFor } from "./sources.mjs";
 
@@ -577,7 +578,13 @@ export function buildTaxonomyImport({ root, revision = LEGACY_REVISION }) {
     if (sourceIds.has(id)) throw new Error(`source id collision: ${id}`);
     sourceIds.set(id, base);
     const pin = pinFor(base);
-    const sourceType = strongestRole(s.roles);
+    let sourceType = strongestRole(s.roles);
+    const reviewed = reviewedSourceTypes.overrides[base];
+    if (sourceType === "other" && reviewed) {
+      // a person read the source and typed it (scripts/migrate/authored/source-types.mjs); only `other` is ever replaced
+      sourceType = reviewed.sourceType;
+      R.inc("source-type-reviewed");
+    }
     if (sourceType === "other") {
       ambiguousType += 1;
     }

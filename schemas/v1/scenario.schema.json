@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:scenario",
   "title": "Scenario",
   "description": "A reusable semantic scenario: one named way a value can relate to a credential (documentation placeholder, prefix near miss, wrong alphabet, public identifier, templated reference ...), with the same meaning and the same scanner-neutral outcome class for every family it applies to. A scenario holds no per-family prose; family-specific cells are expressed as fixture-plan matrix projections. A reasoning unit that is specific to one situation is a case instead (ADR 0007). The id is a semantic slug and never carries legacy suite, milestone, issue, detector or release coordinates. Added in schema revision 1.2.0.",
-  "x-schemaRevision": "1.3.0",
+  "x-schemaRevision": "1.4.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "title", "description", "semantics", "expectedOutcomeClass", "applicability", "evidenceBasis", "lifecycle"],

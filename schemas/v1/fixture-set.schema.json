@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:fixture-set",
   "title": "Fixture set (sharded fixture projections)",
   "description": "A compact shard of executable fixture projections that share one origin: either hand-written fixtures, or the recorded output of one documented generation rule. Each item projects exactly one Case, or exactly one cell (fixture plan, scenario, families) of a matrix projection (schema revision 1.3.0, ADR 0008), and carries its own expected outcome, spans and evidence entry; the set is derived, never the canonical human record. Sets are organised by family provider, never by legacy suite. Content is embedded as text next to its sha256 because the synthetic inputs are small and one file per fixture would not scale (ADR 0005). Added in schema revision 1.1.0.",
-  "x-schemaRevision": "1.3.0",
+  "x-schemaRevision": "1.4.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "title", "origin", "generated", "fixtures", "lifecycle"],

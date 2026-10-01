@@ -10,11 +10,14 @@
   "scripts": {
     "validate": "node scripts/validate.mjs",
     "lint:identity": "node scripts/lint-identity.mjs",
-    "migrate:check": "npm run migrate:taxonomy:check && npm run migrate:cases:check",
+    "lint:narrative": "node scripts/lint-narrative.mjs",
+    "migrate:check": "npm run migrate:taxonomy:check && npm run migrate:cases:check && npm run migrate:narratives:check",
     "migrate:taxonomy": "node scripts/migrate/import-taxonomy.mjs",
     "migrate:taxonomy:check": "node scripts/migrate/import-taxonomy.mjs --check",
     "migrate:cases": "node scripts/migrate/import-cases.mjs",
     "migrate:cases:check": "node scripts/migrate/import-cases.mjs --check",
+    "migrate:narratives": "node scripts/migrate/import-narratives.mjs",
+    "migrate:narratives:check": "node scripts/migrate/import-narratives.mjs --check",
     "fixtures:materialize": "node scripts/materialize-fixtures.mjs",
     "fixtures:materialize:check": "node scripts/materialize-fixtures.mjs --check",
     "export:legacy": "node scripts/export/legacy-projection.mjs",
@@ -23,7 +26,7 @@
     "parity:check": "node scripts/parity/run.mjs --check",
     "dual-run": "node scripts/dual-run/dual-run.mjs",
     "test": "node --test \"tests/**/*.test.mjs\"",
-    "check": "npm run validate && npm run lint:identity && npm test"
+    "check": "npm run validate && npm run lint:identity && npm run lint:narrative && npm test"
   },
   "dependencies": {
     "ajv": "8.20.0",

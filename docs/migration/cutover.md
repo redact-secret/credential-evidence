@@ -39,7 +39,7 @@ So, today: **the legacy repository stays authoritative, nothing in it may be del
 | Legacy file | Projection | Overlay still needed |
 | --- | --- | --- |
 | `benchmarks/support/taxonomy.json` | `benchmarks/support/taxonomy.json` | `supportStatus` (4 families) |
-| `benchmarks/support/dossiers/*.md` frontmatter | `benchmarks/support/dossier-frontmatter.json` (frontmatter only; the prose stays legacy) | none |
+| `benchmarks/support/dossiers/*.md` frontmatter | `benchmarks/support/dossier-frontmatter.json` (frontmatter only; the prose stays legacy and is not exported: canonical family narratives, ADR 0010, cover 22 of 173 families and are not a legacy-compatible shape) | none |
 | `benchmarks/scenarios.json` | `benchmarks/scenarios.json` | none |
 | `benchmarks/categories.json` | `benchmarks/categories.json` | `calibrationOnly` entry is not imported |
 | `benchmarks/fixture-semantics.json`, `benchmarks/fixture-index.json` | same paths | `fixture-provenance`; per-fixture family links (see decisions) |
@@ -72,7 +72,7 @@ Acceptance criteria of epic #1, as stated in its body (migration rule 1 to 4 and
 
 | # | Criterion | Result | Evidence and caveats |
 | --- | --- | --- | --- |
-| 1 | Migrated data has schema parity | PASS | Schema 1.3.0; `npm run validate` covers `records/` and `migration/`; 93 providers, 173 families with dossier frontmatter, 52 Cases, 29 Scenarios, 5 fixture plans, 98 fixture sets, all 5,925 fixtures traceable through the legacy map (`docs/migration/taxonomy-report.md`, `cases-report.md`, `reclassification-report.md`). Lossy items are the open decisions 1 and 2. |
+| 1 | Migrated data has schema parity | PASS | Schema 1.4.0; `npm run validate` covers `records/` and `migration/`; 93 providers, 173 families with dossier frontmatter, 52 Cases, 29 Scenarios, 5 fixture plans, 98 fixture sets, all 5,925 fixtures traceable through the legacy map (`docs/migration/taxonomy-report.md`, `cases-report.md`, `reclassification-report.md`). Lossy items are the open decisions 1 and 2. |
 | 2 | Exported legacy projections reproduce current benchmark inputs | PASS at the pin, with caveats | 0 unexplained, 28,448 explained, 173,505 identical; legacy loaders (`fixtureIndexProblems`, `validateCorpus` on 67 corpora, four legacy schemas) accept the projection. Caveats: product state is an overlay, not reproduced; explained differences include the meaning-changing ones in decisions 1 to 4; "current" is the pin, not the legacy head (path diff clean, parity not re-run at the head). |
 | 3 | credential-eval consumes the new canonical data successfully | PASS for the input contract and a scanner run; adoption not done | The canonical-id snapshot is accepted by credential-eval's own validator and runs to `complete` under gitleaks 8.30.1 and TruffleHog (5,925 cases). credential-eval's own parity work (its issue #5) and a switch of its baselines are not done. |
 | 4 | Dual-run comparison shows no unexplained semantic drift | PASS for what was run, not complete | Gitleaks 8.30.1 (pinned) and TruffleHog 3.97.6 (pin overridden): per-case findings identical in 5,925 of 5,925 cases, per-case measurement identical in 5,925 of 5,925, 0 unexplained drift, for both. Not run: TruffleHog 3.97.4, the three npm adapters, run-level aggregates, redact-secret qualification on generated inputs. |
@@ -94,7 +94,7 @@ Do these in order; tick only what is verified, in the pull request that does it.
 - [x] Identity correction and reclassification (#12 stages A and B): no legacy coordinates in canonical ids or paths, 1,925 imported cases reclassified into 52 Cases, 29 Scenarios and 5 plans, every fixture in `migration/legacy-map/`.
 - [x] Stage C (#12): the legacy map is a first-class, strictly checked exporter input (no adapter view), legacy navigation scenario ids decided (ADR 0009), parity re-run with stronger checks (0 unexplained), credential-eval snapshot in canonical names accepted by credential-eval's validator, dual run of credential-eval over the canonical and the legacy corpus (gitleaks pinned, TruffleHog unpinned), CI runs the export, parity and materialize checks.
 - [ ] Maintainers decide the open questions above (tier downgrades, T0 span loss, identity digests, per-fixture families, re-pin).
-- [ ] Re-pin: choose the legacy revision current at cutover, re-run `npm run migrate:taxonomy`, `npm run migrate:cases`, `npm run export:legacy`, `npm run parity`; unexplained must still be zero.
+- [ ] Re-pin: choose the legacy revision current at cutover, re-run `npm run migrate:taxonomy`, `npm run migrate:cases`, `npm run migrate:narratives`, `npm run export:legacy`, `npm run parity`; unexplained must still be zero.
 - [ ] credential-eval dual run with the pinned TruffleHog 3.97.4 and all adapters, and its own parity on run-level aggregates (credential-eval issue #5).
 - [ ] redact-secret-benchmarks builds its inputs from the projection plus overlays and its own release gates pass on the generated inputs.
 - [ ] A release is qualified end to end from generated inputs while the hand-authored files still exist (the parallel run).

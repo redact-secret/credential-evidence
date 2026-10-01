@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "github:classic-personal-access-token",
+  "family": "github:classic-personal-access-token",
+  "lifecycle": "draft",
+  "contract": "github:classic-personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-role",
+        "text": "GitHub's token-formats page lists ghp_ as the prefix of the classic personal access token, with an underscore separating the prefix from the body. The prefix and the token's role are the only parts of this family that the provider documents.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-github-com-094b941a54",
+            "locator": "#githubs-token-formats"
+          }
+        ]
+      },
+      {
+        "id": "body-36",
+        "text": "The body after the prefix is 36 characters, following the 36-byte body scheme of GitHub's 2021-04-05 token-format post, whose last six characters are a CRC32 checksum. The token-formats page does not restate the length or the checksum, so this part rests on that post and on scanner rules that agree with it.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "distinct-token-types",
+        "text": "The same page lists ghp_ next to the other classic prefixes (ghp_, gho_, ghu_, ghs_, ghr_) and github_pat_, so the prefix, not the body shape, says which kind of token a value is.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-github-com-094b941a54",
+            "locator": "#githubs-token-formats"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-and-checksum-current",
+        "text": "Does every classic personal access token issued today carry a 36-character body whose last six characters are a CRC32 checksum, or only those issued under the 2021 scheme?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The only provider statement is the prefix and role. The body length and checksum come from a 2021 post that the token-formats page does not repeat, so it is not established that every token of this family issued today follows it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/github.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/github.md",
+      "note": "families[id=github:classic-personal-access-token] dossier body"
+    }
+  ]
+}
