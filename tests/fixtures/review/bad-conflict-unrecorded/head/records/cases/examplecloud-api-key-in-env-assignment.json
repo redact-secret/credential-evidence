@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-api-key-in-env-assignment",
+  "title": "Prefixed live API key assigned in a shell environment line",
+  "summary": "A well-formed exc_live_ key appears as the value of an environment-variable assignment.",
+  "rationale": "The value matches the documented live-key grammar exactly, so it is an issued-credential shape in its most common carrier.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "subject",
+      "contract": "examplecloud:api-key@2"
+    }
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Prefix, alphabet and length all match the provider's documented format.",
+    "sources": [
+      {
+        "sourceId": "examplecloud-token-format-doc",
+        "supports": "Documents the live key grammar.",
+        "locator": "section 'Key format'"
+      }
+    ],
+    "observedAt": "2026-09-30"
+  },
+  "lifecycle": "reviewed"
+}

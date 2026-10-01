@@ -87,3 +87,18 @@ checks read, also run `migrate:check`, `export:legacy:check`, `parity:check` and
 3. Replace every `TODO(record:new)`; cite sources by `{ sourceId, supports, locator }`.
 4. `record:check` while editing, `npm run check` before the pull request.
 5. A person other than the author reviews before `lifecycle` leaves `draft`.
+
+## Reviewing a research PR
+
+```bash
+npm run review:check -- <base>..<head> [--body-file <pr-body.md>] [--json]
+```
+
+A deterministic, read-only pre-filter over the git range, used by the
+[`review-research-pr`](../.agents/skills/review-research-pr/SKILL.md) skill and runnable by hand. It
+reports forbidden and independence wording, scanner-consensus phrasing, provenance and
+evidence-class completeness, ADR 0007 identity, the additive rule, unrecorded conflicts, a Case
+that reads as a Scenario, prompt-injection indicators and secret-shaped values (shape and length
+only, never the text). The last line is `VERDICT: pass|fail|needs-human`; exit codes 0, 1, 3 (2 is a
+usage error). `pass` means no mechanical rule broke, not that any claim is true. Seeded good and
+bad diffs for it live under `tests/fixtures/review/`.

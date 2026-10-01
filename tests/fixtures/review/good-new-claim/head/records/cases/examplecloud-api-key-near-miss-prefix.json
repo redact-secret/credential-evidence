@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-api-key-near-miss-prefix",
+  "title": "Fixture case examplecloud-api-key-near-miss-prefix",
+  "summary": "A key whose prefix is one character off the documented prefix appears in a config line.",
+  "rationale": "A near-miss prefix breaks the documented grammar so the line carries no issued-credential shape; the body is a fabricated non-issuable run.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "subject",
+      "contract": "examplecloud:api-key@2"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Not yet reviewed; awaiting a second source.",
+    "sources": [],
+    "observedAt": "2026-09-30"
+  },
+  "lifecycle": "draft"
+}

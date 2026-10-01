@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "examplecloud:api-key@3",
+  "family": "examplecloud:api-key",
+  "revision": 3,
+  "period": "proposed",
+  "validity": {
+    "from": "2024-07-01",
+    "until": null
+  },
+  "structure": {
+    "prefixes": [
+      "exc_live_"
+    ],
+    "alphabet": {
+      "name": "base62"
+    },
+    "length": {
+      "exact": 32
+    },
+    "separators": [
+      "_"
+    ],
+    "components": [
+      {
+        "name": "prefix",
+        "role": "prefix",
+        "description": "Literal exc_live_."
+      },
+      {
+        "name": "body",
+        "role": "body",
+        "description": "32 base62 characters."
+      }
+    ],
+    "descriptivePattern": "^exc_live_[0-9A-Za-z]{32}$"
+  },
+  "claims": [
+    {
+      "id": "live-prefix",
+      "statement": "Live API keys start with exc_live_.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-30",
+      "sources": [
+        {
+          "sourceId": "examplecloud-token-format-doc",
+          "supports": "Documents the live key grammar.",
+          "locator": "section 'Key format'"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "supersedes": "examplecloud:api-key@2",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. The docs list the published test value AKIAIOSFODNN7EXAMPLE as a documentation example."
+}
