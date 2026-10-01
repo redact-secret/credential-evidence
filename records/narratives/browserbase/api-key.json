@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "browserbase:api-key",
+  "family": "browserbase:api-key",
+  "lifecycle": "draft",
+  "contract": "browserbase:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-alphabet-floor",
+        "text": "A key begins bb_live_ and continues with at least 20 letters and digits, open-ended, with no separator or checksum. The prefix comes from documentation placeholders and a provider redaction pattern in its stagehand repository; the alphabet and floor come from a hygiene check in its cookbook repository, written by a public member of the Browserbase organization. The stagehand redaction pattern also admits underscore and hyphen after the first four body characters; the alphanumeric class is the narrower reading.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-floor"
+          }
+        ]
+      },
+      {
+        "id": "no-upper-bound",
+        "text": "A key body has an upper bound of 128 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-policy-upper-bound"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A cap of 128 characters was chosen for bounded matching; it is not a provider fact and the provider's own pattern is open-ended."
+        }
+      },
+      {
+        "id": "test-keys",
+        "text": "bb_test_ keys exist and are not part of this family.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-bb-test"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Only a loose pattern and a comment mention bb_test_ keys; none was issued and the provider states no grammar for them."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The key is read from the BROWSERBASE_API_KEY environment variable and sent as the X-BB-API-Key header, or passed to Browserbase(api_key=...) and new Stagehand({ apiKey }).",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "access",
+        "text": "A key creates and drives sessions for a project on the account's usage budget, reads session recordings and logs, and reuses stored browser contexts that hold the cookies and logins of visited sites.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in the research overview without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No Browserbase key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No key was issued for this research; one issued bb_live_ key, and whether a bb_test_ key can be created, would narrow the grammar."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "snake-case-look-alikes",
+        "text": "bb_live_session_ followed by more words and other snake_case identifiers, bb_ followed by a timestamp in cookie names, and project-id UUIDs are not keys.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "glued-hyphen",
+        "text": "The provider's two rules agree that a trailing underscore on the run means it is not a key and disagree about a trailing hyphen.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "The contract records this as a boundary decision rather than a provider statement; which reading is right is open."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "bb-test-keys",
+        "text": "Can a bb_test_ key be created, and does it share the bb_live_ body grammar?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "No bb_test_ key has been issued, so its body grammar is unknown."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/browserbase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/browserbase.md",
+      "note": "families[id=browserbase:api-key] dossier body"
+    }
+  ]
+}

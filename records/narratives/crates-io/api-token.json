@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "crates-io:api-token",
+  "family": "crates-io:api-token",
+  "lifecycle": "draft",
+  "contract": "crates-io:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "grammar",
+        "text": "A crates.io API token is the literal prefix cio followed by exactly 32 letters and digits, 35 characters in all. The registry's server code defines the prefix and a 32-character length and generates the body with a random alphanumeric sampler. Its token parser rejects any token without the prefix, so unprefixed tokens are no longer accepted.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-rust-lang-crates-io-8fcc76bccc"
+          }
+        ]
+      },
+      {
+        "id": "no-checksum",
+        "text": "The body of an API token carries no checksum.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The server code read does not show a checksum, but no provider statement says the body has none."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "A token is supplied through the CARGO_REGISTRY_TOKEN variable, the registry token entry of the Cargo credentials file, or the publish command's token option. A token minted by the trusted-publishing exchange in CI is also exported for the publish command.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No API token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued for this research; the grammar is read from provider source, so none was needed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "three-letter-prefix",
+        "text": "The prefix cio is only three letters, so the exact body length and a boundary on both sides carry the precision: a token must not be claimed when glued to identifier characters on either side, and cio plus 32 inside a longer alphanumeric run is never truncated. A standalone random 35-character value that happens to start with cio is an accepted false positive.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The boundary rule is an authoring choice recorded in an unresolved contract claim, and the accepted miss is a research-note judgement."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/crates-io.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/crates-io.md",
+      "note": "families[id=crates-io:api-token] dossier body"
+    }
+  ]
+}

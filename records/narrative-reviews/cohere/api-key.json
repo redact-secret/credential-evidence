@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-cohere-api-key",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "cohere:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Narrative rewritten from the legacy dossier in scanner-neutral language, with citations to evidence sources and contract claims. Drafted with AI assistance (Claude) under the named author; not reviewed. Dossier content that is not carried is accounted for in docs/migration/narrative-report.md.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cohere.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'forty-alphanumerics' (shape) is recorded as unresolved: One scanner rule (a keyword followed by 40 letters and digits) is the only length source and the length is its author's inference; no provider source states any shape, and the provider's SDK performs no validation."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'co-prefix-claim' (shape) is recorded as unresolved: A vendor blog is the only source, with no example and no second source, and it contradicts the scanner rules; it was not adopted."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'dashboard-details' (issuance) is recorded as unresolved: Recorded in a research note without a cited source in this family's contract."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'not-issued' (issuance) is recorded as unresolved: No key was issued for this research; a comparison of one trial and one production key was proposed but not performed."
+    },
+    {
+      "seq": 6,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'unprefixed-look-alikes' (collisions) is recorded as unresolved: Recorded in a research note without a cited source in this family's contract; a bare 40-character run is not distinctive because the key has no prefix."
+    },
+    {
+      "seq": 7,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'exact-length' (openQuestions) is recorded as unresolved: No provider source states a length; two issued keys, one trial and one production, would answer both parts."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cohere.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cohere.md",
+      "note": "families[id=cohere:api-key] dossier body"
+    }
+  ]
+}

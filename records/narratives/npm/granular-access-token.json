@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "npm:granular-access-token",
+  "family": "npm:granular-access-token",
+  "lifecycle": "draft",
+  "contract": "npm:granular-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-checksum",
+        "text": "Tokens in the format introduced in September 2021 begin npm_, use an underscore as the delimiter and end in a six-character Base62 CRC32 checksum, as the GitHub changelog of 2021-09-23 documents.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The body is 36 characters, according to two scanner rules that agree. The checksum is not part of the lexical pattern.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/npm.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/npm.md",
+      "note": "families[id=npm:granular-access-token] dossier body"
+    }
+  ]
+}

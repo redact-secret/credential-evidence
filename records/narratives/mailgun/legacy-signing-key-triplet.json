@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "mailgun:legacy-signing-key-triplet",
+  "family": "mailgun:legacy-signing-key-triplet",
+  "lifecycle": "draft",
+  "contract": "mailgun:legacy-signing-key-triplet@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "triplet",
+        "text": "Dash-separated lowercase hexadecimal groups of 32, 8 and 8 characters with no prefix. Two scanner rules match the shape, and one of them requires a nearby mailgun keyword. No issued key of this shape has been observed.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-shape"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-context"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "role",
+        "text": "The triplet is the current private API key and not only a superseded signing key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-role"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No provider source shows the 32-8-8 shape. Three prose sources (a contributor in 2019, customer reports in 2018 and a scanner issue in 2025) describe it as the newer private key, which is why the name legacy signing key is doubtful."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "key-object-id",
+        "text": "Mailgun's keys API documents keys as objects with a separate id, shown as two 8-character hexadecimal groups, and states no secret shape. That id is not the secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-key-id"
+          },
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          }
+        ]
+      },
+      {
+        "id": "unrelated-hex",
+        "text": "An unrelated hexadecimal value of the same 32-8-8 layout is not a credential; the shape is recognized only beside a mailgun keyword.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "current-or-superseded",
+        "text": "Is the triplet the current key, a superseded signing key, or both?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-role"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "An issued key would settle whether the triplet is the current key, a superseded signing key or both."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mailgun.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mailgun.md",
+      "note": "families[id=mailgun:legacy-signing-key-triplet] dossier body"
+    }
+  ]
+}

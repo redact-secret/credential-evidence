@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "sonarqube:analysis-token",
+  "family": "sonarqube:analysis-token",
+  "lifecycle": "draft",
+  "contract": "sonarqube:analysis-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "An analysis token is sqa_ (global analysis) or sqp_ (project analysis) followed by exactly 40 lowercase hexadecimal characters, 44 characters in all, with no checksum. The generator and the token-type enum are the source.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-sonarsource-sonarqube-684105939d",
+            "locator": "#L29-L46"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-sonarsource-sonarqube-d99e2b1105",
+            "locator": "#L24-L27"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "A token is typically supplied through the SONAR_TOKEN environment variable, the sonar.token scanner property (or the older sonar.login), a sonar.token entry in a project properties file, or a Gradle system property.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "How a token is created in the product, and what it looks like in the interface, is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was issued; the grammar comes from the server's token generator, which needs no issued key to read."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sha1-shaped-body",
+        "text": "As for the user token, a 40-hex body alone has the shape of a SHA-1 digest, so the prefix carries the identification. Project badge tokens (sqb_) are read-only and published by design.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-excluded-siblings"
+          }
+        ]
+      },
+      {
+        "id": "unknown-type-letter",
+        "text": "A prefix such as sqx_ with a type letter outside the enum is not an issued token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note as an inference from the enum; no source states that a token with another type letter is never issued."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sonarqube.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sonarqube.md",
+      "note": "families[id=sonarqube:analysis-token] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "vercel:app-refresh-token",
+  "family": "vercel:app-refresh-token",
+  "lifecycle": "draft",
+  "contract": "vercel:app-refresh-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "App refresh tokens begin with vcr_, as the changelog, the authorization-server reference and Vercel's OpenAPI specification show.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-770ae7d1d8"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-40ae5b29fd"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The Sign in with Vercel Tokens page example reuses the vca_ body behind a vcr_ prefix, so the 56-character body of letters and digits is the same observation as for app access tokens and there is no independent vcr_ body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-ee64691632"
+          }
+        ]
+      },
+      {
+        "id": "peers",
+        "text": "Kingfisher and Betterleaks state vcr_ plus 56, with Kingfisher's example copying Vercel's value and Betterleaks copying Kingfisher's.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-81669063af",
+            "locator": "#L193-L251"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+            "locator": "#L148-L181"
+          }
+        ]
+      },
+      {
+        "id": "cli-test-dummies",
+        "text": "Vercel's CLI refresh-token tests use short dummy values, which show the marker and the role and not the body length.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-vercel-vercel-a4a347984d",
+            "locator": "#L115-L125"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "Every provider example of the body uses letters and digits only, and underscore and hyphen are not claimed in the body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet-bound"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-ee64691632"
+          }
+        ]
+      },
+      {
+        "id": "checksum-open",
+        "text": "It is not established that a refresh token ends in a checksum of its first 50 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "One provider value for the sibling class is the only checksum-valid example; no provider page states a checksum for refresh tokens."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "lifetime",
+        "text": "Refresh tokens last 30 days and rotate on use.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-ee64691632"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "siblings",
+        "text": "The legacy unprefixed 24-character token is a different form, and vci_ and vck_ are other Vercel classes whose body is not established.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-sibling-classes"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "independent-body",
+        "text": "Does a refresh token have its own independent body grammar?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The only provider example copies the vca_ body, so no source shows a vcr_ body that is independent of it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:app-refresh-token] dossier body"
+    }
+  ]
+}

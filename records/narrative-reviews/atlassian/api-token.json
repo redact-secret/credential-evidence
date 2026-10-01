@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-atlassian-api-token",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "atlassian:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Narrative rewritten from the legacy dossier in scanner-neutral language, with citations to evidence sources and contract claims. Drafted with AI assistance (Claude) under the named author; not reviewed. Dossier content that is not carried is accounted for in docs/migration/narrative-report.md.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'provider-states-prefix' (shape) is recorded as unresolved: The prefix rests on one answer by an account labelled Atlassian Team on a community forum (2025-08-25); whether a forum answer counts as provider documentation is an undecided maintainer ruling, and no Atlassian documentation page, API specification or changelog states the prefix."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'total-length-and-suffix' (shape) is recorded as unresolved: The 192-character layout was confirmed on one freshly issued key and in a customer report of five keys, both recorded in a research note, which is below the number of observations required to assert it."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'length-called-varied' (shape) is recorded as unresolved: The statement comes from Atlassian's own support page, but that source is recorded with a scanner-rule role and cannot back a provider-documented statement until its type is reviewed."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'tokens-opaque-2022' (shape) is recorded as unresolved: A staff post on a developer forum is a discussion, not provider documentation, and it predates the 2023 format change."
+    },
+    {
+      "seq": 6,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'account-tokens' (issuance) is recorded as unresolved: Recorded in the research overview without a cited source; the support page on managing API tokens is the provider's documentation but it was not read for this statement."
+    },
+    {
+      "seq": 7,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'not-issued-for-checksum' (issuance) is recorded as unresolved: One key was issued by a maintainer for the header check; a further freshly issued key would settle whether the CRC32 holds, and none has been issued."
+    },
+    {
+      "seq": 8,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'older-tokens-expired' (lifecycle) is recorded as unresolved: The statement comes from Atlassian's own support page, but that source is recorded with a scanner-rule role and cannot back a provider-documented statement until its type is reviewed."
+    },
+    {
+      "seq": 9,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'unprefixed-24-characters' (lifecycle) is recorded as unresolved: Recorded in a research note without a cited source in this family's contract."
+    },
+    {
+      "seq": 10,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'sibling-prefixes' (collisions) is recorded as unresolved: The forum answer is not provider documentation, and the date app passwords stopped working has no cited source."
+    },
+    {
+      "seq": 11,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'provider-prefix-statement' (openQuestions) is recorded as unresolved: Whether a forum answer by an Atlassian-labelled account counts as provider documentation is undecided; length, alphabet, the = delimiter and the CRC32 suffix are empirical only."
+    },
+    {
+      "seq": 12,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'crc32-on-real-keys' (openQuestions) is recorded as unresolved: One freshly issued key would answer it; none has been issued."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/atlassian.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+      "note": "families[id=atlassian:api-token] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "elevenlabs:api-key",
+  "family": "elevenlabs:api-key",
+  "lifecycle": "draft",
+  "contract": "elevenlabs:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An API key is written beginning sk_. The provider's own Python and JavaScript SDK source shows the form in a docstring and parses a data-residency suffix; no documentation page states the prefix, a length or an alphabet, so this rests on provider code.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "residency-suffix",
+        "text": "A key for an isolated data-residency environment (regions seen: eu and in) carries an optional suffix _residency_ followed by lowercase letters and digits. The suffix belongs to the key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-residency-suffix"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The body is 48 lowercase hexadecimal characters, 51 in all with the prefix. Two scanner rules and measured code-search samples agree where a key is fully formed; no provider source states it.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "body-case",
+        "text": "Whether an uppercase hexadecimal body occurs.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-case"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The scanner rules disagree on uppercase hex and no provider source decides it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "where-and-how",
+        "text": "Keys are issued from the developer area of the web application as user keys (optional expiry of 15 minutes to 30 days) or service-account keys (no expiry). A key is shown once and can be restricted by scope, credit quota and IP address.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "elevenlabs-io-f90378e5ba"
+          }
+        ]
+      },
+      {
+        "id": "header",
+        "text": "A key is sent in the xi-api-key HTTP header.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-header"
+          },
+          {
+            "kind": "source",
+            "sourceId": "elevenlabs-io-27f957bac2"
+          }
+        ]
+      },
+      {
+        "id": "isolated-environments",
+        "text": "Isolated data-residency environments (EU, India, Singapore) use a different API host and a different key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-residency-suffix"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No ElevenLabs key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued for the research, so neither user nor service-account keys, nor an isolated-environment key, were inspected."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "legacy-form",
+        "text": "Older accounts may hold a bare 32-hex key from before the sk_ prefix.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-form"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No provider source documents a 32-hex key or dates the move to the sk_ prefix; only one scanner rule matches it, beside a keyword."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sk-sibling-prefixes",
+        "text": "The sk_ start is shared with Stripe secret keys (sk_live_, sk_test_, sk_org_) and with a key shape another project has planned (sk_ plus 32 characters), so the prefix alone cannot attribute a key to ElevenLabs.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-sibling-prefixes"
+          }
+        ]
+      },
+      {
+        "id": "public-fields",
+        "text": "The response fields key_id, hint and hashed_xi_api_key are non-secret listing fields, and single-use client-side tokens are a separate credential.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-public-identifiers"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "suffix-body",
+        "text": "Does a residency key share the 48-hex base, and does the region code sg exist?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No suffixed key was observed, and no code-search fragment showed the suffix."
+        }
+      },
+      {
+        "id": "legacy-validity",
+        "text": "Are 32-hex keys still valid, and when did the sk_ prefix start?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source dates the change to the sk_ prefix or says whether 32-hex keys still work."
+        }
+      },
+      {
+        "id": "service-account-shape",
+        "text": "Is a service-account key shaped like a user key?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No service-account key was issued for the research."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/elevenlabs.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/elevenlabs.md",
+      "note": "families[id=elevenlabs:api-key] dossier body"
+    }
+  ]
+}

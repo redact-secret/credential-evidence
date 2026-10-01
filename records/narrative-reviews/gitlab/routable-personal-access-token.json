@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-gitlab-routable-personal-access-token",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "gitlab:routable-personal-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Narrative rewritten from the legacy dossier in scanner-neutral language, with citations to evidence sources and contract claims. Drafted with AI assistance (Claude) under the named author; not reviewed. Dossier content that is not carried is accounted for in docs/migration/narrative-report.md.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'overall-length-in-change-request' (shape) is recorded as unresolved: The change request is an issue-tracker entry typed as other, and its overall length of 43 to 316 characters differs from the 46 to 319 bytes derived from the code."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'rollout' (issuance) is recorded as unresolved: A GitLab work item states this but is an issue-tracker entry and not documentation; the fetch of it carried no date."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'not-issued' (issuance) is recorded as unresolved: No token was issued or observed for this record; the checksum can be checked offline from the published code alone."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'hard-coded-version' (collisions) is recorded as unresolved: A scanner vendor's issue reports this drift; it is an issue-tracker report and not a provider document."
+    },
+    {
+      "seq": 6,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'unversioned-ever-issued' (openQuestions) is recorded as unresolved: No source shows the unversioned single-dot form outside pre-release; only the versioned form is confirmed as the 18.3 default."
+    },
+    {
+      "seq": 7,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'which-instances-mint' (openQuestions) is recorded as unresolved: A research note says self-managed instances below 18.0 keep the 20-character form, without a source."
+    },
+    {
+      "seq": 8,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'design-doc-status' (openQuestions) is recorded as unresolved: The design document in GitLab's handbook is still marked proposed and was not re-read in full, so it corroborates nothing on its own."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/gitlab.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/gitlab.md",
+      "note": "families[id=gitlab:routable-personal-access-token] dossier body"
+    }
+  ]
+}

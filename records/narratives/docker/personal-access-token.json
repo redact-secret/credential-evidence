@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "docker:personal-access-token",
+  "family": "docker:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "docker:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A Docker Hub personal access token begins dckr_pat_. The credential table of Docker's AI Governance API reference lists the format as dckr_pat_ followed by a wildcard.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-docker-com-b09f952ef1"
+          }
+        ]
+      },
+      {
+        "id": "body-27",
+        "text": "The body is 27 characters from letters, digits, underscore and hyphen. Of 92 distinct non-placeholder public bodies, 69 were 27 characters, and of those 27 contained an underscore and 19 a hyphen. Several scanners and Docker-owned rules carry related patterns, but the Docker-owned ones are narrower (no underscore) and contradicted by the tally.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No Docker page states the body length or alphabet; the scanner claim for it is itself unresolved, and Docker-owned rules disagree with the public tally on the alphabet."
+        }
+      },
+      {
+        "id": "hub-examples",
+        "text": "The Hub API specification's personal-access-token examples are 15-character placeholders, so they establish neither a length nor an alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-docker-com-270a27919d"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No personal access token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued for this research; an optional check of one or two fresh tokens was described but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "dckr-namespace",
+        "text": "Personal access tokens share the dckr_ namespace with organization access tokens, which begin dckr_oat_ and are listed in the same table; the prefix tells the two kinds apart.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-docker-com-b09f952ef1"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-grammar",
+        "text": "What are the body length and alphabet of a personal access token issued today?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No Docker page states it; a freshly issued token would settle it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/docker.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/docker.md",
+      "note": "families[id=docker:personal-access-token] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-together-api-key",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "together:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Narrative rewritten from the legacy dossier in scanner-neutral language, with citations to evidence sources and contract claims. Drafted with AI assistance (Claude) under the named author; not reviewed. Dossier content that is not carried is accounted for in docs/migration/narrative-report.md.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/together.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'no-provider-format-page' (shape) is recorded as unresolved: No provider page or staff statement was found that states the prefix, length or alphabet; the documentation establishes only issuance, the environment variable and the legacy population."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'checksum' (shape) is recorded as unresolved: No checksum or fixed inner segment is documented or observed in any reviewed source."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'sample-issuance' (issuance) is recorded as unresolved: No key was issued for this research; the planned checks (prefix, total length of 50, alphabet, project and expiry variants) were not performed."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'benign-lookalikes' (collisions) is recorded as unresolved: Recorded in a research note without a cited source."
+    },
+    {
+      "seq": 6,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'legacy-format' (openQuestions) is recorded as unresolved: The legacy key format is undocumented; a commonly repeated 64-hex belief was searched for and found in no source except one scanner rule, so it is not recorded as a grammar."
+    },
+    {
+      "seq": 7,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'version-drift' (openQuestions) is recorded as unresolved: A tgp_v2_ prefix appears only as a scanner negative case; no source says a second version exists."
+    },
+    {
+      "seq": 8,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'length-stability' (openQuestions) is recorded as unresolved: Bodies of 26 and 31 characters seen in code search are unexplained and were not used to widen the grammar."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/together.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/together.md",
+      "note": "families[id=together:api-key] dossier body"
+    }
+  ]
+}

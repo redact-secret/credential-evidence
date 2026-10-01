@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-honeycomb-ingest-key",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "honeycomb:ingest-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Narrative rewritten from the legacy dossier in scanner-neutral language, with citations to evidence sources and contract claims. Drafted with AI assistance (Claude) under the named author; not reviewed. Dossier content that is not carried is accounted for in docs/migration/narrative-report.md.",
+      "evidence": [
+        {
+          "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/honeycomb.md",
+          "pin": {
+            "kind": "commit-permalink",
+            "commit": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+          }
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'not-issued' (issuance) is recorded as unresolved: No key was issued; the grammar rests on provider documentation and SDK code."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'management-key' (collisions) is recorded as unresolved: The prefix and segment lengths of a management key are documented but the alphabet of both segments was not found, and an issued key would settle it."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-09-30",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "author",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'management-alphabets' (openQuestions) is recorded as unresolved: One issued and revoked key, structure only, would settle the alphabet classes of the 26- and 32-character segments; the documentation placeholder is digits only."
+    }
+  ],
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/honeycomb.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/honeycomb.md",
+      "note": "families[id=honeycomb:ingest-key] dossier body"
+    }
+  ]
+}

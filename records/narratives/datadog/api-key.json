@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "datadog:api-key",
+  "family": "datadog:api-key",
+  "lifecycle": "draft",
+  "contract": "datadog:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "length-32",
+        "text": "An API key is exactly 32 characters with no prefix, no delimiter and no checksum. Datadog's v1 API specification gives the key field a minimum and a maximum length of 32; the v2 schema states no length.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-datadoghq-com-f074e5c689"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "The key is lowercase hexadecimal in every observed value.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The alphabet is corroborated only by scanner rules and by Datadog's own validators, which disagree on whether uppercase A to F is admitted; no provider page states it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "markers",
+        "text": "The key authenticates API calls through the apiKeyAuth scheme, which the specification names with the DD-API-KEY header and the DD_API_KEY variable.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-datadoghq-com-f074e5c689"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No API key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued for this research; one fresh key was to be checked for length, any uppercase and any fixed leading text."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "bare-hex",
+        "text": "A bare 32-character hexadecimal run is common (MD5 digests, UUIDs without dashes), so the value needs a marker such as the header or variable name to be read as an API key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/datadog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+      "note": "families[id=datadog:api-key] dossier body"
+    }
+  ]
+}

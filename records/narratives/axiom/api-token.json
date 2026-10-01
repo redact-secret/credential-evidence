@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "axiom:api-token",
+  "family": "axiom:api-token",
+  "lifecycle": "draft",
+  "contract": "axiom:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-uuid-body",
+        "text": "A token is xaat- followed by a lowercase-hex UUID in the 8-4-4-4-12 layout, 41 characters in all. The prefix comes from a runtime check in Axiom's Go SDK; the layout and lowercase hex come from one response example in Axiom's documentation and the SDK's test values.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The token is supplied through AXIOM_TOKEN, a token field in the Vector or Fluent Bit sink, an Authorization: Bearer header for OpenTelemetry export, or the service-account password field.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "rights",
+        "text": "An API token is either ingest-only or carries query and dataset-management rights.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in the research overview without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No Axiom token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued for this research; one basic, one advanced and one personal token would confirm the layout and letter case."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "placeholders",
+        "text": "Documentation placeholders such as xaat-your-api-token do not follow the UUID layout.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-placeholders"
+          }
+        ]
+      },
+      {
+        "id": "bare-uuid",
+        "text": "A bare UUID is not distinctive; the xaat- prefix is what ties a value to this credential.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "advanced-tokens",
+        "text": "Do advanced API tokens share the xaat- prefix, and is every body a lowercase UUID?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Only one documentation example and the SDK's test values show the layout; an issued advanced token would show whether they share the prefix."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/axiom.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/axiom.md",
+      "note": "families[id=axiom:api-token] dossier body"
+    }
+  ]
+}

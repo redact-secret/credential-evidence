@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "pypi:api-token",
+  "family": "pypi:api-token",
+  "lifecycle": "draft",
+  "contract": "pypi:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "published-pattern",
+        "text": "PyPI's own page for secret scanners publishes the token format: the prefix pypi- followed by a URL-safe base64 string (letters, digits, hyphen and underscore) of at least 85 characters, with no ceiling. The body is the base64 serialization of a macaroon.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-22",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-pypi-org-5aecbc9fa4"
+          }
+        ]
+      },
+      {
+        "id": "no-ceiling",
+        "text": "There is no upper bound on length because caveats can be added to the macaroon.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-22",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-pypi-org-5aecbc9fa4"
+          }
+        ]
+      },
+      {
+        "id": "macaroon-header",
+        "text": "Real tokens begin with the encoded macaroon header for the location pypi.org, and two scanner rules key on it. Their rules are narrower than the published pattern: one requires the header plus 150 to 157 further characters, the other the header plus 50 to 1000. The extra character in the first rule implies an identifier of 36 to 39 bytes, consistent with a UUID.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-22",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "password-value",
+        "text": "The pypi- prefix is part of the password value, so upload tools such as Twine and pip use the whole string as a password and it appears under names like TWINE_PASSWORD.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-22",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "pypi-org-816331561f",
+            "locator": "#apitoken"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No PyPI API token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-22",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was issued; the format rests on the provider's published pattern."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "readable-identifier",
+        "text": "The identifier inside the macaroon is meant to be inspectable and is not itself the secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-22",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "pypi-org-816331561f",
+            "locator": "#apitoken"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "header-requirement",
+        "text": "Should a value without the encoded macaroon header count as a token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-22",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The provider's pattern needs only the prefix and 85 characters, while two scanner rules also require the encoded header; no source says which governs."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pypi.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pypi.md",
+      "note": "families[id=pypi:api-token] dossier body"
+    }
+  ]
+}

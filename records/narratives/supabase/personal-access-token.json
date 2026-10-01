@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "supabase:personal-access-token",
+  "family": "supabase:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "supabase:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "The provider page documents the sbp_ prefix by example and the difference between classic and scoped tokens. It states no body grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "supabase-com-f8e4a97e8a"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The prefix sbp_ or sbp_v0_ is followed by exactly 40 lowercase letters and digits.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Only a scanner rule states the body, and the claim that records that rule is itself unresolved; no provider source states the width or alphabet."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-attempted",
+        "text": "How a personal access token is created and displayed is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Issuance was not attempted."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "separate-class",
+        "text": "Management-API personal access tokens are a separate credential class from project API keys, and the two share no evidence.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note as a rule that evidence for one Supabase credential class is not evidence for another; not a statement from a source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-width",
+        "text": "Is the body always 40 characters, under both sbp_ and sbp_v0_?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No issued token was inspected and the provider page gives no body grammar."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/supabase.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/supabase.md",
+      "note": "families[id=supabase:personal-access-token] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "vercel:personal-access-token",
+  "family": "vercel:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "vercel:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Vercel's access-tokens guide says personal access tokens begin with the prefix vcp_, and its changelog names the same class.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-8ba2d5b3b4"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-770ae7d1d8"
+          }
+        ]
+      },
+      {
+        "id": "provider-example-length",
+        "text": "The CLI global-options page prints one vcp_ value, in the --token example and the VERCEL_TOKEN example, with a 56-character body of letters and digits, 60 in all. The value is hand-written (it ends in an English word), so it shows a shape and is not a generated token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-454aecdbd1"
+          }
+        ]
+      },
+      {
+        "id": "peer-rules-length",
+        "text": "Three scanner rules (Kingfisher, Betterleaks and CredSweeper) give the same 60-character total. They are less independent than they look: Kingfisher's examples are synthetic values, Betterleaks copies Kingfisher's examples, and CredSweeper's samples are independent of Kingfisher.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-81669063af",
+            "locator": "#L46-L91"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+            "locator": "#L46-L80"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-samsung-credsweeper-78d85df7ab",
+            "locator": "#L1995-L2007"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "Every provider example uses letters and digits only. Kingfisher and Betterleaks accept underscore and hyphen in the body, while CredSweeper and one more rule accept letters and digits only. Provider masking expressions in the Azure DevOps extension and the CLI admit underscore and hyphen but state no length.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet-bound"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-81669063af",
+            "locator": "#L46-L91"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+            "locator": "#L46-L80"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-samsung-credsweeper-78d85df7ab",
+            "locator": "#L1995-L2007"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-vercel-vercel-azure-devops-extension-b513a9d723",
+            "locator": "#L37-L38"
+          }
+        ]
+      },
+      {
+        "id": "checksum",
+        "text": "It is not established whether the last 6 characters of a personal access token are a checksum of the first 50 characters of the body.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum"
+          },
+          {
+            "kind": "source",
+            "sourceId": "openapi-vercel-sh-403403b630"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Kingfisher's rule states that the last 6 characters are the base62 form of the CRC-32 of the first 50, one provider value for another class passes it, and the hand-written vcp_ example fails it; one provider value is too little to establish it."
+        }
+      },
+      {
+        "id": "boundary",
+        "text": "It is not established how a token behaves when glued to other token characters on either side.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No provider statement; scanner rules require a non-token character on both sides but that is their matching choice."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "scopes",
+        "text": "Vercel's CLI treats vcp_ as the personal-token marker and says some are team- or project-scoped, so the prefix does not imply full-account scope. The CLI tokens page says adding a token requires a classic personal access token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-vercel-vercel-c1f2f7534c",
+            "locator": "#L36-L41"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-2141ae62fc"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "legacy-and-placeholder",
+        "text": "The REST reference example pairs an unprefixed 24-character bearer token with a vcp_ prefix, which is the legacy form and not a current token. The access-tokens guide uses a masked vcp_ filler of 24 x characters, which is a placeholder and not a generated value.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-94803cac22"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-8ba2d5b3b4"
+          }
+        ]
+      },
+      {
+        "id": "sibling-ids",
+        "text": "Deployment, project, team, integration and client ids are sibling identifiers, and an unprefixed 24-character value is not decided by width alone.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      },
+      {
+        "id": "github-type",
+        "text": "GitHub's secret scanning lists a vercel_personal_access_token type and enabled push protection for it by default in March 2026. The type names the class and does not state a shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-cb9bb341a1"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "classic",
+        "text": "Is a classic personal token the unprefixed legacy form or a full-scope vcp_ token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The CLI documentation does not say whether classic means the unprefixed legacy form or a full-scope vcp_ token."
+        }
+      },
+      {
+        "id": "body-alphabet",
+        "text": "Do underscore or hyphen occur in the 56-character body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "A provider statement or one inspected, revoked token would settle it; none was available."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:personal-access-token] dossier body"
+    }
+  ]
+}

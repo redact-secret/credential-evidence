@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "postman:api-key",
+  "family": "postman:api-key",
+  "lifecycle": "draft",
+  "contract": "postman:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "header-only",
+        "text": "The provider's authentication page says an API key is sent in the X-API-Key header. It states no prefix, length or example.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "learning-postman-com-47b8667191"
+          }
+        ]
+      },
+      {
+        "id": "structure",
+        "text": "A key is the prefix PMAK-, 24 lowercase hexadecimal characters, a literal hyphen, then 34 lowercase hexadecimal characters: a 59-character body and 64 characters in all. Scanner rules agree on the structure, and one of them corroborates only the prefix and the 59-character body length.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "public-candidate-check",
+        "text": "The second segment is always 34 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "dossier-research"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A research note records that 31 of 33 public-code candidates matched and none had a 35 or 36 character second segment, but the note is not a cited source; one unsourced proposal says the second segment is 34 to 36 characters."
+        }
+      },
+      {
+        "id": "provider-redaction-config",
+        "text": "Postman's own agent redaction configuration describes the same 24 plus 34 hexadecimal structure.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The provider's own redaction configuration is described as fixing the same structure, but no source for it is cited in this family's contract."
+        }
+      },
+      {
+        "id": "uppercase-hex",
+        "text": "The hexadecimal segments may contain uppercase characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No source states whether uppercase hexadecimal is accepted."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "account-settings",
+        "text": "API keys are created in the Postman account settings, with an expiry set when the key is created.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no key was issued."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "id-fragment",
+        "text": "The first part of a full key (PMAK- plus 24 hexadecimal characters) is an identifier part and not a credential by itself, although the provider's own redaction configuration also scrubs it.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "pmat-separate",
+        "text": "PMAT- values are a separate credential, the collection access key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "second-segment-and-case",
+        "text": "Does the second segment ever differ from 34 characters, and can the hexadecimal be uppercase?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "No issued key has been measured."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/postman.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/postman.md",
+      "note": "families[id=postman:api-key] dossier body"
+    }
+  ]
+}

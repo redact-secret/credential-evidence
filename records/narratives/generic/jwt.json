@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "generic:jwt",
+  "family": "generic:jwt",
+  "lifecycle": "draft",
+  "contract": "generic:jwt@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "compact-serialization",
+        "text": "A JSON Web Token in compact serialization (RFC 7519) is three parts separated by dots, each URL-safe base64 (so + and / are outside the grammar), and the header decodes to a JSON object. The secret is the whole compact serialization.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "rfc-editor-org-7bb6aaba0f"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "local-generation",
+        "text": "No provider is involved: a token is minted locally by any JWT library.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No source is cited; this is a statement about how synthetic examples are made."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "dotted-identifiers",
+        "text": "Ordinary dotted identifiers and forms missing the signature part are not tokens of this family.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "provider-jwts",
+        "text": "Some providers' keys are themselves JWTs, for example a legacy Supabase anonymous or service-role key, so a provider family can overlap this one.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note linked to a discussion thread, not to a provider document."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/generic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/generic.md",
+      "note": "families[id=generic:jwt] dossier body"
+    }
+  ]
+}

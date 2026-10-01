@@ -12,7 +12,17 @@
 // fragment, the reviewed type and the reason, which must be checkable from the URL alone
 // (the issuer's own documentation or changelog host).
 
-export default {
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+// Reviewed types added per provider batch live in source-types.d/*.json ({ "<url>": { sourceType, reason } }).
+const dir = join(dirname(fileURLToPath(import.meta.url)), "source-types.d");
+const extra = existsSync(dir)
+  ? Object.assign({}, ...readdirSync(dir).filter((n) => n.endsWith(".json")).sort().map((n) => JSON.parse(readFileSync(join(dir, n), "utf8"))))
+  : {};
+
+const base = {
   reviewedAt: "2026-09-30",
   reviewer: "milocosmopolitan",
   overrides: {
@@ -25,3 +35,5 @@ export default {
     "https://community.openai.com/t/1118492/2": { sourceType: "issue-or-discussion", reason: "a public forum thread: a staff post in a forum is a discussion, not provider documentation (docs/governance/evidence-classes.md)" },
   },
 };
+
+export default { ...base, overrides: { ...base.overrides, ...extra } };

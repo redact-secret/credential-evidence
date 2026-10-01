@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "npm:legacy-token",
+  "family": "npm:legacy-token",
+  "lifecycle": "draft",
+  "sections": {
+    "shape": [
+      {
+        "id": "uuid-pattern",
+        "text": "Before the 2021 change npm tokens were created as a UUID pattern of 36 characters (8-4-4-4-12 hexadecimal groups with hyphens, no prefix), and the new tokens change the delimiter away from a hyphen. npm calls the older form legacy in the 2021 announcements and classic from 2025.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-802244c4fa"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-blog-3201315195"
+          }
+        ]
+      },
+      {
+        "id": "version-and-case",
+        "text": "The legacy token is a version 4 UUID in lowercase.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-561f617f86"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-yelp-detect-secrets-93d6c6ab05"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "npm does not state the UUID version (version 4 is likely and unconfirmed); the case is tool-stated, with one scanner lowercase-only and another accepting either."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "cannot-issue-now",
+        "text": "New classic tokens could not be created after 2025-11-05, and npm's documentation now says legacy tokens have been removed. No live legacy token can be issued or verified, so only values from leaked history remain.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-b5120416bc"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-npmjs-com-9f3f7143a0"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "revocation",
+        "text": "npm revoked all remaining classic tokens on 2025-12-09, after moving the date from 2025-11-19.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-bd017d5024"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "scanner-contexts",
+        "text": "One scanner matches an _authToken value of 36 hexadecimal-and-hyphen characters (or an npm_ value) in .npmrc form; another matches a lowercase UUID after the keyword npm and verifies it against the registry's whoami endpoint; a third-party scanner catalogue page lists a plain and a prefixed npm token format. A further scanner rule and GitHub secret scanning cover only the npm_ form, so the UUID form is absent from both.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-yelp-detect-secrets-93d6c6ab05"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-trufflesecurity-trufflehog-561f617f86"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-gitguardian-com-1ef9b8287d"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-gitleaks-gitleaks-5ac03e80a8"
+          }
+        ]
+      },
+      {
+        "id": "every-other-uuid",
+        "text": "The pattern is identical to every other UUID (request ids, package integrity strings, database keys), so a bare UUID is not a supportable match; context such as an _authToken assignment or an npm keyword nearby is what identifies it.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "uuid-version",
+        "text": "Which UUID version did npm mint?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Only a decoded historical token would settle which UUID version npm minted, and none can be issued now."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/npm.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/npm.md",
+      "note": "families[id=npm:legacy-token] dossier body"
+    }
+  ]
+}

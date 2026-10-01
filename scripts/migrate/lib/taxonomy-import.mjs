@@ -592,7 +592,9 @@ export function buildTaxonomyImport({ root, revision = LEGACY_REVISION }) {
     const locator =
       pin.kind === "commit-permalink"
         ? { url: pin.url, pin: { kind: "commit-permalink", commit: pin.commit } }
-        : { url: pin.url, pin: { kind: "live-unpinned" } };
+        : pin.kind === "archive-snapshot"
+          ? { url: pin.url, pin: { kind: "archive-snapshot", archiveUrl: pin.archiveUrl, capturedAt: pin.capturedAt } }
+          : { url: pin.url, pin: { kind: "live-unpinned" } };
     R.inc(`source-pin:${pin.kind}`);
     const observations = [...s.dates]
       .sort((a, b) => cmp(a[0], b[0]))
@@ -603,6 +605,7 @@ export function buildTaxonomyImport({ root, revision = LEGACY_REVISION }) {
         note: `Legacy import: date recorded by legacy ${[...origins].sort(cmp).join(", ")}; the exact read time was not recorded.`,
       }));
     const refs = [...s.legacy].sort((a, b) => cmp(a[0], b[0])).map(([path, pointers]) => legacyRef(path, `cited by ${[...pointers].sort(cmp).slice(0, 4).join("; ")}${pointers.size > 4 ? `; +${pointers.size - 4} more` : ""}`));
+    if (pin.kind === "archive-snapshot") refs.push({ system: "legacy-url", id: clip(pin.archiveUrl, 200), note: "Legacy link is a web archive capture; the locator is the original URL and the pin is the capture, so this is the exact legacy URL." });
     if (pin.kind === "moving-ref") refs.push({ system: "legacy-url", id: clip(pin.legacyUrl, 200), note: `Legacy link names ref '${pin.ref}', not a commit; it cannot be recorded as a GitHub file locator, so the locator is the repository and this is the exact legacy URL.` });
     const record = {
       schemaVersion: 1,

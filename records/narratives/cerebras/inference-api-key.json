@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "cerebras:inference-api-key",
+  "family": "cerebras:inference-api-key",
+  "lifecycle": "draft",
+  "contract": "cerebras:inference-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-length",
+        "text": "A key begins csk- (current) or csk_ (accepted after a window in 2025-10) and is exactly 52 characters, so a 48-character body. The length comes from the validator in the provider's VS Code extension, which rejects any key that does not start csk_ or csk- or is not 52 long (introduced 2025-08-29 and unchanged). Provider staff wrote on 2025-10-23 and 2025-10-24 that customers hold keys with both prefixes, that csk_ was an unintentional recent change, that new keys use csk-, and that both should be accepted.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          }
+        ]
+      },
+      {
+        "id": "body-alphabet",
+        "text": "The key body is drawn from letters, digits, underscore and hyphen.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-policy-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-tool-alphabet"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No provider source states an alphabet and the extension's validator accepts any 48 code units; scanner rules use lowercase letters and digits only, and the wider class including underscore and hyphen is a project choice."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The key is read from the CEREBRAS_API_KEY environment variable and sent as an Authorization: Bearer header to api.cerebras.ai, or passed to Cerebras(api_key=...).",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "access",
+        "text": "An inference key calls the Cerebras Cloud API on the account's quota and billing.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in the research overview without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No Cerebras key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for this research."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "pinecone-keys",
+        "text": "Pinecone keys start pcsk_ or pcsk-, so the byte before csk is p; Pinecone keeps pcsk_ with a 69 or 70 character body, so no width overlaps.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "management-key",
+        "text": "The Management API key for dedicated endpoints is a separate credential of unknown shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-management-key"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source states the shape of the Management API key; nothing was read about it."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "issued-alphabet",
+        "text": "What alphabet does the provider actually issue for the key body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "An issued sample would replace the chosen class with a documented one."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cerebras.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cerebras.md",
+      "note": "families[id=cerebras:inference-api-key] dossier body"
+    }
+  ]
+}

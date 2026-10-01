@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "paddle:api-key",
+  "family": "paddle:api-key",
+  "lifecycle": "draft",
+  "contract": "paddle:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "grammar",
+        "text": "A Billing API key is pdl_live_apikey_ or pdl_sdbx_apikey_, then 26 lowercase letters and digits, an underscore, 22 letters and digits, an underscore, and 3 letters and digits. It is 69 characters in all with five underscores, and the provider's page publishes a regular expression for it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-id-segment"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-secret-segment"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-suffix"
+          }
+        ]
+      },
+      {
+        "id": "case-sensitive",
+        "text": "Keys are case-sensitive; the first segment after the prefix is lowercase only and the other two segments accept upper and lower case.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developer-paddle-com-20edbd1725"
+          }
+        ]
+      },
+      {
+        "id": "boundary",
+        "text": "A key directly attached to a letter, digit, underscore or hyphen on either side is not a key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The documented expression is anchored and says nothing about neighboring characters; treating a key glued to an identifier character as not a key is a project handoff choice."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The key is read from PADDLE_API_KEY, passed to the SDK constructor, and sent as Authorization: Bearer. Live keys act on the live account and sandbox keys on the sandbox only.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Paddle API key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued; the grammar rests on the provider's published expression."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "key-id",
+        "text": "The apikey_ segment plus its 26 characters is the key identifier, returned by the API and in webhook payloads; it is not a secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-key-id"
+          }
+        ]
+      },
+      {
+        "id": "legacy-keys",
+        "text": "Keys created before 2025-05-06 are 50 lowercase letters and digits with no prefix. They are a different, older shape and not covered by this grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-keys"
+          }
+        ]
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/paddle.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/paddle.md",
+      "note": "families[id=paddle:api-key] dossier body"
+    }
+  ]
+}

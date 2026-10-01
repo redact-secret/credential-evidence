@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "trigger-dev:personal-access-token",
+  "family": "trigger-dev:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "trigger-dev:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A personal access token begins with tr_pat_, named in Trigger.dev's API-keys documentation and in its webapp generator.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-triggerdotdev-trigger-dev-5f00d304a1"
+          },
+          {
+            "kind": "source",
+            "sourceId": "trigger-dev-81c493edb9"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The body is exactly 40 characters from a lowercase alphabet that omits the digit 0 and the letter l (letters a to z without l, and digits 1 to 9). There are no separators inside the body and no checksum.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-triggerdotdev-trigger-dev-5f00d304a1"
+          }
+        ]
+      },
+      {
+        "id": "boundary",
+        "text": "It is not established how a token behaves when glued to an identifier character on either side.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source: it is a matching choice, not a provider fact."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "user-scope",
+        "text": "A personal access token acts for a user across projects, which is why it is a separate family from the environment secret key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued for this research, and the user-wide scope is stated in the research note without a cited page."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "none-found",
+        "text": "No lookalike value was found for the personal access token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The research note records that no collision was found; absence of a finding is not evidence that none exists."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/trigger-dev.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/trigger-dev.md",
+      "note": "families[id=trigger-dev:personal-access-token] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "posthog:personal-api-key",
+  "family": "posthog:personal-api-key",
+  "lifecycle": "draft",
+  "contract": "posthog:personal-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-generator",
+        "text": "The key is the prefix phx_ followed directly by a random body, with no separator inside the body and no checksum. The provider's key-generation code in its repository, last read at the pinned revision, defines the prefix and the generator.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          }
+        ]
+      },
+      {
+        "id": "eras",
+        "text": "Body length and alphabet depend on the generation date, and keys of every era can still be live because rotation is optional. Since 2026-03-30 the body is 48 or 49 characters from a base57 alphabet (base62 without 0, 1, O, I and l). Until then it was a 35-byte base62 body of at most 48 characters; earlier still a 32-byte base62 body of at most 43 characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ]
+      },
+      {
+        "id": "length-band",
+        "text": "Across the eras a key therefore has 42 to 49 letters and digits after the prefix. About 1.6 percent of the oldest keys render at 42 characters; shorter renderings are under 0.03 percent of any era. The per-length shares are derived from the generator algorithm, not observed.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ]
+      },
+      {
+        "id": "scanner-width-difference",
+        "text": "One scanner rule reads this key as phx_ plus 43 to 48 letters, digits and underscores, which misses 49-character base57 bodies and 42-character base62 bodies and admits an underscore the generator never emits; it is not used to narrow the band.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-peer-lag"
+          }
+        ]
+      },
+      {
+        "id": "boundary",
+        "text": "A run of 50 or more characters after the prefix, or a key directly attached to a letter, digit, underscore or hyphen, is not a key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Treating a key attached to an identifier character as not a key, and a run of 50 or more characters as not a key, are project boundary choices, not provider statements."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "documented-key",
+        "text": "The provider's documentation describes the phx_ personal API key; it acts as the user across every organization the user can reach.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No PostHog personal API key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued for this research; an optional check of one key issued today would be expected to be 48 or 49 characters with none of 0, 1, O, I and l."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "project-token",
+        "text": "The phc_ project token is public by design (the documentation says it is fine to be public) and is not a secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-project-token"
+          }
+        ]
+      },
+      {
+        "id": "unprefixed-era-1",
+        "text": "The earliest personal keys had no prefix and were 43 characters of URL-safe Base64; they have no distinguishing anchor.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "other-prefixes",
+        "text": "The pha_ and phr_ OAuth access and refresh tokens and the phh_ heatmap tokens are short-lived credentials with the same prefix style.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-deferred-prefixes"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "These prefixes are outside what the research covered; no source cited for this family states their shape or lifetime."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/posthog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/posthog.md",
+      "note": "families[id=posthog:personal-api-key] dossier body"
+    }
+  ]
+}

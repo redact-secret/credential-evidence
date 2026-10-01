@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "travis-ci:api-token",
+  "family": "travis-ci:api-token",
+  "lifecycle": "draft",
+  "contract": "travis-ci:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "length-alphabet",
+        "text": "A Travis CI API token is a run of 22 alphanumeric characters. The length and the letters-and-digits alphabet are corroborated by two scanner rules (gitleaks and trufflehog), not by Travis CI.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "underscore-disagreement",
+        "text": "The two scanner rules disagree on the underscore: gitleaks matches only letters and digits case-insensitively, while trufflehog also admits an underscore in the body. Only the letters-and-digits intersection is treated as the shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "no-provider-shape",
+        "text": "Travis CI does not document the token's length, alphabet or any prefix, so the 22-character shape is not provider-confirmed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "developer-travis-ci-com-259f4a665a"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-travis-ci-com-6d13d7a05f"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Travis CI's pages show only a masked twelve-character placeholder in the header and state no length or alphabet, and no provider-documented prefix exists."
+        }
+      },
+      {
+        "id": "mixed-class",
+        "text": "It is not established that a token always contains at least one letter and one digit.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-mixed-letters-and-digits"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "A guard recorded in the research note, not a provider fact: roughly 2 percent of uniformly random 22-character tokens contain no digit and would not satisfy it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "travis-token-command",
+        "text": "An API token is generated with the travis token command of the Travis CI command-line client against a Travis CI account, and is sent in an Authorization header with the word token before the value.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          },
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developer-travis-ci-com-259f4a665a"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-travis-ci-com-6d13d7a05f"
+          }
+        ]
+      },
+      {
+        "id": "no-sample",
+        "text": "The real length and alphabet of an issued token have not been checked against an issued sample.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No token was issued for this research, and no provider-issued token has been observed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "same-line-keyword",
+        "text": "A bare 22-character alphanumeric run has no identifying prefix, so both scanner rules require the word travis near the value (a case-insensitive keyword on the same line) before treating it as a Travis CI token.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-context"
+          }
+        ]
+      },
+      {
+        "id": "numeric-and-hex-ids",
+        "text": "Travis build, job and repository ids are numeric and commit SHAs are 40 hexadecimal characters, so those identifiers on a Travis line do not match the 22-character shape; a 22-character mixed-case value under a non-identifier key on such a line would.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "real-length-alphabet",
+        "text": "What are the real length and alphabet of an issued Travis CI token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-25",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Neither Travis CI nor an issued token confirms the shape, and the underscore disagreement between the two scanner rules is unresolved."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/travis-ci.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/travis-ci.md",
+      "note": "families[id=travis-ci:api-token] dossier body"
+    }
+  ]
+}

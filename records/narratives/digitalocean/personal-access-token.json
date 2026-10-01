@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "digitalocean:personal-access-token",
+  "family": "digitalocean:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "digitalocean:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A DigitalOcean personal access token begins dop_v1_. The prefix comes from the 2022-03-29 API release notes, which introduced a versioned token format with one prefix per token kind.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-digitalocean-com-8011080335"
+          }
+        ]
+      },
+      {
+        "id": "length-64",
+        "text": "The body is 64 characters. The provider's OAuth reference examples show 64-character bodies, but the example bodies contain placeholder text that is not hexadecimal, so they establish the length and not the alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-digitalocean-com-afafb98e40"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "The body is lowercase hexadecimal. Two scanner rules agree on this, in one combined rule for the three prefixes, and the provider's placeholders do not contradict or confirm it.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sibling-prefixes",
+        "text": "The doo_v1_ and dor_v1_ tokens are the same shape and differ only in the last letter before _v1_, so the prefix alone says which kind a token is. Uppercase or mixed-case bodies are not described by the grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-digitalocean-com-8011080335"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "alphabet-question",
+        "text": "Is the body always lowercase hexadecimal?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-17",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The provider's examples are placeholders, and no issued token of this kind was measured."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/digitalocean.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/digitalocean.md",
+      "note": "families[id=digitalocean:personal-access-token] dossier body"
+    }
+  ]
+}

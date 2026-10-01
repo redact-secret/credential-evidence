@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "sendgrid:api-key",
+  "family": "sendgrid:api-key",
+  "lifecycle": "draft",
+  "contract": "sendgrid:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "fixed-length",
+        "text": "A SendGrid API key is always 69 characters long in total and is never issued shorter.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "support-sendgrid-com-135e975bd1"
+          }
+        ]
+      },
+      {
+        "id": "prefix-and-segments",
+        "text": "Scanner rules read a key as the prefix SG., a 22-character identifier segment, a dot, and a 43-character secret segment drawn from letters, digits, underscore and hyphen. The support article does not state the prefix, the split or the alphabet.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "scopes-share-format",
+        "text": "Full-access and restricted-access API keys share one format.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source; the cited support article addresses key length only."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "segment-split-and-alphabet",
+        "text": "Is the 22 and 43 character split, with its alphabet, a documented property of the key?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No SendGrid page states the 22 and 43 character split or the alphabet; only scanner rules do, and no issued key was inspected."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/sendgrid.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/sendgrid.md",
+      "note": "families[id=sendgrid:api-key] dossier body"
+    }
+  ]
+}

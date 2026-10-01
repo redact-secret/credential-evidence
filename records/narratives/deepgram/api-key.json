@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "deepgram:api-key",
+  "family": "deepgram:api-key",
+  "lifecycle": "draft",
+  "contract": "deepgram:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "unprefixed-40",
+        "text": "A project API key has no prefix and is 40 characters long. Two scanner rules agree on the length and a user in a provider-hosted GitHub discussion reports a working 40-character key. The key is recognised only beside a same-line Deepgram name, host or SDK constructor, never as a bare 40-character run, because a Git SHA-1 has the same shape.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-shape"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-context"
+          },
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-orgs-deepgram-a80f2c96a2"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "The key is lowercase hexadecimal, as opposed to the wider lowercase letters and digits.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Scanner rules disagree (lowercase hexadecimal in one, lowercase letters and digits in another) and no provider source decides it."
+        }
+      },
+      {
+        "id": "length-provider-silent",
+        "text": "The provider documents the key length.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-docs-example-length"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-deepgram-com-0924be132c"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The provider's create-key example shows 32 ascending hexadecimal digits for both the key and the key id, which reads as a placeholder and conflicts with every other source; whether keys were ever 32 characters is untested."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "console-and-api",
+        "text": "Keys are created in the console (Settings, then API Keys) or through the management API, permanent or expiring, and the secret is shown once.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "developers-deepgram-com-0924be132c"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-deepgram-com-27fb8c65e4"
+          }
+        ]
+      },
+      {
+        "id": "header-and-transport",
+        "text": "Requests send an Authorization header with the scheme Token followed by the key, not Bearer. The SDKs read the DEEPGRAM_API_KEY variable and accept the key as a constructor argument.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-header-scheme"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "grant-token",
+        "text": "A separate endpoint returns a short-lived access token (30 seconds by default) that is a JWT and is sent as a Bearer token; it is a different credential from an API key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-header-scheme"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-deepgram-com-641a8d1734"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-deepgram-com-27fb8c65e4"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Deepgram key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for this research; total length, character class, a second key, the shape of the visible key id, an expiring key and the grant token structure were listed for a later check."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "public-ids",
+        "text": "The key id returned beside a key, project ids and request ids are public identifiers. The key id uses the same example shape as the key, so a stored key id is a lookalike; project and request ids are UUIDs.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-public-ids"
+          }
+        ]
+      },
+      {
+        "id": "git-sha",
+        "text": "A Git SHA-1 digest is also 40 lowercase hexadecimal characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "alphabet-question",
+        "text": "Is the alphabet lowercase hexadecimal or lowercase letters and digits?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Scanner rules and one forum observation disagree and no provider source or issued key decides it."
+        }
+      },
+      {
+        "id": "length-question",
+        "text": "Is 40 characters universal, and do 32-character keys exist?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Needs one issued key, and a dated source if an older format ever existed."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/deepgram.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/deepgram.md",
+      "note": "families[id=deepgram:api-key] dossier body"
+    }
+  ]
+}

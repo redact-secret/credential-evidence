@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "generic:bearer-token",
+  "family": "generic:bearer-token",
+  "lifecycle": "draft",
+  "contract": "generic:bearer-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "carrier-grammar",
+        "text": "RFC 6750 defines the credential as the keyword Bearer, one or more spaces, then a token of letters, digits and the characters - . _ ~ + / with trailing = padding only. The keyword is case-insensitive and sits outside the secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "mutable-property-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-scheme"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "source",
+            "sourceId": "rfc-editor-org-6450ea2bfd"
+          },
+          {
+            "kind": "source",
+            "sourceId": "rfc-editor-org-e593c606c9"
+          }
+        ]
+      },
+      {
+        "id": "no-length",
+        "text": "The token has no stated length or identifying element.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-length"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "RFC 6750 section 5.2 leaves the token contents unspecified and no standard states a length; any minimum length, padding cap or whitespace rule is a masking choice."
+        }
+      },
+      {
+        "id": "masking-policy",
+        "text": "The span boundary for this family is project masking policy and not a provider grammar. The standard supplies only the carrier syntax; length floors, the padding cap and the treatment of free-text scope are project choices.",
+        "evidenceClass": "project-policy",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "legacy-contract-tier"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-applicable",
+        "text": "Issuance is not applicable.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No issuing provider exists for this family; the token is issued by whichever service the client authenticates to."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "wrapped-credentials",
+        "text": "The value may be a JWT, a provider-prefixed key or an opaque string; a provider's own family is the better attribution when its prefix matches.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-26",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/generic.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/generic.md",
+      "note": "families[id=generic:bearer-token] dossier body"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "slack:app-level-token",
+  "family": "slack:app-level-token",
+  "lifecycle": "draft",
+  "contract": "slack:app-level-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-role",
+        "text": "An app-level token begins xapp-. Slack's tokens page and its Socket Mode page state the prefix, and the Socket Mode page shows it as a Bearer credential.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-8af6cd6628"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-2a8335f568"
+          }
+        ]
+      },
+      {
+        "id": "sections",
+        "text": "Placeholders in Slack's own Java SDK guide and command-line tests show a digit section followed by three more dash-separated sections (digit, alphanumeric, digit, alphanumeric in the order recorded), while other Slack placeholders show fewer sections. No Slack page states the section count.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-section-structure"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-slackapi-java-slack-sdk-a2559bc3b3",
+            "locator": "#L180"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-slackapi-slack-cli-86d31a6fd0",
+            "locator": "#L198-L202"
+          }
+        ]
+      },
+      {
+        "id": "widths-and-alphabet",
+        "text": "The sections are 1, 11, 13 and 64 characters wide, with the final section lowercase hexadecimal.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-section-widths"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Tools and placeholders suggest one digit, an app-id-like section, 13 digits and a 64-hex secret (97 characters), but scanner rules disagree on the widths and no Slack text states any of it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "creation",
+        "text": "An app-level token is created on an app's Basic Information page, with a scope chosen at creation (connections:write, authorizations:read or app_configurations:write).",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-2a8335f568"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited page; no token was issued for the research."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "siblings",
+        "text": "Other sectioned Slack prefixes such as xoxa-2- share the skeleton, words such as xapp-store are not tokens, and app ids are public.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "app-id-section",
+        "text": "Is the second section the public app id?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-app-id-embedding"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Scanner samples disagree and no provider text says what the second section is."
+        }
+      },
+      {
+        "id": "version-digit",
+        "text": "Have version digits other than 1 been issued?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No provider source and no issued token shows any version digit other than 1."
+        }
+      },
+      {
+        "id": "widths",
+        "text": "What are the real section widths and the secret alphabet?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No issued token was inspected."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:app-level-token] dossier body"
+    }
+  ]
+}

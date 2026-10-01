@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "crates-io:trusted-publishing-token",
+  "family": "crates-io:trusted-publishing-token",
+  "lifecycle": "draft",
+  "contract": "crates-io:trusted-publishing-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "grammar",
+        "text": "A trusted-publishing token is the literal prefix cio_tp_ followed by exactly 32 letters and digits, 39 characters in all. The registry's server code defines the prefix and generates 31 random alphanumerics, then one check character; its parser requires exactly 32 characters after the prefix.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-rust-lang-crates-io-72a03988b4"
+          }
+        ]
+      },
+      {
+        "id": "check-character",
+        "text": "The 32nd body character is a check character drawn from letters and digits: the XOR of the 31 raw bytes, modulo 62.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-rust-lang-crates-io-72a03988b4"
+          }
+        ]
+      },
+      {
+        "id": "check-never-rejects",
+        "text": "The check character corroborates a match but does not by itself reject a value that otherwise has the right shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-policy-checksum"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A handling choice, not a provider fact: the registry code read does not say whether a mismatching check character is rejected on the server side."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "short-lived",
+        "text": "A trusted-publishing token is minted from a CI OIDC exchange and can publish for its short lifetime.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "transport",
+        "text": "A trusted-publishing token minted in CI is exported for the publish command, which takes registry tokens from the CARGO_REGISTRY_TOKEN variable, the Cargo credentials file or a command-line option.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No trusted-publishing token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No token was issued for this research; the grammar is read from provider source, so none was needed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "api-token-prefix",
+        "text": "The API-token body excludes the underscore, so a cio_tp_ token is never read as a cio API token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-rust-lang-crates-io-8fcc76bccc"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-rust-lang-crates-io-72a03988b4"
+          }
+        ]
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/crates-io.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/crates-io.md",
+      "note": "families[id=crates-io:trusted-publishing-token] dossier body"
+    }
+  ]
+}

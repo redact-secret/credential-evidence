@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "rubygems:api-key",
+  "family": "rubygems:api-key",
+  "lifecycle": "draft",
+  "contract": "rubygems:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "A RubyGems.org API key is the prefix rubygems_ followed by exactly 48 lowercase hexadecimal characters (24 random bytes), 57 characters in all, with no checksum. The provider's own key-generation code builds it that way.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-rubygems-rubygems-org-ac6d2d72ae",
+            "locator": "#L19-L21"
+          }
+        ]
+      },
+      {
+        "id": "scanner-rules-agree",
+        "text": "Scanner rules agree with the grammar: one reads the 48 characters as lowercase hexadecimal and only requires a trailing delimiter, and another matches the same length with a character-class typo that admits letters it should not.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-peer-lag"
+          }
+        ]
+      },
+      {
+        "id": "carriers",
+        "text": "The key is carried in the GEM_HOST_API_KEY environment variable, in the :rubygems_api_key: line of ~/.gem/credentials, and as a bare Authorization header value with no scheme.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The contract's carrier statement rests on a project research note and not on a provider source."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No RubyGems.org API key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued for this research; the grammar comes from the provider's key-generation code, so no sample was needed."
+        }
+      },
+      {
+        "id": "scopes",
+        "text": "A key can push and yank gems and manage owners within its scopes, so a leak is a supply-chain risk for every gem the account owns.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "oidc-short-lived",
+        "text": "Short-lived keys obtained by an OIDC exchange come from the same key generator and have the same shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "gemspec-metadata-keys",
+        "text": "The gemspec metadata keys rubygems_version and rubygems_mfa_required start with the prefix but are not credentials, and they fail the 48-hexadecimal body.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-metadata-keys"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "The contract's statement rests on a project research note and not on a provider source."
+        }
+      },
+      {
+        "id": "legacy-unprefixed",
+        "text": "Older RubyGems keys without the rubygems_ prefix have no distinctive shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Recorded in a research note without a cited source; no shape is documented for the older keys."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/rubygems.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/rubygems.md",
+      "note": "families[id=rubygems:api-key] dossier body"
+    }
+  ]
+}

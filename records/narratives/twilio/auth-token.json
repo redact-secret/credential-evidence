@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "twilio:auth-token",
+  "family": "twilio:auth-token",
+  "lifecycle": "draft",
+  "contract": "twilio:auth-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "length-32",
+        "text": "An account Auth Token is exactly 32 characters with no prefix or marker. Twilio's own command-line client checks that length when a profile is created (the check can be skipped with a hidden flag), and Twilio's serverless toolkit describes the token as 32 characters of letters and numbers.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-length"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-twilio-twilio-cli-4e83454154"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-twilio-labs-serverless-toolkit-8c068b76b7"
+          }
+        ]
+      },
+      {
+        "id": "lowercase-hex",
+        "text": "Scanner rules treat the token as lowercase hexadecimal. Twilio-owned sample code sometimes accepts lowercase letters and digits and calls the result hexadecimal, most likely loosely.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The contract's alphabet claim is itself unresolved: no provider source states the alphabet."
+        }
+      },
+      {
+        "id": "untyped-schema",
+        "text": "Twilio's Auth Token resource types the token as an untyped string, so the reference documentation states no length or alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "twilio-com-e7679bb537"
+          }
+        ]
+      },
+      {
+        "id": "other-token-kinds",
+        "text": "Secondary, regional, test and subaccount tokens have no stated shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No reviewed source describes the shape of secondary, regional, test or subaccount tokens."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "account-bound",
+        "text": "An Auth Token is bound to the account, and is paired with the Account SID, which is AC followed by 32 hexadecimal characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "twilio-com-e7679bb537"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No token was issued for this research; the binding of a token to the account is recorded in a research note without a cited page."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "any-32-hex",
+        "text": "Because the token has no prefix, any 32-character hexadecimal run collides with it, including an MD5 digest or a UUID without dashes.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "alphabet-outside-hex",
+        "text": "Do issued auth tokens ever contain characters outside lowercase hex?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Nothing reviewed shows an issued token, so no source can say whether one ever contains characters outside lowercase hexadecimal."
+        }
+      },
+      {
+        "id": "secondary-regional-test",
+        "text": "Do secondary, regional and test tokens share the shape of the primary token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No reviewed source describes secondary, regional or test tokens."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/twilio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/twilio.md",
+      "note": "families[id=twilio:auth-token] dossier body"
+    }
+  ]
+}

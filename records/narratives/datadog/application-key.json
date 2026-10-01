@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "datadog:application-key",
+  "family": "datadog:application-key",
+  "lifecycle": "draft",
+  "contract": "datadog:application-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A current-generation application key begins ddapp_. The comparison table of access-token types on the personal and service access token pages lists ddapp_ (new) as the identifiable prefix of application keys.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-datadoghq-com-8ac796aa2a"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-datadoghq-com-950ae67dab"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The body is 34 letters and digits after the prefix, 40 characters in all. Every Datadog-owned validator (the Agent's key check, the CloudFormation and ARM templates) agrees on 34; no documentation page states the length.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "scrubber-underscore",
+        "text": "The body of an application key may contain an underscore.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Only the Agent's log scrubber admits an underscore in the body, and it is read as lenient by design; no provider statement settles the alphabet."
+        }
+      },
+      {
+        "id": "no-checksum",
+        "text": "The documented CRC-32 checksum grammar applies to ddpat_ personal access tokens only, not to application keys.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-datadoghq-com-8ac796aa2a"
+          }
+        ]
+      },
+      {
+        "id": "scanner-rules",
+        "text": "Rules and validators in the Datadog Agent, the Datadog CloudFormation and agentless-scanner templates, an AWS Secrets Manager partner page and two scanners are consistent with the ddapp_ plus 34 characters grammar.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No ddapp_ key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued for this research; a fresh key would settle the body length and alphabet."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "access-tokens-in-key-slot",
+        "text": "ddpat_ personal access tokens and ddsat_ service access tokens can be sent where an application key is expected, so a value under an application-key name may not begin ddapp_.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "legacy-generation",
+        "text": "An earlier generation of application keys is a bare 40-character lowercase hexadecimal value with no prefix; it is a separate family.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-legacy-40-hex-generation"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The legacy generation is held in a separate contract whose claims are scanner-corroborated; this family records only the boundary."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-grammar",
+        "text": "What are the exact body length and alphabet of a ddapp_ key issued today?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No documentation page states it; a fresh key would settle it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/datadog.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/datadog.md",
+      "note": "families[id=datadog:application-key] dossier body"
+    }
+  ]
+}

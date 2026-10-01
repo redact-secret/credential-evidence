@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "vercel:app-access-token",
+  "family": "vercel:app-access-token",
+  "lifecycle": "draft",
+  "contract": "vercel:app-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "App access tokens, issued by Sign in with Vercel, begin with vca_, as the changelog, the authorization-server reference and Vercel's OpenAPI specification show.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-770ae7d1d8"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-40ae5b29fd"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The Sign in with Vercel Tokens page shows a 60-character example (vca_ plus a 56-character body of letters and digits) and calls the format opaque, validated on the server. The example predates the changelog, since an archived copy is from November 2025.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-ee64691632"
+          }
+        ]
+      },
+      {
+        "id": "peers-copy-example",
+        "text": "Kingfisher and Betterleaks both state vca_ plus 56, but both copy Vercel's own example value, so they add no independent observation of the body.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-81669063af",
+            "locator": "#L133-L192"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-betterleaks-betterleaks-83d1c6c0c4",
+            "locator": "#L115-L147"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "Every provider example of the body uses letters and digits only, and Vercel's Azure DevOps extension masks vca_ followed by letters, digits, underscore and hyphen without a length.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet-bound"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-ee64691632"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-vercel-vercel-azure-devops-extension-b513a9d723",
+            "locator": "#L37-L38"
+          }
+        ]
+      },
+      {
+        "id": "token-suffix",
+        "text": "Vercel's OpenAPI specification describes a tokenSuffix field as the token checksum suffix, and the one provider vca_ example passes a check in which the last 6 characters are the base62 form of the CRC-32 of the first 50.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "openapi-vercel-sh-403403b630"
+          },
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-ee64691632"
+          }
+        ]
+      },
+      {
+        "id": "checksum-open",
+        "text": "It is not established that every app access token ends in a checksum of its first 50 characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "One provider value is too little to establish that every token carries the checksum, and a 50 plus 6 split is not stated by any provider page."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "cli-login",
+        "text": "Vercel's own command-line login stores a vca_ token: Turborepo's authentication code treats a token that starts with vca_ as an OAuth token rather than a legacy one, and a Vercel skill file refers to the same.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-vercel-turborepo-ecab1ca8cb",
+            "locator": "#L361"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-vercel-vercel-plugin-052ecd2e91",
+            "locator": "#L144"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "lifetime",
+        "text": "App access tokens last one hour.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "vercel-com-ee64691632"
+          }
+        ]
+      },
+      {
+        "id": "revocation",
+        "text": "Kingfisher documents revoking the token through Vercel's OAuth token-revocation route with client credentials.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-kingfisher-81669063af",
+            "locator": "#L133-L192"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "legacy-token",
+        "text": "The legacy unprefixed 24-character token is a different form, and vci_ and vck_ are other Vercel classes whose body is not established.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-sibling-classes"
+          }
+        ]
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/vercel.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/vercel.md",
+      "note": "families[id=vercel:app-access-token] dossier body"
+    }
+  ]
+}

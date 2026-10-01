@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "doppler:service-token",
+  "family": "doppler:service-token",
+  "lifecycle": "draft",
+  "contract": "doppler:service-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "A token of this type begins dp.st., followed by a body of 40 to 44 letters and digits, with no separator inside the body and no checksum documented. Every documented example and the one observed token have a 43-character body; the documented band is the contract.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-doppler-com-7a28d9952f"
+          }
+        ]
+      },
+      {
+        "id": "environment-segment",
+        "text": "An optional environment segment of 2 to 35 characters (lowercase letters, digits, underscore and hyphen) followed by a dot may sit between the prefix and the body. This is the only one of the seven types that has such a segment.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-environment-segment"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-doppler-com-7a28d9952f"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "scope",
+        "text": "A service token reads one config.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-doppler-com-7a28d9952f"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "preview-form",
+        "text": "The preview form shown in the command-line tool and the dashboard (dp.st, an ellipsis and the last 6 characters) does not match the grammar and is not a secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-non-secrets"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-length",
+        "text": "Are service-token bodies always 43 characters long?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was issued for the research; one issued service token would narrow the documented band, not change it."
+        }
+      },
+      {
+        "id": "environment-segment-value",
+        "text": "Does the environment segment always equal the environment slug?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No issued token was inspected; the provider page gives the segment's allowed characters but not what it is derived from."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/doppler.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/doppler.md",
+      "note": "families[id=doppler:service-token] dossier body"
+    }
+  ]
+}

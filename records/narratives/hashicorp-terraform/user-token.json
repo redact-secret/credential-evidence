@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "hashicorp-terraform:user-token",
+  "family": "hashicorp-terraform:user-token",
+  "lifecycle": "draft",
+  "contract": "hashicorp-terraform:user-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "shape",
+        "text": "The user-tokens API page publishes a full example whose segments measure exactly 14 and 67. A token is 14 alphanumeric characters, the literal marker .atlasv1., then 67 alphanumeric characters, 90 characters in all. No checksum or other marker is documented beyond the .atlasv1. version tag.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developer-hashicorp-com-1ee95e81cd"
+          }
+        ]
+      },
+      {
+        "id": "tool-width-disagreement",
+        "text": "Two scanner rules corroborate the family but disagree on width: one uses a looser tail of 60 to 70 characters over a wider alphabet, and the other uses the exact 14 and 67 widths. A tail of 60 to 66 characters is accepted by the looser rule and not by the exact one.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No token of this kind was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was minted; all evidence is provider examples and scanner rules."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "short-placeholder",
+        "text": "HashiCorp's command-line documentation uses a short placeholder of the same overall form.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "same-shape-as-others",
+        "text": "Organization and team tokens share this exact grammar, so the three families are told apart by how the token was issued and not by its shape.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "tail-width",
+        "text": "Does HashiCorp ever issue a tail of 60 to 66 characters?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The exact 67 rests on three provider examples and one scanner rule; no token was issued to show whether a tail of 60 to 66 characters occurs."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/hashicorp-terraform.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-terraform.md",
+      "note": "families[id=hashicorp-terraform:user-token] dossier body"
+    }
+  ]
+}

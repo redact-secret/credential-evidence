@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "cloudflare:api-token",
+  "family": "cloudflare:api-token",
+  "lifecycle": "draft",
+  "contract": "cloudflare:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "documented-format",
+        "text": "Cloudflare documents cfut_ as the scannable API token format. Its token-formats page says every prefixed token has a distinct prefix followed by 40 characters and a checksum.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-cloudflare-com-62600e2992"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-cloudflare-com-9c62373205"
+          }
+        ]
+      },
+      {
+        "id": "checksum-follows-body",
+        "text": "Because Cloudflare says a checksum follows the 40-character body, a bare cfut_ followed by only 40 characters is malformed under the documented format. No checksum algorithm is computed or claimed.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "developers-cloudflare-com-62600e2992"
+          }
+        ]
+      },
+      {
+        "id": "checksum-width-and-alphabet",
+        "text": "The body is alphanumeric and the checksum is 8 lowercase hexadecimal characters, 53 characters in all.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Cloudflare says only that a checksum follows the body, and its token-formats page (last updated 2026-04-20) publishes no width or alphabet; the 8 lowercase hexadecimal characters come from one scanner rule."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No Cloudflare token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued for this research; one issued token would settle the checksum shape."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "cfat-and-cfk",
+        "text": "cfat_ (account-owned token) and cfk_ (scannable global key) share the same format cell of 40 characters and a checksum, and are separate credentials.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "developers-cloudflare-com-62600e2992"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "These formats are documented on other Cloudflare pages that are not recorded as sources of this family, and no tool corroborates the cfk_ checksum shape."
+        }
+      },
+      {
+        "id": "legacy-unprefixed",
+        "text": "The older formats, a 40-character alphanumeric token and a 37 to 45 character hexadecimal global key, have no prefix and cannot be told from ordinary opaque values.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "leads": [
+          {
+            "kind": "source",
+            "sourceId": "developers-cloudflare-com-62600e2992"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The older formats are described in the research overview; no source recorded for this family states them."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "checksum-shape",
+        "text": "Are the 8 checksum characters always lowercase hexadecimal?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "One issued token would settle it, and would also settle the cfat_ shape."
+        }
+      },
+      {
+        "id": "cfk-grammar",
+        "text": "What is the grammar of a cfk_ global key?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No source gives a checksum width or alphabet for cfk_."
+        }
+      },
+      {
+        "id": "checksum-less-body",
+        "text": "Does any provider text support a cfut_ token with a 40-character body and no checksum?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "A re-read of the token-formats page on 2026-09-21 found no text supporting it, but absence is not proof."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/cloudflare.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/cloudflare.md",
+      "note": "families[id=cloudflare:api-token] dossier body"
+    }
+  ]
+}

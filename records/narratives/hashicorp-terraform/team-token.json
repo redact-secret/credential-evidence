@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "hashicorp-terraform:team-token",
+  "family": "hashicorp-terraform:team-token",
+  "lifecycle": "draft",
+  "contract": "hashicorp-terraform:team-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "shape",
+        "text": "The team-tokens page publishes a third example with the same 14 and 67 split; agreement across three separately authored pages is the basis for the exact widths. A token is 14 alphanumeric characters, the literal marker .atlasv1., then 67 alphanumeric characters, 90 characters in all. No checksum or other marker is documented beyond the .atlasv1. version tag.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developer-hashicorp-com-8af1bdad6c"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No token of this kind was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No token was minted; all evidence is provider examples and scanner rules."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "value-does-not-say-kind",
+        "text": "Nothing in the value says which kind of token it is, because user, organization and team tokens share one grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "tail-width",
+        "text": "Does HashiCorp ever issue a tail of 60 to 66 characters?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The exact 67 rests on three provider examples and one scanner rule; no token was issued to show whether a tail of 60 to 66 characters occurs."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/hashicorp-terraform.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/hashicorp-terraform.md",
+      "note": "families[id=hashicorp-terraform:team-token] dossier body"
+    }
+  ]
+}

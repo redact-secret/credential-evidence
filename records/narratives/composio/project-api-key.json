@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "composio:project-api-key",
+  "family": "composio:project-api-key",
+  "lifecycle": "draft",
+  "contract": "composio:project-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A Composio project API key begins with ak_. The provider's authentication documentation and its SDK source name the prefix, and the documentation names the x-api-key request header that carries the key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "body-20",
+        "text": "The body is exactly 20 characters. A dated statement by Composio's Head of Security (2026-09-17, posted on a public scanner issue) gives ak_ plus 20 nanoid characters, and the provider's OpenAPI example shows an ak_ key with a 20-character body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-openapi-example"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "The body is a URL-safe nanoid drawn from letters, digits, underscore and hyphen, so a body may begin or end with an underscore or a hyphen. The keys use an underscore-separated scheme with no checksum and no further separators.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "no-checksum",
+        "text": "The key has no separators and no checksum.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The statement that no checksum exists is held in a contract claim that is itself unresolved; it rests on one staff comment and no provider specification."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No project key was issued or observed to confirm the stated width.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No project key was issued for this research; an optional issuance check was listed but not performed."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "short-prefix-identifier",
+        "text": "The prefix ak_ is short and the alphabet includes the underscore and hyphen, so a 20-character snake_case identifier can look like a project key. Requiring at least one uppercase and one lowercase letter in the body would rule most of these out, at a cost of about 3 in 100,000 genuine keys on each side.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-mixed-case-guard"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source: the false-negative cost of the proposed guard is a computed estimate and not a provider fact."
+        }
+      },
+      {
+        "id": "contained-prefixes",
+        "text": "The organisation prefix oak_ and the user prefix uak_ both contain ak_, so a key must not be read as a project key when it is glued to an identifier character on its left.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The boundary rule is an authoring choice recorded in an unresolved contract claim, not a provider statement."
+        }
+      },
+      {
+        "id": "other-provider-ak",
+        "text": "The provider bkend.ai issues ak_ keys with a 64-character hexadecimal body. It is another provider's credential and the same prefix with a different length.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-other-provider"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract; the claim holding it is unresolved."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "sibling-shapes",
+        "text": "What are the length and alphabet of the ck_ consumer key and the cak_ agent key that share this scheme?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-unshaped-siblings"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Only placeholders for ck_ consumer keys and cak_ agent keys were found; no source states a length or alphabet for either."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/composio.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/composio.md",
+      "note": "families[id=composio:project-api-key] dossier body"
+    }
+  ]
+}

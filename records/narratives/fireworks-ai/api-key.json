@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "fireworks-ai:api-key",
+  "family": "fireworks-ai:api-key",
+  "lifecycle": "draft",
+  "contract": "fireworks-ai:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An API key begins fw_ (lowercase, with an underscore). The documentation writes keys as fw_ followed by a truncated body, and provider tooling accepts a key only if it starts with fw_ or fpk_ (case-sensitive). No documented length or alphabet exists.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix-validation"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-fireworks-ai-2c538b56f2"
+          }
+        ]
+      },
+      {
+        "id": "widths",
+        "text": "The body after fw_ is 22 or 24 characters (25 or 27 in all).",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Based on nine distinct public non-placeholder values observed by the maintainers (six with a 22-character body, three with 24); no provider source states a length and a distribution of nine is a hypothesis, not a measurement."
+        }
+      },
+      {
+        "id": "alphabet",
+        "text": "The body uses letters and digits, possibly a base58 alphabet.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The observed values avoided 0, O, I and l, which is consistent with base58 but is an inference; no provider source states the alphabet."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "creation",
+        "text": "Keys are created in the console (API Keys) or with the firectl command, including for service accounts. The create response returns the key once, together with a prefix field described as the first characters, provided to visually identify the key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-fireworks-ai-1f63dc65b0"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Fireworks AI key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for the research; several issued keys would show whether the length varies."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "fire-pass-key",
+        "text": "Fire Pass keys begin fpk_, share the FIREWORKS_API_KEY variable and are a separate live prefix.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-fpk-fire-pass-key"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The prefix is documented, but its body length and alphabet were not found."
+        }
+      },
+      {
+        "id": "unprefixed-legacy",
+        "text": "Unprefixed older keys may exist.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-unprefixed-legacy-key"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Only older documentation and a third-party scanning-tool documentation page mention an unprefixed form; no source confirms an older shape."
+        }
+      },
+      {
+        "id": "non-secrets",
+        "text": "The key id (keyId), the prefix display value, account ids, model paths (accounts/fireworks/models/...), service-account emails, identifiers such as fw_id, fw_version and fw_spec, and a keychain reference written by the fireconnect tool are not keys.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "two-widths",
+        "text": "Are 22 and 24 character bodies one generator (base58 length variance) or two formats?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "No source says whether 22 and 24 character bodies come from one generator or two formats."
+        }
+      },
+      {
+        "id": "unprefixed-validity",
+        "text": "Did an unprefixed format exist, and do such keys still work?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "Pre-2024 documentation shows no prefix; no source says whether an unprefixed format existed or whether such keys still work."
+        }
+      },
+      {
+        "id": "scoped-keys",
+        "text": "Do training-scoped, secure or service-account keys differ lexically?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 10,
+          "reason": "No source compares training-scoped, secure or service-account keys with ordinary ones."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/fireworks-ai.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/fireworks-ai.md",
+      "note": "families[id=fireworks-ai:api-key] dossier body"
+    }
+  ]
+}

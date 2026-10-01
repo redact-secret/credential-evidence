@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "pinecone:api-key",
+  "family": "pinecone:api-key",
+  "lifecycle": "draft",
+  "contract": "pinecone:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A current API key begins pcsk_. The prefix comes from the provider's command-line tool and SDK code and tests, which are its own source, and not from a written grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "segments",
+        "text": "The key is three underscore-separated parts: pcsk_, a public label, and a secret. The provider's Python SDK shows this segmentation.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-segments"
+          }
+        ]
+      },
+      {
+        "id": "secret-width",
+        "text": "The secret is exactly 63 letters and digits, so a key is 74 or 75 characters in all. Scanner rules agree on the width; one looser rule allows underscore and at least 40 characters.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-secret-width"
+          }
+        ]
+      },
+      {
+        "id": "label-width",
+        "text": "The public label is 5 or 6 letters and digits.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-label-width"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Only a scanner rule states the width; no provider source does."
+        }
+      },
+      {
+        "id": "pckey-documented",
+        "text": "The Admin API reference for creating a key describes new keys as pckey_ followed by a public label, an underscore and a unique key. No scanner rule, sample or report shows a value with the pckey_ prefix; this contradicts every observation of pcsk_ and is neither a positive nor a negative for either form.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-pinecone-io-afb4aa4af7"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "header-and-variable",
+        "text": "The provider's authentication page says the key is sent in the Api-Key header and read from the PINECONE_API_KEY environment variable. It states no key grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-pinecone-io-9359d617d4"
+          }
+        ]
+      },
+      {
+        "id": "console-issuance",
+        "text": "Keys are scoped to a project and created in the console on the project's API keys page, shown once; the free Starter plan issues keys with permissions fixed at All. A key created through the Admin API would show whether pckey_ is real, and needs a service account.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no key was issued."
+        }
+      },
+      {
+        "id": "uuid-to-pcsk-switch",
+        "text": "Keys were issued as bare UUIDs before the pcsk_ form.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The date Pinecone moved from UUID keys to pcsk_ keys is not recorded in any cited source."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "service-account-credentials",
+        "text": "A service account's client id (32 letters and digits) and client secret (about 64 characters of letters, digits, hyphen and underscore, no prefix) are other credentials, exchanged for an Admin API bearer token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "public-identifiers",
+        "text": "UUIDs for keys, projects, service accounts and organizations, index hosts and PINECONE_ENVIRONMENT strings are public identifiers and not secrets.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "masked-forms",
+        "text": "Masked displays exist: pcsk*** plus four characters in the command-line tool, and three dots plus four characters in the Python SDK's repr output.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "pckey-vs-pcsk",
+        "text": "Why does the Admin API reference say pckey_ when every observation says pcsk_?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-documented-pckey-prefix"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "The Admin API reference and all observations disagree, and issuing a key through that API is the only way to test it."
+        }
+      },
+      {
+        "id": "label-shown-separately",
+        "text": "Is the 5 or 6 character label shown separately in the console or API?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 9,
+          "reason": "No source says whether the console or API shows the label apart from the key."
+        }
+      },
+      {
+        "id": "body-alphabet",
+        "text": "Is the secret body strictly letters and digits?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 10,
+          "reason": "A looser scanner rule allows underscore; no provider statement of the alphabet exists."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pinecone.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pinecone.md",
+      "note": "families[id=pinecone:api-key] dossier body"
+    }
+  ]
+}

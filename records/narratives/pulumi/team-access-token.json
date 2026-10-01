@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "pulumi:team-access-token",
+  "family": "pulumi:team-access-token",
+  "lifecycle": "draft",
+  "contract": "pulumi:team-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "The token value begins pul-. Pulumi's Cloud REST API reference says the token-creation response includes the tokenValue, prefixed with pul-, and a sibling page about personal access tokens repeats it. Neither page states a length or alphabet for the rest of the value.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "body-40-hex",
+        "text": "Scanner rules agree that the body after pul- is exactly 40 lowercase hexadecimal characters. Bodies outside that form (uppercase, other lengths) are outside this grammar.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "community-article",
+        "text": "A community article shows a separate 40-character hexadecimal example for this token kind.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A community article is said to show a 40-hexadecimal example for each token kind, but it is a research-note reference without a cited source in this family's contract, and it is corroboration, not an independent third source."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "kind-by-issuance-path",
+        "text": "Pulumi's reference documents a single prefix for the token value and no kind-specific variant, so a team token shares its grammar with the other two kinds and differs only by how it is issued. No page shows a per-kind example, so an identical grammar is an inference from the shared prefix statement.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "per-kind-evidence",
+        "text": "Does a team access token follow the same body grammar as a personal token?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-21",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The organization and team kinds are distinguished only by issuance path; no Pulumi page shows a per-kind example."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/pulumi.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/pulumi.md",
+      "note": "families[id=pulumi:team-access-token] dossier body"
+    }
+  ]
+}

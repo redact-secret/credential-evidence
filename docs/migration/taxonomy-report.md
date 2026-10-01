@@ -17,7 +17,7 @@ This report is generated with the records. It lists what was imported, how, and 
 | `provider` | 93 |
 | **total** | **1,458** |
 
-Records are written under `records/` (1,458 files, 3,683 KiB): `providers/<provider>.json`, `families/<provider>/<family>.json`, `contracts/<provider>/<family>@<revision>.json`, `reviews/<provider>/<family>.json`, and `sources/<host>/<id>.json`. `variants/` and `siblings/` are reserved and empty: the legacy repository holds no structured variant or benign-sibling data outside its fixtures (issue #4).
+Records are written under `records/` (1,458 files, 3,685 KiB): `providers/<provider>.json`, `families/<provider>/<family>.json`, `contracts/<provider>/<family>@<revision>.json`, `reviews/<provider>/<family>.json`, and `sources/<host>/<id>.json`. `variants/` and `siblings/` are reserved and empty: the legacy repository holds no structured variant or benign-sibling data outside its fixtures (issue #4).
 
 | Legacy entity | Count | Result |
 | --- | --- | --- |
@@ -154,8 +154,8 @@ Lossy on purpose: `provider-example` and `provider-code` both become `provider-d
 | Families with no registry contract | 15 | Their contract holds only the dossier and taxonomy claims |
 | Families whose contract tier differs from the dossier tier | 1 | The dossier decides the contract period; the registry tier decides only the claims it produced |
 | Legacy links naming a tag or branch, not a commit | 139 | The schema forbids a live GitHub file locator, so the locator is the repository and the exact legacy URL is kept in a `legacy-url` reference. Resolving them to commit permalinks needs network access and is left to a follow-up |
-| Source URLs with no known role | 175 | `sourceType` `other`: the legacy field that cited them does not say whether they are provider documentation, a scanner rule, or a write-up |
-| Source URLs typed by review | 7 | Left as `other` by the mechanical import, then read and typed by a person while rewriting dossier prose into family narratives (issue #16, `scripts/migrate/authored/source-types.mjs`); only `other` is ever replaced |
+| Source URLs with no known role | 103 | `sourceType` `other`: the legacy field that cited them does not say whether they are provider documentation, a scanner rule, or a write-up |
+| Source URLs typed by review | 79 | Left as `other` by the mechanical import, then read and typed by a person while rewriting dossier prose into family narratives (issue #16, `scripts/migrate/authored/source-types.mjs`); only `other` is ever replaced |
 | Claims with an inferred observed-at date | 339 | earliest date on the same contract (218), or the dossier researchedAt (4 contract claims, 117 taxonomy-source claims); legacy corroboration and reference entries carry no date |
 | Field claims that look like historical variants | 14 | Not modelled as `variant` records: naming heuristics are not evidence. Listed for a reviewer: `azure-devops-personal-access-token:legacy-52-character-generation`, `datadog-application-key:legacy-40-hex-generation`, `elevenlabs-api-key:legacy-form`, `firecrawl-api-key:legacy-keys`, `fireworks-ai-api-key:unprefixed legacy key`, `gitlab-runner-authentication-token:legacy body`, `gitlab-runner-authentication-token:legacy partition segment`, `langsmith-api-key:legacy-ls__`, and 6 more |
 | Statements or notes over 2000 characters | 3 | Truncated with an ellipsis; the full text is at the pinned legacy path |

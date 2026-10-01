@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "resend:api-key",
+  "family": "resend:api-key",
+  "lifecycle": "draft",
+  "contract": "resend:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An API key begins re_. Resend's command-line tool rejects a key that does not start with re_ when logging in.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          }
+        ]
+      },
+      {
+        "id": "layout",
+        "text": "After the prefix come 8 alphanumeric characters, an underscore, and 24 alphanumeric characters, 36 in all; that underscore is the only one after the prefix. The layout comes from the create-API-key example in the provider's documentation and from values in the provider's SDKs, not from a stated grammar. Full-access and sending-access keys share the shape.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-layout"
+          }
+        ]
+      },
+      {
+        "id": "alphabet",
+        "text": "Every provider example is letters and digits and consistent with a base58 alphabet (no 0, O, I or l), but three distinct samples show what is present and not what is excluded, so the alphabet is recorded as the wider letters-and-digits set.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          }
+        ]
+      },
+      {
+        "id": "mixed-case",
+        "text": "A real key body contains both upper-case and lower-case letters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-mixed-case-guard"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Requiring at least one upper-case and one lower-case letter in the 32 body characters is a project false-positive choice, not a provider fact; provider examples are mixed case."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The key is read from the RESEND_API_KEY environment variable and sent as Authorization: Bearer.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Resend API key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No key was issued; the layout rests on documentation and SDK examples."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "short-prefix",
+        "text": "re_ is a very short prefix that ends many identifiers and Python names; no other issuer using re_ was found.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "webhook-secrets",
+        "text": "Webhook signing secrets begin whsec_ and follow the Svix scheme; they are another credential class.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-webhook-secret"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "base58-or-alphanumeric",
+        "text": "Does a real key ever contain 0, O, I or l?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "An issuance check across several keys would show whether the alphabet is base58 or full alphanumeric."
+        }
+      },
+      {
+        "id": "split-by-key-type",
+        "text": "Is the 8 and 24 character split the same for full-access and sending-access keys?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "The provider documents the shape for both key types together, but no issued key of each type was compared."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/resend.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/resend.md",
+      "note": "families[id=resend:api-key] dossier body"
+    }
+  ]
+}

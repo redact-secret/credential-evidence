@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "discord:bot-token",
+  "family": "discord:bot-token",
+  "lifecycle": "draft",
+  "contract": "discord:bot-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "provider-example",
+        "text": "Discord's API reference shows one example bot-token header, measured as three dot-separated segments of 24, 6 and 27 characters, the older shape. It states no grammar, and an example is not a grammar.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-discord-com-8e431ea274"
+          }
+        ]
+      },
+      {
+        "id": "segment-1",
+        "text": "A third-party Discord client library's token utilities decode the first segment as the base64url of the bot's user id, with no padding, into an unsigned 64-bit id.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-discord-net-discord-net-3b1fccd676"
+          }
+        ]
+      },
+      {
+        "id": "segments",
+        "text": "A bot token is three base64url segments joined by two dots, with no padding and the alphabet of letters, digits, underscore and hyphen. Segment 1 is the base64url of the bot user id in decimal ASCII, 24 characters for an 18-digit id and 26 for a 19-digit id (bots created since 2022-07-22). Segment 2 is 6 characters. Segment 3 is 27 characters before about May 2022 and 38 since, and older tokens keep 27 until reset.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-segments"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-segment-1"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-segment-2"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-segment-3"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Rests on dated community reports and third-party patterns; Discord documents no grammar, and the widths of the newer shape were not measured on a freshly issued token."
+        }
+      },
+      {
+        "id": "first-character",
+        "text": "The first character of a token is M, N or O, which follows from base64 of a decimal digit string.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; a scanner rule requires the first character to be M, N or O."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "developer-portal",
+        "text": "Bot tokens are issued from the bot page of the Developer Portal and are sent in an Authorization header with the scheme Bot.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-discord-com-8e431ea274"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Discord bot token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No token was issued for this research; a fresh token (expected 26, 6 and 38 characters for a new application) is the open check."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "no-stability-guarantee",
+        "text": "Discord gives no guarantee that the token format stays the same, and it is not stated whether legacy 24, 6 and 27 tokens remain valid after reset windows.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note without a cited source; Discord states nothing about the validity of older tokens after a reset."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "dotted-runs",
+        "text": "No fixed prefix exists; the shape is three dotted base64url runs, so ordinary dotted identifiers and other JWT-like values are the confusable class.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "fresh-token",
+        "text": "What does a token issued today look like?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "One fresh token would confirm the 26, 6 and 38 widths, the digit-decoding of segment 1 and the absence of padding."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/discord.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/discord.md",
+      "note": "families[id=discord:bot-token] dossier body"
+    }
+  ]
+}

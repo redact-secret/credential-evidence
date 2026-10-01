@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "slack:workflow-webhook-token",
+  "family": "slack:workflow-webhook-token",
+  "lifecycle": "draft",
+  "contract": "slack:workflow-webhook-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Slack's tokens page states that workflow tokens begin xwfp-. It gives no section widths or alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "dossier-research"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-8af6cd6628"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "The body grammar of a workflow token is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The provider page states the prefix only and nothing was issued for the research."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-grammar",
+        "text": "What are the section structure, widths and alphabet of the body after xwfp-?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No Slack source states the body grammar and no workflow token was inspected."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:workflow-webhook-token] dossier body"
+    }
+  ]
+}

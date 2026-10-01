@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "shopify:custom-app-access-token",
+  "family": "shopify:custom-app-access-token",
+  "lifecycle": "draft",
+  "contract": "shopify:custom-app-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "The access token begins shpat_. Shopify's access-token page documents the prefix and describes the rest as an opaque string with no stated length or character class.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "shopify-dev-198f512ad9"
+          }
+        ]
+      },
+      {
+        "id": "hex-body",
+        "text": "Scanner rules read the body as 32 hexadecimal characters. The provider page does not state this.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "store-installed-custom-app",
+        "text": "This is the access token of a custom app installed on a single store.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "shopify-dev-198f512ad9"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "body-grammar",
+        "text": "What are the length and alphabet of the token body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-20",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The provider calls the body an opaque string and states no length or alphabet, and no issued token was inspected, so the body grammar cannot be established from provider evidence."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/shopify.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/shopify.md",
+      "note": "families[id=shopify:custom-app-access-token] dossier body"
+    }
+  ]
+}

@@ -24,7 +24,7 @@ This report is generated with the records. It lists what the reclassifying impor
 | families referenced by a case or a cell | 160 of 173 |
 | cases with historical incidents | 7 |
 
-Size: `records/cases/` 52 files, 111 KiB; `records/scenarios/` 35 KiB; `records/fixture-plans/` 33 KiB; `records/fixtures/` 98 files, 5,545 KiB (919 KiB of fixture text); `migration/legacy-map/` 2,695 KiB.
+Size: `records/cases/` 52 files, 111 KiB; `records/scenarios/` 35 KiB; `records/fixture-plans/` 33 KiB; `records/fixtures/` 98 files, 5,547 KiB (919 KiB of fixture text); `migration/legacy-map/` 2,695 KiB.
 
 Materialization digest: the fixtures materialize (`npm run fixtures:materialize`) to a file tree and manifest with materialization digest: `347c605d88dd1f1574eac87d12ca6602267ed370c44eaaf908c4b2a835edf39b`. `npm run fixtures:materialize -- --check` verifies it.
 

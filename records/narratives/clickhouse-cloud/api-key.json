@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "clickhouse-cloud:api-key",
+  "family": "clickhouse-cloud:api-key",
+  "lifecycle": "draft",
+  "contract": "clickhouse-cloud:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-body",
+        "text": "The key secret is 4b1d followed by exactly 38 mixed-case letters and digits, 42 characters in all, with no separator or checksum. A ClickHouse employee wrote in a scanner-rule contribution merged on 2025-04-16 that the prefix was chosen deliberately and gave the rule 4b1d plus 38 alphanumerics; provider-owned Terraform examples since 2023-05 and a 2024 unit-test value agree at 42 characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          }
+        ]
+      },
+      {
+        "id": "older-39-character-example",
+        "text": "An older example key is 39 characters rather than 42.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "A single knowledge-base example from 2023 is 39 characters in all; it predates the staff statement and is not recorded as a source of this family."
+        }
+      },
+      {
+        "id": "key-id",
+        "text": "The key ID (the Basic-auth username) has no marker and is 17 or 20 alphanumeric characters.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-key-id"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The key ID appears only as an unmarked companion of the secret and as a public identifier; no source settles its length."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The secret is read from CLICKHOUSE_CLOUD_API_SECRET, with its key ID in CLICKHOUSE_CLOUD_API_KEY, or set as the Terraform token_secret; the pair is used as HTTP Basic credentials with the key ID as user name.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "hashdata-secrets",
+        "text": "The API accepts a caller-supplied pre-hashed secret, so a secret created that way has no fixed shape.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-hashdata-secrets"
+          }
+        ]
+      },
+      {
+        "id": "admin-rights",
+        "text": "An admin key can create, scale and delete services and manage members.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in the research overview without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No ClickHouse Cloud key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No key was issued for this research; the only contradiction is older than the staff statement, so an issued key would confirm rather than establish the width."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "hex-look-alikes",
+        "text": "4b1d is valid hexadecimal, so a hash digest that starts with it, or a UUID containing -4b1d-, can contain the marker without being a key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "key-id-width",
+        "text": "Is the key ID 17 or 20 characters?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Only an issued key settles the key ID's length, and it would not make the ID distinctive."
+        }
+      },
+      {
+        "id": "second-secret-width",
+        "text": "Is a second live secret width in use?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 8,
+          "reason": "No newer source shows a second width; nothing rules one out."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/clickhouse-cloud.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clickhouse-cloud.md",
+      "note": "families[id=clickhouse-cloud:api-key] dossier body"
+    }
+  ]
+}

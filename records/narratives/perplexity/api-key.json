@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "perplexity:api-key",
+  "family": "perplexity:api-key",
+  "lifecycle": "draft",
+  "contract": "perplexity:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "An API key begins with the lowercase prefix pplx- with a single hyphen. The provider's key-management documentation shows a pplx- value with an obviously shortened body, and states no length and no alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-perplexity-ai-62dafa6ee4"
+          }
+        ]
+      },
+      {
+        "id": "body-length",
+        "text": "The body is 48 characters after the prefix, 53 in all. Two scanner rules agree on exactly 48, one of them from 2025-04; another redaction rule allows 40 to 60. The two agreeing rules may share lineage, and no provider statement on length was found.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          }
+        ]
+      },
+      {
+        "id": "body-alphabet",
+        "text": "The body contains only letters and digits.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No provider statement; a scanner rule says letters and digits only, one redaction rule allows 10 or more characters including underscore and hyphen, and the official command-line tool checks only that a key is non-empty printable ASCII."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "rotation",
+        "text": "Keys can be rotated through the generate_auth_token and revoke_auth_token calls (2025-09).",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-perplexity-ai-62dafa6ee4"
+          }
+        ]
+      },
+      {
+        "id": "console-and-reveal",
+        "text": "Keys are issued from the API console and scoped to a project since 2025-04 (earlier from account settings). Since 2026-04 a key is revealed only once; before then the console could show it again.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; no key was issued, and a project may need billing set up first."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "pplx-lookalikes",
+        "text": "Other strings begin pplx-: model identifiers (pplx-7b-online, pplx-embed-v1-4b), package and command names (pplx-cli, pplx-api), hostnames such as pplx-res.cloudinary.com and *.pplx.app. An OpenRouter key stored under PERPLEXITY_API_KEY is also not a Perplexity key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "earlier-shapes",
+        "text": "Did keys issued before 2025-04 or before 2026-04 differ in shape?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-checksum-embedded-project-id-historical-versions"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No source documents key shapes before 2025-04 (the pplx-api era) or before 2026-04."
+        }
+      },
+      {
+        "id": "embedded-project-id",
+        "text": "Does the key encode a project or group identifier?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No source documents any embedded identifier or checksum."
+        }
+      },
+      {
+        "id": "other-characters",
+        "text": "Is anything beyond letters and digits ever present in the body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-24",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "No provider statement of the alphabet exists."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/perplexity.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/perplexity.md",
+      "note": "families[id=perplexity:api-key] dossier body"
+    }
+  ]
+}

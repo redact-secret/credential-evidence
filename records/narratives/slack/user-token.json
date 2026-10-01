@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "slack:user-token",
+  "family": "slack:user-token",
+  "lifecycle": "draft",
+  "contract": "slack:user-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-sections",
+        "text": "A user token begins xoxp- followed by three numeric sections and then the secret section, dash-separated with the secret last. Slack's example uses three-digit placeholder sections, so the widths are not stated.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-section-structure"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-numeric-section-count"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-8af6cd6628"
+          }
+        ]
+      },
+      {
+        "id": "legacy-short-secrets",
+        "text": "Secrets issued before August 2016 can be 6 or 10 characters instead of 32. Slack's 2016 note on token lengthening tells integrators to expect tokens up to 255 characters and not to rely on any meaning in the string.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-secret-width-and-alphabet"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-8af6cd6628"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-9f883f3008"
+          }
+        ]
+      },
+      {
+        "id": "widths-and-alphabet",
+        "text": "Real user tokens use 10 to 13 digit numeric sections and a 32 character lowercase hexadecimal secret.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-numeric-section-widths"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Scanner rules disagree and no Slack source states the numeric widths or the secret alphabet: rules read 10 to 13 digits per section, 12 digits, or leave the tail open, and the secret as 32 lowercase hex, alphanumeric, or alphanumeric with hyphen."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "kinds",
+        "text": "A user token comes from an OAuth v2 user grant, from the legacy tester token (no longer issued), and possibly from a service token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-service-token"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited page; none of the kinds was issued for the research."
+        }
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "rotation",
+        "text": "Slack's token-rotation feature issues short-lived tokens that are renewed with a refresh token; a rotating user token has a different prefix from the plain xoxp- token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-046acee641"
+          }
+        ]
+      },
+      {
+        "id": "revocation",
+        "text": "A user token can be revoked through the auth.revoke method.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited page for the revocation method."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "rotating-xoxe-xoxp",
+        "text": "Rotating user tokens and app configuration tokens begin xoxe.xoxp-, which contains xoxp- but is a different credential and must not be read as a plain user token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-046acee641"
+          }
+        ]
+      },
+      {
+        "id": "sibling-prefixes",
+        "text": "Other Slack prefixes share the sectioned skeleton but are distinct credentials; team, user and enterprise ids inside a token are public.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-service-token"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Recorded in a research note from scanner rules and a command-line example without a provider source: xoxc- (browser session token, same skeleton, 64 hex secret in one rule), xoxb-, xoxe-, and the xoxp-1- service-token example."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "real-widths",
+        "text": "What are the real widths of the three numeric sections and of the secret, and is the secret hex-only or alphanumeric?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "No issued xoxp- token was inspected and tool evidence conflicts."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/slack.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/slack.md",
+      "note": "families[id=slack:user-token] dossier body"
+    }
+  ]
+}

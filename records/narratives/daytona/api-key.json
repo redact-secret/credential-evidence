@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "daytona:api-key",
+  "family": "daytona:api-key",
+  "lifecycle": "draft",
+  "contract": "daytona:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "generator",
+        "text": "An API key is the prefix dtn_ followed by exactly 64 lowercase hexadecimal characters (32 random bytes), 68 characters in all, with no separator and no checksum. The provider's generator returns the prefix plus 32 random bytes hex-encoded; the same inline form has been in the public source since 2025-04-28.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-separators"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-daytonaio-daytona-ff023af7a3"
+          }
+        ]
+      },
+      {
+        "id": "dated",
+        "text": "The grammar is read from the generator as of version 0.190.0 (2026-06-23), the last public version, and is not a statement about the live cloud. Development moved to a private codebase in June 2026; later public sources (client OpenAPI and command-line code, deployment scripts, SDK, documentation dump) name the prefix only, and none contradicts the generator.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-daytonaio-daytona-ff023af7a3"
+          },
+          {
+            "kind": "source",
+            "sourceId": "daytona-io-c57b1a926f"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "A key is supplied through the DAYTONA_API_KEY environment variable and sent as a Bearer authorization header. The SDK configuration object and the Terraform provider variable also take it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "shared-generator",
+        "text": "The same generator also mints region proxy, SSH-gateway and runner keys, which are lexically identical to an API key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-daytonaio-daytona-ff023af7a3"
+          }
+        ]
+      },
+      {
+        "id": "not-issued",
+        "text": "No Daytona key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No key was issued for this research; an optional issuance check would move the as-of date from the generator's release to the issuance date."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "sha256-shape",
+        "text": "Without the prefix the body is a 64-character hexadecimal value like a SHA-256 digest, including the hash Daytona stores for a key, so the prefix carries the attribution. A self-provisioned runner key made with a random-bytes command is unprefixed 64 hexadecimal characters and cannot be attributed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-self-provisioned-runner-key"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "dtn-identifiers",
+        "text": "Placeholder identifiers such as dtn_secret_ followed by random characters, and dtn_artifact_ markers, are not credentials; a key glued to identifier characters on either side is not claimed.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-boundary"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The boundary rule is an authoring choice, and the identifier forms come from a research note without a cited source."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "live-cloud",
+        "text": "Does the live cloud still issue dtn_ followed by 64 lowercase hexadecimal characters?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Nothing observed from the live cloud; one issued and revoked key would settle it."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/daytona.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/daytona.md",
+      "note": "families[id=daytona:api-key] dossier body"
+    }
+  ]
+}

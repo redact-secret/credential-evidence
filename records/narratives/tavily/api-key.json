@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "tavily:api-key",
+  "family": "tavily:api-key",
+  "lifecycle": "draft",
+  "contract": "tavily:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Tavily's documentation shows the prefix tvly- in a placeholder (a Bearer header with tvly-YOUR_API_KEY), which is an illustration and not a stated format. It gives no length or alphabet, and the provider's SDKs do no validation.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-tavily-com-d682a88b0e"
+          }
+        ]
+      },
+      {
+        "id": "dev-segment",
+        "text": "Truncated sample keys in Tavily's key-generation documentation carry a dev- segment after the prefix (tvly-dev-). Older samples have no such segment. The documentation does not say whether the dev- form replaced the bare form or both exist.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-dev-segment"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-tavily-com-bcc8c8c36f"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After the last hyphen the body is 32 letters and digits.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "One scanner rule and three observed samples state a 32-character alphanumeric body; the rule predates the dev- segment, and no provider statement exists."
+        }
+      },
+      {
+        "id": "scanner-agreement",
+        "text": "A scanner rule from before the dev- segment and a secret-detection service's catalogue entry both treat the key as prefixed; neither is a Tavily statement, and the service states no length.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "key-types",
+        "text": "Keys are issued from the Tavily dashboard in development (the default) and production types, and enterprise accounts can generate expiring keys.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a citation to the page that lists the key types."
+        }
+      },
+      {
+        "id": "transport",
+        "text": "A key is sent as an Authorization Bearer header, in the api_key field of a JSON request body, or, for the remote MCP server, in a tavilyApiKey query parameter; the TAVILY_API_KEY environment variable is also used.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-tavily-com-d682a88b0e"
+          }
+        ]
+      },
+      {
+        "id": "not-attempted",
+        "text": "What a freshly issued development key looks like is not recorded.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No key was issued for the research, so the prefix, body width, alphabet and masked display of a real key are unrecorded."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "non-secrets",
+        "text": "The tvly command-line tool name, the key-name field (a string such as a key type, an expiration and an index) and the request_id values of search responses are not credentials.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-non-secrets"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-tavily-com-bcc8c8c36f"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "production-keys",
+        "text": "Do production keys use a tvly-prod- prefix, and what are the widths of production and enterprise expiring-key bodies?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-production-prefix"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No production or enterprise key example was found; one third-party page says production keys begin plain tvly-, which is not a provider source."
+        }
+      },
+      {
+        "id": "alphabet",
+        "text": "Do hyphens or underscores ever appear in the body?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-27",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "Only alphanumeric bodies were seen and no source states the alphabet."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/tavily.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/tavily.md",
+      "note": "families[id=tavily:api-key] dossier body"
+    }
+  ]
+}

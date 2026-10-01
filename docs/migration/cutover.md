@@ -39,7 +39,7 @@ So, today: **the legacy repository stays authoritative, nothing in it may be del
 | Legacy file | Projection | Overlay still needed |
 | --- | --- | --- |
 | `benchmarks/support/taxonomy.json` | `benchmarks/support/taxonomy.json` | `supportStatus` (4 families) |
-| `benchmarks/support/dossiers/*.md` frontmatter | `benchmarks/support/dossier-frontmatter.json` (frontmatter only; the prose stays legacy and is not exported: canonical family narratives, ADR 0010, cover 22 of 173 families and are not a legacy-compatible shape) | none |
+| `benchmarks/support/dossiers/*.md` frontmatter | `benchmarks/support/dossier-frontmatter.json` (frontmatter only; the prose stays legacy and is not exported: canonical family narratives, ADR 0010, cover all 173 families and are not a legacy-compatible shape) | none |
 | `benchmarks/scenarios.json` | `benchmarks/scenarios.json` | none |
 | `benchmarks/categories.json` | `benchmarks/categories.json` | `calibrationOnly` entry is not imported |
 | `benchmarks/fixture-semantics.json`, `benchmarks/fixture-index.json` | same paths | `fixture-provenance`; per-fixture family links (see decisions) |

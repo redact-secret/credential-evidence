@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "linear:personal-api-key",
+  "family": "linear:personal-api-key",
+  "lifecycle": "draft",
+  "contract": "linear:personal-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "Linear's changelog of 2021-08-19 says API keys and OAuth access tokens were changed to carry the prefixes lin_api_ and lin_oauth_ so that GitHub secret scanning could detect them. A personal API key begins lin_api_.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After the prefix come 40 letters and digits, with no underscore or hyphen in the body. The length and alphabet come from two scanner rules that agree; Linear states only the prefix.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "tool-corroboration"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "oauth-prefix",
+        "text": "The lin_oauth_ prefix marks a separate credential, an OAuth access token, and its body is not the 40-character API key body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          }
+        ]
+      },
+      {
+        "id": "client-secret",
+        "text": "One scanner has a separate, context-gated rule for a 32-character hexadecimal Linear client secret, which is another Linear value.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-23",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/linear.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/linear.md",
+      "note": "families[id=linear:personal-api-key] dossier body"
+    }
+  ]
+}

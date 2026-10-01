@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "clojars:deploy-token",
+  "family": "clojars:deploy-token",
+  "lifecycle": "draft",
+  "contract": "clojars:deploy-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-and-hex-body",
+        "text": "A token is CLOJARS_ (upper case, case-sensitive) followed by exactly 60 lowercase hexadecimal characters, 68 in all, with no checksum. The provider's generator appends 30 secure-random bytes written as lowercase hex to the prefix, and its server validator accepts exactly that pattern.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "transport",
+        "text": "The token is used as the deploy password: through CLOJARS_PASSWORD in CI, a Leiningen :password entry or a Maven settings.xml password element.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          }
+        ]
+      },
+      {
+        "id": "scope",
+        "text": "A deploy token can be scoped to a group or an artifact, and a leaked one is a supply-chain risk.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Recorded in the research overview without a cited source in this family's contract."
+        }
+      },
+      {
+        "id": "not-issued",
+        "text": "No Clojars deploy token was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No token was issued for this research; the grammar rests on the provider's own code, so none was needed to establish it."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "env-var-names",
+        "text": "The variable names CLOJARS_USERNAME, CLOJARS_PASSWORD and CLOJARS_ENVIRONMENT are not tokens; they fail the 60-character hexadecimal body.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-env-names"
+          }
+        ]
+      },
+      {
+        "id": "legacy-passwords",
+        "text": "Older account passwords are an earlier way to authenticate and have no distinctive shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-29",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Recorded in a research note without a cited source in this family's contract."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/clojars.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/clojars.md",
+      "note": "families[id=clojars:deploy-token] dossier body"
+    }
+  ]
+}

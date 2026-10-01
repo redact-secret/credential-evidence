@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "inngest:signing-key",
+  "family": "inngest:signing-key",
+  "lifecycle": "draft",
+  "contract": "inngest:signing-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix",
+        "text": "A signing key begins signkey-prod-, signkey-test- or signkey-branch-. The prefixes are constants in Inngest's own code.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-inngest-inngest-ecd74a6b60",
+            "locator": "#L15-L25"
+          }
+        ]
+      },
+      {
+        "id": "body",
+        "text": "After the prefix come exactly 64 lowercase hexadecimal characters, 77 in all for the prod and test prefixes and 79 for branch. The self-hosting documentation says the value is a hexadecimal string with an even number of characters, and its generation command produces 64 lowercase hexadecimal characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-body-alphabet"
+          },
+          {
+            "kind": "claim",
+            "claimId": "field-body-length"
+          },
+          {
+            "kind": "claim",
+            "claimId": "provider-source"
+          },
+          {
+            "kind": "source",
+            "sourceId": "inngest-com-50a37f92ab"
+          }
+        ]
+      },
+      {
+        "id": "wire-form",
+        "text": "The SDK also sends a derived form, signkey-, an environment label, a hyphen and the SHA-256 hexadecimal digest of the key bytes, as a bearer credential. It authenticates as well and has the same shape as the raw key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-wire-form"
+          }
+        ]
+      },
+      {
+        "id": "uppercase-accepted",
+        "text": "The decoder accepts an uppercase hexadecimal body that Inngest's generator and its SDK tests never produce.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-uppercase-hex"
+          }
+        ]
+      },
+      {
+        "id": "transport",
+        "text": "The key is read from the INNGEST_SIGNING_KEY variable, with INNGEST_SIGNING_KEY_FALLBACK for rotation, from the signingKey client option, and from an Authorization: Bearer header. It authenticates the app to the REST API and signs requests between Inngest and the app's serve endpoint.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-transport"
+          },
+          {
+            "kind": "source",
+            "sourceId": "inngest-com-50a37f92ab"
+          }
+        ]
+      }
+    ],
+    "issuance": [
+      {
+        "id": "not-issued",
+        "text": "No Inngest signing key was issued or observed for this record.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No key was issued; the prefix, alphabet and length are established from provider code and documentation."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "other-labels",
+        "text": "A signkey- prefix with a label other than prod, test or branch, such as preview, is not one of Inngest's constants and is not this family, even though the SDK's own expression would admit other labels.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-other-labels"
+          }
+        ]
+      },
+      {
+        "id": "bare-hex",
+        "text": "A self-hosted signing key written as bare hexadecimal without a prefix cannot be attributed to Inngest.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Recorded in a research note without a cited source in this family's contract; a bare hexadecimal digest has no marker."
+        }
+      },
+      {
+        "id": "event-key",
+        "text": "An Inngest event key is a different credential and has no distinctive shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "leads": [
+          {
+            "kind": "claim",
+            "claimId": "field-event-key"
+          }
+        ],
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "INNGEST_EVENT_KEY has no documented shape and self-hosted event keys are arbitrary strings."
+        }
+      },
+      {
+        "id": "no-scanner-rule",
+        "text": "Neither of the two scanners examined has a rule for Inngest signing keys.",
+        "evidenceClass": "tool-corroborated",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-peer-lag"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "further-labels",
+        "text": "Are there environment labels beyond prod, test and branch?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-09-28",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "No source says whether Inngest will issue labels beyond prod, test and branch; a future label is an accepted gap."
+        }
+      }
+    ]
+  },
+  "externalRefs": [
+    {
+      "system": "legacy-dossier-narrative",
+      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/inngest.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/inngest.md",
+      "note": "families[id=inngest:signing-key] dossier body"
+    }
+  ]
+}

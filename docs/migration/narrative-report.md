@@ -11,34 +11,34 @@ The taxonomy import (#3) kept the markdown bodies of the legacy dossiers out of 
 | Measure | Value |
 | --- | --- |
 | legacy dossiers | 93 |
-| dossiers migrated / partial / deferred | 5 / 0 / 88 |
+| dossiers migrated / partial / deferred | 89 / 4 / 0 |
 | legacy families | 173 |
-| families migrated / partial / deferred | 22 / 0 / 151 |
+| families migrated / partial / deferred | 169 / 4 / 0 |
 | legacy dossier body bytes | 398,584 |
-| body bytes of dossiers with at least one narrative | 43,449 |
-| narrative records | 22 (all `draft`) |
-| statements | 148 (25,528 bytes of text) |
-| citations | 215 (87 to contract claims, 128 to evidence sources) |
-| unresolved statements | 57, each with a review event |
+| body bytes of dossiers with at least one narrative | 398,584 |
+| narrative records | 173 (all `draft`) |
+| statements | 1341 (194,767 bytes of text) |
+| citations | 1191 (708 to contract claims, 483 to evidence sources) |
+| unresolved statements | 721, each with a review event |
 
 Statements by section:
 
 | Section | Statements |
 | --- | --- |
-| `shape` | 61 |
-| `issuance` | 15 |
-| `lifecycle` | 6 |
-| `collisions` | 32 |
-| `openQuestions` | 34 |
+| `shape` | 549 |
+| `issuance` | 244 |
+| `lifecycle` | 34 |
+| `collisions` | 284 |
+| `openQuestions` | 230 |
 
 Statements by evidence class:
 
 | Evidence class | Statements |
 | --- | --- |
-| `provider-documented` | 62 |
-| `tool-corroborated` | 29 |
-| `project-policy` | 0 |
-| `unresolved` | 57 |
+| `provider-documented` | 485 |
+| `tool-corroborated` | 130 |
+| `project-policy` | 5 |
+| `unresolved` | 721 |
 
 ## Definitions
 
@@ -54,9 +54,9 @@ These parts of a dossier body are not narrative and are not rewritten. They are 
 
 | Dossier part | Why it is not a narrative statement | Occurrences in migrated or partial dossiers |
 | --- | --- | --- |
-| `Current contract in core` links | how a product detects the family: product policy, not credential knowledge | 12 |
-| `Research log` entries | issue and pull-request workflow; the research state is `family.research` and the issue numbers are `family.research.issues` | 32 |
-| `Candidates that are not families yet` | not a family and not carried as statements; where a candidate bears on a family (for example the ABIA and ACCA prefixes) that family's narrative covers it, and the rest is listed below | 11 |
+| `Current contract in core` links | how a product detects the family: product policy, not credential knowledge | 149 |
+| `Research log` entries | issue and pull-request workflow; the research state is `family.research` and the issue numbers are `family.research.issues` | 356 |
+| `Candidates that are not families yet` | not a family and not carried as statements; where a candidate bears on a family (for example the ABIA and ACCA prefixes) that family's narrative covers it, and the rest is listed below | 155 |
 | `Verdict` lines | re-expressed as `family.research` and the review history by the taxonomy import (#3) | n/a |
 | `Sources` lines | replaced by per-statement citations | n/a |
 
@@ -66,297 +66,626 @@ Content of a migrated dossier that is neither carried as a statement nor one of 
 
 | Dossier | Part | Why it is not carried |
 | --- | --- | --- |
+| `ai21` | Open question 2 (tier of the family) and the benchmark-contract and research-log bullets | verdict, tier and scanner-contract bookkeeping are not credential knowledge |
+| `ai21` | Open question 3 (the absence of an AI21 detector in one scanner's list) | a statement about a scanner's rule list, not about the credential |
+| `ai21` | Open question 4 (search debts: two community spaces unreachable, API reference page not re-located) | research workflow state, not credential knowledge |
 | `anthropic` | Open question 7 (tier of the admin family) | answered by a maintainer decision about evidence class and product naming; no credential fact remains open |
+| `apify` | Candidate: apify_ui_ Console tokens as a family of their own | not a family yet; the prefix is recorded under collisions and the missing length and alphabet source under open questions |
+| `apify` | Candidate: Actor Run, Integration and Webhook Dispatch API tokens | no shape is public, so there is no claim to record |
+| `apify` | Candidate: proxy password | fourteen alphanumerics from an example that cannot be attributed to the provider; not a credential family |
+| `atlassian` | Behaviour of the product's match span around the = and the 8-hex suffix (collision bullet and open question 3) | describes a scanner's span decision, not the credential |
+| `atlassian` | Open question 1 (whether a forum answer counts as provider documentation) as a decision for the maintainers | an evidence-bar ruling; it is recorded here as the reason the prefix statement is unresolved |
+| `atlassian` | Open question 4 (answered): atlassian:access-token is researched under its own family | answered and workflow-only; the remaining route question is carried as an open question of the access-token family |
+| `atlassian` | Candidate: ATBB app passwords | no taxonomy family; carried as a collision of both families, with its provenance recorded as unresolved |
+| `atlassian` | Candidate: organization admin API keys with the ATCTT3xFfGN0 header | covered by atlassian:access-token until a route-level split is shown to matter; the report is recorded there |
+| `atlassian` | Statements on tool-by-tool rule coverage (which scanners have or lack an ATCT or ATAT rule) and tools that copy one scanner's regex | state of other scanners, not credential knowledge |
+| `aws-bedrock` | Statements about which other scanners carry the long-term key shape, and the contradicted claim that GitHub secret scanning covers it | state of other scanners, not credential knowledge |
+| `aws-bedrock` | Candidate: Claude Platform on AWS keys | not a family yet; reported by one vendor only; carried as an unresolved collision of the short-term key |
+| `aws-bedrock` | Candidate: decoded presigned URL form of a short-term key | a different lexical form of the same secret, an open question for the short-term family and not a family |
+| `aws-bedrock` | Open question 5 (Reddit unreachable) | research workflow state, not credential knowledge |
+| `aws-bedrock` | The maintainer ruling that accepted the blog as evidence for the prefix and alphabet | an evidence-bar ruling; its scope is expressed by the evidence class of each statement |
 | `aws` | Candidates: other IAM unique-ID prefixes (AGPA, AIDA, AIPA, ANPA, ANVA, APKA, AROA, ASCA) | resource identifiers, not credentials; only AIDA, which the provider's table pairs with access keys, appears in a narrative |
 | `aws` | Candidates: ABIA and ACCA key IDs (bare), STS session token | covered by the narratives of the bearer-token, context-specific and temporary-access-key families |
+| `axiom` | Boundary decision (a token glued to an identifier is not claimed) | a matching decision of the project, not credential knowledge |
+| `axiom` | Statements that two scanners have no Axiom rule | state of other scanners, not credential knowledge |
+| `azure-devops` | Statement that other Azure credentials (Entra client secrets, storage connection strings) are separate providers | scope note about other providers, not a claim about this family |
+| `azure-devops` | Candidate: legacy 52-character PAT as a family | no marker or structure to build a grammar on; carried as an unresolved collision of the current format |
+| `azure-devops` | Statement that scanners still target the older format | state of other scanners, not credential knowledge |
+| `bitwarden` | Candidate: Password Manager personal and organization API keys | not a family; carried as a collision of the access token, since they have no distinctive token grammar |
+| `bitwarden` | Boundary rule on the bytes before and after the token | a matching decision of the project, not credential knowledge |
+| `bitwarden` | Statements that two scanners have no Bitwarden rule | state of other scanners, not credential knowledge |
+| `browserbase` | Candidate: bb_test_ keys as a second prefix | not a family yet; carried as an unresolved statement and an open question |
+| `browserbase` | The 128-byte upper bound and the boundary rules | matching decisions of the project, not provider facts |
+| `browserbase` | Statements that two scanners have no Browserbase rule | state of other scanners, not credential knowledge |
+| `cerebras` | Candidate: Management API keys | shape unknown; recorded only as an unresolved statement under collisions |
+| `cerebras` | Boundary rule before the prefix | a matching decision of the project, not credential knowledge |
+| `cerebras` | Ruling on filling the alphabet by policy, and statements about scanner rules lagging | evidence-bar and scanner state, not credential knowledge |
+| `clickhouse-cloud` | Candidate: key ID | no prefix; recorded as an unresolved statement and an open question, not a family |
+| `clickhouse-cloud` | Candidate: database user passwords and ClickStack or HyperDX keys | separate credentials that were not researched |
+| `clickhouse-cloud` | At-least-one-uppercase guard and its false-negative cost; boundary rules | matching policy of the project, not provider facts |
+| `clickhouse-cloud` | Description of one scanner rule's entropy floor and word-boundary behaviour | state of another scanner, not credential knowledge |
+| `clojars` | Boundary rule on identifiers glued to the token | a matching decision of the project, not credential knowledge |
+| `clojars` | Description of one scanner rule's case-insensitive, boundary-less behaviour, and that another has no Clojars rule | state of other scanners, not credential knowledge |
+| `clojars` | Open questions: none open | nothing to carry; the openQuestions section is left out, which records no coverage |
+| `cloudflare` | Candidates: cfat_ account token, cfk_ scannable global key, legacy unprefixed token and hex global key | not families here; carried as unresolved collisions and open questions |
+| `cloudflare` | Statement that one scanner's rule matches both cfut_ and cfat_, and that another has no cfut_ rule | state of other scanners, not credential knowledge |
+| `cloudflare` | Origin of the checksum-less body misses reported against a scanner | scanner and benchmark history, not credential knowledge |
+| `cloudflare` | Statement that the legacy formats are an evidence-based exclusion | a scope decision of the project; the underlying fact is carried as an unresolved collision |
+| `cohere` | Naming note: the research name cohere:production-api-key maps to cohere:api-key | a research-naming and issue-history note; the substance (one family covers trial and production keys) is carried as a statement |
+| `cohere` | Candidate: co- prefixed keys | not a family; carried as an unresolved statement |
+| `cohere` | Open question 2 (an inconclusive probe of one scanner and unchecked scanners) | state of other scanners, not credential knowledge |
+| `cohere` | Open question 3 (verdict history and how the maintainer treats the keyword-gated rows) | verdict and workflow history, not credential knowledge |
+| `cohere` | Open question 4 (Reddit and Stack Overflow not searched) and the Java builder and masked-value recognition notes | research workflow and matching policy, not credential knowledge |
+| `cohere` | Statements that GitGuardian lists the key as not prefixed and that GitHub secret scanning has an unpublished Cohere pattern | state of other scanners, not credential knowledge |
+| `composio` | Candidate: `ck_` Connect consumer key / scoped project key | a secret, but no source states its length or alphabet, so it is not yet a family |
+| `composio` | Candidate: `cak_` agent key | seen only as a mock placeholder; shape unknown, so not a family |
+| `composio` | Candidate: `pr_` project ids and 12-byte organisation ids | non-secret identifiers, not credential families |
+| `composio` | Open question 1 (whether the user-key body is 43 characters on a key issued today) | carried as the user key's unresolved issuance and conflict statements; the rest of the question is project scheduling and issue workflow |
+| `composio` | Open question 3 (`ck_` body length and alphabet) | about a candidate that is not a family |
+| `confluent` | Candidate: SCIM token (`cflt-scim_<JWT>`) | a different, JWT-shaped credential; kept only as a collision of the prefixed secret |
+| `confluent` | Candidate: Basic-auth blob (`base64(key:secret)`) | secret-bearing encoding of a key pair, not a 64-character run, so not a family |
+| `confluent` | Candidate: Confluent Platform master keys and OAuth/OIDC tokens | out of scope for Confluent Cloud API secrets |
+| `confluent` | Open question 4 (real length of the unprefixed form) | carried as an unresolved statement in the unprefixed family |
+| `convex` | Candidate: cloud `eyJ2` body (same family in a split, gated) | carried inside the deployment-key family as unresolved statements, not a separate family |
+| `convex` | Candidate: team access and OAuth tokens, command-line device token, login access token | shape undocumented; not families |
+| `convex` | Collisions: a name-only partial span was a generic defect, fixed in an issue | scanner behaviour and issue workflow, not credential knowledge |
+| `convex` | Collisions: a later change made two environment variable names a contextual finding | product policy, not credential knowledge |
+| `crates-io` | Open question 1 (whether a failed check character should ever become an intentional false negative) | a product decision about how a scanner treats the check character, not credential knowledge; the check character's role is recorded in the family |
+| `crates-io` | Current contract links mentioning an unmerged scanner change | product policy and scanner state |
+| `databricks` | Candidate: other Databricks secret types (OAuth client secrets and the rest of the 12 listed by GitHub) | no shape research; not families yet |
+| `databricks` | Open question 3 (whether a provider page ever states the prefix, length or alphabet) | carried as unresolved statements in the family |
+| `datadog` | Candidate: `ddpat_` personal access tokens and `ddsat_` service access tokens | documented with a secret-plus-checksum grammar but not yet a family; they appear here only as collisions of the application key |
+| `datadog` | Open question 3 (release notes are login-gated and unread) | a limit of the research pass, not credential knowledge |
+| `datadog` | Open question 4 (an issue body that should point at the evidence record) | issue workflow |
+| `datadog` | Open question 1 and 2 (body of `ddapp_` keys; uppercase in legacy keys) | carried as unresolved statements in the respective families |
+| `daytona` | Candidate: self-provisioned runner keys (unprefixed 64 hex) | not attributable and not a family; kept only as a collision of the API key |
+| `daytona` | Candidate: legacy self-hosted keys (unprefixed base64 of a UUID string) | no prefix and no source in the family contract; not a family |
+| `daytona` | Candidate: `DAYTONA_JWT_TOKEN` and OAuth access tokens | JWTs, not a Daytona-specific shape; not a family |
+| `deepgram` | Candidate: temporary API keys (250 per day) | mentioned in the documentation with no format; not a family |
+| `deepgram` | Candidate: legacy 32-character keys | a hypothesis that nothing supports; carried only as an unresolved statement about the documentation example |
+| `deepgram` | Open question 3 (verdict history of an issue and a scanner rule row) | issue workflow and product status, not credential knowledge |
+| `deepgram` | Open question 4 (a staff answer on a forum thread that could not be read) | a limit of the research pass; no statement rests on it |
+| `deepgram` | Open question 5 (a scanner's native rule directory was not located) | scanner state, not credential knowledge |
+| `digitalocean` | Candidate: DigitalOcean System Token | listed in a partner list but no consulted source shows its shape; not a family |
+| `digitalocean` | Candidate: `dop_v2_` and sibling future versions | no source exists; recorded as an intentional miss in product policy, not credential knowledge |
+| `digitalocean` | Open question 2 (system token and later versions) | about candidates that are not families |
+| `discord` | Candidate: OAuth2 client secrets and webhook URLs | separate credentials with no research; not families yet |
+| `discord` | Open question 3 (a settled disagreement about a scanner rule's behaviour under a mutation) | scanner state, not credential knowledge |
+| `discord` | Open questions 1 and 2 (confirmation by a fresh token; validity of legacy tokens after reset) | carried as unresolved statements in the family |
+| `docker` | Candidate: Docker Hub legacy password and `docker login` credentials | no lexical shape, so not a family |
+| `docker` | Open question 2 (whether the family label should read Organization access token) | a naming choice for the project's records; the provider's own name is stated in the family |
+| `docker` | Open question 3 (whether a PAT-width body under the OAT prefix is a positive) | scanner behaviour, not credential knowledge |
+| `docker` | Mentions of a scanner change that accepts 27 or 32 body bytes | product policy and issue workflow |
+| `doppler` | Candidate: service-token slugs (--slug) and token names | non-secret identifiers that are not in dp. form; not a credential family |
+| `doppler` | Candidate: undocumented future token types | none are known; not a family |
+| `doppler` | Statement that Doppler publishes no public or publishable token | an absence claim recorded in the overview without a cited source; not carried |
+| `doppler` | Overview note on scanner-rule lag | scanner coverage is per-scanner state; the contract's peer-lag claim holds it |
+| `dynatrace` | Candidate: OAuth client secrets and tenant tokens in other shapes | not in the documented three-part format; not a family |
+| `dynatrace` | Open questions: none open | nothing to carry |
+| `dynatrace` | Current contract link and implementation status note | product policy and scanner implementation state |
+| `e2b` | Candidate: sk_e2b_ user access token | retired credential class; carried as a collision statement under the team API key family, not a family of its own |
+| `e2b` | Candidate: sandbox envd and traffic tokens | 64 hex characters with no prefix, so not lexically attributable; not a family |
+| `e2b` | Contradicting third-party connector page (32-character length) | traced to an illustrative value; not credential knowledge |
+| `elevenlabs` | Candidate: legacy 32-hex keys | no provider source documents them; carried as an unresolved statement on the API key family, not a family |
+| `elevenlabs` | Candidate: single-use tokens for client-side use | a separate credential with no documented shape; named only as a non-secret listing neighbour |
+| `elevenlabs` | Open question 3 (GitHub partner status) | a statement about a scanning program, not credential knowledge |
+| `elevenlabs` | Open question 5 (search debts) | research-process state, not credential knowledge |
+| `elevenlabs` | Statement that the provider takes part in a secret-scanning partner program | scanner-program state, not credential shape |
+| `elevenlabs` | Issuance checklist from the research issue | issue workflow, not carried |
+| `exa` | Candidate: service keys (Team Management) | a second credential class of unknown shape; carried as an unresolved statement on the API key family, not a family |
+| `exa` | Open question 2 (wording of the research verdict) | research-workflow decision, not credential knowledge |
+| `exa` | Open question 3 (scanner rule contents checked by name only) | research-process state about scanners |
+| `exa` | Current-contract paragraph and keyword-gated implementation notes | product policy |
+| `exa` | Statement that no scanner has an Exa rule | per-scanner state; the contract's claims hold scanner observations |
+| `firebase` | Candidate: late-2016 generation (162 to 183-character bodies) | recorded as a bounded variant inside the server key family's shape statements, not a family |
+| `firebase` | Open question 1 (retire the family or keep it for historical leaks) | a product-scope decision, not credential knowledge |
+| `firebase` | Open question 2 (whether to require the APA91b body start) | a product-policy trade-off about false positives |
+| `firebase` | Statement that a detector's comments call the prefix and lengths documented | product-internal commentary |
+| `firebase` | Statement that all tool regexes copy one 2020 write-up | recorded without a cited source; carried only as an unresolved statement |
+| `firecrawl` | Candidate: legacy bare dashed UUID keys | carried as a collision statement under the API key family; not attributable on their own |
+| `firecrawl` | Candidate: fco_ OAuth access token and fcmcp_ MCP delegated credential | no fixed grammar documented; carried as an unresolved statement, not families |
+| `firecrawl` | Open question 2 (revisit fco_ and fcmcp_ if a grammar is published) | a future-work note, not credential knowledge |
+| `fireworks-ai` | Candidate: fpk_ Fire Pass key | documented second prefix with unknown body; carried as an unresolved statement, whether it is a family or a sibling is undecided |
+| `fireworks-ai` | Candidate: possible unprefixed legacy key | no source confirms an older shape; carried as an unresolved statement |
+| `fireworks-ai` | Open question 4 (key names inside the local auth file) | not documented publicly and not about a credential's shape |
+| `fireworks-ai` | Statement that no scanner has a rule for this prefix | per-scanner state, not credential knowledge |
+| `generic` | Candidate: PlanetScale, Neon and Aiven passwords | fixed-prefix connection-string passwords that belong to their own providers' families; named as non-members in the collision statement |
+| `generic` | Candidate: password parameters in connection strings (password=, query key, JDBC properties) | outside the userinfo family definition; not a family |
+| `generic` | Candidate: Azure Storage AccountKey= | outside the userinfo family definition; not a family |
+| `generic` | Open question 3 (no research issue records the acceptance of private key and JWT) | research-workflow state, not credential knowledge |
+| `generic` | Statements on the contract floors, caps and acceptance rules of the current detector | scanner implementation and product policy |
+| `generic` | Statement that a scanner skips HMAC-signed JWTs | per-scanner behaviour, a policy difference and not a grammar fact |
+| `generic` | Supabase legacy anon-key exclusion ruling | a product decision about one detector, not credential knowledge; the JWT-collision fact is carried unresolved |
+| `generic` | Verdict and evidence-class wording (ready at the third level, project policy) | already carried by the family research field and statement classes |
 | `github` | Candidate: `github_test_token` | listed in the provider's secret-scanning patterns with no description or shape, so there is nothing to state |
+| `gitlab` | Candidates: runner registration token, glrtr- runner tokens, other gl prefixes | candidates that are not families yet; the registration token and other prefixes appear only as collisions |
+| `gitlab` | Routable PAT contradiction (3): the design document omits the version segment the code emits | a settled disagreement between a proposal document and provider code; the contract claim on grammar already carries the version segment |
+| `gitlab` | Verdict, tier, research-date lines and the administrator-customized prefix support policy | support and research status, not credential knowledge |
+| `google` | Candidate: AQ. authorization keys | not a family yet; it survives as an unresolved collision and open question of the generic API key |
+| `google` | Candidate: service account private key (JSON export) | a structural PEM credential with no provider-prefixed grammar, not a family in this record |
+| `google` | Status of the OAuth2 split and the dossier's intro on scanner coverage | describes how the project handles the family, not credential knowledge |
+| `grafana` | Candidate: legacy Grafana API key | out of scope of both families; it survives only as an unresolved collision of the service account token |
+| `grafana` | Verdict and tier lines, and the intro note on how families are detected | support and research status, not credential knowledge |
+| `groq` | Candidates: base64-encoded key and older key versions | not families; no Groq-specific grammar was recorded for either, and both survive as unresolved statements of the API key |
+| `groq` | Contract-freeze and implementation notes | project workflow, not credential knowledge |
+| `hashicorp-terraform` | Candidates: agent pool token and Terraform Enterprise (self-hosted) token | not families; no distinct grammar was found and the Enterprise reference is recorded as the same shape |
+| `hashicorp-terraform` | Research log and per-family contract-link lines | issue workflow and product policy, not credential knowledge |
+| `hashicorp-vault` | Open question 2: the contract requires an explicit Vault endpoint alongside the token | product policy about how a scanner pairs the token, not credential knowledge |
+| `hashicorp-vault` | Research log and per-family contract-link lines | issue workflow and product policy, not credential knowledge |
+| `helicone` | Candidates: legacy bare sk- keys and customer-portal -cp- keys; -gov combinations | not families; they are carried as unattributable-shape collisions and an open question |
+| `helicone` | Open question 2: whether a policy should treat pk- as warn rather than redact | a product choice recorded in a handoff, not a research fact |
+| `helicone` | Research log, ruling references and disposition record | issue workflow, not credential knowledge |
+| `heroku` | Candidate: OAuth refresh token and client secret | not a family; they are bare UUIDs recorded only as collisions |
+| `heroku` | Candidate: Heroku Postgres DATABASE_URL | a different family, not part of this provider's credential set here |
+| `heroku` | Open question 2 (osv-scalibr issue arguing a 65-only rule misses 41-character tokens) | a disagreement with another scanner's rule; the underlying question of whether 41-character tokens can still be minted is carried |
+| `heroku` | Research log and per-family contract-link lines | issue workflow and product policy, not credential knowledge |
+| `honeycomb` | Candidate: management key (hc?mk_ + 26 + colon + 32) | not a family yet; issuance-gated, carried as an unresolved statement of the ingest key |
+| `honeycomb` | Candidate: configuration keys (22 characters) and classic keys (32 hexadecimal) | no distinctive shape, so not families |
+| `honeycomb` | Research log and contract-link lines | issue workflow and product policy, not credential knowledge |
+| `huggingface` | Candidates: api_org_ organization tokens; hf_oauth_ and hf_jwt_ tokens | not families; they appear only as an unresolved collision and statement of the API token |
+| `huggingface` | Open question 1: whether provider code counts as a provider statement of the alphabet | a review-policy decision about evidence classes, not credential knowledge |
+| `huggingface` | Research log and contract-link lines | issue workflow and product policy, not credential knowledge |
+| `inngest` | Candidates: event key; self-hosted bare hex signing key | not families; the event key survives as an unresolved collision and the bare hex key as one too |
+| `inngest` | Open question 2: coverage-probe result for the INNGEST_SIGNING_KEY= name | scanner behaviour and issue workflow, not credential knowledge |
+| `inngest` | Research log, ruling references and disposition record | issue workflow, not credential knowledge |
+| `langfuse` | Candidate: self-hosted operator-defined secrets | carried as an unresolved statement on the secret-key family; it is a variant of the same credential, not a separate family |
+| `langfuse` | Candidate: sk-lf-gw- gateway keys | carried as an unresolved statement on the secret-key family; the prefix is unconfirmed |
+| `langfuse` | Candidate: base64 Basic-auth blob | carried as an unresolved statement on the secret-key family; an encoded transport form, not a credential family |
+| `langfuse` | Open question 3 (whether detection should use public-key proximity) | a question about scanner design, not credential knowledge |
+| `langfuse` | Open question 4 (whether a base64 Basic-auth header is in scope) | a product scoping question, not credential knowledge |
+| `langsmith` | Candidate: personal access token and service key as separate families | a modelling choice about how this repository groups records, not credential knowledge; both roles are described inside the one family |
+| `langsmith` | Candidates: SCIM token, OAuth tokens, deployment keys, license key | no shape recorded; they appear as an unresolved sibling statement on the api-key family |
+| `langsmith` | Candidate: legacy ls__ key | carried as an unresolved statement on the api-key family |
+| `linear` | Candidate: unprefixed 64-character hex OAuth access token | carried as an unresolved collision statement on the oauth-access-token family; without a prefix it is not a distinct credential family |
+| `linear` | Research log | issue workflow and release history, not credential knowledge |
+| `mailchimp` | Open question 1 and 2 issue references | issue workflow; the underlying questions (body length, uppercase hex) are carried as open questions |
+| `mailgun` | Candidate: Mailgun sending or domain keys and other key types | mentioned as existing with no shape research; there is nothing to record beyond the sentence in the open questions |
+| `mailgun` | Open question 3 (answered: the public validation key is documented as a front-end key) | answered; the answer is carried as statements on the public-validation-key family |
+| `mailgun` | Follow-up about removing or reclassifying the public validation key row | an administrative step on this repository's own classification, not credential knowledge |
+| `mailgun` | Taxonomy digest and product false-positive remarks in the public-validation-key section | product and measurement handling, outside the credential knowledge scope |
+| `microsoft-entra` | Candidate: 7Q~ 37-character previous format | inside the same family's grammar range; carried on the family as an unresolved statement |
+| `microsoft-entra` | Candidate: legacy 32-character secrets with no marker | carried on the family as an unresolved statement |
+| `microsoft-entra` | Open question 2 (whether the product couples the digit to length) | a question about scanner behaviour, not credential knowledge; the coupling itself is carried as an unresolved shape statement |
+| `microsoft-entra` | Maintainer ruling accepting two SDK example values as evidence | evidence-grading governance history, not credential knowledge |
+| `mistral` | Candidate: Codestral keys | whether they share the Studio shape is undocumented; carried as an unresolved sibling statement on the api-key family, not a family |
+| `mistral` | Open question 2 (verdict history and maintainer scope direction) | governance and issue history, not credential knowledge |
+| `mistral` | Open question 6 (Reddit blocked in both passes) | a research-coverage remark; carried only where it affects a statement |
+| `mistral` | Remaining gates described as product false negatives | scanner behaviour, not credential knowledge |
+| `mistral` | Taxonomy id naming note (research name studio-api-key) | an internal identifier history, not credential knowledge |
+| `neon` | Candidates: PlanetScale, CockroachDB Cloud and MongoDB Atlas credentials | other providers' credentials ranked as follow-ups; they belong in their own provider records, not in Neon's |
+| `neon` | Open question 4 (an unticked acceptance box on a scanner change) | issue workflow, not credential knowledge |
+| `neon` | Open question 3 (do personal, organization and project-scoped keys share one grammar) | carried as an open question on the family instead |
+| `netlify` | Candidate: pre-2023 unprefixed tokens | a shared legacy form across all token classes; carried as an unresolved collision statement on each family rather than a family of its own |
+| `netlify` | Candidate: build hook URLs | a separate bearer-secret format that was never researched, so there is nothing to record |
+| `netlify` | Remark that a former-staff forum announcement may not count as provider documentation | an evidence-class ruling for the maintainers, not credential knowledge; the announcement is cited under the class its source type gives |
+| `netlify` | Statement that Netlify was the only committed candidate with a provider source | research and issue history, not credential knowledge |
+| `new-relic` | Candidate: other New Relic key types (browser and Insights keys) | not researched and not recorded as a family; nothing to record |
+| `new-relic` | Open question 1 (whether the product contract keeps FFFF or only NRAL) | a question about a scanner contract, not credential knowledge |
+| `new-relic` | Remark that suffixed shapes need no same-line keyword after a product change | scanner behaviour, not credential knowledge |
+| `new-relic` | Empirical check of fresh Ingest - License keys specified in a search pass | a plan for issuance not performed; recorded only as an unresolved issuance statement |
+| `notion` | Candidates: nrt_ refresh token and development_ntn_ dev-environment tokens | unclaimed and backed by one documentation example; carried as unresolved collision statements on the integration-token family |
+| `notion` | Candidates: OAuth client secret and organization bot token | formats undocumented; there is nothing to record |
+| `notion` | Open question 4 (which GitHub secret-scanning type covers ntn_) | a question about a scanner partner list, not credential knowledge |
+| `notion` | Remark about Notion's own MCP server code and README using different prefixes | carried as an unresolved statement on the legacy-integration-token family |
+| `npm` | Candidates not yet families | none were recorded in the legacy research |
+| `npm` | Correction of an earlier reading that the changelog mentions the UUID format only as a predecessor | research history, not credential knowledge; the corrected fact is carried as a statement |
+| `npm` | Open question 2 (which peer rules cover the UUID form) | a question about scanner coverage; the coverage that was observed is carried as a statement |
+| `nvidia` | The 128-byte upper bound on the run | a project policy for how a scanner treats very long runs, not a provider fact |
+| `nvidia` | Remarks on how an over-long run or a glued identifier is handled | scanner handling decisions, not credential knowledge |
+| `nvidia` | Suggestion that a uniform width would allow an exact-width contract later | a possible contract change, not credential knowledge; the width question is carried as an open question |
+| `okta` | Candidate: Okta OAuth client id and secret | a different credential that was not researched; not a family of this record |
+| `okta` | Pending ruling paragraph and open question 3 (closure of the research issue) | issue and review workflow, not credential knowledge |
+| `onepassword` | Candidate: Connect server token | recorded as a collision of the service account token family; it is an ordinary three-segment JWT and not a separate family here |
+| `onepassword` | Candidate and open question 2: Account Secret Key grammar | not researched; carried as an unresolved collision statement, and a later research item rather than a claim |
+| `onepassword` | Peer-scanner lag note | describes scanner coverage, which is not credential knowledge |
 | `openai` | Open question 4 (a scanner disagreement, resolved as a misreading) | a settled question about another scanner's behaviour, not credential knowledge |
+| `openrouter` | Candidate: OPENROUTER_WEBHOOK_SECRET | format undocumented (the documentation uses a placeholder); not a researched family |
+| `openrouter` | Candidate: BYOK payloads | they carry other providers' keys, which belong to those providers' families |
+| `openrouter` | Research log and the intentional-gap note about management and uppercase variants | issue workflow and scanner support state, not credential knowledge |
+| `paddle` | Candidate: legacy API keys (before 2025-05-06) | carried as a collision statement of paddle:api-key; not a separate family |
+| `paddle` | Candidate: Paddle.js client-side tokens and Paddle Classic vendor auth codes | a frontend credential by design and another product; not researched as families |
+| `paddle` | Open question 1 ('none open') and the peer-scanner lag note | an empty section, and scanner coverage state respectively |
+| `perplexity` | Candidate: Analytics API key | organization-scoped and documented only on an analytics page; format undocumented, not a researched family |
+| `perplexity` | Candidate: MCP OAuth access tokens | shape unknown; not a researched family |
+| `perplexity` | Open question 4 (environment variable names used by third-party tools) | naming conventions of integrations rather than credential format; no cited source |
+| `perplexity` | GitGuardian 'not prefixed' remark and the console-checklist reference | a third-party classification of its own rule and a research-issue pointer |
+| `pinecone` | Candidate: service account client id and secret, and the Admin API access token | documented but a different credential with no prefix; not a researched family |
+| `pinecone` | Candidate: pckey_<label>_<key> | carried as statements of pinecone:api-key (documented, never observed) |
+| `pinecone` | Contract note about the same-line context ruling and issue references | workflow and scanner behaviour; the policy itself is carried as a statement of pinecone:legacy-api-key |
+| `polar` | Candidate: checkout client secrets (polar_c_, polar_cl_) | carried as a collision statement of both families; handed to the browser by design, not a server credential family |
+| `polar` | Candidate: session, authorization-code and verification tokens | short-lived credentials not researched as families; noted as a collision statement |
+| `polar` | Open question 1 (ruling about treating a failed checksum as a false negative) | a maintainer policy ruling on matching behaviour, not credential knowledge; the checksum fact itself is carried |
+| `polar` | Peer-scanner lag note | describes scanner coverage, which is not credential knowledge |
+| `posthog` | Candidate: phc_ project token | public by design and never a credential; carried as a collision statement of both families |
+| `posthog` | Candidate: pha_ and phr_ OAuth tokens and phh_ heatmap tokens | short-lived and not researched as families; carried as an unresolved statement |
+| `posthog` | Candidate: era-1 unprefixed personal keys | not lexically attributable; carried as a collision statement of the personal key family |
+| `posthog` | Open question 2 (whether OAuth tokens should become families) and the scanner-lag discussion | a scoping decision for the project and scanner coverage, not credential knowledge |
+| `postman` | Open question 3 (whether other Postman credential forms exist) | an earlier module note said none is documented; no source for or against, nothing to record |
+| `postman` | Ranking, registry and issue notes about how the collection access key was classified | issue workflow and scanner support state, not credential knowledge |
+| `pulumi` | Candidates that are not families yet (none found) | empty section |
+| `pulumi` | Open question 3 (no frozen evidence folder exists) | a note about where the research record is kept, not credential knowledge |
+| `pulumi` | Statement that the second tool is recorded in review prose only | describes legacy bookkeeping, not credential knowledge |
+| `pypi` | Issuance paragraph about building a structurally faithful synthetic token without a signing key | describes how test material is constructed, not credential knowledge |
+| `pypi` | Open question 2 (whether the length has a ceiling) | answered by the provider's statement that there is no ceiling; carried as a shape statement |
+| `pypi` | Candidates (none found) and research log | empty section and issue workflow |
+| `replicate` | Candidate and open question 4: the cog login token | whether it is the same credential as the API token is unknown and no shape is recorded; carried as an unresolved collision statement rather than a family |
+| `replicate` | Contract note about the provider-stated length being exact and the alphabet provisional | support status of the project's own matching, not credential knowledge |
+| `resend` | Candidate: webhook signing secret (whsec_) | a Svix scheme and a separate credential not researched here; carried as a collision statement |
+| `resend` | Candidate: re_ plus a GUID, and re_ plus 36 lowercase alphanumerics | test stubs or placeholders in SDK mock code that contradict the documented layout; not credential knowledge |
+| `resend` | Final-disposition note and the false-negative cost estimate of the project's own mixed-case check | workflow record and matching behaviour of the project, not credential knowledge |
+| `rubygems` | GitHub partner pattern for RubyGems keys with push protection | scanner and platform coverage, not credential knowledge; no source record is cited for it |
+| `rubygems` | Candidate: legacy unprefixed keys | carried as an unresolved collision statement, not a family |
+| `rubygems` | Open questions (none open) and research log | empty section and issue workflow |
+| `runpod` | Candidate: S3-compatible rps_ secrets and access keys | a different credential with no researched shape; carried as an unresolved collision statement |
+| `runpod` | Candidate: legacy unprefixed keys (before 2024-11) | no prefix and not researched; carried in the same collision statement |
+| `runpod` | Scanner rule differences and the false-negative acceptance for 16 to 30 character bodies | scanner coverage and matching policy of the project, not credential knowledge |
+| `sendgrid` | Candidates that are not families | the dossier records none |
+| `sendgrid` | Related non-research issues and the research log | issue workflow, not credential knowledge |
+| `sentry` | Candidates: sntrya_ and sntryi_ tokens | other token types named in the provider's code; no family and no research |
+| `sentry` | Candidate: legacy unprefixed 64-hex user tokens | valid but have no identifying element; kept as an unresolved statement inside the user-token family instead |
+| `sentry` | Open questions 1 and 2 (whether a draft-status RFC or a placeholder on a Sentry web domain meets the provider-source bar) | maintainer rulings about the project's own evidence bar, not credential knowledge |
+| `sentry` | Collision note on the contract's looser eyJ anchor and payload floor | a product matching choice, not credential knowledge |
+| `sentry` | Research log | issue workflow |
+| `shopify` | Candidate: shpca_ public storefront token | not a family; excluded by a product module's documentation, with no taxonomy entry |
+| `shopify` | Requirement of a myshopify.com shop domain beside the token | a product matching policy, not credential knowledge |
+| `shopify` | Research log and related non-research issue | issue workflow |
+| `slack` | Candidate: rotating xoxe.xoxp- and xoxe- tokens and their refresh tokens | not yet a family; the rotation page is cited in the user-token family where the prefix collides |
+| `slack` | Candidate: xoxc- browser session token and xoxd- cookie | found only through scanner rules and community posts; not a family |
+| `slack` | Candidate: service and configuration tokens named on the tokens page without a prefix | no prefix and no grammar; not a family |
+| `slack` | Bot-token 18-character secret floor and the frozen-grammar decision | a product matching policy, not credential knowledge |
+| `slack` | Pending ruling on whether four-section placeholders count as corroboration, and the fixture counts around it | a maintainer ruling about the project's own evidence bar and generated artifacts |
+| `slack` | Correction that two scanner rules do not agree on 1/11/13/64 widths | a settled disagreement about scanner behaviour, not credential knowledge |
+| `slack` | Open question 4 (rotating variants as supported variants in a product) | answered by a product decision; whether a family should exist is a taxonomy question |
+| `slack` | Wording on tier, verdict and a pending shape for xwfp- | evidence-tier and support bookkeeping |
+| `slack` | Research log | issue workflow |
+| `sonarqube` | Candidate: project badge token (sqb_) | not a family; read-only and published in badge URLs by design, kept as a collision statement |
+| `sonarqube` | Candidate: unprefixed legacy tokens (before SonarQube 9.5) | no identifying element; kept as a collision statement |
+| `sonarqube` | Candidate: SonarQube Cloud sqco_ tokens | a different product with no provider grammar found; kept as an open question |
+| `sonarqube` | Overview of what each token type can do (user acts as the user, global analysis can submit for any project, project analysis is limited to one project) | recorded in the overview without a cited source; the cited generator and enum state prefixes and bodies only |
+| `sonarqube` | Current-contract note that no row exists until a product change merges | product state |
+| `sonarqube` | Research log | issue workflow |
 | `stripe` | Candidate: `absec_` (Stripe Apps signing secret) | seen only in search results and not fetched; no source is cited for it |
 | `stripe` | Open question 6 (two open pull requests to another scanner) | the state of another scanner's change requests is scanner state, not credential knowledge |
+| `supabase` | Candidate: legacy anon and service_role JWTs | not a family in the model; a short collision statement keeps what the dossier supports |
+| `supabase` | Candidate: sb_publishable_ keys | documented safe to expose; kept as a collision statement, not a family |
+| `supabase` | Open question 5 (a third-party hex-length claim not found again) | an unsupported claim about another source, not credential knowledge |
+| `supabase` | Open question 1 (whether the self-hosting page counts as provider evidence for hosted keys) | a ruling about the project's own evidence bar; the layout statement cites the page as documentation and states the page's scope |
+| `supabase` | Overview: plan to remove legacy JWT keys by end of 2026 | recorded in the overview without a cited source and a provider roadmap statement that changes; not carried |
+| `supabase` | Research log and related issues | issue workflow |
+| `tavily` | Candidate: tvly-prod- keys | no example exists anywhere; kept as an open question inside the family, not a separate family |
+| `tavily` | Open question 3 (tier wording) and the paragraph on tiers in Sources | evidence-tier bookkeeping, not credential knowledge |
+| `tavily` | Open question 4 (no forum or staff statement located) | an absence of evidence in a search, not a claim |
+| `tavily` | Statement on how a command-line detector treats Bearer tvly-YOUR_API_KEY | scanner-specific false-positive history |
+| `tavily` | Overview note on whether a product detects the family | product state |
+| `tavily` | Research log | issue workflow |
+| `telegram` | Candidate: Telegram API id and hash, MTProto session strings | no research recorded; not a family |
+| `telegram` | Candidate: serverless command-line token (app<id>:<secret>) and managed-bot tokens | found in a research comment only; no taxonomy entry and no cited source in this family's record |
+| `telegram` | Open question 3 (the matching floor of a 5-digit id and 34-character body) | a product matching floor, not credential knowledge |
+| `telegram` | Research log | issue workflow |
+| `together` | Shape note that the key is recognised bare or in any context, with identifier boundaries | a matching-policy choice for a scanner contract, not a property of the credential |
+| `together` | Naming note (taxonomy id versus the research name `together-ai:api-key`, arrival id and detector id renames) | records the history of internal identifiers, not credential knowledge |
+| `together` | Pending ruling Q-TG and the corroboration counts (4 references, 4 owners, 1 class) | an internal evidence-threshold ruling about when the project would treat the format as established, not a property of the credential |
+| `together` | Candidate: legacy Together keys | not a family; the format is undocumented and is carried as an unresolved statement of the project API key instead |
+| `together` | Open question 4 (corroboration counts) and open question 5 (blocked Reddit and Stack Overflow searches) | research workflow state, not credential knowledge |
+| `together` | Research log and current-contract link | issue workflow and product policy are not carried (ADR 0010 section 5) |
+| `travis-ci` | Candidates: CircleCI, Buildkite and GitHub Actions | other providers' credentials ranked during family selection; none is a Travis CI family |
+| `travis-ci` | Open question 2 (unticked acceptance boxes of the selection issue) | issue workflow, not credential knowledge |
+| `travis-ci` | Selection rationale (why Travis CI was chosen over other CI providers) and the research log | issue workflow and project prioritisation, not credential knowledge |
+| `travis-ci` | Contract precision guards (mixed letters and digits, no repeated character, skipped under identifier keys) and the same-line keyword gate as a matching rule | matching policy for a scanner contract; the underlying keyword context is carried as tool-corroborated evidence and the guards as unresolved |
+| `travis-ci` | Current-contract link | product policy is not carried (ADR 0010 section 5) |
+| `trigger-dev` | Candidate: `tr_oat_` organization access token | not a family yet; carried as an unresolved statement and open question of the environment secret key because no generator was found |
+| `trigger-dev` | Candidates: `tr_uat_` plus a JWT, and public access tokens | bare or wrapped JWTs belong to the JWT family, not to a Trigger.dev family; mentioned as a collision of the environment secret key |
+| `trigger-dev` | Candidate: `tr_proj_` project references | non-secret identifiers, not a credential family; mentioned as a collision |
+| `trigger-dev` | Research log and current-contract links | issue workflow and product policy are not carried (ADR 0010 section 5) |
+| `twilio` | Candidates: Account SID (AC plus 32 hex) and API key SID (SK plus 32 hex) | documented identifiers, not secrets and not families; they appear as the paired identifier in the API key secret family and as a collision note of the auth token |
+| `twilio` | Open question 1 (whether Twilio-owned client-side code meets the project's evidence bar for the token length) | an internal evidence-threshold ruling, not credential knowledge; the underlying fact is carried as the provider-source length statement |
+| `twilio` | Same-line context gate as a matching rule, and the current-contract and evidence-record links | matching policy and product policy are not carried (ADR 0010 section 5); the collision with generic 32-character values is carried instead |
+| `vercel` | Verdicts table (verdict, evidence level and the corroborated-route counts per family) and the correction history of the research pass | verdicts and evidence levels are already carried by family research and evidence classes; the counting rules are internal evidence-threshold bookkeeping |
+| `vercel` | Maintainer ruling Q-VC (treat the five classes as one generator) and open question 4's second half | an internal ruling about when the project would treat a format as established, not a property of the credential; the shared-generator inference is carried as unresolved where it matters |
+| `vercel` | Section on what the frozen shape does not freeze (boundary behaviour, hedged third-party length ranges) | matching-policy choices for a scanner contract; the underlying disagreements are carried as statements |
+| `vercel` | Third-party pull request that derived a 24-character mask from the placeholder | state of another project's change request, not credential knowledge; the placeholder fact is carried |
+| `vercel` | Candidate: legacy unprefixed 24-character tokens | not carried as a family; the shape and its evidence are carried as statements of the access-token record, and whether it should become a family is a taxonomy decision |
+| `vercel` | Open question 5 (whether the legacy form becomes its own family and the aggregate leaves the taxonomy) | a taxonomy decision, not credential knowledge |
+| `vercel` | Candidate: a sixth GitHub secret-scanning type for support access tokens | not a family; no published prefix in any source read |
+| `vercel` | Candidates: blob read-write tokens and gateway client secrets | not researched; no provider page was read |
+| `vercel` | Section 'Searched with no Vercel-specific result' and the research log | research workflow state, not credential knowledge |
+| `vercel` | Current-contract links and the warning not to call the compromised-secret route with a real value | product policy and testing guidance are not carried (ADR 0010 section 5) |
+| `voyage-ai` | Candidates: `al-us-` scoped keys and legacy keys issued at signup before the `pa-` prefix | not families; the first is unsourced and the second undocumented, so both are carried as unresolved statements of the API key |
+| `voyage-ai` | Pending rulings (whether the Atlas example is the al- grammar; whether a scanner rule written by provider staff counts as a staff statement) and the evidence-threshold discussion | internal evidence-threshold rulings, not credential knowledge; the underlying facts are carried as statements with their sources |
+| `voyage-ai` | Open questions 3 and 4 (unread parts of a secret-scanning vendor's list and a JavaScript-only forum) | research workflow state, not credential knowledge |
+| `voyage-ai` | Open question 5 (whether a routing prefix alone meets the project's evidence bar for al-) | an internal evidence-threshold ruling, not credential knowledge |
+| `voyage-ai` | Current-contract section (named assignment, Bearer, JSON, YAML and tool-call forms and a generic gap) and the issuance checklist reference | product policy and issue workflow are not carried (ADR 0010 section 5) |
+| `wandb` | Candidate: legacy 40-hex key (optionally with a host prefix) | not a family; the legacy key has no anchor and is carried as a collision of the wandb_v1_ key |
+| `wandb` | Candidate: OIDC identity-token files (WANDB_IDENTITY_TOKEN_FILE) | a different credential, not a W&B API key |
+| `wandb` | Contract note about a tolerant length band chosen by a maintainer decision, and the current-contract link | product policy is not carried (ADR 0010 section 5) |
+| `wandb` | Scanner-specific peer-rule coverage | per-scanner state is not carried (ADR 0010 section 5); the internal underscore split seen in scanner rules is carried as unresolved |
+| `xai` | Candidate: management key (xai-token- plus 80 characters, per one scanner only) | no provider documentation gives a format, so no family is proposed; carried as a collision and an unresolved statement of the API key |
+| `xai` | Open question 5 (a secret-scanning list marks the type not prefixed) | a single third-party label that conflicts with every other source; recorded as unresolved context, not carried as a claim |
+| `xai` | Current-contract link and the checklist reference | product policy and issue workflow are not carried (ADR 0010 section 5) |
 
 ## Dossiers
 
 | Dossier | Families | Status | Narratives | Statements | Citations | Unresolved | Body bytes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `ai21` | 1 | deferred | 0 | 0 | 0 | 0 | 4,606 |
+| `ai21` | 1 | migrated | 1 | 11 | 6 | 6 | 4,606 |
 | `anthropic` | 3 | migrated | 3 | 26 | 34 | 11 | 8,358 |
-| `apify` | 1 | deferred | 0 | 0 | 0 | 0 | 3,265 |
-| `atlassian` | 2 | deferred | 0 | 0 | 0 | 0 | 9,290 |
-| `aws-bedrock` | 2 | deferred | 0 | 0 | 0 | 0 | 5,447 |
+| `apify` | 1 | migrated | 1 | 10 | 10 | 5 | 3,265 |
+| `atlassian` | 2 | migrated | 2 | 26 | 14 | 16 | 9,290 |
+| `aws-bedrock` | 2 | migrated | 2 | 24 | 20 | 13 | 5,447 |
 | `aws` | 5 | migrated | 5 | 36 | 76 | 7 | 12,641 |
-| `axiom` | 2 | deferred | 0 | 0 | 0 | 0 | 2,318 |
-| `azure-devops` | 1 | deferred | 0 | 0 | 0 | 0 | 2,608 |
-| `bitwarden` | 1 | deferred | 0 | 0 | 0 | 0 | 2,221 |
-| `browserbase` | 1 | deferred | 0 | 0 | 0 | 0 | 2,777 |
-| `cerebras` | 1 | deferred | 0 | 0 | 0 | 0 | 2,598 |
-| `clickhouse-cloud` | 1 | deferred | 0 | 0 | 0 | 0 | 2,938 |
-| `clojars` | 1 | deferred | 0 | 0 | 0 | 0 | 1,638 |
-| `cloudflare` | 1 | deferred | 0 | 0 | 0 | 0 | 3,823 |
-| `cohere` | 1 | deferred | 0 | 0 | 0 | 0 | 4,112 |
-| `composio` | 3 | deferred | 0 | 0 | 0 | 0 | 4,988 |
-| `confluent` | 2 | deferred | 0 | 0 | 0 | 0 | 4,917 |
-| `convex` | 1 | deferred | 0 | 0 | 0 | 0 | 4,908 |
-| `crates-io` | 2 | deferred | 0 | 0 | 0 | 0 | 2,410 |
-| `databricks` | 1 | deferred | 0 | 0 | 0 | 0 | 2,854 |
-| `datadog` | 3 | deferred | 0 | 0 | 0 | 0 | 5,904 |
-| `daytona` | 1 | deferred | 0 | 0 | 0 | 0 | 2,744 |
-| `deepgram` | 1 | deferred | 0 | 0 | 0 | 0 | 4,596 |
-| `digitalocean` | 3 | deferred | 0 | 0 | 0 | 0 | 3,142 |
-| `discord` | 1 | deferred | 0 | 0 | 0 | 0 | 3,641 |
-| `docker` | 2 | deferred | 0 | 0 | 0 | 0 | 4,863 |
-| `doppler` | 7 | deferred | 0 | 0 | 0 | 0 | 5,578 |
-| `dynatrace` | 1 | deferred | 0 | 0 | 0 | 0 | 1,942 |
-| `e2b` | 1 | deferred | 0 | 0 | 0 | 0 | 2,401 |
-| `elevenlabs` | 1 | deferred | 0 | 0 | 0 | 0 | 3,899 |
-| `exa` | 1 | deferred | 0 | 0 | 0 | 0 | 3,455 |
-| `firebase` | 1 | deferred | 0 | 0 | 0 | 0 | 3,346 |
-| `firecrawl` | 1 | deferred | 0 | 0 | 0 | 0 | 2,418 |
-| `fireworks-ai` | 1 | deferred | 0 | 0 | 0 | 0 | 2,986 |
-| `generic` | 6 | deferred | 0 | 0 | 0 | 0 | 12,264 |
+| `axiom` | 2 | migrated | 2 | 14 | 10 | 8 | 2,318 |
+| `azure-devops` | 1 | migrated | 1 | 8 | 6 | 4 | 2,608 |
+| `bitwarden` | 1 | migrated | 1 | 6 | 9 | 2 | 2,221 |
+| `browserbase` | 1 | migrated | 1 | 9 | 5 | 7 | 2,777 |
+| `cerebras` | 1 | migrated | 1 | 8 | 4 | 6 | 2,598 |
+| `clickhouse-cloud` | 1 | migrated | 1 | 10 | 7 | 7 | 2,938 |
+| `clojars` | 1 | migrated | 1 | 6 | 5 | 3 | 1,638 |
+| `cloudflare` | 1 | migrated | 1 | 9 | 4 | 7 | 3,823 |
+| `cohere` | 1 | migrated | 1 | 9 | 4 | 6 | 4,112 |
+| `composio` | 3 | migrated | 3 | 23 | 14 | 13 | 4,988 |
+| `confluent` | 2 | migrated | 2 | 19 | 24 | 10 | 4,917 |
+| `convex` | 1 | partial | 1 | 12 | 10 | 7 | 4,908 |
+| `crates-io` | 2 | migrated | 2 | 12 | 15 | 6 | 2,410 |
+| `databricks` | 1 | partial | 1 | 10 | 3 | 7 | 2,854 |
+| `datadog` | 3 | migrated | 3 | 20 | 16 | 12 | 5,904 |
+| `daytona` | 1 | migrated | 1 | 8 | 11 | 4 | 2,744 |
+| `deepgram` | 1 | migrated | 1 | 11 | 12 | 6 | 4,596 |
+| `digitalocean` | 3 | migrated | 3 | 16 | 19 | 3 | 3,142 |
+| `discord` | 1 | migrated | 1 | 9 | 3 | 6 | 3,641 |
+| `docker` | 2 | migrated | 2 | 13 | 8 | 8 | 4,863 |
+| `doppler` | 7 | migrated | 7 | 31 | 56 | 13 | 5,578 |
+| `dynatrace` | 1 | migrated | 1 | 7 | 11 | 1 | 1,942 |
+| `e2b` | 1 | migrated | 1 | 9 | 7 | 5 | 2,401 |
+| `elevenlabs` | 1 | migrated | 1 | 14 | 11 | 6 | 3,899 |
+| `exa` | 1 | migrated | 1 | 11 | 4 | 9 | 3,455 |
+| `firebase` | 1 | migrated | 1 | 10 | 11 | 3 | 3,346 |
+| `firecrawl` | 1 | migrated | 1 | 10 | 9 | 5 | 2,418 |
+| `fireworks-ai` | 1 | migrated | 1 | 11 | 5 | 9 | 2,986 |
+| `generic` | 6 | migrated | 6 | 30 | 20 | 20 | 12,264 |
 | `github` | 6 | migrated | 6 | 34 | 42 | 14 | 7,864 |
-| `gitlab` | 3 | deferred | 0 | 0 | 0 | 0 | 8,864 |
-| `google` | 3 | deferred | 0 | 0 | 0 | 0 | 5,591 |
-| `grafana` | 2 | deferred | 0 | 0 | 0 | 0 | 3,441 |
-| `groq` | 1 | deferred | 0 | 0 | 0 | 0 | 2,676 |
-| `hashicorp-terraform` | 3 | deferred | 0 | 0 | 0 | 0 | 3,871 |
-| `hashicorp-vault` | 3 | deferred | 0 | 0 | 0 | 0 | 2,724 |
-| `helicone` | 2 | deferred | 0 | 0 | 0 | 0 | 3,694 |
-| `heroku` | 2 | deferred | 0 | 0 | 0 | 0 | 4,543 |
-| `honeycomb` | 1 | deferred | 0 | 0 | 0 | 0 | 2,256 |
-| `huggingface` | 1 | deferred | 0 | 0 | 0 | 0 | 3,196 |
-| `inngest` | 1 | deferred | 0 | 0 | 0 | 0 | 2,726 |
-| `langfuse` | 1 | deferred | 0 | 0 | 0 | 0 | 3,103 |
-| `langsmith` | 1 | deferred | 0 | 0 | 0 | 0 | 3,079 |
-| `linear` | 2 | deferred | 0 | 0 | 0 | 0 | 3,008 |
-| `mailchimp` | 1 | deferred | 0 | 0 | 0 | 0 | 2,741 |
-| `mailgun` | 3 | deferred | 0 | 0 | 0 | 0 | 8,131 |
-| `microsoft-entra` | 1 | deferred | 0 | 0 | 0 | 0 | 3,726 |
-| `mistral` | 2 | deferred | 0 | 0 | 0 | 0 | 7,057 |
-| `neon` | 1 | deferred | 0 | 0 | 0 | 0 | 3,275 |
-| `netlify` | 2 | deferred | 0 | 0 | 0 | 0 | 6,939 |
-| `new-relic` | 2 | deferred | 0 | 0 | 0 | 0 | 5,134 |
-| `notion` | 2 | deferred | 0 | 0 | 0 | 0 | 4,519 |
-| `npm` | 2 | deferred | 0 | 0 | 0 | 0 | 4,339 |
-| `nvidia` | 1 | deferred | 0 | 0 | 0 | 0 | 2,793 |
-| `okta` | 1 | deferred | 0 | 0 | 0 | 0 | 4,969 |
-| `onepassword` | 1 | deferred | 0 | 0 | 0 | 0 | 2,870 |
+| `gitlab` | 3 | migrated | 3 | 35 | 35 | 16 | 8,864 |
+| `google` | 3 | migrated | 3 | 22 | 15 | 16 | 5,591 |
+| `grafana` | 2 | migrated | 2 | 7 | 6 | 4 | 3,441 |
+| `groq` | 1 | migrated | 1 | 13 | 3 | 11 | 2,676 |
+| `hashicorp-terraform` | 3 | migrated | 3 | 15 | 10 | 8 | 3,871 |
+| `hashicorp-vault` | 3 | migrated | 3 | 13 | 12 | 4 | 2,724 |
+| `helicone` | 2 | migrated | 2 | 17 | 22 | 9 | 3,694 |
+| `heroku` | 2 | migrated | 2 | 21 | 21 | 12 | 4,543 |
+| `honeycomb` | 1 | migrated | 1 | 8 | 13 | 3 | 2,256 |
+| `huggingface` | 1 | migrated | 1 | 8 | 5 | 5 | 3,196 |
+| `inngest` | 1 | migrated | 1 | 11 | 12 | 4 | 2,726 |
+| `langfuse` | 1 | migrated | 1 | 15 | 10 | 8 | 3,103 |
+| `langsmith` | 1 | migrated | 1 | 13 | 6 | 9 | 3,079 |
+| `linear` | 2 | partial | 2 | 9 | 3 | 6 | 3,008 |
+| `mailchimp` | 1 | migrated | 1 | 12 | 3 | 9 | 2,741 |
+| `mailgun` | 3 | migrated | 3 | 22 | 12 | 13 | 8,131 |
+| `microsoft-entra` | 1 | migrated | 1 | 11 | 3 | 8 | 3,726 |
+| `mistral` | 2 | partial | 2 | 16 | 10 | 10 | 7,057 |
+| `neon` | 1 | migrated | 1 | 9 | 6 | 6 | 3,275 |
+| `netlify` | 2 | migrated | 2 | 15 | 11 | 8 | 6,939 |
+| `new-relic` | 2 | migrated | 2 | 13 | 7 | 9 | 5,134 |
+| `notion` | 2 | migrated | 2 | 16 | 7 | 11 | 4,519 |
+| `npm` | 2 | migrated | 2 | 9 | 11 | 3 | 4,339 |
+| `nvidia` | 1 | migrated | 1 | 9 | 9 | 4 | 2,793 |
+| `okta` | 1 | migrated | 1 | 12 | 10 | 7 | 4,969 |
+| `onepassword` | 1 | migrated | 1 | 11 | 9 | 4 | 2,870 |
 | `openai` | 2 | migrated | 2 | 20 | 17 | 13 | 7,691 |
-| `openrouter` | 2 | deferred | 0 | 0 | 0 | 0 | 3,405 |
-| `paddle` | 1 | deferred | 0 | 0 | 0 | 0 | 2,034 |
-| `perplexity` | 1 | deferred | 0 | 0 | 0 | 0 | 2,761 |
-| `pinecone` | 2 | deferred | 0 | 0 | 0 | 0 | 4,529 |
-| `polar` | 2 | deferred | 0 | 0 | 0 | 0 | 3,332 |
-| `posthog` | 2 | deferred | 0 | 0 | 0 | 0 | 3,719 |
-| `postman` | 2 | deferred | 0 | 0 | 0 | 0 | 3,801 |
-| `pulumi` | 3 | deferred | 0 | 0 | 0 | 0 | 3,315 |
-| `pypi` | 1 | deferred | 0 | 0 | 0 | 0 | 2,670 |
-| `replicate` | 1 | deferred | 0 | 0 | 0 | 0 | 3,203 |
-| `resend` | 1 | deferred | 0 | 0 | 0 | 0 | 2,953 |
-| `rubygems` | 1 | deferred | 0 | 0 | 0 | 0 | 1,743 |
-| `runpod` | 1 | deferred | 0 | 0 | 0 | 0 | 2,819 |
-| `sendgrid` | 1 | deferred | 0 | 0 | 0 | 0 | 1,191 |
-| `sentry` | 2 | deferred | 0 | 0 | 0 | 0 | 4,651 |
-| `shopify` | 2 | deferred | 0 | 0 | 0 | 0 | 2,112 |
-| `slack` | 4 | deferred | 0 | 0 | 0 | 0 | 9,020 |
-| `sonarqube` | 2 | deferred | 0 | 0 | 0 | 0 | 2,687 |
+| `openrouter` | 2 | migrated | 2 | 17 | 5 | 14 | 3,405 |
+| `paddle` | 1 | migrated | 1 | 7 | 10 | 2 | 2,034 |
+| `perplexity` | 1 | migrated | 1 | 9 | 4 | 6 | 2,761 |
+| `pinecone` | 2 | migrated | 2 | 20 | 9 | 11 | 4,529 |
+| `polar` | 2 | migrated | 2 | 15 | 16 | 5 | 3,332 |
+| `posthog` | 2 | migrated | 2 | 17 | 18 | 6 | 3,719 |
+| `postman` | 2 | migrated | 2 | 19 | 8 | 13 | 3,801 |
+| `pulumi` | 3 | migrated | 3 | 15 | 9 | 6 | 3,315 |
+| `pypi` | 1 | migrated | 1 | 7 | 6 | 2 | 2,670 |
+| `replicate` | 1 | migrated | 1 | 11 | 6 | 7 | 3,203 |
+| `resend` | 1 | migrated | 1 | 10 | 6 | 5 | 2,953 |
+| `rubygems` | 1 | migrated | 1 | 8 | 6 | 6 | 1,743 |
+| `runpod` | 1 | migrated | 1 | 9 | 6 | 5 | 2,819 |
+| `sendgrid` | 1 | migrated | 1 | 4 | 3 | 2 | 1,191 |
+| `sentry` | 2 | migrated | 2 | 16 | 11 | 10 | 4,651 |
+| `shopify` | 2 | migrated | 2 | 8 | 10 | 2 | 2,112 |
+| `slack` | 4 | migrated | 4 | 24 | 21 | 15 | 9,020 |
+| `sonarqube` | 2 | migrated | 2 | 10 | 14 | 4 | 2,687 |
 | `stripe` | 6 | migrated | 6 | 32 | 46 | 12 | 6,895 |
-| `supabase` | 2 | deferred | 0 | 0 | 0 | 0 | 4,815 |
-| `tavily` | 1 | deferred | 0 | 0 | 0 | 0 | 3,482 |
-| `telegram` | 1 | deferred | 0 | 0 | 0 | 0 | 2,876 |
-| `together` | 1 | deferred | 0 | 0 | 0 | 0 | 4,714 |
-| `travis-ci` | 1 | deferred | 0 | 0 | 0 | 0 | 3,010 |
-| `trigger-dev` | 2 | deferred | 0 | 0 | 0 | 0 | 3,042 |
-| `twilio` | 2 | deferred | 0 | 0 | 0 | 0 | 4,207 |
-| `vercel` | 6 | deferred | 0 | 0 | 0 | 0 | 18,296 |
-| `voyage-ai` | 1 | deferred | 0 | 0 | 0 | 0 | 4,476 |
-| `wandb` | 1 | deferred | 0 | 0 | 0 | 0 | 3,203 |
-| `xai` | 1 | deferred | 0 | 0 | 0 | 0 | 2,907 |
+| `supabase` | 2 | migrated | 2 | 17 | 12 | 13 | 4,815 |
+| `tavily` | 1 | migrated | 1 | 10 | 9 | 5 | 3,482 |
+| `telegram` | 1 | migrated | 1 | 8 | 7 | 6 | 2,876 |
+| `together` | 1 | migrated | 1 | 11 | 8 | 7 | 4,714 |
+| `travis-ci` | 1 | migrated | 1 | 9 | 8 | 5 | 3,010 |
+| `trigger-dev` | 2 | migrated | 2 | 17 | 21 | 8 | 3,042 |
+| `twilio` | 2 | migrated | 2 | 13 | 6 | 10 | 4,207 |
+| `vercel` | 6 | migrated | 6 | 50 | 67 | 19 | 18,296 |
+| `voyage-ai` | 1 | migrated | 1 | 12 | 7 | 7 | 4,476 |
+| `wandb` | 1 | migrated | 1 | 11 | 12 | 5 | 3,203 |
+| `xai` | 1 | migrated | 1 | 11 | 7 | 8 | 2,907 |
 
 ### Deferred
 
-No narrative has been written for these dossiers yet. Migration is by review, one family at a time, and the families the credential-evidence site uses as representative pages come first (the migrated and partial rows above). No dossier is dropped: each deferred dossier stays at its pinned legacy path, its families keep their one-sentence `description`, contract claims and review history, and each is listed below for the next migration pass. Deferral is not a verdict on the dossier's content.
+No narrative has been written for a deferred dossier yet. Migration is by review, one family at a time. A deferred dossier stays at its pinned legacy path, its families keep their one-sentence `description`, contract claims and review history, and each is listed below for the next migration pass. Deferral is not a verdict on the dossier's content.
 
-Deferred dossiers (88): `ai21`, `apify`, `atlassian`, `aws-bedrock`, `axiom`, `azure-devops`, `bitwarden`, `browserbase`, `cerebras`, `clickhouse-cloud`, `clojars`, `cloudflare`, `cohere`, `composio`, `confluent`, `convex`, `crates-io`, `databricks`, `datadog`, `daytona`, `deepgram`, `digitalocean`, `discord`, `docker`, `doppler`, `dynatrace`, `e2b`, `elevenlabs`, `exa`, `firebase`, `firecrawl`, `fireworks-ai`, `generic`, `gitlab`, `google`, `grafana`, `groq`, `hashicorp-terraform`, `hashicorp-vault`, `helicone`, `heroku`, `honeycomb`, `huggingface`, `inngest`, `langfuse`, `langsmith`, `linear`, `mailchimp`, `mailgun`, `microsoft-entra`, `mistral`, `neon`, `netlify`, `new-relic`, `notion`, `npm`, `nvidia`, `okta`, `onepassword`, `openrouter`, `paddle`, `perplexity`, `pinecone`, `polar`, `posthog`, `postman`, `pulumi`, `pypi`, `replicate`, `resend`, `rubygems`, `runpod`, `sendgrid`, `sentry`, `shopify`, `slack`, `sonarqube`, `supabase`, `tavily`, `telegram`, `together`, `travis-ci`, `trigger-dev`, `twilio`, `vercel`, `voyage-ai`, `wandb`, `xai`.
+Deferred dossiers (0): none.
 
 ### Migrated and partial families
 
 | Family | Status | Statements | Cited | Unresolved | Notes |
 | --- | --- | --- | --- | --- | --- |
+| `ai21:api-key` | migrated | 11 | 5 | 6 |  |
 | `anthropic:admin-api-key` | migrated | 8 | 6 | 2 |  |
 | `anthropic:compliance-access-key` | migrated | 14 | 6 | 8 |  |
 | `anthropic:secret-api-key` | migrated | 4 | 3 | 1 |  |
+| `apify:api-token` | migrated | 10 | 5 | 5 |  |
+| `atlassian:access-token` | migrated | 13 | 8 | 5 |  |
+| `atlassian:api-token` | migrated | 13 | 2 | 11 |  |
+| `aws-bedrock:long-term-api-key` | migrated | 12 | 6 | 6 |  |
+| `aws-bedrock:short-term-api-key` | migrated | 12 | 5 | 7 |  |
 | `aws:context-specific-credential` | migrated | 5 | 4 | 1 |  |
 | `aws:iam-user-access-key` | migrated | 5 | 5 | 0 |  |
 | `aws:iam-user-secret-access-key` | migrated | 8 | 6 | 2 |  |
 | `aws:sts-service-bearer-token` | migrated | 6 | 5 | 1 |  |
 | `aws:sts-temporary-access-key` | migrated | 12 | 9 | 3 |  |
+| `axiom:api-token` | migrated | 7 | 3 | 4 |  |
+| `axiom:personal-token` | migrated | 7 | 3 | 4 |  |
+| `azure-devops:personal-access-token` | migrated | 8 | 4 | 4 |  |
+| `bitwarden:secrets-manager-access-token` | migrated | 6 | 4 | 2 |  |
+| `browserbase:api-key` | migrated | 9 | 2 | 7 |  |
+| `cerebras:inference-api-key` | migrated | 8 | 2 | 6 |  |
+| `clickhouse-cloud:api-key` | migrated | 10 | 3 | 7 |  |
+| `clojars:deploy-token` | migrated | 6 | 3 | 3 |  |
+| `cloudflare:api-token` | migrated | 9 | 2 | 7 |  |
+| `cohere:api-key` | migrated | 9 | 3 | 6 |  |
+| `composio:org-api-key` | migrated | 6 | 3 | 3 |  |
+| `composio:project-api-key` | migrated | 9 | 3 | 6 |  |
+| `composio:user-api-key` | migrated | 8 | 4 | 4 |  |
+| `confluent:cloud-api-secret` | migrated | 11 | 5 | 6 |  |
+| `confluent:cloud-api-secret-legacy` | migrated | 8 | 4 | 4 |  |
+| `convex:deployment-key` | partial | 12 | 5 | 7 | Covers the hex-body deployment, project and admin keys. The current cloud deploy-key body, which begins eyJ2, is recorded only as unresolved because its alphabet, padding and length are not established. |
+| `crates-io:api-token` | migrated | 5 | 2 | 3 |  |
+| `crates-io:trusted-publishing-token` | migrated | 7 | 4 | 3 |  |
+| `databricks:personal-access-token` | partial | 10 | 3 | 7 | The optional rotation suffix (a hyphen and a digit) is left out of the shape: it rests on scanner rules that disagree about its meaning, digit count and existence. |
+| `datadog:api-key` | migrated | 5 | 2 | 3 |  |
+| `datadog:application-key` | migrated | 9 | 4 | 5 |  |
+| `datadog:application-key-legacy` | migrated | 6 | 2 | 4 |  |
+| `daytona:api-key` | migrated | 8 | 4 | 4 |  |
+| `deepgram:api-key` | migrated | 11 | 5 | 6 |  |
+| `digitalocean:oauth-token` | migrated | 5 | 4 | 1 |  |
+| `digitalocean:personal-access-token` | migrated | 5 | 4 | 1 |  |
+| `digitalocean:refresh-token` | migrated | 6 | 5 | 1 |  |
+| `discord:bot-token` | migrated | 9 | 3 | 6 |  |
+| `docker:oauth-access-token` | migrated | 7 | 2 | 5 |  |
+| `docker:personal-access-token` | migrated | 6 | 3 | 3 |  |
+| `doppler:audit-token` | migrated | 4 | 2 | 2 |  |
+| `doppler:cli-token` | migrated | 4 | 2 | 2 |  |
+| `doppler:personal-token` | migrated | 4 | 2 | 2 |  |
+| `doppler:scim-token` | migrated | 4 | 2 | 2 |  |
+| `doppler:service-account-identity-token` | migrated | 4 | 3 | 1 |  |
+| `doppler:service-account-token` | migrated | 5 | 3 | 2 |  |
+| `doppler:service-token` | migrated | 6 | 4 | 2 |  |
+| `dynatrace:api-token` | migrated | 7 | 6 | 1 |  |
+| `e2b:api-key` | migrated | 9 | 4 | 5 |  |
+| `elevenlabs:api-key` | migrated | 14 | 8 | 6 |  |
+| `exa:api-key` | migrated | 11 | 2 | 9 |  |
+| `firebase:server-key` | migrated | 10 | 7 | 3 |  |
+| `firecrawl:api-key` | migrated | 10 | 5 | 5 |  |
+| `fireworks-ai:api-key` | migrated | 11 | 2 | 9 |  |
+| `generic:bearer-token` | migrated | 5 | 2 | 3 |  |
+| `generic:connection-string-password` | migrated | 6 | 2 | 4 |  |
+| `generic:jwt` | migrated | 4 | 1 | 3 |  |
+| `generic:otp-seed` | migrated | 6 | 2 | 4 |  |
+| `generic:private-key` | migrated | 5 | 1 | 4 |  |
+| `generic:unclassified-assignment-literal` | migrated | 4 | 2 | 2 |  |
 | `github:app-server-to-server-token` | migrated | 5 | 3 | 2 |  |
 | `github:app-user-to-server-token` | migrated | 4 | 3 | 1 |  |
 | `github:classic-personal-access-token` | migrated | 4 | 3 | 1 |  |
 | `github:fine-grained-personal-access-token` | migrated | 13 | 5 | 8 |  |
 | `github:oauth-access-token` | migrated | 4 | 3 | 1 |  |
 | `github:oauth-refresh-token` | migrated | 4 | 3 | 1 |  |
+| `gitlab:legacy-personal-access-token` | migrated | 4 | 3 | 1 |  |
+| `gitlab:routable-personal-access-token` | migrated | 15 | 8 | 7 |  |
+| `gitlab:runner-authentication-token` | migrated | 16 | 8 | 8 |  |
+| `google:generic-api-key` | migrated | 10 | 2 | 8 |  |
+| `google:oauth-client-secret` | migrated | 6 | 3 | 3 |  |
+| `google:oauth2-credential` | migrated | 6 | 1 | 5 |  |
+| `grafana:cloud-access-policy-token` | migrated | 3 | 1 | 2 |  |
+| `grafana:service-account-token` | migrated | 4 | 2 | 2 |  |
+| `groq:api-key` | migrated | 13 | 2 | 11 |  |
+| `hashicorp-terraform:organization-token` | migrated | 5 | 2 | 3 |  |
+| `hashicorp-terraform:team-token` | migrated | 4 | 2 | 2 |  |
+| `hashicorp-terraform:user-token` | migrated | 6 | 3 | 3 |  |
+| `hashicorp-vault:batch-token` | migrated | 4 | 3 | 1 |  |
+| `hashicorp-vault:recovery-token` | migrated | 4 | 3 | 1 |  |
+| `hashicorp-vault:service-token` | migrated | 5 | 3 | 2 |  |
+| `helicone:api-key` | migrated | 9 | 4 | 5 |  |
+| `helicone:write-api-key` | migrated | 8 | 4 | 4 |  |
+| `heroku:legacy-api-key` | migrated | 7 | 3 | 4 |  |
+| `heroku:oauth-access-token` | migrated | 14 | 6 | 8 |  |
+| `honeycomb:ingest-key` | migrated | 8 | 5 | 3 |  |
+| `huggingface:api-token` | migrated | 8 | 3 | 5 |  |
+| `inngest:signing-key` | migrated | 11 | 7 | 4 |  |
+| `langfuse:secret-key` | migrated | 15 | 7 | 8 |  |
+| `langsmith:api-key` | migrated | 13 | 4 | 9 |  |
+| `linear:oauth-access-token` | partial | 5 | 0 | 5 | Only the prefix is established; no body grammar, issuance detail or scanner corroboration exists, so shape is mostly unresolved. |
+| `linear:personal-api-key` | migrated | 4 | 3 | 1 |  |
+| `mailchimp:marketing-api-key` | migrated | 12 | 3 | 9 |  |
+| `mailgun:legacy-signing-key-triplet` | migrated | 5 | 2 | 3 |  |
+| `mailgun:private-api-key` | migrated | 7 | 2 | 5 |  |
+| `mailgun:public-validation-key` | migrated | 10 | 5 | 5 |  |
+| `microsoft-entra:application-client-secret` | migrated | 11 | 3 | 8 |  |
+| `mistral:api-key` | migrated | 10 | 5 | 5 |  |
+| `mistral:realtime-client-token` | partial | 6 | 1 | 5 | Prefix and carriers are covered; body grammar, lifetime and issuance checks are unresolved because no token was minted. |
+| `neon:api-key` | migrated | 9 | 3 | 6 |  |
+| `netlify:other-prefixed-tokens` | migrated | 8 | 4 | 4 |  |
+| `netlify:personal-access-token` | migrated | 7 | 3 | 4 |  |
+| `new-relic:license-key` | migrated | 9 | 2 | 7 |  |
+| `new-relic:user-api-key` | migrated | 4 | 2 | 2 |  |
+| `notion:integration-token` | migrated | 9 | 3 | 6 |  |
+| `notion:legacy-integration-token` | migrated | 7 | 2 | 5 |  |
+| `npm:granular-access-token` | migrated | 2 | 2 | 0 |  |
+| `npm:legacy-token` | migrated | 7 | 4 | 3 |  |
+| `nvidia:ngc-api-key` | migrated | 9 | 5 | 4 |  |
+| `okta:api-token` | migrated | 12 | 5 | 7 |  |
+| `onepassword:service-account-token` | migrated | 11 | 7 | 4 |  |
 | `openai:admin-api-key` | migrated | 12 | 5 | 7 |  |
 | `openai:secret-api-key` | migrated | 8 | 2 | 6 |  |
+| `openrouter:api-key` | migrated | 11 | 3 | 8 |  |
+| `openrouter:management-api-key` | migrated | 6 | 0 | 6 |  |
+| `paddle:api-key` | migrated | 7 | 5 | 2 |  |
+| `perplexity:api-key` | migrated | 9 | 3 | 6 |  |
+| `pinecone:api-key` | migrated | 14 | 5 | 9 |  |
+| `pinecone:legacy-api-key` | migrated | 6 | 4 | 2 |  |
+| `polar:api-credential` | migrated | 8 | 5 | 3 |  |
+| `polar:organization-access-token` | migrated | 7 | 5 | 2 |  |
+| `posthog:personal-api-key` | migrated | 10 | 6 | 4 |  |
+| `posthog:project-secret-api-key` | migrated | 7 | 5 | 2 |  |
+| `postman:api-key` | migrated | 9 | 2 | 7 |  |
+| `postman:collection-access-key` | migrated | 10 | 4 | 6 |  |
+| `pulumi:organization-access-token` | migrated | 5 | 3 | 2 |  |
+| `pulumi:personal-access-token` | migrated | 5 | 3 | 2 |  |
+| `pulumi:team-access-token` | migrated | 5 | 3 | 2 |  |
+| `pypi:api-token` | migrated | 7 | 5 | 2 |  |
+| `replicate:api-token` | migrated | 11 | 4 | 7 |  |
+| `resend:api-key` | migrated | 10 | 5 | 5 |  |
+| `rubygems:api-key` | migrated | 8 | 2 | 6 |  |
+| `runpod:api-key` | migrated | 9 | 4 | 5 |  |
+| `sendgrid:api-key` | migrated | 4 | 2 | 2 |  |
+| `sentry:organization-auth-token` | migrated | 9 | 4 | 5 |  |
+| `sentry:user-auth-token` | migrated | 7 | 2 | 5 |  |
+| `shopify:custom-app-access-token` | migrated | 4 | 3 | 1 |  |
+| `shopify:public-app-access-token` | migrated | 4 | 3 | 1 |  |
+| `slack:app-level-token` | migrated | 8 | 2 | 6 |  |
+| `slack:bot-token` | migrated | 4 | 2 | 2 |  |
+| `slack:user-token` | migrated | 9 | 4 | 5 |  |
+| `slack:workflow-webhook-token` | migrated | 3 | 1 | 2 |  |
+| `sonarqube:analysis-token` | migrated | 5 | 3 | 2 |  |
+| `sonarqube:user-token` | migrated | 5 | 3 | 2 |  |
 | `stripe:organization-api-key` | migrated | 2 | 1 | 1 |  |
 | `stripe:restricted-key-live` | migrated | 4 | 3 | 1 |  |
 | `stripe:restricted-key-test` | migrated | 4 | 3 | 1 |  |
 | `stripe:secret-key-live` | migrated | 4 | 3 | 1 |  |
 | `stripe:secret-key-test` | migrated | 4 | 3 | 1 |  |
 | `stripe:webhook-signing-secret` | migrated | 14 | 7 | 7 |  |
+| `supabase:personal-access-token` | migrated | 5 | 1 | 4 |  |
+| `supabase:secret-key` | migrated | 12 | 3 | 9 |  |
+| `tavily:api-key` | migrated | 10 | 5 | 5 |  |
+| `telegram:bot-token` | migrated | 8 | 2 | 6 |  |
+| `together:api-key` | migrated | 11 | 4 | 7 |  |
+| `travis-ci:api-token` | migrated | 9 | 4 | 5 |  |
+| `trigger-dev:personal-access-token` | migrated | 5 | 2 | 3 |  |
+| `trigger-dev:secret-api-key` | migrated | 12 | 7 | 5 |  |
+| `twilio:api-key-secret` | migrated | 5 | 1 | 4 |  |
+| `twilio:auth-token` | migrated | 8 | 2 | 6 |  |
+| `vercel:access-token` | migrated | 7 | 3 | 4 |  |
+| `vercel:api-key` | migrated | 6 | 3 | 3 |  |
+| `vercel:app-access-token` | migrated | 10 | 9 | 1 |  |
+| `vercel:app-refresh-token` | migrated | 9 | 7 | 2 |  |
+| `vercel:integration-token` | migrated | 6 | 2 | 4 |  |
+| `vercel:personal-access-token` | migrated | 12 | 7 | 5 |  |
+| `voyage-ai:api-key` | migrated | 12 | 5 | 7 |  |
+| `wandb:api-key` | migrated | 11 | 6 | 5 |  |
+| `xai:api-key` | migrated | 11 | 3 | 8 |  |
 
 ### Families in deferred or partial dossiers
 
 | Family | Dossier verdict | Status |
 | --- | --- | --- |
-| `ai21:api-key` | ready / T2 | deferred |
-| `apify:api-token` | ready / T1 | deferred |
-| `atlassian:api-token` | ready / T2 | deferred |
-| `atlassian:access-token` | ready / T2 | deferred |
-| `aws-bedrock:long-term-api-key` | ready / T1 | deferred |
-| `aws-bedrock:short-term-api-key` | ready / T1 | deferred |
-| `axiom:api-token` | ready / T1 | deferred |
-| `axiom:personal-token` | ready / T1 | deferred |
-| `azure-devops:personal-access-token` | ready / T1 | deferred |
-| `bitwarden:secrets-manager-access-token` | ready / T1 | deferred |
-| `browserbase:api-key` | ready / T1 | deferred |
-| `cerebras:inference-api-key` | ready / T1 | deferred |
-| `clickhouse-cloud:api-key` | ready / T1 | deferred |
-| `clojars:deploy-token` | ready / T1 | deferred |
-| `cloudflare:api-token` | ready / T1 | deferred |
-| `cohere:api-key` | ready / T2 | deferred |
-| `composio:project-api-key` | ready / T1 | deferred |
-| `composio:org-api-key` | ready / T1 | deferred |
-| `composio:user-api-key` | ready / T1 | deferred |
-| `confluent:cloud-api-secret` | ready / T1 | deferred |
-| `confluent:cloud-api-secret-legacy` | ready / T2 | deferred |
-| `convex:deployment-key` | ready / T1 | deferred |
-| `crates-io:api-token` | ready / T1 | deferred |
-| `crates-io:trusted-publishing-token` | ready / T1 | deferred |
-| `databricks:personal-access-token` | ready / T2 | deferred |
-| `datadog:api-key` | ready / T1 | deferred |
-| `datadog:application-key` | ready / T1 | deferred |
-| `datadog:application-key-legacy` | ready / T2 | deferred |
-| `daytona:api-key` | ready / T1 | deferred |
-| `deepgram:api-key` | ready / T2 | deferred |
-| `digitalocean:personal-access-token` | ready / T1 | deferred |
-| `digitalocean:oauth-token` | ready / T1 | deferred |
-| `digitalocean:refresh-token` | ready / T1 | deferred |
-| `discord:bot-token` | ready / T2 | deferred |
-| `docker:personal-access-token` | ready / T1 | deferred |
-| `docker:oauth-access-token` | ready / T1 | deferred |
-| `doppler:service-token` | ready / T1 | deferred |
-| `doppler:personal-token` | ready / T1 | deferred |
-| `doppler:cli-token` | ready / T1 | deferred |
-| `doppler:service-account-token` | ready / T1 | deferred |
-| `doppler:service-account-identity-token` | ready / T1 | deferred |
-| `doppler:scim-token` | ready / T1 | deferred |
-| `doppler:audit-token` | ready / T1 | deferred |
-| `dynatrace:api-token` | ready / T1 | deferred |
-| `e2b:api-key` | ready / T1 | deferred |
-| `elevenlabs:api-key` | ready / T1 | deferred |
-| `exa:api-key` | not-found / T0 | deferred |
-| `firebase:server-key` | ready / T2 | deferred |
-| `firecrawl:api-key` | ready / T1 | deferred |
-| `fireworks-ai:api-key` | ready / T1 | deferred |
-| `generic:private-key` | ready / T1 | deferred |
-| `generic:jwt` | ready / T1 | deferred |
-| `generic:bearer-token` | ready / T3 | deferred |
-| `generic:connection-string-password` | ready / T3 | deferred |
-| `generic:otp-seed` | ready / T3 | deferred |
-| `generic:unclassified-assignment-literal` | ready / T3 | deferred |
-| `gitlab:legacy-personal-access-token` | ready / T1 | deferred |
-| `gitlab:routable-personal-access-token` | ready / T1 | deferred |
-| `gitlab:runner-authentication-token` | ready / T2 | deferred |
-| `google:generic-api-key` | ready / T1 | deferred |
-| `google:oauth2-credential` | not-found / T0 | deferred |
-| `google:oauth-client-secret` | ready / T2 | deferred |
-| `grafana:service-account-token` | ready / T1 | deferred |
-| `grafana:cloud-access-policy-token` | ready / T1 | deferred |
-| `groq:api-key` | ready / T2 | deferred |
-| `hashicorp-terraform:user-token` | ready / T1 | deferred |
-| `hashicorp-terraform:organization-token` | ready / T1 | deferred |
-| `hashicorp-terraform:team-token` | ready / T1 | deferred |
-| `hashicorp-vault:service-token` | ready / T1 | deferred |
-| `hashicorp-vault:batch-token` | ready / T1 | deferred |
-| `hashicorp-vault:recovery-token` | ready / T1 | deferred |
-| `helicone:api-key` | ready / T1 | deferred |
-| `helicone:write-api-key` | ready / T1 | deferred |
-| `heroku:oauth-access-token` | ready / T1 | deferred |
-| `heroku:legacy-api-key` | ready / T2 | deferred |
-| `honeycomb:ingest-key` | ready / T1 | deferred |
-| `huggingface:api-token` | ready / T1 | deferred |
-| `inngest:signing-key` | ready / T1 | deferred |
-| `langfuse:secret-key` | ready / T2 | deferred |
-| `langsmith:api-key` | ready / T2 | deferred |
-| `linear:personal-api-key` | ready / T1 | deferred |
-| `linear:oauth-access-token` | not-found / T0 | deferred |
-| `mailchimp:marketing-api-key` | ready / T2 | deferred |
-| `mailgun:private-api-key` | ready / T2 | deferred |
-| `mailgun:public-validation-key` | rejected | deferred |
-| `mailgun:legacy-signing-key-triplet` | ready / T2 | deferred |
-| `microsoft-entra:application-client-secret` | ready / T1 | deferred |
-| `mistral:api-key` | ready / T2 | deferred |
-| `mistral:realtime-client-token` | issuance-gated / T1 | deferred |
-| `neon:api-key` | ready / T2 | deferred |
-| `netlify:personal-access-token` | ready / T1 | deferred |
-| `netlify:other-prefixed-tokens` | ready / T1 | deferred |
-| `new-relic:user-api-key` | ready / T1 | deferred |
-| `new-relic:license-key` | ready / T1 | deferred |
-| `notion:legacy-integration-token` | ready / T1 | deferred |
-| `notion:integration-token` | ready / T2 | deferred |
-| `npm:granular-access-token` | ready / T1 | deferred |
-| `npm:legacy-token` | ready / T1 | deferred |
-| `nvidia:ngc-api-key` | ready / T1 | deferred |
-| `okta:api-token` | ready / T2 | deferred |
-| `onepassword:service-account-token` | ready / T1 | deferred |
-| `openrouter:api-key` | ready / T1 | deferred |
-| `openrouter:management-api-key` | not-found | deferred |
-| `paddle:api-key` | ready / T1 | deferred |
-| `perplexity:api-key` | ready / T2 | deferred |
-| `pinecone:api-key` | ready / T2 | deferred |
-| `pinecone:legacy-api-key` | ready / T2 | deferred |
-| `polar:organization-access-token` | ready / T1 | deferred |
-| `polar:api-credential` | ready / T1 | deferred |
-| `posthog:personal-api-key` | ready / T1 | deferred |
-| `posthog:project-secret-api-key` | ready / T1 | deferred |
-| `postman:api-key` | ready / T2 | deferred |
-| `postman:collection-access-key` | ready / T2 | deferred |
-| `pulumi:personal-access-token` | ready / T1 | deferred |
-| `pulumi:organization-access-token` | ready / T1 | deferred |
-| `pulumi:team-access-token` | ready / T1 | deferred |
-| `pypi:api-token` | ready / T1 | deferred |
-| `replicate:api-token` | ready / T1 | deferred |
-| `resend:api-key` | ready / T1 | deferred |
-| `rubygems:api-key` | ready / T1 | deferred |
-| `runpod:api-key` | ready / T1 | deferred |
-| `sendgrid:api-key` | ready / T1 | deferred |
-| `sentry:user-auth-token` | ready / T2 | deferred |
-| `sentry:organization-auth-token` | ready / T2 | deferred |
-| `shopify:custom-app-access-token` | ready / T1 | deferred |
-| `shopify:public-app-access-token` | ready / T1 | deferred |
-| `slack:bot-token` | ready / T1 | deferred |
-| `slack:user-token` | ready / T1 | deferred |
-| `slack:app-level-token` | ready / T2 | deferred |
-| `slack:workflow-webhook-token` | ready / T1 | deferred |
-| `sonarqube:user-token` | ready / T1 | deferred |
-| `sonarqube:analysis-token` | ready / T1 | deferred |
-| `supabase:secret-key` | ready / T1 | deferred |
-| `supabase:personal-access-token` | ready / T1 | deferred |
-| `tavily:api-key` | ready / T2 | deferred |
-| `telegram:bot-token` | ready / T2 | deferred |
-| `together:api-key` | ready / T2 | deferred |
-| `travis-ci:api-token` | ready / T2 | deferred |
-| `trigger-dev:secret-api-key` | ready / T1 | deferred |
-| `trigger-dev:personal-access-token` | ready / T1 | deferred |
-| `twilio:auth-token` | ready / T2 | deferred |
-| `twilio:api-key-secret` | ready / T2 | deferred |
-| `vercel:access-token` | rejected | deferred |
-| `vercel:personal-access-token` | ready / T2 | deferred |
-| `vercel:integration-token` | issuance-gated / T1 | deferred |
-| `vercel:app-access-token` | ready / T2 | deferred |
-| `vercel:app-refresh-token` | ready / T2 | deferred |
-| `vercel:api-key` | issuance-gated / T1 | deferred |
-| `voyage-ai:api-key` | issuance-gated / T2 | deferred |
-| `wandb:api-key` | ready / T1 | deferred |
-| `xai:api-key` | ready / T2 | deferred |
