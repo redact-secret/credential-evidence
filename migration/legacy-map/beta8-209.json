@@ -5,7 +5,7 @@
   "title": "Legacy map for suite beta8-209",
   "source": {
     "repository": "redact-secret/redact-secret-benchmarks",
-    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+    "revision": "1020d2b5905e8973098235e57c4cdca3359bba57"
   },
   "entries": [
     {"legacy":{"type":"suite","id":"beta8-209","path":"fixtures/generated/beta8-209.json","title":"Beta.8 documented-stable hardening (#209)","description":"Synthetic positives, independent controls and single-property twins that bring seven documented-stable families (azure-devops, datadog ddapp_, google AIza, heroku HRKU-, notion secret_, confluent cflt, anthropic sk-ant-api03-) to the documented-24 profile. Values are synthetic or independently constructed (Confluent's checksum from the provider's published algorithm), never provider-issued."},"canonical":[{"type":"fixture-plan","id":"benign-and-near-miss-controls"},{"type":"fixture-plan","id":"documented-format-positives"},{"type":"fixture-plan","id":"one-property-twins"},{"type":"scenario","id":"benign-encoded-value"},{"type":"scenario","id":"boundary-violation"},{"type":"scenario","id":"documentation-placeholder"},{"type":"scenario","id":"documented-format-literal"},{"type":"scenario","id":"format-near-miss"},{"type":"scenario","id":"invalid-checksum"},{"type":"scenario","id":"prefix-near-miss"},{"type":"scenario","id":"prose-mention"},{"type":"scenario","id":"public-identifier"},{"type":"scenario","id":"wrong-alphabet"},{"type":"scenario","id":"wrong-length"}],"relation":"reclassified-as-projection","note":"68 fixtures in 42 imported cases (0 case, 0 scenario, 42 projection); every fixture is listed below with its canonical id."},

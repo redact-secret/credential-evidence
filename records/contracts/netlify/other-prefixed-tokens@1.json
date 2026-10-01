@@ -4,7 +4,7 @@
   "id": "netlify:other-prefixed-tokens@1",
   "family": "netlify:other-prefixed-tokens",
   "revision": 1,
-  "period": "current",
+  "period": "proposed",
   "validity": {
     "from": null,
     "until": null
@@ -14,7 +14,7 @@
   "claims": [
     {
       "id": "dossier-research",
-      "statement": "Legacy dossier research (verdict ready, tier T1) cited 8 sources; the dossier does not attribute sources to individual properties.",
+      "statement": "Legacy dossier research (verdict issuance-gated, tier T1) cited 10 sources; the dossier does not attribute sources to individual properties.",
       "evidenceClass": "provider-documented",
       "temporality": "current",
       "observedAt": "2026-09-29",
@@ -26,6 +26,11 @@
         {
           "sourceId": "github-com-bzzimmy-kestrel-5327fc0813",
           "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-eb91ecc085",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L9-L25"
         },
         {
           "sourceId": "github-com-koki-develop-mask-go-36ff47865b",
@@ -40,7 +45,7 @@
           "supports": "Cited by the legacy dossier research for this family"
         },
         {
-          "sourceId": "github-com-redact-secret-redact-secret-2bac414bd1",
+          "sourceId": "github-com-redact-secret-redact-secret-51c8dc9509",
           "supports": "Final research evidence recorded by the legacy dossier"
         },
         {
@@ -50,6 +55,11 @@
         {
           "sourceId": "github-com-trufflesecurity-trufflehog-57b847f514",
           "supports": "Cited by the legacy dossier research for this family"
+        },
+        {
+          "sourceId": "github-com-vulnetix-cli-71eadc7e5b",
+          "supports": "Cited by the legacy dossier research for this family",
+          "locator": "#L25-L26"
         }
       ]
     },
@@ -71,14 +81,14 @@
   "externalRefs": [
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/netlify.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/netlify.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/netlify.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/netlify.md",
       "note": "families[id=netlify:other-prefixed-tokens].research"
     },
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=netlify:other-prefixed-tokens]"
     }
   ]

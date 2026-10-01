@@ -6,11 +6,18 @@
   "name": "CLI, OAuth, app and build tokens (nfc_/nfo_/nfu_/nfb_)",
   "description": "The announcement's four other nf-prefixed token classes, sharing the personal access token's scheme but issued for the CLI, OAuth flows, app.netlify.com and builds.",
   "lifecycle": "draft",
-  "currentContract": "netlify:other-prefixed-tokens@1",
+  "currentContract": null,
   "research": {
     "state": "researched",
     "researchedAt": "2026-09-29",
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "Separator, body width and alphabet per prefix are not provider-stated and peer rules disagree; nfc_ needs one netlify login measured, nfo_, nfu_ and nfb_ need an OAuth app, browser storage and a build step."
+      }
+    ],
     "issues": [
+      "redact-secret/redact-secret#1012",
       "redact-secret/redact-secret#311",
       "redact-secret/redact-secret#582",
       "redact-secret/redact-secret-benchmarks#473"
@@ -19,14 +26,14 @@
   "externalRefs": [
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/netlify.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/netlify.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/netlify.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/netlify.md",
       "note": "families[id=netlify:other-prefixed-tokens]"
     },
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=netlify:other-prefixed-tokens]"
     }
   ]

@@ -284,7 +284,7 @@ npm run parity:check             # fail on any unexplained difference or a stale
 illustrative example may reuse the id of a real record. The taxonomy and case imports need
 a checkout of `redact-secret-benchmarks` (`--legacy <path>` or
 `LEGACY_BENCHMARKS_DIR`; a sibling directory is found automatically) and reads
-only commit `ade8a10bd7922765110a68986b0690eb3861f2e5` of it. Tests that compare
+only commit `1020d2b5905e8973098235e57c4cdca3359bba57` of it. Tests that compare
 against that checkout skip when it is absent unless `REQUIRE_LEGACY=1`.
 
 The model and its rules are recorded in `docs/decisions/0001` to `0008` (0007 and 0008 correct parts of 0001 and 0005); what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`, and how each legacy case was reclassified is in `docs/migration/reclassification-report.md`.

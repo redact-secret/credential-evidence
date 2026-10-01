@@ -5,7 +5,7 @@
   "title": "Legacy map for suite beta8-213e",
   "source": {
     "repository": "redact-secret/redact-secret-benchmarks",
-    "revision": "ade8a10bd7922765110a68986b0690eb3861f2e5"
+    "revision": "1020d2b5905e8973098235e57c4cdca3359bba57"
   },
   "entries": [
     {"legacy":{"type":"suite","id":"beta8-213e","path":"fixtures/generated/beta8-213e.json","title":"Beta.8 context-twin debt for the legacy Datadog application key (#213, 213e)","description":"Four synthetic positives on new context axes (dotenv, HTTP header, Python constant, terraform output) and eight context twins that keep each value byte-for-byte and replace only the same-line Datadog application-key marker, bringing datadog-application-key-legacy to the context-constrained-empirical cells (48 fixtures, 10 twin and 10 context-twin pairs). Values are synthetic, never provider-issued; no observation record is implied."},"canonical":[{"type":"fixture-plan","id":"documented-format-positives"},{"type":"fixture-plan","id":"one-property-twins"},{"type":"scenario","id":"documented-format-literal"},{"type":"scenario","id":"missing-context-marker"}],"relation":"reclassified-as-projection","note":"12 fixtures in 2 imported cases (0 case, 0 scenario, 2 projection); every fixture is listed below with its canonical id."},

@@ -103,7 +103,7 @@ Point estimates, legacy to canonical (from the run artifacts; the Wilson bounds 
 
 ## 5. Re-pin
 
-**Deferred.**
+**Decided: re-pinned to `1020d2b5905e8973098235e57c4cdca3359bba57` (#74),** the revision `redact-secret-benchmarks` went to production at (`0.1.0-beta.12`, redact-secret-benchmarks#600 and #601), jointly with credential-eval. In effect option B at the production revision. Option C (a legacy evidence freeze from the cutover pin on) is still open. The analysis below was written at `ade8a10` and is kept as the basis of the decision; the result is at the end of this section.
 
 **What.** The importers, the exporter and the parity harness read the legacy repository at `ade8a10bd7922765110a68986b0690eb3861f2e5`. credential-eval's parity is pinned to `c403475476647bc98cc5864bccd7265eddebeb91`, and its parity report records a path-diff equivalence with `ade8a10` (only `benchmarks/feature-claims.json` differs, which nothing reads). Both repositories must re-prove together at any new pin.
 
@@ -112,7 +112,7 @@ Point estimates, legacy to canonical (from the run artifacts; the Wilson bounds 
 | Legacy file | Change | Read by | Consequence |
 | --- | --- | --- | --- |
 | `fixtures/generated/detector-coverage.mjs` | +27 lines: 25 new fixtures (Stripe `sk_org_` policy floor, redact-secret#1030), 1,309 to 1,334 in that corpus | `migrate:cases` (generator), parity | 25 fixtures with no canonical home: each needs a Case or Scenario and a fixture-set item in `migration/legacy-map/` (5,925 to 5,950) |
-| `benchmarks/fixture-index.json`, `fixture-semantics.json` | +25 fixtures (no existing fixture changed) | `migrate:cases`, parity | as above |
+| `benchmarks/fixture-index.json`, `fixture-semantics.json` | +25 fixtures (no existing index entry changed; the generator rescored the three `stripe-token-shape-5-*` fixtures from T0 to policy/T3, found at the re-pin) | `migrate:cases`, parity | as above |
 | `benchmarks/evaluation/domains/credential/assessment.ts` | +31 lines: `sk_org_` field claims, the `stripe-token` policy-floor rows | `migrate:taxonomy` (contract extraction), parity rules | format contract and variants for `stripe:organization-api-key`; the new rows are labelled project policy by legacy itself |
 | `benchmarks/support/dossiers/*.md` | 28 files, frontmatter changed in 25 (verdicts, sources, `blockedBy`, `researchedAt`; e.g. `stripe:organization-api-key` from `ready` to `issuance-gated`) | `migrate:narratives`, dossier projection, parity | family research records and narratives change; review per family |
 | `benchmarks/support/taxonomy.json` | 1 note (Stripe organization key) | `migrate:taxonomy`, parity | one family note |
@@ -137,6 +137,14 @@ Not read: `benchmarks/feature-claims.json`, `benchmarks/lib/peer-rule-families.t
 - For B or C (`1020d2b` or later): everything in A, plus reclassify the new fixtures into Cases and Scenarios and extend `migration/legacy-map/` (by review, ADR 0007/0008); review every new parity difference against `scripts/parity/rules.json`, with no new rule written just to silence it; regenerate the cases, taxonomy, narrative and reclassification reports, `coverage:gaps` and the projection manifest; `npm run fixtures:materialize`; re-run `npm run dual-run` with all five scanners. In credential-eval: update `adapters/node` to the legacy package pins (`@redact-secret/core` 0.1.0-beta.12, lockfile and integrity), then run `tools/parity/run.sh all` at the new legacy pin: legacy export, legacy bench and eval, the credential-eval bench and eval pipelines twice, compare, and the semantic digests. Then rewrite its parity report, which now records a beta.12 `redact-secret` scanner identity.
 
 **For a benchmark consumer.** Until the cutover pin, the projection lags legacy. Anything authored in legacy after the pin (today the 25 `sk_org_` fixtures) is absent from the projection, and an overlay keyed by those slugs has nothing to attach to (overlay keys are checked by count and sha256 in `overlay-interface.json`).
+
+**Result at `1020d2b5` (#74).**
+
+- Importers re-run (`migrate:taxonomy`, `migrate:cases`, `migrate:narratives`), projection and parity regenerated, fixtures re-materialized (digest `d4ac653b…`), coverage backlog regenerated.
+- Fixtures 5,925 to 5,950, legacy-map entries 7,917 to 7,943. The 25 new rows were classified by the existing rules as evidence, not support status: family `stripe:organization-api-key`, evidence class `project-policy`; 15 positives in `documented-format-positives` (project as `policy`/T3) and 10 policy-floor controls in `benign-and-near-miss-controls` (`must-not-flag`/T3). The three `stripe-token-shape-5-*` fixtures follow legacy from T0 to policy/T3, so T0 candidate readings go from 31 to 28 (ADR 0012 decision 2 unchanged).
+- Dossier frontmatter: 6 families lose their current contract (`issuance-gated` or rejected verdicts), 3 gain a researched state, 1 is now rejected; `stripe-token` field claims for `sk_org_` enter the contracts of the four families that share that legacy contract, the mode segment and body floor as `unresolved`. One authored narrative (`atlassian:access-token`) was adjusted because its research note and its `dossier-research` claim no longer back a statement.
+- Parity: 0 unexplained; explained 28,091 to 28,181, identical 173,657 to 174,293; 21 rules, all used, none added or removed. The 90 new explained values are the new fixtures under `fixture-group-replaced-by-case` (+25), `fixture-detector-assignment` (+50) and `span-note-boilerplate` (+15). The reason collapse (`fixture-reason-collapsed-to-case`) now gives `stripe-token-mask`, `-reference` and `-label-prose` the `sk_org_` floor wording of the 10 new controls they share an evidence entry with; the rule's predicate checks it and its count is unchanged (the three shape-5 fixtures left it).
+- Dual run, re-run once at the new pin with credential-eval `d5f2fb2` (beta.12 shim), all five scanners at their pins, `--jobs 4`, exploratory: for each scanner, 5,950 of 5,950 cases have identical findings and per-case measurement, with 0 unexplained drift and run-level aggregates 0 unexplained. Snapshot digests: canonical `sha256:1bc5a07b…`, legacy `sha256:e2b22ed5…`. See `docs/migration/dual-run-report.md`.
 
 ## 6. Legacy navigation scenario ids
 

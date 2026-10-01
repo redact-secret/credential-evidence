@@ -11,7 +11,7 @@
         "text": "The realtime client token begins rt_ and its body is opaque. It is minted by the client sessions endpoint, returned as the client secret value, and sent by the browser in the Sec-WebSocket-Protocol header as the word realtime, a comma and the token, which the page describes as the only supported transport. The token is scoped to a single model and reusable until it expires. The Python SDK types the value as a plain string.",
         "evidenceClass": "provider-documented",
         "temporality": "current",
-        "observedAt": "2026-09-27",
+        "observedAt": "2026-09-29",
         "citations": [
           {
             "kind": "source",
@@ -28,7 +28,7 @@
         "text": "The token body has a known length and alphabet.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-27",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 2,
           "reason": "No source states the length, alphabet or checksum; they are unknown until a token is minted."
@@ -41,7 +41,7 @@
         "text": "Minting needs a Studio key holding the create_client_session permission.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-27",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 3,
           "reason": "Recorded in a research note without a cited source in this family's contract; no token was minted."
@@ -54,7 +54,7 @@
         "text": "The token lifetime is about 900 seconds.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-27",
+        "observedAt": "2026-09-29",
         "leads": [
           {
             "kind": "source",
@@ -73,7 +73,7 @@
         "text": "The prefix rt_ is a common identifier prefix (for example rt_config and rt_timeout), so a rule on the prefix alone would match unrelated names. The token is not the Studio key.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-27",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 5,
           "reason": "Recorded in a research note without a cited source in this family's contract."
@@ -86,7 +86,7 @@
         "text": "Does the realtime endpoint accept the token as an Authorization Bearer value?",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-27",
+        "observedAt": "2026-09-29",
         "unresolved": {
           "reviewEvent": 6,
           "reason": "No source states whether the realtime endpoint accepts the token as a Bearer value."
@@ -97,8 +97,8 @@
   "externalRefs": [
     {
       "system": "legacy-dossier-narrative",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/mistral.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/mistral.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/mistral.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/mistral.md",
       "note": "families[id=mistral:realtime-client-token] dossier body"
     }
   ],

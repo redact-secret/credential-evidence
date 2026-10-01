@@ -49,7 +49,7 @@ const dirBytes = (dir) => {
 describe("the semantic tree (no legacy checkout needed)", () => {
   test("every record validates: schema, references, cell and evidence integrity, legacy-map targets", () => {
     assert.deepEqual(errors, []);
-    assert.equal(items.length, 5925);
+    assert.equal(items.length, 5950);
   });
 
   test("the tree is shaped: tens of Cases, tens of Scenarios, a few plans, sets by provider", () => {
@@ -92,7 +92,7 @@ describe("the semantic tree (no legacy checkout needed)", () => {
       const { basis } = set.evidence[item.evidence];
       assert.equal(basis === "unresolved", item.expected.outcome === "not-assertable", item.id);
     }
-    assert.equal(caseItems + cellItems, 5925);
+    assert.equal(caseItems + cellItems, 5950);
     assert.ok(caseItems < 400 && cellItems > 5500, `case fixtures ${caseItems}, cell fixtures ${cellItems}`);
     const projected = new Set(items.map(({ item }) => item.case).filter(Boolean));
     for (const c of cases) assert.ok(projected.has(c.id), `${c.id}: no fixture`);
@@ -160,7 +160,7 @@ describe("the semantic tree (no legacy checkout needed)", () => {
       assert.equal(s.imported, undefined, `${s.id}: sets are organised by provider, not by suite`);
     }
     assert.equal(items.filter(({ set }) => !set.generated).length, 140);
-    assert.equal(items.filter(({ set }) => set.generated).length, 5785);
+    assert.equal(items.filter(({ set }) => set.generated).length, 5810);
   });
 
   test("twin and mutation lineage is preserved at fixture level", () => {
@@ -180,11 +180,11 @@ describe("the semantic tree (no legacy checkout needed)", () => {
     const of = (type) => entriesOf.filter((e) => e.legacy.type === type);
     assert.equal(maps.length, 67);
     assert.equal(of("suite").length, 67);
-    assert.equal(of("case").length, 1925);
-    assert.equal(of("fixture").length, 5925);
+    assert.equal(of("case").length, 1926);
+    assert.equal(of("fixture").length, 5950);
     assert.ok(!entriesOf.some((e) => e.relation === "dropped" || e.canonical === null));
     const mapped = new Set(of("fixture").map((e) => e.canonical.id));
-    assert.equal(mapped.size, 5925);
+    assert.equal(mapped.size, 5950);
     for (const { item } of items) assert.ok(mapped.has(item.id), item.id);
     for (const m of maps) {
       assert.equal(m.source.revision, LEGACY_REVISION);
@@ -194,7 +194,7 @@ describe("the semantic tree (no legacy checkout needed)", () => {
     const relations = new Map();
     for (const e of of("case")) relations.set(e.relation, (relations.get(e.relation) ?? 0) + 1);
     assert.deepEqual([...relations.keys()].sort(), ["merged", "reclassified-as-projection", "reclassified-as-scenario", "same"]);
-    assert.equal([...relations.values()].reduce((a, b) => a + b, 0), 1925);
+    assert.equal([...relations.values()].reduce((a, b) => a + b, 0), 1926);
   });
 
   test("no legacy coordinate outside provenance: ids, paths, plan and cell references, evidence keys", () => {
@@ -311,8 +311,8 @@ describe("materialization", () => {
   const built = buildMaterialization({ sets, cases, scenarios });
 
   test("every fixture becomes one file and one manifest entry that needs no case semantics", () => {
-    assert.equal(built.files.size, 5925);
-    assert.equal(built.manifest.count, 5925);
+    assert.equal(built.files.size, 5950);
+    assert.equal(built.manifest.count, 5950);
     assert.equal(built.manifest.formatVersion, 2);
     for (const e of built.manifest.fixtures) {
       assert.ok(built.files.has(e.path));
@@ -410,8 +410,8 @@ describe("the tree against the pinned legacy revision", { skip: skipReason ?? fa
         assert.equal(item.lineage?.of, twinOf, slug);
       }
     }
-    assert.equal(n, 5925);
-    assert.equal(mapEntry.size, 5925);
+    assert.equal(n, 5950);
+    assert.equal(mapEntry.size, 5950);
   });
 
   test("every legacy imported case is mapped, and its fixtures are the ones the map says", () => {

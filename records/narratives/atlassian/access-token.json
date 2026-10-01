@@ -4,7 +4,6 @@
   "id": "atlassian:access-token",
   "family": "atlassian:access-token",
   "lifecycle": "draft",
-  "contract": "atlassian:access-token@1",
   "sections": {
     "shape": [
       {
@@ -14,10 +13,6 @@
         "temporality": "current",
         "observedAt": "2026-09-29",
         "citations": [
-          {
-            "kind": "claim",
-            "claimId": "dossier-research"
-          },
           {
             "kind": "source",
             "sourceId": "github-com-trufflesecurity-trufflehog-a7ee6ad5e4"
@@ -47,15 +42,9 @@
         "evidenceClass": "unresolved",
         "temporality": "current",
         "observedAt": "2026-09-29",
-        "leads": [
-          {
-            "kind": "source",
-            "sourceId": "github-com-redact-secret-redact-secret-f34ccdcd76"
-          }
-        ],
         "unresolved": {
           "reviewEvent": 2,
-          "reason": "A structure-only measurement of public code search results, recorded in a research note: 80 candidate values in 74 repositories, of which 73 were 192 characters, 79 carried the ATCTT3xFfGN0 header, 74 had the = at position 184 followed by 8 uppercase hex characters and 72 passed the CRC32 check. The values were not verified with Atlassian and some may be truncated or edited, so it is a lower-bound count that the cited source cannot reproduce."
+          "reason": "A structure-only measurement of public code search results, recorded only in a 2026-09-29 research pass that later contract research superseded and kept as history: 80 candidate values in 74 repositories, of which 73 were 192 characters, 79 carried the ATCTT3xFfGN0 header, 74 had the = at position 184 followed by 8 uppercase hex characters and 72 passed the CRC32 check. The values were not verified with Atlassian and some may be truncated or edited, so it is a lower-bound count that no source recorded for this family reproduces."
         }
       },
       {
@@ -150,10 +139,6 @@
         "observedAt": "2026-09-29",
         "citations": [
           {
-            "kind": "claim",
-            "claimId": "dossier-research"
-          },
-          {
             "kind": "source",
             "sourceId": "github-com-trufflesecurity-trufflehog-a7ee6ad5e4"
           },
@@ -205,8 +190,8 @@
   "externalRefs": [
     {
       "system": "legacy-dossier-narrative",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/atlassian.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/atlassian.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/atlassian.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/atlassian.md",
       "note": "families[id=atlassian:access-token] dossier body"
     }
   ]

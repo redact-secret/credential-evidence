@@ -6,11 +6,19 @@
   "name": "Organization API key",
   "description": "Organization-scoped secret key, prefixed sk_org_.",
   "lifecycle": "draft",
-  "currentContract": "stripe:organization-api-key@1",
+  "currentContract": null,
   "research": {
     "state": "researched",
     "researchedAt": "2026-09-29",
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "Whether a live_ or test_ segment follows sk_org_, and the body length and alphabet; needs one organization API key measured (structure only). Product gap redact-secret#1030 is filed."
+      }
+    ],
     "issues": [
+      "redact-secret/redact-secret#1012",
+      "redact-secret/redact-secret#1030",
       "redact-secret/redact-secret#513",
       "redact-secret/redact-secret-benchmarks#127",
       "redact-secret/redact-secret-benchmarks#45"
@@ -19,14 +27,14 @@
   "externalRefs": [
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/stripe.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/stripe.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/stripe.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/stripe.md",
       "note": "families[id=stripe:organization-api-key]"
     },
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=stripe:organization-api-key]"
     }
   ]

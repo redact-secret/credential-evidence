@@ -6,11 +6,18 @@
   "name": "Integration token",
   "description": "ntn_ prefixed integration token from Notion's 2024-09 rollout.",
   "lifecycle": "draft",
-  "currentContract": "notion:integration-token@1",
+  "currentContract": null,
   "research": {
     "state": "researched",
-    "researchedAt": "2026-09-24",
+    "researchedAt": "2026-09-29",
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "Leading digit run (11 per gitleaks and secretlint, 9 per CredSweeper) and body alphabet rest on peer rules only (one class); needs one integration token and one PAT measured (structure only)."
+      }
+    ],
     "issues": [
+      "redact-secret/redact-secret#1012",
       "redact-secret/redact-secret#514",
       "redact-secret/redact-secret#726",
       "redact-secret/redact-secret#729",
@@ -20,14 +27,14 @@
   "externalRefs": [
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/dossiers/notion.md",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/dossiers/notion.md",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/dossiers/notion.md",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/notion.md",
       "note": "families[id=notion:integration-token]"
     },
     {
       "system": "legacy-taxonomy-import",
-      "id": "ade8a10bd7922765110a68986b0690eb3861f2e5:benchmarks/support/taxonomy.json",
-      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/ade8a10bd7922765110a68986b0690eb3861f2e5/benchmarks/support/taxonomy.json",
+      "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
+      "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=notion:integration-token]"
     }
   ]

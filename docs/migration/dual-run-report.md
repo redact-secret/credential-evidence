@@ -6,8 +6,8 @@ Same scanner, same configuration, same corpus content, run twice through credent
 
 | Snapshot | Cases | credential-eval validator (`CorpusSnapshot::from_json`) |
 | --- | --- | --- |
-| canonical | 5,925 | accepted; OK: 5925 cases, digest sha256:32b453ce9b6e5dfd13c44959ac2842d0b5e98f3fb13e758a7a2b78eed0a10f83 |
-| legacy | 5,925 | accepted; OK: 5925 cases, digest sha256:4e14349a8670f12221c250f4c778ad67fae8550e49edc6e3669c94bdc45bf319 |
+| canonical | 5,950 | accepted; OK: 5950 cases, digest sha256:1bc5a07b49dab7b8182f51bf11a65a9bb8a220adbd5216b364bc15b2d8e6a5af |
+| legacy | 5,950 | accepted; OK: 5950 cases, digest sha256:e2b22ed59f5cc63c4e60e303c099079699a5795b236fdad97a774c100cefc8d3 |
 
 ## gitleaks
 
@@ -19,11 +19,11 @@ Configuration hash `sha256:345a2161fd1fbfc563bd41fc39ee552bc4518c43e179c4b734f8e
 
 | Measure | Value |
 | --- | --- |
-| cases compared (re-keyed) | 5,925 (unmatched 0) |
+| cases compared (re-keyed) | 5,950 (unmatched 0) |
 | findings, canonical run / legacy run | 2,410 / 2,410 |
-| cases with identical findings | 5,925 of 5,925 |
-| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,925 of 5,925 |
-| cases whose snapshot inputs differ (explained by the parity rules) | 159 |
+| cases with identical findings | 5,950 of 5,950 |
+| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,950 of 5,950 |
+| cases whose snapshot inputs differ (explained by the parity rules) | 122 |
 | cases whose evidence tier differs (aggregate grouping only; not a per-case input) | 343 |
 | **unexplained drift** (findings or measurement differ while kind, spans, family and twin lineage are equal) | **0** |
 
@@ -31,23 +31,21 @@ Cases whose inputs differ, by the input that differs:
 
 | Differing input | Cases | Of which measurement differs |
 | --- | --- | --- |
-| expected spans | 1 | 0 |
-| family | 34 | 0 |
-| kind + expected spans | 31 | 0 |
+| expected spans | 29 | 0 |
 | kind | 90 | 0 |
 | twin lineage | 3 | 0 |
 
-Run-level aggregates (`<kind>/<tier>` groups): 1 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,476 files, 137 flagged, 740 findings; positives: 2,399 files, 63,079 of 156,756 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
+Run-level aggregates (`<kind>/<tier>` groups): 3 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,486 files, 137 flagged, 740 findings; positives: 2,417 files, 63,733 of 157,410 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
 
 | Group | Files canonical / legacy | Cases in / out (canonical vs legacy) | Aggregate | Differing fields |
 | --- | --- | --- | --- | --- |
 | `must-not-flag/T1` | 10 / 10 | +0 / -0 | identical |  |
 | `must-not-flag/T2` | 1,816 / 2,069 | +0 / -253 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-not-flag/T3` | 1,650 / 1,397 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | differs, explained: T0 candidate-kind change | measurable_share, pending_files |
-| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs); T0 candidate-kind change | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, pending_files, secret_bytes, spans, twins |
-| `pending/T0` | 50 / 50 | +0 / -0 | differs, explained: T0 candidate-kind change | candidate_kinds |
-| `policy/T3` | 640 / 550 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
+| `must-not-flag/T3` | 1,660 / 1,407 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
+| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | identical |  |
+| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
+| `pending/T0` | 47 / 47 | +0 / -0 | identical |  |
+| `policy/T3` | 658 / 568 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
 
 ## trufflehog
 
@@ -59,11 +57,11 @@ Configuration hash `sha256:676ffe13805b6a1b278ef549e090c4d2f39eab5648565b8d9d5c2
 
 | Measure | Value |
 | --- | --- |
-| cases compared (re-keyed) | 5,925 (unmatched 0) |
+| cases compared (re-keyed) | 5,950 (unmatched 0) |
 | findings, canonical run / legacy run | 1,046 / 1,046 |
-| cases with identical findings | 5,925 of 5,925 |
-| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,925 of 5,925 |
-| cases whose snapshot inputs differ (explained by the parity rules) | 159 |
+| cases with identical findings | 5,950 of 5,950 |
+| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,950 of 5,950 |
+| cases whose snapshot inputs differ (explained by the parity rules) | 122 |
 | cases whose evidence tier differs (aggregate grouping only; not a per-case input) | 343 |
 | **unexplained drift** (findings or measurement differ while kind, spans, family and twin lineage are equal) | **0** |
 
@@ -71,39 +69,37 @@ Cases whose inputs differ, by the input that differs:
 
 | Differing input | Cases | Of which measurement differs |
 | --- | --- | --- |
-| expected spans | 1 | 0 |
-| family | 34 | 0 |
-| kind + expected spans | 31 | 0 |
+| expected spans | 29 | 0 |
 | kind | 90 | 0 |
 | twin lineage | 3 | 0 |
 
-Run-level aggregates (`<kind>/<tier>` groups): 1 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,476 files, 61 flagged, 102 findings; positives: 2,399 files, 103,341 of 156,756 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
+Run-level aggregates (`<kind>/<tier>` groups): 3 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,486 files, 61 flagged, 102 findings; positives: 2,417 files, 103,995 of 157,410 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
 
 | Group | Files canonical / legacy | Cases in / out (canonical vs legacy) | Aggregate | Differing fields |
 | --- | --- | --- | --- | --- |
 | `must-not-flag/T1` | 10 / 10 | +0 / -0 | identical |  |
 | `must-not-flag/T2` | 1,816 / 2,069 | +0 / -253 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-not-flag/T3` | 1,650 / 1,397 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | differs, explained: T0 candidate-kind change | measurable_share, pending_files |
-| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs); T0 candidate-kind change | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, pending_files, secret_bytes, spans, twins |
-| `pending/T0` | 50 / 50 | +0 / -0 | differs, explained: T0 candidate-kind change | candidate_kinds |
-| `policy/T3` | 640 / 550 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
+| `must-not-flag/T3` | 1,660 / 1,407 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
+| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | identical |  |
+| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
+| `pending/T0` | 47 / 47 | +0 / -0 | identical |  |
+| `policy/T3` | 658 / 568 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
 
 ## redact-secret
 
-Version reported by the scanner `0.1.0-beta.11`; pinned by the credential-eval Node shim lockfile `adapters/node/package-lock.json` (pin respected).
+Version reported by the scanner `0.1.0-beta.12`; pinned by the credential-eval Node shim lockfile `adapters/node/package-lock.json` (pin respected).
 
-Scanner provenance (artifact manifest): runtime `node` v22.16.0 `sha256:a45751fbfe88440bebff63cd44814e4ed6deb642bc3e3c4a14c4f8ae0ed9e019`; shim `shim.mjs` `sha256:195d02ca580c7652bafdfc82659566da61b19bba83dfcbf4a88d72f6dce1ed20`; lockfile `package-lock.json` 3 `sha256:e7a6dc306910fb62f88f10247b013087deccb3fd4db2088653bf91f7d580b678`; npm-package `@redact-secret/core` 0.1.0-beta.11 `sha256:2da94848df2f6a6a74630870d818249bf51f366f02c66496ba590a6ca919baed`; npm-package `@redact-secret/node-darwin-arm64` 0.1.0-beta.11 (no digest recorded); npm-package `@redact-secret/wasm` 0.1.0-beta.11 (no digest recorded). Run class `exploratory`, publication `internal`, status complete / complete (canonical / legacy), replays 2 and 2, agreed.
+Scanner provenance (artifact manifest): runtime `node` v22.16.0 `sha256:a45751fbfe88440bebff63cd44814e4ed6deb642bc3e3c4a14c4f8ae0ed9e019`; shim `shim.mjs` `sha256:195d02ca580c7652bafdfc82659566da61b19bba83dfcbf4a88d72f6dce1ed20`; lockfile `package-lock.json` 3 `sha256:96d58d878d0c0ce57a36bf2dda2247a5d3a03a26fba25535963f827619091ec2`; npm-package `@redact-secret/core` 0.1.0-beta.12 `sha256:b39f4244f48b6e29b36af7d5e9148f4822d5c7650683af7cda3232a729e18617`; npm-package `@redact-secret/node-darwin-arm64` 0.1.0-beta.12 (no digest recorded); npm-package `@redact-secret/wasm` 0.1.0-beta.12 (no digest recorded). Run class `exploratory`, publication `internal`, status complete / complete (canonical / legacy), replays 2 and 2, agreed.
 
 Configuration hash `sha256:e8d78f1359d1d918a77664b56e8a54a0838a8d6e3509ce0ab60e18e9c76a8ea2` (both runs: identical).
 
 | Measure | Value |
 | --- | --- |
-| cases compared (re-keyed) | 5,925 (unmatched 0) |
-| findings, canonical run / legacy run | 2,986 / 2,986 |
-| cases with identical findings | 5,925 of 5,925 |
-| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,925 of 5,925 |
-| cases whose snapshot inputs differ (explained by the parity rules) | 159 |
+| cases compared (re-keyed) | 5,950 (unmatched 0) |
+| findings, canonical run / legacy run | 3,156 / 3,156 |
+| cases with identical findings | 5,950 of 5,950 |
+| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,950 of 5,950 |
+| cases whose snapshot inputs differ (explained by the parity rules) | 122 |
 | cases whose evidence tier differs (aggregate grouping only; not a per-case input) | 343 |
 | **unexplained drift** (findings or measurement differ while kind, spans, family and twin lineage are equal) | **0** |
 
@@ -111,39 +107,37 @@ Cases whose inputs differ, by the input that differs:
 
 | Differing input | Cases | Of which measurement differs |
 | --- | --- | --- |
-| expected spans | 1 | 0 |
-| family | 34 | 0 |
-| kind + expected spans | 31 | 0 |
+| expected spans | 29 | 0 |
 | kind | 90 | 0 |
 | twin lineage | 3 | 0 |
 
-Run-level aggregates (`<kind>/<tier>` groups): 1 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,476 files, 21 flagged, 687 findings; positives: 2,399 files, 8,886 of 156,756 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
+Run-level aggregates (`<kind>/<tier>` groups): 3 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,486 files, 13 flagged, 684 findings; positives: 2,417 files, 72 of 157,410 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
 
 | Group | Files canonical / legacy | Cases in / out (canonical vs legacy) | Aggregate | Differing fields |
 | --- | --- | --- | --- | --- |
 | `must-not-flag/T1` | 10 / 10 | +0 / -0 | identical |  |
 | `must-not-flag/T2` | 1,816 / 2,069 | +0 / -253 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-not-flag/T3` | 1,650 / 1,397 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | differs, explained: T0 candidate-kind change | measurable_share, pending_files |
-| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs); T0 candidate-kind change | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_span_rate, measurable_share, outcomes, pending_files, secret_bytes, spans, twins |
-| `pending/T0` | 50 / 50 | +0 / -0 | differs, explained: T0 candidate-kind change | candidate_kinds |
-| `policy/T3` | 640 / 550 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_span_rate, measurable_share, outcomes, secret_bytes, spans, twins |
+| `must-not-flag/T3` | 1,660 / 1,407 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
+| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | identical |  |
+| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_span_rate, measurable_share, outcomes, secret_bytes, spans, twins |
+| `pending/T0` | 47 / 47 | +0 / -0 | identical |  |
+| `policy/T3` | 658 / 568 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_span_rate, measurable_share, outcomes, secret_bytes, spans, twins |
 
 ## flare-redact
 
 Version reported by the scanner `1.6.1`; pinned by the credential-eval Node shim lockfile `adapters/node/package-lock.json` (pin respected).
 
-Scanner provenance (artifact manifest): runtime `node` v22.16.0 `sha256:a45751fbfe88440bebff63cd44814e4ed6deb642bc3e3c4a14c4f8ae0ed9e019`; shim `shim.mjs` `sha256:195d02ca580c7652bafdfc82659566da61b19bba83dfcbf4a88d72f6dce1ed20`; lockfile `package-lock.json` 3 `sha256:e7a6dc306910fb62f88f10247b013087deccb3fd4db2088653bf91f7d580b678`; npm-package `flare-redact` 1.6.1 `sha256:0664dc9088fc61369ba53d735653b00c2f3aff3aadf4f08d2cbc7b78281f628d`. Run class `exploratory`, publication `internal`, status complete / complete (canonical / legacy), replays 2 and 2, agreed.
+Scanner provenance (artifact manifest): runtime `node` v22.16.0 `sha256:a45751fbfe88440bebff63cd44814e4ed6deb642bc3e3c4a14c4f8ae0ed9e019`; shim `shim.mjs` `sha256:195d02ca580c7652bafdfc82659566da61b19bba83dfcbf4a88d72f6dce1ed20`; lockfile `package-lock.json` 3 `sha256:96d58d878d0c0ce57a36bf2dda2247a5d3a03a26fba25535963f827619091ec2`; npm-package `flare-redact` 1.6.1 `sha256:0664dc9088fc61369ba53d735653b00c2f3aff3aadf4f08d2cbc7b78281f628d`. Run class `exploratory`, publication `internal`, status complete / complete (canonical / legacy), replays 2 and 2, agreed.
 
 Configuration hash `sha256:f111f4606c9185205f16555c97493f82a9165e19afe05c38a9d4a4b399b36300` (both runs: identical).
 
 | Measure | Value |
 | --- | --- |
-| cases compared (re-keyed) | 5,925 (unmatched 0) |
+| cases compared (re-keyed) | 5,950 (unmatched 0) |
 | findings, canonical run / legacy run | 1,111 / 1,111 |
-| cases with identical findings | 5,925 of 5,925 |
-| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,925 of 5,925 |
-| cases whose snapshot inputs differ (explained by the parity rules) | 159 |
+| cases with identical findings | 5,950 of 5,950 |
+| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,950 of 5,950 |
+| cases whose snapshot inputs differ (explained by the parity rules) | 122 |
 | cases whose evidence tier differs (aggregate grouping only; not a per-case input) | 343 |
 | **unexplained drift** (findings or measurement differ while kind, spans, family and twin lineage are equal) | **0** |
 
@@ -151,39 +145,37 @@ Cases whose inputs differ, by the input that differs:
 
 | Differing input | Cases | Of which measurement differs |
 | --- | --- | --- |
-| expected spans | 1 | 0 |
-| family | 34 | 0 |
-| kind + expected spans | 31 | 0 |
+| expected spans | 29 | 0 |
 | kind | 90 | 0 |
 | twin lineage | 3 | 0 |
 
-Run-level aggregates (`<kind>/<tier>` groups): 1 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,476 files, 66 flagged, 237 findings; positives: 2,399 files, 107,363 of 156,756 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
+Run-level aggregates (`<kind>/<tier>` groups): 3 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,486 files, 66 flagged, 237 findings; positives: 2,417 files, 108,017 of 157,410 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
 
 | Group | Files canonical / legacy | Cases in / out (canonical vs legacy) | Aggregate | Differing fields |
 | --- | --- | --- | --- | --- |
 | `must-not-flag/T1` | 10 / 10 | +0 / -0 | identical |  |
 | `must-not-flag/T2` | 1,816 / 2,069 | +0 / -253 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-not-flag/T3` | 1,650 / 1,397 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | differs, explained: T0 candidate-kind change | measurable_share, pending_files |
-| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs); T0 candidate-kind change | collateral_bytes, collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, pending_files, secret_bytes, spans, twins |
-| `pending/T0` | 50 / 50 | +0 / -0 | differs, explained: T0 candidate-kind change | candidate_kinds |
-| `policy/T3` | 640 / 550 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_bytes, collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
+| `must-not-flag/T3` | 1,660 / 1,407 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
+| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | identical |  |
+| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs) | collateral_bytes, collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
+| `pending/T0` | 47 / 47 | +0 / -0 | identical |  |
+| `policy/T3` | 658 / 568 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_bytes, collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
 
 ## openredaction
 
 Version reported by the scanner `1.1.5`; pinned by the credential-eval Node shim lockfile `adapters/node/package-lock.json` (pin respected).
 
-Scanner provenance (artifact manifest): runtime `node` v22.16.0 `sha256:a45751fbfe88440bebff63cd44814e4ed6deb642bc3e3c4a14c4f8ae0ed9e019`; shim `shim.mjs` `sha256:195d02ca580c7652bafdfc82659566da61b19bba83dfcbf4a88d72f6dce1ed20`; lockfile `package-lock.json` 3 `sha256:e7a6dc306910fb62f88f10247b013087deccb3fd4db2088653bf91f7d580b678`; npm-package `@openredaction/core` 1.1.5 `sha256:5bbb5867c3327cc5beb6352c9beea033e39baa4d5cf8e829f3fed36668ab71c3`. Run class `exploratory`, publication `internal`, status complete / complete (canonical / legacy), replays 2 and 2, agreed.
+Scanner provenance (artifact manifest): runtime `node` v22.16.0 `sha256:a45751fbfe88440bebff63cd44814e4ed6deb642bc3e3c4a14c4f8ae0ed9e019`; shim `shim.mjs` `sha256:195d02ca580c7652bafdfc82659566da61b19bba83dfcbf4a88d72f6dce1ed20`; lockfile `package-lock.json` 3 `sha256:96d58d878d0c0ce57a36bf2dda2247a5d3a03a26fba25535963f827619091ec2`; npm-package `@openredaction/core` 1.1.5 `sha256:5bbb5867c3327cc5beb6352c9beea033e39baa4d5cf8e829f3fed36668ab71c3`. Run class `exploratory`, publication `internal`, status complete / complete (canonical / legacy), replays 2 and 2, agreed.
 
 Configuration hash `sha256:b1db3e9c340b201725f947ea0cffd597ba64a20a5674f3dd57e50bef38e29974` (both runs: identical).
 
 | Measure | Value |
 | --- | --- |
-| cases compared (re-keyed) | 5,925 (unmatched 0) |
-| findings, canonical run / legacy run | 27,249 / 27,249 |
-| cases with identical findings | 5,925 of 5,925 |
-| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,925 of 5,925 |
-| cases whose snapshot inputs differ (explained by the parity rules) | 159 |
+| cases compared (re-keyed) | 5,950 (unmatched 0) |
+| findings, canonical run / legacy run | 27,253 / 27,253 |
+| cases with identical findings | 5,950 of 5,950 |
+| cases with identical per-case measurement (outcome, span outcomes, leaked and collateral bytes) | 5,950 of 5,950 |
+| cases whose snapshot inputs differ (explained by the parity rules) | 122 |
 | cases whose evidence tier differs (aggregate grouping only; not a per-case input) | 343 |
 | **unexplained drift** (findings or measurement differ while kind, spans, family and twin lineage are equal) | **0** |
 
@@ -191,23 +183,21 @@ Cases whose inputs differ, by the input that differs:
 
 | Differing input | Cases | Of which measurement differs |
 | --- | --- | --- |
-| expected spans | 1 | 0 |
-| family | 34 | 0 |
-| kind + expected spans | 31 | 0 |
+| expected spans | 29 | 0 |
 | kind | 90 | 0 |
 | twin lineage | 3 | 0 |
 
-Run-level aggregates (`<kind>/<tier>` groups): 1 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,476 files, 1,057 flagged, 15,069 findings; positives: 2,399 files, 115,926 of 156,756 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
+Run-level aggregates (`<kind>/<tier>` groups): 3 of 7 identical, **0 unexplained**; population totals over the scored groups conserved (controls: 3,486 files, 1,057 flagged, 15,069 findings; positives: 2,417 files, 116,580 of 157,410 secret bytes leaked); assertion resolution identical, per-target aggregates identical (no methods and no `grouping.targets` in either snapshot, so both are empty).
 
 | Group | Files canonical / legacy | Cases in / out (canonical vs legacy) | Aggregate | Differing fields |
 | --- | --- | --- | --- | --- |
 | `must-not-flag/T1` | 10 / 10 | +0 / -0 | identical |  |
 | `must-not-flag/T2` | 1,816 / 2,069 | +0 / -253 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-not-flag/T3` | 1,650 / 1,397 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
-| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | differs, explained: T0 candidate-kind change | measurable_share, pending_files |
-| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs); T0 candidate-kind change | collateral_bytes, collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, pending_files, secret_bytes, spans, twins |
-| `pending/T0` | 50 / 50 | +0 / -0 | differs, explained: T0 candidate-kind change | candidate_kinds |
-| `policy/T3` | 640 / 550 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_bytes, collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
+| `must-not-flag/T3` | 1,660 / 1,407 | +253 / -0 | differs, explained: moved cases (kind or tier differs) | diagnostics, false_alarm_rate, files, findings, flagged_files, mean_findings_per_flagged |
+| `must-redact/T1` | 1,298 / 1,298 | +0 / -0 | identical |  |
+| `must-redact/T2` | 461 / 551 | +0 / -90 | differs, explained: moved cases (kind or tier differs) | collateral_bytes, collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
+| `pending/T0` | 47 / 47 | +0 / -0 | identical |  |
+| `policy/T3` | 658 / 568 | +90 / -0 | differs, explained: moved cases (kind or tier differs) | collateral_bytes, collateral_ratio, diagnostics, envelope_width, files, leaked_byte_rate, leaked_bytes, leaked_span_rate, leaked_spans, measurable_share, outcomes, secret_bytes, spans, twins |
 
 ## How the explained differences map to the open cutover decisions
 
@@ -221,8 +211,8 @@ Every difference above has a cause recorded by a parity rule; none is harmless b
 
 ## Reproduction
 
-- credential-eval `2410e3c370736d64388effb2210291d8fdac0aa2` (credential-eval 0.1.0-alpha.1, credential-eval-protocol/1), built with `CARGO_BUILD_JOBS=2 cargo build --release`; Node shim installed with `(cd adapters/node && npm ci --ignore-scripts)`; Node v22.16.0.
-- credential-evidence `72280eb92d0c5e26e48af9b5c16edbc054a683a9` (the commit the run was made from; the snapshot digests above identify the content); legacy `redact-secret-benchmarks` at `ade8a10bd7922765110a68986b0690eb3861f2e5` (the importer pin).
+- credential-eval `d5f2fb24349d5866cbbadeaf980823886c521026` (credential-eval 0.1.0-alpha.1, credential-eval-protocol/1), built with `CARGO_BUILD_JOBS=2 cargo build --release`; Node shim installed with `(cd adapters/node && npm ci --ignore-scripts)`; Node v22.16.0.
+- credential-evidence `a494a4d0cf6300820bd4893d10e4695d28e3841e` (the commit the run was made from; the snapshot digests above identify the content); legacy `redact-secret-benchmarks` at `1020d2b5905e8973098235e57c4cdca3359bba57` (the importer pin).
 - gitleaks 8.30.1 and TruffleHog 3.97.4 provisioned into a read-only directory by the legacy `scripts/provision-peers.mjs` (archives checked against `scanners/peer-checksums.json`) and put first on `PATH`; the executable digests are in the provenance lines above.
 - Run configuration: credential-eval `tools/parity/run-config.json` (the configuration of its own parity run), one scanner at a time, `--jobs 4`, `--run-class exploratory`.
 

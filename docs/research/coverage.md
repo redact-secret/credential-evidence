@@ -5,36 +5,36 @@ rules and fields are in [README.md](README.md), and the skill that uses it is
 [coverage-gaps](../../.agents/skills/coverage-gaps/SKILL.md). This is a worklist of missing evidence, not a
 statement about any product.
 
-Reference date: 2026-09-29 (the newest date recorded in `records/`). Staleness period: 12 months.
+Reference date: 2026-09-30 (the newest date recorded in `records/`). Staleness period: 12 months.
 
-93 providers, 173 families, 29 scenarios: **456 open items**.
+93 providers, 173 families, 29 scenarios: **465 open items**.
 
 ## By priority
 
 | Priority | Score | Items |
 | --- | --- | --- |
 | P0 | 90+ | 1 |
-| P1 | 70-89 | 4 |
-| P2 | 45-69 | 408 |
-| P3 | 0-44 | 43 |
+| P1 | 70-89 | 12 |
+| P2 | 45-69 | 404 |
+| P3 | 0-44 | 48 |
 
 ## By gap kind
 
 | Gap kind | Base score | Items | Closed by | Meaning |
 | --- | --- | --- | --- | --- |
 | `family-unresearched` | 95 | 0 | `research-family` | the family is recorded but nothing about its format is established |
-| `contract-missing` | 90 | 4 | `research-family` | the family was researched but has no current format contract |
+| `contract-missing` | 90 | 12 | `research-family` | the family was researched but has no current format contract |
 | `evidence-unresolved-only` | 85 | 0 | `research-family` | the family's contract holds no claim above unresolved |
 | `provider-no-families` | 85 | 0 | `research-provider` | the provider is recorded but no credential family is |
 | `no-provider-source` | 80 | 1 | `research-family` | no claim rests on a provider-authored source |
 | `source-unreachable` | 75 | 0 | `source-freshness` | the last observation of a cited source found it unreachable, changed or superseded |
 | `evidence-stale` | 70 | 0 | `source-freshness` | a claim about current behavior was last observed more than 12 months ago |
 | `narrative-missing` | 60 | 0 | `research-family` | the family has no claim-backed narrative |
-| `narrative-unresolved-heavy` | 50 | 108 | `research-family` | at least half of the narrative's statements are unresolved |
+| `narrative-unresolved-heavy` | 50 | 111 | `research-family` | at least half of the narrative's statements are unresolved |
 | `new-provider` | 30-50 | 24 | `research-provider` | a provider on the wishlist has no record yet |
-| `benign-siblings-missing` | 40 | 150 | `research-family` | no benign sibling or lookalike case is recorded for the family |
-| `observation-unverified` | 35 | 161 | `source-freshness` | every cited source was last observed only by an import, never re-read |
-| `cases-missing` | 30 | 8 | `author-case` | no Case and no fixture plan involves the family |
+| `benign-siblings-missing` | 40 | 152 | `research-family` | no benign sibling or lookalike case is recorded for the family |
+| `observation-unverified` | 35 | 155 | `source-freshness` | every cited source was last observed only by an import, never re-read |
+| `cases-missing` | 30 | 10 | `author-case` | no Case and no fixture plan involves the family |
 | `scenario-unused` | 25 | 0 | `author-case` | no Case and no fixture plan instantiates the scenario |
 
 ## Top of the backlog
@@ -42,30 +42,30 @@ Reference date: 2026-09-29 (the newest date recorded in `records/`). Staleness p
 | # | Item | Priority | Score | Skill |
 | --- | --- | --- | --- | --- |
 | 1 | `no-provider-source:atlassian:api-token` | P0 | 90 | `research-family` |
-| 2 | `contract-missing:mistral:realtime-client-token` | P1 | 75 | `research-family` |
-| 3 | `contract-missing:vercel:api-key` | P1 | 75 | `research-family` |
-| 4 | `contract-missing:vercel:integration-token` | P1 | 75 | `research-family` |
-| 5 | `contract-missing:voyage-ai:api-key` | P1 | 75 | `research-family` |
-| 6 | `narrative-unresolved-heavy:atlassian:api-token` | P2 | 67 | `research-family` |
-| 7 | `narrative-unresolved-heavy:groq:api-key` | P2 | 67 | `research-family` |
-| 8 | `narrative-unresolved-heavy:browserbase:api-key` | P2 | 66 | `research-family` |
-| 9 | `narrative-unresolved-heavy:cloudflare:api-token` | P2 | 66 | `research-family` |
-| 10 | `narrative-unresolved-heavy:fireworks-ai:api-key` | P2 | 66 | `research-family` |
-| 11 | `narrative-unresolved-heavy:generic:private-key` | P2 | 66 | `research-family` |
-| 12 | `narrative-unresolved-heavy:google:generic-api-key` | P2 | 66 | `research-family` |
-| 13 | `narrative-unresolved-heavy:new-relic:license-key` | P2 | 66 | `research-family` |
-| 14 | `narrative-unresolved-heavy:postman:api-key` | P2 | 66 | `research-family` |
-| 15 | `narrative-unresolved-heavy:supabase:personal-access-token` | P2 | 66 | `research-family` |
-| 16 | `narrative-unresolved-heavy:twilio:api-key-secret` | P2 | 66 | `research-family` |
-| 17 | `narrative-unresolved-heavy:cerebras:inference-api-key` | P2 | 65 | `research-family` |
-| 18 | `narrative-unresolved-heavy:generic:jwt` | P2 | 65 | `research-family` |
-| 19 | `narrative-unresolved-heavy:mailchimp:marketing-api-key` | P2 | 65 | `research-family` |
-| 20 | `narrative-unresolved-heavy:microsoft-entra:application-client-secret` | P2 | 65 | `research-family` |
-| 21 | `narrative-unresolved-heavy:openai:secret-api-key` | P2 | 65 | `research-family` |
-| 22 | `narrative-unresolved-heavy:openrouter:api-key` | P2 | 65 | `research-family` |
-| 23 | `narrative-unresolved-heavy:rubygems:api-key` | P2 | 65 | `research-family` |
-| 24 | `narrative-unresolved-heavy:slack:app-level-token` | P2 | 65 | `research-family` |
-| 25 | `narrative-unresolved-heavy:supabase:secret-key` | P2 | 65 | `research-family` |
+| 2 | `contract-missing:notion:integration-token` | P1 | 85 | `research-family` |
+| 3 | `contract-missing:stripe:organization-api-key` | P1 | 85 | `research-family` |
+| 4 | `contract-missing:atlassian:access-token` | P1 | 75 | `research-family` |
+| 5 | `contract-missing:google:oauth2-credential` | P1 | 75 | `research-family` |
+| 6 | `contract-missing:linear:oauth-access-token` | P1 | 75 | `research-family` |
+| 7 | `contract-missing:mistral:realtime-client-token` | P1 | 75 | `research-family` |
+| 8 | `contract-missing:netlify:other-prefixed-tokens` | P1 | 75 | `research-family` |
+| 9 | `contract-missing:openrouter:management-api-key` | P1 | 75 | `research-family` |
+| 10 | `contract-missing:slack:workflow-webhook-token` | P1 | 75 | `research-family` |
+| 11 | `contract-missing:vercel:api-key` | P1 | 75 | `research-family` |
+| 12 | `contract-missing:vercel:integration-token` | P1 | 75 | `research-family` |
+| 13 | `contract-missing:voyage-ai:api-key` | P1 | 75 | `research-family` |
+| 14 | `narrative-unresolved-heavy:atlassian:api-token` | P2 | 67 | `research-family` |
+| 15 | `narrative-unresolved-heavy:groq:api-key` | P2 | 67 | `research-family` |
+| 16 | `narrative-unresolved-heavy:browserbase:api-key` | P2 | 66 | `research-family` |
+| 17 | `narrative-unresolved-heavy:cloudflare:api-token` | P2 | 66 | `research-family` |
+| 18 | `narrative-unresolved-heavy:fireworks-ai:api-key` | P2 | 66 | `research-family` |
+| 19 | `narrative-unresolved-heavy:generic:private-key` | P2 | 66 | `research-family` |
+| 20 | `narrative-unresolved-heavy:google:generic-api-key` | P2 | 66 | `research-family` |
+| 21 | `narrative-unresolved-heavy:new-relic:license-key` | P2 | 66 | `research-family` |
+| 22 | `narrative-unresolved-heavy:postman:api-key` | P2 | 66 | `research-family` |
+| 23 | `narrative-unresolved-heavy:supabase:personal-access-token` | P2 | 66 | `research-family` |
+| 24 | `narrative-unresolved-heavy:twilio:api-key-secret` | P2 | 66 | `research-family` |
+| 25 | `narrative-unresolved-heavy:cerebras:inference-api-key` | P2 | 65 | `research-family` |
 
 ## By provider
 
@@ -73,8 +73,15 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 
 | Provider | Items | Best score | Gap kinds |
 | --- | --- | --- | --- |
-| atlassian | 7 | 90 | benign-siblings-missing, cases-missing, narrative-unresolved-heavy, no-provider-source, observation-unverified |
+| atlassian | 7 | 90 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, no-provider-source, observation-unverified |
+| notion | 6 | 85 | benign-siblings-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
+| stripe | 14 | 85 | benign-siblings-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
+| google | 10 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
+| linear | 6 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | mistral | 7 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
+| netlify | 7 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
+| openrouter | 7 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
+| slack | 12 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | vercel | 14 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | voyage-ai | 4 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy |
 | groq | 3 | 67 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
@@ -82,7 +89,6 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 | cloudflare | 3 | 66 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | fireworks-ai | 3 | 66 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | generic | 13 | 66 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
-| google | 6 | 66 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | new-relic | 6 | 66 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | postman | 6 | 66 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | supabase | 6 | 66 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
@@ -91,9 +97,7 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 | mailchimp | 3 | 65 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | microsoft-entra | 3 | 65 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | openai | 6 | 65 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
-| openrouter | 3 | 65 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | rubygems | 3 | 65 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
-| slack | 12 | 65 | benign-siblings-missing, cases-missing, narrative-unresolved-heavy, observation-unverified |
 | telegram | 3 | 65 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | xai | 3 | 65 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | clickhouse-cloud | 3 | 64 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
@@ -101,7 +105,6 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 | docker | 6 | 64 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | langsmith | 3 | 64 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | mailgun | 6 | 64 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
-| notion | 6 | 64 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | sentry | 6 | 64 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | cohere | 3 | 63 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | composio | 9 | 63 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
@@ -130,7 +133,6 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 | helicone | 6 | 61 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | heroku | 6 | 61 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | langfuse | 3 | 61 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
-| netlify | 7 | 61 | benign-siblings-missing, cases-missing, narrative-unresolved-heavy, observation-unverified |
 | runpod | 3 | 61 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | travis-ci | 3 | 61 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | apify | 3 | 60 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
@@ -142,7 +144,6 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 | gitlab | 6 | 60 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | resend | 3 | 60 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | sendgrid | 2 | 60 | narrative-unresolved-heavy, observation-unverified |
-| stripe | 14 | 60 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | tavily | 3 | 60 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | aws | 5 | 50 | benign-siblings-missing, observation-unverified |
 | bitwarden | 2 | 50 | benign-siblings-missing, observation-unverified |
@@ -153,7 +154,6 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 | hashicorp-vault | 6 | 50 | benign-siblings-missing, observation-unverified |
 | honeycomb | 2 | 50 | benign-siblings-missing, observation-unverified |
 | inngest | 2 | 50 | benign-siblings-missing, observation-unverified |
-| linear | 2 | 50 | benign-siblings-missing, observation-unverified |
 | nvidia | 2 | 50 | benign-siblings-missing, observation-unverified |
 | onepassword | 2 | 50 | benign-siblings-missing, observation-unverified |
 | paddle | 2 | 50 | benign-siblings-missing, observation-unverified |
@@ -164,7 +164,7 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 | shopify | 4 | 50 | benign-siblings-missing, observation-unverified |
 | sonarqube | 4 | 50 | benign-siblings-missing, observation-unverified |
 | wandb | 2 | 50 | benign-siblings-missing, observation-unverified |
-| npm | 4 | 45 | benign-siblings-missing, cases-missing, observation-unverified |
+| npm | 1 | 45 | observation-unverified |
 
 ## New-provider wishlist
 
