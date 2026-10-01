@@ -53,3 +53,10 @@ not a skill) and create records with `npm run record:new`, checking them with
 `npm run record:check` ([docs/authoring.md](docs/authoring.md)), instead of
 hand-writing record JSON.
 
+Hygiene and backlog skills: `coverage-gaps` (what to work on next, from
+`npm run coverage:gaps` and [docs/research](docs/research/README.md)), `tidy-records`
+(mechanical clean-up, `npm run tidy:scan`) and `source-freshness` (re-observe sources,
+`npm run source:observe`). A record that a `migrate:*` pipeline generates cannot be edited in
+place until the cutover; the scan and the tools say which records those are. Commit the output of
+`npm run coverage:gaps` with any change that adds, fixes or re-observes a record
+(`npm run coverage:gaps:check` runs in CI).
