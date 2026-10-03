@@ -24,7 +24,7 @@ const BASES = join(root, "records/fixtures/base64-hex-representation-bases.json"
 const OUT = join(root, "records/fixtures/base64-hex-representation-projections.json");
 const SET_ID = "base64-hex-representation-projections";
 const PLAN = "base64-hex-representation-matrix";
-const GENERATOR = { name: "base64-hex-projection-generator", version: "1.0.0" };
+const GENERATOR = { name: "base64-hex-projection-generator", version: "1.0.0", entrypoint: "scripts/generate-base64-hex-projections.mjs" };
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
