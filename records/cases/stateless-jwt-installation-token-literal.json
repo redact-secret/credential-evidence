@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "stateless-jwt-installation-token-literal",
+  "title": "Stateless JWT-form GitHub App installation token",
+  "summary": "A synthetic ghs_ token of the form ghs_APPID_JWT: a placeholder app id, an underscore and a three-segment JWT with two dots, about 520 characters in total, in a bare form and in JSON, Authorization, URL, Korean/emoji and CRLF carriers.",
+  "rationale": "GitHub began issuing this form on 2026-04-27 and documents it in prose and as a regular expression. A matcher built for the 40-character opaque form, or one that stops at the first dot or underscore, cuts the token short or misses it. The value is shaped by the documented grammar; being a well-formed JWT is not proof of issuance and the value was never issued.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "documented-format-literal"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flagged, covering the whole token from ghs_ to the end of the last JWT segment. The provider documents the prefix, the ghs_APPID_JWT notation, the two dots and the recommended expression; this rests on that lexical grammar only.",
+    "sources": [
+      {
+        "sourceId": "github-blog-dd07252324",
+        "supports": "ghs_APPID_JWT notation; about 520 characters; applications relying on exactly 40 characters may break.",
+        "locator": "What is changing?"
+      },
+      {
+        "sourceId": "github-blog-30e232220c",
+        "supports": "Stateless token is a ghs_-prefixed JWT with two dots; recommended expression ghs_[A-Za-z0-9\\.\\-_]{36,}.",
+        "locator": "How to use it; Verifying the token type"
+      },
+      {
+        "sourceId": "docs-github-com-094b941a54",
+        "supports": "Staged rollout of ghs_APPID_JWT and the warning about relying on exactly 40 characters.",
+        "locator": "#githubs-token-formats"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

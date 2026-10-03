@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "unprefixed-jwt-beside-installation-token-shape",
+  "title": "A JWT without the ghs_ prefix",
+  "summary": "A synthetic three-segment JWT with the standard HS256 header and no ghs_ prefix.",
+  "rationale": "An ordinary JWT shares the dotted base64url shape of the stateless form but not its prefix, which is what names the token kind. Whether it is reported, and under which family, is the generic JWT family's question; this case records only that it is not an installation token.",
+  "caseTypes": [
+    "benign",
+    "cross-family"
+  ],
+  "families": [
+    {
+      "family": "generic:jwt",
+      "role": "subject"
+    },
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted here. The generic JWT family carries its own reviewed expectations for JWT-shaped values; this repository does not duplicate them in the installation-token family.",
+    "sources": [
+      {
+        "sourceId": "github-blog-30e232220c",
+        "supports": "Stateless token is a ghs_-prefixed JWT with two dots; recommended expression ghs_[A-Za-z0-9\\.\\-_]{36,}.",
+        "locator": "How to use it; Verifying the token type"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

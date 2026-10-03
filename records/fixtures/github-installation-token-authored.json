@@ -1,0 +1,500 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "github-installation-token-authored",
+  "title": "GitHub App installation token fixtures (authored)",
+  "description": "Authored base samples for the opaque and the stateless JWT forms of the GitHub App installation token, near-miss and public-data controls, and carrier-context projections of the bases. Bases carry no lineage; every derived fixture names its base in lineage.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "evidence": {
+    "ev-stateless-shape": {
+      "basis": "provider-documented",
+      "rationale": "GitHub writes the stateless form ghs_APPID_JWT, says it has two dots and about 520 characters, and recommends an expression that matches it. The expectation covers this lexical shape only; a syntactically formed JWT is not evidence that a value was issued, and this value was never issued.",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "Token format changes to ghs_APPID_JWT; length about 520 characters.",
+          "locator": "What is changing?"
+        },
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "A stateless token is a ghs_-prefixed JWT with two dots; recommended expression ghs_[A-Za-z0-9\\.\\-_]{36,}.",
+          "locator": "How to use it"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    },
+    "ev-opaque-shape": {
+      "basis": "provider-documented",
+      "rationale": "GitHub describes the previous installation token as 40 characters (ghs_ plus 36) and as an opaque string with no dots, and its recommended expression covers it. Lexical shape only; the value was never issued.",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "Applications that rely on installation tokens being exactly 40 characters long may not handle the new format.",
+          "locator": "Opening paragraph"
+        },
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "A stateful token is a short opaque string with no dots.",
+          "locator": "How to use it"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    },
+    "ev-open-grammar": {
+      "basis": "unresolved",
+      "rationale": "The recommended expression matches the value, but the provider documents neither the APPID segment's grammar nor whether a token may lack it, and describes only two-dot (stateless) and no-dot (opaque) tokens; the expected outcome is not settled.",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "ghs_APPID_JWT notation with no grammar for APPID; JWT contents are not for clients to depend on.",
+          "locator": "What is changing?"
+        },
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "Recommended expression and the two-dot / no-dot rule.",
+          "locator": "How to use it; Verifying the token type"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    },
+    "ev-policy-near-miss": {
+      "basis": "project-policy",
+      "rationale": "Below both the provider's documented minimum of 36 characters after the prefix and the 40-character total, so not a token of the documented grammar. A project decision pending a maintainer and a reviewer who is not the author; not a provider rule.",
+      "sources": [],
+      "observedAt": "2026-10-03"
+    },
+    "ev-policy-prose": {
+      "basis": "project-policy",
+      "rationale": "Text that names the notation or the header holds no credential value. A project decision pending a maintainer and a reviewer who is not the author; not a provider rule.",
+      "sources": [],
+      "observedAt": "2026-10-03"
+    },
+    "ev-policy-ids": {
+      "basis": "project-policy",
+      "rationale": "Numeric app and installation identifiers are not credentials. A project decision pending a maintainer and a reviewer who is not the author; the provider sources read here do not classify them.",
+      "sources": [],
+      "observedAt": "2026-10-03"
+    },
+    "ev-open-attribution": {
+      "basis": "unresolved",
+      "rationale": "A JWT without the ghs_ prefix is not an installation token (the prefix names the kind), but whether and as what it is reported belongs to the generic JWT family's own reviewed expectations; no outcome is asserted here.",
+      "sources": [
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "Installation tokens are ghs_-prefixed; the JWT form is recognised by the dots after that prefix.",
+          "locator": "Verifying the token type"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    }
+  },
+  "fixtures": [
+    {
+      "id": "github-installation-token-authored--base-stateless-a",
+      "case": "stateless-jwt-installation-token-literal",
+      "path": "base-stateless-a/base-stateless-a.txt",
+      "context": "bare",
+      "evidence": "ev-stateless-shape",
+      "sha256": "4f06abea5542dd13ae49fc8b3e759b979f3e5cd1b5ca46e38c71c5823c9d97e6",
+      "text": "ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 520,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--base-stateless-b",
+      "case": "stateless-jwt-installation-token-literal",
+      "path": "base-stateless-b/base-stateless-b.txt",
+      "context": "bare",
+      "evidence": "ev-stateless-shape",
+      "sha256": "51f5ea0d82455e3e4c6fa1b069f04bd91dcfba55a783739c83561375dc3dfdd7",
+      "text": "ghs_0000002_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6Ij8_Pj4_Pz4-fn54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedOLLmRvys5gsQlhZzKoZDIXR",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 512,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--base-opaque",
+      "case": "opaque-installation-token-forty-characters-literal",
+      "path": "base-opaque/base-opaque.txt",
+      "context": "bare",
+      "evidence": "ev-opaque-shape",
+      "sha256": "1f5287a7e9c409e6347724047d7c14498b0c68613b562e179233d4e0ce423390",
+      "text": "ghs_SYNTHETICneverissued0000000000000000",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 40,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--base-no-app-id",
+      "case": "installation-token-without-app-id-segment",
+      "path": "base-no-app-id/base-no-app-id.txt",
+      "context": "bare",
+      "evidence": "ev-open-grammar",
+      "sha256": "554641e72266073daa2ee0ecfca8a50317011a11e28dfd1751826f2844e8af44",
+      "text": "ghs_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedg-GLPufKFaTp28fnGovBRZc",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "candidateReading": {
+        "asserting": false,
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 520,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--base-prose-notation",
+      "case": "installation-token-notation-and-header-name-in-prose",
+      "path": "base-prose-notation/base-prose-notation.txt",
+      "context": "prose",
+      "evidence": "ev-policy-prose",
+      "sha256": "0a401fbb9423de40b72f6ee8c6359665cea74c1519651e28ecda215b93ae4834",
+      "text": "GitHub now writes installation tokens as ghs_APPID_JWT; send X-GitHub-Stateless-S2S-Token: enabled to try the new format.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-installation-token-authored--base-ids-json",
+      "case": "github-app-and-installation-ids-in-json",
+      "path": "base-ids-json/base-ids-json.txt",
+      "context": "structured-file",
+      "evidence": "ev-policy-ids",
+      "sha256": "f566c95c3a309392cf10c3626b6c3fb72307a090bfad73930b0f05237a649b70",
+      "text": "{\"id\":1234567,\"app_id\":7654321,\"target_type\":\"Organization\",\"account\":{\"login\":\"example-org\",\"id\":2345678}}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-installation-token-authored--base-unprefixed-jwt",
+      "case": "unprefixed-jwt-beside-installation-token-shape",
+      "path": "base-unprefixed-jwt/base-unprefixed-jwt.txt",
+      "context": "bare",
+      "evidence": "ev-open-attribution",
+      "sha256": "6024ba035dd6c3f98f81f456ec91df46620f26e48e0162e679e56578594ea0aa",
+      "text": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImEifQ.SYNTHETICneverissued38rcE-AEr9Lunz0JfvNgbrh",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-installation-token-authored--mutation-incomplete-no-signature",
+      "case": "installation-token-with-incomplete-jwt-segments",
+      "path": "mutation-incomplete-no-signature/mutation-incomplete-no-signature.txt",
+      "lineage": {
+        "relation": "mutation-of",
+        "of": "github-installation-token-authored--base-stateless-a",
+        "mutationKind": "dropped-signature-segment",
+        "mutation": "JWT signature segment and its dot removed from the stateless base, leaving one dot"
+      },
+      "context": "bare",
+      "evidence": "ev-open-grammar",
+      "sha256": "af8f359627a18cef8ccb7bef5e65f45d260681656d9dcc069165e8d67bdf12ee",
+      "text": "ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImEifQ",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-installation-token-authored--mutation-incomplete-header-only",
+      "case": "installation-token-with-incomplete-jwt-segments",
+      "path": "mutation-incomplete-header-only/mutation-incomplete-header-only.txt",
+      "lineage": {
+        "relation": "mutation-of",
+        "of": "github-installation-token-authored--base-stateless-a",
+        "mutationKind": "header-segment-only",
+        "mutation": "Only the JWT header segment kept after the app id, leaving no dot"
+      },
+      "context": "bare",
+      "evidence": "ev-open-grammar",
+      "sha256": "38a2f1a0b6f06a6f8bba80fd5b9e790622d2e29c76cf27e45ee3b3753b30a5ff",
+      "text": "ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-installation-token-authored--twin-body-35",
+      "case": "installation-token-body-shorter-than-documented-minimum",
+      "path": "twin-body-35/twin-body-35.txt",
+      "lineage": {
+        "relation": "twin-of",
+        "of": "github-installation-token-authored--base-opaque",
+        "mutationKind": "length",
+        "mutation": "length: 35 characters after ghs_ vs 36 in the opaque base"
+      },
+      "context": "bare",
+      "evidence": "ev-policy-near-miss",
+      "sha256": "05731ad106510d3ade7631236241dc08cc8b7652d28017c3f1b03065c55e3bc5",
+      "text": "ghs_SYNTHETICneverissued000000000000000",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-stateless-a-json",
+      "case": "stateless-jwt-installation-token-literal",
+      "path": "projection-stateless-a-json/projection-stateless-a-json.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-stateless-a",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a json carrier; the token bytes are unchanged"
+      },
+      "context": "json",
+      "evidence": "ev-stateless-shape",
+      "sha256": "c6ee5e389997c2ec7e531df556a3dd44f7b54d49c1509e3c51a8f47141750344",
+      "text": "{\"token\":\"ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2\",\"expires_at\":\"2026-10-03T12:00:00Z\",\"permissions\":{\"contents\":\"read\"}}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 530,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-stateless-a-authorization",
+      "case": "stateless-jwt-installation-token-literal",
+      "path": "projection-stateless-a-authorization/projection-stateless-a-authorization.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-stateless-a",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a authorization carrier; the token bytes are unchanged"
+      },
+      "context": "authorization",
+      "evidence": "ev-stateless-shape",
+      "sha256": "dbfee550584e230e67a49e2d9adc3fe17f3f005a4bbf8b961a351ec3370751c5",
+      "text": "Authorization: Bearer ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 542,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-stateless-a-git-url",
+      "case": "stateless-jwt-installation-token-literal",
+      "path": "projection-stateless-a-git-url/projection-stateless-a-git-url.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-stateless-a",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a git-url carrier; the token bytes are unchanged"
+      },
+      "context": "git-url",
+      "evidence": "ev-stateless-shape",
+      "sha256": "6b9628b2c753e9e50eac789803faa4ce6cbbc2f0eb70c42527369a5c432dd080",
+      "text": "git clone https://x-access-token:ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2@github.example.invalid/example-org/example-repo.git\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 33,
+            "end": 553,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-stateless-a-korean-emoji",
+      "case": "stateless-jwt-installation-token-literal",
+      "path": "projection-stateless-a-korean-emoji/projection-stateless-a-korean-emoji.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-stateless-a",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a korean-emoji carrier; the token bytes are unchanged"
+      },
+      "context": "korean-emoji",
+      "evidence": "ev-stateless-shape",
+      "sha256": "6f6595e9d2ca224d128aec51843558de251b9bed74097295192f4f974efbab88",
+      "text": "🔑 설치 토큰: ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2 (테스트용)\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 540,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-stateless-a-crlf",
+      "case": "stateless-jwt-installation-token-literal",
+      "path": "projection-stateless-a-crlf/projection-stateless-a-crlf.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-stateless-a",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a crlf carrier; the token bytes are unchanged"
+      },
+      "context": "crlf",
+      "evidence": "ev-stateless-shape",
+      "sha256": "07e442f3e64309b37ba30c0b7538c35eb36659dd14b732b9331bcee0a6fc14da",
+      "text": "# Windows line endings\r\nGITHUB_TOKEN=ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2\r\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 37,
+            "end": 557,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-stateless-b-env",
+      "case": "stateless-jwt-installation-token-literal",
+      "path": "projection-stateless-b-env/projection-stateless-b-env.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-stateless-b",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a env carrier; the token bytes are unchanged"
+      },
+      "context": "env",
+      "evidence": "ev-stateless-shape",
+      "sha256": "d046787b60c0e362a48f2ce6742953b1c8d03baf18044bea74703872f8a86851",
+      "text": "GITHUB_TOKEN=ghs_0000002_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6Ij8_Pj4_Pz4-fn54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedOLLmRvys5gsQlhZzKoZDIXR\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 525,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-opaque-env",
+      "case": "opaque-installation-token-forty-characters-literal",
+      "path": "projection-opaque-env/projection-opaque-env.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-opaque",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a env carrier; the token bytes are unchanged"
+      },
+      "context": "env",
+      "evidence": "ev-opaque-shape",
+      "sha256": "366fe1b8b87d6bbca232a7de8594e77c0595bbc585cc038b20a16c5f982c04d1",
+      "text": "GITHUB_TOKEN=ghs_SYNTHETICneverissued0000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-opaque-json",
+      "case": "opaque-installation-token-forty-characters-literal",
+      "path": "projection-opaque-json/projection-opaque-json.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-opaque",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a json carrier; the token bytes are unchanged"
+      },
+      "context": "json",
+      "evidence": "ev-opaque-shape",
+      "sha256": "dc88fc89238f0f3ceda6965333b5e7a33eb2794877bc99058b984a90bfba0447",
+      "text": "{\"token\":\"ghs_SYNTHETICneverissued0000000000000000\",\"expires_at\":\"2026-10-03T12:00:00Z\",\"permissions\":{\"contents\":\"read\"}}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-installation-token-authored--projection-opaque-crlf",
+      "case": "opaque-installation-token-forty-characters-literal",
+      "path": "projection-opaque-crlf/projection-opaque-crlf.txt",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "github-installation-token-authored--base-opaque",
+        "mutationKind": "carrier-context",
+        "mutation": "Same token placed in a crlf carrier; the token bytes are unchanged"
+      },
+      "context": "crlf",
+      "evidence": "ev-opaque-shape",
+      "sha256": "8ef012f154dc0d47256358cb6a12d27ce2e0a2f6659b2f2ce00b1b252cb717bb",
+      "text": "# Windows line endings\r\nGITHUB_TOKEN=ghs_SYNTHETICneverissued0000000000000000\r\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 37,
+            "end": 77,
+            "role": "secret"
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored; every credential-shaped value is synthetic and was never issued or tested against any service. Stateless tokens: ghs_ + a 7-digit placeholder app id (0000001, 0000002; absent in one base) + _ + a JWT whose header is the standard HS256 header, whose payload is JSON with the note 'synthetic never issued credential-evidence fixture' and a filler field, and whose third segment is the marker SYNTHETICneverissued plus 23 characters of the base64url SHA-256 of 'credential-evidence:synthetic-never-issued:<label>', which is no signature any GitHub issuer produced. Opaque tokens: ghs_ + the 36 characters SYNTHETICneverissued followed by sixteen zeros. The third JWT segment starts with the marker SYNTHETICneverissued. Context projections (json, authorization, git-url, korean-emoji, crlf, env) were produced by a one-off deterministic template script kept out of the repository, then reviewed and committed as authored fixtures; they are not a generation-rule set. Not-assertable fixtures carry no expectation; the candidateReading on the app-id-less base proposes nothing a consumer may score. Verification must remain disabled."
+}
