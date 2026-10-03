@@ -19,6 +19,12 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy contract-field, contract-providerSource, contract-reference, dossier-research, taxonomy-source; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "read",
+      "observer": "research-agent",
+      "note": "Re-read raw file at the pinned commit 2026-10-03: PREFIX cio_tp_, RAW_LENGTH 31 plus one checksum character (L10-L25); from_str returns MissingPrefix, InvalidLength, InvalidCharacter, InvalidChecksum (L51-L80); tests L134-L166."
     }
   ],
   "lifecycle": "draft",
