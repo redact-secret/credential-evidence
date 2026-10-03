@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "repeated-and-large-input-matrix-of-bases",
+  "title": "Repeated, mixed and large inputs of authored bases",
+  "description": "Four families against the Scenarios for a credential deep in a long input and for several credentials in one input, at 64 KiB, 256 KiB and 1 MiB of filler, at the head, middle and tail, repeated and mixed. Reuses two Scenarios and creates no Case and no Scenario. Declares all eight authored bases, so the base count is eight whatever the number of generated inputs.",
+  "matrix": {
+    "families": {
+      "select": "listed",
+      "ids": [
+        "github:classic-personal-access-token",
+        "gitlab:legacy-personal-access-token",
+        "npm:granular-access-token",
+        "sendgrid:api-key"
+      ]
+    },
+    "targets": [
+      {
+        "type": "scenario",
+        "id": "credential-after-long-input"
+      },
+      {
+        "type": "scenario",
+        "id": "multiple-credentials-per-input"
+      }
+    ],
+    "carriers": [
+      "filler-text"
+    ],
+    "coverage": "sparse"
+  },
+  "generation": {
+    "rule": "context-carrier-and-filler-placement",
+    "generator": {
+      "name": "context-large-input-projector",
+      "version": "1.0.0",
+      "entrypoint": "scripts/generate-context-large-input-plans.mjs",
+      "sourceRevision": "62e7e3413de593c99f649ed484b836028931ff31"
+    },
+    "inputs": [
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--npm-granular-token-base-b"
+      },
+      {
+        "kind": "format-contract",
+        "id": "sendgrid:api-key@1"
+      },
+      {
+        "kind": "format-contract",
+        "id": "github:classic-personal-access-token@1"
+      },
+      {
+        "kind": "format-contract",
+        "id": "gitlab:legacy-personal-access-token@1"
+      },
+      {
+        "kind": "format-contract",
+        "id": "npm:granular-access-token@1"
+      }
+    ],
+    "seed": "context-large-input-seed-1"
+  },
+  "lineage": {
+    "origin": "authored",
+    "derivedFrom": [
+      {
+        "kind": "scenario",
+        "id": "credential-after-long-input"
+      },
+      {
+        "kind": "scenario",
+        "id": "multiple-credentials-per-input"
+      }
+    ]
+  },
+  "output": [
+    "large-and-repeated-input-projections-generated"
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. The matrix is sparse: every size and placement is instantiated for every family, repeated and mixed inputs are instantiated at every size. Filler is credential-free, 64 bytes per line, chosen by the seed. Each occurrence has its own expected span and no envelope; a partly covered secret is an uncovered-secret-bytes observation, not a success for the input. Whether a product processes a large input in windows, how it limits input size, and what it reports are the product's assertions, not stated here."
+}

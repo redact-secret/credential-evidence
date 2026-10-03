@@ -1,0 +1,2319 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "context-carrier-projections-generated",
+  "title": "Context carrier projections of authored bases (generated)",
+  "description": "56 projections: the first base of each of four families inside 14 surrounding texts (bare value, JSON, YAML, XML, Bearer header, URL query, Markdown code span, quoted shell export, log line, Korean text, emoji, CRLF lines, byte order mark, no-break space). Four bases, 56 correlated inputs. Synthetic: every value is a fake word run padded with zeros, in the alphabet and at the length of the family's current contract, and was never issued. None was tested against any service.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "context-carrier-and-filler-placement",
+    "generator": {
+      "name": "context-large-input-projector",
+      "version": "1.0.0",
+      "entrypoint": "scripts/generate-context-large-input-plans.mjs",
+      "sourceRevision": "62e7e3413de593c99f649ed484b836028931ff31"
+    },
+    "seed": "context-large-input-seed-1"
+  },
+  "generated": true,
+  "fixtures": [
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-bare-value",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "value-at-input-edges",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-bare-value/input.txt",
+      "context": "bare-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "whole-value",
+            "carrier": "bare-value"
+          }
+        ]
+      },
+      "sha256": "56cbed0d7aeffcc075c7fab13c87e69c354c9a602025314e499eff178d4721ec",
+      "text": "SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 69,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-json-field",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-json-field/input.txt",
+      "context": "json",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "json"
+          }
+        ]
+      },
+      "sha256": "5c429491d00223114fe6bc83c133f7f35e2d5008ff47b8f14737e15d18e9b613",
+      "text": "{\"sendgrid_api_key\":\"SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 90,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-yaml-scalar",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-yaml-scalar/input.txt",
+      "context": "yaml",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "yaml"
+          }
+        ]
+      },
+      "sha256": "835767a3b7c4bddd87a8ec5825af6d8fa4dddf06a4c1adcd181074419b78ed4a",
+      "text": "sendgrid_api_key: SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 87,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-xml-element",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-xml-element/input.txt",
+      "context": "xml",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "xml"
+          }
+        ]
+      },
+      "sha256": "e2edc5ac9f64217fa58d097888f90488bf5aef4c0813965befae32e01d013c89",
+      "text": "<credentials><token>SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000</token></credentials>\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-bearer-header",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-bearer-header/input.txt",
+      "context": "http-bearer-header",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "http-bearer-header"
+          }
+        ]
+      },
+      "sha256": "8b53d984c82425818d0eaf6f0d917f71a1d4e3fc18df01f8ac2ceda5b86c6abd",
+      "text": "Authorization: Bearer SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 91,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-url-query",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-url-query/input.txt",
+      "context": "url-query",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "url-query"
+          }
+        ]
+      },
+      "sha256": "e8d7e26a8ad9b577513af049d2eb50278d2246f3b8d1240830a0e9c9ee7d80e7",
+      "text": "https://api.example.invalid/v1/ping?token=SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 42,
+            "end": 111,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-markdown-code-span",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "markdown-and-comment-value",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-markdown-code-span/input.txt",
+      "context": "markdown-code-span",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-span"
+          }
+        ]
+      },
+      "sha256": "939c30a2b0b8c7e55b92cded045c77d78099d83dc94b2492feee1b0d2f1b28ff",
+      "text": "Set the key to `SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000` before you run the script.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 85,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-shell-export-quoted",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "quoted-value-extent",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-shell-export-quoted/input.txt",
+      "context": "shell-export-quoted",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "shell-export-quoted"
+          }
+        ]
+      },
+      "sha256": "4bcc93b5d72d30603f13df54a4d34a21b8bc7a023b24ce1dc703fb68a9e5f488",
+      "text": "export SENDGRID_API_KEY='SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 25,
+            "end": 94,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-log-line",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-log-line/input.txt",
+      "context": "log-line",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "log-line"
+          }
+        ]
+      },
+      "sha256": "7077089ebcf093a0ef8d1fb08b0c51295f647d37785557f7d84082335faccc61",
+      "text": "2026-10-03T09:15:42Z level=info msg=\"request signed\" api_key=SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 61,
+            "end": 130,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-korean-text-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-korean-text-prefix/input.txt",
+      "context": "korean-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "e30d2dfac862fb33443894f23503959849e3166764e14f0f3837ecc10e5936e1",
+      "text": "환경 변수 설정: SENDGRID_API_KEY=SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 39,
+            "end": 108,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-emoji-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-emoji-prefix/input.txt",
+      "context": "emoji-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "emoji-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "ec3c0f80688f4801b083aa362d7ef227bc5767e1b71baba65159a9dac19bf10e",
+      "text": "🔑 SENDGRID_API_KEY=SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 91,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-crlf-lines",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "crlf-line-endings",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-crlf-lines/input.txt",
+      "context": "crlf-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "crlf-assignment"
+          }
+        ]
+      },
+      "sha256": "ac248ab6e871f5469498e53b8a98c9585f200eabf61f0ca7f801b93ba3306f9e",
+      "text": "# line endings\r\nSENDGRID_API_KEY=SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\r\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 33,
+            "end": 102,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-bom-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-bom-prefix/input.txt",
+      "context": "bom-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "bom-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "7f015be3bbcf02d77e0a99d584b37e23f72435a0f3135c82814c65db40c00c7a",
+      "text": "\ufeffSENDGRID_API_KEY=SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--sendgrid-api-key-nbsp-before-value",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-nbsp-before-value/input.txt",
+      "context": "nbsp-before-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "nbsp-before-value"
+          }
+        ]
+      },
+      "sha256": "a9dc3f0a19f5c28b41fce47e5c2a24b3ba2c30b64e91537cf24abb38c5eac3e3",
+      "text": "SENDGRID_API_KEY=\u00a0SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 19,
+            "end": 88,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-bare-value",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "value-at-input-edges",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-bare-value/input.txt",
+      "context": "bare-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "whole-value",
+            "carrier": "bare-value"
+          }
+        ]
+      },
+      "sha256": "c712943527f277e3bf472a225db829e62764c8dbfc69db019fa4b39412eeaa87",
+      "text": "ghp_SYNTHETICCTXBASEA0000000000000000000",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 40,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-json-field",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-json-field/input.txt",
+      "context": "json",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "json"
+          }
+        ]
+      },
+      "sha256": "3b5c1e5e2a27b68116f97b7773220a5a1061ec5fc993bac6474fad6cf91dc9c7",
+      "text": "{\"github_token\":\"ghp_SYNTHETICCTXBASEA0000000000000000000\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 57,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-yaml-scalar",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-yaml-scalar/input.txt",
+      "context": "yaml",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "yaml"
+          }
+        ]
+      },
+      "sha256": "c29121b91952a886ef14d5173a35dfd66b6c298c42bb69ad9607d1d1adbb045a",
+      "text": "github_token: ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 14,
+            "end": 54,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-xml-element",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-xml-element/input.txt",
+      "context": "xml",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "xml"
+          }
+        ]
+      },
+      "sha256": "ef9c292944c894e4fbecd885a8eac35365faca0850f35a431f7b1fa4705c5a0e",
+      "text": "<credentials><token>ghp_SYNTHETICCTXBASEA0000000000000000000</token></credentials>\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 60,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-bearer-header",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-bearer-header/input.txt",
+      "context": "http-bearer-header",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "http-bearer-header"
+          }
+        ]
+      },
+      "sha256": "cc3d1a7410fa650f897224c68014a50761876042bf3b8d9757f70d7c16ead987",
+      "text": "Authorization: Bearer ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-url-query",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-url-query/input.txt",
+      "context": "url-query",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "url-query"
+          }
+        ]
+      },
+      "sha256": "55b982e49aa6ab0697712b35cb9752807b2548ed2624f61de79d5070bccd9584",
+      "text": "https://api.example.invalid/v1/ping?token=ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 42,
+            "end": 82,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-markdown-code-span",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "markdown-and-comment-value",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-markdown-code-span/input.txt",
+      "context": "markdown-code-span",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-span"
+          }
+        ]
+      },
+      "sha256": "75f267b6157af0b0791d5f814ecbe636efaa348ef25d0b59bdf39d42a83016a6",
+      "text": "Set the key to `ghp_SYNTHETICCTXBASEA0000000000000000000` before you run the script.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 56,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-shell-export-quoted",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "quoted-value-extent",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-shell-export-quoted/input.txt",
+      "context": "shell-export-quoted",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "shell-export-quoted"
+          }
+        ]
+      },
+      "sha256": "419318d4fb3cfd9d60d93e3dc37b06dd5ccb6bef32149ce9872288591798685a",
+      "text": "export GITHUB_TOKEN='ghp_SYNTHETICCTXBASEA0000000000000000000'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 61,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-log-line",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-log-line/input.txt",
+      "context": "log-line",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "log-line"
+          }
+        ]
+      },
+      "sha256": "a0b28e33efefcfa15b748ac504643b35051eaf76abc849db9d11872470710416",
+      "text": "2026-10-03T09:15:42Z level=info msg=\"request signed\" api_key=ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 61,
+            "end": 101,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-korean-text-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-korean-text-prefix/input.txt",
+      "context": "korean-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "4b1f54cd60959f60085bd031eb0deeba0648ecd24ffa428c50aaace2819a10bf",
+      "text": "환경 변수 설정: GITHUB_TOKEN=ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 35,
+            "end": 75,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-emoji-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-emoji-prefix/input.txt",
+      "context": "emoji-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "emoji-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "42238a9c265725cd4c412dc0ebd48ebfdc60589a73279c4004d4675c41924b76",
+      "text": "🔑 GITHUB_TOKEN=ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 58,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-crlf-lines",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "crlf-line-endings",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-crlf-lines/input.txt",
+      "context": "crlf-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "crlf-assignment"
+          }
+        ]
+      },
+      "sha256": "be743cf68a9a0908c794b9a71f688eb42591cec6a9938dffb4f4910bfd049ee1",
+      "text": "# line endings\r\nGITHUB_TOKEN=ghp_SYNTHETICCTXBASEA0000000000000000000\r\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 29,
+            "end": 69,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-bom-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-bom-prefix/input.txt",
+      "context": "bom-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "bom-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "4a3ecdfc2a2974f2c54c8095289d66cd72da0aa82e42428403d33daf1bf2389c",
+      "text": "\ufeffGITHUB_TOKEN=ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 56,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--github-classic-pat-nbsp-before-value",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-nbsp-before-value/input.txt",
+      "context": "nbsp-before-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "nbsp-before-value"
+          }
+        ]
+      },
+      "sha256": "d214a426d30d3bffda412986358133339f6bbe9f6236df144496771894a11360",
+      "text": "GITHUB_TOKEN=\u00a0ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 15,
+            "end": 55,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-bare-value",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "value-at-input-edges",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-bare-value/input.txt",
+      "context": "bare-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "whole-value",
+            "carrier": "bare-value"
+          }
+        ]
+      },
+      "sha256": "80d10dfa456d1343cf7b804aabd86003913535b2a4a74e54209615a42e2490c0",
+      "text": "glpat-SYNTHETICCTXBASEA000",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 26,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-json-field",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-json-field/input.txt",
+      "context": "json",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "json"
+          }
+        ]
+      },
+      "sha256": "106f827d499fad80de29ceed02772315f7f2e30986d6bf56cd4cf54ff7568c17",
+      "text": "{\"gitlab_token\":\"glpat-SYNTHETICCTXBASEA000\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 43,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-yaml-scalar",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-yaml-scalar/input.txt",
+      "context": "yaml",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "yaml"
+          }
+        ]
+      },
+      "sha256": "7438f68588a08221526d339093a186f7df1c83e142736fdde45f67b7c0e1a9f8",
+      "text": "gitlab_token: glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 14,
+            "end": 40,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-xml-element",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-xml-element/input.txt",
+      "context": "xml",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "xml"
+          }
+        ]
+      },
+      "sha256": "e7e3bff40053f375e390696310682aaa145f2328028482e16d568d31a5de589f",
+      "text": "<credentials><token>glpat-SYNTHETICCTXBASEA000</token></credentials>\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 46,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-bearer-header",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-bearer-header/input.txt",
+      "context": "http-bearer-header",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "http-bearer-header"
+          }
+        ]
+      },
+      "sha256": "89e214afe9e0645d0e068df534e8b65b7044049667156cb63cd12c7cbfc967cd",
+      "text": "Authorization: Bearer glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 48,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-url-query",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-url-query/input.txt",
+      "context": "url-query",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "url-query"
+          }
+        ]
+      },
+      "sha256": "616947cf9a64874640520a5876465a3065c670cae48856da1157351af21ce047",
+      "text": "https://api.example.invalid/v1/ping?token=glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 42,
+            "end": 68,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-markdown-code-span",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "markdown-and-comment-value",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-markdown-code-span/input.txt",
+      "context": "markdown-code-span",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-span"
+          }
+        ]
+      },
+      "sha256": "95b1c9ab5116ebe6a47ba0c3061516af82657cb75d58366bfe33010e236bdaa3",
+      "text": "Set the key to `glpat-SYNTHETICCTXBASEA000` before you run the script.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 42,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-shell-export-quoted",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "quoted-value-extent",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-shell-export-quoted/input.txt",
+      "context": "shell-export-quoted",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "shell-export-quoted"
+          }
+        ]
+      },
+      "sha256": "c5331b4046f7d26e0df175dc602bb494cd9a802749bf082368626a07cba95152",
+      "text": "export GITLAB_TOKEN='glpat-SYNTHETICCTXBASEA000'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 47,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-log-line",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-log-line/input.txt",
+      "context": "log-line",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "log-line"
+          }
+        ]
+      },
+      "sha256": "bc77bf2b9b07f900a8a8d0188c8139e437c98de91902bdc0e8933535346d79ff",
+      "text": "2026-10-03T09:15:42Z level=info msg=\"request signed\" api_key=glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 61,
+            "end": 87,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-korean-text-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-korean-text-prefix/input.txt",
+      "context": "korean-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "2b45a0e828cea5b771c7954019895615067b6dd0a3c9c987cd74f57aafabf77b",
+      "text": "환경 변수 설정: GITLAB_TOKEN=glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 35,
+            "end": 61,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-emoji-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-emoji-prefix/input.txt",
+      "context": "emoji-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "emoji-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "43b55ec2b797d09d39e69d7af29f29e796b17b5e9224e647641327e8204bf51c",
+      "text": "🔑 GITLAB_TOKEN=glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 44,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-crlf-lines",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "crlf-line-endings",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-crlf-lines/input.txt",
+      "context": "crlf-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "crlf-assignment"
+          }
+        ]
+      },
+      "sha256": "fbb18bfbbb48fe5255f08d60d43ee8787db903c0868639e481906ff7168f7145",
+      "text": "# line endings\r\nGITLAB_TOKEN=glpat-SYNTHETICCTXBASEA000\r\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 29,
+            "end": 55,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-bom-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-bom-prefix/input.txt",
+      "context": "bom-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "bom-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "f32c40eb8c60bf1a66caa7e0d646b5bb59a4d2dd233016651c7b5c34470b22a3",
+      "text": "\ufeffGITLAB_TOKEN=glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 42,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--gitlab-legacy-pat-nbsp-before-value",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-nbsp-before-value/input.txt",
+      "context": "nbsp-before-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "nbsp-before-value"
+          }
+        ]
+      },
+      "sha256": "015f6ba485cfa204bfd860fad57dceebbf98f94dbe31abefa61b419ab1d5e10d",
+      "text": "GITLAB_TOKEN=\u00a0glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 15,
+            "end": 41,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-bare-value",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "value-at-input-edges",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-bare-value/input.txt",
+      "context": "bare-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "whole-value",
+            "carrier": "bare-value"
+          }
+        ]
+      },
+      "sha256": "50a312897e711962fb876c5a013e35e85ba6f34798f905bee723242c468a47ab",
+      "text": "npm_SYNTHETICCTXBASEA0000000000000000000",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 40,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-json-field",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-json-field/input.txt",
+      "context": "json",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "json"
+          }
+        ]
+      },
+      "sha256": "559906a3094559676d50e37cbcbef4402cf9d4b6464a44928d09e467f1f316d8",
+      "text": "{\"npm_token\":\"npm_SYNTHETICCTXBASEA0000000000000000000\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 14,
+            "end": 54,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-yaml-scalar",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-yaml-scalar/input.txt",
+      "context": "yaml",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "yaml"
+          }
+        ]
+      },
+      "sha256": "9e30b6aa629f82ccc9987fdf4bf1cc5ccb228f44afc15e8f61a8a0870f7112c7",
+      "text": "npm_token: npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 11,
+            "end": 51,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-xml-element",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-xml-element/input.txt",
+      "context": "xml",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "xml"
+          }
+        ]
+      },
+      "sha256": "9192e462d442e1d87b8bbf50a9f8148c9ee086347a8dcfcff83a7f6fddc64b4f",
+      "text": "<credentials><token>npm_SYNTHETICCTXBASEA0000000000000000000</token></credentials>\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 60,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-bearer-header",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-bearer-header/input.txt",
+      "context": "http-bearer-header",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "http-bearer-header"
+          }
+        ]
+      },
+      "sha256": "5681181483683418c44f006adcce0fbb248ab892614866316c22dc9b3ba2645a",
+      "text": "Authorization: Bearer npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-url-query",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-url-query/input.txt",
+      "context": "url-query",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "url-query"
+          }
+        ]
+      },
+      "sha256": "20f857b66cdfbaea8a6de203dec68b4b898bd2b2daab698823c9818dbbd1ee4a",
+      "text": "https://api.example.invalid/v1/ping?token=npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 42,
+            "end": 82,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-markdown-code-span",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "markdown-and-comment-value",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-markdown-code-span/input.txt",
+      "context": "markdown-code-span",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-span"
+          }
+        ]
+      },
+      "sha256": "27514b15cb927a831c51d10cfbfbfcc427d1af8a041d9d4b083f7c5821054169",
+      "text": "Set the key to `npm_SYNTHETICCTXBASEA0000000000000000000` before you run the script.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 56,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-shell-export-quoted",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "quoted-value-extent",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-shell-export-quoted/input.txt",
+      "context": "shell-export-quoted",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "shell-export-quoted"
+          }
+        ]
+      },
+      "sha256": "452bdba9adc4a272ef877e1e48688801ab9cfe4cc75b79ead6c69d3287bf1319",
+      "text": "export NPM_TOKEN='npm_SYNTHETICCTXBASEA0000000000000000000'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 58,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-log-line",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-log-line/input.txt",
+      "context": "log-line",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "log-line"
+          }
+        ]
+      },
+      "sha256": "15dab66479ddb6d8973322521249e9902a120667829d9e3cbe9217686d7f3cf5",
+      "text": "2026-10-03T09:15:42Z level=info msg=\"request signed\" api_key=npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 61,
+            "end": 101,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-korean-text-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-korean-text-prefix/input.txt",
+      "context": "korean-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "8b383a7bc59e069807972f98ea52e5a7e9fa89a471ad64e2ef5eef686a0aac63",
+      "text": "환경 변수 설정: NPM_TOKEN=npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 32,
+            "end": 72,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-emoji-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-emoji-prefix/input.txt",
+      "context": "emoji-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "emoji-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "f3580a6131ffec0d7c4c1e06a4f0abb1394e8450f89c6a4266619dabecbbe7ee",
+      "text": "🔑 NPM_TOKEN=npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 15,
+            "end": 55,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-crlf-lines",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "crlf-line-endings",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-crlf-lines/input.txt",
+      "context": "crlf-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "crlf-assignment"
+          }
+        ]
+      },
+      "sha256": "ee791f7d963cda27e1420119ca4b526b5926ab5d422adcab72bf7cb84e9b26a4",
+      "text": "# line endings\r\nNPM_TOKEN=npm_SYNTHETICCTXBASEA0000000000000000000\r\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 26,
+            "end": 66,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-bom-prefix",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-bom-prefix/input.txt",
+      "context": "bom-prefixed-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "bom-prefixed-assignment"
+          }
+        ]
+      },
+      "sha256": "fabd389272f6a736eb06578ea5664ba380e723da532d63848814b0c934d99dd1",
+      "text": "\ufeffNPM_TOKEN=npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-carrier-projections-generated--npm-granular-token-nbsp-before-value",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "multibyte-text-offsets",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-nbsp-before-value/input.txt",
+      "context": "nbsp-before-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "nbsp-before-value"
+          }
+        ]
+      },
+      "sha256": "90a8f1fb7f4e6a10a096132107e1c1ecc093f6bec328b0c60b404c13993dae48",
+      "text": "NPM_TOKEN=\u00a0npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 12,
+            "end": 52,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Generated; never edited by hand: rerun the generator."
+}
