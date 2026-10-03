@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "http-cookie-header-session-identifier",
+  "title": "Session identifier among ordinary cookies in a Cookie header",
+  "summary": "A synthetic Cookie request header with a preference cookie, a session-identifier cookie whose name states its role, and a locale cookie.",
+  "rationale": "Only the session-identifier value is a credential; the cookie name, the separators and the neighbouring ordinary cookies are not. A span that covers the whole header over-covers ordinary cookies, and one that stops at the first separator or inside the nonce under-covers. The extent is the value of the identified cookie, with the name as the context marker.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:http-session-cookie",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag the value of the session-identifier cookie, between its equals sign and the next separator. RFC 6265 says a session identifier in a cookie is a nonce that lets a holder interact with the server; the role here comes from the fixture's own cookie name, since the standard assigns no name meaning (see the unresolved name-classification case).",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-e003fbf5ed",
+        "supports": "servers commonly store a nonce (or \"session identifier\") in a cookie; the nonce is useful only for interacting with the server",
+        "locator": "#section-8.4"
+      },
+      {
+        "sourceId": "rfc-editor-org-e003fbf5ed",
+        "supports": "cookie-string = cookie-pair *( \";\" SP cookie-pair )",
+        "locator": "#section-4.2.1"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited standards read on 2026-10-03, before any scanner was consulted. All values are synthetic and were not tested against any service. Header coalescing, parser and action policy, decoded-token mapping and product masking stay with the downstream repositories."
+}
