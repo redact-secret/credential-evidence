@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "twilio-com-5daf729305",
+  "sourceType": "provider-documentation",
+  "title": "Security considerations for Twilio APIs",
+  "publisher": "twilio.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://www.twilio.com/docs/usage/security",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "read",
+      "observer": "research-agent",
+      "note": "Read page text via fetch. States 'Keep your AuthToken secure. It provides access to the REST API and to request signatures.' Contains no secrecy statement for the Account SID or for API key SIDs."
+    }
+  ],
+  "lifecycle": "draft"
+}

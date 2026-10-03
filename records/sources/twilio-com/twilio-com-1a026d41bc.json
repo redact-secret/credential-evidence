@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "twilio-com-1a026d41bc",
+  "sourceType": "provider-documentation",
+  "title": "Make requests to the Twilio APIs",
+  "publisher": "twilio.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://www.twilio.com/docs/usage/requests-to-twilio",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "read",
+      "observer": "research-agent",
+      "note": "Read page text via fetch. States HTTP Basic auth uses the Account SID as username and the Auth Token as password, and the API key SID as username and API key secret as password. Says to store credentials in environment variables."
+    }
+  ],
+  "lifecycle": "draft"
+}
