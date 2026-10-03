@@ -10,8 +10,8 @@
 // source; the same bases give the same bytes. `--check` writes nothing and fails when the file on disk differs.
 //
 // Every encoded value is produced here with Node's Buffer, then re-derived with the validator's own strict decoder
-// (scripts/lib/representation.mjs) before it is written, including the candidate readings, which the validator does not
-// re-derive. Credential-shaped bases are synthetic and never issued (see the bases set description).
+// (scripts/lib/representation.mjs) before it is written, including the candidate readings, which the validator also
+// re-derives. Credential-shaped bases are synthetic and never issued (see the bases set description).
 //
 // What this generator does not do: decide any outcome. Candidate positives are not-assertable (their scenario's
 // evidence is unresolved) and carry the span as a non-asserting candidateReading; benign projections inherit the

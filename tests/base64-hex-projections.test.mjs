@@ -14,7 +14,7 @@ test("the committed Base64 and hex projections equal the generator output", () =
   assert.equal(r.status, 0, r.stdout + r.stderr);
 });
 
-test("every candidate reading re-derives its authored base (the validator does not check these spans)", () => {
+test("every candidate reading independently re-derives its authored base", () => {
   const bases = read("records/fixtures/base64-hex-representation-bases.json");
   const set = read("records/fixtures/base64-hex-representation-projections.json");
   const byId = new Map(bases.fixtures.map((f) => [f.id, f]));

@@ -121,6 +121,32 @@ test("nested layers are applied in order and the transformation must mirror them
   mentions(problemsAfter(({ authored: s }) => { delete nested(s).transformation; }), /decoded needs a transformation/);
 });
 
+test("non-asserting candidate readings still re-derive decoded values and lineage", () => {
+  const candidateProblems = (mutate = () => {}) => integrityAfter((entries, get) => {
+    const s = get("fixture-set", A);
+    get("case", "examplecloud-key-encoded-in-config-value").expectation.outcome = "not-assertable";
+    for (const set of [s, get("fixture-set", G)]) {
+      for (const item of set.fixtures.filter((f) => f.case === "examplecloud-key-encoded-in-config-value")) {
+        item.candidateReading = { asserting: false, outcome: "must-flag", spans: item.expected.spans };
+        item.expected = { outcome: "not-assertable", spans: [] };
+      }
+    }
+    const item = find(s, "key-base64-standard-padded-whole");
+    mutate(item, s);
+  });
+  assert.deepEqual(candidateProblems(), []);
+  mentions(candidateProblems((item) => { item.candidateReading.spans[0].decoded.sha256 = "0".repeat(64); }), /candidateReading: .*candidateReading\.spans\[0\]\.decoded\.sha256 does not match/);
+  mentions(candidateProblems((item) => { item.candidateReading.spans[0].decoded.bytes += 1; }), /candidateReading: .*decoded\.bytes/);
+  mentions(candidateProblems((item) => { item.candidateReading.spans[0].decoded.via[0].padding = "unpadded"; }), /candidateReading: .*base64/);
+  mentions(candidateProblems((item) => { item.candidateReading.spans[0].base = `${A}--second-api-key-base`; }), /candidateReading: .*not in derivation\.bases/);
+  mentions(candidateProblems((item) => {
+    item.derivation.bases = [`${A}--second-api-key-base`];
+    item.candidateReading.spans[0].base = `${A}--second-api-key-base`;
+  }), /candidateReading: .*not the value of base/);
+  mentions(candidateProblems((item) => { delete item.transformation; }), /candidateReading: decoded needs a transformation/);
+  mentions(candidateProblems((item) => { item.transformation.steps[0].codec = "hex"; }), /candidateReading: .*not the reverse/);
+});
+
 test("fragments are sorted, disjoint, bounded by the span, and need a reconstructing mechanism", () => {
   const f = (s) => find(s, "key-split-by-shell-line-continuation");
   mentions(problemsAfter(({ authored: s }) => { const fr = f(s).expected.spans[0].fragments; f(s).expected.spans[0].fragments = [fr[1], fr[0]]; }), /sorted, disjoint/);
