@@ -26,7 +26,7 @@ const SIBLING_CLASSES = ["public-identifier", "documentation-placeholder", "test
 const NARRATIVE_SECTIONS = ["shape", "issuance", "lifecycle", "collisions", "openQuestions"];
 // Subjects a review history can be scaffolded for, and the event types an agent may write.
 // An agent never writes `reviewed`, `resolved` or `withdrawn`: those are a second person's act.
-const REVIEW_SUBJECTS = ["family", "family-narrative", "case", "variant", "benign-sibling", "scenario", "format-contract"];
+const REVIEW_SUBJECTS = ["family", "family-narrative", "case", "variant", "benign-sibling", "scenario", "format-contract", "evidence-source"];
 const AGENT_EVENTS = ["authored", "observed", "corrected", "disputed"];
 const ACTOR_ROLES = ["author", "automation", "contributor"];
 const AFFILIATIONS = ["project-maintainer", "external", "unknown"];
@@ -440,13 +440,18 @@ const PLANNERS = {
       },
     ];
     const mapping = [];
+    // `--unresolved` records "this statement is not settled" as one `observed` / `not-assertable` event and prints its
+    // `reviewEvent` number for the subject to cite. A narrative's statements live in sections (`<section>/<statement-id>=<reason>`);
+    // every other subject (a source, a contract, a case...) names the claim or field directly (`<statement-id>=<reason>`).
+    const narrative = subjectKind === "family-narrative";
     for (const u of many(opts.unresolved)) {
-      const m = /^([A-Za-z]+)\/([a-z0-9]+(?:-[a-z0-9]+)*)=(.+)$/.exec(u);
-      if (!m || !NARRATIVE_SECTIONS.includes(m[1])) fail(`--unresolved must be <section>/<statement-id>=<reason> with section one of ${NARRATIVE_SECTIONS.join(", ")}, got '${u}'`);
-      events.push({ seq: ++seq, type: "observed", at: ctx.today, actor, verdict: "not-assertable", note: `Statement '${m[2]}' (${m[1]}) is recorded as unresolved: ${m[3].trim()}` });
+      const m = /^(?:([A-Za-z]+)\/)?([a-z0-9]+(?:-[a-z0-9]+)*)=(.+)$/.exec(u);
+      const shape = narrative ? `<section>/<statement-id>=<reason> with section one of ${NARRATIVE_SECTIONS.join(", ")}` : "<statement-id>=<reason> (no section: only a family-narrative has sections)";
+      if (!m || (narrative ? !NARRATIVE_SECTIONS.includes(m[1] ?? "") : m[1] !== undefined)) fail(`--unresolved for a ${subjectKind} must be ${shape}, got '${u}'`);
+      events.push({ seq: ++seq, type: "observed", at: ctx.today, actor, verdict: "not-assertable", note: `Statement '${m[2]}'${m[1] ? ` (${m[1]})` : ""} is recorded as unresolved: ${m[3].trim()}` });
       mapping.push(`${m[2]} -> unresolved.reviewEvent ${seq}`);
     }
-    const note = mapping.length ? `set these in the narrative: ${mapping.join("; ")}` : undefined;
+    const note = mapping.length ? `set these on the ${subjectKind}: ${mapping.join("; ")}` : undefined;
     if (existing) return { path: existing.path, record: { ...existing.record, events: [...existing.record.events, ...events] }, parts: [], note, append: true };
     const record = { schemaVersion: 1, kind: "evidence-review-history", id, subject: { kind: subjectKind, id: subjectId }, events, notes: AUTHORSHIP };
     return { path, record, parts: [], note };

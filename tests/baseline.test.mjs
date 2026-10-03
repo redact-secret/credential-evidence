@@ -1,5 +1,10 @@
 // The import baseline against the working tree (ADR 0015): classification, amendments, immutable references.
 // No legacy checkout is needed; every mutation happens in a throwaway copy of the repository.
+//
+// Hermetic against the live ledger (#86): the copy carries whatever amendments docs/migration/baseline-amendments.json
+// declares, so a test mutates a record the live tree still holds unchanged (untouchedRecord) and states its expectations
+// relative to the live classification (liveCounts), never as absolute numbers. The same assertions hold for an empty ledger
+// and for a ledger with any number of declared edits; tests/ledger-hermetic.test.mjs runs this file against a non-empty one.
 
 import assert from "node:assert/strict";
 import { readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -18,10 +23,16 @@ import {
   serializeManifest,
 } from "../scripts/lib/baseline.mjs";
 import { repoRoot } from "../scripts/lib/validator.mjs";
-import { copyRepo } from "./repo-copy.mjs";
+import { copyRepo, liveCounts, untouchedRecord } from "./repo-copy.mjs";
 
 const manifest = loadManifest();
-const firstRecord = (prefix) => manifest.files.find((f) => f.path.startsWith(prefix)).path;
+const firstRecord = untouchedRecord;
+const n = (x) => x.toLocaleString("en-US");
+/** "<edited> edited, <removed> removed (all declared); <added> post-import file(s) added" for the live tree plus a delta. */
+const counts = ({ edited = 0, removed = 0, added = 0 } = {}) => {
+  const live = liveCounts();
+  return new RegExp(`${n(live.edited + edited)} edited, ${n(live.removed + removed)} removed \\(all declared\\); ${n(live.added + added)} post-import file\\(s\\) added`);
+};
 
 test("the repository's tree is its baseline plus declared amendments: classification is clean", () => {
   const c = classifyTree();
@@ -74,9 +85,10 @@ test("an edited baseline record fails until it is declared with a cause; then it
     assert.equal(declared.status, 0, declared.stderr);
     const ok = c.run("baseline.mjs", ["check"]);
     assert.equal(ok.status, 0, ok.stderr);
-    assert.match(ok.stdout, /1 edited, 0 removed \(all declared\); 0 post-import file\(s\) added/);
+    assert.match(ok.stdout, counts({ edited: 1 }));
     const ledger = JSON.parse(readFileSync(join(c.root, AMENDMENTS_PATH), "utf8"));
-    assert.deepEqual(ledger.amendments, [{ path, change: "edited", reason: "Description widened after reading the vendor documentation", ref: "#79" }]);
+    assert.equal(ledger.amendments.length, loadAmendments().amendments.length + 1, "the live declarations are kept and one is added");
+    assert.deepEqual(ledger.amendments.find((a) => a.path === path), { path, change: "edited", reason: "Description widened after reading the vendor documentation", ref: "#79" });
 
     // reverting the edit makes the declaration stale: the ledger cannot outlive its cause
     writeFileSync(abs, readFileSync(join(repoRoot, path)));
@@ -100,10 +112,10 @@ test("a removed baseline record fails until it is declared as removed", () => {
     assert.equal(c.run("baseline.mjs", ["amend", path, "--reason", "Withdrawn: the page it describes no longer exists"]).status, 0);
     const ok = c.run("baseline.mjs", ["check"]);
     assert.equal(ok.status, 0, ok.stderr);
-    assert.match(ok.stdout, /0 edited, 1 removed/);
+    assert.match(ok.stdout, counts({ removed: 1 }));
     // declaring it as edited while it is gone is a contradiction
     const ledger = JSON.parse(readFileSync(join(c.root, AMENDMENTS_PATH), "utf8"));
-    ledger.amendments[0].change = "edited";
+    ledger.amendments.find((a) => a.path === path).change = "edited";
     writeFileSync(join(c.root, AMENDMENTS_PATH), serializeAmendments(ledger.amendments));
     assert.match(c.run("baseline.mjs", ["check"]).stderr, /is removed but .* says edited/);
   } finally {
@@ -145,7 +157,7 @@ test("a file the baseline does not list is an addition: allowed, counted, never 
     const r = c.run("baseline.mjs", ["check", "--list"]);
     assert.equal(r.status, 0, r.stderr);
     assert.match(r.stdout, /added: records\/families\/aaa-new-provider-key\.json/);
-    assert.match(r.stdout, /0 edited, 0 removed \(all declared\); 1 post-import file\(s\) added/);
+    assert.match(r.stdout, counts({ added: 1 }));
     const refused = c.run("baseline.mjs", ["amend", "records/families/aaa-new-provider-key.json", "--reason", "a new record needs no amendment"]);
     assert.equal(refused.status, 1);
     assert.match(refused.stderr, /not in the baseline/);
@@ -187,8 +199,10 @@ test("declareAmendment keeps one entry per record and a record that equals the b
     writeFileSync(abs, `${readFileSync(abs, "utf8").trimEnd()}\n\n`);
     declareAmendment({ root: c.root, path, reason: "whitespace normalised by a reviewed change" });
     declareAmendment({ root: c.root, path, reason: "whitespace normalised by a reviewed change, restated" });
-    assert.equal(loadAmendments(c.root).amendments.length, 1);
-    assert.equal(loadAmendments(c.root).amendments[0].reason, "whitespace normalised by a reviewed change, restated");
+    const { amendments } = loadAmendments(c.root);
+    assert.equal(amendments.length, loadAmendments().amendments.length + 1, "one entry for the record, whatever the live ledger already holds");
+    assert.equal(amendments.filter((a) => a.path === path).length, 1);
+    assert.equal(amendments.find((a) => a.path === path).reason, "whitespace normalised by a reviewed change, restated");
   } finally {
     c.cleanup();
   }
