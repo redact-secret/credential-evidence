@@ -19,6 +19,12 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "read",
+      "observer": "research-agent",
+      "note": "Re-read raw file at the pinned commit 2026-10-03: ClientManager::send lines 74-76 answer 401 invalid token when the token starts with 0, exceeds 80 chars, contains / or has no :; lines 78-84 require a numeric id before the first colon in 1..2^54-1. No alphabet or body-length check."
     }
   ],
   "lifecycle": "draft",
