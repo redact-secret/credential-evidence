@@ -105,9 +105,10 @@ Recommended repository settings (maintainers, not code): GitHub immutable releas
 | Tag | Commit | Manifest digest | Notes |
 | --- | --- | --- | --- |
 | `snapshot-2026.10.01` | `adadf33096c417141897a4148d049a0a267c3278` | `54e47836b5c36a0b7c0871da8bfe227b041404ff2bc652e62566fe74ceab0182` | First snapshot release; 5,925 materialized fixtures. |
-| `snapshot-2026.10.01.2` | `a5362d6cfe644dcf069858ef9bd9cad4d7a96c4a` | `2557a72ae8dec3ca6d734a6c87b6db9cb4881543541693a4555fdfd9f7ba26d8` | Current pin target. Legacy reference `1020d2b5` (beta.12 re-pin, #74); ADR 0012 decisions 1–4; schema 1.5.0; 5,950 materialized fixtures (digest `d4ac653b…`); credential-eval snapshot digest `sha256:1bc5a07b…`. Supersedes `snapshot-2026.10.01` for new pins. |
+| `snapshot-2026.10.01.2` | `a5362d6cfe644dcf069858ef9bd9cad4d7a96c4a` | `2557a72ae8dec3ca6d734a6c87b6db9cb4881543541693a4555fdfd9f7ba26d8` | Superseded by `snapshot-2026.10.03` for new pins. Legacy reference `1020d2b5` (beta.12 re-pin, #74); ADR 0012 decisions 1–4; schema 1.5.0; 5,950 materialized fixtures (digest `d4ac653b…`); credential-eval snapshot digest `sha256:1bc5a07b…`. Supersedes `snapshot-2026.10.01` for new pins. |
+| `snapshot-2026.10.03` | `cb5d2aeed47e47e457cb89e43e905ab9145e9634` | `d70507ca1d6595c260ab8dc06a804b93b4c149a80b9bfd0788761f06ae0b0ee9` | Current pin target for new pins. Schema 1.6.0 (ADR 0016); 6,454 materialized fixtures (digest `47d80d8e…`); credential-eval snapshot corpus digest `sha256:a8d79523…`, records tree `dd8886d8…`. Contains the evidence-review restorations (T1/T2, #41-#72 round), ADR 0013 twin families, ADR 0014 evidence-entry split, and the epic #92 research records (all `draft`, unreviewed; several expectations are deliberately not-assertable, see #142). Supersedes `snapshot-2026.10.01.2` for new pins. Not a score claim: replay before comparing. |
 
-Unreleased on `main` after `snapshot-2026.10.01.2`: ADR 0013 (twins take their positive's family in the credential-eval snapshot, #78) changes the snapshot corpus digest to `sha256:66dcb94b...`. It needs a new tag (not yet cut) and a consumer repin; the tag above is not edited.
+Everything on `main` up to commit `cb5d2ae` is in `snapshot-2026.10.03`; the ADR 0013 change to the corpus digest is part of it. Consumers pinned to an earlier tag still need to repin and replay.
 
 ## Withdrawn releases
 
