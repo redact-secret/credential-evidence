@@ -148,3 +148,28 @@ project-authored.
   only in basis.
 - Whether a `may-flag` outcome should replace the companion-span note: one legacy
   fixture allowed, but did not require, redacting a public companion identifier.
+
+## Addendum 1 (2026-10-03, #92): `sourceRevision` of a set generated in this repository
+
+The Decision above defines `generator.sourceRevision` as the pinned legacy commit. Sets generated inside this repository
+(`scripts/generate-*.mjs`, ADR 0016) record the same field, and the first ones pinned the commit the author had checked
+out. The repository squash-merges, so a commit made on a pull request branch is unreachable from `main` once the pull
+request lands; three records already pointed at such orphans.
+
+Rule: a generated set or plan's `generator.sourceRevision` is a commit **reachable from `main`**. Its meaning for an
+in-repository generator is "the `main` commit the generator's inputs (authored bases, plans, records) were read from",
+and the value is the **merge-base of the working branch with `origin/main`**. Never the branch HEAD, never a commit made
+on the branch. A commit cannot name itself, so a pull request that introduces or edits the generator cannot point at its
+own revision: the generator source and the output land together, and `--check` (the generator re-run against the
+recorded value) proves that they agree. A generator that reads legacy inputs keeps the pinned legacy commit
+(`LEGACY_REVISION`), which belongs to another repository. A content digest of the inputs was considered and not chosen:
+the field is already a commit in the schema (`gitCommit`), the merge-base needs no new schema or record revision, and the
+inputs are the records of this same tree.
+
+How it is enforced: the generators default to the merge-base with `origin/main` (`scripts/lib/source-revision.mjs`) and
+take `--source-revision <40-hex>` to override; `--check` reads the recorded value back. `npm run lint:source-revision`
+(part of `npm run check`) fails a value that is not 40 lowercase hex, is the all-zero placeholder, or is the pull
+request tip (`PR_HEAD_SHA`), and, when the clone has full history, a value that is not an ancestor of `origin/main`. CI
+fetches full history and runs it with `--require-reachable`. After rebasing or merging `main` into a branch, regenerate
+the sets (`node scripts/generate-<name>.mjs`) so the value follows the new merge-base; a squash merge needs nothing more.
+

@@ -105,6 +105,9 @@ Apply [research-run](../_shared/research-run.md) and also:
 - **A value looks real, is from a page, an incident or a log, or would have to be tested live to be classified**:
   stop; copy it nowhere ([synthetic safety](../_shared/synthetic-safety.md#if-something-looks-real)).
 - **A record you would edit is generated** (a Scenario or fixture plan to extend): do not edit it; Needs human.
+- **A generator writes the fixtures** (a projection set): run it without `--source-revision` so it pins the merge-base with
+  `origin/main`, never your branch HEAD (a squash merge orphans it), and rerun it after merging `main`;
+  `npm run lint:source-revision` checks it ([representation](../_shared/representation.md#generated-sets-pin-a-main-commit)).
 - **Another family or carrier would reuse the same prose**: that is a Scenario or a projection; return to step 2.
 
 ## Output

@@ -12,6 +12,7 @@
     "lint:identity": "node scripts/lint-identity.mjs",
     "lint:narrative": "node scripts/lint-narrative.mjs",
     "lint:skills": "node scripts/lint-skills.mjs",
+    "lint:source-revision": "node scripts/lint-source-revision.mjs",
     "coverage:gaps": "node scripts/coverage-gaps.mjs",
     "source:observe": "node scripts/source-observe.mjs",
     "tidy:scan": "node scripts/tidy-scan.mjs",
@@ -43,7 +44,7 @@
     "release:verify": "node scripts/release/build.mjs --verify",
     "test": "node --test \"tests/*.test.mjs\"",
     "test:historical": "node --test \"tests/historical/*.test.mjs\"",
-    "check": "npm run validate && npm run lint:identity && npm run lint:narrative && npm run lint:skills && npm run baseline:check && npm test"
+    "check": "npm run validate && npm run lint:identity && npm run lint:narrative && npm run lint:skills && npm run lint:source-revision && npm run baseline:check && npm test"
   },
   "dependencies": {
     "ajv": "8.20.0",

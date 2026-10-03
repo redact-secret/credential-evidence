@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "cache-key-and-content-hashed-filename-values",
+  "title": "Cache keys and content-hashed filenames built from a hash",
+  "summary": "A CI log line and a workflow step whose cache key ends in a 64-character hex hash of a lock file, and a build output filename and script tag carrying a content hash (main.<hex>.js), under the label key or in a file name.",
+  "rationale": "The label is \"key\" and the value is long hex, so a label-plus-shape reading looks like a credential; the owning docs define the value as a cache lookup identifier (GitHub Actions) or a content hash used for cache busting (webpack). The ambiguity is the label word, not the shape, which separates this from the digest case, where the carrier is an algorithm tag. The GitHub page also warns that anyone with read access can read a cache; that concerns cache contents, not the key, and the sources do not say whether a key could be sensitive if an author builds it from a secret, so only keys built from file hashes are asserted.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Cache keys and build filenames are tool artifacts, not issued credentials; no family is involved.",
+  "scenarios": [
+    "benign-encoded-value"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Expected unflagged for a key built from a file hash and for a content-hashed filename. GitHub documents the key as the identifier used to save and search for a cache and shows it built from hashFiles over a lock file; webpack documents [contenthash] as a hash of the asset content that changes when the content does. A key built from a secret value is outside this expectation.",
+    "sources": [
+      {
+        "sourceId": "docs-github-com-3f9a7bf27e",
+        "supports": "The key is the key created when saving a cache and the key used to search for a cache; example key npm-${{ hashFiles(...) }}. Separately: do not store sensitive information in the cache path.",
+        "locator": "Input parameters; Best practices"
+      },
+      {
+        "sourceId": "webpack-js-org-a5fa280e8f",
+        "supports": "The [contenthash] substitution adds a unique hash based on the content of an asset, which changes when the content changes.",
+        "locator": "Output Filenames"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Product masking, action policy and measurement stay with the downstream repositories."
+}

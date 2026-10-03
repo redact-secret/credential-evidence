@@ -41,6 +41,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0 # full history: lint:source-revision proves generated sets pin a commit reachable from main
 
       - name: Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
@@ -62,6 +63,11 @@ jobs:
 
       - name: Skill lint
         run: npm run lint:skills
+
+      - name: Generated sets pin a commit reachable from main (squash merges orphan branch commits)
+        run: npm run lint:source-revision -- --require-reachable
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
 
       - name: Baseline integrity (every edit to or removal of an imported record is declared)
         run: npm run baseline:check

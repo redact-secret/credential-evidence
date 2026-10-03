@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "version-strings-embedding-a-commit-hash-fragment",
+  "title": "Version strings that embed a commit hash as build metadata",
+  "summary": "Version strings that carry a commit hash: a Go pseudo-version with a 12-character hash prefix in a go.mod requirement, a semantic version with sha-tagged build metadata of seven characters, and a version whose build metadata is a full 40-character hash.",
+  "rationale": "The hex run is a revision identifier inside a larger version token, at lengths from 7 to 40. Short runs sit below credential lengths, but the 40-character build metadata equals a common prefixless key length, and nothing in the surrounding text names a credential. Semver allows any [0-9A-Za-z-] identifiers as build metadata and says they are ignored for precedence; Go defines the pseudo-version as encoding a specific repository revision. The same reasoning does not hold for the digest or cache-key cases, because here the hash is a fragment of another token rather than a tagged digest or a labelled key.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Version strings are not issued credentials; no family is involved.",
+  "scenarios": [
+    "benign-encoded-value"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Expected unflagged. Go documents the pseudo-version as a pre-release version that encodes a revision, with a 12-character commit hash prefix; the semver specification defines build metadata as identifiers that do not affect precedence and gives the example 1.0.0-beta+exp.sha.5114f85. A full 40-character hash is a longer instance of the same grammar; the specification does not cap the length.",
+    "sources": [
+      {
+        "sourceId": "go-dev-5fb6edc5a8",
+        "supports": "A pseudo-version is a specially formatted pre-release version that encodes information about a specific revision; form vX.0.0-yyyymmddhhmmss-abcdefabcdef with a 12-character commit hash prefix.",
+        "locator": "Pseudo-versions"
+      },
+      {
+        "sourceId": "semver-org-044be17746",
+        "supports": "Build metadata is a plus sign and dot-separated identifiers of [0-9A-Za-z-], ignored for precedence; example 1.0.0-beta+exp.sha.5114f85.",
+        "locator": "Item 10"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Product masking, action policy and measurement stay with the downstream repositories."
+}
