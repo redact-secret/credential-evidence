@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "provider-key-inside-larger-base64-or-hex-payload",
+  "title": "Key that is a part of a larger Base64 or hex payload",
+  "summary": "A synthetic SendGrid-shaped key is one piece of a longer text (a JSON document or a username-and-key pair) and that whole text is then Base64 or hex encoded, so the decoded bytes are the larger text and the key is a sub-range of it.",
+  "rationale": "Base64 maps three bytes to four characters, so the encoded text of the same key differs with the key's byte offset inside the payload modulo three (three alignments, and only the aligned one shares most characters with the whole-value encoding of the key). The encoded source span that stands for the key is therefore the whole encoded payload, or no contiguous range at all, and the key's decoded range lies inside the decoded payload. Schema 1.6.0 states a span's decoded value as exactly the base value, so this reading cannot be recorded as fixtures without an additive contract (a decoded range inside the decoded bytes). No fixture is added; the gap is stated rather than worked around by making the base the whole payload.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "credential-in-base64-or-hex-form"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Neither a source nor the current schema settles the source range for a key that is only part of what was encoded: covering the whole encoded payload, covering nothing, and covering the aligned characters are all defensible, and the first leaks no part but over-covers. What would settle it: a maintainer-declared policy, and a reviewed additive field (for example a decoded range inside the decoded bytes) so a fixture can state the key's place in the payload. HTTP Basic username-and-password tokens are the standard-defined instance and are researched with that carrier.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-0da70d4b9a",
+        "supports": "Base64 encodes input in groups of three bytes to four characters and pads a final short group, so the encoded form of a sub-sequence depends on its alignment.",
+        "locator": "#section-4"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from RFC 4648 read on 2026-10-03, before any scanner was consulted. Decoder behaviour, source mapping and action policy stay with the downstream repositories."
+}
