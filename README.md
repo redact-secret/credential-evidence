@@ -267,7 +267,7 @@ npm run lint:identity   # no legacy coordinates in canonical ids and paths (ADR 
 npm run lint:narrative  # no benchmark, product, detector, support-status or issue-workflow vocabulary in narratives (ADR 0010); no baseline
 npm run record:new -- <provider|family|contract|source|scenario|case> <arg> ...   # valid draft skeleton with TODO(record:new) placeholders; refuses duplicate ids and ADR 0007 coordinates (docs/authoring.md)
 npm run record:check [-- <paths>]   # fast subset of validate for changed records: schema, references, identity, narrative lint, placeholders
-npm run baseline:check  # the tree against the import baseline: every edit to or removal of an imported record is declared (docs/migration/baseline-amendments.json); additions are free
+npm run baseline:check  # the tree against the import baseline: every edit to or removal of an imported record is declared (one file per declaration in docs/migration/baseline-amendments/); additions are free
 npm run baseline:amend -- <records/path> --reason "<why>"   # declare an edit to an imported record
 npm test           # the ordinary unit tests (no legacy checkout)
 npm run check      # the ordinary gate: validate, lint:identity, lint:narrative, lint:skills, baseline:check, npm test

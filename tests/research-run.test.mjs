@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 import {
+  ALLOWED_PATHS,
   agentEnv,
   allowedToolRules,
   branchFor,
@@ -415,7 +416,7 @@ test("real run, an undeclared edit to an imported record fails `npm run check` (
 test("the pull request body lists the amended baseline records and the ordinary gate needs no legacy checkout", () => {
   const body = buildPrBody({ item: ITEMS()[0], plan: { prTag: "<!-- tag -->", branch: "research/x" }, notes: "n", gates: [], review: null, amended: ["records/families/aws/a.json", "records/sources/h/s.json"], needsHuman: [], epic: 21 });
   assert.match(body, /Baseline records amended \(2\)/);
-  assert.match(body, /baseline-amendments\.json/);
+  assert.match(body, /baseline-amendments\//);
   assert.doesNotMatch(buildPrBody({ item: ITEMS()[0], plan: { prTag: "<!-- tag -->", branch: "research/x" }, notes: "n", gates: [], review: null, needsHuman: [], epic: 21 }), /Baseline records amended/);
 });
 
@@ -478,6 +479,12 @@ test("a secret-shaped value stops the run before the push even when the verdict 
   } finally {
     h.cleanup();
   }
+});
+
+test("path scope admits records, research docs and per-amendment declaration files only (#88)", () => {
+  const inScope = (p) => ALLOWED_PATHS.some((re) => re.test(p));
+  for (const p of ["records/families/a/b.json", "docs/research/provider-wishlist.json", "docs/migration/baseline-amendments/families__a__b.0123456789ab.json"]) assert.ok(inScope(p), p);
+  for (const p of ["docs/migration/baseline-manifest.json", "docs/migration/baseline-amendments.json", "docs/migration/baseline-amendments/sub/x.json", "docs/migration/cases-report.md", "migration/legacy-map/x.json", "scripts/lib/validator.mjs"]) assert.ok(!inScope(p), p);
 });
 
 test("gates: a path outside records/ and docs/research/, a failing npm check, and a bad host each stop or flag the run", () => {

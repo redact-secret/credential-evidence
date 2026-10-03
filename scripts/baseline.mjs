@@ -8,14 +8,15 @@
 //       Part of `npm run check`: it is the ordinary-gate half of the migration traceability.
 //
 //   npm run baseline:amend -- <records/path>... --reason "<why>" [--ref "<issue or pull request>"]
-//       declare that a reviewed change edited or removed a baseline record. Adding a record needs none.
+//       declare that a reviewed change edited or removed a baseline record: writes one file per declaration
+//       under docs/migration/baseline-amendments/ (ADR 0015, addendum 1). Adding a record needs none.
 //
 // Whether the baseline itself is reproducible at the pinned legacy revision is the historical check:
 // npm run historical:check (migrate:*:check, export:legacy:check, parity:check).
 
 import { parseArgs } from "node:util";
 import { resolve } from "node:path";
-import { AMENDMENTS_PATH, classifyTree, declareAmendment, summarize } from "./lib/baseline.mjs";
+import { AMENDMENTS_DIR, classifyTree, declareAmendment, summarize } from "./lib/baseline.mjs";
 import { repoRoot } from "./lib/validator.mjs";
 
 const { values, positionals } = parseArgs({
@@ -33,7 +34,7 @@ if (command === "check") {
   if (c.problems.length) {
     for (const p of c.problems.slice(0, 40)) console.error(p);
     if (c.problems.length > 40) console.error(`... and ${c.problems.length - 40} more`);
-    console.error(`\nFAIL: ${c.problems.length} baseline problem(s). A reviewed edit to a migrated record is allowed once it is declared in ${AMENDMENTS_PATH}.`);
+    console.error(`\nFAIL: ${c.problems.length} baseline problem(s). A reviewed edit to a migrated record is allowed once it is declared as a file in ${AMENDMENTS_DIR}/ (npm run baseline:amend).`);
     process.exit(1);
   }
   console.log(`OK: ${summarize(c)}`);

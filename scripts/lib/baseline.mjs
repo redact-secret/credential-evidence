@@ -3,8 +3,10 @@
 //
 //   docs/migration/baseline-manifest.json     generated; path + sha256 + producing importer of every
 //                                             baseline file (records, legacy map, importer reports)
-//   docs/migration/baseline-amendments.json   authored; one entry (path, change, reason) for every
+//   docs/migration/baseline-amendments/       authored; one small file per declared amendment (path, change,
+//                                             reason), named from a hash of those three fields, for every
 //                                             baseline record that a reviewed change edited or removed
+//                                             (ADR 0015, addendum 1: parallel pull requests add distinct files)
 //
 // The tree is classified against the manifest, never silently:
 //
@@ -24,14 +26,14 @@
 // scripts/migrate; the code that regenerates the baseline is scripts/migrate/lib/baseline-build.mjs.
 
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { listJson, repoRoot } from "./validator.mjs";
 
 export const MANIFEST_PATH = "docs/migration/baseline-manifest.json";
-export const AMENDMENTS_PATH = "docs/migration/baseline-amendments.json";
+export const AMENDMENTS_DIR = "docs/migration/baseline-amendments";
 export const MANIFEST_FORMAT = "credential-evidence/import-baseline-manifest";
-export const AMENDMENTS_FORMAT = "credential-evidence/baseline-amendments";
+export const AMENDMENT_FORMAT = "credential-evidence/baseline-amendment";
 export const GENERATOR = { name: "credential-evidence/import-baseline", version: "1.0.0" };
 export const OWNERS = ["migrate:taxonomy", "migrate:cases", "migrate:narratives"];
 export const CHANGES = ["edited", "removed"];
@@ -124,38 +126,86 @@ export function compareWithManifest(generated, manifest, owner) {
 }
 
 // -------------------------------------------------------------- amendments
+//
+// One file per declared amendment: docs/migration/baseline-amendments/<slug>.<id>.json (ADR 0015, addendum 1).
+//   id    first 12 hex digits of sha256("<path>\n<change>\n<reason>"): a pure function of what is declared
+//   slug  the record path without `records/` and `.json`, `/` as `__`, cut at 100 characters (readability only)
+// Two pull requests amending different records add different files, so they never conflict; the same declaration
+// made twice is the same file with the same bytes, which git merges cleanly; a record amended again with a new
+// reason adds a second file next to the first. The file name is verified against its content, so it cannot drift.
 
-export function loadAmendments(root = repoRoot) {
-  const file = join(root, AMENDMENTS_PATH);
-  if (!existsSync(file)) return { amendments: [], problems: [`missing: ${AMENDMENTS_PATH}`] };
-  const doc = JSON.parse(readFileSync(file, "utf8"));
-  const problems = [];
-  if (doc.format !== AMENDMENTS_FORMAT || doc.formatVersion !== 1) problems.push(`${AMENDMENTS_PATH}: format must be ${AMENDMENTS_FORMAT} version 1`);
-  if (!Array.isArray(doc.amendments)) return { amendments: [], problems: [...problems, `${AMENDMENTS_PATH}: amendments must be an array`] };
-  let prev = "";
-  for (const a of doc.amendments) {
-    const where = `${AMENDMENTS_PATH}: ${a?.path}`;
-    if (typeof a?.path !== "string" || !CHANGES.includes(a.change)) problems.push(`${where}: needs path and change (${CHANGES.join(" or ")})`);
-    else if (typeof a.reason !== "string" || a.reason.trim().length < MIN_REASON) problems.push(`${where}: a reason of at least ${MIN_REASON} characters is required (the stated cause of the change)`);
-    else if (a.ref !== undefined && typeof a.ref !== "string") problems.push(`${where}: ref must be a string`);
-    else if (!isAmendable(a.path)) problems.push(`${where}: only records under records/ can be amended; the legacy map and the importer reports are immutable references (ADR 0015)`);
-    if (typeof a?.path === "string") {
-      if (a.path <= prev) problems.push(`${where}: entries must be sorted by path and unique`);
-      prev = a.path;
-    }
-  }
-  return { amendments: doc.amendments, problems };
+/** Stable id of a declaration: a function of path, change and reason only (the optional `ref` is not part of it). */
+export const amendmentId = ({ path, change, reason }) => sha256(`${path}\n${change}\n${reason}`).slice(0, 12);
+
+/** File name (inside AMENDMENTS_DIR) of a declaration. */
+export const amendmentFileName = (a) => `${a.path.replace(/^records\//, "").replace(/\.json$/, "").replaceAll("/", "__").slice(0, 100)}.${amendmentId(a)}.json`;
+
+/** Canonical bytes of one declaration file. */
+export function serializeAmendment(a) {
+  const doc = { format: AMENDMENT_FORMAT, formatVersion: 1, path: a.path, change: a.change, reason: a.reason, ...(a.ref ? { ref: a.ref } : {}) };
+  return `${JSON.stringify(doc, null, 2)}\n`;
 }
 
-export function serializeAmendments(amendments) {
-  const sorted = [...amendments].sort((a, b) => cmp(a.path, b.path));
-  const head = {
-    format: AMENDMENTS_FORMAT,
-    formatVersion: 1,
-    note: "One entry per baseline record that a reviewed change edited or removed after the import (ADR 0015). Adding a record needs no entry. Declare with `npm run baseline:amend`; `npm run baseline:check` fails on an undeclared edit or removal and on an entry the tree no longer needs.",
-  };
-  const lines = Object.entries(head).map(([k, v]) => `  ${JSON.stringify(k)}: ${JSON.stringify(v)},`);
-  return `{\n${lines.join("\n")}\n  "amendments": [\n${sorted.map((a) => `    ${JSON.stringify(a)}`).join(",\n")}${sorted.length ? "\n" : ""}  ]\n}\n`;
+function amendmentProblems(a, file) {
+  const where = `${AMENDMENTS_DIR}/${file}`;
+  if (a?.format !== AMENDMENT_FORMAT || a.formatVersion !== 1) return [`${where}: format must be ${AMENDMENT_FORMAT} version 1`];
+  const extra = Object.keys(a).filter((k) => !["format", "formatVersion", "path", "change", "reason", "ref"].includes(k));
+  if (extra.length) return [`${where}: unknown field(s) ${extra.join(", ")}`];
+  if (typeof a.path !== "string" || !CHANGES.includes(a.change)) return [`${where}: needs path and change (${CHANGES.join(" or ")})`];
+  if (typeof a.reason !== "string" || a.reason.trim().length < MIN_REASON) return [`${where}: a reason of at least ${MIN_REASON} characters is required (the stated cause of the change)`];
+  if (a.reason !== a.reason.trim()) return [`${where}: reason must not have leading or trailing whitespace`];
+  if (a.ref !== undefined && typeof a.ref !== "string") return [`${where}: ref must be a string`];
+  if (!isAmendable(a.path)) return [`${where}: only records under records/ can be amended; the legacy map and the importer reports are immutable references (ADR 0015)`];
+  if (file !== amendmentFileName(a)) return [`${where}: the file name must be ${amendmentFileName(a)} (derived from path, change and reason); declare with npm run baseline:amend`];
+  return [];
+}
+
+/**
+ * Every declared amendment, in a stable order (path, then change, then reason). `files` maps each entry to its file name.
+ * An absent directory is an empty ledger: the VCS cannot hold an empty directory, and a tree with no amendments is valid.
+ */
+export function loadAmendments(root = repoRoot) {
+  const dir = join(root, AMENDMENTS_DIR);
+  const out = { amendments: [], problems: [], files: new Map() };
+  if (!existsSync(dir)) return out;
+  for (const entry of readdirSync(dir, { withFileTypes: true }).sort((x, y) => cmp(x.name, y.name))) {
+    const where = `${AMENDMENTS_DIR}/${entry.name}`;
+    if (!entry.isFile() || !entry.name.endsWith(".json")) {
+      out.problems.push(`${where}: only amendment .json files belong in ${AMENDMENTS_DIR}/`);
+      continue;
+    }
+    const text = readFileSync(join(dir, entry.name), "utf8");
+    let doc;
+    try {
+      doc = JSON.parse(text);
+    } catch (e) {
+      out.problems.push(`${where}: not valid JSON (${e.message})`);
+      continue;
+    }
+    const problems = amendmentProblems(doc, entry.name);
+    if (problems.length) {
+      out.problems.push(...problems);
+      continue;
+    }
+    if (text !== serializeAmendment(doc)) {
+      out.problems.push(`${where}: not in canonical form; rewrite it with npm run baseline:amend`);
+      continue;
+    }
+    const a = { path: doc.path, change: doc.change, reason: doc.reason, ...(doc.ref ? { ref: doc.ref } : {}) };
+    out.amendments.push(a);
+    out.files.set(a, entry.name);
+  }
+  out.amendments.sort((a, b) => cmp(a.path, b.path) || cmp(a.change, b.change) || cmp(a.reason, b.reason));
+  return out;
+}
+
+/** Write one declaration file (idempotent: the same declaration is the same file). Returns the file name. */
+export function writeAmendment(a, root = repoRoot) {
+  const dir = join(root, AMENDMENTS_DIR);
+  mkdirSync(dir, { recursive: true });
+  const name = amendmentFileName(a);
+  writeFileSync(join(dir, name), serializeAmendment(a));
+  return name;
 }
 
 // ------------------------------------------------------------ tree against baseline
@@ -187,25 +237,26 @@ export function classifyTree(root = repoRoot) {
     result.problems.push(`missing: ${MANIFEST_PATH}; run the importers (npm run migrate:taxonomy, migrate:cases, migrate:narratives)`);
     return result;
   }
-  const { amendments, problems } = loadAmendments(root);
+  const { amendments, problems, files } = loadAmendments(root);
   result.problems.push(...problems);
-  const declared = new Map(amendments.map((a) => [a.path, a]));
+  const declared = new Map();
+  for (const a of amendments) declared.set(a.path, [...(declared.get(a.path) ?? []), a]);
   const tree = treeDigests(root);
   const baseline = new Map(manifest.files.map((f) => [f.path, f]));
 
   for (const f of manifest.files) {
     const have = f.path.startsWith("docs/") ? digestOfFile(root, f.path) : (tree.get(f.path) ?? null);
-    const a = declared.get(f.path);
+    const entries = declared.get(f.path) ?? [];
     if (have === f.sha256) {
       result.unchanged.push(f.path);
-      if (a) result.problems.push(`stale amendment: ${f.path} equals the baseline again; remove its entry from ${AMENDMENTS_PATH}`);
+      for (const a of entries) result.problems.push(`stale amendment: ${f.path} equals the baseline again; delete ${AMENDMENTS_DIR}/${files.get(a)}`);
       continue;
     }
     const change = have === null ? "removed" : "edited";
     (change === "removed" ? result.removed : result.edited).push(f.path);
     if (!isAmendable(f.path)) result.problems.push(`${change} immutable reference: ${f.path} (only a re-pin regenerates it; ADR 0015)`);
-    else if (!a) result.problems.push(`undeclared ${change}: ${f.path}; declare it with npm run baseline:amend -- ${f.path} --reason "<why>"`);
-    else if (a.change !== change) result.problems.push(`${f.path} is ${change} but ${AMENDMENTS_PATH} says ${a.change}`);
+    else if (!entries.length) result.problems.push(`undeclared ${change}: ${f.path}; declare it with npm run baseline:amend -- ${f.path} --reason "<why>"`);
+    else if (!entries.some((a) => a.change === change)) result.problems.push(`${f.path} is ${change} but ${AMENDMENTS_DIR}/ says ${[...new Set(entries.map((a) => a.change))].join(", ")}`);
   }
   for (const a of amendments) if (!baseline.has(a.path)) result.problems.push(`amendment for a path the baseline does not list: ${a.path} (a new record needs no amendment)`);
   for (const path of tree.keys()) {
@@ -233,11 +284,8 @@ export function declareAmendment({ root = repoRoot, path, reason, ref }) {
   if (have === entry.sha256) throw new Error(`${path} equals the baseline: nothing to declare`);
   const change = have === null ? "removed" : "edited";
   if (typeof reason !== "string" || reason.trim().length < MIN_REASON) throw new Error(`--reason needs at least ${MIN_REASON} characters: the cause of the change`);
-  const { amendments } = loadAmendments(root);
-  const next = amendments.filter((a) => a.path !== path);
   const amendment = { path, change, reason: reason.trim(), ...(ref ? { ref } : {}) };
-  next.push(amendment);
-  writeFileSync(join(root, AMENDMENTS_PATH), serializeAmendments(next));
+  writeAmendment(amendment, root);
   return amendment;
 }
 

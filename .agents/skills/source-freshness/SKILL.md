@@ -25,7 +25,7 @@ If none is given, pick one with the [coverage-gaps](../coverage-gaps/SKILL.md) s
 ## Step 0: imported sources
 
 A source record the migration importer produced (`migrate:taxonomy`, the baseline) takes an appended observation like
-any other: `npm run source:observe` appends it and declares the edit in `docs/migration/baseline-amendments.json`
+any other: `npm run source:observe` appends it and declares the edit as its own file in `docs/migration/baseline-amendments/`
 with its own cause ([ADR 0015](../../../docs/decisions/0015-validation-tiers-and-import-baseline.md)). Imported sources
 are exactly the `unverified-import` rows of the backlog, so this is the main work of the skill. The pinned import stays
 reproducible; `npm run check` includes `baseline:check`, which passes once the amendment is declared.
@@ -70,7 +70,7 @@ reproducible; `npm run check` includes `baseline:check`, which passes once the a
    `npm run record:new -- review ... --append`; if the history is an imported one, declare it
    (`npm run baseline:amend`). A maintainer applies a demotion
    after checking the trigger.
-6. Gate: `npm run check`, `npm run fixtures:materialize:check`, `npm run coverage:gaps` (commit the output), `graft build`.
+6. Gate: `npm run check`, `npm run fixtures:materialize:check`, `graft build` (the coverage report is generated, not committed).
 7. Commit `chore(sources): re-observe <family-id>` and open a pull request. For `changed` or `unreachable`
    results also open one issue per proposal labelled for human review. Never merge.
 

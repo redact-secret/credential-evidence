@@ -18,7 +18,7 @@ Measured on `main` at `0b0aff2` (357 tests), before the split.
 | Research harness | Step 5 ran the three historical checks; a failure was a draft PR labeled `blocked-by-pipeline-ownership`. | Every provider, family, case or narrative PR opened as a draft. |
 | `ci.yml` | One job, the legacy repository checked out, all of the above on every pull request. | Every PR paid for, and could fail on, the importers. |
 
-Not affected, and kept as they are: schema validation, identity and narrative lint, skill lint, `coverage:gaps:check` (regenerated and committed with the change), `record:check`, `review:check`, and the unit tests that build synthetic records.
+Not affected, and kept as they are: schema validation, identity and narrative lint, skill lint, `record:check`, `review:check`, and the unit tests that build synthetic records.
 
 ## 2. What a reviewed canonical change broke
 
@@ -31,7 +31,7 @@ The importers, the legacy map, the projection and parity describe **the import b
 
 | Tier | Commands | Needs the legacy checkout | Runs |
 | --- | --- | --- | --- |
-| Ordinary | `validate`, `lint:identity`, `lint:narrative`, `lint:skills`, `baseline:check`, `coverage:gaps:check`, `fixtures:materialize:check`, `npm test` | no | every pull request and every push (`verify`) |
+| Ordinary | `validate`, `lint:identity`, `lint:narrative`, `lint:skills`, `baseline:check`, `fixtures:materialize:check`, `npm test` | no | every pull request and every push (`verify`) |
 | Historical | `baseline:check`, `migrate:check`, `export:legacy:check`, `parity:check`, `test:historical` (= `npm run historical:check`) | yes, at `LEGACY_REVISION` | an importer, legacy-map, projection, parity, schema or shared-generator change (`historical`); `workflow_dispatch`; `release.yml` |
 
 Traceability is kept by four immutable references, none of which a canonical change can alter: `migration/legacy-map/`, `docs/migration/baseline-manifest.json` (2,107 paths and digests: records, legacy map, four reports), the importer reports, and the projection manifest and parity report. Divergence from the baseline is explicit in `docs/migration/baseline-amendments.json`: one entry per edited or removed baseline record, with its cause.
@@ -50,7 +50,7 @@ npm run baseline:amend -- records/families/aws/iam-user-access-key.json --reason
 npm run check
 ```
 
-An addition needs nothing. `source:observe` and `record:new -- review --append` declare their own amendments. Reverting an edit makes its declaration stale (`baseline:check` fails until the entry is removed). The legacy map and the reports cannot be amended.
+An addition needs nothing. `source:observe` and `record:new -- review --append` declare their own amendments. Each declaration is its own file under `docs/migration/baseline-amendments/` (`<slug>.<id>.json`, ADR 0015 addendum 1), so parallel pull requests that amend different records never conflict. Reverting an edit makes its declarations stale (`baseline:check` fails until the files are deleted). The legacy map and the reports cannot be amended.
 
 ## 5. The periodic audit
 
@@ -76,7 +76,7 @@ Not verified: that the branch protection of `main` requires `verify` (the reposi
 ## 8. Tests must not assume an empty ledger (#86)
 
 The first research pull requests that declared an amendment (#83, #84, #85) turned both jobs red although each change
-was valid: the tests that copy the repository assumed `baseline-amendments.json` was empty and the baseline records
+was valid: the tests that copy the repository assumed the amendments ledger was empty and the baseline records
 pristine, and one ordinary test regenerated the baseline from the legacy checkout that `verify` does not have. The rules
 since:
 
@@ -87,8 +87,15 @@ since:
   historical tier.
 - **Historical tests** (`tests/historical/`) that mutate the tree start from `copyBaseline()`
   (`tests/historical/baseline-copy.mjs`): every baseline record restored byte for byte (amended ones regenerated from the
-  pin and proven equal to the manifest), additions dropped, empty ledger. The plain copy of the live tree is used
+  pin and proven equal to the manifest), additions dropped, no amendment files. The plain copy of the live tree is used
   to prove the other direction: the historical checks pass over whatever amendments the live tree declares and print the
   same numbers as over the pristine baseline.
 - `tests/ledger-hermetic.test.mjs` is the regression test: it declares three real amendments in a copy (the three tools that
   declare them) and runs `baseline.test.mjs` and `canonical-change.test.mjs` inside it with no legacy checkout.
+
+## 9. Parallel pull requests do not conflict (#88)
+
+Two shared files made parallel research pull requests conflict: the single amendments JSON and the committed coverage
+report. The ledger is now one file per declaration and the coverage report is generated into the gitignored
+`docs/research/generated/` (and no longer checked in CI). `tests/amendment-merge.test.mjs` merges two branches that each
+declare an amendment and observe a source with zero conflicts. Details and rejected alternatives: ADR 0015, Addendum 1.

@@ -16,7 +16,7 @@
 // This tool never fetches: you read the page, then report. It appends to `observations`; it never
 // edits an earlier entry, a claim, a contract or a review history. A source that belongs to the import
 // baseline (scripts/lib/ownership.mjs) is appended to like any other, and the edit is declared in
-// docs/migration/baseline-amendments.json with this tool's own cause (ADR 0015); `npm run baseline:check`
+// docs/migration/baseline-amendments/ (one file, with this tool's own cause; ADR 0015); `npm run baseline:check`
 // fails on an undeclared edit. Exit 0 ok, 1 refused, 2 usage.
 
 import { readFileSync, writeFileSync } from "node:fs";

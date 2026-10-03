@@ -33,7 +33,8 @@ test("ci.yml: the ordinary job needs no legacy checkout and runs every ordinary 
   assert.deepEqual(Object.keys(ci.on).sort(), ["pull_request", "push", "workflow_dispatch"]);
   assert.deepEqual(ci.on.push.branches, ["main"]);
   const verify = runs(ci, "verify");
-  for (const cmd of ["npm run validate", "npm run lint:identity", "npm run lint:narrative", "npm run lint:skills", "npm run baseline:check", "npm run coverage:gaps:check", "npm run fixtures:materialize:check", "npm test"]) assert.ok(verify.includes(cmd), cmd);
+  for (const cmd of ["npm run validate", "npm run lint:identity", "npm run lint:narrative", "npm run lint:skills", "npm run baseline:check", "npm run fixtures:materialize:check", "npm test"]) assert.ok(verify.includes(cmd), cmd);
+  assert.doesNotMatch(verify, /coverage:gaps/, "the coverage report is generated on demand, not a PR gate (#88)");
   const verifyText = YAML.stringify(ci.jobs.verify);
   assert.doesNotMatch(verifyText, /legacy|migrate:|export:legacy|parity|historical|LEGACY_BENCHMARKS_DIR|REQUIRE_LEGACY/i, "the ordinary gate does not touch the historical tier");
   assert.equal(ci.jobs.verify["timeout-minutes"] <= 20, true);
@@ -63,7 +64,7 @@ test("release.yml runs both tiers at the released commit against the pinned lega
   const rel = load("release.yml");
   assert.equal(rel.env.LEGACY_REVISION, PIN);
   const v = runs(rel, "verify");
-  for (const cmd of ["npm run validate", "npm run baseline:check", "npm run coverage:gaps:check", "npm run fixtures:materialize:check", "npm test", "npm run historical:check", "npm run release:check"]) assert.ok(v.includes(cmd), cmd);
+  for (const cmd of ["npm run validate", "npm run baseline:check", "npm run fixtures:materialize:check", "npm test", "npm run historical:check", "npm run release:check"]) assert.ok(v.includes(cmd), cmd);
   const legacy = steps(rel, "verify").find((s) => s.with?.repository === "redact-secret/redact-secret-benchmarks");
   assert.equal(legacy.with.ref, "${{ env.LEGACY_REVISION }}");
   assert.equal(steps(rel, "verify").find((s) => /historical:check/.test(s.run ?? "")).env.REQUIRE_LEGACY, "1");
@@ -122,7 +123,7 @@ test("the historical trigger paths cover every file the historical entry points 
 test("scope: a research or record change does not run the historical tier; importer, schema and workflow changes do", () => {
   const no = (paths) => assert.equal(historicalScope({ paths }).run, false, paths.join(","));
   const yes = (paths) => assert.equal(historicalScope({ paths }).run, true, paths.join(","));
-  no(["records/families/acme/key.json", "records/providers/acme.json", "docs/research/backlog.json", "docs/research/coverage.md", ".agents/skills/research-family/SKILL.md", "docs/ops/research-cron.md", "README.md", "docs/decisions/0099-x.md", "docs/releases.md"]);
+  no(["records/families/acme/key.json", "records/providers/acme.json", "docs/research/README.md", ".agents/skills/research-family/SKILL.md", "docs/ops/research-cron.md", "README.md", "docs/decisions/0099-x.md", "docs/releases.md"]);
   no(["scripts/lib/research-run.mjs", "scripts/coverage-gaps.mjs", "tests/research-run.test.mjs"]);
   yes(["scripts/migrate/lib/classify.mjs"]);
   yes(["scripts/export/lib/projection.mjs"]);

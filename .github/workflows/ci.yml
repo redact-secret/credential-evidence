@@ -3,7 +3,7 @@ name: CI
 # Two tiers (ADR 0015, docs/migration/validation-split.md).
 #
 #   verify      the ordinary gate: schema, records, identity, narrative, skills, baseline integrity, fixture
-#               materialization, coverage and the unit tests. Every pull request and every push. It reads
+#               materialization and the unit tests (the coverage report is generated on demand, not checked: #88). Every pull request and every push. It reads
 #               this repository only: no legacy checkout.
 #   historical  the pinned import, projection and parity checks and the tests that assert the imported
 #               baseline. They need the legacy repository at the pinned commit and run when an importer,
@@ -65,9 +65,6 @@ jobs:
 
       - name: Baseline integrity (every edit to or removal of an imported record is declared)
         run: npm run baseline:check
-
-      - name: Coverage report is current (docs/research)
-        run: npm run coverage:gaps:check
 
       - name: Fixture materialization check (records verified, every fixture's digest)
         run: npm run fixtures:materialize:check

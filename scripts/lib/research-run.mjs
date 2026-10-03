@@ -25,7 +25,7 @@ export const BUDGET_CEILINGS = { maxMinutes: 90, maxPages: 12, maxFetches: 60, m
 export const SKILL_BUDGET = { "source-freshness": { maxPages: 10, maxFetches: 12 } };
 
 /** Only these paths may change in a run. The code that checks records is never agent-editable. */
-export const ALLOWED_PATHS = [/^records\//, /^docs\/research\//];
+export const ALLOWED_PATHS = [/^records\//, /^docs\/research\//, /^docs\/migration\/baseline-amendments\/[^/]+\.json$/];
 
 export const LABELS = [
   { name: "research", color: "0E8A16", description: "Research or record-curation work" },
@@ -278,7 +278,7 @@ export function buildPlan({ chosen, skipped, budget, allowlist, base, date, epic
         `git fetch origin; git worktree add -b ${branch} <run-dir>/worktree origin/${base}`,
         "npm ci --ignore-scripts (in the worktree)",
         `run the agent with skill ${chosen.suggestedSkill} on ${chosen.suggestedInput} (time limit ${budget.maxMinutes} min)`,
-        "gate: path scope, source hosts, secret scan, npm run check (includes baseline:check), coverage:gaps:check, fixtures:materialize:check, review:check",
+        "gate: path scope, source hosts, secret scan, npm run check (includes baseline:check), fixtures:materialize:check, review:check",
         `on pass: git push origin ${branch}; gh pr create (draft only when a human must decide), labels research, research-cron`,
         "otherwise: gh issue create --label needs-human (deduped by the item tag)",
         "write <run-dir>/summary.json and summary.md",
@@ -396,7 +396,7 @@ Follow \`.agents/skills/_shared/research-run.md\` (headless column) exactly. Do 
 ${a}
 - Budget: at most ${plan.budget.maxPages} pages read, ${plan.budget.maxFetches} fetches, ${plan.budget.maxTokens} tokens,
   ${plan.budget.maxMinutes} minutes of wall clock (the harness kills the run at the limit and discards it).
-- Change only files under \`records/\` and \`docs/research/\`. Commit with conventional commits on this branch.
+- Change only files under \`records/\` and \`docs/research/\` (plus the amendment files \`npm run baseline:amend\` writes under \`docs/migration/baseline-amendments/\`). Commit with conventional commits on this branch.
   Do not push, open a pull request, label, merge, or run \`gh\`. The harness does that after its gate.
 - A record that belongs to the import baseline may be edited when the evidence requires it (research-run.md, Step 0): declare
   the edit with \`npm run baseline:amend -- <path> --reason "<why>"\`, or \`npm run check\` fails. Adding records needs no
@@ -461,7 +461,7 @@ export function fetchOpenWork(deps, { cwd, env }) {
   return { prs, issues, branches };
 }
 
-/** The backlog in priority order, from the committed rules over the records (as of the run date). */
+/** The backlog in priority order, generated fresh from the committed rules over the records (as of the run date); no committed backlog file exists (#88). */
 export function loadBacklogItems(deps, { root, date }) {
   const res = deps.exec("node", [join(root, "scripts", "coverage-gaps.mjs"), "--next", "100000", "--as-of", date, "--root", root], { cwd: root, env: scrubEnv(process.env) });
   return jsonOf(res, "coverage:gaps --next").items;
@@ -499,7 +499,7 @@ const entryHost = (u) => {
 export function buildPrBody({ item, plan, notes, gates, review, amended = [], needsHuman, epic }) {
   const gateLines = gates.map((g) => `- \`${g.name}\`: ${g.status}`).join("\n");
   const amendedNote = amended.length
-    ? `**Baseline records amended (${amended.length}):** ${amended.slice(0, 12).map((p) => `\`${p}\``).join(", ")}${amended.length > 12 ? ", ..." : ""}. Each is declared with its cause in docs/migration/baseline-amendments.json (ADR 0015); the pinned import stays reproducible.\n`
+    ? `**Baseline records amended (${amended.length}):** ${amended.slice(0, 12).map((p) => `\`${p}\``).join(", ")}${amended.length > 12 ? ", ..." : ""}. Each is declared with its cause in a file under docs/migration/baseline-amendments/ (ADR 0015); the pinned import stays reproducible.\n`
     : "";
   return `${plan.prTag}
 
@@ -796,7 +796,7 @@ function executeRun({ opts, deps, summary, chosen, plan, runId, branch, budget, 
       if (verdict === "fail") hard.push("review:check verdict fail");
       else if (verdict === "needs-human") human.push("review:check verdict needs-human");
 
-      for (const [name, script] of [["check", "check"], ["coverage:gaps:check", "coverage:gaps:check"], ["fixtures:materialize:check", "fixtures:materialize:check"]]) {
+      for (const [name, script] of [["check", "check"], ["fixtures:materialize:check", "fixtures:materialize:check"]]) {
         const g = runGate(deps, `npm run ${name}`, "npm", ["run", "--silent", script], ctx);
         if (g.status === "fail") hard.push(`npm run ${name} failed`);
       }
@@ -813,7 +813,7 @@ function executeRun({ opts, deps, summary, chosen, plan, runId, branch, budget, 
     // The pull request body lists the amended baseline records so the reviewer sees them.
     const owners = baselineOwners(wt);
     const amended = changed.filter((p) => owners.has(p));
-    if (amended.length) summary.notes.push(`${amended.length} baseline record(s) amended (declared in docs/migration/baseline-amendments.json), e.g. ${amended[0]}`);
+    if (amended.length) summary.notes.push(`${amended.length} baseline record(s) amended (declared in docs/migration/baseline-amendments/), e.g. ${amended[0]}`);
 
     const draft = human.length > 0 || outcome.needsHuman.some((n) => n.blocksLanding);
     const labels = ["research", "research-cron"];

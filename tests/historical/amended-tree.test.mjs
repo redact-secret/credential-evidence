@@ -20,7 +20,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import test, { before, describe } from "node:test";
-import { AMENDMENTS_PATH, classifyTree, loadManifest, MANIFEST_PATH, serializeManifest } from "../../scripts/lib/baseline.mjs";
+import { AMENDMENTS_DIR, classifyTree, loadManifest, MANIFEST_PATH, serializeManifest } from "../../scripts/lib/baseline.mjs";
 import { buildSnapshot } from "../../scripts/export/lib/projection.mjs";
 import { loadBaselineFiles } from "../../scripts/migrate/lib/baseline-view.mjs";
 import { findLegacyDir, LEGACY_REVISION } from "../../scripts/migrate/lib/legacy-source.mjs";
@@ -175,7 +175,7 @@ describe("historical checks over a tree with canonical changes", { skip }, () =>
       assert.equal(c.run("baseline.mjs", ["amend", path, "--reason", "Whitespace normalised by a reviewed change"]).status, 0);
       const refused = c.run("migrate/import-taxonomy.mjs", [], env());
       assert.equal(refused.status, 1);
-      assert.match(refused.stderr, new RegExp(`${AMENDMENTS_PATH.replaceAll(".", "\\.")} declares 1 amendment`));
+      assert.match(refused.stderr, new RegExp(`${AMENDMENTS_DIR.replaceAll(".", "\\.")}/ declares 1 amendment`));
       assert.match(readFileSync(join(c.root, path), "utf8"), /\n\n$/, "the amended record was not overwritten");
     } finally {
       c.cleanup();

@@ -26,8 +26,8 @@ npm run research:run -- --kind contract-missing --provider acme   # narrow the p
 
 | Step | Owner | Detail |
 | --- | --- | --- |
-| 1. Select | runner | `coverage:gaps --next` over the records as of the run date (`--as-of <date>`), in the committed priority order, plus the wishlist (`new-provider` items). Exactly one item per run. Items with `research.blockers` are skipped unless `--include-blocked` (desk research cannot clear them). |
-| 2. Dedupe | runner | Reads open PRs, `research/*` and `coverage/*` branches on `origin`, and open `needs-human` issues (`gh`, read-only). An item is skipped when any of them names its tag, its branch, or the same subject under any gap kind (two PRs on one family conflict on its records and on the generated coverage files). If open work cannot be listed the run stops (`preflight-failed`) rather than risk duplicate work. |
+| 1. Select | runner | `coverage:gaps --next` over the records as of the run date (`--as-of <date>`), generated fresh for the run (no backlog file is committed), in priority order, plus the wishlist (`new-provider` items). Exactly one item per run. Items with `research.blockers` are skipped unless `--include-blocked` (desk research cannot clear them). |
+| 2. Dedupe | runner | Reads open PRs, `research/*` and `coverage/*` branches on `origin`, and open `needs-human` issues (`gh`, read-only). An item is skipped when any of them names its tag, its branch, or the same subject under any gap kind (two PRs on one family conflict on its records). If open work cannot be listed the run stops (`preflight-failed`) rather than risk duplicate work. |
 | 3. Budget and allowlist | runner | Below. Both are printed in the plan and handed to the agent. |
 | 4. Isolate | runner | A git worktree on `research/<gap-kind>/<subject-slug>` from `origin/<base>` (`develop` when `origin` has it, else `main`; `main` today), `npm ci --ignore-scripts` (a worktree has no `node_modules` of its own). The main checkout is never touched. |
 | 5. Research | agent | The configured agent runs the item's skill headless in the worktree and leaves research notes and an outcome file. Inside a harness run it never pushes, opens a PR or runs `gh`: steps 6 and 7 do (a session without the harness, such as an interactive pilot, delivers its own pull request after the same gate; see the `research-cron-run` skill, Role 3). |
@@ -80,7 +80,7 @@ sources per claim.
   (never a `GH_TOKEN` or `GITHUB_TOKEN`). It has **no** `gh` token. The `gh` token reaches only the runner's
   own `gh`/`git` network calls (list, push, create PR or issue). The checks and `npm run` scripts run with no
   token at all. Cloud and registry credentials never cross.
-- **Path scope.** Only `records/` and `docs/research/` may change. A change anywhere else (scripts, tests,
+- **Path scope.** Only `records/`, `docs/research/` and the amendment files under `docs/migration/baseline-amendments/` may change. A change anywhere else (scripts, tests,
   schemas, `package.json`, `.github/`, `.agents/`) is a hard failure and no repository script runs from that
   tree: the code that checks records is not something a run may edit.
 - **Secret scan and synthetic-only gate before any push.** `gitleaks` over the range when installed, and
@@ -103,7 +103,7 @@ In this order, on the worktree after the agent finished:
 3. **gitleaks** (when installed) and **`npm run review:check -- origin/<base>..HEAD`** (the mechanical half of
    [review-research-pr](../../.agents/skills/review-research-pr/SKILL.md)).
 4. **`npm run check`** (validate, identity and narrative lint, skill lint, **`baseline:check`**, unit tests),
-   **`coverage:gaps:check`**, **`fixtures:materialize:check`**.
+   **`fixtures:materialize:check`**.
 
 That is the whole gate. It is the ordinary tier of [the validation split](../migration/validation-split.md): it reads
 this repository only and needs no legacy checkout. The historical pinned checks (`migrate:check`,
@@ -112,7 +112,7 @@ which a run may not change, and CI runs them when those paths change, on dispatc
 
 | Result | Push? | Outcome | Exit |
 | --- | --- | --- | --- |
-| path scope, `npm run check`, `coverage:gaps:check` or `fixtures:materialize:check` fail; `review:check` exit 1 (fail); a secret-shape finding; gitleaks finding | no | `needs-human` issue with the failing gates, `gate-failed` | 1 |
+| path scope, `npm run check` or `fixtures:materialize:check` fail; `review:check` exit 1 (fail); a secret-shape finding; gitleaks finding | no | `needs-human` issue with the failing gates, `gate-failed` | 1 |
 | `review:check` exit 3 (needs-human), host or budget audit flagged, or the agent reported a decision with `blocksLanding: true` | yes | **draft** PR labeled `needs-human` | 3 |
 | everything green | yes | ready PR | 0 |
 | agent `needs-human` / `no-op` (no commits) | no | `needs-human` issue | 3 |
@@ -127,7 +127,7 @@ A scheduler should treat 0 and 3 as a finished run (3 sends a notification), and
 A new provider, family, case, scenario or narrative is just a new record: it passes the gate above and the run opens a
 ready PR. A record the migration importers produced (the **import baseline**, `docs/migration/baseline-manifest.json`)
 may be edited when the evidence requires it, for example an appended source observation or a corrected claim. The edit
-is **declared** in `docs/migration/baseline-amendments.json` with its cause (`npm run baseline:amend -- <path> --reason
+is **declared** as its own file in `docs/migration/baseline-amendments/` (parallel runs never conflict on it) with its cause (`npm run baseline:amend -- <path> --reason
 "..."`; `source:observe` and `record:new -- review --append` declare their own), and `npm run check` fails on an
 undeclared edit or removal, which makes the run end as a `gate-failed` issue, not a PR. The pull request body lists the
 amended baseline records. Until ADR 0015 these changes opened as drafts labeled `blocked-by-pipeline-ownership`

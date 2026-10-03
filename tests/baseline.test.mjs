@@ -1,17 +1,19 @@
 // The import baseline against the working tree (ADR 0015): classification, amendments, immutable references.
 // No legacy checkout is needed; every mutation happens in a throwaway copy of the repository.
 //
-// Hermetic against the live ledger (#86): the copy carries whatever amendments docs/migration/baseline-amendments.json
-// declares, so a test mutates a record the live tree still holds unchanged (untouchedRecord) and states its expectations
+// Hermetic against the live ledger (#86): the copy carries whatever amendments docs/migration/baseline-amendments/
+// declares (one file per amendment, ADR 0015 addendum 1), so a test mutates a record the live tree still holds unchanged (untouchedRecord) and states its expectations
 // relative to the live classification (liveCounts), never as absolute numbers. The same assertions hold for an empty ledger
 // and for a ledger with any number of declared edits; tests/ledger-hermetic.test.mjs runs this file against a non-empty one.
 
 import assert from "node:assert/strict";
-import { readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 import {
-  AMENDMENTS_PATH,
+  AMENDMENTS_DIR,
+  amendmentFileName,
+  amendmentId,
   baselineDigest,
   classifyTree,
   declareAmendment,
@@ -19,8 +21,9 @@ import {
   loadManifest,
   manifestProblems,
   MANIFEST_PATH,
-  serializeAmendments,
+  serializeAmendment,
   serializeManifest,
+  writeAmendment,
 } from "../scripts/lib/baseline.mjs";
 import { repoRoot } from "../scripts/lib/validator.mjs";
 import { copyRepo, liveCounts, untouchedRecord } from "./repo-copy.mjs";
@@ -55,10 +58,27 @@ test("the manifest is canonical: sorted, owned by the three importers, digest se
   assert.ok(manifestProblems({ ...manifest, files: [...manifest.files].reverse() }).length);
 });
 
-test("the amendments ledger is canonical and valid", () => {
-  const { amendments, problems } = loadAmendments();
+test("the amendments ledger is one canonical, content-named file per declaration", () => {
+  const { amendments, problems, files } = loadAmendments();
   assert.deepEqual(problems, []);
-  assert.equal(readFileSync(join(repoRoot, AMENDMENTS_PATH), "utf8"), serializeAmendments(amendments));
+  const onDisk = readdirSync(join(repoRoot, AMENDMENTS_DIR)).sort();
+  assert.deepEqual(onDisk, amendments.map((a) => files.get(a)).sort(), "every file in the directory is a loaded declaration");
+  for (const a of amendments) {
+    assert.equal(files.get(a), amendmentFileName(a), "the file name is derived from path, change and reason");
+    assert.match(files.get(a), /^[^/]+\.[0-9a-f]{12}\.json$/);
+    assert.equal(readFileSync(join(repoRoot, AMENDMENTS_DIR, files.get(a)), "utf8"), serializeAmendment(a));
+  }
+});
+
+test("the amendment id is a pure function of path, change and reason; ref is not part of it", () => {
+  const a = { path: "records/families/x/y.json", change: "edited", reason: "a long enough reason" };
+  assert.equal(amendmentId(a), amendmentId({ ...a, ref: "#1" }));
+  assert.match(amendmentId(a), /^[0-9a-f]{12}$/);
+  assert.notEqual(amendmentId(a), amendmentId({ ...a, change: "removed" }));
+  assert.notEqual(amendmentId(a), amendmentId({ ...a, reason: "another long enough reason" }));
+  assert.notEqual(amendmentId(a), amendmentId({ ...a, path: "records/families/x/z.json" }));
+  assert.equal(amendmentFileName(a), `families__x__y.${amendmentId(a)}.json`);
+  assert.ok(amendmentFileName({ ...a, path: `records/${"d/".repeat(200)}y.json` }).length < 130, "a long path keeps a bounded file name");
 });
 
 test("an edited baseline record fails until it is declared with a cause; then it passes and is counted", () => {
@@ -86,9 +106,9 @@ test("an edited baseline record fails until it is declared with a cause; then it
     const ok = c.run("baseline.mjs", ["check"]);
     assert.equal(ok.status, 0, ok.stderr);
     assert.match(ok.stdout, counts({ edited: 1 }));
-    const ledger = JSON.parse(readFileSync(join(c.root, AMENDMENTS_PATH), "utf8"));
-    assert.equal(ledger.amendments.length, loadAmendments().amendments.length + 1, "the live declarations are kept and one is added");
-    assert.deepEqual(ledger.amendments.find((a) => a.path === path), { path, change: "edited", reason: "Description widened after reading the vendor documentation", ref: "#79" });
+    const ledger = loadAmendments(c.root).amendments;
+    assert.equal(ledger.length, loadAmendments().amendments.length + 1, "the live declarations are kept and one file is added");
+    assert.deepEqual(ledger.find((a) => a.path === path), { path, change: "edited", reason: "Description widened after reading the vendor documentation", ref: "#79" });
 
     // reverting the edit makes the declaration stale: the ledger cannot outlive its cause
     writeFileSync(abs, readFileSync(join(repoRoot, path)));
@@ -114,9 +134,10 @@ test("a removed baseline record fails until it is declared as removed", () => {
     assert.equal(ok.status, 0, ok.stderr);
     assert.match(ok.stdout, counts({ removed: 1 }));
     // declaring it as edited while it is gone is a contradiction
-    const ledger = JSON.parse(readFileSync(join(c.root, AMENDMENTS_PATH), "utf8"));
-    ledger.amendments.find((a) => a.path === path).change = "edited";
-    writeFileSync(join(c.root, AMENDMENTS_PATH), serializeAmendments(ledger.amendments));
+    const ledger = loadAmendments(c.root);
+    const declared = ledger.amendments.find((a) => a.path === path);
+    rmSync(join(c.root, AMENDMENTS_DIR, ledger.files.get(declared)));
+    writeAmendment({ ...declared, change: "edited" }, c.root);
     assert.match(c.run("baseline.mjs", ["check"]).stderr, /is removed but .* says edited/);
   } finally {
     c.cleanup();
@@ -140,7 +161,7 @@ test("the importer reports and the legacy map are immutable references: no amend
     }
     // a hand-written amendment for an immutable path is refused as well
     const path = "docs/migration/cases-report.md";
-    writeFileSync(join(c.root, AMENDMENTS_PATH), serializeAmendments([{ path, change: "edited", reason: "an attempt to excuse an immutable reference" }]));
+    writeAmendment({ path, change: "edited", reason: "an attempt to excuse an immutable reference" }, c.root);
     const forged = c.run("baseline.mjs", ["check"]);
     assert.equal(forged.status, 1);
     assert.match(forged.stderr, /only records under records\/ can be amended/);
@@ -170,15 +191,39 @@ test("a file the baseline does not list is an addition: allowed, counted, never 
   }
 });
 
-test("a declaration for a path the baseline does not list, an unsorted ledger and a malformed manifest are refused", () => {
+test("a declaration for a path the baseline does not list, a forged or stray ledger file and a malformed manifest are refused", () => {
   const c = copyRepo();
   try {
     const path = firstRecord("records/families/");
-    writeFileSync(join(c.root, AMENDMENTS_PATH), serializeAmendments([{ path: "records/families/nope/none.json", change: "edited", reason: "a path the baseline never had" }]));
+    const dir = join(c.root, AMENDMENTS_DIR);
+    const fresh = () => {
+      rmSync(dir, { recursive: true, force: true });
+      mkdirSync(dir, { recursive: true });
+    };
+    fresh();
+    writeAmendment({ path: "records/families/nope/none.json", change: "edited", reason: "a path the baseline never had" }, c.root);
     assert.match(c.run("baseline.mjs", ["check"]).stderr, /path the baseline does not list/);
-    writeFileSync(join(c.root, AMENDMENTS_PATH), `${JSON.stringify({ format: "credential-evidence/baseline-amendments", formatVersion: 1, amendments: [{ path: "records/b.json", change: "edited", reason: "a long enough reason" }, { path: "records/a.json", change: "edited", reason: "a long enough reason" }] })}\n`);
-    assert.match(c.run("baseline.mjs", ["check"]).stderr, /sorted by path/);
-    writeFileSync(join(c.root, AMENDMENTS_PATH), serializeAmendments([]));
+
+    // a file whose name does not match its content (an edited reason, a renamed file) is refused
+    fresh();
+    const a = { path, change: "edited", reason: "a long enough reason" };
+    writeFileSync(join(dir, amendmentFileName({ ...a, reason: "a different reason entirely" })), serializeAmendment(a));
+    assert.match(c.run("baseline.mjs", ["check"]).stderr, /the file name must be/);
+    // not canonical bytes, not JSON, an unknown field, a stray non-JSON file
+    fresh();
+    writeFileSync(join(dir, amendmentFileName(a)), JSON.stringify({ format: "credential-evidence/baseline-amendment", formatVersion: 1, ...a }));
+    assert.match(c.run("baseline.mjs", ["check"]).stderr, /not in canonical form/);
+    writeFileSync(join(dir, "broken.json"), "{");
+    assert.match(c.run("baseline.mjs", ["check"]).stderr, /not valid JSON/);
+    writeFileSync(join(dir, "notes.txt"), "x");
+    assert.match(c.run("baseline.mjs", ["check"]).stderr, /only amendment \.json files/);
+    fresh();
+    writeFileSync(join(dir, amendmentFileName(a)), serializeAmendment({ ...a, ref: "#1" }).replace('"change"', '"surprise": 1,\n  "change"'));
+    assert.match(c.run("baseline.mjs", ["check"]).stderr, /unknown field/);
+    // an absent directory is a valid, empty ledger
+    rmSync(dir, { recursive: true, force: true });
+    assert.equal(loadAmendments(c.root).problems.length, 0);
+
     const m = JSON.parse(readFileSync(join(c.root, MANIFEST_PATH), "utf8"));
     m.files.find((f) => f.path === path).sha256 = "1".repeat(64);
     writeFileSync(join(c.root, MANIFEST_PATH), JSON.stringify(m));
@@ -190,19 +235,24 @@ test("a declaration for a path the baseline does not list, an unsorted ledger an
   }
 });
 
-test("declareAmendment keeps one entry per record and a record that equals the baseline needs none", () => {
+test("declareAmendment is idempotent per declaration, extends with a new reason, and a record that equals the baseline needs none", () => {
   const c = copyRepo();
   try {
     const path = firstRecord("records/families/");
     assert.throws(() => declareAmendment({ root: c.root, path, reason: "nothing changed in this record" }), /equals the baseline/);
     const abs = join(c.root, path);
     writeFileSync(abs, `${readFileSync(abs, "utf8").trimEnd()}\n\n`);
+    const live = loadAmendments().amendments.length;
     declareAmendment({ root: c.root, path, reason: "whitespace normalised by a reviewed change" });
+    declareAmendment({ root: c.root, path, reason: "whitespace normalised by a reviewed change" });
+    assert.equal(loadAmendments(c.root).amendments.length, live + 1, "the same declaration twice is one file");
     declareAmendment({ root: c.root, path, reason: "whitespace normalised by a reviewed change, restated" });
     const { amendments } = loadAmendments(c.root);
-    assert.equal(amendments.length, loadAmendments().amendments.length + 1, "one entry for the record, whatever the live ledger already holds");
-    assert.equal(amendments.filter((a) => a.path === path).length, 1);
-    assert.equal(amendments.find((a) => a.path === path).reason, "whitespace normalised by a reviewed change, restated");
+    assert.equal(amendments.length, live + 2, "a new reason extends the record's declarations with a second file");
+    assert.deepEqual(amendments.filter((a) => a.path === path).map((a) => a.reason), ["whitespace normalised by a reviewed change", "whitespace normalised by a reviewed change, restated"]);
+    assert.equal(c.run("baseline.mjs", ["check"]).status, 0, "both declarations are valid while the edit stands");
+    writeFileSync(abs, readFileSync(join(repoRoot, path)));
+    assert.equal((c.run("baseline.mjs", ["check"]).stderr.match(/stale amendment/g) ?? []).length, 2, "reverting the edit makes every declaration of it stale");
   } finally {
     c.cleanup();
   }

@@ -6,33 +6,32 @@ evidence; it says nothing about any scanner or product.
 
 | File | Written by | Read by |
 | --- | --- | --- |
-| [backlog.json](backlog.json) | `npm run coverage:gaps` | the [coverage-gaps](../../.agents/skills/coverage-gaps/SKILL.md) skill, the cron harness |
-| [coverage.md](coverage.md) | `npm run coverage:gaps` | people |
+| `generated/backlog.json` (not committed) | `npm run coverage:gaps` | the [coverage-gaps](../../.agents/skills/coverage-gaps/SKILL.md) skill |
+| `generated/coverage.md` (not committed) | `npm run coverage:gaps` | people |
 | [provider-wishlist.json](provider-wishlist.json) | people and agents, by pull request | `npm run coverage:gaps` |
 
 ```bash
-npm run coverage:gaps                       # rewrite backlog.json and coverage.md from the records
-npm run coverage:gaps:check                 # exit 1 when either committed file is out of date (CI runs this)
+npm run coverage:gaps                       # generate generated/backlog.json and generated/coverage.md (gitignored) from the records
 npm run coverage:gaps -- --next 3           # top 3 items as JSON; writes nothing
 npm run coverage:gaps -- --next 1 --skip <id>,<branch-hint>,<pr-tag> --skill research-family --min-priority P1
 npm run coverage:gaps -- --next 5 --as-of today      # measure staleness against the real clock
 ```
 
 Filters for `--next`: `--gap-kind`, `--provider`, `--skill`, `--min-priority P0|P1|P2|P3`, `--skip` (comma list of
-item ids, `dedupe.branchHint` values or `dedupe.prTitleTag` values). `--check` cannot be combined with `--as-of`
-or `--next`.
+item ids, `dedupe.branchHint` values or `dedupe.prTitleTag` values).
 
-## Keeping the committed files current
+## The report is generated, never committed
 
-The records change; the report follows. A pull request that adds, fixes or re-observes a record runs
-`npm run coverage:gaps` as its last step and commits the result, which also shows the gap it closed. The two
-generated files are the only place two research pull requests can conflict: resolve by re-running the command on
-the merged tree, never by merging the JSON by hand.
+`docs/research/generated/` is gitignored (ADR 0015, Addendum 1, #88). The records change and the report follows, so a
+committed copy changed on almost every research pull request and made parallel pull requests conflict. Nothing checks
+it in CI. Run `npm run coverage:gaps` whenever you need a current backlog (the skills do this as their first step) and
+`npm run research:run` generates its own, fresh, for the run date. Only this README and the wishlist are authored and
+committed.
 
 ## Reference date
 
 Staleness needs a date. The default is the newest date recorded anywhere in `records/` (an observation, a claim,
-a research verdict, a case expectation), so the committed output changes only when the records or the wishlist
+a research verdict, a case expectation), so the generated output changes only when the records or the wishlist
 do. It is not the clock. A run that wants the real clock passes `--as-of today` together with `--next`.
 
 ## Priority rules (rules version 1)
@@ -119,5 +118,5 @@ research, not a fact about the provider.
 
 `coverage:gaps` validates the file, fails on a malformed entry, and turns each entry whose provider has no record
 into a `new-provider` item. When the provider is recorded the entry drops out of the backlog and is listed in
-`coverage.md` under "prune"; the pull request that adds the provider removes its entry. Add entries by pull
+`generated/coverage.md` under "prune"; the pull request that adds the provider removes its entry. Add entries by pull
 request, in sorted order.

@@ -4,7 +4,7 @@
 // manifest (`migrate:taxonomy`, `migrate:cases`, `migrate:narratives`) produced its pinned version.
 // Every other path is "authored": a record added after the import, or an example. This is provenance,
 // not a lock. A baseline record may be edited by a reviewed change; the edit is declared in
-// docs/migration/baseline-amendments.json (`npm run baseline:amend`) and `npm run baseline:check` fails
+// docs/migration/baseline-amendments/ (`npm run baseline:amend`) and `npm run baseline:check` fails
 // without it. Historical checks regenerate the pinned baseline, so an amendment never breaks them.
 // (Before ADR 0015 the importers owned these directories wholesale, an edit failed `migrate:*:check`,
 // and the research harness opened such changes as drafts labeled blocked-by-pipeline-ownership.)

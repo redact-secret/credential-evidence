@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 // npm run coverage:gaps [-- flags]   per provider/family gaps -> a prioritized research backlog
 //
-//   (no flags)          write docs/research/backlog.json and docs/research/coverage.md
-//   --check             exit 1 when either committed file differs from what the records produce
+//   (no flags)          write docs/research/generated/backlog.json and coverage.md (gitignored: never committed, #88)
 //   --next <N>          print the N highest-priority items as JSON; writes nothing
 //     --skip <a,b,..>   item ids, branch hints or PR title tags to leave out (open work)
 //     --gap-kind <k>  --provider <id>  --skill <name>  --min-priority P0|P1|P2|P3
@@ -10,7 +9,8 @@
 //   --root <dir>        another repository root (tests)
 //
 // Deterministic and offline: the default reference date is the newest date recorded in records/,
-// so the committed files change only when the records or the wishlist do. Cron runs that want
+// so the generated files change only when the records or the wishlist do. They are not committed (every research
+// change would otherwise rewrite them and parallel pull requests would conflict, #88): generate on demand. Cron runs that want
 // staleness measured against the real clock pass `--next --as-of today`. Rules: docs/research/README.md.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -19,13 +19,12 @@ import { parseArgs } from "node:util";
 import { BANDS, buildBacklog, renderMarkdown, selectNext, serialize, validateWishlist } from "./lib/coverage.mjs";
 import { listJson, repoRoot } from "./lib/validator.mjs";
 
-const USAGE = "usage: npm run coverage:gaps [-- [--check] [--next N] [--skip ids] [--gap-kind k] [--provider id] [--skill s] [--min-priority P1] [--as-of date|today] [--root dir]]";
+const USAGE = "usage: npm run coverage:gaps [-- [--next N] [--skip ids] [--gap-kind k] [--provider id] [--skill s] [--min-priority P1] [--as-of date|today] [--root dir]]";
 
 let args;
 try {
   args = parseArgs({
     options: {
-      check: { type: "boolean" },
       next: { type: "string" },
       skip: { type: "string" },
       "gap-kind": { type: "string" },
@@ -46,10 +45,6 @@ const o = args.values;
 if (o.help) {
   console.log(USAGE);
   process.exit(0);
-}
-if (o.check && (o["as-of"] || o.next !== undefined)) {
-  console.error(`--check compares the committed files and cannot be combined with --as-of or --next\n${USAGE}`);
-  process.exit(2);
 }
 if (o["min-priority"] && !BANDS.some(([b]) => b === o["min-priority"])) {
   console.error(`--min-priority must be one of ${BANDS.map(([b]) => b).join(", ")}`);
@@ -73,8 +68,9 @@ if (o.next !== undefined) {
 }
 
 const root = o.root ? resolve(o.root) : repoRoot;
-const outDir = join(root, "docs", "research");
-const wishlistPath = join(outDir, "provider-wishlist.json");
+const researchDir = join(root, "docs", "research");
+const outDir = join(researchDir, "generated");
+const wishlistPath = join(researchDir, "provider-wishlist.json");
 
 let wishlist = null;
 if (existsSync(wishlistPath)) {
@@ -106,27 +102,17 @@ if (o.next !== undefined) {
   const items = selectNext(backlog, { limit, skip, gapKind: o["gap-kind"], provider: o.provider, skill: o.skill, minPriority: o["min-priority"] });
   process.stdout.write(serialize({ asOf: backlog.asOf, count: items.length, items }));
 } else {
-  writeOrCheck();
+  generate();
 }
 
-function writeOrCheck() {
+function generate() {
   const files = [
-    ["docs/research/backlog.json", serialize(backlog)],
-    ["docs/research/coverage.md", renderMarkdown(backlog)],
+    ["docs/research/generated/backlog.json", serialize(backlog)],
+    ["docs/research/generated/coverage.md", renderMarkdown(backlog)],
   ];
-
-  if (o.check) {
-    const stale = files.filter(([rel, text]) => !existsSync(join(root, rel)) || readFileSync(join(root, rel), "utf8") !== text).map(([rel]) => rel);
-    if (stale.length) {
-      for (const rel of stale) console.error(`${rel}: out of date; run \`npm run coverage:gaps\` and commit the result`);
-      process.exit(1);
-    }
-    console.log(`OK: coverage report current (${backlog.totals.items} items, as of ${backlog.asOf})`);
-    return;
-  }
 
   mkdirSync(outDir, { recursive: true });
   for (const [rel, text] of files) writeFileSync(join(root, rel), text);
   const t = backlog.totals;
-  console.log(`wrote docs/research/backlog.json and coverage.md: ${t.items} items as of ${backlog.asOf} (${BANDS.map(([b]) => `${b} ${t.byPriority[b] ?? 0}`).join(", ")})`);
+  console.log(`wrote docs/research/generated/backlog.json and coverage.md (gitignored): ${t.items} items as of ${backlog.asOf} (${BANDS.map(([b]) => `${b} ${t.byPriority[b] ?? 0}`).join(", ")})`);
 }

@@ -23,7 +23,7 @@ The tag names the release; the **manifest digest** (the SHA-256 of `release-mani
 
 ### 2. What a release guarantees
 
-A release exists only if, at its commit on `main`, the release workflow ran every check `ci.yml` runs and they were all green: `validate`, `lint:identity`, `lint:narrative`, `lint:skills`, `coverage:gaps:check`, `npm test` with the pinned legacy checkout, `migrate:check`, `export:legacy:check`, `parity:check` and `fixtures:materialize:check`, plus a dry run that builds the bundle twice and requires identical bytes.
+A release exists only if, at its commit on `main`, the release workflow ran every check `ci.yml` runs and they were all green: `validate`, `lint:identity`, `lint:narrative`, `lint:skills`, `npm test` with the pinned legacy checkout, `migrate:check`, `export:legacy:check`, `parity:check` and `fixtures:materialize:check`, plus a dry run that builds the bundle twice and requires identical bytes.
 
 As content, a released snapshot guarantees what the README and ARCHITECTURE state for any pinned snapshot: canonical facts, Cases and provenance; scanner-neutral expected outcomes; stable semantic ids; a snapshot identity and digest. It contains no Redact Secret support status, no product detector assignment as canonical evidence (detector names are optional mapping metadata only) and no release or candidate policy.
 

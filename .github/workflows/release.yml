@@ -101,9 +101,6 @@ jobs:
       - name: Baseline integrity
         run: npm run baseline:check
 
-      - name: Coverage report is current
-        run: npm run coverage:gaps:check
-
       - name: Fixture materialization check
         run: npm run fixtures:materialize:check
 

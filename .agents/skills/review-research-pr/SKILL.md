@@ -94,7 +94,7 @@ effort on section 4.
 
 `npm run check` and `record:check` failing is a `fail` regardless of the rest.
 `npm run check` includes `baseline:check`: an edit to or removal of an imported record is a `fail` unless it is declared
-in `docs/migration/baseline-amendments.json` with a cause that matches the diff. Also run `fixtures:materialize:check`.
+as a file in `docs/migration/baseline-amendments/` with a cause that matches the diff. Also run `fixtures:materialize:check`.
 The historical pinned checks (`migrate:check`, `export:legacy:check`, `parity:check`) run in CI only when an importer,
 the projection, parity, a schema or shared generator code changes; a records-only change is not asked to run them
 ([record-authoring](../_shared/record-authoring.md#before-you-commit)).

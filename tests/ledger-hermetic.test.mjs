@@ -1,6 +1,6 @@
 // Regression test for #86: the ordinary suite must not assume an empty amendments ledger.
 //
-// ADR 0015 lets a reviewed change edit a migrated record and declare it in docs/migration/baseline-amendments.json. The tests
+// ADR 0015 lets a reviewed change edit a migrated record and declare it as a file in docs/migration/baseline-amendments/. The tests
 // that copy the repository (tests/baseline.test.mjs, tests/canonical-change.test.mjs) used to assume the ledger was empty and
 // the baseline records pristine, so the first research pull request that declared an amendment turned `verify` red for
 // reasons that had nothing to do with the change (pilot PRs #83, #84, #85).

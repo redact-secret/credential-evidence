@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
@@ -270,13 +270,16 @@ test("the committed wishlist is valid and seeded", () => {
   assert.ok(doc.entries.length >= 15);
 });
 
-test("the committed backlog and coverage page are exactly what the records produce", () => {
+test("the report over the live records is deterministic, is generated rather than committed, and the wishlist has no recorded provider (#88)", () => {
   const records = listJson(join(repoRoot, "records")).map((f) => JSON.parse(readFileSync(f, "utf8")));
   const wishlist = JSON.parse(readFileSync(join(repoRoot, "docs/research/provider-wishlist.json"), "utf8"));
   const b = buildBacklog(records, { wishlist });
-  assert.equal(readFileSync(join(repoRoot, "docs/research/backlog.json"), "utf8"), serialize(b), "run npm run coverage:gaps and commit the result");
-  assert.equal(readFileSync(join(repoRoot, "docs/research/coverage.md"), "utf8"), renderMarkdown(b), "run npm run coverage:gaps and commit the result");
+  assert.equal(serialize(buildBacklog(records, { wishlist })), serialize(b), "same records, same bytes");
+  assert.equal(renderMarkdown(buildBacklog(records, { wishlist })), renderMarkdown(b));
   assert.deepEqual(b.totals.wishlistAlreadyRecorded, [], "prune wishlist entries whose provider is now recorded");
+  // no committed copy exists to drift: the output directory is gitignored and nothing in docs/research claims to be generated output
+  assert.match(readFileSync(join(repoRoot, ".gitignore"), "utf8"), /^\/docs\/research\/generated\/$/m);
+  assert.doesNotMatch(readFileSync(join(repoRoot, "package.json"), "utf8"), /coverage:gaps:check/);
 });
 
 // ---- the CLI ----
@@ -297,32 +300,30 @@ function seededRoot(records, wishlist) {
 }
 const run = (args) => spawnSync("node", [script, ...args], { encoding: "utf8" });
 
-test("CLI: write, --check, drift, --next with skip", () => {
+test("CLI: generate into the gitignored directory, deterministic rerun, --next with skip, --check is gone", () => {
   const root = seededRoot(healthy().filter((x) => x.kind !== "family-narrative"));
   try {
-    assert.equal(run(["--root", root, "--check"]).status, 1, "missing files fail the check");
+    assert.equal(run(["--root", root, "--check"]).status, 2, "the committed-file check no longer exists");
     const w = run(["--root", root]);
     assert.equal(w.status, 0, w.stderr);
-    assert.match(w.stdout, /wrote docs\/research\/backlog.json and coverage.md: 1 items as of 2026-06-01/);
-    const ok = run(["--root", root, "--check"]);
-    assert.equal(ok.status, 0, ok.stderr);
-    const before = readFileSync(join(root, "docs/research/backlog.json"), "utf8");
+    assert.match(w.stdout, /wrote docs\/research\/generated\/backlog.json and coverage.md \(gitignored\): 1 items as of 2026-06-01/);
+    assert.ok(!existsSync(join(root, "docs/research/backlog.json")) && !existsSync(join(root, "docs/research/coverage.md")), "nothing is written next to the authored files");
+    const before = readFileSync(join(root, "docs/research/generated/backlog.json"), "utf8");
+    const page = readFileSync(join(root, "docs/research/generated/coverage.md"), "utf8");
     run(["--root", root]);
-    assert.equal(readFileSync(join(root, "docs/research/backlog.json"), "utf8"), before, "rerun is byte-identical");
+    assert.equal(readFileSync(join(root, "docs/research/generated/backlog.json"), "utf8"), before, "rerun is byte-identical");
+    assert.equal(readFileSync(join(root, "docs/research/generated/coverage.md"), "utf8"), page);
+    assert.match(page, /\]\(\.\.\/README\.md\)/, "links resolve from the generated directory");
     const next = JSON.parse(run(["--root", root, "--next", "1"]).stdout);
     assert.equal(next.items[0].id, "narrative-missing:acme:api-key");
     const skipped = JSON.parse(run(["--root", root, "--next", "1", "--skip", "narrative-missing:acme:api-key"]).stdout);
     assert.equal(skipped.count, 0);
-    writeFileSync(join(root, "docs/research/backlog.json"), before.replace('"items": 1', '"items": 2'));
-    const drift = run(["--root", root, "--check"]);
-    assert.equal(drift.status, 1);
-    assert.match(drift.stderr, /backlog.json: out of date/);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
 });
 
-test("CLI: --as-of changes staleness, --check refuses --as-of, bad input exits 2, bad wishlist exits 1", () => {
+test("CLI: --as-of changes staleness, bad input exits 2, bad wishlist exits 1", () => {
   const stale = healthy().filter((x) => x.kind !== "family-narrative").map((x) => (x.kind === "format-contract" ? { ...x, claims: [claim("c1", "provider-documented", ["acme-docs"], { observedAt: "2026-06-01" })] } : x));
   const root = seededRoot(stale);
   try {
@@ -330,7 +331,6 @@ test("CLI: --as-of changes staleness, --check refuses --as-of, bad input exits 2
     assert.ok(!now.items.some((i) => i.gapKind === "evidence-stale"));
     const later = JSON.parse(run(["--root", root, "--next", "5", "--as-of", "2028-01-01"]).stdout);
     assert.ok(later.items.some((i) => i.gapKind === "evidence-stale"));
-    assert.equal(run(["--root", root, "--check", "--as-of", "2028-01-01"]).status, 2);
     assert.equal(run(["--root", root, "--as-of", "yesterday"]).status, 2);
     assert.equal(run(["--root", root, "--next", "0"]).status, 2);
     assert.equal(run(["--root", root, "--min-priority", "P9", "--next", "1"]).status, 2);
@@ -346,9 +346,4 @@ test("CLI: --as-of changes staleness, --check refuses --as-of, bad input exits 2
   } finally {
     rmSync(bad, { recursive: true, force: true });
   }
-});
-
-test("npm run coverage:gaps:check passes on the repository", () => {
-  const r = spawnSync("node", [script, "--check"], { encoding: "utf8" });
-  assert.equal(r.status, 0, r.stderr);
 });
