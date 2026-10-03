@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "docker:registry-auth-config-entry@1",
+  "family": "docker:registry-auth-config-entry",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "separators": [
+      ":"
+    ],
+    "components": [
+      {
+        "name": "registry-key",
+        "role": "other",
+        "description": "Key of an entry in the auths map: the registry host."
+      },
+      {
+        "name": "auth",
+        "role": "body",
+        "description": "Standard base64 of username, a colon and password (docker/cli encodeAuth)."
+      },
+      {
+        "name": "store-references",
+        "role": "other",
+        "description": "credsStore (one helper suffix) and credHelpers (map of registry to helper suffix)."
+      }
+    ],
+    "alphabet": {
+      "name": "base64"
+    }
+  },
+  "claims": [
+    {
+      "id": "config-fields",
+      "statement": "docker/cli's config file type has an auths map of per-registry AuthConfig entries (username, password, auth, serveraddress, identitytoken, registrytoken), a credsStore string and a credHelpers map.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-com-docker-cli-4142f87f4a",
+          "supports": "ConfigFile: AuthConfigs map[string]types.AuthConfig `json:\"auths\"`; CredentialsStore string `json:\"credsStore,omitempty\"`; CredentialHelpers map[string]string `json:\"credHelpers,omitempty\"`.",
+          "locator": "cli/config/configfile/file.go#L53-L63"
+        },
+        {
+          "sourceId": "github-com-docker-cli-649324e826",
+          "supports": "AuthConfig struct with Username, Password, Auth, ServerAddress, IdentityToken and RegistryToken fields.",
+          "locator": "cli/config/types/authconfig.go#L3-L17"
+        }
+      ]
+    },
+    {
+      "id": "auth-is-base64-of-username-colon-password",
+      "statement": "The auth value is the standard base64 encoding of the username, a colon and the password; saving the file encodes auth this way and blanks out the original username and password fields, and loading decodes it by splitting at the first colon.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-com-docker-cli-4142f87f4a",
+          "supports": "encodeAuth: authStr := authConfig.Username + \":\" + authConfig.Password, then base64.StdEncoding; decodeAuth cuts the decoded text at the first colon.",
+          "locator": "cli/config/configfile/file.go#L282-L316"
+        },
+        {
+          "sourceId": "github-com-docker-cli-4142f87f4a",
+          "supports": "SaveToWriter: encode and save the authstring, while blanking out the original fields.",
+          "locator": "cli/config/configfile/file.go#L169-L170"
+        }
+      ]
+    },
+    {
+      "id": "file-fallback-is-base64-and-less-secure",
+      "statement": "Docker documents that without a configured credential store it stores credentials in config.json in a base64-encoded format and that this is less secure than a credential store.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "docs-docker-com-f8243a183d",
+          "supports": "If you don't configure a credential store, Docker stores credentials in the config.json file in a base64-encoded format. This method is less secure than configuring and using a credential store.",
+          "locator": "section: Description"
+        }
+      ]
+    },
+    {
+      "id": "credsstore-and-credhelpers-name-a-helper-not-a-secret",
+      "statement": "credsStore holds the suffix of a helper program (everything after docker-credential-) and credHelpers maps registry domains to such suffixes; both name a program, and the credentials live in the external store.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "docs-docker-com-f8243a183d",
+          "supports": "You need to specify the credential store in $HOME/.docker/config.json to tell the Docker Engine to use it. The value of the config property should be the suffix of the program to use (i.e. everything after docker-credential-).",
+          "locator": "section: Credential stores"
+        },
+        {
+          "sourceId": "docs-docker-com-f8243a183d",
+          "supports": "Credential helpers are specified in a similar way to credsStore, but allow for multiple helpers to be configured at a time. Keys specify the registry domain, and values specify the suffix of the program to use.",
+          "locator": "section: Credential helpers"
+        }
+      ]
+    },
+    {
+      "id": "identity-and-registry-token-fields",
+      "statement": "AuthConfig describes identitytoken as used \"to authenticate the user and get an access token for the registry\" and registrytoken as \"a bearer token to be sent to a registry\". This run authors no fixture for either.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-com-docker-cli-649324e826",
+          "supports": "IdentityToken is used to authenticate the user and get an access token for the registry. RegistryToken is a bearer token to be sent to a registry.",
+          "locator": "cli/config/types/authconfig.go#L11-L16"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Which fields does a current docker login write when no credential store is configured (auth only, or also identitytoken)? The source read shows save-time blanking of username and password only.",
+      "raisedAt": "2026-10-03"
+    }
+  ]
+}
