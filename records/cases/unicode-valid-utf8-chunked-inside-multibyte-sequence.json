@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "unicode-valid-utf8-chunked-inside-multibyte-sequence",
+  "title": "Valid UTF-8 input chunked inside a multibyte sequence",
+  "summary": "A valid UTF-8 input, containing a key after multibyte text, divided into chunks whose boundaries fall inside the multibyte sequences (and, separately, at every byte).",
+  "rationale": "Chunking is a fact about how valid content is delivered, not a transformation of it: the bytes, the secret span and the batch reading are the same whatever the boundaries. A UTF-8 byte boundary inside a 2-, 3- or 4-byte sequence is valid for a byte stream; the same split of a string would be a different question (see unicode-input-rejected-before-scanning). What a stream API does with it is the product's assertion.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "multibyte-text-offsets"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy: the chunk boundaries do not change what is expected; the input is valid and the key bytes are the secret, at the same offsets as the unchunked input. Reverse if a maintainer decides chunked delivery has its own expectation.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-84cf9bf5a4",
+        "supports": "Section 3 table: U+0800-U+FFFF encodes as three bytes and U+10000-U+10FFFF as four, so every zero-width, BOM and emoji offset shift in these fixtures is derivable from the code point.",
+        "locator": "section 3"
+      },
+      {
+        "sourceId": "encoding-spec-whatwg-org-abb30eea4a",
+        "supports": "UTF-8 decode: BOM bytes are consumed by decode; invalid sequences become U+FFFD; a streaming TextDecoder keeps an incomplete multibyte sequence buffered across chunks.",
+        "locator": "sections 6.1, 7.2 and 8.1.1 (Living Standard, last updated 21 May 2026)"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Research for #96 (parent #92). Synthetic fixtures only; input facts and expectations live here, while stream APIs, limits, actual output and rejection assertions belong to downstream engine and product regression populations."
+}

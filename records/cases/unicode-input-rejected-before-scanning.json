@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "unicode-input-rejected-before-scanning",
+  "title": "Input an interface rejects before scanning",
+  "summary": "Inputs an interface declares invalid before scanning: byte sequences that are not UTF-8 (truncated, lone continuation, overlong, encoded surrogate, 0xFF) and a string chunk cut between the two halves of a UTF-16 surrogate pair.",
+  "rationale": "An expected rejection is neither a detection nor a miss. It has its own denominator (inputValidity other than valid) and no spans, and must not be counted as a true or false negative. Whether and how an interface rejects, with which error code, is the owning product's statement; this record states only that the input is invalid and why.",
+  "caseTypes": [
+    "mutation"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "project-policy",
+    "rationale": "Project policy: a rejection is recorded as input validity, not as a true or false negative; the fixtures carry no spans. The fact that each input is invalid is derived from the bytes (RFC 3629 section 3; Unicode FAQ on surrogates) and is re-checked by the validator. Reverse if a maintainer adds a rejection outcome through a schema decision.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-84cf9bf5a4",
+        "supports": "Section 3 prohibits encoding U+D800-U+DFFF: a lone surrogate has no UTF-8 form.",
+        "locator": "section 3"
+      },
+      {
+        "sourceId": "unicode-org-a374b42bff",
+        "supports": "Surrogates are the paired code units of UTF-16 (D800-DBFF leading, DC00-DFFF trailing); an unpaired one cannot be converted to UTF-8 and a converter treats it as an error.",
+        "locator": "'What are surrogates?' and 'How do I convert an unpaired UTF-16 surrogate to UTF-8?'"
+      },
+      {
+        "sourceId": "encoding-spec-whatwg-org-abb30eea4a",
+        "supports": "UTF-8 decode: BOM bytes are consumed by decode; invalid sequences become U+FFFD; a streaming TextDecoder keeps an incomplete multibyte sequence buffered across chunks.",
+        "locator": "sections 6.1, 7.2 and 8.1.1 (Living Standard, last updated 21 May 2026)"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Research for #96 (parent #92). Synthetic fixtures only; input facts and expectations live here, while stream APIs, limits, actual output and rejection assertions belong to downstream engine and product regression populations."
+}

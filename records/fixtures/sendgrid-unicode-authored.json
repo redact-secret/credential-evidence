@@ -1,0 +1,1326 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "sendgrid-unicode-authored",
+  "title": "Unicode invisibles and byte-boundary inputs around a SendGrid-shaped key (authored)",
+  "description": "Five authored base samples (two synthetic keys, three benign texts) and hand-written projections of them: inserted and adjacent zero-width, BOM, NBSP and emoji code points, normalization-dependent variants left unresolved, valid UTF-8 byte chunking inside multibyte sequences, and expected rejections (invalid UTF-8, UTF-16 pair split). Every key is built from the words SYNTHETIC, EXAMPLE and zeros in the documented 69-character grammar; none was issued, none was tested against any service. Projections of one base are correlated, not independent samples.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "sendgrid-unicode-authored--key-a-base",
+      "case": "sendgrid-key-in-provider-named-fields",
+      "path": "key-a-base/input.txt",
+      "context": "shell-assignment",
+      "sha256": "5be0b29ebdba5f5091785ec1e186db70fbc134a472ab33f844d50bef991cfcbc",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-base",
+      "case": "sendgrid-key-in-provider-named-fields",
+      "path": "key-b-base/input.txt",
+      "context": "shell-assignment",
+      "sha256": "2ae65f6eb5ef3881a804171847f5229d555638da3a6e82f40849250b56555198",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--format-characters-text-base",
+      "case": "unicode-format-characters-in-benign-text",
+      "path": "format-characters-text-base/input.txt",
+      "context": "plain-text",
+      "sha256": "96464f109cd04aea2ecfc8f0b583fa49a0fde7120debfd87c3efbc94633a75d0",
+      "text": "family: 👨\u200d👩\u200d👧 ; نمی\u200cخواهم ; ❤\ufe0f ; 5\u00a0km\n",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--release-notes-text-base",
+      "case": "unicode-format-characters-in-benign-text",
+      "path": "release-notes-text-base/input.txt",
+      "context": "plain-text",
+      "sha256": "796bb5441164e46d10cbc31f665a2f1f309830d4bef1e9f55682a60632edd188",
+      "text": "Release notes: nothing to report this week.\n",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--non-ascii-identifiers-nfc-base",
+      "case": "unicode-identifiers-near-credential-labels",
+      "path": "non-ascii-identifiers-nfc-base/input.txt",
+      "context": "plain-text",
+      "sha256": "86881f174ee603164e092ca7979ab7cab3b79bb1439cfd32cff6a94d9bbe102b",
+      "text": "key_name=名前_naïve_café\nuser_id=zoë\n",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-with-zero-width-space-in-second-segment",
+      "case": "unicode-zero-width-inserted-inside-credential",
+      "path": "key-a-with-zero-width-space-in-second-segment/input.txt",
+      "context": "shell-assignment",
+      "sha256": "17b79aab783d77045303b83eb42b5ff1f90caa9922f38687b6b8b56ae9052bed",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAM\u200bPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200B"
+            ],
+            "positions": "inside"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+200B"
+                  ]
+                }
+              ],
+              "sha256": "c4f427762a5ae256dbcdc4241a23b9a11c01cfad026ffec7e62b262dae9579e0",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-with-zero-width-non-joiner-in-first-segment",
+      "case": "unicode-zero-width-inserted-inside-credential",
+      "path": "key-a-with-zero-width-non-joiner-in-first-segment/input.txt",
+      "context": "shell-assignment",
+      "sha256": "ff375e9c59329cf8acb42e8496fea0a2f005ae8cf8b649428290f7b17a48ee5e",
+      "text": "SENDGRID_API_KEY=SG.SYNTHET\u200cIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200C"
+            ],
+            "positions": "inside"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+200C"
+                  ]
+                }
+              ],
+              "sha256": "c4f427762a5ae256dbcdc4241a23b9a11c01cfad026ffec7e62b262dae9579e0",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-with-word-joiner-near-end",
+      "case": "unicode-zero-width-inserted-inside-credential",
+      "path": "key-a-with-word-joiner-near-end/input.txt",
+      "context": "shell-assignment",
+      "sha256": "5e3d5cd3cdc4d26482de8581be2de544e466fcb9d802643c3e1f524d8d656248",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00\u2060000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+2060"
+            ],
+            "positions": "inside"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+2060"
+                  ]
+                }
+              ],
+              "sha256": "c4f427762a5ae256dbcdc4241a23b9a11c01cfad026ffec7e62b262dae9579e0",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-with-zero-width-joiner-after-dot",
+      "case": "unicode-zero-width-inserted-inside-credential",
+      "path": "key-b-with-zero-width-joiner-after-dot/input.txt",
+      "context": "shell-assignment",
+      "sha256": "99647e78d466eb28b15019c0ca14a4a168c9a00ddb3c7d58b180834c604395e3",
+      "text": "SENDGRID_API_KEY=SG.\u200dSYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200D"
+            ],
+            "positions": "inside"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-b-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+200D"
+                  ]
+                }
+              ],
+              "sha256": "916fb04514f7f3c5c9e139f339d44047ea066c8ce59ff384a19d902d94ae9654",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-with-two-different-zero-width-code-points",
+      "case": "unicode-zero-width-inserted-inside-credential",
+      "path": "key-b-with-two-different-zero-width-code-points/input.txt",
+      "context": "shell-assignment",
+      "sha256": "afa8368874906be1d3f539a5ca38792ff3405c92cde8ca267bffda1f0a5b11d5",
+      "text": "SENDGRID_API_KEY=SG.SYNTH\u200bETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_\u200cDO_NOT_USE000000000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200B",
+              "U+200C"
+            ],
+            "positions": "inside"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 92,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-b-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+200B",
+                    "U+200C"
+                  ]
+                }
+              ],
+              "sha256": "916fb04514f7f3c5c9e139f339d44047ea066c8ce59ff384a19d902d94ae9654",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-with-zero-width-space-between-every-character",
+      "case": "unicode-zero-width-inserted-inside-credential",
+      "path": "key-b-with-zero-width-space-between-every-character/input.txt",
+      "context": "shell-assignment",
+      "sha256": "eb75cdaa141544be4a81adbc18e80a23b8ce094ae41ef0c87d7551f12b6f4255",
+      "text": "SENDGRID_API_KEY=S\u200bG\u200b.\u200bS\u200bY\u200bN\u200bT\u200bH\u200bE\u200bT\u200bI\u200bC\u200b_\u200bS\u200bE\u200bC\u200bO\u200bN\u200bD\u200b_\u200bK\u200bE\u200bY\u200b0\u200b0\u200b.\u200bE\u200bX\u200bA\u200bM\u200bP\u200bL\u200bE\u200b_\u200bO\u200bN\u200bL\u200bY\u200b_\u200bN\u200bO\u200bT\u200b_\u200bI\u200bS\u200bS\u200bU\u200bE\u200bD\u200b_\u200bD\u200bO\u200b_\u200bN\u200bO\u200bT\u200b_\u200bU\u200bS\u200bE\u200b0\u200b0\u200b0\u200b0\u200b0\u200b0\u200b0\u200b0\u200b0\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200B"
+            ],
+            "positions": "between-every-character"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 290,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-b-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+200B"
+                  ]
+                }
+              ],
+              "sha256": "916fb04514f7f3c5c9e139f339d44047ea066c8ce59ff384a19d902d94ae9654",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-after-leading-byte-order-mark",
+      "case": "unicode-invisible-beside-intact-credential",
+      "path": "key-a-after-leading-byte-order-mark/input.txt",
+      "context": "shell-assignment",
+      "sha256": "80e88265187e8ea54ea6e3c76dfac980baafc93b20aa6dc7d0fe09a20bc48bac",
+      "text": "\ufeffSENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+FEFF"
+            ],
+            "positions": "start"
+          }
+        ],
+        "note": "The code point is beside the key, outside it: the span is the key alone and no decode step applies."
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-after-zero-width-space-before-value",
+      "case": "unicode-invisible-beside-intact-credential",
+      "path": "key-a-after-zero-width-space-before-value/input.txt",
+      "context": "shell-assignment",
+      "sha256": "88543c45df44a58ea5569bfc4b536ccd32a49ef4ac0109b15a14e1a4aba47e76",
+      "text": "SENDGRID_API_KEY=\u200bSG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200B"
+            ],
+            "positions": "start"
+          }
+        ],
+        "note": "The code point is beside the key, outside it: the span is the key alone and no decode step applies."
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-after-no-break-space-before-value",
+      "case": "unicode-invisible-beside-intact-credential",
+      "path": "key-b-after-no-break-space-before-value/input.txt",
+      "context": "shell-assignment",
+      "sha256": "3f0a8e25a8f8d6d3e859bd7b0a40e6bbd65d4977c1cfadecbae1150e95b6aa8b",
+      "text": "SENDGRID_API_KEY=\u00a0SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+00A0"
+            ],
+            "positions": "start"
+          }
+        ],
+        "note": "The code point is beside the key, outside it: the span is the key alone and no decode step applies."
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 19,
+            "end": 88,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-b-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-before-zero-width-non-joiner",
+      "case": "unicode-invisible-beside-intact-credential",
+      "path": "key-b-before-zero-width-non-joiner/input.txt",
+      "context": "shell-assignment",
+      "sha256": "bc7d6a660e6cdeb5a846009ba6340439320ef80d69b1eb2ccad15419763f2c17",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\u200c\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200C"
+            ],
+            "positions": "end"
+          }
+        ],
+        "note": "The code point is beside the key, outside it: the span is the key alone and no decode step applies."
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-b-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-before-emoji",
+      "case": "unicode-invisible-beside-intact-credential",
+      "path": "key-a-before-emoji/input.txt",
+      "context": "shell-assignment",
+      "sha256": "fec47fe3817330000bee5a01ce259e57295150b6fe8167a09a234512b38b4223",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000🔑\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+1F511"
+            ],
+            "positions": "end"
+          }
+        ],
+        "note": "The code point is beside the key, outside it: the span is the key alone and no decode step applies."
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-after-emoji-with-variation-selector",
+      "case": "unicode-invisible-beside-intact-credential",
+      "path": "key-b-after-emoji-with-variation-selector/input.txt",
+      "context": "shell-assignment",
+      "sha256": "ac7344603f686d2d8fca8982a5a4c5a81df248e9e7e518840746315107785298",
+      "text": "🔑\ufe0fSENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+1F511",
+              "U+FE0F"
+            ],
+            "positions": "start"
+          }
+        ],
+        "note": "The code point is beside the key, outside it: the span is the key alone and no decode step applies."
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 24,
+            "end": 93,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-b-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-with-no-break-space-inside",
+      "case": "unicode-credential-reading-depends-on-normalization",
+      "path": "key-a-with-no-break-space-inside/input.txt",
+      "context": "shell-assignment",
+      "sha256": "d1fa9927ebaa6dd9152d758ba9431877fa851588772635b1db77242bb7dd83e5",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC\u00a0_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+00A0"
+            ],
+            "positions": "inside"
+          }
+        ],
+        "note": "A visible gap: whether it is one token with a space-like character inside or two tokens is not settled."
+      },
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-with-combining-acute-after-last-character",
+      "case": "unicode-credential-reading-depends-on-normalization",
+      "path": "key-b-with-combining-acute-after-last-character/input.txt",
+      "context": "shell-assignment",
+      "sha256": "e73d484af9e111d2f97d83bbdd5766447bbec4ba41e11050334c92ebd4c35cb7",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\u0301\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+0301"
+            ],
+            "positions": "end"
+          }
+        ],
+        "note": "U+0301 attaches to the final character; whether the key is intact is not settled."
+      },
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-in-fullwidth-compatibility-forms",
+      "case": "unicode-credential-reading-depends-on-normalization",
+      "path": "key-a-in-fullwidth-compatibility-forms/input.txt",
+      "context": "shell-assignment",
+      "sha256": "eb8107b4f6761937f63f18ba0de7836433d4da6e41907956caf827f10a070d78",
+      "text": "SENDGRID_API_KEY=ＳＧ．ＳＹＮＴＨＥＴＩＣ＿ＮＥＶＥＲ＿ＩＳＳＵＥＤ．ＳＹＮＴＨＥＴＩＣ＿ＥＸＡＭＰＬＥ＿ＮＯＴ＿Ａ＿ＲＥＡＬ＿ＫＥＹ＿ＮＥＶＥＲ０００００\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "whole-value",
+            "carrier": "shell-assignment"
+          }
+        ],
+        "note": "Every ASCII character of the key value is replaced by its fullwidth compatibility form (U+FF01-U+FF5E). NFKC maps the value back to the base; whether a reader applies NFKC is not settled."
+      },
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--release-notes-with-leading-byte-order-mark",
+      "case": "unicode-format-characters-in-benign-text",
+      "path": "release-notes-with-leading-byte-order-mark/input.txt",
+      "context": "plain-text",
+      "sha256": "fef8fe93780505bda0ecada1c86851276c2b7caa5ef9aa198ee88fe64f2ef6fd",
+      "text": "\ufeffRelease notes: nothing to report this week.\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--release-notes-text-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+FEFF"
+            ],
+            "positions": "start"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--non-ascii-identifiers-nfd",
+      "case": "unicode-identifiers-near-credential-labels",
+      "path": "non-ascii-identifiers-nfd/input.txt",
+      "context": "plain-text",
+      "sha256": "2c941dc7f929c5a1d87892e4fdaf435e6331e45afa6b803d20331c62c33d416a",
+      "text": "key_name=名前_nai\u0308ve_cafe\u0301\nuser_id=zoe\u0308\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--non-ascii-identifiers-nfc-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "normalize",
+            "form": "nfd"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-name-identifier-with-zero-width-space",
+      "case": "unicode-identifiers-near-credential-labels",
+      "path": "key-name-identifier-with-zero-width-space/input.txt",
+      "context": "plain-text",
+      "sha256": "07de0a02a61dcd026e00bfd1658118438050e412f7c41706541040d2dca82129",
+      "text": "key_name=名前_na\u200bïve_café\nuser_id=zoë\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--non-ascii-identifiers-nfc-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200B"
+            ],
+            "positions": "inside"
+          }
+        ],
+        "note": "A zero-width space inside an ordinary identifier: still an identifier, not a credential."
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-after-cjk-and-emoji-byte-chunked-inside-sequences",
+      "case": "unicode-valid-utf8-chunked-inside-multibyte-sequence",
+      "path": "key-a-after-cjk-and-emoji-byte-chunked-inside-sequences/input.txt",
+      "context": "plain-text",
+      "sha256": "8b25cb71e809c4923ad8b78d726841e65a1382d427babb2db5265f50d27b68b4",
+      "text": "メモ🔑SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf8-byte",
+        "boundaries": [
+          4,
+          8
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 27,
+            "end": 96,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-after-cjk-and-emoji-byte-chunked-at-every-byte",
+      "case": "unicode-valid-utf8-chunked-inside-multibyte-sequence",
+      "path": "key-a-after-cjk-and-emoji-byte-chunked-at-every-byte/input.txt",
+      "context": "plain-text",
+      "sha256": "8b25cb71e809c4923ad8b78d726841e65a1382d427babb2db5265f50d27b68b4",
+      "text": "メモ🔑SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ],
+        "note": "A boundary after every byte of the first 256 bytes; the content is longer than that, so the last chunk holds the rest."
+      },
+      "chunking": {
+        "unit": "utf8-byte",
+        "boundaries": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 27,
+            "end": 96,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-with-zero-width-space-chunked-inside-it",
+      "case": "unicode-valid-utf8-chunked-inside-multibyte-sequence",
+      "path": "key-b-with-zero-width-space-chunked-inside-it/input.txt",
+      "context": "shell-assignment",
+      "sha256": "b635da6a7c4d5f9fe5e505ab4bb278e53415c76d7395f4aa923c625b2576d316",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_\u200bKEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200B"
+            ],
+            "positions": "inside"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf8-byte",
+        "boundaries": [
+          38,
+          39
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-b-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+200B"
+                  ]
+                }
+              ],
+              "sha256": "916fb04514f7f3c5c9e139f339d44047ea066c8ce59ff384a19d902d94ae9654",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-after-two-byte-character-byte-chunked-inside-it",
+      "case": "unicode-valid-utf8-chunked-inside-multibyte-sequence",
+      "path": "key-b-after-two-byte-character-byte-chunked-inside-it/input.txt",
+      "context": "plain-text",
+      "sha256": "dbf35530428b881bbc2f4f7ee7319a524de9e1a697da3ecbf579ec6e1b7bf9bf",
+      "text": "café=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf8-byte",
+        "boundaries": [
+          4
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 6,
+            "end": 75,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-b-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-after-cjk-and-emoji-utf16-pair-split",
+      "case": "unicode-input-rejected-before-scanning",
+      "path": "key-a-after-cjk-and-emoji-utf16-pair-split/input.txt",
+      "context": "plain-text",
+      "sha256": "8b25cb71e809c4923ad8b78d726841e65a1382d427babb2db5265f50d27b68b4",
+      "text": "メモ🔑SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf16-code-unit",
+        "boundaries": [
+          3
+        ]
+      },
+      "inputValidity": "unpaired-surrogate-split",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-b-after-second-emoji-utf16-pair-split",
+      "case": "unicode-input-rejected-before-scanning",
+      "path": "key-b-after-second-emoji-utf16-pair-split/input.txt",
+      "context": "plain-text",
+      "sha256": "3fce51e2f757481b04fc58889d93345d5138899595813a364353a5641cb2ce18",
+      "text": "🔑🔒SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-b-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf16-code-unit",
+        "boundaries": [
+          1,
+          3
+        ]
+      },
+      "inputValidity": "unpaired-surrogate-split",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--format-characters-text-utf16-pair-split",
+      "case": "unicode-input-rejected-before-scanning",
+      "path": "format-characters-text-utf16-pair-split/input.txt",
+      "context": "plain-text",
+      "sha256": "96464f109cd04aea2ecfc8f0b583fa49a0fde7120debfd87c3efbc94633a75d0",
+      "text": "family: 👨\u200d👩\u200d👧 ; نمی\u200cخواهم ; ❤\ufe0f ; 5\u00a0km\n",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--format-characters-text-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf16-code-unit",
+        "boundaries": [
+          9
+        ]
+      },
+      "inputValidity": "unpaired-surrogate-split",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-truncated-four-byte-sequence-before-key",
+      "case": "unicode-input-rejected-before-scanning",
+      "path": "key-a-truncated-four-byte-sequence-before-key/input.txt",
+      "context": "plain-text",
+      "sha256": "81324afe70eb9f5b05dab5597925d38188b1415629aec273c565fc0a02df6c8a",
+      "bytesHex": "6e6f74653df09f9453454e44475249445f4150495f4b45593d53472e53594e5448455449435f4e455645525f4953535545442e53594e5448455449435f4558414d504c455f4e4f545f415f5245414c5f4b45595f4e4556455230303030300a",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ],
+        "note": "The first three bytes of U+1F511 (F0 9F 94) with the last byte missing, then the key."
+      },
+      "inputValidity": "invalid-utf8",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-lone-continuation-byte-before-key",
+      "case": "unicode-input-rejected-before-scanning",
+      "path": "key-a-lone-continuation-byte-before-key/input.txt",
+      "context": "plain-text",
+      "sha256": "0467e0e075727be61b249e128f68ddba3958addf52b0e5b59a044f5d902ae84d",
+      "bytesHex": "6e6f74653d8053454e44475249445f4150495f4b45593d53472e53594e5448455449435f4e455645525f4953535545442e53594e5448455449435f4558414d504c455f4e4f545f415f5245414c5f4b45595f4e4556455230303030300a",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ],
+        "note": "A continuation byte (80) with no lead byte."
+      },
+      "inputValidity": "invalid-utf8",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-overlong-slash-before-key",
+      "case": "unicode-input-rejected-before-scanning",
+      "path": "key-a-overlong-slash-before-key/input.txt",
+      "context": "plain-text",
+      "sha256": "455b9d76c19aa2bf6e282fa27e4919efea78d30c1fee3ca42a63d4bcb40e7c67",
+      "bytesHex": "6e6f74653dc0af53454e44475249445f4150495f4b45593d53472e53594e5448455449435f4e455645525f4953535545442e53594e5448455449435f4558414d504c455f4e4f545f415f5245414c5f4b45595f4e4556455230303030300a",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ],
+        "note": "An overlong two-byte encoding of U+002F (C0 AF), which UTF-8 forbids."
+      },
+      "inputValidity": "invalid-utf8",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-encoded-surrogate-before-key",
+      "case": "unicode-input-rejected-before-scanning",
+      "path": "key-a-encoded-surrogate-before-key/input.txt",
+      "context": "plain-text",
+      "sha256": "9777813f29e17090245ef1c16f47cf06b448bd335696142372b472f826e3b751",
+      "bytesHex": "6e6f74653deda08053454e44475249445f4150495f4b45593d53472e53594e5448455449435f4e455645525f4953535545442e53594e5448455449435f4558414d504c455f4e4f545f415f5245414c5f4b45595f4e4556455230303030300a",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ],
+        "note": "The three bytes a naive encoder gives U+D800 (ED A0 80); RFC 3629 prohibits encoding it."
+      },
+      "inputValidity": "invalid-utf8",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "sendgrid-unicode-authored--key-a-byte-ff-before-key",
+      "case": "unicode-input-rejected-before-scanning",
+      "path": "key-a-byte-ff-before-key/input.txt",
+      "context": "plain-text",
+      "sha256": "7fa521336ebb278665204605bd8afb9e652b6111ea5fa878e889799431c5a1e8",
+      "bytesHex": "6e6f74653dff53454e44475249445f4150495f4b45593d53472e53594e5448455449435f4e455645525f4953535545442e53594e5448455449435f4558414d504c455f4e4f545f415f5245414c5f4b45595f4e4556455230303030300a",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "sendgrid-unicode-authored--key-a-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ],
+        "note": "The byte FF, which never occurs in UTF-8."
+      },
+      "inputValidity": "invalid-utf8",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Research for #96 (parent #92). Items that record:new refuses (a not-assertable case, bytesHex) were composed by script in the shape of examples/valid/representation/ and are re-derived by the validator."
+}
