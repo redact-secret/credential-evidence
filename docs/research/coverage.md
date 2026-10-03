@@ -5,7 +5,7 @@ rules and fields are in [README.md](README.md), and the skill that uses it is
 [coverage-gaps](../../.agents/skills/coverage-gaps/SKILL.md). This is a worklist of missing evidence, not a
 statement about any product.
 
-Reference date: 2026-09-30 (the newest date recorded in `records/`). Staleness period: 12 months.
+Reference date: 2026-10-03 (the newest date recorded in `records/`). Staleness period: 12 months.
 
 93 providers, 173 families, 29 scenarios: **465 open items**.
 
