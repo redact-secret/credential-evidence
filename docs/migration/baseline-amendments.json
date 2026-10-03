@@ -3,5 +3,7 @@
   "formatVersion": 1,
   "note": "One entry per baseline record that a reviewed change edited or removed after the import (ADR 0015). Adding a record needs no entry. Declare with `npm run baseline:amend`; `npm run baseline:check` fails on an undeclared edit or removal and on an entry the tree no longer needs.",
   "amendments": [
+    {"path":"records/fixtures/sendgrid.json","change":"edited","reason":"Evidence entry ev-20fca8134e (sendgrid--short-sendgrid) restored from project-policy to provider-documented: SendGrid support article states API keys are always 69 characters; value is 10","ref":"#66"},
+    {"path":"records/sources/support-sendgrid-com/support-sendgrid-com-135e975bd1.json","change":"edited","reason":"source:observe appended a unchanged observation of 2026-10-03 (the freshness record of an imported source)"}
   ]
 }
