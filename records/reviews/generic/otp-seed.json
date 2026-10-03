@@ -62,6 +62,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'otpauth-uri' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): The seed is the inner span; the whole otpauth URI is the authored envelope."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review (2026-10-03, AI agent run, not independently reviewed). Eight fixture expectations re-based to provider-documented: the Key URI format states the secret is required and Base32 per RFC 3548 (seven alphabet twins and the missing secret). The short-secret fixture stays project-policy: a 128-bit minimum for the shared secret is stated by RFC 4226 (HOTP, reached from TOTP through RFC 6238 requirement R3), and those pages are standards-body sources typed standard-or-rfc, which the evidence-class check does not accept as provider-authored, so a maintainer decides whether they count."
     }
   ],
   "externalRefs": [

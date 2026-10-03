@@ -62,6 +62,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'private-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Legacy PEM bodies decode to public prose, not key material. Only the locally parseable Ed25519 PKCS#8 control is a positive."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review (2026-10-03, AI agent run, not independently reviewed). The one fixture expectation re-based to provider-documented on the RFC 7468 textual encoding grammar (boundary lines with exactly five hyphen-minus characters and base64 data), which the sentence naming a label does not match."
     }
   ],
   "externalRefs": [
