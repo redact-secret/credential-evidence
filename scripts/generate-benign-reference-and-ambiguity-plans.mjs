@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Generator for the benign-reference, public-identifier and policy-ambiguous assignment plans (issue #98, schema revision 1.6.0, ADR 0016).
 //
-//   node scripts/generate-benign-reference-and-ambiguity-plans.mjs --source-revision <40-hex>   write the six records
+//   node scripts/generate-benign-reference-and-ambiguity-plans.mjs [--source-revision <40-hex>]   write the six records
+//   (sourceRevision defaults to the merge-base with origin/main, a commit that survives a squash merge: ADR 0005, Addendum 1)
 //   node scripts/generate-benign-reference-and-ambiguity-plans.mjs --check                      verify the records on disk equal the output
 //
 // Inputs: the synthetic authored bases below. Output: two authored sets (benign controls with near-neighbor positives;
@@ -18,6 +19,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { resolveSourceRevision } from "./lib/source-revision.mjs";
 import { repoRoot } from "./lib/validator.mjs";
 
 export const GENERATOR = { name: "benign-reference-and-ambiguity-projector", version: "1.0.0", entrypoint: "scripts/generate-benign-reference-and-ambiguity-plans.mjs" };
@@ -307,20 +309,18 @@ export const serialize = (record) => `${JSON.stringify(record, null, 2)}\n`;
 
 function main(argv) {
   const check = argv.includes("--check");
-  const ri = argv.indexOf("--source-revision");
-  let sourceRevision = ri >= 0 ? argv[ri + 1] : undefined;
   const target = join(repoRoot, "records/fixtures", `${IDS.controlsGenerated}.json`);
-  if (check && !sourceRevision) {
-    if (!existsSync(target)) {
-      console.error(`FAIL: ${target} does not exist`);
-      return 1;
-    }
-    sourceRevision = JSON.parse(readFileSync(target, "utf8")).origin.generator.sourceRevision;
+  if (check && !existsSync(target)) {
+    console.error(`FAIL: ${target} does not exist`);
+    return 1;
   }
-  if (!/^[0-9a-f]{40}$/.test(sourceRevision ?? "")) {
-    console.error("usage: generate-benign-reference-and-ambiguity-plans.mjs --source-revision <40-hex commit of this file> | --check");
+  const existing = existsSync(target) ? JSON.parse(readFileSync(target, "utf8")).origin.generator.sourceRevision : undefined;
+  const resolved = resolveSourceRevision({ argv, existing, check });
+  if (resolved.error) {
+    console.error(resolved.error);
     return 2;
   }
+  const sourceRevision = resolved.value;
   const records = buildRecords({ sourceRevision });
   let bad = 0;
   for (const [path, record] of Object.entries(records)) {
