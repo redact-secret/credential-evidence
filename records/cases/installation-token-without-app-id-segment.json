@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "installation-token-without-app-id-segment",
+  "title": "ghs_-prefixed JWT with no app identifier segment",
+  "summary": "A synthetic ghs_ value that goes straight from the prefix to a three-segment JWT, with no app identifier segment.",
+  "rationale": "The recommended expression allows this shape, but the provider writes the stateless form as ghs_APPID_JWT and does not say whether the segment is always present. Whether such a value is an installation token is a grammar question the sources do not settle.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No expectation is asserted. The recommended expression matches the value, while the notation implies an app id segment; neither source says whether it is optional. A reading proposing a flag is recorded on the fixture as non-asserting data. Resolving it needs a provider statement on the APPID segment.",
+    "sources": [
+      {
+        "sourceId": "github-blog-dd07252324",
+        "supports": "ghs_APPID_JWT notation; about 520 characters; applications relying on exactly 40 characters may break.",
+        "locator": "What is changing?"
+      },
+      {
+        "sourceId": "github-blog-30e232220c",
+        "supports": "Stateless token is a ghs_-prefixed JWT with two dots; recommended expression ghs_[A-Za-z0-9\\.\\-_]{36,}.",
+        "locator": "How to use it; Verifying the token type"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "relations": [
+    {
+      "type": "mutation-of",
+      "target": "stateless-jwt-installation-token-literal",
+      "mutationKind": "dropped-app-id-segment",
+      "note": "The app id segment and its underscore removed from the stateless literal."
+    }
+  ]
+}

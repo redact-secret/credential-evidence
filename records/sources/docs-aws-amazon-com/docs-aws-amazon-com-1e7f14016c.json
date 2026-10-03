@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "evidence-source",
   "id": "docs-aws-amazon-com-1e7f14016c",
-  "sourceType": "other",
+  "sourceType": "provider-documentation",
   "title": "docs.aws.amazon.com/STS/latest/APIReference/API_Credentials.html",
   "publisher": "docs.aws.amazon.com",
   "publishedAt": null,
@@ -22,7 +22,8 @@
     {
       "observedAt": "2026-10-03",
       "outcome": "read",
-      "observer": "research-agent"
+      "observer": "research-agent",
+      "note": "Read page text via fetch. STS Credentials type lists AccessKeyId (String, length 16 to 128), SecretAccessKey, SessionToken (The token that users must pass to the service API to use the temporary credentials) and Expiration, all required."
     }
   ],
   "lifecycle": "draft",

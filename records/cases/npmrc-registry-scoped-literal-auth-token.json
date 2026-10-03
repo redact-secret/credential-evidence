@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "npmrc-registry-scoped-literal-auth-token",
+  "title": ".npmrc: literal _authToken scoped to a registry",
+  "summary": "A synthetic .npmrc with a scoped registry line and a //host/:_authToken line holding a literal value that has no recognizable token prefix.",
+  "rationale": "Detection by token shape fails when the value is an arbitrary string; the setting name and its registry-scope prefix are what identify it. The prefix is syntax: the secret is only the value after the equals sign.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "npm:npmrc-registry-credential",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag the value after _authToken=. The npm documentation lists _authToken as the authentication token setting, requires it to be scoped to a registry by a URI fragment prefix, and says the scoping ensures npm will never send credentials to the wrong host. The registry URL and scope prefix are not given spans.",
+    "sources": [
+      {
+        "sourceId": "docs-npmjs-com-8f8a96c89d",
+        "supports": "_authToken (authentication token); the settings _auth, _authToken, username, _password, certfile, and keyfile must all be scoped to a specific registry. This ensures that npm will never send credentials to the wrong host.",
+        "locator": "#auth-related-configuration"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

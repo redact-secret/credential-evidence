@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "docker:registry-auth-config-entry",
+  "provider": "docker",
+  "name": "Docker config.json registry credential entry",
+  "description": "A registry credential entry in the Docker client configuration file config.json: the auths map's per-registry auth value (base64 of username:password), identity and registry tokens, and the credsStore and credHelpers references that keep credentials out of the file.",
+  "lifecycle": "draft",
+  "currentContract": "docker:registry-auth-config-entry@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-10-03",
+    "issues": [
+      "redact-secret/credential-evidence#113",
+      "redact-secret/credential-evidence#92"
+    ]
+  },
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. A structured file, not a fixed-format token. The base64 layer is encoded material (#94); the decoded username-colon-password text is not given its own span here. The docker provider record is named Docker Hub; the config.json format belongs to the Docker client, so this family cites the docker/cli source as an official Docker repository."
+}

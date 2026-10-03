@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "aws-config-file-process-and-source-profile-references",
+  "title": "AWS config file: credential_process and source_profile references",
+  "summary": "A synthetic AWS config profile that names where credentials come from (source_profile, and a credential_process command taken from the AWS page's own example) and holds no secret value.",
+  "rationale": "The profile has the same section shape and credential vocabulary as the secret-bearing profile, but every credential setting is a reference: another profile's name, or an external command that retrieves credentials at run time.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "aws:shared-credentials-file-entry",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. The AWS CLI page describes credential_process as an external command the CLI runs to generate or retrieve credentials, and profiles that use IAM roles as pulling credentials from another profile. The command line is the page's own example (a user name argument, no secret); a command line that carries a secret argument is a different input and is not covered.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-02bc6c7ba9",
+        "supports": "credential_process: Specifies an external command that the AWS CLI runs to generate or retrieve authentication credentials to use for this command. credential_process = /opt/bin/awscreds-retriever --username susan",
+        "locator": "#cli-config-credential_process"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-02bc6c7ba9",
+        "supports": "Profiles that use IAM roles pull credentials from another profile, and then apply IAM role permissions.",
+        "locator": "#cli-configure-files-format-profile"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

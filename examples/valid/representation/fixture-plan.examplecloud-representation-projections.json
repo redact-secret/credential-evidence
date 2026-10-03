@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "examplecloud-representation-projections",
+  "title": "ExampleCloud key among filler",
+  "description": "One scenario across one family, instantiated by placement, repetition and a mixed pair. Declares the two authored bases it reads, so the independent base count is two whatever the number of generated inputs.",
+  "matrix": {
+    "families": {
+      "select": "listed",
+      "ids": [
+        "examplecloud:api-key"
+      ]
+    },
+    "targets": [
+      {
+        "type": "scenario",
+        "id": "credential-among-filler"
+      }
+    ],
+    "carriers": [
+      "log-text"
+    ],
+    "coverage": "sparse"
+  },
+  "generation": {
+    "rule": "filler-placement",
+    "generator": {
+      "name": "examplecloud-placement-renderer",
+      "version": "1.0.0"
+    },
+    "inputs": [
+      {
+        "kind": "fixture",
+        "id": "examplecloud-representation-authored--api-key-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "examplecloud-representation-authored--second-api-key-base"
+      },
+      {
+        "kind": "format-contract",
+        "id": "examplecloud:api-key@2"
+      }
+    ],
+    "seed": "placement-1"
+  },
+  "lineage": {
+    "origin": "authored",
+    "derivedFrom": [
+      {
+        "kind": "scenario",
+        "id": "credential-among-filler"
+      }
+    ]
+  },
+  "output": [
+    "examplecloud-representation-generated"
+  ],
+  "lifecycle": "draft"
+}

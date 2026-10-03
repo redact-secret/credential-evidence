@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "signed-url-nested-percent-encoded-in-redirect-parameter",
+  "title": "Signed URL percent-encoded inside another URL's query value",
+  "summary": "A signed URL percent-encoded as the value of a query parameter of another (synthetic) URL, such as a redirect or callback target.",
+  "rationale": "The nested URL is the same bearer capability in an encoded representation. What the expected extent is in the original bytes, and whether decoded recognition counts as coverage, is the representation question of #94, and the context projection of #99; neither is settled by the provider pages. SigV4 URI-encoding rules govern signing, not nesting.",
+  "caseTypes": [
+    "mutation"
+  ],
+  "families": [
+    {
+      "family": "aws:s3-presigned-url",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved. The sources establish the URL as a bearer token but say nothing about its encoded form inside another URL. Candidate outcomes: flag with an extent over the original encoded bytes, or treat as derived from the decoded form. Needs the encoded-representation lineage decision (#94) and a maintainer decision. No fixture is authored.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-3a070b6e70",
+        "supports": "Presigned URLs are bearer tokens.",
+        "locator": "#PresignedUrlUploadObject-LimitCapabilities"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-28f7e2245c",
+        "supports": "UriEncode() rules apply to canonical query parameters during signing.",
+        "locator": "#create-canonical-request"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories.",
+  "relations": [
+    {
+      "type": "mutation-of",
+      "target": "s3-presigned-url-bearer-query-string",
+      "mutationKind": "percent-encoded-in-query-value"
+    }
+  ]
+}

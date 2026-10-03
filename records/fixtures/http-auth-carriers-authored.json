@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "http-auth-carriers-authored",
+  "title": "HTTP authentication carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "http-auth-carriers-authored--basic-in-request-headers",
+      "case": "http-basic-authorization-header-credentials",
+      "path": "basic-in-request-headers/fixture.txt",
+      "context": "header",
+      "sha256": "10a76ab6c4a481d50f870a0b04b60d8977cd52e1cfa141972b3cb77e540c669f",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzpacDktc3ludGhldGljLUtkNFJtMg==\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 117,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-lowercase-scheme-double-space",
+      "case": "http-basic-authorization-header-credentials",
+      "path": "basic-lowercase-scheme-double-space/fixture.txt",
+      "context": "header",
+      "sha256": "01f894a2e8c750661abe1e2d04152bdc8b7c724546dc5eece2ade7251ad34f59",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nauthorization: basic  c3ZjLXJlcG9ydGluZzpacDktc3ludGhldGljLUtkNFJtMg==\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 70,
+            "end": 118,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "lineage": {
+        "relation": "mutation-of",
+        "of": "http-auth-carriers-authored--basic-in-request-headers",
+        "mutationKind": "header-syntax-variation",
+        "mutation": "Lowercased the field name and scheme and doubled the space after the scheme; the token is unchanged."
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-in-curl-header-argument",
+      "case": "http-basic-authorization-header-credentials",
+      "path": "basic-in-curl-header-argument/fixture.txt",
+      "context": "cli",
+      "sha256": "21eaab49ebc7a7b5ae220aa8e760f13e71b87af0e7e189cd84da05a2bad78d85",
+      "text": "curl -H \"Authorization: Basic c3ZjLXJlcG9ydGluZzpacDktc3ludGhldGljLUtkNFJtMg==\" https://api.example.test/v1/reports\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 30,
+            "end": 78,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "lineage": {
+        "relation": "mutation-of",
+        "of": "http-auth-carriers-authored--basic-in-request-headers",
+        "mutationKind": "carrier-change",
+        "mutation": "Moved the header into a quoted command-line argument; the token is unchanged."
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-password-with-colon",
+      "case": "http-basic-password-containing-colon",
+      "path": "basic-password-with-colon/fixture.txt",
+      "context": "header",
+      "sha256": "1249a6a6ce52d88f468bf16e2c6507d641b376ea51a0c15084a6316892ddbb8a",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic ZGVwbG95OmZpcnN0OnNlY29uZC1wYXJ0LXN5bnRoZXRpYy1RN3g=\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 121,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-utf8-password",
+      "case": "http-basic-non-ascii-password-utf8",
+      "path": "basic-utf8-password/fixture.txt",
+      "context": "header",
+      "sha256": "54f01bd8dfb3e0291ab3a0f2a88094857aa78a40f601cb2891a73f1d84096b40",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic dGVzdC11c2VyOnDDpHNzd8O2cmQtzqMtc3ludGhldGljLTkx\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 117,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--proxy-authorization-basic",
+      "case": "http-proxy-authorization-basic-credentials",
+      "path": "proxy-authorization-basic/fixture.txt",
+      "context": "header",
+      "sha256": "10f43532edc1a9672f5d2808d75bd6a3a3eb131e54ebc21d151b23ce3f508004",
+      "text": "CONNECT api.example.test:443 HTTP/1.1\nHost: api.example.test:443\nProxy-Authorization: Basic cHJveHktdXNlcjpFeC1zeW50aGV0aWMtcHJveHktUHctNTU=\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 92,
+            "end": 140,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--authorization-and-proxy-authorization",
+      "case": "http-authorization-and-proxy-authorization-in-one-request",
+      "path": "authorization-and-proxy-authorization/fixture.txt",
+      "context": "header",
+      "sha256": "8643a204cc4e8a95e262da27700093381dd33cf60bed663e083b78030d1f88bf",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nProxy-Authorization: Basic cHJveHktdXNlcjpFeC1zeW50aGV0aWMtcHJveHktUHctNTU=\nAuthorization: Basic YXBpLXVzZXI6WnEtc3ludGhldGljLW9yaWdpbi1Qdy03Mw==\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 75,
+            "end": 123,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          },
+          {
+            "start": 145,
+            "end": 193,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--www-authenticate-basic-challenge",
+      "case": "http-basic-challenge-and-token-less-headers",
+      "path": "www-authenticate-basic-challenge/fixture.txt",
+      "context": "header",
+      "sha256": "26f3a9eff1a238d7283dc6f14aa33e526100953441870b29fab3300572fd3bc0",
+      "text": "HTTP/1.1 401 Unauthorized\nWWW-Authenticate: Basic realm=\"WallyWorld\", charset=\"UTF-8\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--proxy-authenticate-basic-challenge",
+      "case": "http-basic-challenge-and-token-less-headers",
+      "path": "proxy-authenticate-basic-challenge/fixture.txt",
+      "context": "header",
+      "sha256": "a662a19d3c4a0d4250cf28fd7c767f791a1b083e02fa6444bf3f89c42570edbc",
+      "text": "HTTP/1.1 407 Proxy Authentication Required\nProxy-Authenticate: Basic realm=\"office-proxy\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--authorization-basic-scheme-only",
+      "case": "http-basic-challenge-and-token-less-headers",
+      "path": "authorization-basic-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "9dc063eeb1f5ce633735a611604bde828b03bdf12dd3d4811e699340152d92e3",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--authorization-basic-placeholder",
+      "case": "http-basic-challenge-and-token-less-headers",
+      "path": "authorization-basic-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "b81928f0dced4ef42d51bce91738ed44823a91e9076bfb61878176006095ec1e",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic <base64(user:password)>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--authorization-basic-environment-reference",
+      "case": "http-basic-challenge-and-token-less-headers",
+      "path": "authorization-basic-environment-reference/fixture.txt",
+      "context": "header",
+      "sha256": "c4dfd0e144d3b852070d6254adc8ac001a87ed14668138406974ce8f9ef7d5cc",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic ${BASIC_AUTH_TOKEN}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--cookie-header-session-id-among-preferences",
+      "case": "http-cookie-header-session-identifier",
+      "path": "cookie-header-session-id-among-preferences/fixture.txt",
+      "context": "cookie",
+      "sha256": "9448dd74c42c37520c1e8564dcfbff6afdea027daecdfafb2810aed51768542f",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nCookie: theme=dark; session_id=Zy3k9Qm-synthetic-4tR8vLc2Hx6Pn; locale=en-US\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 79,
+            "end": 110,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--set-cookie-session-id-with-attributes",
+      "case": "http-set-cookie-session-identifier-value-span",
+      "path": "set-cookie-session-id-with-attributes/fixture.txt",
+      "context": "cookie",
+      "sha256": "5432f0be7b1f734390a800da2ca0813fcdcea2f78b85fca8d325d42efb902c22",
+      "text": "HTTP/1.1 200 OK\nSet-Cookie: session_id=Wb7sTq-synthetic-0Jd5RkYm3Ax9; Path=/; Secure; HttpOnly; Max-Age=3600\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 39,
+            "end": 68,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--set-cookie-empty-session-value-expired",
+      "case": "http-set-cookie-expired-empty-session-value",
+      "path": "set-cookie-empty-session-value-expired/fixture.txt",
+      "context": "cookie",
+      "sha256": "fefd1aae6c4dff017dc8bcf88114c5637e942d8d9817af59ac9b1767484e5f8d",
+      "text": "HTTP/1.1 200 OK\nSet-Cookie: session_id=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-rfc-published-example",
+      "case": "http-basic-rfc-published-example-credentials",
+      "path": "basic-rfc-published-example/fixture.txt",
+      "context": "header",
+      "sha256": "9d75944a983e09d6757851bcd0b43641f37914c17431bc075f5d04402666b960",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-user-id-in-cleartext-beside-token",
+      "case": "http-basic-user-id-versus-password-scope",
+      "path": "basic-user-id-in-cleartext-beside-token/fixture.txt",
+      "context": "log",
+      "sha256": "74e4a6b9479373ab5ab2f979925f14fc85924745174dcdd85f4dc326d57a27ac",
+      "text": "auth request user=svc-reporting header=\"Authorization: Basic c3ZjLXJlcG9ydGluZzpacDktc3ludGhldGljLUtkNFJtMg==\"\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "candidateReading": {
+        "asserting": false,
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 61,
+            "end": 109,
+            "role": "secret",
+            "note": "Candidate only; synthetic value, never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-empty-password",
+      "case": "http-basic-empty-password-credentials",
+      "path": "basic-empty-password/fixture.txt",
+      "context": "header",
+      "sha256": "c216bd8e6c58ec797025798d9cf7f59b5c1c883b14736fda55a0bc9cb15eb91f",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzo=\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-token-without-padding",
+      "case": "http-basic-token-nonstandard-base64-forms",
+      "path": "basic-token-without-padding/fixture.txt",
+      "context": "header",
+      "sha256": "6cf417efd6c73304e38547c28135f64950dc7023d694554ee5acf031b277b382",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzpzeW50aGV0aWMtcHctNA\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-token-url-safe-alphabet",
+      "case": "http-basic-token-nonstandard-base64-forms",
+      "path": "basic-token-url-safe-alphabet/fixture.txt",
+      "context": "header",
+      "sha256": "aa5b97cb36dfb6d69ad67d2d4ff7c5904872c59abb05115c5269fd6ed5344a0a",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzpzeW50aGV0aWMtPj4-Pz8_LXgx\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--basic-token-split-by-space",
+      "case": "http-basic-token-nonstandard-base64-forms",
+      "path": "basic-token-split-by-space/fixture.txt",
+      "context": "header",
+      "sha256": "f060611d94b6dbbe9e4a638405a738f0755df53347456ae94926db31ba31c850",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9y dGluZzpacDktc3ludGhldGljLUtkNFJtMg==\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--two-authorization-lines",
+      "case": "http-repeated-authorization-header-lines",
+      "path": "two-authorization-lines/fixture.txt",
+      "context": "header",
+      "sha256": "fef1391030ef88cff750e05c18bbd2286cb3f1ea6a1b664f8cdae06fcb0f1b86",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzpacDktc3ludGhldGljLUtkNFJtMg==\nAuthorization: Bearer SYNTHETIC-http-carrier-bearer-0001\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "candidateReading": {
+        "asserting": false,
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 117,
+            "role": "secret",
+            "note": "Candidate only; synthetic value, never issued."
+          },
+          {
+            "start": 140,
+            "end": 174,
+            "role": "secret",
+            "note": "Candidate only; synthetic value, never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--authorization-values-joined-by-comma",
+      "case": "http-repeated-authorization-header-lines",
+      "path": "authorization-values-joined-by-comma/fixture.txt",
+      "context": "header",
+      "sha256": "3ece6fba5589931711232055f0547cb5a48d340ba6c231dae6de7cda03f22ff2",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzpacDktc3ludGhldGljLUtkNFJtMg==, Bearer SYNTHETIC-http-carrier-bearer-0001\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "candidateReading": {
+        "asserting": false,
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 117,
+            "role": "secret",
+            "note": "Candidate only; synthetic value, never issued."
+          },
+          {
+            "start": 126,
+            "end": 160,
+            "role": "secret",
+            "note": "Candidate only; synthetic value, never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--cookie-header-preferences-only",
+      "case": "http-ordinary-cookies-and-opaque-application-state",
+      "path": "cookie-header-preferences-only/fixture.txt",
+      "context": "cookie",
+      "sha256": "0bb0da363acfb2e4a9860e1a88c2e7aa3ca16c9be7ba2b48477a670eb8578f24",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nCookie: theme=dark; locale=en-US; consent=granted\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "http-auth-carriers-authored--cookie-header-opaque-application-state",
+      "case": "http-ordinary-cookies-and-opaque-application-state",
+      "path": "cookie-header-opaque-application-state/fixture.txt",
+      "context": "cookie",
+      "sha256": "a1d4d4ea5c3a734f61af43d6076a53e1a0b075ef2f25d7e9837f7f8796216129",
+      "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nCookie: app_state=7f3a9c01b2d84e65a1c0f9e2d3b4a5c6\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Synthetic values: Basic tokens are the Base64 of obviously synthetic user-pass strings built for this set (decoded text contains the word synthetic) and the RFC 7617 published example; cookie values are made-up strings containing the word synthetic. None was issued or tested against any service. Verification must remain disabled.",
+  "description": "Hand-written synthetic request and response header fixtures for HTTP Basic credentials, Proxy-Authorization, repeated Authorization lines and session cookies. Every fixture projects one Case; variants record lineage to the base fixture they mutate. No value was issued, derived from a real credential or tested against a service."
+}

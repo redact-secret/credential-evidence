@@ -21,6 +21,7 @@ export const HISTORICAL_PATHS = [
   "scripts/lib/materialize.mjs",
   "scripts/lib/narrative-lint.mjs",
   "scripts/lib/placeholders.mjs",
+  "scripts/lib/representation.mjs",
   "scripts/lib/validator.mjs",
   "schemas/", // a schema change can change what the importers and the projection accept and emit
   "migration/", // the legacy map

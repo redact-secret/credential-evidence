@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-placeholder-encoded-in-config-value",
+  "title": "Documentation placeholder stored encoded as a config value",
+  "summary": "A config value decodes to the provider's documented placeholder assignment.",
+  "rationale": "Decoder success alone does not make a secret: the decoded text is the documented placeholder.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy of this example: decoding to a documented placeholder is not a credential.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Worked example for the representation guide (ADR 0016). Synthetic; the policy stated here is an example, not a claim about any product."
+}

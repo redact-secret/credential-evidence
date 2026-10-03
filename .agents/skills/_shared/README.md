@@ -15,6 +15,7 @@ differ, the rule wins and the page is the bug.
 | [evidence-classes.md](evidence-classes.md) | choose or defend an evidence class for a claim or expectation |
 | [case-vs-scenario.md](case-vs-scenario.md) | decide whether a situation is a Case, a Scenario or only a matrix projection |
 | [synthetic-safety.md](synthetic-safety.md) | write or review any credential-shaped value |
+| [representation.md](representation.md) | author a fixture whose value is encoded, split, altered by invisible characters, chunked, placed among filler or repeated; report independent bases |
 | [neutrality-wording.md](neutrality-wording.md) | write prose, notes, rationales or a PR description |
 | [research-run.md](research-run.md) | run `research-provider`, `research-family` or `author-case`: headless defaults, stop conditions common to all three, the landing check, the exact output |
 

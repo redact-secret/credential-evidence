@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "azure-sas-token-in-blob-url",
+  "title": "Azure Storage SAS token appended to a blob URL",
+  "summary": "A synthetic Azure blob URL with a SAS token (sv, se, sr, sp and sig parameters) appended after the query delimiter.",
+  "rationale": "Microsoft defines the SAS token as the query parameters appended to the resource URI and says the \"?\" delimiter is not part of the token, which gives a documented extent: the query string after \"?\". The storage account, container and blob name before it are the resource address. The sig parameter alone is not the whole token: the signature is derived from the other parameters.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "azure-storage:shared-access-signature-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag, with the SAS token (the query string after the \"?\" delimiter) as the secret extent. Microsoft states that a leaked SAS can be used by anyone who obtains it and that the \"?\" is not part of the token.",
+    "sources": [
+      {
+        "sourceId": "learn-microsoft-com-485da28839",
+        "supports": "If a SAS is leaked, it can be used by anyone who obtains it.",
+        "locator": "#best-practices-when-using-sas"
+      },
+      {
+        "sourceId": "learn-microsoft-com-485da28839",
+        "supports": "The delimiter character ('?') for the query string is not part of the SAS token.",
+        "locator": "#sas-token"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

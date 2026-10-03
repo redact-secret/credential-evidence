@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "git-object-name-on-a-line-naming-a-provider",
+  "title": "Git object name on a line that also names a provider",
+  "summary": "A commit message or CI line that names a provider (a dependency bump for a provider SDK) and a 40-hex git object name on the same line, with no credential-bearing name.",
+  "rationale": "Some contracts record a same-line provider keyword as the recognition context for a bare 40-hex key. A git object name is documented as a public object name, yet it can share a line with such a keyword. Whether keyword proximity alone is enough to treat a hex run as a key is not settled by any source.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "deepgram:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Missing: a provider statement on how keys appear in such lines, or a recorded project decision on keyword proximity versus credential-bearing position. The git documentation supports what the value is, not whether proximity makes it a credential.",
+    "sources": [
+      {
+        "sourceId": "git-scm-com-710b608df6",
+        "supports": "A 40 hexadecimal digit string is a git SHA-1 object name.",
+        "locator": "#object-names"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

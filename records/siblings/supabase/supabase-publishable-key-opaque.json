@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "supabase-publishable-key-opaque",
+  "families": [
+    "supabase:secret-key"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Supabase publishable key",
+  "description": "A Supabase opaque publishable key, sb_publishable_ followed by a 22-character random part, an underscore and an 8-character checksum, the same layout as the sb_secret_ key. Supabase documents it as safe to expose online (web page, app, CLI, source code); it only reaches what Row Level Security allows. The legacy JWT-shaped anon key is not covered here.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "supabase-com-73d939b464",
+      "supports": "Key types: sb_publishable_ keys are 'Safe to expose online: web page, mobile or desktop app, GitHub actions, CLIs, source code.'",
+      "locator": "Section: API key types (publishable vs secret)"
+    },
+    {
+      "sourceId": "supabase-com-877b0772be",
+      "supports": "Opaque key layout: sb_publishable_<22-char-random>_<8-char-checksum> and sb_secret_<22-char-random>_<8-char-checksum>.",
+      "locator": "Section: opaque API key format"
+    }
+  ],
+  "observedAt": "2026-10-03",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

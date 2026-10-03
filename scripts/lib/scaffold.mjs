@@ -16,6 +16,7 @@ import { dirname, join } from "node:path";
 import { sourceIdFor, pinFor, publisherFor, splitUrl } from "../migrate/lib/sources.mjs";
 import { codesForText, identityViolations } from "./identity.mjs";
 import { PLACEHOLDER } from "./placeholders.mjs";
+import { checkItemRepresentation, contentBytes } from "./representation.mjs";
 import { createValidator, listJson, repoRoot } from "./validator.mjs";
 
 export const SCAFFOLD_KINDS = ["provider", "family", "contract", "source", "scenario", "case", "variant", "benign-sibling", "family-narrative", "review", "fixture"];
@@ -489,7 +490,41 @@ const PLANNERS = {
       text,
       expected: { outcome, spans },
     };
+    // Representation and lineage (schema revision 1.6.0, ADR 0016): an authored base, or a projection of authored bases.
+    const projectionOf = many(opts["projection-of"]);
+    if (opts["authored-base"] && projectionOf.length) fail("--authored-base and --projection-of are exclusive: an item is one or the other");
+    if (opts["authored-base"]) item.derivation = { kind: "authored-base" };
+    if (projectionOf.length) item.derivation = { kind: "projection", bases: projectionOf };
+    if (opts["extra-file"] !== undefined) {
+      let extra;
+      try {
+        extra = JSON.parse(readFileSync(opts["extra-file"], "utf8"));
+      } catch (e) {
+        fail(`--extra-file is not readable JSON (${e.message})`);
+      }
+      const allowed = ["transformation", "chunking", "inputValidity", "spans"];
+      if (extra === null || typeof extra !== "object" || Array.isArray(extra)) fail("--extra-file must hold one JSON object");
+      for (const k of Object.keys(extra)) if (!allowed.includes(k)) fail(`--extra-file key '${k}' is not one of ${allowed.join(", ")}`);
+      for (const k of ["transformation", "chunking", "inputValidity"]) if (extra[k] !== undefined) item[k] = extra[k];
+      if (extra.spans !== undefined) {
+        if (!Array.isArray(extra.spans) || extra.spans.length !== item.expected.spans.length) fail(`--extra-file spans must be an array with one entry per --secret (${item.expected.spans.length}), in offset order`);
+        for (const [i, more] of extra.spans.entries()) {
+          for (const k of Object.keys(more ?? {})) if (!["base", "fragments", "decoded"].includes(k)) fail(`--extra-file spans[${i}] key '${k}' is not one of base, fragments, decoded`);
+          Object.assign(item.expected.spans[i], more);
+        }
+      }
+    }
     for (const e of ctx.lk.ofKind("fixture-set")) if (e.record.fixtures.some((f) => f.id === item.id)) fail(`refused: fixture id '${item.id}' already exists in ${e.path}`);
+    if (item.derivation || item.transformation || item.chunking || item.inputValidity || item.expected.spans.some((sp) => sp.base || sp.fragments || sp.decoded)) {
+      // The same rules the validator applies, so a bad lineage is refused before it is written.
+      const itemById = new Map();
+      for (const e of ctx.lk.ofKind("fixture-set")) for (const f of e.record.fixtures) itemById.set(f.id, { item: f, set: e.record });
+      const target = ctx.lk.get("fixture-set", set)?.record ?? { id: set, generated: false };
+      itemById.set(item.id, { item, set: target });
+      const baseBytes = (id) => (itemById.get(id)?.item.derivation?.kind === "authored-base" ? contentBytes(itemById.get(id).item) : undefined);
+      const problems = checkItemRepresentation(item, bytes, { set: target, itemById, bytesOf: (i) => contentBytes(i, baseBytes) });
+      if (problems.length) fail(`refused: ${problems.join("; ")}`);
+    }
     const parts = [set, name];
     const summary = `${item.id}: ${bytes.length} bytes, sha256 ${item.sha256.slice(0, 12)}, ${spans.length} span(s)`;
     const existing = ctx.lk.get("fixture-set", set);

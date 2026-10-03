@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "cloud-storage-signed-url-bearer-query-string",
+  "title": "Cloud Storage signed URL carrying X-Goog query parameters",
+  "summary": "A synthetic Cloud Storage object URL with X-Goog-Algorithm, X-Goog-Credential, X-Goog-Date, X-Goog-Expires, X-Goog-SignedHeaders and X-Goog-Signature query parameters.",
+  "rationale": "Google states that anyone holding a signed URL can use it while active, regardless of whether they have an account. The credential is the URL; the same partial-coverage failure applies as for other capability URLs. Signature length and alphabet are not documented on the page read, so the synthetic signature asserts no length.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "google:cloud-storage-signed-url",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag, with the whole URL as the secret extent. Google states that anyone in possession of the signed URL can use it while it is active. The minimal narrower extent is not stated and is not asserted.",
+    "sources": [
+      {
+        "sourceId": "docs-cloud-google-com-f0e50620cb",
+        "supports": "Anyone in possession of the signed URL can use it while it's active, regardless of whether they have a valid account.",
+        "locator": "page introduction"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

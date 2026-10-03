@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "http-basic-challenge-and-token-less-headers",
+  "title": "Basic challenges and Authorization headers with no token",
+  "summary": "Headers that name the Basic scheme without carrying a user-pass token: a WWW-Authenticate challenge, a Proxy-Authenticate challenge, an Authorization header with the scheme only, and Authorization headers whose value is a placeholder or an environment reference.",
+  "rationale": "The word Basic and the header names are shared with real credentials, but a challenge carries only a realm, and an angle-bracket or ${...} value is outside the token68 alphabet so it cannot be a Base64 token. Flagging these would be a false alarm and would redact the protection-space label a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:http-basic-credentials",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. RFC 7617 says challenges carry a realm and not credentials; RFC 9110 defines the Authorization value as credentials with an optional token68, which excludes placeholder characters.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-c6fd88aa6a",
+        "supports": "In challenges: the scheme name is \"Basic\"; the authentication parameter 'realm' is REQUIRED; the realm is a free-form string compared only for equality",
+        "locator": "#section-2"
+      },
+      {
+        "sourceId": "rfc-editor-org-e593c606c9",
+        "supports": "token68 = 1*( ALPHA / DIGIT / \"-\" / \".\" / \"_\" / \"~\" / \"+\" / \"/\" ) *\"=\"",
+        "locator": "#section-11.2"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited standards read on 2026-10-03, before any scanner was consulted. All values are synthetic and were not tested against any service. Header coalescing, parser and action policy, decoded-token mapping and product masking stay with the downstream repositories."
+}
