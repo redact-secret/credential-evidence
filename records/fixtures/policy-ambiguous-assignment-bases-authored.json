@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "policy-ambiguous-assignment-bases-authored",
+  "title": "Policy-ambiguous assignment base samples (authored)",
+  "description": "6 authored base samples whose expectation is not settled: the bare words EXAMPLE and SAMPLE as the whole value under credential-named keys, and provider-shaped values whose body is the marker word EXAMPLE. Every item is not-assertable and carries no span: no must-not-flag or must-flag label is fabricated. Synthetic: every credential-shaped value has a body that starts with the word synthetic (or is the marker word EXAMPLE plus filler) and continues with characters derived from a fixed label, so it was never issued; personal-data-shaped values use the reserved example.invalid domain and the fictional 555-0100 telephone range. None was tested against any service.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "evidence": {
+    "example-and-sample-words-policy-unresolved": {
+      "basis": "unresolved",
+      "rationale": "No outcome is asserted: whether the bare words EXAMPLE and SAMPLE under a credential-named key are placeholders or literals is not settled by any recorded source. Open question and review history: Case example-and-sample-words-as-whole-value-under-credential-names.",
+      "sources": [],
+      "observedAt": "2026-10-03"
+    },
+    "example-marker-in-provider-shaped-value-unresolved": {
+      "basis": "unresolved",
+      "rationale": "No outcome is asserted: AWS publishes exact example literals, but nothing recorded says a value that merely carries the word EXAMPLE in its body is a placeholder. Open question and review history: Case example-marker-inside-provider-shaped-value-not-published-by-provider.",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-1e9489a68f",
+          "supports": "Access keys consist of an access key ID (for example, AKIAIOSFODNN7EXAMPLE) and a secret access key (for example, wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY); the page presents these two strings as examples.",
+          "locator": "Manage access keys for IAM users, introduction"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    }
+  },
+  "fixtures": [
+    {
+      "id": "policy-ambiguous-assignment-bases-authored--password-equals-example-base",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "password-equals-example-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "d24f19faf037638709dab051761667973490540547c3edff0f69582a0270e0a9",
+      "text": "password=EXAMPLE\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-bases-authored--access-token-equals-sample-base",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "access-token-equals-sample-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "c5594030a3c03bf0139a2c016c68a987ed40292a9d8c340ab29389405b5c671f",
+      "text": "access_token=SAMPLE\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-bases-authored--api-key-equals-example-word-run-base",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "api-key-equals-example-word-run-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "22049bc89789878c37ecddcb97f0ddd89d59e837f64269007bf74f06797e6cbe",
+      "text": "API_KEY=EXAMPLE_API_KEY\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-bases-authored--yaml-secret-colon-sample-base",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "yaml-secret-colon-sample-base/input.txt",
+      "context": "structured-file",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "9e5f5a7a0139d2668a7dc5703e223e49c5ec473b7663fb475b81241a1a619367",
+      "text": "secret: SAMPLE\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "stripe-shaped-body-of-example-marker-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "sha256": "81dba443da5d78ec416185adfd9daa84ce4ab8280b8d2d72f8c223771dfb8405",
+      "text": "STRIPE_SECRET_KEY=sk_test_EXAMPLEEXAMPLEEXAMPLEEXAMPLEEXAM\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "aws:iam-user-access-key"
+        ]
+      },
+      "path": "aws-key-id-shaped-body-of-example-marker-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "sha256": "e4717706a8583620c62268cba67e1d429909b7d753fbc559133ac53614cca8eb",
+      "text": "AWS_ACCESS_KEY_ID=AKIAEXAMPLEFILLER000\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Kept apart from the benign controls so that neither a benign count nor a positive count absorbs them. The open questions and their review history are in the two Cases these items project."
+}

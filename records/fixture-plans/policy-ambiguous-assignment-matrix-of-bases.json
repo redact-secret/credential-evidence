@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "policy-ambiguous-assignment-matrix-of-bases",
+  "title": "Policy-ambiguous assignments of authored bases",
+  "description": "Bare EXAMPLE and SAMPLE words under credential-named keys and provider-shaped values with an EXAMPLE marker body, as 6 authored bases each placed in three surrounding texts. Every input is not-assertable. Projects two Cases that hold the open questions and their review history. Declares its 6 bases.",
+  "matrix": {
+    "families": {
+      "select": "listed",
+      "ids": [
+        "aws:iam-user-access-key",
+        "generic:unclassified-assignment-literal",
+        "stripe:secret-key-test"
+      ]
+    },
+    "targets": [
+      {
+        "type": "scenario",
+        "id": "unsettled-evidence-input"
+      }
+    ],
+    "carriers": [
+      "english-prose-before-and-after",
+      "env-assignment",
+      "korean-prose-before-and-after",
+      "markdown-code-fence",
+      "structured-file"
+    ],
+    "coverage": "sparse"
+  },
+  "generation": {
+    "rule": "surrounding-text-placement-of-controls-and-ambiguous-bases",
+    "generator": {
+      "name": "benign-reference-and-ambiguity-projector",
+      "version": "1.0.0",
+      "entrypoint": "scripts/generate-benign-reference-and-ambiguity-plans.mjs",
+      "sourceRevision": "59f4f9ad9e7252805268942ec515e7ea27a9d615"
+    },
+    "inputs": [
+      {
+        "kind": "fixture",
+        "id": "policy-ambiguous-assignment-bases-authored--password-equals-example-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "policy-ambiguous-assignment-bases-authored--access-token-equals-sample-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "policy-ambiguous-assignment-bases-authored--api-key-equals-example-word-run-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "policy-ambiguous-assignment-bases-authored--yaml-secret-colon-sample-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base"
+      },
+      {
+        "kind": "case",
+        "id": "example-and-sample-words-as-whole-value-under-credential-names"
+      },
+      {
+        "kind": "case",
+        "id": "example-marker-inside-provider-shaped-value-not-published-by-provider"
+      }
+    ],
+    "seed": "benign-reference-and-ambiguity-1"
+  },
+  "lineage": {
+    "origin": "authored",
+    "derivedFrom": [
+      {
+        "kind": "scenario",
+        "id": "unsettled-evidence-input"
+      },
+      {
+        "kind": "case",
+        "id": "example-and-sample-words-as-whole-value-under-credential-names"
+      },
+      {
+        "kind": "case",
+        "id": "example-marker-inside-provider-shaped-value-not-published-by-provider"
+      }
+    ]
+  },
+  "output": [
+    "policy-ambiguous-assignment-bases-authored",
+    "policy-ambiguous-assignment-projections-generated"
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. These inputs are a policy-observation population, not a benign control population and not a positive population: no outcome is asserted, so they are never scored as true or false positives. A consumer that reports what it did with them records its generic-assignment setting next to the observation."
+}

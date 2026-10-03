@@ -1,0 +1,655 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "policy-ambiguous-assignment-projections-generated",
+  "title": "Surrounding-text projections of policy-ambiguous assignments (generated)",
+  "description": "18 projections of the 6 policy-ambiguous bases in the same three surrounding texts. All are not-assertable. 6 bases, 18 correlated inputs. Synthetic: every credential-shaped value has a body that starts with the word synthetic (or is the marker word EXAMPLE plus filler) and continues with characters derived from a fixed label, so it was never issued; personal-data-shaped values use the reserved example.invalid domain and the fictional 555-0100 telephone range. None was tested against any service.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "surrounding-text-placement-of-controls-and-ambiguous-bases",
+    "generator": {
+      "name": "benign-reference-and-ambiguity-projector",
+      "version": "1.0.0",
+      "entrypoint": "scripts/generate-benign-reference-and-ambiguity-plans.mjs",
+      "sourceRevision": "59f4f9ad9e7252805268942ec515e7ea27a9d615"
+    },
+    "seed": "benign-reference-and-ambiguity-1"
+  },
+  "generated": true,
+  "evidence": {
+    "example-and-sample-words-policy-unresolved": {
+      "basis": "unresolved",
+      "rationale": "No outcome is asserted: whether the bare words EXAMPLE and SAMPLE under a credential-named key are placeholders or literals is not settled by any recorded source. Open question and review history: Case example-and-sample-words-as-whole-value-under-credential-names.",
+      "sources": [],
+      "observedAt": "2026-10-03"
+    },
+    "example-marker-in-provider-shaped-value-unresolved": {
+      "basis": "unresolved",
+      "rationale": "No outcome is asserted: AWS publishes exact example literals, but nothing recorded says a value that merely carries the word EXAMPLE in its body is a placeholder. Open question and review history: Case example-marker-inside-provider-shaped-value-not-published-by-provider.",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-1e9489a68f",
+          "supports": "Access keys consist of an access key ID (for example, AKIAIOSFODNN7EXAMPLE) and a secret access key (for example, wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY); the page presents these two strings as examples.",
+          "locator": "Manage access keys for IAM users, introduction"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    }
+  },
+  "fixtures": [
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--password-equals-example-in-english-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "password-equals-example-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--password-equals-example-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "73e630fc2caf3abff2cedffd673be473b4f1ca6084b6b999bae172fce8594f46",
+      "text": "Please review the following note before the release.\npassword=EXAMPLE\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--password-equals-example-in-korean-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "password-equals-example-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--password-equals-example-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "34d830cacebe42ff9f0eaa982c269e4cbadf9df94d367aa351e80cd68559dd5f",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\npassword=EXAMPLE\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--password-equals-example-in-markdown-fence",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "password-equals-example-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--password-equals-example-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "acfa2efe26652ddd8d7bf3a6bbc78eaf5784c794dbbefd2ca28243ce8ff3b838",
+      "text": "```text\npassword=EXAMPLE\n```\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--access-token-equals-sample-in-english-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "access-token-equals-sample-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--access-token-equals-sample-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "1925600092a5f5ae2104745237e1171b33c078c6527af4677d231d8597444712",
+      "text": "Please review the following note before the release.\naccess_token=SAMPLE\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--access-token-equals-sample-in-korean-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "access-token-equals-sample-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--access-token-equals-sample-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "819250f7c540e3a357d9e52e8d4a7570e3099ad9893d8bb07063efc5fdf02a04",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\naccess_token=SAMPLE\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--access-token-equals-sample-in-markdown-fence",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "access-token-equals-sample-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--access-token-equals-sample-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "0dcb9b42595081b2a1b609438d5526d44e13383c52f3f14eb61262c0e2d8e3f0",
+      "text": "```text\naccess_token=SAMPLE\n```\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--api-key-equals-example-word-run-in-english-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "api-key-equals-example-word-run-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--api-key-equals-example-word-run-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "a6867403985c175bf139c8989775b99e2289f7c94c6393737c1cd5f2d2d51588",
+      "text": "Please review the following note before the release.\nAPI_KEY=EXAMPLE_API_KEY\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--api-key-equals-example-word-run-in-korean-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "api-key-equals-example-word-run-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--api-key-equals-example-word-run-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "6425da9bc6d4c6c76ab5a60a3613f4f27c156514cc39f3d10fda596b3659cd4e",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nAPI_KEY=EXAMPLE_API_KEY\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--api-key-equals-example-word-run-in-markdown-fence",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "api-key-equals-example-word-run-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--api-key-equals-example-word-run-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "1d669ae3d215946e551a6fba31837881f17ec8299656cd9f091372c9e3a50e3d",
+      "text": "```text\nAPI_KEY=EXAMPLE_API_KEY\n```\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--yaml-secret-colon-sample-in-english-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "yaml-secret-colon-sample-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--yaml-secret-colon-sample-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "d40144224ebfde67a94a1381e5b25456b55d55a5dfc1c6da5901785d44ccce56",
+      "text": "Please review the following note before the release.\nsecret: SAMPLE\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--yaml-secret-colon-sample-in-korean-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "yaml-secret-colon-sample-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--yaml-secret-colon-sample-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "432963d7159eee916c2cf7630f7b202900c4f699db79d008747c550a0563fc98",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nsecret: SAMPLE\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--yaml-secret-colon-sample-in-markdown-fence",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "generic:unclassified-assignment-literal"
+        ]
+      },
+      "path": "yaml-secret-colon-sample-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--yaml-secret-colon-sample-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "example-and-sample-words-policy-unresolved",
+      "sha256": "310dde140434446968a5863f97242d810a25bc78568c72edc0eed935b6b365f2",
+      "text": "```text\nsecret: SAMPLE\n```\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--stripe-shaped-body-of-example-marker-in-english-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "stripe-shaped-body-of-example-marker-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "sha256": "624179b12c30dbf183ba34720f9f3ae03ec795eae6233bf13e605e6ea59c3bab",
+      "text": "Please review the following note before the release.\nSTRIPE_SECRET_KEY=sk_test_EXAMPLEEXAMPLEEXAMPLEEXAMPLEEXAM\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--stripe-shaped-body-of-example-marker-in-korean-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "stripe-shaped-body-of-example-marker-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "sha256": "3a5a2413e3e499159c223d272b646306f2f361b097a8cb90b4a0f6279d3d05f7",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nSTRIPE_SECRET_KEY=sk_test_EXAMPLEEXAMPLEEXAMPLEEXAMPLEEXAM\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--stripe-shaped-body-of-example-marker-in-markdown-fence",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "stripe-shaped-body-of-example-marker-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "sha256": "682e19cf0a322ea5869ff219e62a840beaecf71016781c07571031a7fbc7c862",
+      "text": "```text\nSTRIPE_SECRET_KEY=sk_test_EXAMPLEEXAMPLEEXAMPLEEXAMPLEEXAM\n```\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--aws-key-id-shaped-body-of-example-marker-in-english-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "aws:iam-user-access-key"
+        ]
+      },
+      "path": "aws-key-id-shaped-body-of-example-marker-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "sha256": "020aa0aefd387ed080758492633414fa4c650e4b1f02c00f98720dad8e45772c",
+      "text": "Please review the following note before the release.\nAWS_ACCESS_KEY_ID=AKIAEXAMPLEFILLER000\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--aws-key-id-shaped-body-of-example-marker-in-korean-prose",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "aws:iam-user-access-key"
+        ]
+      },
+      "path": "aws-key-id-shaped-body-of-example-marker-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "sha256": "c86f8b7e7d8efc6ed1db9208bad52ca716e6c5c33144186adc95de034dcd8a9f",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nAWS_ACCESS_KEY_ID=AKIAEXAMPLEFILLER000\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "policy-ambiguous-assignment-projections-generated--aws-key-id-shaped-body-of-example-marker-in-markdown-fence",
+      "cell": {
+        "plan": "policy-ambiguous-assignment-matrix-of-bases",
+        "scenario": "unsettled-evidence-input",
+        "families": [
+          "aws:iam-user-access-key"
+        ]
+      },
+      "path": "aws-key-id-shaped-body-of-example-marker-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "sha256": "7d5f5bae883aa09250fb59a9e07e88d3b70b0507f6c1858527f9e3c5c5c07372",
+      "text": "```text\nAWS_ACCESS_KEY_ID=AKIAEXAMPLEFILLER000\n```\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Generated; never edited by hand: rerun the generator. Nothing may be scored against these inputs until a recorded decision or provider statement resolves their Cases."
+}

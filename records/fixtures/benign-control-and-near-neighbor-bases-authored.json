@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "benign-control-and-near-neighbor-bases-authored",
+  "title": "Benign controls and near-neighbor positives, base samples (authored)",
+  "description": "12 authored base samples: 6 benign controls (a publishable key under its matching label, an environment-interpolation reference, a Kubernetes secretKeyRef reference, a regular expression that names a key prefix, prose that names the prefixes, and a personal-data contact line under a credential-only scope) and 6 near-neighbor positives, each one property away from a benign base, with the secret span exact so that masking the surrounding normal text is visible. Synthetic: every credential-shaped value has a body that starts with the word synthetic (or is the marker word EXAMPLE plus filler) and continues with characters derived from a fixed label, so it was never issued; personal-data-shaped values use the reserved example.invalid domain and the fictional 555-0100 telephone range. None was tested against any service.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "evidence": {
+    "stripe-publishable-key-safe-to-expose": {
+      "basis": "provider-documented",
+      "rationale": "Stripe documents the publishable key type (pk_) as safe to expose, and the label STRIPE_PUBLISHABLE_KEY agrees. Not flagged as a credential. The expectation covers the credential population only; it is not a statement about any product's redaction choice for public identifiers.",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Key types table: a publishable API key (pk_...) is 'Safe to expose: Yes' and can be included in front-end code or distributed applications; it cannot perform sensitive operations such as creating charges or reading account data.",
+          "locator": "#key-types"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    },
+    "stripe-publishable-and-secret-key-in-one-input": {
+      "basis": "provider-documented",
+      "rationale": "One label is repeated for a documented publishable value and a documented secret value; the two are told apart by each value's documented prefix, not by the label. One span on the secret value and none on the publishable one; silence on the publishable value follows from its documented class and is stated as inference.",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Key types table: a secret API key (sk_...) is 'Safe to expose: No' and has unrestricted permissions on all Stripe APIs; 'Only publishable keys are safe to expose outside your application's backend.'",
+          "locator": "#key-types"
+        },
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Key types table: a publishable API key (pk_...) is 'Safe to expose: Yes' and can be included in front-end code or distributed applications; it cannot perform sensitive operations such as creating charges or reading account data.",
+          "locator": "#key-types"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    },
+    "stripe-secret-key-not-safe-to-expose": {
+      "basis": "provider-documented",
+      "rationale": "Stripe documents the secret key type (sk_) as not safe to expose. The value's class follows from its documented prefix; the label, the surrounding text and the carrier do not change it. That the surrounding normal text is outside the span is the exact-span statement of this fixture, not a provider rule.",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Key types table: a secret API key (sk_...) is 'Safe to expose: No' and has unrestricted permissions on all Stripe APIs; 'Only publishable keys are safe to expose outside your application's backend.'",
+          "locator": "#key-types"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    }
+  },
+  "fixtures": [
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--publishable-key-under-matching-label-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "public-identifier",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "publishable-key-under-matching-label-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "stripe-publishable-key-safe-to-expose",
+      "sha256": "ebac42db7a46597740e64a79a3092c63c59bffde32d4eec2eca03f84ec358329",
+      "text": "STRIPE_PUBLISHABLE_KEY=pk_test_syntheticRyKkmA2yQStYJ0wCMtVSuiR\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--environment-interpolation-reference-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "templated-reference",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "environment-interpolation-reference-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "a725e4589c8900d2469e3a1c904f652248a941144f9e12ee695fdb6a84322560",
+      "text": "STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--kubernetes-secret-key-reference-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "templated-reference",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "kubernetes-secret-key-reference-base/input.txt",
+      "context": "structured-file",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "caddd9b56e4d8d916b80ab97b7721acd7dcaf6a35c9432561d99b5b67ab7a03c",
+      "text": "- name: STRIPE_SECRET_KEY\n  valueFrom:\n    secretKeyRef:\n      name: payments-secrets\n      key: stripe-secret-key\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--regular-expression-source-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "benign-lookalike",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "regular-expression-source-base/input.txt",
+      "context": "source-code",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "d076275b69fb56e90ff231755155294205cfc33fefe5a67cef7e5c19ac28e85f",
+      "text": "const stripeSecretKeyPattern = /sk_(test|live)_[A-Za-z0-9]{24,99}/;\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--prefix-prose-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "prose-mention",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "prefix-prose-base/input.txt",
+      "context": "prose",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "0b21a4d9c81637d8094c16d11f2617d9e7e705167e6006b20594d7ed3007eb69",
+      "text": "Stripe secret keys begin with sk_test_ in a sandbox and sk_live_ in live mode; publishable keys begin with pk_.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--personal-data-contact-line-base",
+      "case": "personal-data-shaped-values-under-credential-only-scope",
+      "path": "personal-data-contact-line-base/input.txt",
+      "context": "prose",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "3273751b944091f544a31953a10d1e0204237b87b1f9481f2f38a2933f762f45",
+      "text": "Contact Jane Example at jane.example@example.invalid or +1 555 0100 before Friday.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--secret-beside-publishable-under-one-label-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-beside-publishable-under-one-label-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "stripe-publishable-and-secret-key-in-one-input",
+      "lineage": {
+        "relation": "twin-of",
+        "of": "benign-control-and-near-neighbor-bases-authored--publishable-key-under-matching-label-base",
+        "mutationKind": "benign-control-to-literal",
+        "mutation": "The reference, pattern or prose position now holds a literal secret; everything else is the nearest neighbouring text."
+      },
+      "sha256": "d8ceaa8b87e25881cab779ed31469c702a908825b42a1ef9ee14f3fcaf285fcb",
+      "text": "STRIPE_KEY=pk_test_syntheticTABqTuWfb0Efps6SWBrsOS2\nSTRIPE_KEY=sk_test_syntheticBOVw2KquuD1FtoKGILnfqHT\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 63,
+            "end": 103,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--secret-literal-in-reference-position-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-in-reference-position-base/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "lineage": {
+        "relation": "twin-of",
+        "of": "benign-control-and-near-neighbor-bases-authored--environment-interpolation-reference-base",
+        "mutationKind": "benign-control-to-literal",
+        "mutation": "The reference, pattern or prose position now holds a literal secret; everything else is the nearest neighbouring text."
+      },
+      "sha256": "d0394bb33620dd75e7cc193d9388434b78502877704c835fb1820a9b559aeac0",
+      "text": "STRIPE_SECRET_KEY=sk_test_syntheticJYFgmu5mfLvb8E1Q4et4vZU\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 58,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--secret-literal-beside-kubernetes-reference-shape-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-beside-kubernetes-reference-shape-base/input.txt",
+      "context": "structured-file",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "lineage": {
+        "relation": "twin-of",
+        "of": "benign-control-and-near-neighbor-bases-authored--kubernetes-secret-key-reference-base",
+        "mutationKind": "benign-control-to-literal",
+        "mutation": "The reference, pattern or prose position now holds a literal secret; everything else is the nearest neighbouring text."
+      },
+      "sha256": "ba6610cf1f584cfa0abd5e852219ea7ef3405c93dde40162c2da248530a6bf38",
+      "text": "- name: STRIPE_SECRET_KEY\n  value: sk_test_syntheticFf5aHg8FXlJa89rjqtVGLa3\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 35,
+            "end": 75,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--secret-literal-where-the-pattern-was-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "source-code-string-literal",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-where-the-pattern-was-base/input.txt",
+      "context": "source-code",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "lineage": {
+        "relation": "twin-of",
+        "of": "benign-control-and-near-neighbor-bases-authored--regular-expression-source-base",
+        "mutationKind": "benign-control-to-literal",
+        "mutation": "The reference, pattern or prose position now holds a literal secret; everything else is the nearest neighbouring text."
+      },
+      "sha256": "525a84f7ce63dbac85b556a5b2e7fb9c1d6c2b5bf1fb4baca281d798dc375f11",
+      "text": "const stripeSecretKey = \"sk_test_synthetic71DUVz64J7wwiBVBJtyuNi5\";\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 25,
+            "end": 65,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--secret-after-prefix-prose-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "markdown-and-comment-value",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-after-prefix-prose-base/input.txt",
+      "context": "prose",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "lineage": {
+        "relation": "twin-of",
+        "of": "benign-control-and-near-neighbor-bases-authored--prefix-prose-base",
+        "mutationKind": "benign-control-to-literal",
+        "mutation": "The reference, pattern or prose position now holds a literal secret; everything else is the nearest neighbouring text."
+      },
+      "sha256": "631f5cd8fa3e02cb230ae3827c188d41bd7779406d12ad0d7e5548f458fe8894",
+      "text": "Stripe secret keys begin with sk_test_ in a sandbox. The sandbox key for this build is sk_test_syntheticzeKn7wiTJv8tDMrPz2A69Rk and must not be pasted into tickets.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 87,
+            "end": 127,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-bases-authored--secret-after-personal-data-contact-line-base",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-after-personal-data-contact-line-base/input.txt",
+      "context": "prose",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "lineage": {
+        "relation": "twin-of",
+        "of": "benign-control-and-near-neighbor-bases-authored--personal-data-contact-line-base",
+        "mutationKind": "benign-control-to-literal",
+        "mutation": "The reference, pattern or prose position now holds a literal secret; everything else is the nearest neighbouring text."
+      },
+      "sha256": "0fe7ee9b5820af083f898ec7f22a803146ea8dba0fd4d50bd89a5999dd3b3b81",
+      "text": "Contact Jane Example at jane.example@example.invalid or +1 555 0100 before Friday. Sandbox key: sk_test_synthetic8FcwWEHF4oqjoNhdjkFnxz8\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 96,
+            "end": 136,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. A base asserts only its own expectation (a benign base: its whole content is the value; a positive: its one secret span). Benign and near-neighbor inputs are here; policy-ambiguous inputs are in policy-ambiguous-assignment-bases-authored and never mixed with them. Personal-data expectations belong to a separate population or profile and are not stated."
+}
