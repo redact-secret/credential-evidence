@@ -1,0 +1,4277 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "large-and-repeated-input-projections-generated",
+  "title": "Large, repeated and mixed input projections of authored bases (generated)",
+  "description": "66 projections stored as recipes (the bytes are assembled, never embedded): one base at the head, middle or tail of 64 KiB, 256 KiB or 1 MiB of credential-free filler; one base repeated at three positions; two distinct bases of one family; two bases of two families. Eight bases, 66 correlated inputs. Synthetic: every value is a fake word run padded with zeros, in the alphabet and at the length of the family's current contract, and was never issued. None was tested against any service.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "context-carrier-and-filler-placement",
+    "generator": {
+      "name": "context-large-input-projector",
+      "version": "1.0.0",
+      "entrypoint": "scripts/generate-context-large-input-plans.mjs",
+      "sourceRevision": "58e9cc2af23de2c791ddbce12fffaa4dbec92de8"
+    },
+    "seed": "context-large-input-seed-1"
+  },
+  "generated": true,
+  "fixtures": [
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-head-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-head-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "4fe5282dca9fe0e45a0a9aa4fb11b240a24da1cfa447b61064c1a892c61ec50e",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-middle-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-middle-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "5734893601040fb41ab2b26a2b7598a16673c8119019904d5f157bc43b6b3065",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 32785,
+            "end": 32854,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-tail-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-tail-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "44cb654efc930db40b86c8b7dc13a41598364d56b91545b50fdcb3c6cf750870",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65553,
+            "end": 65622,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-three-occurrences-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-three-occurrences-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "10c1dd34e23e1e8b18357482f1ee365183578eea3a4b8327bc5fae39199ebe34",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 32872,
+            "end": 32941,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 65727,
+            "end": 65796,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-two-distinct-keys-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-two-distinct-keys-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a",
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "1e1b9aa3bca3335c5294f0b280880880664d764f3ab035c9d8f72fee82ad7852",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 65640,
+            "end": 65709,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-head-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-head-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "5f2462de5dad6a44812427e1e420e3b80b241b8a2547cf00b786d4dda153b0da",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-middle-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-middle-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "13cd4da9e50c1290b8bcc23da0d4f8bf93581ac702e0e9b0824272b509a21ca3",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 32781,
+            "end": 32821,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-tail-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-tail-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "08720595fa39baf3840fc9296de425cbdc143b7b9ca05b607d69aa808c19351f",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65549,
+            "end": 65589,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-three-occurrences-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-three-occurrences-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "716ffd343c74940a9655443273ff0d48f8e8932eb8f3a6abbeccc6819c8dfc90",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 32835,
+            "end": 32875,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 65657,
+            "end": 65697,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-two-distinct-keys-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-two-distinct-keys-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "context-and-large-input-bases-authored--github-classic-pat-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "085d053707a84390788bb67e434a44d6c61e558d9a00914e93341da0b23a9836",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 65603,
+            "end": 65643,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-head-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-head-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "2fce77a64359ce39adade385fc24553887c6f0d82acf415b2b715e7af1befb9f",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-middle-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-middle-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "d600e84a3c0962b76b222916ac2b1a7ab1f1290514452d66dd1d196ff5dbc7c4",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 32781,
+            "end": 32807,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-tail-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-tail-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "e7444af6a775eef7c51f414687321076a53e3178ee74d8ca1617336d12c0a30d",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65549,
+            "end": 65575,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-three-occurrences-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-three-occurrences-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "9eb88d1b711a249ffb8125f339419e7b2e0a45681a1b022470d0dd786183e8fd",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 32821,
+            "end": 32847,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 65629,
+            "end": 65655,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-two-distinct-keys-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-two-distinct-keys-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a",
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "eb64a22dbdace1291424b0f54b96c0717c64b7372d7a1f4ff1e5bfdcb03f587b",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 65589,
+            "end": 65615,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-head-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-head-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "0b88d6e8cc2ab67e729473c205762edf371e466c351a65fc8eba796ebd88bff0",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-middle-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-middle-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "3cb424cf18957e5cc782a3dfa44845038ca0a5e1a14b686ae4f2f4279063b808",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 32778,
+            "end": 32818,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-tail-of-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-tail-of-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "2e0133a20201fe9ac598f75accce62bc6cb02d9b45fb6cc13669e7b8dcc2bb3f",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65546,
+            "end": 65586,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-three-occurrences-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-three-occurrences-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "b81fd9cce8dd7e6794501f0f8c5a0078322fc1f82f08fe05c4f2ff7cc422bbce",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 32829,
+            "end": 32869,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 65648,
+            "end": 65688,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-two-distinct-keys-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-two-distinct-keys-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a",
+          "context-and-large-input-bases-authored--npm-granular-token-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "b0220b250ed4bfee5a4381cc1222e4a48b44b45a9159a574892149f028f0c3eb",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 65597,
+            "end": 65637,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-and-github-classic-pat-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key",
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "sendgrid-api-key-and-github-classic-pat-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a",
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ],
+        "note": "Two bases of two different families: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "9fd6db76cf603b228fa55bc966eb163ee2805c88d242cd6cda77a10088d04506",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 65636,
+            "end": 65676,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-and-npm-granular-token-in-64kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token",
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-and-npm-granular-token-in-64kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a",
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ],
+        "note": "Two bases of two different families: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "303fae10a434854c63ac94bc1ace12ffd0eba8490f1c5951d1b9cbe2f51b76fe",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 65586,
+            "end": 65626,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-head-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-head-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "163237ae21b37ee18b8eca9d2314225892a230b0ac302241e1169cc09b61dbbe",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-middle-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-middle-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "14eff210ef2ad9c7a761a833a0c5b01cce0aa251395ddde4b787916223054b69",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 131089,
+            "end": 131158,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-tail-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-tail-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "5fd190090ad561fd16676c33a4f3fe7cba3d221a7af0e15819491d3b619db4ae",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 262161,
+            "end": 262230,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-three-occurrences-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-three-occurrences-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "54df31128e5025ce3c5e177053c9321c42eeca979cb4d7c34b59ffd687122f9d",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 131176,
+            "end": 131245,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 262335,
+            "end": 262404,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-two-distinct-keys-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-two-distinct-keys-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a",
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "1fdea9e6fd7e7e9f95d5c826628e39824ded0254eb3116a64d0c4f9650d2f4ba",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 262248,
+            "end": 262317,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-head-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-head-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "615f102050cfedfc046b2887014fe2a83ffc654d6387ae4f953ea0f2b7dc54ab",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-middle-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-middle-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "24a4a18f5c576c84b3432f79e80570433c3c76bcd7969f7aa4d7f9c155cdf8d6",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 131085,
+            "end": 131125,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-tail-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-tail-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "7c2a47801e1dda6fcfd82c4033d6a60b6f77e7bb3be118e40d668e90f269b827",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 262157,
+            "end": 262197,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-three-occurrences-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-three-occurrences-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "1c35577edbaea99c3b179d929b8a7d83e26c587427d4db01279824c37bb48800",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 131139,
+            "end": 131179,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 262265,
+            "end": 262305,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-two-distinct-keys-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-two-distinct-keys-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "context-and-large-input-bases-authored--github-classic-pat-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "9fa59e3d8f7deb103dbf514f17ef2046140be6307bea9a4f8eca06035fc173e6",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 262211,
+            "end": 262251,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-head-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-head-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "b2d32c5c83aada128f69009ebca0f71185a98c3d42dae336fc97cb2ae042c22d",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-middle-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-middle-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "f47ef4524d305e276c00281b471709382b554bc405f0f80e267ffe6ca6bcad75",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 131085,
+            "end": 131111,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-tail-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-tail-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "25382dbb0f1a6847bab4559e20a60a37f7d747ed565a66140d082f51fbc4de00",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 262157,
+            "end": 262183,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-three-occurrences-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-three-occurrences-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "513622171cd6101aeccca03772863e263f0f2475e152700cc458bf07c4738d36",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 131125,
+            "end": 131151,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 262237,
+            "end": 262263,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-two-distinct-keys-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-two-distinct-keys-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a",
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "8cb91f5a33c5cf0673376c0a679a5bbb1c5dd9feba995671b97bdb18a2cd6f22",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 262197,
+            "end": 262223,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-head-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-head-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "0b771a88e2b5e19591aa4616bff8dde066fe4d42d166d4e813e620e4a355749a",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-middle-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-middle-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "b5843bd47ede48a311f6f0d2c799849993b1edfea5d099cfe0707cf17352c391",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 131082,
+            "end": 131122,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-tail-of-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-tail-of-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ]
+      },
+      "sha256": "482bd1fbc25391db1359688d7df3afe17deb630ab4fdfc1a258b0172515a30d3",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 262154,
+            "end": 262194,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-three-occurrences-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-three-occurrences-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "b72f19bb7c6fec9b759b3a500140701ec15b9a7f1e608d827e53971eb9e84c9a",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 2048
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 131133,
+            "end": 131173,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 262256,
+            "end": 262296,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-two-distinct-keys-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-two-distinct-keys-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a",
+          "context-and-large-input-bases-authored--npm-granular-token-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "854ad23234a9c7bccc8de575c7a1485904e3b5fe6bbdbdaa309474ae173f97c4",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 262205,
+            "end": 262245,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-and-github-classic-pat-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key",
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "sendgrid-api-key-and-github-classic-pat-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a",
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ],
+        "note": "Two bases of two different families: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "b572999e09928132c1f216dc9362aa08e1223b5fb7d7753d997fce6660d5d9fc",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 262244,
+            "end": 262284,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-and-npm-granular-token-in-256kib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token",
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-and-npm-granular-token-in-256kib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a",
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 262144
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 262144
+          }
+        ],
+        "note": "Two bases of two different families: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "83fb16db7f44f01526cf03b6f35af35598fc13903fe23b18970231b258ce381e",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 4096
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 262194,
+            "end": 262234,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-head-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-head-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "81455abc11f3bef6f5f63e66d8f33c377434aa3d016d55b87cb4b51fde712140",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-middle-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-middle-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "ef873737f0a2d6629e5f65e34552af02ad9f1e150b67661b64b0becd0e8b7fe0",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 524305,
+            "end": 524374,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-tail-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-tail-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "3788533c0968192438051d6139fecc0fc9893c880db4ad7aa5e6b07d4572d933",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 1048593,
+            "end": 1048662,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-three-occurrences-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-three-occurrences-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "412c15fa8a3c7bc16f575359b1263f362a567e703547e69d3d49dfea1034da2f",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 524392,
+            "end": 524461,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 1048767,
+            "end": 1048836,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-two-distinct-keys-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-two-distinct-keys-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a",
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "d8cab574827d19fcd04295f4ef16ac16605f01b468dc3dbe74aa31bdc8195049",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 1048680,
+            "end": 1048749,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-head-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-head-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "4b30fac7e284e19f82c712a56dc2acf863d30cc527bb50ea7eacb8ab97203e78",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-middle-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-middle-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "d4a699c1a1caad62425c91fc15153b982f86605dccb91d8faf87caa2d6a7e047",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 524301,
+            "end": 524341,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-tail-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-tail-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "9fe6321297421a86db83bf62d82236a7fba2f3e838b1e7c869f3306f0ac8a670",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 1048589,
+            "end": 1048629,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-three-occurrences-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-three-occurrences-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "02604484908d455245eaee5b55d1d012031a870ed9906cb9e59256ae8e19a0dc",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 524355,
+            "end": 524395,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 1048697,
+            "end": 1048737,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--github-classic-pat-two-distinct-keys-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-two-distinct-keys-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "context-and-large-input-bases-authored--github-classic-pat-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "a26bb82eab1dc636465cc3da746b01b244d8e7a2dd4af605060f09a11a672d3c",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 1048643,
+            "end": 1048683,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-head-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-head-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "d1ee3ade9d2341d086bfd4531b24891d0514eb657881339f26aeffdfe7daf4fc",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-middle-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-middle-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "1ccc20b250acbaf22d7cf564af5ca660dae05f393c736b7120538542800e9867",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 524301,
+            "end": 524327,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-tail-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-tail-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "f9eec0395282fe3ec84a9e1d0c7543aa394f0548c3ce0ce32331486cb09d6989",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 1048589,
+            "end": 1048615,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-three-occurrences-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-three-occurrences-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "734e6adb46bfc1351b68c2bc95f9228a6a30c0d8a9ffb7545a80e7340b1e4df7",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 524341,
+            "end": 524367,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 1048669,
+            "end": 1048695,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-two-distinct-keys-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-two-distinct-keys-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a",
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "9f5e8368d93a709ada8ea8825eb3e3470ec3415152bda56897cf28768e76eb96",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 1048629,
+            "end": 1048655,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-head-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-head-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "570d8ad58ba21fb3b8e64a7e16190f37cc44023d884c490ebc61d150f54234e1",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-middle-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-middle-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "b5d71e12698930ebef42415afa5029e72e67c9c0ac6db43abc38279eb04f66ef",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 524298,
+            "end": 524338,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-tail-of-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "credential-after-long-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-tail-of-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ]
+      },
+      "sha256": "7b2e278836ba6b3cf8fe9a42b00bceff264284a39ecd3b31e3cb299782dc74d3",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 1048586,
+            "end": 1048626,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-three-occurrences-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-three-occurrences-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "repeat",
+            "count": 3
+          }
+        ],
+        "note": "One base repeated at the head, the middle and the tail of the same filler; each occurrence is its own expected span."
+      },
+      "sha256": "57eb459c079963e74b76b61e79762e3a80d7834f873a4c4a8ff8e18a6304aa69",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 8192
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 524349,
+            "end": 524389,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 1048688,
+            "end": 1048728,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--npm-granular-token-two-distinct-keys-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-two-distinct-keys-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--npm-granular-token-base-a",
+          "context-and-large-input-bases-authored--npm-granular-token-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ],
+        "note": "Two distinct bases of one family: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "cfc7c679bcf8a77c15060e8b5b47911590df2d70d4ec4a2e82c465b50b062722",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-b"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          },
+          {
+            "start": 1048637,
+            "end": 1048677,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--sendgrid-api-key-and-github-classic-pat-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "sendgrid:api-key",
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "sendgrid-api-key-and-github-classic-pat-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--sendgrid-api-key-base-a",
+          "context-and-large-input-bases-authored--github-classic-pat-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ],
+        "note": "Two bases of two different families: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "61b5dc64797ca338c74301aa1b6a023967f4003f48b99c423afb33f315720c2d",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+          },
+          {
+            "start": 1048676,
+            "end": 1048716,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "large-and-repeated-input-projections-generated--gitlab-legacy-pat-and-npm-granular-token-in-1mib",
+      "cell": {
+        "plan": "repeated-and-large-input-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "gitlab:legacy-personal-access-token",
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-and-npm-granular-token-in-1mib/input.txt",
+      "context": "filler-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a",
+          "context-and-large-input-bases-authored--npm-granular-token-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 1048576
+          },
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 1048576
+          }
+        ],
+        "note": "Two bases of two different families: the first at the head and the second at the tail of the same filler."
+      },
+      "sha256": "99acfb458550ab470f2eb22e59be73e29b7624e0014034afdf57d6ab2b5c6623",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret    \n",
+              "times": 16384
+            }
+          },
+          {
+            "fixture": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+          },
+          {
+            "start": 1048626,
+            "end": 1048666,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Generated; never edited by hand: rerun the generator. Each occurrence of a secret has its own expected span; covering one occurrence is not covering the input."
+}

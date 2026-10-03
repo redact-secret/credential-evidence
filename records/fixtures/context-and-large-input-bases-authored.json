@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "context-and-large-input-bases-authored",
+  "title": "Context and large-input base samples (authored)",
+  "description": "Eight authored base samples, two for each of four families (SendGrid API key, GitHub classic personal access token, GitLab legacy personal access token, npm granular access token), each one assignment line. They are the only bases the projections of the two plans read: the base count is eight whatever the number of generated inputs. Synthetic: every value is a fake word run padded with zeros, in the alphabet and at the length of the family's current contract, and was never issued. None was tested against any service.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "context-and-large-input-bases-authored--sendgrid-api-key-base-a",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-base-a/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "64e2d120bc7cc169c3b71ccc3985fe5ea406675ff48a49f023e38d80a2b40ad6",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-and-large-input-bases-authored--sendgrid-api-key-base-b",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "sendgrid:api-key"
+        ]
+      },
+      "path": "sendgrid-api-key-base-b/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "cbc5afaa2a0aae201d668a8969c162dfc9118cb2773e8472740902371787415e",
+      "text": "SENDGRID_API_KEY=SG.NOTREALCONTEXTBASEB000.NOT-REAL-NEVER-ISSUED-CONTEXT-B-00000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-and-large-input-bases-authored--github-classic-pat-base-a",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-base-a/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "0a5cc3b67785eec50dd5d1757cec4715a174dcbcbdc6a899df3fe669282553de",
+      "text": "GITHUB_TOKEN=ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-and-large-input-bases-authored--github-classic-pat-base-b",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "github:classic-personal-access-token"
+        ]
+      },
+      "path": "github-classic-pat-base-b/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "e544228fa205cd9cc9ca17f2648c46595495e136a628f782fa35d6aec3c02ec3",
+      "text": "GITHUB_TOKEN=ghp_NOTREALCONTEXTBASEB00000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 53,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-base-a/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "ca7042c549c59be4f93a1743e777ba28dd5dcced6c0214f735d0151bbc5171bd",
+      "text": "GITLAB_TOKEN=glpat-SYNTHETICCTXBASEA000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-b",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "gitlab:legacy-personal-access-token"
+        ]
+      },
+      "path": "gitlab-legacy-pat-base-b/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "3099c993c33cdb130b795f8bff2161dcaabf269fe856ed4160a231ce2f5a62f2",
+      "text": "GITLAB_TOKEN=glpat-NOTREALCTXBASEB00000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 13,
+            "end": 39,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-and-large-input-bases-authored--npm-granular-token-base-a",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-base-a/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "3cb8aeaed3f144b0754327d7ce95fd3e641516c9f2822bb70daac7fb9fa7072d",
+      "text": "NPM_TOKEN=npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "context-and-large-input-bases-authored--npm-granular-token-base-b",
+      "cell": {
+        "plan": "context-carrier-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "npm:granular-access-token"
+        ]
+      },
+      "path": "npm-granular-token-base-b/input.txt",
+      "context": "env-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "sha256": "fe097176c9454232a314b3745db84a3770237809e0e1eec19b6859108294b4ee",
+      "text": "NPM_TOKEN=npm_NOTREALCONTEXTBASEB00000000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 10,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. A base asserts only that its secret span is the value; the format claims for each family live in its contract and family review, not here."
+}
