@@ -84,7 +84,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      # The same checks as ci.yml, at the exact commit being released.
+      # Both tiers of ci.yml, at the exact commit being released: the ordinary gate, then the historical
+      # pinned checks (a release always runs them; ADR 0015).
       - name: Validate schemas and records
         run: npm run validate
 
@@ -97,30 +98,23 @@ jobs:
       - name: Skill lint
         run: npm run lint:skills
 
+      - name: Baseline integrity
+        run: npm run baseline:check
+
       - name: Coverage report is current
         run: npm run coverage:gaps:check
 
+      - name: Fixture materialization check
+        run: npm run fixtures:materialize:check
+
       - name: Test
         run: npm test
+
+      - name: Historical checks (importers at the pin, legacy projection, parity, baseline tests)
+        run: npm run historical:check
         env:
           LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
           REQUIRE_LEGACY: "1"
-
-      - name: Migration checks
-        run: npm run migrate:check
-        env:
-          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
-
-      - name: Legacy projection is current
-        run: npm run export:legacy:check
-
-      - name: Parity against the pinned legacy revision
-        run: npm run parity:check
-        env:
-          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
-
-      - name: Fixture materialization check
-        run: npm run fixtures:materialize:check
 
       - name: Release bundle dry run (deterministic over two builds)
         run: npm run release:check -- --tag "$RELEASE_TAG"
