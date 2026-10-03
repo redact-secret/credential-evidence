@@ -22,8 +22,13 @@ const TODAY = "2026-10-01";
 const walk = (dir) =>
   readdirSync(dir, { withFileTypes: true }).flatMap((d) => (d.isDirectory() ? walk(join(dir, d.name)) : [join(dir, d.name)]));
 
+// A detached `git gc --auto` / maintenance run started by a commit can still be writing into the
+// temp repo while it is removed (ENOTEMPTY, seen on CI). Maintenance is disabled in git() below and
+// removal retries, so teardown cannot fail a test whose assertions all passed.
+const cleanup = (root) => rmSync(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
+
 function git(root, ...args) {
-  const r = spawnSync("git", ["-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c", "commit.gpgsign=false", ...args], { cwd: root, encoding: "utf8" });
+  const r = spawnSync("git", ["-c", "user.name=t", "-c", "user.email=t@example.invalid", "-c", "commit.gpgsign=false", "-c", "gc.auto=0", "-c", "maintenance.auto=false", ...args], { cwd: root, encoding: "utf8" });
   assert.equal(r.status, 0, `git ${args.join(" ")}: ${r.stderr}`);
   return r.stdout.trim();
 }
@@ -66,7 +71,7 @@ for (const scenario of scenarios) {
       assert.ok(text.trimEnd().endsWith(`VERDICT: ${expected.verdict}`));
       assert.deepEqual(r, reviewRange({ root, base, head, today: TODAY }), "deterministic");
     } finally {
-      rmSync(root, { recursive: true, force: true });
+      cleanup(root);
     }
   });
 }
@@ -83,7 +88,7 @@ test("a negated disclaimer is info, not a claim", () => {
     const f = r.findings.filter((x) => x.check === "wording");
     assert.ok(f.every((x) => x.severity === "info"), JSON.stringify(f));
   } finally {
-    rmSync(root, { recursive: true, force: true });
+    cleanup(root);
   }
 });
 
@@ -95,7 +100,7 @@ test("CLI: exit codes follow the verdict and the last line is the verdict", () =
       const r = spawnSync("node", [script, `${base}..${head}`, "--root", root, "--today", TODAY, ...extra], { encoding: "utf8" });
       return { status: r.status, last: r.stdout.trimEnd().split("\n").pop(), out: r.stdout };
     } finally {
-      rmSync(root, { recursive: true, force: true });
+      cleanup(root);
     }
   };
   const good = run("good-new-claim");
@@ -118,7 +123,7 @@ test("a PR body is scanned for wording, injection and secret-shaped values", () 
     assert.equal(r.verdict, "fail");
     for (const id of ["wording", "injection", "secret-shape"]) assert.ok(r.findings.some((f) => f.check === id && f.path === "<pr-body>"), id);
   } finally {
-    rmSync(root, { recursive: true, force: true });
+    cleanup(root);
   }
 });
 
@@ -163,7 +168,7 @@ function reviewSets(baseSet, headSet) {
     const r = reviewRange({ root, base, head, today: TODAY });
     return { r, text: formatReport(r, { base: "base", head: "head" }) };
   } finally {
-    rmSync(root, { recursive: true, force: true });
+    cleanup(root);
   }
 }
 
