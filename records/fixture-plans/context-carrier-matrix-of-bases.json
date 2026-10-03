@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "context-carrier-matrix-of-bases",
+  "title": "Context carriers of authored bases",
+  "description": "Four families against the existing Scenarios for bare, structured, header, URL, Markdown, quoted shell, log, multibyte, CRLF, byte-order-mark and no-break-space contexts. Reuses ten Scenarios and creates no Case and no Scenario: the reasoning stays where it was written. Declares the four first-of-pair authored bases it reads, so the base count is four whatever the number of generated inputs.",
+  "matrix": {
+    "families": {
+      "select": "listed",
+      "ids": [
+        "github:classic-personal-access-token",
+        "gitlab:legacy-personal-access-token",
+        "npm:granular-access-token",
+        "sendgrid:api-key"
+      ]
+    },
+    "targets": [
+      {
+        "type": "scenario",
+        "id": "crlf-line-endings"
+      },
+      {
+        "type": "scenario",
+        "id": "environment-assignment"
+      },
+      {
+        "type": "scenario",
+        "id": "markdown-and-comment-value"
+      },
+      {
+        "type": "scenario",
+        "id": "multibyte-text-offsets"
+      },
+      {
+        "type": "scenario",
+        "id": "partial-span-leakage"
+      },
+      {
+        "type": "scenario",
+        "id": "quoted-value-extent"
+      },
+      {
+        "type": "scenario",
+        "id": "structured-text-value"
+      },
+      {
+        "type": "scenario",
+        "id": "value-at-input-edges"
+      }
+    ],
+    "carriers": [
+      "bare-value",
+      "bom-prefixed-assignment",
+      "crlf-assignment",
+      "emoji-prefixed-assignment",
+      "env-assignment",
+      "http-bearer-header",
+      "json",
+      "korean-prefixed-assignment",
+      "log-line",
+      "markdown-code-span",
+      "nbsp-before-value",
+      "shell-export-quoted",
+      "url-query",
+      "xml",
+      "yaml"
+    ],
+    "coverage": "sparse"
+  },
+  "generation": {
+    "rule": "context-carrier-and-filler-placement",
+    "generator": {
+      "name": "context-large-input-projector",
+      "version": "1.0.0",
+      "entrypoint": "scripts/generate-context-large-input-plans.mjs",
+      "sourceRevision": "58e9cc2af23de2c791ddbce12fffaa4dbec92de8"
+    },
+    "inputs": [
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--sendgrid-api-key-base-a"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--gitlab-legacy-pat-base-a"
+      },
+      {
+        "kind": "fixture",
+        "id": "context-and-large-input-bases-authored--npm-granular-token-base-a"
+      },
+      {
+        "kind": "format-contract",
+        "id": "sendgrid:api-key@1"
+      },
+      {
+        "kind": "format-contract",
+        "id": "github:classic-personal-access-token@1"
+      },
+      {
+        "kind": "format-contract",
+        "id": "gitlab:legacy-personal-access-token@1"
+      },
+      {
+        "kind": "format-contract",
+        "id": "npm:granular-access-token@1"
+      }
+    ],
+    "seed": "context-large-input-seed-1"
+  },
+  "lineage": {
+    "origin": "authored",
+    "derivedFrom": [
+      {
+        "kind": "scenario",
+        "id": "crlf-line-endings"
+      },
+      {
+        "kind": "scenario",
+        "id": "environment-assignment"
+      },
+      {
+        "kind": "scenario",
+        "id": "markdown-and-comment-value"
+      },
+      {
+        "kind": "scenario",
+        "id": "multibyte-text-offsets"
+      },
+      {
+        "kind": "scenario",
+        "id": "partial-span-leakage"
+      },
+      {
+        "kind": "scenario",
+        "id": "quoted-value-extent"
+      },
+      {
+        "kind": "scenario",
+        "id": "structured-text-value"
+      },
+      {
+        "kind": "scenario",
+        "id": "value-at-input-edges"
+      }
+    ]
+  },
+  "output": [
+    "context-and-large-input-bases-authored",
+    "context-carrier-projections-generated"
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. The matrix is sparse: the first base of each family is placed in each carrier. Expected spans are the secret bytes only, with no envelope: this plan records no allowed wider range, so bytes a consumer reports outside the secret are a separate observation against an envelope of none, and a wider masking policy is that consumer's choice, not a format fact stated here."
+}
