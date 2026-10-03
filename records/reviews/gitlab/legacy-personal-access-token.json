@@ -64,6 +64,18 @@
       },
       "verdict": "inconclusive",
       "note": "Evidence review for issue 60 (2026-10-03, automation, not independently reviewed). Fixture gitlab--short-gitlab: its evidence entry re-based from project-policy to tool-corroborated on two pinned open-source rule artifacts by different maintainers (gitleaks, trufflehog), each consistent with a 20-character body after glpat-; worded as consistency. GitLab's token overview states the prefix but no body length, so no provider-documented basis. Fixture cross-provider--prefix-only stays project-policy: its expectation spans eight families and only the GitLab component was reviewed."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "prefix-review-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Combined review of cross-provider--prefix-only proposes tool-corroborated fixture evidence from separately located component statements in nine raw sources reread on 2026-10-03. No provider length asserted; no scanner output used. Proposal awaits non-author review; lifecycle unchanged."
     }
   ],
   "externalRefs": [

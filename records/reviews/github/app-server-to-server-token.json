@@ -76,6 +76,18 @@
       },
       "verdict": "supports",
       "note": "Evidence review for issue 97 (2026-10-03, automation, not independently reviewed; parent epic 92; related to the earlier family review for issue 55, which is neither superseded nor duplicated). Two GitHub changelog entries (2026-04-24, 2026-05-15) and the docs.github.com token-formats note document the staged rollout from 2026-04-27 of the ghs_APPID_JWT stateless form (about 520 characters, two dots, recommended expression ghs_[A-Za-z0-9.-_]{36,}) next to the opaque 40-character form. Contract revision 2 records the current understanding and supersedes revision 1, which is kept for the opaque form. The APPID segment grammar, the stateless length bounds and the rollout end date stay unresolved. Scanner behaviour observed in the 2026-10-03 stress run motivated the research and is not evidence. Related family reviews: 41 to 72."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "prefix-review-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Combined review of cross-provider--prefix-only proposes tool-corroborated fixture evidence from separately located component statements in nine raw sources reread on 2026-10-03. No provider length asserted; no scanner output used. Proposal awaits non-author review; lifecycle unchanged."
     }
   ],
   "externalRefs": [
