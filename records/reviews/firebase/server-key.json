@@ -63,6 +63,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'firebase-server-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Neither Google's current documentation nor either of this suite's pinned scanners publishes a rule for this shape: TruffleHog's own proto/detector_type.proto reserves both Firebase = 33 and FirebaseCloudMessaging = 102, explicitly marked \"Not yet implemented\", and no gitleaks 8.30.1 rule names Firebase at all. The single corroboration source above (not one of this suite's pinned, version-tracked scanners) pins the exact two-segment width — AAAA + 7 bytes + \":\" + 140 bytes, 152 bytes total, regex AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140} — observed 2026-09-20 at the commit pinned in its URL. The AAAA prefix itself is additionally corroborated by two independent non-tool sources (a 2024 B4X developer-forum FCM-deprecation thread and an independent FCM-takeover security writeup, both observed 2026-09-20; recorded here as prose, not as further corroboration entries, since neither is a scanner). A shorter or longer segment, a missing or misplaced separator, or a wider embedded run is an intentional false negative rather than a fuzzy match. status-criteria.json requires a T1 providerSource for stable; this family cannot reach stable on this evidence and is expected to classify provisional."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 50 (2026-10-03, automation, not independently reviewed). Fixtures of firebase:server-key: 18 must-flag positives and 13 negatives that depend on the token grammar (wrong alphabet, wrong length, near misses, missing separator, changed separator, prefix-only) re-based from project-policy to tool-corroborated on three pinned rule artifacts by different maintainers (nuclei-templates, pyWhat, Titus), worded as consistency with the grammar AAAA + 7 characters + ':' + 140 characters of [A-Za-z0-9_-]. The vapid-public-key fixture re-based to provider-documented on the Firebase web client page, which calls the vapidKey value the public key. Five public-identifier fixtures (message id, project number, registration log, registration token, sender id) stay project-policy: no provider page read states they are not secret and no artifact addresses them (one artifact treats registration tokens as sensitive). Open: a January 2017 Firebase blog post gives a 175-character total for keys of that time with an example header beginning AU, which is not reconciled with the 152-character grammar; whether the three rule artifacts were written independently of each other cannot be verified from the artifacts."
     }
   ],
   "externalRefs": [
