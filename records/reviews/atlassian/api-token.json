@@ -57,6 +57,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'atlassian-api-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Atlassian explicitly disclaims a fixed token length. Gitleaks's atlassian-api-token rule corroborates the ATAT-prefixed family with a narrower, more specific shape (literal ATATT3 prefix, exact 186-byte body) than this minimum-length contract. The pinned TruffleHog atlassian detector instead targets the distinct ATCT access-token family, not this API-token shape. Re-checked 2026-09-22 (#207, redact-secret#643): every observed modern token, including one the maintainer issued, is 192 characters (the fixed ATATT3xFfGF0 header, 171 body characters, a single =, then 8 uppercase hex characters that two tools read as a CRC32), so the pattern admits that optional =<8 uppercase hex> suffix; without it an observed token could not satisfy the anchored contract. The 100-character body floor is unchanged, the length stays a floor because Atlassian calls it varied, and the ATCT/ATBB siblings are secrets of other token kinds, never controls here."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 44 (2026-10-03, automation, not independently reviewed). 14 documented-format-literal positives (192-character ATATT3xFfGF0 values with a recomputed CRC32 suffix) and the wrong-alphabet, prefix-near-miss and format-near-miss controls (7 fixtures: alphabet-twin, prefix-twin, prefix-ci-twin, header-only-near-miss, prefix-only, short-body, unprefixed-random-near-miss) re-based from project-policy to tool-corroborated on pinned rule artifacts from two maintainers (gitleaks at 83d9cd68, CredSweeper at f21ab2f2), worded as consistency; the provider support page says token length is varied and states no prefix, so no provider-documented basis. Kept project-policy: bitbucket-remote (span followed by @, outside one artifact's delimiters), the three shape-1 positives and their wrong-length twins and the floor-length twins (the 100-character body floor has no external artifact; both artifacts require ATATT3xFfGF0 or a 192-character value), the public-identifier, benign-encoded-value and placeholder fixtures (no source states the claim). Searched: provider support and developer-community pages, gitleaks, CredSweeper and Datadog rule files; no provider page states the prefix."
     }
   ],
   "externalRefs": [
