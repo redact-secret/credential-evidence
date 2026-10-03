@@ -52,6 +52,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'gitlab-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-checked 2026-09-20 (#46): the same prefix table documents glpat- as shared by four token kinds (none the positive this contract covers) and lists gldt-, glrt-/glrtr-, glcbt- and others as the gl- stem's other members; the prefix twin instead breaks the gl- stem itself (xlpat- vs glpat-), since a mutation matching one of those other real prefixes (gldt-) was empirically not discriminated by the redact-secret scanner."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 60 (2026-10-03, automation, not independently reviewed). Fixture gitlab--short-gitlab: its evidence entry re-based from project-policy to tool-corroborated on two pinned open-source rule artifacts by different maintainers (gitleaks, trufflehog), each consistent with a 20-character body after glpat-; worded as consistency. GitLab's token overview states the prefix but no body length, so no provider-documented basis. Fixture cross-provider--prefix-only stays project-policy: its expectation spans eight families and only the GitLab component was reviewed."
     }
   ],
   "externalRefs": [

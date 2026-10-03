@@ -73,6 +73,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'perplexity-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Graduated arrival contract (registry detector since redact-secret#730). Lexical separability decided before authoring (#212): the provider-documented pplx- prefix plus a fixed 48-character alphanumeric body separates a key from every recorded confusable (pplx- model ids such as pplx-embed-v1-0.6b, package/host names, docs placeholders, masked values), none of which carries a 48-character alphanumeric run after the dash. The prefix is provider-documented (docs.perplexity.ai admin api-key-management); the body width and alphabet are tool-corroborated only (gitleaks 8.30.1 perplexity-api-key, osv-scalibr perplexityapikey, likely one lineage), and flare-redact's 40-60 range contradicts the exact 48. The contract is therefore T2: the weakest frozen field its positives and length twins depend on is a peer rule. The gitleaks false-positive convention (pplx- followed by 48 repeated \"x\") satisfies this pattern and is not authored as a control. The org Analytics API key and MCP OAuth tokens are other Perplexity credentials of undocumented shape; neither is claimed, and neither is a control. An OpenRouter sk-or-v1- key stored in PERPLEXITY_API_KEY is a real secret of another family and is not a control either."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 62 (2026-10-03, automation, not independently reviewed). Fixture evidence entries in records/fixtures/perplexity.json: 29 fixtures re-based from project-policy to tool-corroborated on two pinned rule artifacts from different maintainers (gitleaks perplexity-api-key rule, Google osv-scalibr Veles perplexityapikey detector) that both define pplx- plus exactly 48 [A-Za-z0-9]; worded as consistency. 2 fixtures (embedding-model-public-id, base64-model-encoded-value) provider-documented: the provider's embeddings quickstart lists the model ids. 2 fixtures stay project-policy: long-body-twin (the Veles pattern has no trailing boundary and detects the leading 53 characters of a 49-character body, so only one artifact is consistent) and base-url-and-name-public-id (the provider documents token_name only as a label to identify a key; it does not state the name is non-secret). No provider page states the key length or alphabet."
     }
   ],
   "externalRefs": [

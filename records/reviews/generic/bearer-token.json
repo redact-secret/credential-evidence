@@ -62,6 +62,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'bearer-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Bearer is a transport scheme, not a provider-specific credential format. Generic value masking is project policy."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review (2026-10-03, AI agent run, not independently reviewed). Five fixture expectations re-based to provider-documented on statements read in the RFC 6750 page (the alphabet of a Bearer credential, a credential needs at least one token character, the parameters of a Bearer challenge). Seven fixtures stay project-policy. A 10-character Bearer value: RFC 6750 states no length, and open-source rule minimums read as leads are 6 and 8 characters, so they do not corroborate a floor above 10. Content-MD5, ETag, X-Request-Id and X-Amzn-Trace-Id values: the pages read define the field's role or format but do not state that the value is not a credential. The token_type-only object and the client_id key: RFC 6749 (access_token is the member that carries the token; the client identifier is not a secret) was read, but its source record is typed standard-or-rfc, which the evidence-class check does not accept as provider-authored, so a maintainer decides whether it counts."
     }
   ],
   "externalRefs": [

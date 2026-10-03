@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "evidence-source",
   "id": "github-com-getsentry-sentry-cli-e78ab926c5",
-  "sourceType": "other",
+  "sourceType": "provider-sdk-source",
   "title": "getsentry/sentry-cli @ c880db5fc6b69378b62310b7fdbd74637bcd5fb4: src/utils/auth_token/user_auth_token.rs",
   "publisher": "getsentry/sentry-cli",
   "publishedAt": null,
@@ -19,6 +19,13 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "unchanged",
+      "observer": "research-agent",
+      "contentDigest": "a5da29b34a623bb9faa8d043abfeb05e389d084bb98661028d4ba057377fa668",
+      "note": "Re-read raw file at the pinned commit 2026-10-03: a user auth token string is accepted only if, after an optional sntryu_ prefix, the remainder decodes as hex to exactly 32 bytes."
     }
   ],
   "lifecycle": "draft",
@@ -29,5 +36,6 @@
       "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/sentry.md",
       "note": "cited by families[id=sentry:user-auth-token].research.sources"
     }
-  ]
+  ],
+  "notes": "sourceType restated from 'other' to 'provider-sdk-source' on 2026-10-03: the file is part of the provider's own open-source implementation (getsentry organization), read at the pinned commit."
 }

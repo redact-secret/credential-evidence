@@ -83,6 +83,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'pinecone-api-key-legacy' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Context-constrained arrival family (#228, #212): a legacy Pinecone API key is a bare 8-4-4-4-12 lowercase-hex UUID, lexically identical to the Pinecone key id, project id, service-account id and any other UUID, so no bare-value rule can separate it. It is recognised only beside a same-line Pinecone API-key identifier (PINECONE_API_KEY, pinecone.init(api_key=...), an Api-Key header to a pinecone.io host), scores as policy, and its twins keep the UUID byte-for-byte and change only that identifier. The UUID shape is corroborated by unpinned tools and community placeholders only (betterleaks pinecone-api-key.1 \"version 1 (UUID format)\" keyword-gated, GitGuardian \"Pinecone API Key\" v1); no provider source states it, and whether UUID keys still authenticate or can still be issued is unknown."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence-class review for 12 projected-T3 fixtures (refs #63), read 2026-10-03; project-authored, not independent, not reviewed. Restored to provider-documented: the admin-key-object, project-id and service-account-id public-identifier fixtures, from Pinecone's Admin API OpenAPI description (pinecone-io/pinecone-api at 6d2d083, APIKey / Project / ServiceAccount schemas) and the API-key guide. Kept project-policy: database-id-public-id (no Pinecone page documents a database id; a public rule-test vector of one scanner maintainer is the only artifact found, one artifact is not two), the four benign-encoded-value fixtures (no provider statement or artifact about base64, sha256 or URL-encoded environment, host or index-name values), and the four format-near-miss fixtures with an empty or None value (no provider statement; the only rule found that has a UUID body requirement is one maintainer's, and the other pinned scanner detector read, v3.97.4, matches pcsk_ keys only and has no UUID rule). Searched and found no Pinecone rule: Gitleaks, Kingfisher, Nosey Parker, CredSweeper; GitGuardian's detector page states no format. Scanner output and agreement were not used."
     }
   ],
   "externalRefs": [
