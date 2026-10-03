@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-key-split-by-shell-line-continuation",
+  "title": "Key split across lines by a shell line continuation",
+  "summary": "A backslash and a line feed inside an unquoted assignment value split the key; the shell removes both.",
+  "rationale": "The surrounding language rebuilds the original value, so the value the program sees is the intact key.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy of this example: a mechanism that reconstructs the original value keeps the credential; coverage is every fragment.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Worked example for the representation guide (ADR 0016). Synthetic; the policy stated here is an example, not a claim about any product."
+}

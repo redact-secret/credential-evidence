@@ -10,12 +10,16 @@
 // --check` verifies it (or the records it would be built from) against the digest.
 
 import { createHash } from "node:crypto";
+import { contentBytes } from "./representation.mjs";
 
-export const MATERIALIZE_VERSION = "2.1.0";
+export const MATERIALIZE_VERSION = "2.2.0";
 export const MANIFEST_FORMAT = "credential-evidence/materialized-fixtures";
 // Version 2 (schema revision 1.3.0): a fixture projects a Case or a fixture-plan cell, so `case` is optional and `target`, `plan` and `basis` are added.
 // Schema revision 1.5.0 (ADR 0012) adds two optional entry facts within version 2: `families` honours a per-fixture
 // override, and an unresolved fixture may carry a non-asserting `candidateReading` next to its (empty) expected spans.
+// Schema revision 1.6.0 (ADR 0016) adds optional entry facts for an item that states them, still version 2 and still
+// absent (so the digest of every earlier entry is unchanged): `derivation`, `transformation`, `chunking` and
+// `inputValidity`; an expected span may carry `base`, `fragments` and `decoded`.
 export const MANIFEST_FORMAT_VERSION = 2;
 
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
@@ -29,6 +33,10 @@ export function buildMaterialization({ sets, cases, scenarios = [] }) {
   const scenarioById = new Map(scenarios.map((s) => [s.id, s]));
   const files = new Map();
   const entries = [];
+  // A recipe may insert the whole content of an authored base (ADR 0016); a base is never a recipe itself.
+  const baseItems = new Map();
+  for (const set of sets) for (const item of set.fixtures) if (item.derivation?.kind === "authored-base") baseItems.set(item.id, item);
+  const baseBytes = (id) => (baseItems.has(id) ? contentBytes(baseItems.get(id)) : undefined);
   for (const set of [...sets].sort((a, b) => cmp(a.id, b.id))) {
     for (const item of set.fixtures) {
       const c = item.case ? caseById.get(item.case) : undefined;
@@ -36,8 +44,8 @@ export function buildMaterialization({ sets, cases, scenarios = [] }) {
       const sc = item.cell ? scenarioById.get(item.cell.scenario) : undefined;
       if (item.cell && !sc) throw new Error(`fixture ${item.id}: unknown scenario ${item.cell.scenario}`);
       const basis = set.evidence?.[item.evidence]?.basis ?? c?.expectation.basis ?? sc?.evidenceBasis.basis;
-      const bytes = Buffer.from(item.text, "utf8");
-      if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) throw new Error(`fixture ${item.id}: sha256 does not match text`);
+      const bytes = contentBytes(item, baseBytes);
+      if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) throw new Error(`fixture ${item.id}: sha256 does not match ${item.text !== undefined ? "text" : "the content"}`);
       const path = `${set.id}/${item.path}`;
       if (files.has(path)) throw new Error(`fixture ${item.id}: duplicate materialized path ${path}`);
       files.set(path, bytes);
@@ -56,6 +64,11 @@ export function buildMaterialization({ sets, cases, scenarios = [] }) {
       if (item.context) entry.context = item.context;
       // Non-asserting (ADR 0012 decision 2): never part of `expected`, never scored.
       if (item.candidateReading) entry.candidateReading = { asserting: false, outcome: item.candidateReading.outcome, spans: item.candidateReading.spans };
+      // Representation and lineage facts (ADR 0016): only when the item states them.
+      if (item.derivation) entry.derivation = item.derivation.bases ? { kind: item.derivation.kind, bases: item.derivation.bases } : { kind: item.derivation.kind };
+      if (item.transformation) entry.transformation = { steps: item.transformation.steps };
+      if (item.chunking) entry.chunking = { unit: item.chunking.unit, boundaries: item.chunking.boundaries };
+      if (item.inputValidity && item.inputValidity !== "valid") entry.inputValidity = item.inputValidity;
       if (item.lineage) entry.lineage = { relation: item.lineage.relation, of: item.lineage.of, ...(item.lineage.mutationKind ? { mutationKind: item.lineage.mutationKind } : {}) };
       entries.push(entry);
     }

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-key-encoded-in-config-value",
+  "title": "Documented key stored base64- or hex-encoded as a config value",
+  "summary": "The value of a config assignment decodes, whole, to the ExampleCloud live key.",
+  "rationale": "The decoded bytes are exactly the documented key grammar; the encoding changes where the key is written, not what it is.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy of this example: a value that decodes to a documented credential is that credential, and the source range to cover is the encoded text. Not provider-documented.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Worked example for the representation guide (ADR 0016). Synthetic; the policy stated here is an example, not a claim about any product."
+}

@@ -33,15 +33,20 @@ const USAGE = `usage: npm run record:new -- <kind> <arg> [flags]
                                         family-narrative and <id>=<reason> for every other subject.
   fixture   <case-slug>                 --set <set-slug> --name <slug> (--text <value> | --text-file <path>)
                                         [--secret <substring>]... [--context <slug>] [--path <p>] [--title <set title>]
-                                        (sha256, byte spans and outcome are computed; the case must be assertable)
+                                        [--authored-base | --projection-of <base-fixture-id>...] [--extra-file <json>]
+                                        (sha256, byte spans and outcome are computed; the case must be assertable.
+                                        --authored-base marks a reviewed base sample; --projection-of names the authored
+                                        bases a derived input is built from; --extra-file holds transformation, chunking,
+                                        inputValidity and per-span base/fragments/decoded, checked as the validator does;
+                                        docs/authoring.md, "Representing transformed credentials")
 
 common: --date <YYYY-MM-DD> (default: today, UTC)   --dry-run (print, write nothing)   --root <dir>
 
 The skeleton is a draft. Every field to write holds ${PLACEHOLDER}; 'npm run validate' fails until none is left.
 Next: edit the file, then 'npm run record:check -- <path>'.`;
 
-const MULTI = ["alias", "family", "class", "type", "scenario", "secret", "unresolved"];
-const STRINGS = ["name", "title", "homepage", "description", "revision", "source-type", "observer", "observed-at", "applies-to", "date", "root", "variant-type", "change", "sibling-class", "contract", "replaces", "actor", "role", "affiliation", "event", "verdict", "note", "set", "text", "text-file", "context", "path"];
+const MULTI = ["alias", "family", "class", "type", "scenario", "secret", "unresolved", "projection-of"];
+const STRINGS = ["name", "title", "homepage", "description", "revision", "source-type", "observer", "observed-at", "applies-to", "date", "root", "variant-type", "change", "sibling-class", "contract", "replaces", "actor", "role", "affiliation", "event", "verdict", "note", "set", "text", "text-file", "context", "path", "extra-file"];
 
 let parsed;
 try {
@@ -52,6 +57,7 @@ try {
       ...Object.fromEntries(STRINGS.map((k) => [k, { type: "string" }])),
       "dry-run": { type: "boolean" },
       append: { type: "boolean" },
+      "authored-base": { type: "boolean" },
       help: { type: "boolean", short: "h" },
     },
   });

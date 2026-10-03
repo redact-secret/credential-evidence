@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-key-split-by-literal-newline",
+  "title": "Key interrupted by a literal line feed in plain text",
+  "summary": "A line feed sits inside the key in a text file with no construct that joins the lines.",
+  "rationale": "Nothing rebuilds the original: the text holds two fragments and a separator, which is not the documented key grammar.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy of this example: whitespace inserted into a value is not stripped; the joined text is not asserted to be a credential.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Worked example for the representation guide (ADR 0016). Synthetic; the policy stated here is an example, not a claim about any product."
+}

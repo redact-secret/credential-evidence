@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:fixture-plan",
   "title": "Fixture plan (matrix projection)",
   "description": "A declared family x scenario (or family x case) projection: which families are instantiated against which Scenarios or Cases, under which generation rule, from which inputs, with which lineage. It is the canonical home of what the legacy benchmark stored as thousands of template-worded matrix cells. A plan asserts no reasoning of its own: every cell points at a Case or Scenario that does, and executable content lives in fixture-set or fixture-projection records. Added in schema revision 1.2.0.",
-  "x-schemaRevision": "1.5.0",
+  "x-schemaRevision": "1.6.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "title", "matrix", "generation", "lineage", "lifecycle"],
@@ -77,7 +77,7 @@
             "additionalProperties": false,
             "required": ["kind", "id"],
             "properties": {
-              "kind": { "enum": ["case", "scenario", "format-contract", "fixture-projection"] },
+              "kind": { "description": "fixture (schema revision 1.6.0, ADR 0016) names an authored base fixture the generator reads: the plan's declared bases.", "enum": ["case", "scenario", "format-contract", "fixture-projection", "fixture"] },
               "id": { "type": "string", "minLength": 1, "maxLength": 200 }
             }
           }

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-key-in-escaped-newline-text",
+  "title": "Key interrupted by an escaped newline in a string literal",
+  "summary": "The two characters backslash and n sit inside the key in a JSON-style string.",
+  "rationale": "Whether a consumer reads the escape as a line feed, keeps the two characters, or joins the fragments is not settled by this example.",
+  "caseTypes": [
+    "mutation"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved: the reading depends on the consuming language; no outcome is asserted.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Worked example for the representation guide (ADR 0016). Synthetic; the policy stated here is an example, not a claim about any product."
+}

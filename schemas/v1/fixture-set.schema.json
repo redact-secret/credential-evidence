@@ -2,11 +2,27 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:credential-evidence:schema:v1:fixture-set",
   "title": "Fixture set (sharded fixture projections)",
-  "description": "A compact shard of executable fixture projections that share one origin: either hand-written fixtures, or the recorded output of one documented generation rule. Each item projects exactly one Case, or exactly one cell (fixture plan, scenario, families) of a matrix projection (schema revision 1.3.0, ADR 0008), and carries its own expected outcome, spans and evidence entry; the set is derived, never the canonical human record. Sets are organised by family provider, never by legacy suite. Content is embedded as text next to its sha256 because the synthetic inputs are small and one file per fixture would not scale (ADR 0005). Added in schema revision 1.1.0.",
-  "x-schemaRevision": "1.5.0",
+  "description": "A compact shard of executable fixture projections that share one origin: either hand-written fixtures, or the recorded output of one documented generation rule. Each item projects exactly one Case, or exactly one cell (fixture plan, scenario, families) of a matrix projection (schema revision 1.3.0, ADR 0008), and carries its own expected outcome, spans and evidence entry; the set is derived, never the canonical human record. Sets are organised by family provider, never by legacy suite. Content is embedded as text next to its sha256 because the synthetic inputs are small and one file per fixture would not scale (ADR 0005). Added in schema revision 1.1.0. Schema revision 1.6.0 (ADR 0016) lets an item carry its content as text, bytes or a recipe and adds derivation, transformation, chunking and inputValidity.",
+  "x-schemaRevision": "1.6.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "title", "origin", "generated", "fixtures", "lifecycle"],
+  "$defs": {
+    "transformStep": {
+      "description": "One input-level step (schema revision 1.6.0). encode, insert-codepoints and normalize mirror the decode steps of a span (common decodeStep, in the opposite direction). fragment splits the value in the source: lineBreak says with what, mechanism names the language or serialization construct, and reconstruction says whether that construct rebuilds the original value (reconstructs-original), merely inserts whitespace into a now different value (inserts-separator), or is not settled (unresolved). embed puts the value alone (whole-value) or inside other text (embedded) in a carrier. escape renders the text under an escape convention without reconstructing it. place puts the value at head, middle or tail of filler of fillerBytes. repeat repeats it count times.",
+      "oneOf": [
+        { "type": "object", "additionalProperties": false, "required": ["op", "codec", "alphabet", "padding"], "properties": { "op": { "const": "encode" }, "codec": { "const": "base64" }, "alphabet": { "enum": ["standard", "url-safe"] }, "padding": { "enum": ["padded", "unpadded"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "codec", "case"], "properties": { "op": { "const": "encode" }, "codec": { "const": "hex" }, "case": { "enum": ["lower", "upper", "mixed"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "codePoints"], "properties": { "op": { "const": "insert-codepoints" }, "codePoints": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/codePoint" } }, "positions": { "enum": ["start", "inside", "end", "between-every-character"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "form"], "properties": { "op": { "const": "normalize" }, "form": { "enum": ["nfc", "nfd", "nfkc", "nfkd"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "mechanism", "lineBreak", "reconstruction"], "properties": { "op": { "const": "fragment" }, "mechanism": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }, "lineBreak": { "enum": ["lf", "crlf", "cr", "none"] }, "width": { "type": "integer", "minimum": 1 }, "reconstruction": { "enum": ["reconstructs-original", "inserts-separator", "unresolved"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "mode"], "properties": { "op": { "const": "embed" }, "mode": { "enum": ["whole-value", "embedded"] }, "carrier": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "style"], "properties": { "op": { "const": "escape" }, "style": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "placement", "fillerBytes"], "properties": { "op": { "const": "place" }, "placement": { "enum": ["head", "middle", "tail"] }, "fillerBytes": { "type": "integer", "minimum": 1 } } },
+        { "type": "object", "additionalProperties": false, "required": ["op", "count"], "properties": { "op": { "const": "repeat" }, "count": { "type": "integer", "minimum": 2 } } }
+      ]
+    }
+  },
   "properties": {
     "schemaVersion": { "const": 1 },
     "kind": { "const": "fixture-set" },
@@ -69,10 +85,13 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "path", "sha256", "text", "expected"],
-        "oneOf": [{ "required": ["case"], "not": { "required": ["cell"] } }, { "required": ["cell"], "not": { "required": ["case"] } }],
+        "required": ["id", "path", "sha256", "expected"],
         "dependentRequired": { "families": ["case"], "unscopedReason": ["families"] },
         "allOf": [
+          { "oneOf": [{ "required": ["case"], "not": { "required": ["cell"] } }, { "required": ["cell"], "not": { "required": ["case"] } }] },
+          { "description": "Exactly one content form (schema revision 1.6.0): text, bytesHex or recipe.", "oneOf": [{ "required": ["text"], "not": { "anyOf": [{ "required": ["bytesHex"] }, { "required": ["recipe"] }] } }, { "required": ["bytesHex"], "not": { "anyOf": [{ "required": ["text"] }, { "required": ["recipe"] }] } }, { "required": ["recipe"], "not": { "anyOf": [{ "required": ["text"] }, { "required": ["bytesHex"] }] } }] },
+          { "if": { "required": ["inputValidity"], "properties": { "inputValidity": { "not": { "const": "valid" } } } }, "then": { "properties": { "expected": { "properties": { "outcome": { "const": "not-assertable" } } } } } },
+          { "if": { "required": ["derivation"], "properties": { "derivation": { "properties": { "kind": { "const": "authored-base" } }, "required": ["kind"] } } }, "then": { "not": { "anyOf": [{ "required": ["transformation"] }, { "required": ["chunking"] }, { "required": ["recipe"] }] } } },
           { "if": { "required": ["candidateReading"] }, "then": { "properties": { "expected": { "properties": { "outcome": { "const": "not-assertable" } } } } } },
           { "if": { "required": ["unscopedReason"] }, "then": { "properties": { "families": { "maxItems": 0 } } } },
           { "if": { "required": ["families"], "properties": { "families": { "maxItems": 0 } } }, "then": { "required": ["unscopedReason"] } }
@@ -148,7 +167,65 @@
             }
           },
           "sha256": { "description": "SHA-256 of the UTF-8 bytes of text.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sha256" },
-          "text": { "description": "The exact fixture content.", "type": "string" },
+          "text": { "description": "The exact fixture content, as text. One of text, bytesHex and recipe.", "type": "string" },
+          "bytesHex": { "description": "The exact fixture content as bytes, lowercase hex (schema revision 1.6.0, ADR 0016). For content that is not valid UTF-8 and so cannot be a JSON string. Every span offset is still a byte offset into these bytes.", "type": "string", "minLength": 2, "maxLength": 131072, "pattern": "^([0-9a-f]{2})+$" },
+          "recipe": {
+            "description": "The exact fixture content as a deterministic assembly of parts, in order (schema revision 1.6.0, ADR 0016): literal text, a short unit repeated a fixed number of times, or the whole text of an authored base fixture. For large and repeated inputs that would otherwise be embedded byte for byte. sha256 and every span refer to the assembled bytes, which may not exceed 4 MiB.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["parts"],
+            "properties": {
+              "parts": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 64,
+                "items": {
+                  "oneOf": [
+                    { "type": "object", "additionalProperties": false, "required": ["text"], "properties": { "text": { "type": "string", "minLength": 1, "maxLength": 4096 } } },
+                    { "type": "object", "additionalProperties": false, "required": ["repeat"], "properties": { "repeat": { "type": "object", "additionalProperties": false, "required": ["text", "times"], "properties": { "text": { "type": "string", "minLength": 1, "maxLength": 256 }, "times": { "type": "integer", "minimum": 1, "maximum": 4194304 } } } } },
+                    { "type": "object", "additionalProperties": false, "required": ["fixture"], "properties": { "fixture": { "description": "An authored base fixture whose text is inserted whole.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/fixtureId" } } }
+                  ]
+                }
+              }
+            }
+          },
+          "derivation": {
+            "description": "Authored base sample or generated projection (schema revision 1.6.0, ADR 0016). authored-base: this item is a reviewed, hand-written base sample; its one secret span (or, for a benign base, its whole text) is the value that projections derive from. projection: this item is built from one or more authored base samples, named in bases, by the transformation. Independent base counts come from here, never from the number of items. Items without it are unattributed (every item that existed before 1.6.0).",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind"],
+            "properties": {
+              "kind": { "enum": ["authored-base", "projection"] },
+              "bases": { "description": "The authored base fixtures this projection is built from: one for a single-secret input, several for mixed inputs, in the order they appear. Only on a projection.", "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/fixtureId" } }
+            },
+            "allOf": [
+              { "if": { "properties": { "kind": { "const": "projection" } } }, "then": { "required": ["bases"] }, "else": { "not": { "required": ["bases"] } } }
+            ]
+          },
+          "transformation": {
+            "description": "The ordered input-level steps from the base sample to this content (schema revision 1.6.0, ADR 0016); only on a projection. The verifiable per-secret form is each span's decoded.via; this records the whole input, including steps that are not value encodings.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["steps"],
+            "properties": {
+              "steps": { "type": "array", "minItems": 1, "maxItems": 16, "items": { "$ref": "#/$defs/transformStep" } },
+              "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+            }
+          },
+          "chunking": {
+            "description": "How the content is divided into chunks when fed to a stream or string API (schema revision 1.6.0, ADR 0016); only on a projection. Boundaries are offsets in the unit, strictly increasing, inside the content. A UTF-8 byte boundary may fall inside a multibyte sequence (valid for a byte stream); a UTF-16 code-unit boundary that falls between the two halves of a surrogate pair makes the chunk an invalid string, which inputValidity must say.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["unit", "boundaries"],
+            "properties": {
+              "unit": { "enum": ["utf8-byte", "utf16-code-unit"] },
+              "boundaries": { "type": "array", "minItems": 1, "maxItems": 256, "items": { "type": "integer", "minimum": 1 } }
+            }
+          },
+          "inputValidity": {
+            "description": "Whether the input is valid for the interface that reads it (schema revision 1.6.0, ADR 0016). valid is the default. invalid-utf8: the bytes are not UTF-8 (bytesHex). unpaired-surrogate-split: a utf16-code-unit chunk boundary separates a surrogate pair. The validator checks the claim. A not-valid item is an expected rejection, not a detection expectation: its outcome is not-assertable with no spans, and a consumer keeps it out of every true-positive and false-negative denominator.",
+            "enum": ["valid", "invalid-utf8", "unpaired-surrogate-split"]
+          },
           "expected": {
             "type": "object",
             "additionalProperties": false,
