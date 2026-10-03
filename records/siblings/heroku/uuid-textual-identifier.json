@@ -8,7 +8,7 @@
   "siblingClass": "lookalike",
   "name": "UUID in its standard textual form",
   "description": "A 128-bit UUID written in the standard hex-and-dash textual form (8-4-4-4-12 hexadecimal digits). The legacy Heroku API key family is documented as a bare UUID of this form, so the two share a shape. The UUID specification states that UUIDs are not to be assumed hard to guess and must not be used as security capabilities; it does not say that any particular UUID-shaped value is or is not a secret, so the shape alone settles neither reading and the sibling asserts nothing about a given value. Ordinary UUID-shaped identifiers (request, release, application, project ids) are the common benign case.",
-  "evidenceClass": "provider-documented",
+  "evidenceClass": "unresolved",
   "sources": [
     {
       "sourceId": "rfc-editor-org-886568d8f7",
@@ -23,5 +23,5 @@
   ],
   "observedAt": "2026-10-03",
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Class is unresolved because the cited sources are standards, not statements by a credential issuer: they support the shape and propagation facts quoted in the description and nothing about whether any value is a credential."
 }
