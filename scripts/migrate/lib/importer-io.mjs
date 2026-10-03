@@ -10,7 +10,7 @@
 
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, rmdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { AMENDMENTS_PATH, compareWithManifest, loadAmendments, loadManifest, MANIFEST_PATH, updateManifestOwner } from "../../lib/baseline.mjs";
+import { AMENDMENTS_DIR, compareWithManifest, loadAmendments, loadManifest, MANIFEST_PATH, updateManifestOwner } from "../../lib/baseline.mjs";
 import { LEGACY_REPOSITORY, LEGACY_REVISION, repoRoot } from "./legacy-source.mjs";
 
 function pruneEmptyDirs(dir) {
@@ -46,7 +46,7 @@ export function checkImporter({ owner, command, generated, okLine }) {
 export function writeImporter({ owner, generated, ownedDirs, summary }) {
   const { amendments } = loadAmendments();
   if (amendments.length) {
-    console.error(`refusing to regenerate: ${AMENDMENTS_PATH} declares ${amendments.length} amendment(s) that a re-import would overwrite.\nRevert the amended records to the baseline (or re-apply them as new authored records), empty ${AMENDMENTS_PATH}, then re-import (ADR 0015).`);
+    console.error(`refusing to regenerate: ${AMENDMENTS_DIR}/ declares ${amendments.length} amendment(s) that a re-import would overwrite.\nRevert the amended records to the baseline (or re-apply them as new authored records), delete the declaration files in ${AMENDMENTS_DIR}/, then re-import (ADR 0015).`);
     process.exit(1);
   }
   const manifest = loadManifest();

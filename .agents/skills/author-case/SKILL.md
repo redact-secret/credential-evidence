@@ -110,7 +110,7 @@ Apply [research-run](../_shared/research-run.md) and also:
 
 1. **PR-ready change set**, as in [research-run](../_shared/research-run.md#output-of-every-run): the Case (or
    Scenario) with its expectation and sources; its fixture set item(s) when assertable; the authored review
-   history; regenerated `docs/research/backlog.json` and `docs/research/coverage.md`. Commit
+   history (the generated coverage report is not part of the change set). Commit
    `feat(records): case <case-slug>`. The description names, for each fixture value, how it was made and that it
    was not tested against any service.
 2. **Research notes** with the fixed headings. For this skill, Established is the Case criteria that held and the

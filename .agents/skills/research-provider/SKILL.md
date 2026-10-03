@@ -122,8 +122,7 @@ Apply [research-run](../_shared/research-run.md) and also:
 
 1. **PR-ready change set**, as in [research-run](../_shared/research-run.md#output-of-every-run): the provider
    record; one family, one contract (existence claim) and one review history per candidate; one source per page
-   read; the wishlist entry removed when it existed; `docs/research/backlog.json` and
-   `docs/research/coverage.md` regenerated. Commit `feat(records): candidate families for <slug>`.
+   read; the wishlist entry removed when it existed (the generated coverage report is not part of the change set). Commit `feat(records): candidate families for <slug>`.
 2. **Research notes** with the fixed headings. For this skill, Established lists each candidate family with the
    page that names it; Inferred lists why each candidate is one family (your grouping reasoning) and anything
    you read as an implication; Unresolved lists merge or split doubts and credential kinds mentioned without

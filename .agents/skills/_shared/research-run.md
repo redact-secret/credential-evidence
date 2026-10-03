@@ -115,8 +115,7 @@ npm run record:check                 # while editing: changed files only
 npm run baseline:amend -- <path> --reason "<why>"   # only for an edited or removed baseline record
 npm run check                        # the ordinary gate: validate, identity and narrative lint, skill lint, baseline check, tests
 npm run fixtures:materialize:check
-npm run coverage:gaps                # regenerate docs/research; commit it with the change set
-npm run coverage:gaps:check
+npm run coverage:gaps                # optional: regenerate docs/research/generated (gitignored, never committed)
 graft build
 ```
 

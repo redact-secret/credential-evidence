@@ -135,8 +135,7 @@ Apply [research-run](../_shared/research-run.md) and also:
 
 1. **PR-ready change set**, as in [research-run](../_shared/research-run.md#output-of-every-run): new or extended
    contract; variants (or none); benign siblings; the narrative and its review history; the family's `research`
-   fields and appended review event; sources created or re-observed; regenerated `docs/research/backlog.json` and
-   `docs/research/coverage.md`. Commit `feat(records): research <family-id>`.
+   fields and appended review event; sources created or re-observed (the generated coverage report is not part of the change set). Commit `feat(records): research <family-id>`.
 2. **Research notes** with the fixed headings. For this skill, Established is each contract claim and each cited
    narrative statement with source, locator and class; Inferred is reasoning the pages imply but do not state
    (for example what a base64url payload must start with), never written as a claim; Unresolved is every open

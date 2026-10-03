@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
-import { baselineOwners, classifyTree, serializeAmendments, serializeManifest } from "../scripts/lib/baseline.mjs";
+import { baselineOwners, classifyTree, loadAmendments, serializeManifest } from "../scripts/lib/baseline.mjs";
 import { ownerOf } from "../scripts/lib/ownership.mjs";
 import { dueSources, ObserveError, planObservation } from "../scripts/lib/source-observe.mjs";
 import { canonical, normalizeUrl, scanRecords } from "../scripts/lib/tidy-scan.mjs";
@@ -207,7 +207,6 @@ function observeRoot(src, baselined = false) {
   if (baselined) {
     const entry = { path: `records/sources/docs-example-org/${src.id}.json`, sha256: createHash("sha256").update(text).digest("hex"), owner: "migrate:taxonomy" };
     files.push(["docs/migration/baseline-manifest.json", serializeManifest({ legacy: { repository: "x/y", revision: "0".repeat(40) }, files: [entry] })]);
-    files.push(["docs/migration/baseline-amendments.json", serializeAmendments([])]);
   }
   return { root: seeded(files), record: src };
 }
@@ -239,14 +238,15 @@ test("source:observe CLI appends to a source and declares the amendment when it 
     assert.equal(r.status, 0, r.stderr);
     assert.match(r.stdout, /declared baseline amendment \(edited\)/);
     assert.equal(JSON.parse(readFileSync(join(gen.root, `records/sources/docs-example-org/${src.id}.json`), "utf8")).observations.length, 2);
-    const ledger = JSON.parse(readFileSync(join(gen.root, "docs/migration/baseline-amendments.json"), "utf8"));
+    const ledger = loadAmendments(gen.root);
     assert.equal(ledger.amendments.length, 1);
     assert.equal(ledger.amendments[0].path, `records/sources/docs-example-org/${src.id}.json`);
     assert.match(ledger.amendments[0].reason, /source:observe appended a unchanged observation/);
+    assert.equal(readdirSync(join(gen.root, "docs/migration/baseline-amendments")).length, 1, "one file per declaration");
     assert.equal(classifyTree(gen.root).problems.length, 0, "the declared edit passes baseline:check");
     const again = observe(gen.root, [src.id, "--outcome", "read", "--observer", "bob", "--observed-at", "2026-06-03"]);
     assert.equal(again.status, 0, again.stderr);
-    assert.equal(JSON.parse(readFileSync(join(gen.root, "docs/migration/baseline-amendments.json"), "utf8")).amendments.length, 1, "one entry per record");
+    assert.equal(loadAmendments(gen.root).amendments.length, 1, "an already declared record is not declared again");
   } finally {
     rmSync(gen.root, { recursive: true, force: true });
   }

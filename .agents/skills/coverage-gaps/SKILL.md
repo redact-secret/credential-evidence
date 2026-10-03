@@ -18,8 +18,8 @@ None required. Optional narrowing: a provider, a skill name, a minimum priority,
 
 ## Steps
 
-1. Regenerate so the choice is made on current records. This changes only `docs/research/backlog.json` and
-   `docs/research/coverage.md`:
+1. Regenerate so the choice is made on current records. This writes only the gitignored `docs/research/generated/`
+   (the backlog and the human summary; never committed, so nothing in the pull request changes):
    ```bash
    npm run coverage:gaps
    ```
@@ -27,7 +27,7 @@ None required. Optional narrowing: a provider, a skill name, a minimum priority,
    ```bash
    npm run coverage:gaps -- --next 1 --skip <ids,branch-hints,pr-tags of open work> [--skill <name>] [--provider <id>] [--min-priority P1]
    ```
-   Add `--as-of today` when staleness should be measured against the real clock (the committed files use
+   Add `--as-of today` when staleness should be measured against the real clock (the generated files use
    the newest recorded date instead, so they stay byte-stable).
 3. Find open work to skip. List open pull requests and branches whose title contains `[coverage:` or whose
    branch starts `coverage/`, and pass each item's `dedupe.prTitleTag` or `dedupe.branchHint`:
@@ -49,10 +49,9 @@ None required. Optional narrowing: a provider, a skill name, a minimum priority,
 
    Hygiene findings are not in the backlog; `npm run tidy:scan` and [tidy-records](../tidy-records/SKILL.md)
    cover them.
-6. After the handoff's change set is done, run `npm run coverage:gaps` again and commit the two generated
-   files in the same pull request. `npm run coverage:gaps:check` fails CI when they are stale, and the
-   closed item should be gone from the diff. On a rebase conflict in those two files, re-run the command on
-   the merged tree; never merge the JSON by hand.
+6. After the handoff's change set is done, run `npm run coverage:gaps` again to confirm the closed item is gone
+   from the regenerated backlog. Do not commit the generated files (they are gitignored: committing them made
+   parallel research pull requests conflict, ADR 0015 Addendum 1) and CI does not check them.
 
 ## Adding to the wishlist
 
@@ -87,4 +86,4 @@ the reference date the report used.
 ## Never
 
 Treat the backlog as a verdict about a provider or a product, rank providers by it, edit
-`docs/research/backlog.json` or `docs/research/coverage.md` by hand, or run more than one item per run.
+the generated `docs/research/generated/` files by hand, commit them, or run more than one item per run.

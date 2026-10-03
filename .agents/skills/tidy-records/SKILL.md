@@ -52,7 +52,7 @@ a declaration ([ADR 0015](../../../docs/decisions/0015-validation-tiers-and-impo
    For a format or whitespace group the diff must vanish under `-w`; say so in the report.
 5. Run the gate and the checks that read records: `npm run check` (includes `baseline:check`),
    `npm run fixtures:materialize:check`, then
-   `npm run coverage:gaps` (commit its output if it changed) and `graft build`.
+   `graft build` (the coverage report is generated into a gitignored directory; do not commit it).
 6. Commit as `chore(records): tidy <kind> in <scope>`, open a pull request, and stop. Never merge.
 
 ## Fixes by finding kind

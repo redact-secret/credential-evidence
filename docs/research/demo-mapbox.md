@@ -172,7 +172,7 @@ Skill: author-case   Subject: mapbox:temporary-access-token   Mode: headless   D
 
 > **Update (ADR 0015).** The table below records what the pipeline-ownership gate did to these records when it
 > existed. That gate is gone: a new provider, family, case and narrative like these pass `npm run check`,
-> `coverage:gaps:check` and `fixtures:materialize:check`, and the migrate, projection and parity checks regenerate the
+> and `fixtures:materialize:check` (`coverage:gaps:check` no longer exists: the coverage report is generated, not committed, #88), and the migrate, projection and parity checks regenerate the
 > pinned baseline instead of reading the tree, so they no longer see them
 > ([tests/canonical-change.test.mjs](../../tests/canonical-change.test.mjs) proves it on a synthetic provider). The
 > records stay out of `records/` because they were a demonstration, not because of ownership.

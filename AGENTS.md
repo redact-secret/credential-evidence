@@ -74,9 +74,10 @@ Hygiene and backlog skills: `coverage-gaps` (what to work on next, from
 (mechanical clean-up, `npm run tidy:scan`) and `source-freshness` (re-observe sources,
 `npm run source:observe`). A record the migration importers produced (the import baseline) may be edited
 when the evidence requires it; declare the edit with `npm run baseline:amend -- <path> --reason "..."`
-(`npm run check` fails otherwise; `source:observe` and `record:new -- review --append` declare their own). Commit the output of
-`npm run coverage:gaps` with any change that adds, fixes or re-observes a record
-(`npm run coverage:gaps:check` runs in CI).
+(`npm run check` fails otherwise; `source:observe` and `record:new -- review --append` declare their own). Each
+declaration is its own file under `docs/migration/baseline-amendments/` so parallel pull requests never conflict
+(ADR 0015, Addendum 1). `npm run coverage:gaps` writes the coverage report to the gitignored
+`docs/research/generated/`: generate it when you need a backlog, never commit it, no CI check reads it.
 
 A research or record PR is reviewed with `.agents/skills/review-research-pr/SKILL.md`
 (read-only; posts a checklist comment ending in `VERDICT: pass|fail|needs-human`, never
@@ -91,7 +92,7 @@ the baseline manifest, and the example schedules in `docs/ops/examples/` are ina
 maintainer's decision.
 
 Validation tiers (ADR 0015, [docs/migration/validation-split.md](docs/migration/validation-split.md)): the
-**ordinary** gate (`npm run check`, `coverage:gaps:check`, `fixtures:materialize:check`) runs on every pull request
+**ordinary** gate (`npm run check`, `fixtures:materialize:check`) runs on every pull request
 and needs no legacy checkout. The **historical** pinned checks (`npm run historical:check`: `baseline:check`,
 `migrate:check`, `export:legacy:check`, `parity:check`, `tests/historical/`) regenerate the import baseline from
 the pinned legacy commit and run in CI only when an importer, the legacy map, the projection, parity, a schema or
