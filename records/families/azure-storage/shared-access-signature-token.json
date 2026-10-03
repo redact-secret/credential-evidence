@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "azure-storage:shared-access-signature-token",
+  "provider": "azure-storage",
+  "name": "Shared access signature token",
+  "description": "Azure Storage shared access signature (SAS) token: the query-string portion appended to a storage resource URI (parameters such as sv, se, sp, sr and sig) that delegates access to whoever holds it.",
+  "lifecycle": "draft",
+  "currentContract": "azure-storage:shared-access-signature-token@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-10-03",
+    "issues": [
+      "redact-secret/credential-evidence#110",
+      "redact-secret/credential-evidence#92"
+    ]
+  },
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. A capability URL rather than a fixed-format token: the contract records which parts grant access, not a detection grammar."
+}

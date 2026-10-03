@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "google:cloud-storage-signed-url",
+  "provider": "google",
+  "name": "Cloud Storage signed URL",
+  "description": "Cloud Storage signed URL: a URL carrying X-Goog-* query parameters (Algorithm, Credential, Date, Expires, Signature) that grants limited, time-bound access to whoever holds it.",
+  "lifecycle": "draft",
+  "currentContract": "google:cloud-storage-signed-url@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-10-03",
+    "issues": [
+      "redact-secret/credential-evidence#110",
+      "redact-secret/credential-evidence#92"
+    ]
+  },
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. A capability URL rather than a fixed-format token: the contract records which parts grant access, not a detection grammar."
+}

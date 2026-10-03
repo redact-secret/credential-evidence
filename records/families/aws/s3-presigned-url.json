@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "aws:s3-presigned-url",
+  "provider": "aws",
+  "name": "S3 presigned URL",
+  "description": "S3 presigned URL: an object URL whose query string carries SigV4 authentication parameters (X-Amz-Algorithm, X-Amz-Credential, X-Amz-Date, X-Amz-SignedHeaders, X-Amz-Signature), documented as a bearer capability for the signing principal.",
+  "lifecycle": "draft",
+  "currentContract": "aws:s3-presigned-url@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-10-03",
+    "issues": [
+      "redact-secret/credential-evidence#110",
+      "redact-secret/credential-evidence#92"
+    ]
+  },
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. A capability URL rather than a fixed-format token: the contract records which parts grant access, not a detection grammar."
+}

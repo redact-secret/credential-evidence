@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-git-object-name-on-a-line-naming-a-provider",
+  "subject": {
+    "kind": "case",
+    "id": "git-object-name-on-a-line-naming-a-provider"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "claude-research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Drafted by an AI agent run for the prefixless-credentials research issue from the sources recorded here, read on 2026-10-03; not reviewed. Left unresolved."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "claude-research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'outcome' is recorded as unresolved: No source settles whether same-line provider keyword proximity makes a git object name a credential."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

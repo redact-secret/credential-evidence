@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "http-set-cookie-expired-empty-session-value",
+  "title": "Session cookie cleared with an empty value",
+  "summary": "A synthetic Set-Cookie response header that clears a session cookie with an empty value and a past expiry date.",
+  "rationale": "The cookie name states a session role and the header is a Set-Cookie carrier, but the value is empty so there is no nonce to leak; a flag keyed on the name or the header would be a false alarm and would hide the deletion for readers.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:http-session-cookie",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. RFC 6265 allows a cookie-value of zero cookie-octets, and an empty value holds no session identifier; the expiry attribute is a date, not a credential.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-e003fbf5ed",
+        "supports": "cookie-value = *cookie-octet / ( DQUOTE *cookie-octet DQUOTE )",
+        "locator": "#section-4.1.1"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited standards read on 2026-10-03, before any scanner was consulted. All values are synthetic and were not tested against any service. Header coalescing, parser and action policy, decoded-token mapping and product masking stay with the downstream repositories."
+}

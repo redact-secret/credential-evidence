@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "azure-storage:shared-access-signature-token@1",
+  "family": "azure-storage:shared-access-signature-token",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "separators": [
+      "?",
+      "&",
+      "="
+    ],
+    "components": [
+      {
+        "name": "resource-uri",
+        "role": "other",
+        "description": "Storage resource URI preceding the delimiter."
+      },
+      {
+        "name": "delimiter",
+        "role": "separator",
+        "description": "The \"?\" is not part of the SAS token."
+      },
+      {
+        "name": "sas-token",
+        "role": "other",
+        "description": "Query parameters including the signature (sig); other parameters such as sv, se, sp, sr describe version, expiry, permissions and resource."
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "leaked-sas-usable-by-anyone",
+      "statement": "Microsoft states that if a SAS is leaked it can be used by anyone who obtains it, which can potentially compromise the storage account.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-485da28839",
+          "supports": "If a SAS is leaked, it can be used by anyone who obtains it, which can potentially compromise your storage account.",
+          "locator": "#best-practices-when-using-sas"
+        }
+      ]
+    },
+    {
+      "id": "token-is-query-string-signature-is-one-parameter",
+      "statement": "A SAS is a token appended to the resource URI as a set of query parameters; one of them, the signature, is built from the SAS parameters and signed with the key used to create the SAS. The \"?\" delimiter is not part of the SAS token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-485da28839",
+          "supports": "A shared access signature is a token that is appended to the URI for an Azure Storage resource... One of the query parameters, the signature, is constructed from the SAS parameters and signed with the key that was used to create the SAS.",
+          "locator": "#how-a-shared-access-signature-works"
+        },
+        {
+          "sourceId": "learn-microsoft-com-485da28839",
+          "supports": "The delimiter character ('?') for the query string is not part of the SAS token.",
+          "locator": "#sas-token"
+        }
+      ]
+    },
+    {
+      "id": "sas-types-and-signing-key",
+      "statement": "Three SAS types exist (user delegation, service, account); a user delegation SAS is signed with a user delegation key, service and account SAS with the storage account key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-485da28839",
+          "supports": "Azure Storage supports three types of shared access signatures; Signing a SAS token with an account key.",
+          "locator": "#types-of-shared-access-signatures"
+        }
+      ]
+    },
+    {
+      "id": "expiry-parameters",
+      "statement": "The signed start (st), signed expiry (se) and signed IP (sip) fields are named; a SAS can be ad hoc or reference a stored access policy, in which case start, expiry and permissions are inherited from the policy, so expiry may not appear in the URL.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-485da28839",
+          "supports": "Ad hoc SAS: start time, expiry time and permissions are specified in the SAS URI; with a stored access policy the SAS inherits those constraints.",
+          "locator": "#types-of-shared-access-signatures"
+        },
+        {
+          "sourceId": "learn-microsoft-com-485da28839",
+          "supports": "the signed IP (sip), signed start (st), and signed expiry (se) fields",
+          "locator": "#best-practices-when-using-sas"
+        }
+      ]
+    },
+    {
+      "id": "public-metadata-parameters",
+      "statement": "The page does not state which SAS parameters other than the signature are safe to publish; sv, sr, sp and se are described as constraints, and their status as public metadata is not documented.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "learn-microsoft-com-485da28839",
+          "supports": "No statement on parameter publicity.",
+          "locator": "#how-a-shared-access-signature-works"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Signature alphabet and length are not stated on the page read.",
+      "raisedAt": "2026-10-03"
+    },
+    {
+      "id": "open-question-2",
+      "question": "Which parameters other than sig are public metadata is not documented there.",
+      "raisedAt": "2026-10-03"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "evidence-source",
   "id": "docs-aws-amazon-com-1e9489a68f",
-  "sourceType": "other",
+  "sourceType": "provider-documentation",
   "title": "docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html",
   "publisher": "docs.aws.amazon.com",
   "publishedAt": null,
@@ -18,6 +18,12 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "read",
+      "observer": "research-agent",
+      "note": "Read page text via fetch. States access keys consist of an access key ID and a secret access key that must be used together to authenticate; the secret access key can be retrieved only at creation; do not provide access keys to unauthorized parties. The page does not separately state whether the access key ID alone is confidential."
     }
   ],
   "lifecycle": "draft",

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "npmrc-auth-setting-base64-string",
+  "title": ".npmrc: _auth setting holding a base64 authentication string",
+  "summary": "A synthetic .npmrc whose scoped _auth setting holds a base64 string that encodes a username and password.",
+  "rationale": "The value is encoded and has no prefix. npm calls it a base64 authentication string, one of the settings npm itself treats as credentials; what it encodes is not stated on the page, which is why the expectation rests on the setting's role and not on the decoded content (#94 covers decoding).",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "npm:npmrc-registry-credential",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag the _auth value. The npm documentation lists _auth as the base64 authentication string among the registry-scoped settings whose scoping ensures credentials are not sent to the wrong host.",
+    "sources": [
+      {
+        "sourceId": "docs-npmjs-com-8f8a96c89d",
+        "supports": "_auth (base64 authentication string); the settings _auth, _authToken, username, _password ... must all be scoped to a specific registry. This ensures that npm will never send credentials to the wrong host.",
+        "locator": "#auth-related-configuration"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

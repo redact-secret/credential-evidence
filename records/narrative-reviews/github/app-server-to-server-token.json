@@ -50,6 +50,53 @@
       },
       "verdict": "not-assertable",
       "note": "Statement 'body-and-checksum-current' (openQuestions) is recorded as unresolved: The only provider statement is the prefix and role. The body length and checksum come from a 2021 post that the token-formats page does not repeat, so it is not established that every token of this family issued today follows it."
+    },
+    {
+      "seq": 4,
+      "type": "corrected",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Evidence review for issue 97 (2026-10-03, automation, not independently reviewed). The lifecycle statement jwt-installation-token, recorded as unresolved at event 2 because no cited source stated the announcement, is now backed by two GitHub changelog entries (2026-04-24 and 2026-05-15) and the token-formats note on docs.github.com, and is re-classed provider-documented. The body-36 statement is scoped to the opaque form. Whether the APPID segment, the stateless length bounds and the rollout end date are documented stays unresolved."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'app-id-segment-grammar' (shape) is recorded as unresolved: The provider writes the stateless form as ghs_APPID_JWT but documents neither the alphabet nor the length of the APPID segment, nor whether every stateless token carries it; the recommended regex also accepts a ghs_ value without one."
+    },
+    {
+      "seq": 6,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'stateless-length-bounds' (openQuestions) is recorded as unresolved: The provider says about 520 characters and varying with the token contents, with no stated lower or upper bound."
+    },
+    {
+      "seq": 7,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'rollout-completion' (lifecycle) is recorded as unresolved: The provider says the temporary header will stop being respected at a date to be announced and that all eligible apps will then receive stateless tokens; no date or completion statement was found on the pages read."
     }
   ],
   "externalRefs": [

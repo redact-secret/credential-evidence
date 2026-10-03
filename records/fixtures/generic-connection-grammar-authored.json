@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "generic-connection-grammar-authored",
+  "title": "Connection-string grammar fixtures (authored)",
+  "description": "Independent authored base samples for connection-string password grammar: percent-encoded and unencoded-delimiter URI passwords, quoted and delimiter-terminated key-value passwords, empty or omitted passwords, references, and public metadata. Each fixture projects one case of generic:connection-string-password and carries the case's expectation; no generated projection is derived here.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "generic-connection-grammar-authored--mongodb-uri-encoded-at-and-colon",
+      "case": "connection-uri-percent-encoded-password-spans",
+      "path": "mongodb-uri-encoded-at-and-colon/fixture.txt",
+      "sha256": "34f121e48c462907a6e49ec651c873268dc357192201c328ea79a154952248a3",
+      "text": "MONGODB_URI=mongodb://app_user:Vq7%40Lm2%3Ax9Rk@db1.example.net:27017/inventory?replicaSet=rs0\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 47,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--mysql-uri-encoded-slash-and-hash",
+      "case": "connection-uri-percent-encoded-password-spans",
+      "path": "mysql-uri-encoded-slash-and-hash/fixture.txt",
+      "sha256": "fd30de60eb4e3fbd3f7e1f9a6fd34ace4be0bf3fc481b2ece571b44e11840093",
+      "text": "DATABASE_URL=mysql://svc_report:Tz4%2Fgn8%23Wp6y@mysql.example.net:3306/reports\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 32,
+            "end": 48,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--amqp-uri-encoded-percent-and-brackets",
+      "case": "connection-uri-percent-encoded-password-spans",
+      "path": "amqp-uri-encoded-percent-and-brackets/fixture.txt",
+      "sha256": "a42833d5a7a0dd455d2dab29fee95cb7308193e5268f9d2f472b82ba780a965b",
+      "text": "amqp://worker:Hc3%25bd9%5BYe5%5D@mq.example.net:5672/%2Fjobs\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 14,
+            "end": 32,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--amqp-uri-all-sub-delimiters",
+      "case": "connection-uri-unencoded-sub-delimiter-passwords",
+      "path": "amqp-uri-all-sub-delimiters/fixture.txt",
+      "sha256": "a48ffad9c812a5111ff58421b54553b364f6649301661af05eede8121d21dafe",
+      "text": "amqp://worker:Kd5!$&'()*+,;=Rw8@mq.example.net:5672/jobs\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 14,
+            "end": 31,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--redis-uri-password-only-with-dollar-and-semicolon",
+      "case": "connection-uri-unencoded-sub-delimiter-passwords",
+      "path": "redis-uri-password-only-with-dollar-and-semicolon/fixture.txt",
+      "sha256": "fe8589659dbc53114d1fb4f5237f817f036cbcd5b1398078c9a1efcec6a576e7",
+      "text": "REDIS_URL=redis://:Jf8$Pw2;Ux4!@cache.example.net:6379/0\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 19,
+            "end": 31,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--libpq-quoted-value-with-space-and-escapes",
+      "case": "connection-key-value-quoted-and-delimited-passwords",
+      "path": "libpq-quoted-value-with-space-and-escapes/fixture.txt",
+      "sha256": "ca3cd507a47cb0c72966d77164b1d694a83f116e49dfd6f16b6ac579a69e170c",
+      "text": "host=db.example.net port=5432 dbname=inventory user=app password='Gh5 w\\'x\\\\Lp2'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 66,
+            "end": 79,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--ado-net-password-ends-at-semicolon",
+      "case": "connection-key-value-quoted-and-delimited-passwords",
+      "path": "ado-net-password-ends-at-semicolon/fixture.txt",
+      "sha256": "1da7a722303f0b27a232450800a700219c020e27f35cd1011d5e2af206c4e6d2",
+      "text": "Server=db.example.net;User ID=svc;Password=Zq7vN2xK;Initial Catalog=inventory\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 43,
+            "end": 51,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--mysql-key-value-quoted-password",
+      "case": "connection-key-value-quoted-and-delimited-passwords",
+      "path": "mysql-key-value-quoted-password/fixture.txt",
+      "sha256": "6594fa7b7cfc8fb7ffb0f034f03240368fe14b53a19c1841c19b23ac8e202428",
+      "text": "{user:'svc', password:'Bk9x-Tr4_Ly2', host:'mysql.example.net', port:33060}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 23,
+            "end": 35,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--kafka-jaas-plain-quoted-password",
+      "case": "connection-key-value-quoted-and-delimited-passwords",
+      "path": "kafka-jaas-plain-quoted-password/fixture.txt",
+      "sha256": "2555511c4dfc6870545d2a75a8501110ebf544912deb90d2557210a773007f37",
+      "text": "sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username=\"svc-ingest\" password=\"Yt6Qd1Mc8Vb3\";\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 114,
+            "end": 126,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--mysqlx-uri-empty-password",
+      "case": "connection-passwords-empty-or-omitted",
+      "path": "mysqlx-uri-empty-password/fixture.txt",
+      "sha256": "9f68f49a6aae11024413af6b374be937fa022a250a32cdb8a5ac73facbaf513e",
+      "text": "mysqlx://report_user:@mysql.example.net:33060/reports\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--mysql-key-value-empty-password",
+      "case": "connection-passwords-empty-or-omitted",
+      "path": "mysql-key-value-empty-password/fixture.txt",
+      "sha256": "3f83991a2f5006f0ccd28329674cdf22b184380ad52a647962259f8e176eb907",
+      "text": "{user:'report_user', password:'', host:'mysql.example.net'}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--postgresql-uri-user-only",
+      "case": "connection-passwords-empty-or-omitted",
+      "path": "postgresql-uri-user-only/fixture.txt",
+      "sha256": "3bd972f685b158c5e62b8f7a6775f91b13dcaeda74ba2120ba4fbd24b2c6dd58",
+      "text": "postgresql://app_reader@db.example.net:5432/inventory\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--oledb-empty-password-keyword",
+      "case": "connection-passwords-empty-or-omitted",
+      "path": "oledb-empty-password-keyword/fixture.txt",
+      "sha256": "788dbf955b21292d5043b8893ade132d5e9be9fd67fb3f3a7f0a1c87373f68d3",
+      "text": "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=d:\\Northwind.mdb;User ID=Admin;Password=;\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--redis-uri-default-user-no-password",
+      "case": "connection-passwords-empty-or-omitted",
+      "path": "redis-uri-default-user-no-password/fixture.txt",
+      "sha256": "b862cdd14cb529ca1172dd4d3d1130fcd276a226f0cc54f7159e0a00c2e2efb7",
+      "text": "redis://default@cache.example.net:6379/0\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--libpq-empty-quoted-password",
+      "case": "connection-passwords-empty-or-omitted",
+      "path": "libpq-empty-quoted-password/fixture.txt",
+      "sha256": "8eecdadc9cd177cff8517dd8e863a769d16a5e24a79caff30421348393ad0358",
+      "text": "host=db.example.net dbname=inventory user=app password=''\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--compose-braced-variable-in-postgresql-uri",
+      "case": "connection-passwords-supplied-by-reference",
+      "path": "compose-braced-variable-in-postgresql-uri/fixture.txt",
+      "sha256": "0dbae4b9e54bb4a48a8c173616b88b0253c65ee36f32735c7c356caf8bc2b039",
+      "text": "DATABASE_URL: postgresql://app:${DB_PASSWORD}@db.example.net:5432/inventory\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--compose-required-variable-in-redis-uri",
+      "case": "connection-passwords-supplied-by-reference",
+      "path": "compose-required-variable-in-redis-uri/fixture.txt",
+      "sha256": "c42ef7829e85dfc82306d0bd56c15df00331e97f8fe2429c55c50aedeb429e90",
+      "text": "REDIS_URL=redis://:${REDIS_PASSWORD:?set REDIS_PASSWORD}@cache.example.net:6379/0\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--libpq-passfile-path",
+      "case": "connection-passwords-supplied-by-reference",
+      "path": "libpq-passfile-path/fixture.txt",
+      "sha256": "57cdcec222cb1626b673902e47481bf840d601652948c660170339ab44537f0e",
+      "text": "host=db.example.net dbname=inventory user=app passfile=/run/secrets/pgpass\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--redis-cli-auth-from-environment",
+      "case": "connection-passwords-supplied-by-reference",
+      "path": "redis-cli-auth-from-environment/fixture.txt",
+      "sha256": "39e0cde439882f2709da4f4220f18eddd47990d72568004303f2830c805f8896",
+      "text": "export REDISCLI_AUTH=\"$REDIS_PASSWORD\"\nredis-cli -h cache.example.net PING\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--mongodb-srv-host-and-options-only",
+      "case": "connection-public-metadata-without-password",
+      "path": "mongodb-srv-host-and-options-only/fixture.txt",
+      "sha256": "47d9c3c024b2cab33af920aa288b46f32509d578c6aa8ff8c1b3493f28fd54d4",
+      "text": "mongodb+srv://cluster0.example.net/inventory?retryWrites=true&w=majority\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--amqps-host-and-encoded-vhost",
+      "case": "connection-public-metadata-without-password",
+      "path": "amqps-host-and-encoded-vhost/fixture.txt",
+      "sha256": "0cc9df0e8a5aa04f66aa408152e5f745898efd36982df2b91bbb17eb6598d31f",
+      "text": "amqps://mq.example.net:5671/%2Fjobs\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--libpq-host-database-user",
+      "case": "connection-public-metadata-without-password",
+      "path": "libpq-host-database-user/fixture.txt",
+      "sha256": "4e3ba7d5828261b7c7ec465e84c90d77b1cf7fcccdcb65e8c4106e2eb881b5ac",
+      "text": "host=db.example.net port=5432 dbname=inventory user=app_reader\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--redis-uri-host-port-database",
+      "case": "connection-public-metadata-without-password",
+      "path": "redis-uri-host-port-database/fixture.txt",
+      "sha256": "9619703f7b1f09dff9fb634f09e72efa4ea68cec25c4d429f17ed94846fab9eb",
+      "text": "redis://cache.example.net:6379/0\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "generic-connection-grammar-authored--ado-net-integrated-security",
+      "case": "connection-public-metadata-without-password",
+      "path": "ado-net-integrated-security/fixture.txt",
+      "sha256": "505faf4655a20b08f70ced85843dbbe359a22da0f178e20501d3c65ec1dea515",
+      "text": "Server=db.example.net;Initial Catalog=inventory;Integrated Security=SSPI;\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Issue #111 (parent #92). Safety (option 2, synthetic): every password was typed by the author from scratch as a short mixed-character string with the delimiter or escape under test inserted by hand; hosts are reserved example.net names that resolve to no service; no value was derived from a real credential, a vendor example, a scanner output or the private 2026-10-03 stress archive, and none was tested against any live service. The OLE DB empty-password fixture reproduces the shape of a vendor documentation example that holds no credential. Spans are UTF-8 byte offsets computed by the scaffolder: the password exactly as written (percent triplets and escape backslashes included, quote delimiters excluded). Authored base samples in this set: 24; generated projections: 0."
+}

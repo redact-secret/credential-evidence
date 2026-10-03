@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-signed-url-nested-percent-encoded-in-redirect-parameter",
+  "subject": {
+    "kind": "case",
+    "id": "signed-url-nested-percent-encoded-in-redirect-parameter"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "claude-research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored by an AI agent run (issue #110, parent #92) from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted; synthetic values only; not independently reviewed. Expectation left unresolved pending the encoded-representation lineage decision (#94)."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "claude-research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'expectation' is recorded as unresolved: Extent and coverage semantics for a signed URL percent-encoded inside another URL are not stated by the sources."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
