@@ -64,6 +64,18 @@
       },
       "verdict": "inconclusive",
       "note": "Evidence review for issue 56 (2026-10-03, automation, not independently reviewed). The only fixture, cross-provider--prefix-only, spans eight families across four providers and is shared; it was not edited and stays project-policy. Pinned gitleaks (v8.30.1 github.go#L79, shared ghu_/ghs_ rule) and trufflehog (v3.97.4 github/v2/github.go#L37) rules for ghu_ require 36 characters after the prefix; recorded for the human review of the shared fixture."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "prefix-review-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Combined review of cross-provider--prefix-only proposes tool-corroborated fixture evidence from separately located component statements in nine raw sources reread on 2026-10-03. No provider length asserted; no scanner output used. Proposal awaits non-author review; lifecycle unchanged."
     }
   ],
   "externalRefs": [
