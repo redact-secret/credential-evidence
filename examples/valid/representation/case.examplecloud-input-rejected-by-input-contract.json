@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-input-rejected-by-input-contract",
+  "title": "Input that an interface rejects before scanning",
+  "summary": "Input an interface declares invalid (bytes that are not UTF-8, or a string chunk cut inside a surrogate pair).",
+  "rationale": "An expected rejection is neither a detection nor a miss: it has its own denominator and no outcome.",
+  "caseTypes": [
+    "mutation"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "project-policy",
+    "rationale": "Project policy of this example: a rejection is recorded as input validity, not as a true or false negative.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Worked example for the representation guide (ADR 0016). Synthetic; the policy stated here is an example, not a claim about any product."
+}

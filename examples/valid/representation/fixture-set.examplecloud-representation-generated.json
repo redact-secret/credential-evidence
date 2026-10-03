@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "examplecloud-representation-generated",
+  "title": "ExampleCloud placement projections (generated, recipe form)",
+  "description": "Five projections of two authored base samples by one placement rule, stored as recipes: the bytes are assembled, never embedded. Two independent bases, five generated inputs.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "filler-placement",
+    "generator": {
+      "name": "examplecloud-placement-renderer",
+      "version": "1.0.0",
+      "sourceRevision": "1111111111111111111111111111111111111111",
+      "entrypoint": "generators/placement.mjs"
+    },
+    "seed": "placement-1"
+  },
+  "generated": true,
+  "fixtures": [
+    {
+      "id": "examplecloud-representation-generated--key-at-head-of-64k",
+      "cell": {
+        "plan": "examplecloud-representation-projections",
+        "scenario": "credential-among-filler",
+        "families": [
+          "examplecloud:api-key"
+        ]
+      },
+      "path": "key-at-head-of-64k/input.txt",
+      "context": "log-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "head",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "ee1f0e51918aaf8ee98e5b9445dff7f9504c23fcecd59bdd5d440ac84941b935",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "examplecloud-representation-authored--api-key-base"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret her\n",
+              "times": 1024
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-generated--key-in-middle-of-64k",
+      "cell": {
+        "plan": "examplecloud-representation-projections",
+        "scenario": "credential-among-filler",
+        "families": [
+          "examplecloud:api-key"
+        ]
+      },
+      "path": "key-in-middle-of-64k/input.txt",
+      "context": "log-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "b9fe3b8dac29c5bf8e9877d4696c8d5b2b0cdcbfca1f77d2912a9073534efb73",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret her\n",
+              "times": 512
+            }
+          },
+          {
+            "fixture": "examplecloud-representation-authored--api-key-base"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret her\n",
+              "times": 512
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 32789,
+            "end": 32830,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-generated--key-at-tail-of-64k",
+      "cell": {
+        "plan": "examplecloud-representation-projections",
+        "scenario": "credential-among-filler",
+        "families": [
+          "examplecloud:api-key"
+        ]
+      },
+      "path": "key-at-tail-of-64k/input.txt",
+      "context": "log-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "tail",
+            "fillerBytes": 65536
+          }
+        ]
+      },
+      "sha256": "1a9df28f0af1dd9e40faba9db2a97b80b9a687533c22b40f58865f44ff4dff92",
+      "recipe": {
+        "parts": [
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret her\n",
+              "times": 1024
+            }
+          },
+          {
+            "fixture": "examplecloud-representation-authored--api-key-base"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65557,
+            "end": 65598,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-generated--key-repeated-twice-with-filler-between",
+      "cell": {
+        "plan": "examplecloud-representation-projections",
+        "scenario": "credential-among-filler",
+        "families": [
+          "examplecloud:api-key"
+        ]
+      },
+      "path": "key-repeated-twice-with-filler-between/input.txt",
+      "context": "log-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "repeat",
+            "count": 2
+          },
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 1024
+          }
+        ]
+      },
+      "sha256": "bdadd09abe0a89040f32c5574c984bb0a201be249dd3fe7cbeebeb324de95dbb",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "examplecloud-representation-authored--api-key-base"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret her\n",
+              "times": 16
+            }
+          },
+          {
+            "fixture": "examplecloud-representation-authored--api-key-base"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base"
+          },
+          {
+            "start": 1108,
+            "end": 1149,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-generated--two-distinct-keys-with-filler-between",
+      "cell": {
+        "plan": "examplecloud-representation-projections",
+        "scenario": "credential-among-filler",
+        "families": [
+          "examplecloud:api-key"
+        ]
+      },
+      "path": "two-distinct-keys-with-filler-between/input.txt",
+      "context": "log-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base",
+          "examplecloud-representation-authored--second-api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "place",
+            "placement": "middle",
+            "fillerBytes": 1024
+          }
+        ]
+      },
+      "sha256": "a62b01135375a85e1c061c3f578b61dea3a308a8545c31b4596e59dc07f9ee77",
+      "recipe": {
+        "parts": [
+          {
+            "fixture": "examplecloud-representation-authored--api-key-base"
+          },
+          {
+            "repeat": {
+              "text": "The quick brown fox jumps over the lazy dog; nothing secret her\n",
+              "times": 16
+            }
+          },
+          {
+            "fixture": "examplecloud-representation-authored--second-api-key-base"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base"
+          },
+          {
+            "start": 1108,
+            "end": 1149,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--second-api-key-base"
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Worked example for the representation guide (ADR 0016); not part of the corpus."
+}

@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:variant",
   "title": "Variant and history",
   "description": "A named variant of a credential family (a historical form, a regional form, a rotated format) with an append-only change history. A variant may belong to one contract revision; the contract chain records how the family's grammar moved, the variant records the named forms and when they appeared or ended.",
-  "x-schemaRevision": "1.5.0",
+  "x-schemaRevision": "1.6.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "family", "name", "variantType", "description", "effective", "history", "lifecycle"],

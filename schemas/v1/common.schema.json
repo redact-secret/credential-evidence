@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:common",
   "title": "Shared definitions for credential-evidence v1 records",
   "description": "Only $defs live here. Every entity schema references these so ID, date and link rules are defined exactly once.",
-  "x-schemaRevision": "1.5.0",
+  "x-schemaRevision": "1.6.0",
   "$defs": {
     "slug": {
       "description": "Lowercase ASCII words joined by single hyphens. No dates, versions or scanner names unless intrinsic to the entity.",
@@ -169,6 +169,34 @@
       "if": { "properties": { "evidenceClass": { "enum": ["provider-documented", "tool-corroborated"] } } },
       "then": { "properties": { "sources": { "minItems": 1 } } }
     },
+    "byteRange": {
+      "description": "UTF-8 byte offsets in fixture content, start inclusive, end exclusive (schema revision 1.6.0).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": { "start": { "type": "integer", "minimum": 0 }, "end": { "type": "integer", "minimum": 1 } }
+    },
+    "codePoint": { "description": "A Unicode code point as U+ followed by 4 to 6 uppercase hex digits (schema revision 1.6.0).", "type": "string", "pattern": "^U\\+[0-9A-F]{4,6}$" },
+    "decodeStep": {
+      "description": "One step from source bytes toward the base value (schema revision 1.6.0). base64 states alphabet and padding, hex states case (mixed means both cases occur), strip-codepoints removes the listed code points from UTF-8 text, normalize applies a Unicode normalization form.",
+      "oneOf": [
+        { "type": "object", "additionalProperties": false, "required": ["codec", "alphabet", "padding"], "properties": { "codec": { "const": "base64" }, "alphabet": { "enum": ["standard", "url-safe"] }, "padding": { "enum": ["padded", "unpadded"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["codec", "case"], "properties": { "codec": { "const": "hex" }, "case": { "enum": ["lower", "upper", "mixed"] } } },
+        { "type": "object", "additionalProperties": false, "required": ["codec", "codePoints"], "properties": { "codec": { "const": "strip-codepoints" }, "codePoints": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/codePoint" } } } },
+        { "type": "object", "additionalProperties": false, "required": ["codec", "form"], "properties": { "codec": { "const": "normalize" }, "form": { "enum": ["nfc", "nfd", "nfkc", "nfkd"] } } }
+      ]
+    },
+    "decodedValue": {
+      "description": "The decoded form of a span and its checks (schema revision 1.6.0). `sha256` and `bytes` describe the decoded bytes; the decoded plaintext is never repeated here, it is the base sample's secret.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["via", "sha256", "bytes"],
+      "properties": {
+        "via": { "type": "array", "minItems": 1, "maxItems": 8, "items": { "$ref": "#/$defs/decodeStep" } },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "bytes": { "type": "integer", "minimum": 1 }
+      }
+    },
     "expectedSpan": {
       "description": "An authored range inside fixture content: UTF-8 byte offsets, start inclusive, end exclusive. An optional envelope is a wider range that may be reported instead without being wrong (for example the whole connection URI around a password); the secret range itself must still be covered.",
       "type": "object",
@@ -179,6 +207,9 @@
         "end": { "type": "integer", "minimum": 1 },
         "role": { "enum": ["secret", "companion"] },
         "note": { "$ref": "#/$defs/text" },
+        "base": { "description": "Schema revision 1.6.0 (ADR 0016): the authored base sample (a fixture whose derivation.kind is authored-base) this secret span carries the value of, directly or after the decoding in `decoded`. Required on every secret span of a projection item; absent on an authored base.", "$ref": "#/$defs/fixtureId" },
+        "fragments": { "description": "Schema revision 1.6.0 (ADR 0016): the secret bytes inside [start, end) when the value is not contiguous in the source (a value split by line breaks, concatenation or continuation). Sorted, disjoint, the first starts at `start` and the last ends at `end`; the bytes of [start, end) outside the fragments are separators, not secret. Full coverage of the secret means covering every fragment.", "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/byteRange" } },
+        "decoded": { "description": "Schema revision 1.6.0 (ADR 0016): how the source bytes (the fragments concatenated, or [start, end)) turn back into the base value. `via` is applied in order, source to value; the validator re-derives it and checks `sha256` and `bytes` of the result against the base sample's secret.", "$ref": "#/$defs/decodedValue" },
         "envelope": {
           "type": "object",
           "additionalProperties": false,

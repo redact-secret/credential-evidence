@@ -34,7 +34,7 @@ until you cite sources.
 | benign-sibling | `record:new -- benign-sibling acme-public-key-id --family acme:api-key --sibling-class public-identifier --name "Public key id"` | family check, path; starts `unresolved` with no sources and no samples | `records/siblings/acme/<slug>.json` (TODO: description) |
 | family-narrative | `record:new -- family-narrative acme:api-key [--contract acme:api-key@1]` | contract (given, current or latest), path; one unresolved placeholder statement per section | `records/narratives/acme/api-key.json` (TODO: each statement and its reason) |
 | review | `record:new -- review family-narrative:acme:api-key --actor my-agent --role automation --note "..." [--unresolved "shape/length=Not documented."]` | subject check, id, path, `seq`, one `observed` / `not-assertable` event per `--unresolved`, and the printed `reviewEvent` numbers to copy into the narrative | `records/reviews/<provider>/<family>.json` (family), `records/narrative-reviews/...` (narrative), `records/reviews/<kind>/<id>.json` (other subjects, including `evidence-source`) |
-| fixture | `record:new -- fixture example-key-in-readme --set acme-authored --name readme-literal --text-file ./v.txt --secret "<exact value>" [--context carrier]` | the item's sha256, UTF-8 byte spans of each `--secret`, outcome from the case | `records/fixtures/<set>.json` (an authored set; created on first use, appended to after) |
+| fixture | `record:new -- fixture example-key-in-readme --set acme-authored --name readme-literal --text-file ./v.txt --secret "<exact value>" [--context carrier] [--authored-base \| --projection-of <base-id>] [--extra-file x.json]` | the item's sha256, UTF-8 byte spans of each `--secret`, outcome from the case | `records/fixtures/<set>.json` (an authored set; created on first use, appended to after) |
 
 Flags: `--name` (provider, family), `--title` (scenario, case, source), `--alias`, `--homepage`,
 `--description`, `--source-type`, `--observer`, `--observed-at`, `--type` (repeat or comma-separate),
@@ -42,7 +42,7 @@ Flags: `--name` (provider, family), `--title` (scenario, case, source), `--alias
 `--class`, `--applies-to`, `--scenario`, `--revision` (must be the next one), `--variant-type`, `--change`,
 `--contract`, `--replaces`, `--sibling-class`, `--actor`, `--role`, `--affiliation`, `--event`, `--verdict`,
 `--note`, `--unresolved <section>/<statement-id>=<reason>` (repeatable), `--append`, `--set`, `--text`,
-`--text-file`, `--secret <substring>` (repeatable), `--context`, `--path`, `--date YYYY-MM-DD`
+`--text-file`, `--secret <substring>` (repeatable), `--authored-base`, `--projection-of <id>` (repeatable), `--extra-file <json>`, `--context`, `--path`, `--date YYYY-MM-DD`
 (default: today UTC), `--dry-run` (print the record, write nothing), `--root <dir>` (tests). A
 `source` observation says someone read the page: pass `--observed-at` only with the real date.
 
@@ -86,6 +86,49 @@ The scaffolder does not support `fixture-plan`, `fixture-projection` or `legacy-
   must follow ADR 0007 (use `<provider>-authored`). A generated or imported set is never extended by hand.
   The tool cannot tell whether a value is synthetic: that is the author's statement, made in the pull request
   ([synthetic safety](../.agents/skills/_shared/synthetic-safety.md)).
+
+### Representing transformed credentials
+
+Schema revision 1.6.0 ([ADR 0016](decisions/0016-representation-and-lineage-of-transformed-credentials.md)) is the one place a transformed credential is stated. Use it for Base64 and hex forms, line-broken or escaped values, Unicode
+invisibles, byte and string chunking, and context, repeated or large inputs. Do not invent a Case per transformation: the reasoning is a Case or Scenario (see
+[case vs scenario](../.agents/skills/_shared/case-vs-scenario.md)); the transformation is data on the fixture.
+
+The chain, and where each link lives:
+
+| Link | Where it is stated | Checked by the validator |
+| --- | --- | --- |
+| Original bytes | an **authored base**: an item with `derivation: { kind: "authored-base" }` in a hand-authored set; its one secret span is the value (a benign base: its whole content is) | at most one secret span, set not generated, no transformation |
+| Transformation | `transformation.steps` on the **projection** (`derivation: { kind: "projection", bases: [...] }`), in forward order | step vocabulary; fragment readings against the outcome; mirror of the span's decode steps |
+| Decoded bytes | `expected.spans[].decoded`: `via` (decode steps, source to value), `sha256`, `bytes`; the span's `base` names the authored base | re-decodes the source bytes strictly and compares bytes, digest and the base's value |
+| Source spans | `expected.spans[]`: UTF-8 byte offsets of the source; `fragments` when the secret is not contiguous | sorted, disjoint, inside the span, first and last meet the span's edges |
+| Generated, not authored | a generated set (`origin.type: generation-rule`) holding projections; a plan listing its authored bases as `generation.inputs` of kind `fixture` | a cell may use only the plan's declared bases |
+
+Rules of thumb:
+
+1. **Author the base once**, with `record:new -- fixture <case> --set <provider>-authored --name <base> --text-file ... --secret <value> --authored-base`. A base is a reviewed synthetic value ([synthetic safety](../.agents/skills/_shared/synthetic-safety.md)),
+   not the corpus' output. Every projection of it points back; the independent base count is the number of bases, never the number of inputs.
+2. **Encodings are decode steps on the span**, nested layers in decode order (outer first). `base64` states `alphabet` and `padding`, `hex` states `case`. The source span is the encoded text only, so "whole value" against "embedded" is the `embed` step plus the span's position, not a different span.
+3. **A line-broken value is one span with `fragments`.** The secret bytes are the fragments; the separators (`\`, line break, quotes) are inside `[start, end)` and outside the fragments. State the `fragment` step with the right `reconstruction`:
+   `reconstructs-original` only when a cited mechanism rebuilds the value, `inserts-separator` when it does not (no spans, outcome `must-not-flag` or `not-assertable`), `unresolved` when the reading depends on the consumer (outcome `not-assertable`). Never strip whitespace globally to make a value valid.
+4. **Unicode**: an inserted zero-width, NBSP or BOM is the `insert-codepoints` step and a `strip-codepoints` decode step; a normalization is `normalize`. The span's offsets are UTF-8 bytes, so a three-byte code point moves every later offset by three.
+5. **Chunking is a separate fact from fragmentation.** `chunking` divides valid content into stream or string chunks: a UTF-8 byte boundary inside a multibyte sequence is `valid`; a UTF-16 boundary inside a surrogate pair is `unpaired-surrogate-split`; bytes that are not UTF-8 are `invalid-utf8` and are stored as `bytesHex`.
+   Anything not `valid` is an expected rejection: outcome `not-assertable`, no spans, a Case stating that rejection is neither a detection nor a miss. It must not be counted as a true or false negative.
+6. **Large and repeated inputs are recipes** (`recipe.parts`: `text`, `repeat`, or the whole text of an authored base), written by the generator, never typed. Give every occurrence its own span with its `base`.
+7. **A plan declares its bases**: `generation.inputs` entries `{ "kind": "fixture", "id": "<authored base id>" }`.
+8. **Report the count**: `npm run report:bases [-- examples/valid] [--json] [--plan <id>]` prints authored bases, independent base values, generated and hand-authored projections and unattributed items, per plan. Quote the independent base count as the sample size; quote generated inputs as correlated.
+9. **State no product behaviour.** Whether a decoder runs, to what depth, and what action follows are the product's assertions. A fact here is: this input is this base under this transformation, and these are its bytes.
+
+Worked, validated, synthetic examples of every row: `examples/valid/representation/`.
+
+`record:new -- fixture` flags: `--authored-base`; `--projection-of <base-id>` (repeatable); `--extra-file <json>` with `transformation`, `chunking`, `inputValidity` and `spans: [{ base, fragments, decoded }]` (one entry per `--secret`, in offset order). It runs the validator's rules first and refuses a lineage the validator would reject.
+Example `--extra-file` for a URL-safe unpadded Base64 value:
+
+```json
+{
+  "transformation": { "steps": [{ "op": "encode", "codec": "base64", "alphabet": "url-safe", "padding": "unpadded" }, { "op": "embed", "mode": "whole-value", "carrier": "shell-assignment" }] },
+  "spans": [{ "base": "acme-authored--api-key-base", "decoded": { "via": [{ "codec": "base64", "alphabet": "url-safe", "padding": "unpadded" }], "sha256": "<sha256 of the base value>", "bytes": 41 } }]
+}
+```
 
 ### Assertable cases need a fixture
 

@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "examplecloud-representation-authored",
+  "title": "ExampleCloud representation worked examples (authored)",
+  "description": "Three authored base samples and hand-written projections of them: encodings, fragmentation, invisibles, byte boundaries and expected rejections. Synthetic: every key is constructed from the words SYNTHETIC and EXAMPLE and zeros, and none was issued.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "examplecloud-representation-authored--api-key-base",
+      "case": "examplecloud-api-key-in-env-assignment",
+      "path": "api-key-base/input.txt",
+      "sha256": "b1e7f7e8c0d900c46cceffc56f646fda183fbf978c405ea475c6adca9397b78b",
+      "text": "EXAMPLECLOUD_API_KEY=exc_live_SYNTHETICEXAMPLEKEY0000000000000\n",
+      "context": "shell-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--second-api-key-base",
+      "case": "examplecloud-api-key-in-env-assignment",
+      "path": "second-api-key-base/input.txt",
+      "sha256": "eea5c182425124c18ef6abd442b784b4ed938f8494024be6c1025abba0095134",
+      "text": "EXAMPLECLOUD_API_KEY=exc_live_SYNTHETICSECONDKEY00000000000000\n",
+      "context": "shell-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--placeholder-base",
+      "case": "examplecloud-docs-placeholder-under-credential-name",
+      "path": "placeholder-base/input.txt",
+      "sha256": "8ff5265b511fe2caf6e55f0d9dbef50e9b95fa0bcfd7e289c9e27c23f14b096d",
+      "text": "EXAMPLECLOUD_API_KEY=exc_live_YOUR_API_KEY_HERE\n",
+      "context": "shell-assignment",
+      "derivation": {
+        "kind": "authored-base"
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-base64-standard-padded-whole",
+      "case": "examplecloud-key-encoded-in-config-value",
+      "path": "key-base64-standard-padded-whole/input.txt",
+      "sha256": "dd35f693def2873f403c78120dd5632c3d81bfb4755da04db00e319c1281043b",
+      "text": "EXAMPLECLOUD_BLOB=ZXhjX2xpdmVfU1lOVEhFVElDRVhBTVBMRUtFWTAwMDAwMDAwMDAwMDA=\n",
+      "context": "config-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "encode",
+            "codec": "base64",
+            "alphabet": "standard",
+            "padding": "padded"
+          },
+          {
+            "op": "embed",
+            "mode": "whole-value",
+            "carrier": "shell-assignment"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 74,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "base64",
+                  "alphabet": "standard",
+                  "padding": "padded"
+                }
+              ],
+              "sha256": "45ca1202ae70fb23c289507d89dac8f6471a60ea9c3596651af78c4a2c4af98c",
+              "bytes": 41
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-base64-nested-url-safe-over-standard",
+      "case": "examplecloud-key-encoded-in-config-value",
+      "path": "key-base64-nested-url-safe-over-standard/input.txt",
+      "sha256": "8516662ca96418222542d5712a45ec331994699753f1210b5dfff1d4e8d5cea8",
+      "text": "EXAMPLECLOUD_BLOB=WlhoalgyeHBkbVZmVTFsT1ZFaEZWRWxEUlZoQlRWQk1SVXRGV1RBd01EQXdNREF3TURBd01EQT0\n",
+      "context": "config-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "encode",
+            "codec": "base64",
+            "alphabet": "standard",
+            "padding": "padded"
+          },
+          {
+            "op": "encode",
+            "codec": "base64",
+            "alphabet": "url-safe",
+            "padding": "unpadded"
+          },
+          {
+            "op": "embed",
+            "mode": "whole-value",
+            "carrier": "shell-assignment"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 93,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "base64",
+                  "alphabet": "url-safe",
+                  "padding": "unpadded"
+                },
+                {
+                  "codec": "base64",
+                  "alphabet": "standard",
+                  "padding": "padded"
+                }
+              ],
+              "sha256": "45ca1202ae70fb23c289507d89dac8f6471a60ea9c3596651af78c4a2c4af98c",
+              "bytes": 41
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-hex-upper-embedded",
+      "case": "examplecloud-key-encoded-in-config-value",
+      "path": "key-hex-upper-embedded/input.txt",
+      "sha256": "6a27648e9c6286990fce7cddb971e73172bb3cbbfd04e88406f3996af515bceb",
+      "text": "{\"note\": \"see attachment\", \"blob\": \"6578635F6C6976655F53594E5448455449434558414D504C454B455930303030303030303030303030\"}\n",
+      "context": "json",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "encode",
+            "codec": "hex",
+            "case": "upper"
+          },
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "json"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 36,
+            "end": 118,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "hex",
+                  "case": "upper"
+                }
+              ],
+              "sha256": "45ca1202ae70fb23c289507d89dac8f6471a60ea9c3596651af78c4a2c4af98c",
+              "bytes": 41
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--placeholder-base64-embedded",
+      "case": "examplecloud-placeholder-encoded-in-config-value",
+      "path": "placeholder-base64-embedded/input.txt",
+      "sha256": "0c773857f0bd4283105dd23056bbd292c5dc0319d7ac5dfd1965b551485726ee",
+      "text": "EXAMPLECLOUD_BLOB=RVhBTVBMRUNMT1VEX0FQSV9LRVk9ZXhjX2xpdmVfWU9VUl9BUElfS0VZX0hFUkUK\n",
+      "context": "config-value",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--placeholder-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "encode",
+            "codec": "base64",
+            "alphabet": "standard",
+            "padding": "padded"
+          },
+          {
+            "op": "embed",
+            "mode": "whole-value",
+            "carrier": "shell-assignment"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-split-by-shell-line-continuation",
+      "case": "examplecloud-key-split-by-shell-line-continuation",
+      "path": "key-split-by-shell-line-continuation/input.txt",
+      "sha256": "c0d1f8553998813171e70ceeac37e9b13de3285be58b98c426ebc6e5d52979b0",
+      "text": "EXAMPLECLOUD_API_KEY=exc_live_SYNTHETICEX\\\nAMPLEKEY0000000000000\n",
+      "context": "shell-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "shell-line-continuation",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 64,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base",
+            "fragments": [
+              {
+                "start": 21,
+                "end": 41
+              },
+              {
+                "start": 43,
+                "end": 64
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-split-by-literal-newline",
+      "case": "examplecloud-key-split-by-literal-newline",
+      "path": "key-split-by-literal-newline/input.txt",
+      "sha256": "2128317f4fc49c82d4d3f7053437d06035d5a0165e72b66f14cbf251470ad140",
+      "text": "note:\nexc_live_SYNTHETICEX\nAMPLEKEY0000000000000\n",
+      "context": "plain-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "literal-line-feed",
+            "lineBreak": "lf",
+            "reconstruction": "inserts-separator"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-with-escaped-newline-text",
+      "case": "examplecloud-key-in-escaped-newline-text",
+      "path": "key-with-escaped-newline-text/input.txt",
+      "sha256": "139676d7b18aaaf801bbdaab1cd665669395ac7b09b640803326e4655317230e",
+      "text": "{\"key\": \"exc_live_SYNTHETICEX\\nAMPLEKEY0000000000000\"}\n",
+      "context": "json",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "escape",
+            "style": "json-string"
+          },
+          {
+            "op": "fragment",
+            "mechanism": "escaped-newline-text",
+            "lineBreak": "lf",
+            "reconstruction": "unresolved"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-with-zero-width-space",
+      "case": "examplecloud-key-with-inserted-invisible",
+      "path": "key-with-zero-width-space/input.txt",
+      "sha256": "7ae8f728ca762cf65c10c51d55a95906bba0f15a839306dab317609c7afb3f1d",
+      "text": "EXAMPLECLOUD_API_KEY=exc_live_SYNTHETICEXAMPLE​KEY0000000000000\n",
+      "context": "shell-assignment",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "insert-codepoints",
+            "codePoints": [
+              "U+200B"
+            ],
+            "positions": "inside"
+          }
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 65,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+200B"
+                  ]
+                }
+              ],
+              "sha256": "45ca1202ae70fb23c289507d89dac8f6471a60ea9c3596651af78c4a2c4af98c",
+              "bytes": 41
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-after-emoji-byte-chunked",
+      "case": "examplecloud-key-next-to-multibyte-text",
+      "path": "key-after-emoji-byte-chunked/input.txt",
+      "sha256": "729ae8e280aa20deb988da044da79c2974eccd402977f1cbddc159edf2130ecf",
+      "text": "note=🔑exc_live_SYNTHETICEXAMPLEKEY0000000000000\n",
+      "context": "plain-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf8-byte",
+        "boundaries": [
+          7
+        ]
+      },
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 9,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "examplecloud-representation-authored--api-key-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-after-emoji-utf16-pair-split",
+      "case": "examplecloud-input-rejected-by-input-contract",
+      "path": "key-after-emoji-utf16-pair-split/input.txt",
+      "sha256": "729ae8e280aa20deb988da044da79c2974eccd402977f1cbddc159edf2130ecf",
+      "text": "note=🔑exc_live_SYNTHETICEXAMPLEKEY0000000000000\n",
+      "context": "plain-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf16-code-unit",
+        "boundaries": [
+          6
+        ]
+      },
+      "inputValidity": "unpaired-surrogate-split",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "examplecloud-representation-authored--key-after-invalid-utf8-bytes",
+      "case": "examplecloud-input-rejected-by-input-contract",
+      "path": "key-after-invalid-utf8-bytes/input.txt",
+      "sha256": "8c910490831a5bf707e427cd8a140b389320389aefd97ec3d7d92bef6851a5b7",
+      "bytesHex": "6e6f74653dfffe6578635f6c6976655f53594e5448455449434558414d504c454b4559303030303030303030303030300a",
+      "context": "plain-text",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "examplecloud-representation-authored--api-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ],
+        "note": "Two bytes that are not UTF-8 precede the key."
+      },
+      "inputValidity": "invalid-utf8",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Worked examples for the representation guide (ADR 0016); not part of the corpus."
+}

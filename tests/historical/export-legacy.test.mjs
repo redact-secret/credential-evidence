@@ -39,7 +39,7 @@ describe("legacy projection: determinism and provenance", () => {
     assert.equal(manifest.artifacts.length, projection.artifacts.size);
     assert.match(manifest.sourceRevision.digest, /^[0-9a-f]{64}$/);
     assert.equal(manifest.sourceRevision.kind, "records-tree-sha256");
-    assert.equal(manifest.schemaRevision, "1.5.0");
+    assert.equal(manifest.schemaRevision, "1.6.0");
     for (const e of manifest.artifacts) {
       const text = projection.artifacts.get(e.path);
       assert.ok(text !== undefined, e.path);
@@ -299,7 +299,7 @@ describe("credential-eval corpus snapshot", () => {
     assert.equal(snapshot.identity.corpus_digest, `sha256:${sha(canon(snapshot.cases))}`);
     assert.equal(snapshot.identity.source, "credential-evidence");
     assert.equal(snapshot.identity.revision, `records-tree-sha256:${projection.manifest.sourceRevision.digest}`);
-    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.5.0");
+    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.6.0");
   });
 
   test("the legacy id map re-keys every snapshot case to its legacy fixture id and corpus path, and only the map says so", () => {

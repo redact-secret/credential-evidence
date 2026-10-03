@@ -13,6 +13,7 @@ Run contract (headless defaults, common stop conditions, the landing check, the 
 [research-run](../_shared/research-run.md). Read it first. Also [case vs scenario](../_shared/case-vs-scenario.md)
 (the decision), [evidence classes](../_shared/evidence-classes.md), [synthetic safety](../_shared/synthetic-safety.md),
 [neutrality wording](../_shared/neutrality-wording.md), [record authoring](../_shared/record-authoring.md),
+[representation](../_shared/representation.md) (when the value is encoded, split, chunked or placed among filler),
 [case authorship](../../../docs/governance/case-authorship.md) and
 [ADR 0007](../../../docs/decisions/0007-identity-correction-scenarios-and-fixture-plans.md). Create every record
 with `npm run record:new` ([docs/authoring.md](../../../docs/authoring.md)); write only the fields it leaves as

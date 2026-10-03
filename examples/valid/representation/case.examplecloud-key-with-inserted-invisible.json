@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "examplecloud-key-with-inserted-invisible",
+  "title": "Key with a zero-width space inside it",
+  "summary": "U+200B inserted inside the key body.",
+  "rationale": "Removing the one inserted code point gives the documented key; removing every invisible character is not assumed to preserve other values.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "examplecloud:api-key",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy of this example: the inserted code point is not part of the secret; the bytes of the key, excluding it, are.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Worked example for the representation guide (ADR 0016). Synthetic; the policy stated here is an example, not a claim about any product."
+}

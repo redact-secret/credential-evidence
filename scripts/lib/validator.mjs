@@ -3,7 +3,6 @@
 // Pure and deterministic: reads local schema files only, never touches the
 // network, and returns errors sorted so output is stable across runs.
 
-import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,6 +10,7 @@ import Ajv2020 from "ajv/dist/2020.js";
 import { checkIdentity } from "./identity.mjs";
 import { checkNarrativeLint } from "./narrative-lint.mjs";
 import { checkPlaceholders } from "./placeholders.mjs";
+import { checkItemRepresentation, contentBytes, sha256Hex } from "./representation.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = resolve(here, "..", "..");
@@ -123,6 +123,19 @@ export function checkIntegrity(entries) {
     if (record.kind === "fixture-projection") claimFixtureId(path, record.id);
     else if (record.kind === "fixture-set") for (const item of record.fixtures) claimFixtureId(path, item.id);
   }
+  // Fixture-set items by id, and their exact bytes (schema revision 1.6.0: text, bytesHex or recipe). A recipe may only
+  // insert the whole content of an authored base, which is never itself a recipe, so resolution does not recurse.
+  const itemById = new Map();
+  for (const { record } of entries) if (record.kind === "fixture-set") for (const item of record.fixtures) itemById.set(item.id, { item, set: record });
+  const baseBytes = (id) => {
+    const found = itemById.get(id);
+    if (!found || found.item.derivation?.kind !== "authored-base") return undefined;
+    try {
+      return contentBytes(found.item);
+    } catch {
+      return undefined;
+    }
+  };
   // Cases that at least one fixture projects (case -> fixture integrity).
   const projected = new Set();
   for (const { record } of entries) {
@@ -304,8 +317,14 @@ export function checkIntegrity(entries) {
           } else if (ownEvidence?.basis === "unresolved" && item.expected.outcome !== "not-assertable") {
             err(path, `${where}: unresolved evidence requires outcome not-assertable`);
           }
-          const bytes = Buffer.from(item.text, "utf8");
-          if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) err(path, `${where}: sha256 does not match text`);
+          let bytes;
+          try {
+            bytes = contentBytes(item, baseBytes);
+          } catch (e) {
+            err(path, `${where}: ${e.message}`);
+            continue;
+          }
+          if (sha256Hex(bytes) !== item.sha256) err(path, `${where}: sha256 does not match ${item.text !== undefined ? "text" : "the content"}`);
           for (const [i, s] of item.expected.spans.entries()) {
             if (s.end <= s.start) err(path, `${where}: expected.spans[${i}] end must be greater than start`);
             else if (s.end > bytes.length) err(path, `${where}: expected.spans[${i}] ends after the content (${bytes.length} bytes)`);
@@ -314,6 +333,8 @@ export function checkIntegrity(entries) {
               err(path, `${where}: expected.spans[${i}].envelope must enclose the span and stay inside the content`);
             }
           }
+          const planOfCell = item.cell ? get("fixture-plan", item.cell.plan) : undefined;
+          for (const problem of checkItemRepresentation(item, bytes, { set: r, itemById, bytesOf: (i) => contentBytes(i, baseBytes), plan: planOfCell })) err(path, `${where}: ${problem}`);
           if (item.candidateReading) {
             let previousEnd = 0;
             for (const [i, s] of item.candidateReading.spans.entries()) {
@@ -368,7 +389,10 @@ export function checkIntegrity(entries) {
           }
         }
         for (const [i, inp] of (r.generation.inputs ?? []).entries()) {
-          if (!has(inp.kind, inp.id)) err(path, `generation.inputs[${i}] unknown ${inp.kind} '${inp.id}'`);
+          if (inp.kind === "fixture") {
+            if (!fixtureIds.has(inp.id)) err(path, `generation.inputs[${i}] unknown fixture '${inp.id}'`);
+            else if (itemById.get(inp.id)?.item.derivation?.kind !== "authored-base") err(path, `generation.inputs[${i}] fixture '${inp.id}' is not an authored base (derivation.kind authored-base)`);
+          } else if (!has(inp.kind, inp.id)) err(path, `generation.inputs[${i}] unknown ${inp.kind} '${inp.id}'`);
         }
         for (const [i, d] of (r.lineage.derivedFrom ?? []).entries()) {
           if (d.kind === "fixture-set" ? !has("fixture-set", d.id) : !has(d.kind, d.id)) err(path, `lineage.derivedFrom[${i}] unknown ${d.kind} '${d.id}'`);
