@@ -52,6 +52,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'sentry-user-auth-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Sentry documents auth-token creation and scoping but no character-class grammar. Gitleaks's sentry-user-token rule matches this shape exactly; no pinned TruffleHog detector covers the user (non-organization) token."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence-class review of 25 fixtures (#67), 2026-10-03: 23 re-based to provider-documented from Sentry's own open-source token generator, token-type enum and CLI validator at pinned commits (plus Sentry DSN docs for the public-identifier control); org-slug-public-id and tarball-digest-encoded-value stay project-policy (no provider statement found). Project-authored; not reviewed."
     }
   ],
   "externalRefs": [

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "evidence-source",
   "id": "github-com-getsentry-sentry-f55495449a",
-  "sourceType": "other",
+  "sourceType": "provider-sdk-source",
   "title": "getsentry/sentry @ d4aa9756a10f576272b95437231c9dd32546e514: src/sentry/utils/security/orgauthtoken_token.py",
   "publisher": "getsentry/sentry",
   "publishedAt": null,
@@ -19,6 +19,13 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "unchanged",
+      "observer": "research-agent",
+      "contentDigest": "5fe0b57115b0428b0e07b0bcb31a55257c0ab5e0dab0142149160fcf85e0d935",
+      "note": "Re-read raw file at the pinned commit 2026-10-03: organization tokens are sntrys_ + base64 JSON payload + _ + base64 secret; parse_token() returns None unless the value has exactly two underscores."
     }
   ],
   "lifecycle": "draft",
@@ -29,5 +36,6 @@
       "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/sentry.md",
       "note": "cited by families[id=sentry:organization-auth-token].research.sources"
     }
-  ]
+  ],
+  "notes": "sourceType restated from 'other' to 'provider-sdk-source' on 2026-10-03: the file is part of the provider's own open-source implementation (getsentry organization), read at the pinned commit."
 }

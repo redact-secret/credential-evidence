@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "evidence-source",
   "id": "github-com-getsentry-sentry-bd102dc883",
-  "sourceType": "other",
+  "sourceType": "provider-sdk-source",
   "title": "getsentry/sentry @ b5116cbbd0b81d62592318b0f3de660c215bcdb6: src/sentry/models/apitoken.py",
   "publisher": "getsentry/sentry",
   "publishedAt": null,
@@ -19,6 +19,13 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "unchanged",
+      "observer": "research-agent",
+      "contentDigest": "18e38dc7987e4fd3736e4f717814e9ef7de61c2432405d3a514e3ef37e6f9982",
+      "note": "Re-read raw file at the pinned commit 2026-10-03: generate_token() returns the token-type prefix plus secrets.token_hex(nbytes=32); the USER branch of ApiTokenManager.create() calls it with AuthTokenType.USER."
     }
   ],
   "lifecycle": "draft",
@@ -29,5 +36,6 @@
       "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/sentry.md",
       "note": "cited by families[id=sentry:user-auth-token].research.sources"
     }
-  ]
+  ],
+  "notes": "sourceType restated from 'other' to 'provider-sdk-source' on 2026-10-03: the file is part of the provider's own open-source implementation (getsentry organization), read at the pinned commit."
 }
