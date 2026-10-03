@@ -25,6 +25,10 @@ when the secret is not contiguous).
 | Does it not, or is it unsettled? | `inserts-separator` (no spans) or `unresolved` (`not-assertable`) | same |
 | Does an interface reject the input before scanning? | `inputValidity` other than `valid`, outcome `not-assertable`, no spans | a Case stating the rejection is neither a hit nor a miss |
 
+## Generated sets pin a main commit
+
+A generator records `generator.sourceRevision`. Run it without `--source-revision` (it records the merge-base with `origin/main`) and rerun it after merging `main`; never pin the branch HEAD or a commit made on the branch, since a squash merge orphans it. Update a hand-written plan's copy of the value too. `npm run lint:source-revision` checks it ([ADR 0005, Addendum 1](../../../docs/decisions/0005-cases-and-fixture-sets.md)).
+
 ## Never
 
 - Count generated inputs as samples. Report `npm run report:bases`: independent bases first, generated projections as correlated.

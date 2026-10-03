@@ -130,6 +130,10 @@ Example `--extra-file` for a URL-safe unpadded Base64 value:
 }
 ```
 
+### Pinning a generated set's `sourceRevision`
+
+A generated set (and the plan that declares it) records `generator.sourceRevision`. It must be a commit reachable from `main`, because the repository squash-merges and a squash orphans every commit made on your branch. The generators already do the right thing: run them without `--source-revision` and they record the merge-base of your branch with `origin/main` (the `main` commit your inputs were read from). Pass `--source-revision <40-hex>` only to override, and only with a `main` commit; never the HEAD of your branch. A hand-authored plan that repeats the generator block (for example the Base64 and hex plan) carries the same value: update it with the set. After merging or rebasing `main`, run the generator again so the value follows. `npm run lint:source-revision` (in `npm run check`) refuses the placeholder, a malformed value, the PR tip, and, with full history, any commit not reachable from `origin/main` ([ADR 0005, Addendum 1](decisions/0005-cases-and-fixture-sets.md)).
+
 ### Assertable cases need a fixture
 
 A case with `must-flag`, `must-not-flag` or `may-flag` fails validation unless a fixture projects it.

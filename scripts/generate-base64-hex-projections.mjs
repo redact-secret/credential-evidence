@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 // node scripts/generate-base64-hex-projections.mjs [--check] [--source-revision <40 hex>]
 //
+// sourceRevision defaults to the merge-base with origin/main (a commit that stays reachable after a squash merge), never
+// HEAD; --source-revision overrides it. --check reads the recorded value back. See docs/decisions/0005 (addendum).
+//
 // Writes records/fixtures/base64-hex-representation-projections.json: the generated projections (schema revision 1.6.0,
 // ADR 0016) of the authored bases in records/fixtures/base64-hex-representation-bases.json, under the rule declared by
 // records/fixture-plans/base64-hex-representation-matrix.json. Pure and deterministic: no clock, no network, no random
@@ -17,6 +20,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveSourceRevision } from "./lib/source-revision.mjs";
 import { baseValue, contentBytes, decodeVia, sha256Hex } from "./lib/representation.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -28,19 +32,18 @@ const GENERATOR = { name: "base64-hex-projection-generator", version: "1.0.0", e
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
-const ri = args.indexOf("--source-revision");
-let sourceRevision = ri >= 0 ? args[ri + 1] : undefined;
-if (!sourceRevision) {
-  try {
-    sourceRevision = JSON.parse(readFileSync(OUT, "utf8")).origin.generator.sourceRevision;
-  } catch {
-    sourceRevision = "0".repeat(40);
-  }
+let existing;
+try {
+  existing = JSON.parse(readFileSync(OUT, "utf8")).origin.generator.sourceRevision;
+} catch {
+  existing = undefined;
 }
-if (!/^[0-9a-f]{40}$/.test(sourceRevision)) {
-  console.error("--source-revision needs 40 lowercase hex digits");
+const resolved = resolveSourceRevision({ argv: args, existing, check });
+if (resolved.error) {
+  console.error(resolved.error);
   process.exit(2);
 }
+const sourceRevision = resolved.value;
 
 // ------------------------------------------------------------------ encodings
 const b64 = (alphabet, padding) => ({ codec: "base64", alphabet, padding });

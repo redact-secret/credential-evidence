@@ -33,7 +33,7 @@ test("ci.yml: the ordinary job needs no legacy checkout and runs every ordinary 
   assert.deepEqual(Object.keys(ci.on).sort(), ["pull_request", "push", "workflow_dispatch"]);
   assert.deepEqual(ci.on.push.branches, ["main"]);
   const verify = runs(ci, "verify");
-  for (const cmd of ["npm run validate", "npm run lint:identity", "npm run lint:narrative", "npm run lint:skills", "npm run baseline:check", "npm run fixtures:materialize:check", "npm test"]) assert.ok(verify.includes(cmd), cmd);
+  for (const cmd of ["npm run validate", "npm run lint:identity", "npm run lint:narrative", "npm run lint:skills", "npm run lint:source-revision", "npm run baseline:check", "npm run fixtures:materialize:check", "npm test"]) assert.ok(verify.includes(cmd), cmd);
   assert.doesNotMatch(verify, /coverage:gaps/, "the coverage report is generated on demand, not a PR gate (#88)");
   const verifyText = YAML.stringify(ci.jobs.verify);
   assert.doesNotMatch(verifyText, /legacy|migrate:|export:legacy|parity|historical|LEGACY_BENCHMARKS_DIR|REQUIRE_LEGACY/i, "the ordinary gate does not touch the historical tier");
@@ -76,7 +76,7 @@ test("package scripts: npm test and npm run check are ordinary; historical:check
   assert.ok(!s.test.includes("historical") && s.test.includes("tests/*.test.mjs") && !s.test.includes("**"), "npm test does not recurse into tests/historical");
   assert.equal(s["test:historical"], 'node --test "tests/historical/*.test.mjs"');
   for (const part of ["baseline:check", "migrate:check", "export:legacy:check", "parity:check", "test:historical"]) assert.ok(s["historical:check"].includes(`npm run ${part}`), part);
-  for (const part of ["validate", "lint:identity", "lint:narrative", "lint:skills", "baseline:check", "npm test"]) assert.ok(s.check.includes(part), part);
+  for (const part of ["validate", "lint:identity", "lint:narrative", "lint:skills", "lint:source-revision", "baseline:check", "npm test"]) assert.ok(s.check.includes(part), part);
   for (const part of ["migrate", "export:legacy", "parity", "historical"]) assert.ok(!s.check.includes(part), `npm run check must not include ${part}`);
   for (const name of readdirSync(join(repoRoot, "tests")).filter((n) => n.endsWith(".test.mjs") && n !== "workflows.test.mjs")) {
     const src = readFileSync(join(repoRoot, "tests", name), "utf8");

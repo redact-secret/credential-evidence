@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 // Generator for the context, repeated-secret and large-input fixture plans (issue #99, schema revision 1.6.0, ADR 0016).
 //
-//   node scripts/generate-context-large-input-plans.mjs --source-revision <40-hex>   write the five records
+//   node scripts/generate-context-large-input-plans.mjs [--source-revision <40-hex>]   write the five records
 //   node scripts/generate-context-large-input-plans.mjs --check                      verify the records on disk equal the output
 //
 // Inputs: the eight synthetic base values below (two per family, four families) and the seed. Output: one authored set
 // that holds the bases, two generated sets that hold projections of them, and the two fixture plans that declare the
 // cells. No Case, no Scenario and no scanner is read: every cell points at an existing Scenario, whose reasoning and
 // evidence basis it inherits. Deterministic: the same bases and seed give the same bytes; there is no clock, no network
-// and no random source. `--source-revision` is the commit of this file, recorded in the generated sets' origin; `--check`
+// and no random source. `sourceRevision` is recorded in the generated sets' origin: by default the merge-base with origin/main (a commit that stays reachable after a squash merge), `--source-revision` overrides it; `--check`
 // reads it back from the records so it can never disagree with itself.
 //
 // Every value is synthetic and was never issued: it is built from a fake word run, padded with zeros, in the alphabet
@@ -17,6 +17,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { resolveSourceRevision } from "./lib/source-revision.mjs";
 import { contentBytes } from "./lib/representation.mjs";
 import { repoRoot } from "./lib/validator.mjs";
 
@@ -377,20 +378,18 @@ export const serialize = (record) => `${JSON.stringify(record, null, 2).replace(
 
 function main(argv) {
   const check = argv.includes("--check");
-  const ri = argv.indexOf("--source-revision");
-  let sourceRevision = ri >= 0 ? argv[ri + 1] : undefined;
   const target = join(repoRoot, "records/fixtures", `${IDS.largeSet}.json`);
-  if (check && !sourceRevision) {
-    if (!existsSync(target)) {
-      console.error(`FAIL: ${target} does not exist`);
-      return 1;
-    }
-    sourceRevision = JSON.parse(readFileSync(target, "utf8")).origin.generator.sourceRevision;
+  if (check && !existsSync(target)) {
+    console.error(`FAIL: ${target} does not exist`);
+    return 1;
   }
-  if (!/^[0-9a-f]{40}$/.test(sourceRevision ?? "")) {
-    console.error("usage: generate-context-large-input-plans.mjs --source-revision <40-hex commit of this file> | --check");
+  const existing = existsSync(target) ? JSON.parse(readFileSync(target, "utf8")).origin.generator.sourceRevision : undefined;
+  const resolved = resolveSourceRevision({ argv, existing, check });
+  if (resolved.error) {
+    console.error(resolved.error);
     return 2;
   }
+  const sourceRevision = resolved.value;
   const records = buildRecords({ sourceRevision });
   let bad = 0;
   for (const [path, record] of Object.entries(records)) {
