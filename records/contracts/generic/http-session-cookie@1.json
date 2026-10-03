@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "generic:http-session-cookie@1",
+  "family": "generic:http-session-cookie",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "separators": [
+      ";",
+      "="
+    ],
+    "components": [
+      {
+        "name": "cookie-name",
+        "role": "prefix",
+        "description": "An HTTP token chosen by the application; the standard assigns no meaning to any name."
+      },
+      {
+        "name": "cookie-value",
+        "role": "body",
+        "description": "Zero or more cookie-octets (no whitespace, double quote, comma, semicolon or backslash), optionally in double quotes; for a session identifier cookie it is the nonce and is the credential span."
+      },
+      {
+        "name": "cookie-attributes",
+        "role": "suffix",
+        "description": "Set-Cookie attributes (Expires, Max-Age, Domain, Path, Secure, HttpOnly); they describe the scope and handling of the cookie, are not returned in a Cookie header and are outside the credential span."
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "cookie-pair-grammar",
+      "statement": "A request Cookie header carries cookie-pairs separated by \"; \"; a Set-Cookie header carries one cookie-pair followed by attribute-value pairs. A cookie-value has no whitespace, double quote, comma, semicolon or backslash and may be empty.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "cookie-header = \"Cookie:\" OWS cookie-string OWS; cookie-string = cookie-pair *( \";\" SP cookie-pair ); cookie-value = *cookie-octet / ( DQUOTE *cookie-octet DQUOTE )",
+          "locator": "#section-4.1.1"
+        },
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "set-cookie-string = cookie-pair *( \";\" SP cookie-av )",
+          "locator": "#section-4.1.1"
+        }
+      ]
+    },
+    {
+      "id": "value-semantics-application-defined",
+      "statement": "The semantics of a cookie name and value are not defined by the standard; servers give each cookie application-specific meaning, so a name alone does not establish that a cookie is an authentication secret.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "The semantics of the cookie-value are not defined by this document",
+          "locator": "#section-4.1.1"
+        },
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "The semantics of individual cookies in the Cookie header are not defined by this document. Servers are expected to imbue these cookies with application-specific semantics",
+          "locator": "#section-4.2.2"
+        }
+      ]
+    },
+    {
+      "id": "session-identifier-replay",
+      "statement": "A session identifier stored in a cookie is a nonce the server uses to look up session state; anyone who learns or replays it can interact with the server with the session's authority, and a cookie is a form of ambient authority.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "servers commonly store a nonce (or \"session identifier\") in a cookie ... the nonce is useful only for interacting with the server",
+          "locator": "#section-8.4"
+        },
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "cookies being a form of ambient authority",
+          "locator": "#section-8.2"
+        }
+      ]
+    },
+    {
+      "id": "non-nonce-content-may-be-sensitive",
+      "statement": "Cookie content that is not a nonce may itself be sensitive, so absence of a session-identifier role does not by itself make a cookie value harmless.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "using session identifier cookies limits the damage ... (unlike non-nonce cookie content, which might itself be sensitive)",
+          "locator": "#section-8.4"
+        }
+      ]
+    },
+    {
+      "id": "attributes-scope-not-returned",
+      "statement": "Cookie attributes (Domain, Path, Secure, HttpOnly, Expires, Max-Age) define scope and handling; they are not returned in the Cookie header, so a server cannot tell from the header alone how a cookie was set.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "the cookie attributes are not returned ... the server cannot determine from the Cookie header alone when a cookie will expire, for which hosts or paths the cookie is valid, or whether the cookie was set with the Secure or HttpOnly attributes",
+          "locator": "#section-4.2.2"
+        }
+      ]
+    },
+    {
+      "id": "set-cookie-lines-not-combinable",
+      "statement": "Several Set-Cookie header lines are never folded into one comma-joined field, because a comma is used inside Set-Cookie values; Cookie carries many pairs in one line.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "Origin servers SHOULD NOT fold multiple Set-Cookie header fields into a single header field",
+          "locator": "#section-3"
+        },
+        {
+          "sourceId": "rfc-editor-org-e593c606c9",
+          "supports": "Set-Cookie ... cannot be combined into a single field value, recipients ought to handle Set-Cookie as a special case",
+          "locator": "#section-5.3"
+        }
+      ]
+    },
+    {
+      "id": "authentication-cookies-are-custom",
+      "statement": "HTTP itself notes that custom user-authentication mechanisms pass authentication tokens in Cookie and Set-Cookie.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-e593c606c9",
+          "supports": "various custom mechanisms for user authentication use the Set-Cookie and Cookie header fields for passing tokens related to authentication",
+          "locator": "#section-11.4"
+        }
+      ]
+    },
+    {
+      "id": "session-cookie-name-conventions",
+      "statement": "A third-party guide lists framework default session cookie names (for example PHPSESSID, JSESSIONID, ASP.NET_SessionId) and says an established session ID is temporarily equivalent to the strongest authentication method used; this is a lead, not a rule that a given name is a session cookie.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "cheatsheetseries-owasp-org-7fa0f5ed50",
+          "supports": "the session ID (or token) is temporarily equivalent to the strongest authentication method used by the application; session ID names used by common frameworks can be fingerprinted, such as PHPSESSID, JSESSIONID, ASP.NET_SessionId",
+          "locator": "Session ID Name Fingerprinting"
+        }
+      ]
+    },
+    {
+      "id": "cookie-name-to-role-mapping",
+      "statement": "No source states which cookie names or value shapes mark a session identifier versus an ordinary preference or tracking cookie.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-e003fbf5ed",
+          "supports": "The semantics of the cookie-value are not defined by this document",
+          "locator": "#section-4.1.1"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "cookie-name-classification",
+      "question": "Which cookie names or contexts establish a session-identifier role without application knowledge? Product recognition policy is handed off.",
+      "raisedAt": "2026-10-03"
+    },
+    {
+      "id": "ordinary-cookie-expectation",
+      "question": "Should ordinary preference, consent and opaque application-state cookies be expected unflagged? The standard says non-nonce content might itself be sensitive, so the outcome stays a maintainer decision.",
+      "raisedAt": "2026-10-03"
+    },
+    {
+      "id": "cookie-standard-successor",
+      "question": "RFC 6265 was read as published in 2011; whether a successor revision changes the cookie grammar was not established in this review.",
+      "raisedAt": "2026-10-03"
+    }
+  ]
+}
