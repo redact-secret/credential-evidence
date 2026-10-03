@@ -70,8 +70,8 @@ The scaffolder does not support `fixture-plan`, `fixture-projection` or `legacy-
 - **`review`** writes only `authored`, `observed`, `corrected` or `disputed` events, as `author`,
   `automation` or `contributor`. `reviewed`, `resolved` and `withdrawn` are another person's act, so the tool refuses
   them. A second history for the same subject is refused; `--append` adds events after the last `seq` and
-  never touches an earlier one. It refuses to append to a history that a migration generates (a `legacy-*`
-  external reference). The role and affiliation of an agent run are `automation` and `project-maintainer`, and
+  never touches an earlier one. Appending to an imported history (a `legacy-*`
+  external reference) is allowed: the tool declares the baseline amendment itself (ADR 0015). The role and affiliation of an agent run are `automation` and `project-maintainer`, and
   a run is never the independent reviewer of its own output.
 - **`family-narrative`** gives every section one unresolved placeholder: delete the sections you do not cover,
   write the rest as cited or unresolved statements ([ADR 0010](decisions/0010-family-narrative.md)). Its `notes`
@@ -106,18 +106,27 @@ npm run record:check -- --base origin/develop             # a different base
 Exit 0 when clean, 1 with one problem per line. It reports problems **in the files it checks**; a
 change that breaks a record it does not touch (deleting a cited source, say) is caught by
 `npm run validate`, which stays the gate. After a change that the migration, exporter or parity
-checks read, also run `migrate:check`, `export:legacy:check`, `parity:check` and
-`fixtures:materialize:check`.
+checks read, also run `baseline:check` (part of `npm run check`) and `fixtures:materialize:check`. The historical
+pinned checks (`migrate:check`, `export:legacy:check`, `parity:check`) regenerate the import baseline from the
+legacy revision and run in CI only when an importer, the projection, parity, a schema or shared generator code changes
+([validation tiers](migration/validation-split.md)).
 
-## Pipeline-owned directories
+## Imported records and new records
 
-`migrate:cases` writes `records/scenarios`, `records/cases`, `records/fixture-plans` and `records/fixtures` wholesale;
-`migrate:narratives` does the same for `records/narratives` and `records/narrative-reviews`; the legacy projection and
-the parity proof cover the whole tree. `record:new` can create records there, and `npm run validate` and `npm run check`
-accept them, but `migrate:check`, `export:legacy:check` and `parity:check` may then fail on them until the
-maintainers decide how authored records coexist with the importers (`scripts/lib/ownership.mjs`,
-[cutover](migration/cutover.md)). The research skills say what to do about it: see
-[the research run contract](../.agents/skills/_shared/research-run.md#step-0-for-every-run-who-writes-the-record).
+The migration importers (`migrate:taxonomy`, `migrate:cases`, `migrate:narratives`) produced the **import baseline**
+at the pinned legacy revision (`docs/migration/baseline-manifest.json`). They no longer own any directory of `records/`:
+
+- A **new** record (provider, family, source, case, scenario, fixture set, narrative, ...) is added with `record:new`
+  like any other and needs nothing more than `npm run check`.
+- An **edit to or removal of a baseline record** is allowed and must be declared with its cause:
+  `npm run baseline:amend -- <records/path>.json --reason "<why>" [--ref "#<issue>"]`. `npm run check` fails on an
+  undeclared one (`baseline:check`), and on a declaration the tree no longer needs. `source:observe` and
+  `record:new -- review --append` declare their own.
+- The legacy map and the importer reports are immutable references: no amendment can excuse an edit.
+
+See [the validation split](migration/validation-split.md) and
+[ADR 0015](decisions/0015-validation-tiers-and-import-baseline.md); the research skills' rule is
+[research-run Step 0](../.agents/skills/_shared/research-run.md#step-0-for-every-run-imported-records-and-new-records).
 
 ## Typical flow
 

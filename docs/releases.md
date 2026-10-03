@@ -21,7 +21,9 @@ It deliberately does not contain:
 
 The snapshot is one evidence population. A consumer that measures it next to other evidence populations (for Redact Secret: its regression, policy/behavior, candidate-specific and protected corpora) keeps each separately identified, by this snapshot's identity and digest for this one. Populations are never silently merged into one denominator. See [README: One qualification input, not the qualification](../README.md#one-qualification-input-not-the-qualification) and [ARCHITECTURE: Consumer boundary](../ARCHITECTURE.md#consumer-boundary).
 
-A release also guarantees that every check in `.github/workflows/ci.yml` was green at its commit on `main` when it was cut, and that two builds of its assets were byte-identical.
+A release also guarantees that both tiers of checks (`.github/workflows/ci.yml`: the ordinary gate and, always at release, the historical pinned checks, [validation tiers](migration/validation-split.md)) passed at its commit when it was cut, and that two builds of its assets were byte-identical.
+
+A release is built from the **whole records tree**: a provider, family, case or fixture added after the import, and an amended migrated record, are in the snapshot, the bundle and the materialization like any other (the credential-eval snapshot needs no legacy name, ADR 0015). The legacy map and the exporter vocabulary are compatibility inputs and ride by digest.
 
 ## Identity
 
@@ -93,7 +95,7 @@ It refuses the run (exit 4, no artifact) unless the manifest hashes to `$PIN`, i
    gh workflow run release.yml -R redact-secret/credential-evidence --ref main -f tag=snapshot-YYYY.MM.DD
    ```
 
-   It refuses anything but `main`, a malformed tag, a tag not dated today, and an existing tag or release; reruns every CI check at that commit; builds and verifies the assets; creates the release as a draft with the assets, publishes it; and downloads and verifies it again. The run summary and the release notes give the manifest digest.
+   It refuses anything but `main`, a malformed tag, a tag not dated today, and an existing tag or release; reruns every CI check of both tiers at that commit (the historical tier against the pinned legacy commit); builds and verifies the assets; creates the release as a draft with the assets, publishes it; and downloads and verifies it again. The run summary and the release notes give the manifest digest.
 4. Announce the tag and manifest digest to consumers. Never edit, re-tag or delete a release; correct by cutting a new one.
 
 Recommended repository settings (maintainers, not code): GitHub immutable releases on, and a tag ruleset blocking updates and deletion of `snapshot-*`.

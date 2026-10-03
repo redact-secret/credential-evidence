@@ -1,9 +1,23 @@
 name: CI
 
+# Two tiers (ADR 0015, docs/migration/validation-split.md).
+#
+#   verify      the ordinary gate: schema, records, identity, narrative, skills, baseline integrity, fixture
+#               materialization, coverage and the unit tests. Every pull request and every push. It reads
+#               this repository only: no legacy checkout.
+#   historical  the pinned import, projection and parity checks and the tests that assert the imported
+#               baseline. They need the legacy repository at the pinned commit and run when an importer,
+#               the legacy map, the projection, parity, a schema or shared generator code changes
+#               (scripts/lib/historical-scope.mjs), on workflow_dispatch (the periodic audit) and on a
+#               release (release.yml). On any other change the job still reports success and says why.
+#
+# There is deliberately no `schedule:` trigger: the periodic audit is a documented manual dispatch.
+# Enabling a cron is the maintainer's decision (tests/workflows.test.mjs forbids one here).
 on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 # Least privilege: the workflow only reads this repository. The legacy checkout
 # below is a public repository and needs no token scope beyond this.
@@ -15,7 +29,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Pinned legacy revision (scripts/migrate/lib/legacy-source.mjs LEGACY_REVISION).
+  # Pinned legacy revision (scripts/migrate/lib/legacy-source.mjs LEGACY_REVISION). Never the legacy HEAD.
   LEGACY_REVISION: 1020d2b5905e8973098235e57c4cdca3359bba57
 
 jobs:
@@ -26,14 +40,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          persist-credentials: false
-
-      - name: Checkout pinned legacy repository (read-only input for migration checks)
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: redact-secret/redact-secret-benchmarks
-          ref: ${{ env.LEGACY_REVISION }}
-          path: legacy-benchmarks
           persist-credentials: false
 
       - name: Setup Node.js
@@ -57,27 +63,74 @@ jobs:
       - name: Skill lint
         run: npm run lint:skills
 
+      - name: Baseline integrity (every edit to or removal of an imported record is declared)
+        run: npm run baseline:check
+
       - name: Coverage report is current (docs/research)
         run: npm run coverage:gaps:check
 
+      - name: Fixture materialization check (records verified, every fixture's digest)
+        run: npm run fixtures:materialize:check
+
       - name: Test
         run: npm test
+
+  historical:
+    name: historical
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # full history: the changed paths are a diff against the pull request base or the previous push
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Decide whether the historical checks apply
+        id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_AFTER: ${{ github.sha }}
+        run: |
+          case "$EVENT_NAME" in
+            pull_request) node scripts/historical-scope.mjs --base "$PR_BASE" --head "$PR_HEAD" > scope.txt ;;
+            push) node scripts/historical-scope.mjs --base "$PUSH_BEFORE" --head "$PUSH_AFTER" > scope.txt ;;
+            *) node scripts/historical-scope.mjs --always > scope.txt ;;
+          esac
+          cat scope.txt
+          grep '^run=' scope.txt >> "$GITHUB_OUTPUT"
+          {
+            echo "### Historical pinned checks"
+            echo
+            if grep -q '^run=true' scope.txt; then echo "Ran: $(grep '^reason=' scope.txt | cut -d= -f2-)"; else echo "Skipped: $(grep '^reason=' scope.txt | cut -d= -f2-)"; fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Checkout pinned legacy repository (read-only input; the pin, never its HEAD)
+        if: steps.scope.outputs.run == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: redact-secret/redact-secret-benchmarks
+          ref: ${{ env.LEGACY_REVISION }}
+          path: legacy-benchmarks
+          persist-credentials: false
+
+      - name: Install
+        if: steps.scope.outputs.run == 'true'
+        run: npm ci
+
+      - name: Historical checks (baseline, importers at the pin, legacy projection, parity, baseline tests)
+        if: steps.scope.outputs.run == 'true'
+        run: npm run historical:check
         env:
           LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
           REQUIRE_LEGACY: "1"
-
-      - name: Migration checks
-        run: npm run migrate:check
-        env:
-          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
-
-      - name: Legacy projection is current (manifest and, if present, output)
-        run: npm run export:legacy:check
-
-      - name: Parity against the pinned legacy revision (0 unexplained, report current)
-        run: npm run parity:check
-        env:
-          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
-
-      - name: Fixture materialization check (records verified, digest matches the cases report)
-        run: npm run fixtures:materialize:check

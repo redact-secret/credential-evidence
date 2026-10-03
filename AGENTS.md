@@ -58,14 +58,15 @@ Research skills (one bounded unit per run, headless or interactive, always a pul
 `research-family` (format contract, variants, benign siblings, narrative, sources for one family) and
 `author-case` (a Case only if it meets the ADR 0007 criteria, otherwise a Scenario or no record). They share
 [`.agents/skills/_shared/research-run.md`](.agents/skills/_shared/research-run.md): the headless defaults, the
-common stop conditions, the landing check against pipeline-owned directories, and the exact output (a change set
+common stop conditions, how imported and new records are handled (a new record needs nothing, an edit to an imported one is declared), and the exact output (a change set
 plus research notes listing established, inferred and unresolved).
 
 Hygiene and backlog skills: `coverage-gaps` (what to work on next, from
 `npm run coverage:gaps` and [docs/research](docs/research/README.md)), `tidy-records`
 (mechanical clean-up, `npm run tidy:scan`) and `source-freshness` (re-observe sources,
-`npm run source:observe`). A record that a `migrate:*` pipeline generates cannot be edited in
-place until the cutover; the scan and the tools say which records those are. Commit the output of
+`npm run source:observe`). A record the migration importers produced (the import baseline) may be edited
+when the evidence requires it; declare the edit with `npm run baseline:amend -- <path> --reason "..."`
+(`npm run check` fails otherwise; `source:observe` and `record:new -- review --append` declare their own). Commit the output of
 `npm run coverage:gaps` with any change that adds, fixes or re-observes a record
 (`npm run coverage:gaps:check` runs in CI).
 
@@ -77,6 +78,14 @@ Unattended runs: `npm run research:run -- [--dry-run] [--kind <gap-kind>]` is th
 cron-style run (selection from the coverage backlog, dedupe against open PRs, branches and `needs-human`
 issues, budget, fetch allowlist, gate, one PR or one issue, run log under the gitignored `.research-runs/`); the
 `research-cron-run` skill and [docs/ops/research-cron.md](docs/ops/research-cron.md) are its contract. Always
-try `--dry-run` first. A run never merges, never touches migration importers, the legacy export, parity or
-records ownership, and the example schedules in `docs/ops/examples/` are inactive: activating one is the
+try `--dry-run` first. A run never merges and never touches migration importers, the legacy export, parity or
+the baseline manifest, and the example schedules in `docs/ops/examples/` are inactive: activating one is the
 maintainer's decision.
+
+Validation tiers (ADR 0015, [docs/migration/validation-split.md](docs/migration/validation-split.md)): the
+**ordinary** gate (`npm run check`, `coverage:gaps:check`, `fixtures:materialize:check`) runs on every pull request
+and needs no legacy checkout. The **historical** pinned checks (`npm run historical:check`: `baseline:check`,
+`migrate:check`, `export:legacy:check`, `parity:check`, `tests/historical/`) regenerate the import baseline from
+the pinned legacy commit and run in CI only when an importer, the legacy map, the projection, parity, a schema or
+shared generator code changes, on `workflow_dispatch` (the periodic audit) and on a release. Do not skip them when
+you change those paths, and do not run them as part of a records-only change.

@@ -102,15 +102,18 @@ In this order, on the worktree after the agent finished:
 2. **Path scope**, **source hosts**, **budget audit**.
 3. **gitleaks** (when installed) and **`npm run review:check -- origin/<base>..HEAD`** (the mechanical half of
    [review-research-pr](../../.agents/skills/review-research-pr/SKILL.md)).
-4. **`npm run check`**, **`coverage:gaps:check`**, **`fixtures:materialize:check`**.
-5. **Pipeline-ownership checks:** `migrate:check`, `export:legacy:check`, `parity:check` (need
-   `LEGACY_BENCHMARKS_DIR`; without it they are recorded as not run).
+4. **`npm run check`** (validate, identity and narrative lint, skill lint, **`baseline:check`**, unit tests),
+   **`coverage:gaps:check`**, **`fixtures:materialize:check`**.
+
+That is the whole gate. It is the ordinary tier of [the validation split](../migration/validation-split.md): it reads
+this repository only and needs no legacy checkout. The historical pinned checks (`migrate:check`,
+`export:legacy:check`, `parity:check`) are not part of a run: they cover the importers, the projection and parity,
+which a run may not change, and CI runs them when those paths change, on dispatch and on a release.
 
 | Result | Push? | Outcome | Exit |
 | --- | --- | --- | --- |
 | path scope, `npm run check`, `coverage:gaps:check` or `fixtures:materialize:check` fail; `review:check` exit 1 (fail); a secret-shape finding; gitleaks finding | no | `needs-human` issue with the failing gates, `gate-failed` | 1 |
 | `review:check` exit 3 (needs-human), host or budget audit flagged, or the agent reported a decision with `blocksLanding: true` | yes | **draft** PR labeled `needs-human` | 3 |
-| steps 1 to 4 green, step 5 fails or is not run | yes | **draft** PR labeled `blocked-by-pipeline-ownership` with the landing note and the first lines of each failure | 0 |
 | everything green | yes | ready PR | 0 |
 | agent `needs-human` / `no-op` (no commits) | no | `needs-human` issue | 3 |
 | agent crash, timeout, no or invalid outcome, push or PR error | no (a pushed branch is deleted again) | `needs-human` issue where possible | 1 |
@@ -119,18 +122,19 @@ In this order, on the worktree after the agent finished:
 Exit codes follow `review:check`: **0 ok, 1 fail, 3 needs a human**, plus **2** for a usage or preflight error.
 A scheduler should treat 0 and 3 as a finished run (3 sends a notification), and 1 or 2 as an alert.
 
-### Pipeline ownership: why runs open drafts today
+### Imported records: amended, not blocked
 
-`migrate:cases`, `migrate:narratives` and `migrate:taxonomy` own directories of `records/` wholesale, and the
-legacy projection and parity compare the whole tree with the pinned legacy files. A newly authored record in
-those paths, or a new provider or family, fails `migrate:check`, `export:legacy:check` and `parity:check`
-until maintainers decide how authored records land (see [demo-mapbox](../research/demo-mapbox.md): the
-demonstration records were kept out of `records/` for exactly this reason). The runner never changes a
-pipeline, a parity rule or the projection to get past this. It opens the PR as a draft with the
-`blocked-by-pipeline-ownership` label and a landing note, as
-[research-run](../../.agents/skills/_shared/research-run.md#step-0-for-every-run-who-writes-the-record)
-requires, and leaves the decision to a maintainer. A change that touches only authored, non-pipeline paths
-(for example an appended observation on an authored source) passes step 5 and is a ready PR.
+A new provider, family, case, scenario or narrative is just a new record: it passes the gate above and the run opens a
+ready PR. A record the migration importers produced (the **import baseline**, `docs/migration/baseline-manifest.json`)
+may be edited when the evidence requires it, for example an appended source observation or a corrected claim. The edit
+is **declared** in `docs/migration/baseline-amendments.json` with its cause (`npm run baseline:amend -- <path> --reason
+"..."`; `source:observe` and `record:new -- review --append` declare their own), and `npm run check` fails on an
+undeclared edit or removal, which makes the run end as a `gate-failed` issue, not a PR. The pull request body lists the
+amended baseline records. Until ADR 0015 these changes opened as drafts labeled `blocked-by-pipeline-ownership`
+because `migrate:check`, `export:legacy:check` and `parity:check` compared the whole tree with the pinned legacy files;
+they now regenerate the baseline from the pin, so a canonical change cannot reach them. The runner still never changes
+an importer, a parity rule, the projection or the baseline manifest
+([research-run](../../.agents/skills/_shared/research-run.md#step-0-for-every-run-imported-records-and-new-records)).
 
 ### Consuming the review verdict
 
@@ -178,8 +182,9 @@ A lock file (`.research-runs/lock`, stale after twice the time budget) stops two
 
 ## Labels
 
-`research`, `research-cron`, `needs-human`, `blocked-by-pipeline-ownership`, `review-failed`. Create them once
-(idempotent):
+`research`, `research-cron`, `needs-human`, `review-failed`. Create them once (idempotent). The
+`blocked-by-pipeline-ownership` label of earlier runs is retired: nothing applies it any more, and an existing label can
+be deleted:
 
 ```bash
 npm run research:run -- --ensure-labels
@@ -198,7 +203,7 @@ and the working directory is the worktree. The environment carries `RESEARCH_RUN
 installed version):
 
 ```bash
-RESEARCH_AGENT_CMD='claude -p --permission-mode acceptEdits --max-turns 80 --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,Bash(npm run record:new:*),Bash(npm run record:check:*),Bash(npm run source:observe:*),Bash(npm run coverage:gaps:*),Bash(npm run tidy:scan:*),Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)"'
+RESEARCH_AGENT_CMD='claude -p --permission-mode acceptEdits --max-turns 80 --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,Bash(npm run record:new:*),Bash(npm run record:check:*),Bash(npm run baseline:amend:*),Bash(npm run source:observe:*),Bash(npm run coverage:gaps:*),Bash(npm run tidy:scan:*),Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)"'
 ```
 
 Deliberately absent: `Bash(curl:*)`, `Bash(gh:*)`, `Bash(git push:*)`, `Bash(npm install:*)`. WebFetch domain rules for
@@ -224,7 +229,7 @@ real run by hand, and decide the open questions below.
 | --- | --- | --- |
 | Push a branch, open a PR, file an issue, label | a token limited to this repository: contents read and write, pull requests read and write, issues read and write, metadata read (a fine-grained token or a GitHub App installation token) | admin, workflows, secrets, Actions write, any organization scope |
 | Model | one model credential, in the agent step only | cloud, registry or deploy credentials anywhere |
-| Legacy checkout (pipeline-ownership checks) | none: the pinned legacy repository is public | a token |
+| Legacy checkout | not needed: a run does not run the historical checks | a token |
 | CI trigger | see the first open question | |
 
 Workflow-level `permissions:` stays `contents: read`; only the run job raises what it needs. Do not give the run
@@ -244,5 +249,6 @@ job `pull_requests: write` through `GITHUB_TOKEN` if you need CI to run on its P
    fetch helper that enforces the allowlist and returns raw text, or accept `unresolved` for what only WebFetch
    showed. Not built.
 4. **Token budget.** Only the time budget is enforced by the runner.
-5. **Records ownership.** Until it is decided, every run that adds a provider, family, case or narrative opens a
-   draft. The harness is ready for the day the checks pass: such a PR becomes a ready PR with no change to it.
+5. **Records ownership.** Decided in [ADR 0015](../decisions/0015-validation-tiers-and-import-baseline.md): new records
+   need nothing, edits to imported records are declared, and a run that adds a provider, family, case or narrative
+   opens a ready PR when the ordinary gate passes.

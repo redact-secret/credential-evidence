@@ -397,6 +397,25 @@ function buildOverlayInterface({ taxonomy, index }) {
   return { format: OVERLAY_FORMAT, formatVersion: 1, status: "interface-only: none of these overlays is supplied or asserted by credential-evidence", consumers: "The legacy files that read each overlaid file are listed per file in docs/migration/parity-report.md.", overlays };
 }
 
+// ------------------------------------------------------- the current snapshot (whole tree)
+
+/**
+ * `credential-eval/corpus-snapshot.json` for every fixture of the given records, with no legacy name needed: a fixture added
+ * after the import (a new provider, family, case) is in the snapshot like any other. This is the deterministic benchmark input
+ * the release bundle ships (scripts/release/build.mjs); the legacy projection above builds the same document for the import
+ * baseline (a test pins that the two agree there).
+ *
+ * @param {{ records: object[], sourceDigest: string, schemaRevision: string }} input
+ * @returns {{ text: string, snapshot: object, fixtures: number }}
+ */
+export function buildSnapshot({ records, sourceDigest, schemaRevision }) {
+  const ix = indexRecords(records);
+  if (!ix.sets.size) throw new Error("records/ has no fixture sets; run the importers first");
+  const fixtures = collectFixtures(ix);
+  const snapshot = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision });
+  return { text: json(snapshot), snapshot, fixtures: fixtures.length };
+}
+
 // ------------------------------------------------------------------ entry point
 
 /**

@@ -1,5 +1,6 @@
-// Tests for the legacy projection exporter (#6). No legacy checkout is needed: the
-// exporter reads only records/ and the consumer vocabulary.
+// Tests for the legacy projection exporter (#6). The projection is built from the import baseline
+// (ADR 0015), not the working tree: records added or amended after the import do not enter it. No legacy
+// checkout is needed while the tree is unamended.
 
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
@@ -7,15 +8,14 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import Ajv2020 from "ajv/dist/2020.js";
 import { describe, test } from "node:test";
-import { repoRoot } from "../scripts/lib/validator.mjs";
-import { MANIFEST_PATH, generate } from "../scripts/export/legacy-projection.mjs";
-import { buildProjection, digestJson, GENERATOR, indexRecords } from "../scripts/export/lib/projection.mjs";
-import { collectFixtures } from "../scripts/export/lib/fixtures.mjs";
-import { loadLegacyNames, nameFixtures } from "../scripts/export/lib/legacy-map.mjs";
-import { loadCanonicalInputs } from "../scripts/export/lib/source.mjs";
+import { repoRoot } from "../../scripts/lib/validator.mjs";
+import { MANIFEST_PATH, generate, loadBaselineInputs } from "../../scripts/export/legacy-projection.mjs";
+import { buildProjection, digestJson, GENERATOR, indexRecords } from "../../scripts/export/lib/projection.mjs";
+import { collectFixtures } from "../../scripts/export/lib/fixtures.mjs";
+import { loadLegacyNames, nameFixtures } from "../../scripts/export/lib/legacy-map.mjs";
 
-const inputs = loadCanonicalInputs();
-const { projection } = generate();
+const inputs = await loadBaselineInputs();
+const { projection } = generate(inputs);
 const sha = (t) => createHash("sha256").update(t).digest("hex");
 const parsed = (path) => JSON.parse(projection.artifacts.get(path));
 const ix = indexRecords(inputs.records);

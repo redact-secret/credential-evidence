@@ -1,6 +1,9 @@
 // Tests for the taxonomy import (#3).
 //
-// Two groups. The first reads only committed records and always runs. The
+// The records asserted here are the import baseline (tests/historical/baseline-root.mjs, ADR 0015), not the
+// working tree: canonical records added or amended after the import do not change these assertions.
+//
+// Two groups. The first reads only the baseline records and needs no legacy checkout while the tree is unamended. The
 // second compares the records with the pinned legacy revision and runs when a
 // legacy checkout is reachable (LEGACY_BENCHMARKS_DIR or a sibling directory);
 // set REQUIRE_LEGACY=1 to make a missing checkout a failure instead of a skip.
@@ -9,13 +12,15 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { join } from "node:path";
 import { after, before, describe, test } from "node:test";
-import { repoRoot, validateTree } from "../scripts/lib/validator.mjs";
-import { findLegacyDir, LEGACY_REVISION, materializeLegacy, readLegacyJson, LEGACY_PATHS } from "../scripts/migrate/lib/legacy-source.mjs";
-import { buildTaxonomyImport, OWNED_SYSTEM } from "../scripts/migrate/lib/taxonomy-import.mjs";
-import { ownerOf, isProjectOwned } from "../scripts/migrate/lib/sources.mjs";
+import { repoRoot, validateTree } from "../../scripts/lib/validator.mjs";
+import { findLegacyDir, LEGACY_REVISION, materializeLegacy, readLegacyJson, LEGACY_PATHS } from "../../scripts/migrate/lib/legacy-source.mjs";
+import { buildTaxonomyImport, OWNED_SYSTEM } from "../../scripts/migrate/lib/taxonomy-import.mjs";
+import { ownerOf, isProjectOwned } from "../../scripts/migrate/lib/sources.mjs";
 
-const recordsDir = join(repoRoot, "records");
-const { errors, records } = validateTree([recordsDir]);
+import { baseline } from "./baseline-root.mjs";
+
+const base = (await baseline()).root;
+const { errors, records } = validateTree([join(base, "records")], { root: base });
 // Scenarios, cases, fixture plans and fixture sets live beside the taxonomy records; they are covered by migrate-cases.test.mjs.
 // Family narratives and the review histories of narratives (hand-authored, ADR 0010) are covered by narrative.test.mjs.
 const all = records

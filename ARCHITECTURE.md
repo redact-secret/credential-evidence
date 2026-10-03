@@ -176,11 +176,11 @@ The migration proceeds in layers:
 6. cutover
 ```
 
-Status: layers 1 to 5 are done (#2 to #6). Layer 6, the cutover, is not: no downstream consumer has switched (`docs/migration/cutover.md`). Layer 2 imported dossier frontmatter; the dossier prose enters only as reviewed, claim-backed family narratives (ADR 0010, #16), all 173 families (`docs/migration/narrative-report.md`).
+Status: layers 1 to 5 are done (#2 to #6). Layer 6, the cutover, is in progress (#20): `redact-secret-benchmarks` consumes the evidence release `snapshot-2026.10.01.2` as one qualification population and has named the new path as its qualification authority for `@redact-secret/core@0.1.0-beta.12`, with the legacy path kept as its oracle; what is pinned and accepted, and what remains, is in `docs/migration/cutover.md`. Importers, projection and parity check the import baseline at the pin, not the working tree, so canonical changes do not need them (ADR 0015, `docs/migration/validation-split.md`). Layer 2 imported dossier frontmatter; the dossier prose enters only as reviewed, claim-backed family narratives (ADR 0010, #16), all 173 families (`docs/migration/narrative-report.md`).
 
 The cutover moves public, scanner-neutral evidence only. Product-owned regression, policy/behavior, candidate and protected evidence stays with the product and is not a cutover prerequisite (`docs/migration/cutover.md`).
 
-The existing benchmark repository remains authoritative for active product qualification until:
+The existing benchmark repository stays the qualification oracle, and its legacy evidence files stay undeleted and unfrozen, until its own recorded exit condition is met (a further release qualified through both paths, a renewed rollback rehearsal, a caller inventory). The conditions that moved authority were:
 
 - canonical import is complete;
 - compatibility export is deterministic;

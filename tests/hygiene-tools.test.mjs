@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
+import { baselineOwners, classifyTree, serializeAmendments, serializeManifest } from "../scripts/lib/baseline.mjs";
 import { ownerOf } from "../scripts/lib/ownership.mjs";
 import { dueSources, ObserveError, planObservation } from "../scripts/lib/source-observe.mjs";
 import { canonical, normalizeUrl, scanRecords } from "../scripts/lib/tidy-scan.mjs";
@@ -29,18 +31,25 @@ const kinds = (findings) => findings.map((f) => f.kind);
 
 // ---- ownership ----
 
-test("ownership mirrors the migration pipelines", () => {
-  const marked = { externalRefs: [{ system: "legacy-taxonomy-import", id: "x" }] };
-  assert.equal(ownerOf("records/sources/h/a.json", marked), "migrate:taxonomy");
-  assert.equal(ownerOf("records/sources/h/a.json", {}), "authored");
-  assert.equal(ownerOf("records/providers/a.json", marked), "migrate:taxonomy");
-  assert.equal(ownerOf("records/cases/a.json", {}), "migrate:cases");
-  assert.equal(ownerOf("records/scenarios/a.json", {}), "migrate:cases");
-  assert.equal(ownerOf("records/fixtures/a.json", {}), "migrate:cases");
-  assert.equal(ownerOf("migration/legacy-map/a.json", {}), "migrate:cases");
-  assert.equal(ownerOf("records/narratives/p/f.json", {}), "migrate:narratives");
-  assert.equal(ownerOf("records/narrative-reviews/p/f.json", {}), "migrate:narratives");
-  assert.equal(ownerOf("examples/valid/x.json", marked), "authored");
+test("ownership: a baseline path belongs to the importer that produced it, anything else is authored (ADR 0015)", () => {
+  const owners = new Map([
+    ["records/sources/h/a.json", "migrate:taxonomy"],
+    ["records/cases/a.json", "migrate:cases"],
+    ["migration/legacy-map/a.json", "migrate:cases"],
+    ["records/narratives/p/f.json", "migrate:narratives"],
+  ]);
+  assert.equal(ownerOf("records/sources/h/a.json", {}, owners), "migrate:taxonomy");
+  assert.equal(ownerOf("records/cases/a.json", {}, owners), "migrate:cases");
+  assert.equal(ownerOf("migration/legacy-map/a.json", {}, owners), "migrate:cases");
+  assert.equal(ownerOf("records/narratives/p/f.json", {}, owners), "migrate:narratives");
+  // added after the import, even in an importer-written directory: authored, so the importers never claim it
+  assert.equal(ownerOf("records/cases/new-case.json", {}, owners), "authored");
+  assert.equal(ownerOf("records/providers/new.json", { externalRefs: [{ system: "legacy-taxonomy-import", id: "x" }] }, owners), "authored");
+  assert.equal(ownerOf("examples/valid/x.json", {}, owners), "authored");
+  // the real manifest: every entry maps to one of the three importers
+  const real = baselineOwners();
+  assert.ok(real.size > 2000);
+  assert.ok([...real.values()].every((o) => ["migrate:taxonomy", "migrate:cases", "migrate:narratives"].includes(o)));
 });
 
 // ---- tidy scan ----
@@ -69,13 +78,14 @@ test("tidy scan: every finding kind is detected, with its owner", () => {
     entry("records/contracts/acme/api-key@2.json", c2),
     entry("records/narratives/acme/api-key.json", narr),
   ];
-  const f = scanRecords(entries);
+  const owners = new Map([["records/narratives/acme/api-key.json", "migrate:narratives"]]);
+  const f = scanRecords(entries, { owners });
   assert.deepEqual([...new Set(kinds(f))].sort(), ["current-contract-mismatch", "duplicate-citation", "duplicate-claim", "duplicate-source-url", "narrative-contract-mismatch", "non-canonical-format", "stray-whitespace"]);
-  assert.ok(f.every((x) => x.owner === "authored" || x.owner === "migrate:narratives"), "no taxonomy marker on these records");
+  assert.ok(f.every((x) => x.owner === "authored" || x.owner === "migrate:narratives"), "only the narrative is a baseline path here");
   assert.equal(f.find((x) => x.kind === "narrative-contract-mismatch").owner, "migrate:narratives");
   assert.deepEqual(f.map((x) => x.path), [...f.map((x) => x.path)].sort(), "sorted by path");
   assert.deepEqual(scanRecords(entries, { kinds: ["duplicate-claim"] }).map((x) => x.kind), ["duplicate-claim"]);
-  assert.deepEqual(scanRecords(entries, { owner: "migrate:narratives" }).map((x) => x.kind), ["narrative-contract-mismatch"]);
+  assert.deepEqual(scanRecords(entries, { owner: "migrate:narratives", owners }).map((x) => x.kind), ["narrative-contract-mismatch"]);
 });
 
 test("tidy scan: a withdrawn duplicate is the finished state of a merge", () => {
@@ -190,13 +200,20 @@ test("dueSources: unreachable first, then stale, then import-only; cited-by curr
   assert.deepEqual(dueSources(records, { asOf: today, provider: "acme" }).length, 3);
 });
 
-function observeRoot(src, marked = false) {
-  const record = marked ? { ...src, externalRefs: [{ system: "legacy-taxonomy-import", id: "x" }] } : src;
-  return { root: seeded([[`records/sources/docs-example-org/${src.id}.json`, canonical(record)]]), record };
+// `baselined`: the source belongs to the import baseline of the seeded root (a manifest lists it), as an imported source does.
+function observeRoot(src, baselined = false) {
+  const text = canonical(src);
+  const files = [[`records/sources/docs-example-org/${src.id}.json`, text]];
+  if (baselined) {
+    const entry = { path: `records/sources/docs-example-org/${src.id}.json`, sha256: createHash("sha256").update(text).digest("hex"), owner: "migrate:taxonomy" };
+    files.push(["docs/migration/baseline-manifest.json", serializeManifest({ legacy: { repository: "x/y", revision: "0".repeat(40) }, files: [entry] })]);
+    files.push(["docs/migration/baseline-amendments.json", serializeAmendments([])]);
+  }
+  return { root: seeded(files), record: src };
 }
 const observe = (root, args) => spawnSync("node", [observeScript, "--root", root, ...args], { encoding: "utf8" });
 
-test("source:observe CLI appends to an authored source and refuses a generated one", () => {
+test("source:observe CLI appends to a source and declares the amendment when it is an imported one", () => {
   const src = source("docs-example-aaaaaaaaaa", "https://docs.example.org/keys");
   const free = observeRoot(src);
   try {
@@ -215,14 +232,21 @@ test("source:observe CLI appends to an authored source and refuses a generated o
   } finally {
     rmSync(free.root, { recursive: true, force: true });
   }
+  // an imported (baseline) source is appended to like any other, and the edit is declared with the tool's own cause
   const gen = observeRoot(src, true);
   try {
     const r = observe(gen.root, [src.id, "--outcome", "unchanged", "--observer", "bob", "--observed-at", "2026-06-02"]);
-    assert.equal(r.status, 1);
-    assert.match(r.stderr, /generated by migrate:taxonomy/);
-    assert.equal(JSON.parse(readFileSync(join(gen.root, `records/sources/docs-example-org/${src.id}.json`), "utf8")).observations.length, 1);
-    const forced = observe(gen.root, [src.id, "--outcome", "unchanged", "--observer", "bob", "--observed-at", "2026-06-02", "--allow-generated"]);
-    assert.equal(forced.status, 0, forced.stderr);
+    assert.equal(r.status, 0, r.stderr);
+    assert.match(r.stdout, /declared baseline amendment \(edited\)/);
+    assert.equal(JSON.parse(readFileSync(join(gen.root, `records/sources/docs-example-org/${src.id}.json`), "utf8")).observations.length, 2);
+    const ledger = JSON.parse(readFileSync(join(gen.root, "docs/migration/baseline-amendments.json"), "utf8"));
+    assert.equal(ledger.amendments.length, 1);
+    assert.equal(ledger.amendments[0].path, `records/sources/docs-example-org/${src.id}.json`);
+    assert.match(ledger.amendments[0].reason, /source:observe appended a unchanged observation/);
+    assert.equal(classifyTree(gen.root).problems.length, 0, "the declared edit passes baseline:check");
+    const again = observe(gen.root, [src.id, "--outcome", "read", "--observer", "bob", "--observed-at", "2026-06-03"]);
+    assert.equal(again.status, 0, again.stderr);
+    assert.equal(JSON.parse(readFileSync(join(gen.root, "docs/migration/baseline-amendments.json"), "utf8")).amendments.length, 1, "one entry per record");
   } finally {
     rmSync(gen.root, { recursive: true, force: true });
   }

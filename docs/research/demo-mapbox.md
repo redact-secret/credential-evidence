@@ -170,6 +170,13 @@ Skill: author-case   Subject: mapbox:temporary-access-token   Mode: headless   D
 - Fetched content treated as data: yes. Credential-shaped values: none. No value tested live. Scanner output used as evidence: no.
 ```
 
+> **Update (ADR 0015).** The table below records what the pipeline-ownership gate did to these records when it
+> existed. That gate is gone: a new provider, family, case and narrative like these pass `npm run check`,
+> `coverage:gaps:check` and `fixtures:materialize:check`, and the migrate, projection and parity checks regenerate the
+> pinned baseline instead of reading the tree, so they no longer see them
+> ([tests/canonical-change.test.mjs](../../tests/canonical-change.test.mjs) proves it on a synthetic provider). The
+> records stay out of `records/` because they were a demonstration, not because of ownership.
+
 ## Checks in the scratch copy
 
 The scratch copy is the repository at the commit of this change plus the 21 files of
@@ -203,9 +210,9 @@ None of the failures is a defect of the records: each follows from pipeline owne
 
 ## Open questions
 
-- How authored records land while the importers own the directories: scoping the importers, the projection and
-  parity to the imported set, or a separate tree. Until then the research skills produce a valid change set
-  that CI will reject (the skills say so in a landing note).
+- ~~How authored records land while the importers own the directories~~ Decided in ADR 0015: the importers, the
+  projection and parity are scoped to the import baseline (a manifest of paths and digests, regenerated from the pin);
+  authored records land beside it in `records/`.
 - Whether a temporary token in client code is exposed secret material (the Case).
 - Where "which families does this plan list" is decided when a provider is new: the plan lists families
   explicitly.

@@ -9,7 +9,7 @@
 #
 # Safety posture: workflow permissions are read-only; the run job gets a repository-scoped bot token
 # (RESEARCH_BOT_TOKEN: contents rw, pull requests rw, issues rw, metadata r) and nothing else; the model
-# credential exists only in the agent step; the legacy checkout is public and needs no token; the run
+# credential exists only in the agent step; the run needs no legacy checkout (it does not run the historical checks); the run
 # never merges (branch protection stays on); concurrency stops two runs overlapping.
 
 name: Research cron (example, disabled)
@@ -35,10 +35,6 @@ concurrency:
   group: research-cron
   cancel-in-progress: false
 
-env:
-  # Pinned legacy revision (scripts/migrate/lib/legacy-source.mjs LEGACY_REVISION), same as ci.yml.
-  LEGACY_REVISION: 1020d2b5905e8973098235e57c4cdca3359bba57
-
 jobs:
   research:
     runs-on: ubuntu-latest
@@ -49,14 +45,6 @@ jobs:
         with:
           ref: develop           # or main while develop does not exist
           fetch-depth: 0
-          persist-credentials: false
-
-      - name: Checkout pinned legacy repository (read-only input for the ownership checks)
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: redact-secret/redact-secret-benchmarks
-          ref: ${{ env.LEGACY_REVISION }}
-          path: legacy-benchmarks
           persist-credentials: false
 
       - name: Setup Node.js
@@ -94,10 +82,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.RESEARCH_BOT_TOKEN }}          # reaches only the runner's gh/git calls
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}  # reaches only the agent process
-          LEGACY_BENCHMARKS_DIR: ${{ github.workspace }}/legacy-benchmarks
           RESEARCH_AGENT_CMD: >-
             claude -p --permission-mode acceptEdits --max-turns 80
-            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,Bash(npm run record:new:*),Bash(npm run record:check:*),Bash(npm run source:observe:*),Bash(npm run coverage:gaps:*),Bash(npm run tidy:scan:*),Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)"
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebFetch,Bash(npm run record:new:*),Bash(npm run record:check:*),Bash(npm run baseline:amend:*),Bash(npm run source:observe:*),Bash(npm run coverage:gaps:*),Bash(npm run tidy:scan:*),Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)"
         run: |
           set +e
           npm run research:run -- ${{ inputs.kind && format('--kind {0}', inputs.kind) || '' }}

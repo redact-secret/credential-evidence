@@ -1,31 +1,29 @@
 #!/usr/bin/env node
 // npm run migrate:narratives            compile the authored narratives into records/narratives,
-//                                       records/narrative-reviews and docs/migration/narrative-report.md
-// npm run migrate:narratives -- --check compile in memory and diff; exit 1 on any difference
+//                                       records/narrative-reviews and docs/migration/narrative-report.md,
+//                                       and its slice of docs/migration/baseline-manifest.json
+// npm run migrate:narratives -- --check compile in memory and require the baseline manifest to be reproduced
 //
 // Options: --legacy <path>  checkout of redact-secret/redact-secret-benchmarks
 //                           (default: $LEGACY_BENCHMARKS_DIR, then a sibling of this repo or an ancestor)
+//          --only a,b       dry run for some providers: compile and verify citations, write nothing
 //
 // The narratives are authored by hand in scripts/migrate/authored/narratives (ADR 0010); this
 // tool compiles and verifies them. It reads the pinned legacy revision only to account for
 // every dossier in the report (git archive into a temporary directory; nothing is written
-// there) and the committed taxonomy records to resolve citations. The owned directories are
-// written wholesale: a file there that the compiler does not produce is stale.
+// there) and the taxonomy stage's output (in memory: records/ of the working tree is not read)
+// to resolve citations. A historical check (ADR 0015): reviewed edits and new records in the tree
+// do not fail it; `npm run baseline:check` classifies those.
 
-import { mkdirSync, readFileSync, readdirSync, rmSync, rmdirSync, statSync, writeFileSync } from "node:fs";
-import { dirname, join, relative } from "node:path";
-import { findLegacyDir, LEGACY_PATHS, LEGACY_REVISION, materializeLegacy, repoRoot } from "./lib/legacy-source.mjs";
-import { buildNarratives, loadAuthored, loadCanonical, OWNED_DIRS } from "./lib/narrative-build.mjs";
-import { inventoryDossiers, renderNarrativeReport } from "./lib/narrative-report.mjs";
-
-const REPORT = "docs/migration/narrative-report.md";
-const DEFERRED_REASON =
-  "No narrative has been written for a deferred dossier yet. Migration is by review, one family at a time. A deferred dossier stays at its pinned legacy path, its families keep their one-sentence `description`, contract claims and review history, and each is listed below for the next migration pass. Deferral is not a verdict on the dossier's content.";
+import { buildNarrativeFiles, buildTaxonomyFiles } from "./lib/baseline-build.mjs";
+import { checkImporter, writeImporter } from "./lib/importer-io.mjs";
+import { findLegacyDir } from "./lib/legacy-source.mjs";
+import { OWNED_DIRS } from "./lib/narrative-build.mjs";
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
 const oi = args.indexOf("--only");
-const only = oi >= 0 ? args[oi + 1].split(",") : null; // dry run of some providers: compile and verify, write nothing
+const only = oi >= 0 ? args[oi + 1].split(",") : null;
 const li = args.indexOf("--legacy");
 const legacyArg = li >= 0 ? args[li + 1] : undefined;
 for (const a of args) {
@@ -35,107 +33,18 @@ for (const a of args) {
   }
 }
 
-function walkJson(dir, visit) {
-  let names;
-  try {
-    names = readdirSync(dir);
-  } catch (e) {
-    if (e.code === "ENOENT") return;
-    throw e;
-  }
-  for (const name of names.sort()) {
-    const p = join(dir, name);
-    if (statSync(p).isDirectory()) walkJson(p, visit);
-    else if (name.endsWith(".json")) visit(p);
-  }
-}
-
-function pruneEmptyDirs(dir) {
-  let names;
-  try {
-    names = readdirSync(dir);
-  } catch {
-    return;
-  }
-  for (const name of names) {
-    const p = join(dir, name);
-    if (statSync(p).isDirectory()) pruneEmptyDirs(p);
-  }
-  if (!readdirSync(dir).length) rmdirSync(dir);
-}
-
-const canonical = loadCanonical(repoRoot);
-if (!canonical.families.size || !canonical.sources.size) {
-  console.error("taxonomy records are missing; run npm run migrate:taxonomy first (issue #3)");
-  process.exit(2);
-}
-const authored = (await loadAuthored(repoRoot)).filter((a) => !only || only.includes(a.data.provider));
-let built;
+const legacyDir = findLegacyDir(legacyArg);
+let result;
 try {
-  built = buildNarratives({ authored, canonical, legacyRevision: LEGACY_REVISION });
+  result = await buildNarrativeFiles({ legacyDir, taxonomyFiles: buildTaxonomyFiles({ legacyDir }), only });
 } catch (e) {
   console.error(e.message);
   process.exit(1);
 }
-
 if (only) {
-  try {
-    const built = buildNarratives({ authored, canonical, legacyRevision: LEGACY_REVISION });
-    console.log(`OK (dry run): ${built.rows.length} narrative(s) for ${only.join(", ")} compile and every citation resolves`);
-  } catch (e) {
-    console.error(e.message);
-    process.exit(1);
-  }
-  process.exit(0);
-}
-const legacyDir = findLegacyDir(legacyArg);
-const { root, cleanup } = materializeLegacy(legacyDir, LEGACY_REVISION, [LEGACY_PATHS.dossierDir]);
-let inventory;
-try {
-  inventory = inventoryDossiers(root);
-} finally {
-  cleanup();
-}
-const generated = new Map(built.files);
-generated.set(REPORT, renderNarrativeReport({ inventory, rows: built.rows, dropped: built.dropped, legacyRevision: LEGACY_REVISION, deferredReason: DEFERRED_REASON }));
-
-const read = (rel) => {
-  try {
-    return readFileSync(join(repoRoot, rel), "utf8");
-  } catch (e) {
-    if (e.code === "ENOENT") return null;
-    throw e;
-  }
-};
-const missing = [];
-const changed = [];
-for (const [rel, text] of generated) {
-  const cur = read(rel);
-  if (cur === null) missing.push(rel);
-  else if (cur !== text) changed.push(rel);
-}
-const stale = [];
-for (const d of OWNED_DIRS) walkJson(join(repoRoot, d), (p) => {
-  const rel = relative(repoRoot, p);
-  if (!generated.has(rel)) stale.push(rel);
-});
-
-if (check) {
-  const problems = [...missing.map((r) => `missing: ${r}`), ...changed.map((r) => `differs: ${r}`), ...stale.map((r) => `stale: ${r}`)];
-  if (problems.length) {
-    for (const p of problems.slice(0, 25)) console.error(p);
-    if (problems.length > 25) console.error(`... and ${problems.length - 25} more`);
-    console.error(`\nFAIL: authored narratives differ from the tree in ${problems.length} file(s); run npm run migrate:narratives`);
-    process.exit(1);
-  }
-  console.log(`OK: ${generated.size} generated file(s) match the tree (${built.rows.length} narratives over ${inventory.length} dossiers, legacy ${LEGACY_REVISION.slice(0, 12)})`);
+  console.log(`OK (dry run): ${result.built.rows.length} narrative(s) for ${only.join(", ")} compile and every citation resolves`);
+} else if (check) {
+  checkImporter({ owner: "migrate:narratives", command: "migrate:narratives", generated: result.generated, okLine: result.summary });
 } else {
-  for (const rel of [...missing, ...changed]) {
-    const abs = join(repoRoot, rel);
-    mkdirSync(dirname(abs), { recursive: true });
-    writeFileSync(abs, generated.get(rel));
-  }
-  for (const rel of stale) rmSync(join(repoRoot, rel));
-  for (const d of OWNED_DIRS) pruneEmptyDirs(join(repoRoot, d));
-  console.log(`wrote ${missing.length + changed.length} file(s), removed ${stale.length} stale (${built.rows.length} narratives over ${inventory.length} dossiers, legacy ${LEGACY_REVISION.slice(0, 12)})`);
+  writeImporter({ owner: "migrate:narratives", generated: result.generated, ownedDirs: OWNED_DIRS, summary: result.summary });
 }

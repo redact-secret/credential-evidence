@@ -7,11 +7,15 @@
 // Options: --out <dir>  output directory (default dist/legacy-projection; dist/ is gitignored)
 //
 // Only the manifest is committed. The artifacts are derived, large (about 14 MB) and
-// reproducible byte for byte from records/; see docs/decisions/0006.
+// reproducible byte for byte from the import baseline; see docs/decisions/0006 and 0015. The projection
+// is the historical compatibility view: it reads the baseline (the importers' output at the pin), not the
+// working tree, so canonical records added or amended after the import do not enter it. The current evidence
+// snapshot of the whole tree is built by the release bundle (scripts/release/build.mjs).
 
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { repoRoot } from "../lib/validator.mjs";
+import { loadBaselineFiles } from "../migrate/lib/baseline-view.mjs";
 import { buildProjection } from "./lib/projection.mjs";
 import { loadCanonicalInputs } from "./lib/source.mjs";
 
@@ -31,22 +35,34 @@ function walk(dir) {
   return found;
 }
 
-export function generate() {
-  const inputs = loadCanonicalInputs();
+/** Project the given inputs (default: the working tree, which only works while every fixture has a legacy name). */
+export function generate(inputs = loadCanonicalInputs()) {
   return { inputs, projection: buildProjection(inputs) };
 }
 
-function main() {
+/**
+ * The inputs of the historical projection: the import baseline (ADR 0015), not the working tree.
+ * Read from the tree while it still holds every baseline record unchanged, regenerated from the pinned
+ * legacy revision otherwise (then `legacyDir` or LEGACY_BENCHMARKS_DIR is needed).
+ */
+export async function loadBaselineInputs({ legacyDir, regenerate = false } = {}) {
+  const view = await loadBaselineFiles({ legacyDir, regenerate });
+  return Object.assign(loadCanonicalInputs(repoRoot, { baselineFiles: view.files }), { baselineSource: view.source });
+}
+
+async function main() {
   const args = process.argv.slice(2);
   const check = args.includes("--check");
   const oi = args.indexOf("--out");
   const outArg = oi >= 0 ? args[oi + 1] : undefined;
-  for (const a of args) if (!["--check", "--out"].includes(a) && a !== outArg) {
+  const li = args.indexOf("--legacy");
+  const legacyArg = li >= 0 ? args[li + 1] : undefined;
+  for (const a of args) if (!["--check", "--out", "--legacy"].includes(a) && a !== outArg && a !== legacyArg) {
     console.error(`unknown argument: ${a}`);
     process.exit(2);
   }
   const out = resolve(repoRoot, outArg ?? DEFAULT_OUT);
-  const { projection } = generate();
+  const { projection } = generate(await loadBaselineInputs({ legacyDir: legacyArg }));
   const { artifacts, manifestText, manifest } = projection;
   const manifestFile = join(repoRoot, MANIFEST_PATH);
   const committed = existsSync(manifestFile) ? readFileSync(manifestFile, "utf8") : null;
@@ -85,4 +101,9 @@ function main() {
   console.log(`wrote ${artifacts.size} artifact(s) to ${relative(repoRoot, out)} and ${MANIFEST_PATH} (source ${manifest.sourceRevision.digest.slice(0, 12)}, projection ${manifest.projectionDigest.slice(0, 12)})`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main();
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((e) => {
+    console.error(e.message);
+    process.exit(1);
+  });
+}

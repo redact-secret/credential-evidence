@@ -40,7 +40,7 @@
 import { spawnSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { generate } from "../export/legacy-projection.mjs";
+import { generate, loadBaselineInputs } from "../export/legacy-projection.mjs";
 import { canonicalJson } from "../export/lib/projection.mjs";
 import { repoRoot } from "../lib/validator.mjs";
 import { LEGACY_REVISION, loadLegacyDocs, openLegacy } from "../parity/lib/legacy.mjs";
@@ -80,7 +80,7 @@ const run = (cmd, argv, options = {}) => {
 };
 
 // ------------------------------------------------------------ 1. canonical side
-const { projection } = generate();
+const { projection } = generate(await loadBaselineInputs());
 const snapshot = JSON.parse(projection.artifacts.get("credential-eval/corpus-snapshot.json"));
 const idMap = JSON.parse(projection.artifacts.get("credential-eval/legacy-id-map.json"));
 
