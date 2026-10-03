@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "environment-and-test-values-authored",
+  "title": "Environment, lifecycle and test-value fixtures (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "environment-and-test-values-authored--env-assignment-sandbox-comment",
+      "case": "sandbox-mode-secret-key-in-environment-assignment",
+      "path": "env-assignment-sandbox-comment/fixture.txt",
+      "context": "env",
+      "sha256": "41a7a5fbb8609939a497bcb4e8e1d8198ecde742f5e2f569a2487756163b763b",
+      "text": "# Stripe sandbox settings for the checkout service\nSTRIPE_SECRET_KEY=sk_test_SyntheticLifecycleFixture0000001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 109,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "environment-and-test-values-authored--json-config-sandbox-mode",
+      "case": "sandbox-mode-secret-key-in-environment-assignment",
+      "path": "json-config-sandbox-mode/fixture.txt",
+      "context": "json",
+      "sha256": "7d34ec88cf3d5c70dc4aca414ed14b7fcf72daee77721b5073d057d61fcbcc31",
+      "text": "{\n  \"stripe\": {\n    \"mode\": \"sandbox\",\n    \"secret_key\": \"sk_test_SyntheticLifecycleFixture0000002\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 58,
+            "end": 98,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "environment-and-test-values-authored--browser-bundle-publishable",
+      "case": "publishable-test-key-in-client-code",
+      "path": "browser-bundle-publishable/fixture.txt",
+      "context": "source-code",
+      "sha256": "892138fb74002b6e836e45ab3d1df4d6e114d15c202878ddbc18b670671d3069",
+      "text": "// Test mode only. Safe to ship in the browser bundle.\nconst stripe = Stripe(\"pk_test_SyntheticLifecycleFixture0000003\");\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "environment-and-test-values-authored--stripe-rotated-key-note",
+      "case": "stripe-key-replaced-within-rotation-grace-period",
+      "path": "stripe-rotated-key-note/fixture.txt",
+      "context": "env",
+      "sha256": "0ad4efb366893c7829191d992bf21eed7f57a481fcb96ebafe103e1d29c61983",
+      "text": "# Rotated the key today; the old one is kept here until cutover is done\nSTRIPE_SECRET_KEY=sk_test_SyntheticLifecycleFixture0000005\nSTRIPE_SECRET_KEY_NEXT=sk_test_SyntheticLifecycleFixture0000006\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "environment-and-test-values-authored--sts-credentials-past-expiration",
+      "case": "aws-temporary-credentials-with-expiration-field",
+      "path": "sts-credentials-past-expiration/fixture.txt",
+      "context": "json",
+      "sha256": "36f8f3bd6d5703800ebc5a89d864a2dd3b8ba5a8fc8e16411615f53e5637c537",
+      "text": "{\n  \"Credentials\": {\n    \"AccessKeyId\": \"ASIASYNTHETICFIXTURE\",\n    \"SecretAccessKey\": \"SyntheticLifecycleFixtureSecretKey000001\",\n    \"SessionToken\": \"SyntheticSessionTokenForFixtureOnly\",\n    \"Expiration\": \"2020-01-01T00:00:00Z\"\n  }\n}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "environment-and-test-values-authored--installation-token-lifetime-note",
+      "case": "app-installation-token-with-one-hour-lifetime-note",
+      "path": "installation-token-lifetime-note/fixture.txt",
+      "context": "ci-log",
+      "sha256": "8d64b62b7f60a74b6a6c4a231130fc3e8112d1327a58233d0e84ae00fc1f7e75",
+      "text": "Generated installation token ghs_SyntheticLifecycleFixture00000000011 (expires in 1 hour)\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
