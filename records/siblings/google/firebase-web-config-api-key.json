@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "firebase-web-config-api-key",
+  "families": [
+    "google:generic-api-key"
+  ],
+  "siblingClass": "non-secret-companion",
+  "name": "Firebase web app apiKey",
+  "description": "The apiKey of a Firebase web app configuration, an AIza-prefixed Google API key. Firebase documents that API keys restricted to Firebase services only identify the project and app and need not be treated as secrets, while a key used for the Gemini Developer API must never be included in code or configuration files. The two are the same shape, and nothing in the value says which applies. The sibling claim is conditional on the restriction; it does not make every AIza value benign.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "firebase-google-com-afeed4cd2b",
+      "supports": "API keys restricted to Firebase services 'do not need to be treated as secrets' and may be included in code or configuration files, because they only identify the project and app; authorization is handled by IAM, Security Rules and App Check. The same page says a key used for the Gemini Developer API must never be included in code or configuration files.",
+      "locator": "Sections: API keys for Firebase services are not secrets; keys for the Gemini Developer API"
+    },
+    {
+      "sourceId": "docs-cloud-google-com-4b6eb8032c",
+      "supports": "Google Cloud API key example: the page shows an AIza-prefixed key_string as an API key (observed by the earlier family record; not re-read in this change).",
+      "locator": "API key creation and exposure example (key_string)"
+    }
+  ],
+  "observedAt": "2026-10-03",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Class applies to the conditional Firebase statement only; whether a given AIza-shaped value in text is public is unresolved (see the Case). Class applies to the conditional Firebase statement only; whether a given AIza-shaped value in text is public is unresolved (see the Case). Class applies to the conditional Firebase statement only; whether a given AIza-shaped value in text is public is unresolved (see the Case)."
+}
