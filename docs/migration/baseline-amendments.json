@@ -3,5 +3,9 @@
   "formatVersion": 1,
   "note": "One entry per baseline record that a reviewed change edited or removed after the import (ADR 0015). Adding a record needs no entry. Declare with `npm run baseline:amend`; `npm run baseline:check` fails on an undeclared edit or removal and on an entry the tree no longer needs.",
   "amendments": [
+    {"path":"records/fixtures/npm.json","change":"edited","reason":"npm--short-npm evidence entry re-based from project-policy to tool-corroborated on two pinned rule artifacts by different maintainers (evidence review, family npm:granular-access-token)","ref":"#61"},
+    {"path":"records/reviews/npm/granular-access-token.json","change":"edited","reason":"record:new appended a observed event to an imported review history"},
+    {"path":"records/sources/github-blog/github-blog-3201315195.json","change":"edited","reason":"source:observe appended a read observation of 2026-10-03 (the freshness record of an imported source)"},
+    {"path":"records/sources/github-blog/github-blog-802244c4fa.json","change":"edited","reason":"source:observe appended a read observation of 2026-10-03 (the freshness record of an imported source)"}
   ]
 }

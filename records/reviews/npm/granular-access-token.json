@@ -45,6 +45,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'npm-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-checked 2026-09-20 (#46): the same page documents the npm_ prefix (npmx_ is a single-character deviation) and states the delimiter changed from a pre-2021 hyphen to the documented underscore, backing prefix and boundary twins. The page also documents the checksum, but it is not part of this contract's lexical pattern, so a checksum-only mutation still satisfies it and cannot be constructed as a twin here."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 61 (2026-10-03, automation, not independently reviewed). Fixture npm--short-npm: its evidence entry re-based from project-policy to tool-corroborated on two pinned open-source rule artifacts by different maintainers, each consistent with a 36-character body after npm_; worded as consistency. The provider changelog and announcement state prefix, delimiter and a six-character checksum but no total length, so no provider-documented basis. Fixture cross-provider--prefix-only stays project-policy: its expectation spans eight families and only the npm component was reviewed."
     }
   ],
   "externalRefs": [
