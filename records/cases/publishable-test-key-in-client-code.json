@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "publishable-test-key-in-client-code",
+  "title": "Publishable test key in client-side code",
+  "summary": "A synthetic pk_test_ publishable key in front-end JavaScript next to a comment that says it is a test key. The value was authored for this repository and is not an issued key.",
+  "rationale": "Near-neighbor benign twin of the sandbox secret key case: same environment word, same family prefix shape, but the provider documents the publishable type as safe to expose. It keeps a policy that flags sandbox secrets from also flagging the one sandbox type the provider says is public. Mode is not the discriminator; key type is.",
+  "caseTypes": [
+    "benign",
+    "twin"
+  ],
+  "families": [
+    {
+      "family": "stripe:secret-key-test",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "sandbox-or-test-mode-credential-confidentiality"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Stripe's key-type table lists the publishable key (pk_...) as safe to expose and says it can be included in front-end code or applications you distribute. The sandbox form is pk_test_. The fixture is a client-side literal, the use the provider describes.",
+    "sources": [
+      {
+        "sourceId": "docs-stripe-com-3e992d348a",
+        "supports": "Publishable API key pk_... : safe to expose; can be included in front-end code; sandbox publishable keys start with pk_test_.",
+        "locator": "sections 'Key types' and the 'If you're new to Stripe' note"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
