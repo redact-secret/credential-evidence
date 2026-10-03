@@ -73,7 +73,7 @@
         "affiliation": "project-maintainer"
       },
       "verdict": "inconclusive",
-      "note": "Evidence review (2026-10-03, AI agent run, not independently reviewed). All nine fixture expectations re-based to provider-documented: the Key URI format states the secret is required and Base32 per RFC 3548 (seven alphabet twins and the missing secret), and RFC 6238 with RFC 4226 state a shared secret of at least 128 bits (the short secret, a two-document chain)."
+      "note": "Evidence review (2026-10-03, AI agent run, not independently reviewed). Eight fixture expectations re-based to provider-documented: the Key URI format states the secret is required and Base32 per RFC 3548 (seven alphabet twins and the missing secret). The short-secret fixture stays project-policy: a 128-bit minimum for the shared secret is stated by RFC 4226 (HOTP, reached from TOTP through RFC 6238 requirement R3), and those pages are standards-body sources typed standard-or-rfc, which the evidence-class check does not accept as provider-authored, so a maintainer decides whether they count."
     }
   ],
   "externalRefs": [
