@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "uuid-textual-identifier",
+  "families": [
+    "heroku:legacy-api-key"
+  ],
+  "siblingClass": "lookalike",
+  "name": "UUID in its standard textual form",
+  "description": "A 128-bit UUID written in the standard hex-and-dash textual form (8-4-4-4-12 hexadecimal digits). The legacy Heroku API key family is documented as a bare UUID of this form, so the two share a shape. The UUID specification states that UUIDs are not to be assumed hard to guess and must not be used as security capabilities; it does not say that any particular UUID-shaped value is or is not a secret, so the shape alone settles neither reading and the sibling asserts nothing about a given value. Ordinary UUID-shaped identifiers (request, release, application, project ids) are the common benign case.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "rfc-editor-org-886568d8f7",
+      "supports": "The hex-and-dash textual form of a UUID (4hexOctet-2hexOctet-2hexOctet-2hexOctet-6hexOctet), which is the 8-4-4-4-12 shape.",
+      "locator": "#section-4"
+    },
+    {
+      "sourceId": "rfc-editor-org-886568d8f7",
+      "supports": "Implementations SHOULD NOT assume UUIDs are hard to guess and MUST NOT use them as security capabilities (identifiers whose mere possession grants access).",
+      "locator": "#section-8"
+    }
+  ],
+  "observedAt": "2026-10-03",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
