@@ -71,6 +71,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'anthropic-admin01-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#384, product redact-secret#862; research #775). The same T1-prefix, tool-corroborated-body split the registry anthropic-token contract records for sk-ant-api03-: two provider pages document sk-ant-admin01-, and the 93-character body plus a literal AA tail comes from three scanner rules (trufflehog 3.97.4, gitleaks, and betterleaks, which is a gitleaks fork and adds no independent corroboration). No length, alphabet or tail twin is authored on that tool-only field, and the product keeps a deliberate >= 20 byte superset. Admin keys are full-access credentials of the Console organization; the API also accepts OAuth org:admin bearer tokens and other key shapes, so an sk-ant-admin01- match is not the only admin credential. sk-ant-api03- and sk-ant-api01- are different provider classes and back prefix twins."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 41 (2026-10-03, automation, not independently reviewed). Fixture anthropic--anthropic-api01-key-admin01-prefix-twin: evidence entry re-based from project-policy to provider-documented on the provider's key-type tables (sk-ant-admin01- is an Admin API key, a type distinct from the Compliance Access Key sk-ant-api01-); scoped to the Compliance Access Key class, no claim about the Admin API key class's own expectation. Evidence review only; no support-status decision."
     }
   ],
   "externalRefs": [

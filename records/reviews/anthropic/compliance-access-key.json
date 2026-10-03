@@ -71,6 +71,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'anthropic-api01-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#384, product redact-secret#862; research #776). T1 on the prefix only: two provider pages document sk-ant-api01- (compliance-api-access, admin-api-keys). The body is undocumented and no scanner rule exists for this prefix, so nothing here asserts a length, alphabet or AA tail: positives borrow the api03 93-character + AA shape, which the product accepts as a subset of its >= 20 byte run, and no twin is authored on the body. The prefix is the general Claude Enterprise organization key for any scope set; \"Compliance\" describes the scopes chosen at creation, which the value does not show, so a finding must not claim it. sk-ant-api03- and sk-ant-admin01- are different provider classes and back prefix twins."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 42 (2026-10-03, automation, not independently reviewed). 14 fixtures reviewed. Restored to provider-documented: admin01-prefix-twin, api03-prefix-twin (provider key-type tables name those prefixes as distinct key types), prefix-only-near-miss and allowlist-comment-near-miss (provider prose writes the bare prefix as a description). Kept project-policy: 10 fixtures (3 public-identifier, 2 benign-encoded-value digests, body-only, uppercase-prefix, apl-letter, underscore-delimiters, embedded-leading twins) because no provider statement and no two independent pinned artifacts bear on them; no public scanner rule read covers the sk-ant-api01- prefix. Evidence review only; no support-status decision."
     }
   ],
   "externalRefs": [
