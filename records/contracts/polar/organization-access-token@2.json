@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "polar:organization-access-token@2",
+  "family": "polar:organization-access-token",
+  "revision": 2,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": "polar:organization-access-token@1",
+  "structure": {
+    "descriptivePattern": "^polar_oat_[A-Za-z0-9]{43}$"
+  },
+  "claims": [
+    {
+      "id": "field-prefix",
+      "statement": "prefix: polar_oat_",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-polarsource-polar-93c28ec7d0",
+          "supports": "prefix: polar_oat_",
+          "locator": "#L42"
+        }
+      ]
+    },
+    {
+      "id": "field-body-length",
+      "statement": "body-length: exactly 43 characters after the prefix",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-polarsource-polar-87f616c813",
+          "supports": "era 2: 37 + 6; era 1: token_urlsafe() of 32 bytes, 43 unpadded",
+          "locator": "#L11-L32"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: a token glued to an identifier on either side ([A-Za-z0-9_-]) is not claimed (Handoff boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-88442607fe",
+          "supports": "implementation notes"
+        }
+      ]
+    },
+    {
+      "id": "field-checksum",
+      "statement": "checksum: the last 6 body bytes are the CRC32 of the first 37 in base62 (0-9A-Za-z digit order), zero-padded",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-09-29",
+      "sources": [
+        {
+          "sourceId": "github-com-polarsource-polar-87f616c813",
+          "supports": "checksum: the last 6 body bytes are the CRC32 of the first 37 in base62 (0-9A-Za-z digit order), zero-padded",
+          "locator": "#L11-L32"
+        }
+      ]
+    },
+    {
+      "id": "oauth-client-id-confidentiality",
+      "statement": "The confidentiality classification of polar_ci_ OAuth client identifiers is unresolved: the constants declare a client-id prefix without classifying confidentiality, while the OAuth setup documentation directs users to keep both client ID and client secret secret.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-com-polarsource-polar-c196b4faaa",
+          "supports": "Defines CLIENT_ID_PREFIX but does not classify its confidentiality.",
+          "locator": "#L5-L7"
+        },
+        {
+          "sourceId": "polar-sh-d2286ba15d",
+          "supports": "Directs users to keep client ID and client secret secret.",
+          "locator": "Create your client, paragraphs after the client settings"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Proposed scoped replacement for unsupported field-public-and-short-lived-siblings wording in revision 1; other transport, webhook, peer and imported meta-claims are not reasserted. Original revision and currentContract remain unchanged. Existing supported shape claims retain their original observation dates; this proposal does not promote evidence or alter expectations.",
+  "openQuestions": [
+    {
+      "id": "oauth-client-id-confidentiality",
+      "question": "Does Polar classify polar_ci_ client IDs as confidential or public, and how should the setup-page confidentiality warning be reconciled with public-client usage?",
+      "raisedAt": "2026-10-03"
+    },
+    {
+      "id": "token-boundary",
+      "question": "What scanner-neutral expectation applies when a complete token is adjacent to extra identifier characters? A provider statement or explicit reviewed project policy is needed.",
+      "raisedAt": "2026-10-03"
+    }
+  ]
+}
