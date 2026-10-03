@@ -336,6 +336,12 @@ export function checkIntegrity(entries) {
           const planOfCell = item.cell ? get("fixture-plan", item.cell.plan) : undefined;
           for (const problem of checkItemRepresentation(item, bytes, { set: r, itemById, bytesOf: (i) => contentBytes(i, baseBytes), plan: planOfCell })) err(path, `${where}: ${problem}`);
           if (item.candidateReading) {
+            // A candidate remains non-asserting, but its representation metadata is a
+            // factual claim: re-derive it with the same rules as expected spans.
+            const candidate = { ...item, expected: { ...item.expected, spans: item.candidateReading.spans } };
+            for (const problem of checkItemRepresentation(candidate, bytes, { set: r, itemById, bytesOf: (i) => contentBytes(i, baseBytes), plan: planOfCell })) {
+              err(path, `${where}: candidateReading: ${problem.replaceAll("expected.spans", "candidateReading.spans")}`);
+            }
             let previousEnd = 0;
             for (const [i, s] of item.candidateReading.spans.entries()) {
               if (s.end <= s.start) err(path, `${where}: candidateReading.spans[${i}] end must be greater than start`);
