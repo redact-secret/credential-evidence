@@ -7,6 +7,10 @@
 // lint, the baseline check, fixture materialization, the coverage report and the release snapshot. None of
 // them needs the legacy checkout. Before the split, either change failed migrate:*:check, export:legacy:check,
 // parity:check and the tests that assert the imported set.
+//
+// Hermetic against the live ledger (#86): the copy carries the live amendments, so each test edits a record the live tree
+// still holds unchanged (untouchedRecord) and derives its counts from the live tree, not from the imported set's size at
+// the pin. The release-snapshot-equals-projection test needs the baseline itself and moved to tests/historical/amended-tree.
 
 import assert from "node:assert/strict";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -14,8 +18,7 @@ import { join } from "node:path";
 import test from "node:test";
 import { buildSnapshot } from "../scripts/export/lib/projection.mjs";
 import { loadCanonicalInputs } from "../scripts/export/lib/source.mjs";
-import { loadManifest } from "../scripts/lib/baseline.mjs";
-import { authorNewProvider, copyRepo } from "./repo-copy.mjs";
+import { authorNewProvider, copyRepo, liveCounts, untouchedRecord, untouchedRecords } from "./repo-copy.mjs";
 
 const DATE = "2026-10-03";
 
@@ -43,12 +46,14 @@ function ordinaryGate(c) {
 
 const write = (c, rel, record) => writeFileSync(join(c.root, rel), `${JSON.stringify(record, null, 2)}\n`);
 const read = (c, rel) => JSON.parse(readFileSync(join(c.root, rel), "utf8"));
+/** How many fixtures the live tree materializes: the baseline's 5,950 plus whatever reviewed changes added. */
+const liveFixtureCount = () => buildSnapshot(loadCanonicalInputs()).fixtures;
 
 test("(a) an authored edit to a migrated record passes the ordinary gate once it is declared", () => {
   const c = copyRepo();
   try {
-    const manifest = loadManifest();
-    const path = manifest.files.find((f) => f.path.startsWith("records/families/")).path;
+    const path = untouchedRecord("records/families/");
+    const before = liveFixtureCount();
     const rec = read(c, path);
     rec.description = `${rec.description} Re-read against the vendor documentation.`;
     write(c, path, rec);
@@ -64,8 +69,8 @@ test("(a) an authored edit to a migrated record passes the ordinary gate once it
 
     // the release snapshot is built from the amended tree, with every fixture and no legacy name
     const { snapshot, fixtures } = buildSnapshot(loadCanonicalInputs(c.root));
-    assert.equal(fixtures, 5950);
-    assert.equal(snapshot.cases.length, 5950);
+    assert.equal(fixtures, before);
+    assert.equal(snapshot.cases.length, before);
   } finally {
     c.cleanup();
   }
@@ -74,8 +79,7 @@ test("(a) an authored edit to a migrated record passes the ordinary gate once it
 test("(a) the freshness tool appends an observation to an imported source and declares its own amendment", () => {
   const c = copyRepo();
   try {
-    const manifest = loadManifest();
-    const src = manifest.files.find((f) => f.path.startsWith("records/sources/")).path;
+    const src = untouchedRecord("records/sources/");
     const id = read(c, src).id;
     const r = c.run("source-observe.mjs", [id, "--outcome", "unchanged", "--observer", "test-agent", "--observed-at", DATE]);
     assert.equal(r.status, 0, r.stderr);
@@ -89,26 +93,28 @@ test("(a) the freshness tool appends an observation to an imported source and de
 test("(b) a brand-new provider, family, source, scenario, case and fixture pass the ordinary gate with no amendment", () => {
   const c = copyRepo();
   try {
+    const before = liveFixtureCount();
+    const live = liveCounts();
     const { value } = authorNewProvider(c);
     assert.deepEqual(ordinaryGate(c), []);
 
     const base = c.run("baseline.mjs", ["check", "--list"]);
     assert.equal(base.status, 0, base.stderr);
-    assert.match(base.stdout, /0 edited, 0 removed \(all declared\); \d+ post-import file\(s\) added/);
+    assert.match(base.stdout, new RegExp(`${live.edited} edited, ${live.removed} removed \\(all declared\\); \\d+ post-import file\\(s\\) added`));
     for (const p of ["records/providers/synthvendor.json", "records/families/synthvendor/api-key.json", "records/scenarios/synth-key-in-quoted-env.json", "records/cases/synth-key-in-env-line.json", "records/fixtures/synthvendor-authored.json"]) assert.match(base.stdout, new RegExp(`added: ${p.replaceAll(".", "\\.")}`));
 
     // the fixture is materialized and in the release snapshot; the snapshot is deterministic
     const mat = c.run("materialize-fixtures.mjs", ["--check"]);
-    assert.match(mat.stdout, /5951 fixture\(s\)/);
+    assert.match(mat.stdout, new RegExp(`${before + 1} fixture\\(s\\)`));
     const inputs = loadCanonicalInputs(c.root);
     const first = buildSnapshot(inputs);
-    assert.equal(first.fixtures, 5951);
+    assert.equal(first.fixtures, before + 1);
     assert.ok(first.snapshot.cases.some((x) => x.id === "synthvendor-authored--env-line" && x.content.includes(value)));
     assert.equal(buildSnapshot(loadCanonicalInputs(c.root)).text, first.text);
     assert.equal(first.snapshot.cases.find((x) => x.id === "synthvendor-authored--env-line").grouping.family, "synthvendor:api-key");
 
     // an amended and an added record together
-    const path = loadManifest().files.find((f) => f.path.startsWith("records/families/")).path;
+    const path = untouchedRecord("records/families/");
     const rec = read(c, path);
     rec.description = `${rec.description} Edited together with the new provider.`;
     write(c, path, rec);
@@ -122,19 +128,13 @@ test("(b) a brand-new provider, family, source, scenario, case and fixture pass 
 test("(a) appending an event to an imported review history declares its own amendment and passes the ordinary gate", () => {
   const c = copyRepo();
   try {
-    const r = c.run("record-new.mjs", ["review", "family:aws:iam-user-access-key", "--append", "--event", "observed", "--verdict", "inconclusive", "--actor", "test-agent", "--role", "automation", "--note", "Re-read the documentation; nothing changed.", "--date", DATE]);
+    // an imported review history the live ledger does not already declare, whatever its subject
+    const history = untouchedRecords("records/reviews/").map((p) => read(c, p)).find((r) => r.kind === "evidence-review-history" && ["family", "case", "scenario", "variant", "benign-sibling", "format-contract"].includes(r.subject.kind));
+    const r = c.run("record-new.mjs", ["review", `${history.subject.kind}:${history.subject.id}`, "--append", "--event", "observed", "--verdict", "inconclusive", "--actor", "test-agent", "--role", "automation", "--note", "Re-read the documentation; nothing changed.", "--date", DATE]);
     assert.equal(r.status, 0, r.stderr);
     assert.match(r.stdout, /declared baseline amendment \(edited\)/);
     assert.deepEqual(ordinaryGate(c), []);
   } finally {
     c.cleanup();
   }
-});
-
-test("(b) the release snapshot of the baseline equals the legacy projection's snapshot: one definition, two callers", async () => {
-  // the baseline tree (unamended here) projects the same credential-eval document the release bundle ships
-  const { generate, loadBaselineInputs } = await import("../scripts/export/legacy-projection.mjs");
-  const inputs = await loadBaselineInputs();
-  const { projection } = generate(inputs);
-  assert.equal(buildSnapshot(inputs).text, projection.artifacts.get("credential-eval/corpus-snapshot.json"));
 });

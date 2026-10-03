@@ -3,12 +3,18 @@
 // linked. Every script derives its repository root from its own location, so running a script from the copy
 // checks the copy: a test can add or amend records there and run the real gates over the result without
 // touching the repository or committing demo records (ADR 0015).
+//
+// The copy is a faithful copy of the live tree, including whatever baseline amendments the tree declares: a test that
+// needs "an unamended record" picks one with `untouchedRecord`, and a test that needs the pristine baseline itself
+// (historical tier, legacy checkout available) uses `copyBaseline`. Neither assumes an empty amendments ledger (#86).
 
 import assert from "node:assert/strict";
 import { cpSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { classifyTree } from "../scripts/lib/baseline.mjs";
 import { loadIndex } from "../scripts/lib/scaffold.mjs";
 import { repoRoot } from "../scripts/lib/validator.mjs";
 
@@ -18,13 +24,44 @@ const read = (c, rel) => JSON.parse(readFileSync(join(c.root, rel), "utf8"));
 
 const COPIED = ["scripts", "schemas", "examples", "records", "migration", "docs/migration", "docs/research", "package.json"];
 
+/**
+ * The node_modules directory the repository's own code resolves its dependencies from. A worktree has none of its own
+ * until `npm ci` runs in it, yet may resolve ajv from the main checkout further up the directory tree; a temp copy under
+ * tmpdir() cannot, so it is linked to the directory that really holds them. With no install anywhere: a clear error
+ * instead of ERR_MODULE_NOT_FOUND from deep inside a child process.
+ */
+export function installedModulesDir() {
+  try {
+    return dirname(dirname(createRequire(join(repoRoot, "package.json")).resolve("ajv/package.json")));
+  } catch {
+    throw new Error(`dependencies are not installed: ajv does not resolve from ${repoRoot}. Run \`npm ci --ignore-scripts\` in this checkout first (a worktree does not share node_modules with the main checkout).`);
+  }
+}
+
 export function copyRepo() {
+  const modules = installedModulesDir();
   const root = mkdtempSync(join(tmpdir(), "ce-copy-"));
   for (const p of COPIED) cpSync(join(repoRoot, p), join(root, p), { recursive: true });
-  symlinkSync(join(repoRoot, "node_modules"), join(root, "node_modules"));
+  symlinkSync(modules, join(root, "node_modules"));
   /** Run `node scripts/<script> ...args` in the copy. */
   const run = (script, args = [], env = {}) => spawnSync(process.execPath, [join(root, "scripts", script), ...args], { cwd: root, encoding: "utf8", env: { ...process.env, ...env }, maxBuffer: 1 << 28 });
   return { root, run, cleanup: () => rmSync(root, { recursive: true, force: true }) };
+}
+
+const live = classifyTree();
+const untouched = new Set(live.unchanged);
+
+/** The live tree's baseline classification in numbers, for expectations that must hold whatever the ledger declares. */
+export const liveCounts = () => ({ edited: live.edited.length, removed: live.removed.length, added: live.added.length });
+
+/** Baseline paths under `prefix` that the live tree holds byte for byte (so declared nowhere), in manifest order. */
+export const untouchedRecords = (prefix) => live.manifest.files.map((f) => f.path).filter((p) => p.startsWith(prefix) && untouched.has(p));
+
+/** The first such path: a record a test may edit or remove in a copy and expect "undeclared" until it declares it. */
+export function untouchedRecord(prefix) {
+  const [path] = untouchedRecords(prefix);
+  if (!path) throw new Error(`no unamended baseline record under ${prefix}: every one is declared in the live ledger`);
+  return path;
 }
 
 /** Author a synthetic provider, family, source, scenario, case and fixture the way the research skills do (record:new, then write the fields). */
