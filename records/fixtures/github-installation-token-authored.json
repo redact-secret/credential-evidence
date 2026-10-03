@@ -62,19 +62,19 @@
     },
     "ev-policy-near-miss": {
       "basis": "project-policy",
-      "rationale": "Below both the provider's documented minimum of 36 characters after the prefix and the 40-character total, so not a token of the documented grammar. A project decision pending a maintainer and an independent reviewer; not a provider rule.",
+      "rationale": "Below both the provider's documented minimum of 36 characters after the prefix and the 40-character total, so not a token of the documented grammar. A project decision pending a maintainer and a reviewer who is not the author; not a provider rule.",
       "sources": [],
       "observedAt": "2026-10-03"
     },
     "ev-policy-prose": {
       "basis": "project-policy",
-      "rationale": "Text that names the notation or the header holds no credential value. A project decision pending a maintainer and an independent reviewer; not a provider rule.",
+      "rationale": "Text that names the notation or the header holds no credential value. A project decision pending a maintainer and a reviewer who is not the author; not a provider rule.",
       "sources": [],
       "observedAt": "2026-10-03"
     },
     "ev-policy-ids": {
       "basis": "project-policy",
-      "rationale": "Numeric app and installation identifiers are not credentials. A project decision pending a maintainer and an independent reviewer; the provider sources read here do not classify them.",
+      "rationale": "Numeric app and installation identifiers are not credentials. A project decision pending a maintainer and a reviewer who is not the author; the provider sources read here do not classify them.",
       "sources": [],
       "observedAt": "2026-10-03"
     },
@@ -98,8 +98,8 @@
       "path": "base-stateless-a/base-stateless-a.txt",
       "context": "bare",
       "evidence": "ev-stateless-shape",
-      "sha256": "45d7b2d1aafc942ef8756b4c8c889dd4412954f5091445d1c474b8b256905ac8",
-      "text": "ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.S42aTUCv_8unhh4t0ozeVD21GqAduj76h6FozoB2bNI",
+      "sha256": "4f06abea5542dd13ae49fc8b3e759b979f3e5cd1b5ca46e38c71c5823c9d97e6",
+      "text": "ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -117,8 +117,8 @@
       "path": "base-stateless-b/base-stateless-b.txt",
       "context": "bare",
       "evidence": "ev-stateless-shape",
-      "sha256": "9a05aa3174ca4dfddb886e3dacce3e0613c0f28087d08e1aed7ecbcc175e760b",
-      "text": "ghs_0000002_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6Ij8_Pj4_Pz4-fn54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.OLLmRvys5gsQlhZzKoZDIXR7NSIOOHjiVy3MLGmepKI",
+      "sha256": "51f5ea0d82455e3e4c6fa1b069f04bd91dcfba55a783739c83561375dc3dfdd7",
+      "text": "ghs_0000002_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6Ij8_Pj4_Pz4-fn54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedOLLmRvys5gsQlhZzKoZDIXR",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -136,8 +136,8 @@
       "path": "base-opaque/base-opaque.txt",
       "context": "bare",
       "evidence": "ev-opaque-shape",
-      "sha256": "bcab2b2b58ebdd74f4a6baf14a2bf970decfdd4d88c3de0d32a37947835c2468",
-      "text": "ghs_7qpFvny9ojZdyWmwZWlURBBwBCBBQoE1hOPC",
+      "sha256": "1f5287a7e9c409e6347724047d7c14498b0c68613b562e179233d4e0ce423390",
+      "text": "ghs_SYNTHETICneverissued0000000000000000",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -155,8 +155,8 @@
       "path": "base-no-app-id/base-no-app-id.txt",
       "context": "bare",
       "evidence": "ev-open-grammar",
-      "sha256": "4f7e634c2e5b2b69a0a30a37a45ee5e29e5cd35a914809b9ec65dcc2d1fa8b1a",
-      "text": "ghs_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.g-GLPufKFaTp28fnGovBRZcABgmYFfryycCJIkwIMyY",
+      "sha256": "554641e72266073daa2ee0ecfca8a50317011a11e28dfd1751826f2844e8af44",
+      "text": "ghs_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedg-GLPufKFaTp28fnGovBRZc",
       "expected": {
         "outcome": "not-assertable",
         "spans": []
@@ -205,8 +205,8 @@
       "path": "base-unprefixed-jwt/base-unprefixed-jwt.txt",
       "context": "bare",
       "evidence": "ev-open-attribution",
-      "sha256": "4fac494da546e8c667c7606da5bf3e19ffe2c5328ffcac37a8cf18328d899b49",
-      "text": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImEifQ.38rcE-AEr9Lunz0JfvNgbrhSvv4eAYepBb6vKdLAmNQ",
+      "sha256": "6024ba035dd6c3f98f81f456ec91df46620f26e48e0162e679e56578594ea0aa",
+      "text": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImEifQ.SYNTHETICneverissued38rcE-AEr9Lunz0JfvNgbrh",
       "expected": {
         "outcome": "not-assertable",
         "spans": []
@@ -262,8 +262,8 @@
       },
       "context": "bare",
       "evidence": "ev-policy-near-miss",
-      "sha256": "2341d877ecee80a51892c6fba5756269db7598bdc1754bb192137861a4777072",
-      "text": "ghs_7qpFvny9ojZdyWmwZWlURBBwBCBBQoE1hOP",
+      "sha256": "05731ad106510d3ade7631236241dc08cc8b7652d28017c3f1b03065c55e3bc5",
+      "text": "ghs_SYNTHETICneverissued000000000000000",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -281,8 +281,8 @@
       },
       "context": "json",
       "evidence": "ev-stateless-shape",
-      "sha256": "396bc76cd7be54851a2cafafae55effde090ea5d64f6633c4ec08011ab5141f0",
-      "text": "{\"token\":\"ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.S42aTUCv_8unhh4t0ozeVD21GqAduj76h6FozoB2bNI\",\"expires_at\":\"2026-10-03T12:00:00Z\",\"permissions\":{\"contents\":\"read\"}}\n",
+      "sha256": "c6ee5e389997c2ec7e531df556a3dd44f7b54d49c1509e3c51a8f47141750344",
+      "text": "{\"token\":\"ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2\",\"expires_at\":\"2026-10-03T12:00:00Z\",\"permissions\":{\"contents\":\"read\"}}\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -306,8 +306,8 @@
       },
       "context": "authorization",
       "evidence": "ev-stateless-shape",
-      "sha256": "0011e2f89fed14f0b64b4b8a47c54ce857d7fb24a5fd8fc937da1b6c1447e698",
-      "text": "Authorization: Bearer ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.S42aTUCv_8unhh4t0ozeVD21GqAduj76h6FozoB2bNI\n",
+      "sha256": "dbfee550584e230e67a49e2d9adc3fe17f3f005a4bbf8b961a351ec3370751c5",
+      "text": "Authorization: Bearer ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -331,8 +331,8 @@
       },
       "context": "git-url",
       "evidence": "ev-stateless-shape",
-      "sha256": "4fb89f07f72e85a6140d993cf09c038e76aecd39ea0358ed59551a6ae8ce5538",
-      "text": "git clone https://x-access-token:ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.S42aTUCv_8unhh4t0ozeVD21GqAduj76h6FozoB2bNI@github.example.invalid/example-org/example-repo.git\n",
+      "sha256": "6b9628b2c753e9e50eac789803faa4ce6cbbc2f0eb70c42527369a5c432dd080",
+      "text": "git clone https://x-access-token:ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2@github.example.invalid/example-org/example-repo.git\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -356,8 +356,8 @@
       },
       "context": "korean-emoji",
       "evidence": "ev-stateless-shape",
-      "sha256": "51d179cb06f5deea2fa6f0bc4967922fac08fc8bd3830ea3b7e1fa8a4627c9e3",
-      "text": "🔑 설치 토큰: ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.S42aTUCv_8unhh4t0ozeVD21GqAduj76h6FozoB2bNI (테스트용)\n",
+      "sha256": "6f6595e9d2ca224d128aec51843558de251b9bed74097295192f4f974efbab88",
+      "text": "🔑 설치 토큰: ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2 (테스트용)\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -381,8 +381,8 @@
       },
       "context": "crlf",
       "evidence": "ev-stateless-shape",
-      "sha256": "1a8572e4a852fe07372995662e689bd42440b75a0bcfc9c1ceff391c8f173d83",
-      "text": "# Windows line endings\r\nGITHUB_TOKEN=ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.S42aTUCv_8unhh4t0ozeVD21GqAduj76h6FozoB2bNI\r\n",
+      "sha256": "07e442f3e64309b37ba30c0b7538c35eb36659dd14b732b9331bcee0a6fc14da",
+      "text": "# Windows line endings\r\nGITHUB_TOKEN=ghs_0000001_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6ImF4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedS42aTUCv_8unhh4t0ozeVD2\r\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -406,8 +406,8 @@
       },
       "context": "env",
       "evidence": "ev-stateless-shape",
-      "sha256": "ee6661bee623df5fb856bb089155050c0ac40f3671c7d3c9e70d35408b22eb9a",
-      "text": "GITHUB_TOKEN=ghs_0000002_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6Ij8_Pj4_Pz4-fn54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.OLLmRvys5gsQlhZzKoZDIXR7NSIOOHjiVy3MLGmepKI\n",
+      "sha256": "d046787b60c0e362a48f2ce6742953b1c8d03baf18044bea74703872f8a86851",
+      "text": "GITHUB_TOKEN=ghs_0000002_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub3RlIjoic3ludGhldGljIG5ldmVyIGlzc3VlZCBjcmVkZW50aWFsLWV2aWRlbmNlIGZpeHR1cmUiLCJleHAiOjEsInBhZCI6Ij8_Pj4_Pz4-fn54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4In0.SYNTHETICneverissuedOLLmRvys5gsQlhZzKoZDIXR\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -431,8 +431,8 @@
       },
       "context": "env",
       "evidence": "ev-opaque-shape",
-      "sha256": "f1bbcb7f226bde0e115c69510651035a1b571a02554156c65303b67c9b8ffa78",
-      "text": "GITHUB_TOKEN=ghs_7qpFvny9ojZdyWmwZWlURBBwBCBBQoE1hOPC\n",
+      "sha256": "366fe1b8b87d6bbca232a7de8594e77c0595bbc585cc038b20a16c5f982c04d1",
+      "text": "GITHUB_TOKEN=ghs_SYNTHETICneverissued0000000000000000\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -456,8 +456,8 @@
       },
       "context": "json",
       "evidence": "ev-opaque-shape",
-      "sha256": "8be702691257773e6928fb4e6b391156784c8f9d812fe6d4c71d7e0c176971ec",
-      "text": "{\"token\":\"ghs_7qpFvny9ojZdyWmwZWlURBBwBCBBQoE1hOPC\",\"expires_at\":\"2026-10-03T12:00:00Z\",\"permissions\":{\"contents\":\"read\"}}\n",
+      "sha256": "dc88fc89238f0f3ceda6965333b5e7a33eb2794877bc99058b984a90bfba0447",
+      "text": "{\"token\":\"ghs_SYNTHETICneverissued0000000000000000\",\"expires_at\":\"2026-10-03T12:00:00Z\",\"permissions\":{\"contents\":\"read\"}}\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -481,8 +481,8 @@
       },
       "context": "crlf",
       "evidence": "ev-opaque-shape",
-      "sha256": "37e532b6d8f7551492cdd93b3cbf7719ffa5e0d96ce07a3a1c41eefeee2ddaff",
-      "text": "# Windows line endings\r\nGITHUB_TOKEN=ghs_7qpFvny9ojZdyWmwZWlURBBwBCBBQoE1hOPC\r\n",
+      "sha256": "8ef012f154dc0d47256358cb6a12d27ce2e0a2f6659b2f2ce00b1b252cb717bb",
+      "text": "# Windows line endings\r\nGITHUB_TOKEN=ghs_SYNTHETICneverissued0000000000000000\r\n",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -496,5 +496,5 @@
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored; every credential-shaped value is synthetic and was never issued or tested against any service. Stateless tokens: ghs_ + a 7-digit placeholder app id (0000001, 0000002; absent in one base) + _ + a JWT whose header is the standard HS256 header, whose payload is JSON with the note 'synthetic never issued credential-evidence fixture' and a filler field, and whose third segment is the base64url SHA-256 of 'credential-evidence:synthetic-never-issued:<label>', which is no signature any GitHub issuer produced. Opaque tokens: ghs_ + 36 base62 characters taken from the SHA-256 of a fixed label. Context projections (json, authorization, git-url, korean-emoji, crlf, env) were produced by a one-off deterministic template script kept out of the repository, then reviewed and committed as authored fixtures; they are not a generation-rule set. Not-assertable fixtures carry no expectation; the candidateReading on the app-id-less base proposes nothing a consumer may score. Verification must remain disabled."
+  "notes": "Project-authored; every credential-shaped value is synthetic and was never issued or tested against any service. Stateless tokens: ghs_ + a 7-digit placeholder app id (0000001, 0000002; absent in one base) + _ + a JWT whose header is the standard HS256 header, whose payload is JSON with the note 'synthetic never issued credential-evidence fixture' and a filler field, and whose third segment is the marker SYNTHETICneverissued plus 23 characters of the base64url SHA-256 of 'credential-evidence:synthetic-never-issued:<label>', which is no signature any GitHub issuer produced. Opaque tokens: ghs_ + the 36 characters SYNTHETICneverissued followed by sixteen zeros. The third JWT segment starts with the marker SYNTHETICneverissued. Context projections (json, authorization, git-url, korean-emoji, crlf, env) were produced by a one-off deterministic template script kept out of the repository, then reviewed and committed as authored fixtures; they are not a generation-rule set. Not-assertable fixtures carry no expectation; the candidateReading on the app-id-less base proposes nothing a consumer may score. Verification must remain disabled."
 }
