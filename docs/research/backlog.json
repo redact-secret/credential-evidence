@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "kind": "coverage-backlog",
   "rulesVersion": 1,
-  "asOf": "2026-09-30",
+  "asOf": "2026-10-03",
   "staleAfterMonths": 12,
   "totals": {
     "providers": 93,
     "families": 173,
     "scenarios": 29,
-    "items": 465,
+    "items": 468,
     "byPriority": {
       "P0": 1,
-      "P1": 12,
+      "P1": 15,
       "P2": 404,
       "P3": 48
     },
@@ -22,13 +22,14 @@
       "narrative-unresolved-heavy": 111,
       "new-provider": 24,
       "no-provider-source": 1,
-      "observation-unverified": 155
+      "observation-unverified": 155,
+      "source-unreachable": 3
     },
     "bySuggestedSkill": {
       "author-case": 10,
       "research-family": 276,
       "research-provider": 24,
-      "source-freshness": 155
+      "source-freshness": 158
     },
     "wishlistAlreadyRecorded": []
   },
@@ -121,6 +122,90 @@
         "key": "contract-missing:stripe:organization-api-key",
         "branchHint": "coverage/contract-missing/stripe-organization-api-key",
         "prTitleTag": "[coverage:contract-missing:stripe:organization-api-key]"
+      }
+    },
+    {
+      "id": "source-unreachable:vercel:app-access-token",
+      "gapKind": "source-unreachable",
+      "scope": {
+        "kind": "family",
+        "id": "vercel:app-access-token",
+        "provider": "vercel"
+      },
+      "priority": "P1",
+      "score": 85,
+      "suggestedSkill": "source-freshness",
+      "suggestedInput": "vercel:app-access-token",
+      "rationale": [
+        "+75 gap-kind: the last observation of a cited source found it unreachable, changed or superseded",
+        "+10 in-use: a Case or fixture plan already involves this family"
+      ],
+      "facts": {
+        "sources": [
+          "vercel-com-8ba2d5b3b4 (changed)"
+        ]
+      },
+      "blockedBy": null,
+      "dedupe": {
+        "key": "source-unreachable:vercel:app-access-token",
+        "branchHint": "coverage/source-unreachable/vercel-app-access-token",
+        "prTitleTag": "[coverage:source-unreachable:vercel:app-access-token]"
+      }
+    },
+    {
+      "id": "source-unreachable:vercel:app-refresh-token",
+      "gapKind": "source-unreachable",
+      "scope": {
+        "kind": "family",
+        "id": "vercel:app-refresh-token",
+        "provider": "vercel"
+      },
+      "priority": "P1",
+      "score": 85,
+      "suggestedSkill": "source-freshness",
+      "suggestedInput": "vercel:app-refresh-token",
+      "rationale": [
+        "+75 gap-kind: the last observation of a cited source found it unreachable, changed or superseded",
+        "+10 in-use: a Case or fixture plan already involves this family"
+      ],
+      "facts": {
+        "sources": [
+          "vercel-com-8ba2d5b3b4 (changed)"
+        ]
+      },
+      "blockedBy": null,
+      "dedupe": {
+        "key": "source-unreachable:vercel:app-refresh-token",
+        "branchHint": "coverage/source-unreachable/vercel-app-refresh-token",
+        "prTitleTag": "[coverage:source-unreachable:vercel:app-refresh-token]"
+      }
+    },
+    {
+      "id": "source-unreachable:vercel:personal-access-token",
+      "gapKind": "source-unreachable",
+      "scope": {
+        "kind": "family",
+        "id": "vercel:personal-access-token",
+        "provider": "vercel"
+      },
+      "priority": "P1",
+      "score": 85,
+      "suggestedSkill": "source-freshness",
+      "suggestedInput": "vercel:personal-access-token",
+      "rationale": [
+        "+75 gap-kind: the last observation of a cited source found it unreachable, changed or superseded",
+        "+10 in-use: a Case or fixture plan already involves this family"
+      ],
+      "facts": {
+        "sources": [
+          "vercel-com-8ba2d5b3b4 (changed)"
+        ]
+      },
+      "blockedBy": null,
+      "dedupe": {
+        "key": "source-unreachable:vercel:personal-access-token",
+        "branchHint": "coverage/source-unreachable/vercel-personal-access-token",
+        "prTitleTag": "[coverage:source-unreachable:vercel:personal-access-token]"
       }
     },
     {
@@ -11138,7 +11223,7 @@
       ],
       "facts": {
         "contract": "vercel:app-access-token@1",
-        "importOnlySources": 24,
+        "importOnlySources": 18,
         "citedSources": 24
       },
       "blockedBy": null,
@@ -11166,7 +11251,7 @@
       ],
       "facts": {
         "contract": "vercel:app-refresh-token@1",
-        "importOnlySources": 23,
+        "importOnlySources": 17,
         "citedSources": 23
       },
       "blockedBy": null,
@@ -11194,7 +11279,7 @@
       ],
       "facts": {
         "contract": "vercel:personal-access-token@1",
-        "importOnlySources": 27,
+        "importOnlySources": 21,
         "citedSources": 27
       },
       "blockedBy": null,
