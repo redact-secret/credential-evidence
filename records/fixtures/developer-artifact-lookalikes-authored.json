@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "developer-artifact-lookalikes-authored",
+  "title": "Developer-artifact lookalikes and neighbours (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "developer-artifact-lookalikes-authored--oci-image-reference-pinned-by-digest",
+      "case": "content-digest-references-in-build-and-package-metadata",
+      "path": "oci-image-reference-pinned-by-digest/fixture.txt",
+      "sha256": "58b84a17ca8ee66b79db7f72fa9c0b2539e9d6f9d32cf87304e91ee29d5a7b98",
+      "text": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: storefront\nspec:\n  template:\n    spec:\n      containers:\n        - name: api\n          image: registry.example.invalid/shop/api@sha256:f0b76ca083e2b5840d7464ed1b79fd68b2e681645208a9ade04d468ac0cbbb26\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--sri-script-tag-sha384",
+      "case": "content-digest-references-in-build-and-package-metadata",
+      "path": "sri-script-tag-sha384/fixture.txt",
+      "sha256": "7fa6984bb72ee80bd8f95f46c929e2a7a1ceda9bda39fbcf0d98e6e0c933734e",
+      "text": "<script src=\"https://cdn.example.invalid/lib/widget.min.js\"\n        integrity=\"sha384-A658VDQijxtpxT8BQqoAfOytFEul6i4pc4Tr5brbKqUU/3ddzeh+1fffYuK6FVvf\"\n        crossorigin=\"anonymous\"></script>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--npm-lock-integrity-sha512",
+      "case": "content-digest-references-in-build-and-package-metadata",
+      "path": "npm-lock-integrity-sha512/fixture.txt",
+      "sha256": "dd5f824ededb9bcfdd5b743d9b68424f8c946d5e63e4ff82389efdd97e9156d7",
+      "text": "    \"node_modules/left-example\": {\n      \"version\": \"2.1.0\",\n      \"resolved\": \"https://registry.example.invalid/left-example/-/left-example-2.1.0.tgz\",\n      \"integrity\": \"sha512-q6LJYqD69a5cpgCde2a3Un7HC4aZYgc7ZXCmgMZ6i2kbs1fSK9Ir4xzJMDbEm5BPe2s5WoOivEPO+kVTYglM+g==\"\n    },\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--go-sum-module-and-go-mod-hashes",
+      "case": "content-digest-references-in-build-and-package-metadata",
+      "path": "go-sum-module-and-go-mod-hashes/fixture.txt",
+      "sha256": "52fe031981c51ca03d757663e94ec0910ceba20c98a01304676e36d653c8f927",
+      "text": "example.invalid/lib/strutil v1.4.0 h1:ede8tIyfZen3QMxh2KIq3PgCgu8cJPPZmoMtG5600nQ=\nexample.invalid/lib/strutil v1.4.0/go.mod h1:9shWqt9/0lzVV3P92+BQqJpqEgR6oJ55VxhGx5HfgmA=\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--pip-requirements-hash-checking",
+      "case": "content-digest-references-in-build-and-package-metadata",
+      "path": "pip-requirements-hash-checking/fixture.txt",
+      "sha256": "83b9e6de5c9b8c882cac92d2d065803b8d95d0536fc1b37f67264c06a84a0cf7",
+      "text": "widgetlib==3.2.1 \\\n    --hash=sha256:53b75e405b922488b46fa43afa549f42ae398f50ea1afea7fb79787e1030cd65 \\\n    --hash=sha256:af50d046a1a9a4240f730d381a4181bf80a7280a582ce6cb19d2e423d58b1204\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--actions-cache-restore-log-key",
+      "case": "cache-key-and-content-hashed-filename-values",
+      "path": "actions-cache-restore-log-key/fixture.txt",
+      "context": "log",
+      "sha256": "3f0ab7a547404f17aefa08d497cf2d135b1ed66c2205ccc15f223c81f28827af",
+      "text": "Run actions/cache@v4\nCache Size: ~48 MB (50331648 B)\nCache restored successfully\nCache restored from key: Linux-npm-85cb14bbaccc57bb89328bebd6c5c2cb3fe0d67f5386a65972669be592cdc613\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--actions-cache-step-key-input",
+      "case": "cache-key-and-content-hashed-filename-values",
+      "path": "actions-cache-step-key-input/fixture.txt",
+      "context": "ci-config",
+      "sha256": "e3b99465a93fac2857d9f945cf5aae747ba90cf56e23e4f5caf186fc7081cd77",
+      "text": "      - uses: actions/cache@v4\n        with:\n          path: ~/.npm\n          key: npm-e491a9303689510b57c13c3151b3ea91f22455d09295d5127058cfb3e131a2bb\n          restore-keys: |\n            npm-\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--webpack-contenthash-output-filenames",
+      "case": "cache-key-and-content-hashed-filename-values",
+      "path": "webpack-contenthash-output-filenames/fixture.txt",
+      "sha256": "380b96ffef5f2ab8c7dae1778c6f7eda9832f5bb6bab274d81a61af0177729f1",
+      "text": "<script defer src=\"/static/js/main.a2c560415e2663c7066b.js\"></script>\n<script defer src=\"/static/js/vendors.596cad1d.js\"></script>\n<link rel=\"stylesheet\" href=\"/static/css/app.955a8d7921f0a2fd5d659d972430ec2e.css\">\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--go-mod-pseudo-version-requirement",
+      "case": "version-strings-embedding-a-commit-hash-fragment",
+      "path": "go-mod-pseudo-version-requirement/fixture.txt",
+      "sha256": "d3230ee90468ef00c93fa949d31ec0bd400654720ff2319d0accf7e18165bc52",
+      "text": "module example.invalid/app\n\ngo 1.22\n\nrequire example.invalid/lib/strutil v0.0.0-20260102030405-6d7c6685a59c\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--semver-sha-tagged-build-metadata",
+      "case": "version-strings-embedding-a-commit-hash-fragment",
+      "path": "semver-sha-tagged-build-metadata/fixture.txt",
+      "sha256": "72a851e209e767e197d7cb78f094fe4682336b5396b8814b1c322b23c9056d83",
+      "text": "app-version: 1.4.0-beta+exp.sha.e137fa7\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--semver-full-commit-build-metadata",
+      "case": "version-strings-embedding-a-commit-hash-fragment",
+      "path": "semver-full-commit-build-metadata/fixture.txt",
+      "sha256": "c78f450c77bb7128786b4f71f05a72fab0f7acb9325fea554ca7c1d58a890cf1",
+      "text": "app-version: 1.4.2+9335eae37e4cdcc738f2436858f3b6bb4e29bde3\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--pip-requirements-hashes-with-index-url-password",
+      "case": "package-integrity-hashes-beside-a-literal-registry-password",
+      "path": "pip-requirements-hashes-with-index-url-password/fixture.txt",
+      "sha256": "61d4004e88209c8926a461542201b9495c7500645ef51cb5520c176f3c368d36",
+      "text": "--index-url https://ci-bot:synthetic-pw-never-issued-7Hq2@pypi.example.invalid/simple\nwidgetlib==3.2.1 \\\n    --hash=sha256:62c1fa1935d89475794c116ebc2414918a46f0a0c5b6ddf79fdecc331b7484c5 \\\n    --hash=sha256:5b8ac407264c595462967ae898b38a2179d7391d3e183c120232c722c5f91c14\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 27,
+            "end": 57,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--go-sum-excerpt-with-goproxy-password",
+      "case": "package-integrity-hashes-beside-a-literal-registry-password",
+      "path": "go-sum-excerpt-with-goproxy-password/fixture.txt",
+      "sha256": "b02155c39d1140de76f8c943fb19c0d7fcd876aa564a9e10da0e91052744bfd8",
+      "text": "GOPROXY=https://ci-bot:example-only-pw-never-issued-4Lm9@proxy.example.invalid\nexample.invalid/lib/strutil v1.4.0 h1:L23MwjxYzZ1bJjA7SNYOvFhAXeQycWcRlUU8kkOxPjE=\nexample.invalid/lib/strutil v1.4.0/go.mod h1:gOSopcG7C2Rll7+vKUUhyHvwcqpAEyWcPQ8Eo5jIDYk=\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 23,
+            "end": 56,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--twilio-token-beside-image-digest",
+      "case": "key-beside-same-shape-public-identifier",
+      "path": "twilio-token-beside-image-digest/fixture.txt",
+      "sha256": "c2fdfd35e3a5736a80f3627b9b09c4c93fb8d8880912b80c7b2fa2711169f308",
+      "text": "TWILIO_AUTH_TOKEN=be98468db2aeb05c9496c2ad099f174a\nIMAGE=registry.example.invalid/shop/api@sha256:e32cc2b853c9763b3a29abc6b3a05e3322806d0971919c4eaa4296a479642dcd\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--heroku-uuid-key-beside-integrity-attribute",
+      "case": "key-beside-same-shape-public-identifier",
+      "path": "heroku-uuid-key-beside-integrity-attribute/fixture.txt",
+      "sha256": "36305dee6829817073c2ebc402198201ff97a23ec54857ee9d33226cb43d6665",
+      "text": "HEROKU_API_KEY=5f759d3d-081e-48a7-8419-e4d1c7d99a0e\n<script src=\"https://cdn.example.invalid/lib/widget.min.js\" integrity=\"sha384-1x+TLJ/sB+LZKz71HWcpEKGEI8o9FihXuvB6HJDrscv6Kh5Bz3faJ0/jAbUY9QcK\"></script>\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 15,
+            "end": 51,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--webhook-signature-header-hmac-digest",
+      "case": "secret-derived-hex-digests-in-developer-artifacts",
+      "path": "webhook-signature-header-hmac-digest/fixture.txt",
+      "sha256": "51dfd1ef76c8acae031cbe46f8787778f5998adf1862654dd06135048ec3e1f7",
+      "text": "POST /hooks/deliveries HTTP/1.1\nHost: receiver.example.invalid\nX-Hub-Signature-256: sha256=39d8b49960aca225cfa8e30d6395c02b0d055f63a609205575eb507400eb4200\nContent-Type: application/json\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "developer-artifact-lookalikes-authored--stored-api-key-fingerprint-field",
+      "case": "secret-derived-hex-digests-in-developer-artifacts",
+      "path": "stored-api-key-fingerprint-field/fixture.txt",
+      "sha256": "9e49435f2a10a3344bcc83600ff8bae478e8cdc7cd1ae28581a9f01fc907e4c1",
+      "text": "{\"key_id\": \"key-example-0001\", \"api_key_sha256\": \"26d2a75c46edb2c110f1ebc3c8b00c10453d4cb957fefc53fb6ac1c0d795d809\", \"created\": \"2026-01-02\"}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
