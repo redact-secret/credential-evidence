@@ -84,7 +84,7 @@ export function renderReclassificationReport({ model, built, before }) {
   }
   const split = [...tierKeys.values()].filter((g) => new Set(g.map((a) => a.tier)).size > 1);
   const basisFx = {};
-  for (const e of fx) basisFx[e.agg.evidence.basis] = (basisFx[e.agg.evidence.basis] ?? 0) + 1;
+  for (const e of fx) basisFx[e.evidence.basis] = (basisFx[e.evidence.basis] ?? 0) + 1;
   const caseBasis = {};
   for (const i of caseInfo.values()) caseBasis[i.basis] = (caseBasis[i.basis] ?? 0) + 1;
   const mixedCases = [...caseInfo.entries()].filter(([, i]) => new Set(i.aggs.map((a) => a.evidence.basis)).size > 1).map(([id]) => id);

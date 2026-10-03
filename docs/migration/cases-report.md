@@ -20,11 +20,11 @@ This report is generated with the records. It lists what the reclassifying impor
 | legacy-map entries (suites, imported cases and fixtures) | 7,943 |
 | authored fixtures (hand-written literal content) | 140 |
 | generated fixtures (recorded output of a legacy generation rule) | 5,810 |
-| evidence entries (shared by fixtures) | 1,180 |
+| evidence entries (shared by fixtures) | 1,187 |
 | families referenced by a case or a cell | 160 of 173 |
 | cases with historical incidents | 7 |
 
-Size: `records/cases/` 52 files, 111 KiB; `records/scenarios/` 35 KiB; `records/fixture-plans/` 33 KiB; `records/fixtures/` 98 files, 5,566 KiB (920 KiB of fixture text); `migration/legacy-map/` 2,703 KiB.
+Size: `records/cases/` 52 files, 111 KiB; `records/scenarios/` 35 KiB; `records/fixture-plans/` 33 KiB; `records/fixtures/` 98 files, 5,561 KiB (920 KiB of fixture text); `migration/legacy-map/` 2,703 KiB.
 
 Materialization digest: the fixtures materialize (`npm run fixtures:materialize`) to a file tree and manifest with materialization digest: `d4ac653bf781d90ea8d76c03ab5b6034c2f83cdf43e19ab6285fc709f086ad54`. `npm run fixtures:materialize -- --check` verifies it.
 
@@ -59,7 +59,7 @@ Sets are organised by the provider of the fixture's family (`provider-neutral` w
 | `crates-io` | generated | 66 | 13 |
 | `cross-provider` | generated | 11 | 5 |
 | `databricks` | generated | 47 | 11 |
-| `datadog` | generated | 117 | 32 |
+| `datadog` | generated | 117 | 31 |
 | `daytona` | generated | 44 | 8 |
 | `deepgram` | generated | 81 | 10 |
 | `digitalocean` | generated | 39 | 7 |
@@ -73,7 +73,7 @@ Sets are organised by the provider of the fixture's family (`provider-neutral` w
 | `firebase` | generated | 45 | 8 |
 | `firecrawl` | generated | 48 | 9 |
 | `fireworks-ai` | generated | 32 | 7 |
-| `generic` | generated | 367 | 77 |
+| `generic` | generated | 367 | 78 |
 | `github` | generated | 159 | 32 |
 | `gitlab` | generated | 99 | 30 |
 | `google` | generated | 69 | 16 |
@@ -94,7 +94,7 @@ Sets are organised by the provider of the fixture's family (`provider-neutral` w
 | `microsoft-entra` | generated | 45 | 13 |
 | `mistral` | generated | 68 | 8 |
 | `neon` | generated | 42 | 12 |
-| `netlify` | generated | 24 | 6 |
+| `netlify` | generated | 24 | 7 |
 | `new-relic` | generated | 78 | 24 |
 | `notion` | generated | 53 | 16 |
 | `npm` | generated | 23 | 10 |
@@ -111,7 +111,7 @@ Sets are organised by the provider of the fixture's family (`provider-neutral` w
 | `postman` | generated | 82 | 18 |
 | `provider-neutral` | generated | 11 | 2 |
 | `pulumi` | generated | 26 | 6 |
-| `pypi` | generated | 26 | 6 |
+| `pypi` | generated | 26 | 8 |
 | `replicate` | generated | 32 | 9 |
 | `resend` | generated | 42 | 8 |
 | `rubygems` | generated | 39 | 9 |
@@ -128,7 +128,7 @@ Sets are organised by the provider of the fixture's family (`provider-neutral` w
 | `together` | generated | 56 | 11 |
 | `travis-ci` | generated | 48 | 9 |
 | `trigger-dev` | generated | 78 | 13 |
-| `twilio` | generated | 108 | 14 |
+| `twilio` | generated | 108 | 13 |
 | `vercel` | generated | 140 | 23 |
 | `wandb` | generated | 35 | 8 |
 | `xai` | generated | 41 | 11 |
@@ -205,7 +205,8 @@ Nothing below is silently lost: each row is a legacy field or fact that the cano
 | fixture `policyFamily`, `policyConformance` | 19 | Product qualification bookkeeping. |
 | fixture `formatReason` | 58 | Duplicate of `assessment.reason`. |
 | fixture-index `provenance.milestone` / `release` | 3,901 / 1,465 | Product release bookkeeping. |
-| `assessment.reason` variants collapsed to the most frequent one per evidence entry | 875 | An evidence entry has one reason; the other wordings are per-fixture repetitions (mostly "Negative twin of <fixture>: ..."). |
+| `assessment.reason` variants collapsed to the most frequent one per evidence entry | 840 | Repetitions only: the per-fixture "Negative twin of <positive>: ..." renderings of one twin template share an entry. Of the 875 variants the first import collapsed, 840 were such repetitions. |
+| `assessment.reason` variants kept as their own evidence entry (distinct reasons) | 35 | A reason that is not a twin repetition (a placeholder control next to a policy-floor control, a relabelling note, a per-family contract wording) is cited by its own fixtures instead of being overwritten by the most frequent wording (issue #76, ADR 0014). |
 | first-import case prose of template-worded cases (titles, summaries, rationales) | 1,840 | Generated from role templates plus family names; the reasoning each states is now one Scenario, written once. See the reclassification report. |
 | first-import `twin-of` relations between cases | 540 | A property of the legacy groups; the twin groups are scenario cells now. Fixture-level lineage is kept. |
 | companion spans on must-not-flag fixtures | 1 | A companion span means "redacting is accepted, never required"; a must-not-flag fixture has no spans in the canonical model. |
