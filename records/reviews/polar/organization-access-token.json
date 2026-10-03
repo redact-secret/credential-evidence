@@ -78,6 +78,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'polar-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1020; #1014 handoff polar.md, READY). An organization access token acts on the organization's products, checkouts, customers, subscriptions and orders within its scopes. T1 under R1 and R9: the prefix constant, the 43-byte alphanumeric body and its CRC32 base62 checksum are the provider's server code, and the service was added after the checksum era began, so there is one era. POLICY, not T1: the checksum corroborates only; a shape-valid body whose last six bytes are not the checksum is still claimed (ruling Q1 is open and the security-first standing decision applies), so positives are authored both with a matching and with a mismatching checksum and no fixture asserts silence on a checksum failure. Excluded: polar_ci_ (public client id), checkout client secrets, short-lived session and verification tokens, and whsec_ webhook secrets (stripe-token owns the prefix). Neither pinned peer has a Polar rule. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1039)."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence-class review for #65, read 2026-10-03 (research-agent, automation; not reviewed). 13 negative fixtures held as project-policy. Re-based to provider-documented on Polar server source at 6a4f2f6 (kit/crypto.py generate_token: prefix + 37 [A-Za-z0-9] + 6-character base62 CRC32; organization_access_token/service.py TOKEN_PREFIX and the creation call; commit 80fae7fc98 of 2025-01-02 precedes commit 4639cb7efd of 2025-02-04 that adds polar_oat_, so only the 43-character alphanumeric body ever applied): polar-token-body-42-twin, prefix-only, short-body, truncated-near-miss (none has 43 characters after the prefix), identifier-name-public-id (polar_oat_scopes has 6), hyphen-in-body-twin and underscore-in-body-twin (a hyphen or underscore sits inside the 43 characters, no run of 43), uppercase-prefix-twin. Kept project-policy: body-44-twin, leading-glue-twin, trailing-hyphen-twin, trailing-underscore-twin (each leaves a well-formed run of 43 alphanumerics next to extra characters, so the expectation rests on a token-boundary decision that no source states; contract claim field-boundary is unresolved) and oauth-client-id-public-id (Polar OAuth client setup page: Client ID and Client Secret values are super sensitive and should be kept secret, while Polar open-source clients embed their own polar_ci_ ids; unsettled). Peer artifacts: only betterleaks has a Polar rule for polar_oat_ ({20,100} with - and _); no second maintainer found, so no tool-corroborated basis was assembled. Not a support-status decision."
     }
   ],
   "externalRefs": [
