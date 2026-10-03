@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "app-installation-token-with-one-hour-lifetime-note",
+  "title": "GitHub App installation token beside a note that it lasts one hour",
+  "summary": "A GitHub App installation token in a CI log line next to the sentence that the token expires after one hour. Shape only; the fixture value is not recorded in this record.",
+  "rationale": "The provider documents a one-hour lifetime. Short life makes a token less useful to an attacker but does not make it benign while the hour runs, and a log excerpt carries no clock. The case keeps the lifetime note from turning into a suppression rule by accident. The token format itself changed in a staged rollout the provider announced for 2026-04-27; format questions belong to the separate GitHub installation token format review and are not decided here.",
+  "caseTypes": [
+    "twin"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "offline-text-cannot-establish-expiry"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome asserted. Provider-documented: the installation access token expires after 1 hour. Not documented: treatment of an expired-looking or short-lived token in text. Recommendation, not a decision: expect it to be reported while its age is unknown. Would settle it: a recorded project-policy decision with a non-author reviewer.",
+    "sources": [
+      {
+        "sourceId": "docs-github-com-6052acfa2f",
+        "supports": "The installation access token will expire after 1 hour.",
+        "locator": "installation access token page, expiration statement"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
