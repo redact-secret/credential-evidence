@@ -264,7 +264,8 @@ export function canonicalJson(value) {
  * canonical fixture id, path = its materialized path (`<set>/<name>/<file>`), `grouping.group` = the canonical Case or
  * Scenario id, twin lineage by canonical id. One case per fixture, same truth as the legacy corpora. `grouping` carries
  * the legacy kind and tier (which credential-eval keeps for partitioning), the canonical evidence class and, when the
- * fixture has exactly one family, that family. `targets` (the detector assignment) is an overlay and is absent.
+ * fixture has exactly one family, that family; a twin without its own family takes the family of the positive it twins
+ * (ADR 0013). `targets` (the detector assignment) is an overlay and is absent.
  *
  * No legacy name appears in it (credential-eval's case ids are a closed grammar with no room for provenance). A consumer
  * that has to compare against a run over the legacy corpus re-keys through `credential-eval/legacy-id-map.json`.
@@ -288,6 +289,14 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
     };
     if (item.lineage?.mutation && byId.get(item.lineage.of)?.outcome === "must-flag") out.twin = { twin_of: item.lineage.of, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
     cases.push(out);
+  }
+  // ADR 0013: a twin that names no family of its own is scoped by the family of the positive it twins, as the legacy
+  // benchmark scoped it. A twin already carrying its own family keeps it; a twin of a family-less positive stays family-less.
+  const caseById = new Map(cases.map((c) => [c.id, c]));
+  for (const c of cases) {
+    if (!c.twin || c.grouping.family !== undefined) continue;
+    const parentFamily = caseById.get(c.twin.twin_of)?.grouping.family;
+    if (parentFamily !== undefined) c.grouping.family = parentFamily;
   }
   cases.sort((a, b) => cmp(a.id, b.id));
   return {

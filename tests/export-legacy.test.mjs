@@ -264,6 +264,37 @@ describe("credential-eval corpus snapshot", () => {
     for (const c of snapshot.cases) if (c.twin) assert.ok(byId.get(c.twin.twin_of).expected.some((sp) => sp.role === "secret"), c.id);
   });
 
+  test("a twin without its own family takes the family of the positive it twins; a twin of a family-less positive stays family-less; nothing else about a twin changes (ADR 0013)", () => {
+    const byId = new Map(snapshot.cases.map((c) => [c.id, c]));
+    const rows = new Map(collectFixtures(ix).map((f) => [f.id, f]));
+    let inherited = 0;
+    let stayedFamilyLess = 0;
+    for (const c of snapshot.cases) {
+      if (!c.twin) continue;
+      const own = rows.get(c.id).families;
+      const parentFamily = byId.get(c.twin.twin_of).grouping.family;
+      if (own.length === 1) assert.equal(c.grouping.family, own[0], `${c.id}: a twin naming its own family keeps it`);
+      else if (parentFamily !== undefined) {
+        assert.equal(c.grouping.family, parentFamily, `${c.id}: the positive's family`);
+        inherited += 1;
+      } else {
+        assert.equal(c.grouping.family, undefined, `${c.id}: the positive has no family, so the twin has none`);
+        stayedFamilyLess += 1;
+      }
+      // scope only: kind, tier, evidence class and expected spans are what the fixture's own record says
+      const row = rows.get(c.id);
+      assert.equal(c.grouping.evidence_class, row.evidence.basis, c.id);
+      assert.equal(c.grouping.kind === "must-redact", row.outcome === "must-flag" || row.candidate !== undefined, c.id);
+      assert.equal(c.expected.length > 0, row.item.expected.spans.length > 0, c.id);
+    }
+    assert.ok(inherited > 0, "at least one twin inherits its positive's family");
+    assert.ok(stayedFamilyLess > 0, "at least one twin of a family-less positive stays family-less");
+    for (const id of ["anthropic--anthropic-admin01-key-api01-prefix-twin", "cross-provider--elevenlabs-api-key-stripe-shaped-twin"]) {
+      assert.equal(byId.get(id).grouping.family, byId.get(byId.get(id).twin.twin_of).grouping.family, id);
+      assert.ok(byId.get(id).grouping.family, id);
+    }
+  });
+
   test("the corpus digest is credential-eval's rule: sha256 of canonical JSON of the cases sorted by id", () => {
     assert.equal(snapshot.identity.corpus_digest, `sha256:${sha(canon(snapshot.cases))}`);
     assert.equal(snapshot.identity.source, "credential-evidence");

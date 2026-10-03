@@ -14,7 +14,7 @@ The legacy repository stays authoritative. This report proves how far the genera
 | --- | --- |
 | projection source revision (records tree sha256) | `4cd72141c1deec4aef21c0f5b2d751c51eb3d7abe5088756219d99c93f464f50` |
 | schema revision | 1.5.0 |
-| projection digest (over every artifact digest) | `861c50e28f0910e0f9e5359c7ec36e66d8126b317bf4c424272c40fca7220219` |
+| projection digest (over every artifact digest) | `ec90bf768eda00d1f0d76dc39c86e0f6cf87d40cd541ceed68098e65693ec271` |
 | artifacts projected | 76 |
 | legacy documents compared | 73 |
 | legacy leaf values compared | 201,618 |
