@@ -52,6 +52,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'telegram-bot-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Telegram's own documentation gives exactly one example token and no formal grammar. TruffleHog's telegrambottoken detector corroborates the general digits:secret shape; gitleaks's telegram-bot-api-token rule requires an additional literal uppercase \"A\" leading the secret segment that this contract does not require, so it is not cited."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 69 (2026-10-03, automation, not independently reviewed). Of 24 fixtures: 4 (missing-delimiter and underscore-delimiter twins, 2 slash-body twins) re-based to provider-documented on the published Bot API server source, which rejects tokens with no colon or with a slash; 13 re-based to tool-corroborated on rule artifacts from gitleaks, trufflehog, detect-secrets and Nosey Parker (6 positives with a 35-character body, the plus-body twin, 3 short-body twins, 3 body-less or short shapes), worded as consistency; 7 stay project-policy: 4 positives whose body is 34 characters (BotFather reply, shape-1 trio; only Nosey Parker accepts that width and the provider examples are 34 but say only looks something like) and 3 public-identifier fixtures (no source states they are not credentials). No provider page states a token alphabet or length."
     }
   ],
   "externalRefs": [
