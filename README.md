@@ -183,11 +183,11 @@ This repository is initially migrating knowledge currently embedded in `redact-s
 
 The migration is intentionally not a big-bang cutover.
 
-Until parity is demonstrated and downstream consumers have switched, the existing benchmark repository remains authoritative for current Redact Secret release qualification.
+Parity is demonstrated (0 unexplained differences at the pinned legacy revision) and the first downstream consumer has switched: `redact-secret-benchmarks` pins the evidence release `snapshot-2026.10.01.2` and, since 2026-10-02, names the new path as the authority for credential qualification of `@redact-secret/core@0.1.0-beta.12`, keeping the legacy path as its oracle (exact pins and accepted runs: [cutover](docs/migration/cutover.md#downstream-state-recorded-2026-10-03)). The cutover is not finished: the legacy files stay until the consumer's own oracle exit is met, and #20 stays open for that.
 
 The migration moves **public, scanner-neutral evidence** here. It does not move Redact Secret's product-owned regression, policy/behavior, candidate or protected evidence, and the cutover does not require it to: that evidence stays in `redact-secret-benchmarks` (or another product-owned location) as its own population ([cutover](docs/migration/cutover.md#what-the-cutover-moves-and-what-it-does-not)).
 
-Status after #6: the canonical records exist (#2 to #5) and a deterministic exporter produces the legacy benchmark inputs and the credential-eval corpus snapshot from them (`npm run export:legacy`). At the pinned legacy revision the parity report shows zero unexplained differences (`docs/migration/parity-report.md`). **The cutover has not happened:** no downstream consumer has switched, so no legacy file may be deleted or frozen. What remains, and the cutover rule, are in `docs/migration/cutover.md`.
+Status after #6: the canonical records exist (#2 to #5) and a deterministic exporter produces the legacy benchmark inputs and the credential-eval corpus snapshot from them (`npm run export:legacy`). At the pinned legacy revision the parity report shows zero unexplained differences (`docs/migration/parity-report.md`). **No legacy file may be deleted or frozen yet.** The importers, the legacy map, the projection and parity are checked against the **import baseline** (a manifest of what the importers produced at the pin), not the working tree, so reviewed research changes to `records/` are not blocked by them ([validation tiers](docs/migration/validation-split.md), ADR 0015). What remains, and the cutover rule, are in `docs/migration/cutover.md`.
 
 Migration work is tracked under:
 
@@ -267,16 +267,20 @@ npm run lint:identity   # no legacy coordinates in canonical ids and paths (ADR 
 npm run lint:narrative  # no benchmark, product, detector, support-status or issue-workflow vocabulary in narratives (ADR 0010); no baseline
 npm run record:new -- <provider|family|contract|source|scenario|case> <arg> ...   # valid draft skeleton with TODO(record:new) placeholders; refuses duplicate ids and ADR 0007 coordinates (docs/authoring.md)
 npm run record:check [-- <paths>]   # fast subset of validate for changed records: schema, references, identity, narrative lint, placeholders
-npm run migrate:check   # both migration regeneration checks (need the pinned legacy checkout)
-npm test           # positive and negative cases, imported records, round trips
+npm run baseline:check  # the tree against the import baseline: every edit to or removal of an imported record is declared (docs/migration/baseline-amendments.json); additions are free
+npm run baseline:amend -- <records/path> --reason "<why>"   # declare an edit to an imported record
+npm test           # the ordinary unit tests (no legacy checkout)
+npm run check      # the ordinary gate: validate, lint:identity, lint:narrative, lint:skills, baseline:check, npm test
+npm run historical:check   # the historical pinned tier: baseline:check, migrate:check, export:legacy:check, parity:check, tests/historical (needs the pinned legacy checkout)
+npm run migrate:check   # the three importers regenerate the baseline in memory at the pin and must reproduce docs/migration/baseline-manifest.json
 npm run migrate:taxonomy:check   # regenerate the taxonomy records from the pinned legacy revision and diff
 npm run migrate:cases:check      # regenerate the semantic tree, the legacy map and the reports (runs the legacy generators) and diff
 npm run migrate:narratives:check # compile the authored narratives, verify every citation, and diff the records and the report
 npm run fixtures:materialize     # write fixtures/materialized/ (gitignored) from records/
 npm run fixtures:materialize:check   # verify the records, the digest and any existing output
 npm run export:legacy            # write dist/legacy-projection/ (gitignored) and docs/migration/legacy-projection-manifest.json
-npm run export:legacy:check      # regenerate in memory; fail if the committed manifest or the output differs
-npm run parity                   # compare the projection with the pinned legacy files; write docs/migration/parity-report.md
+npm run export:legacy:check      # project the import baseline in memory; fail if the committed manifest or the output differs
+npm run parity                   # compare the baseline's projection with the pinned legacy files; write docs/migration/parity-report.md
 npm run parity:check             # fail on any unexplained difference or a stale report
 ```
 
@@ -284,8 +288,11 @@ npm run parity:check             # fail on any unexplained difference or a stale
 illustrative example may reuse the id of a real record. The taxonomy and case imports need
 a checkout of `redact-secret-benchmarks` (`--legacy <path>` or
 `LEGACY_BENCHMARKS_DIR`; a sibling directory is found automatically) and reads
-only commit `1020d2b5905e8973098235e57c4cdca3359bba57` of it. Tests that compare
-against that checkout skip when it is absent unless `REQUIRE_LEGACY=1`.
+only commit `1020d2b5905e8973098235e57c4cdca3359bba57` of it (never its HEAD or working tree). The ordinary gate
+(`verify` in CI) needs no legacy checkout; the historical tier (`tests/historical/`, `migrate:*:check`,
+`export:legacy:check`, `parity:check`) does, and runs in CI when an importer, the projection, parity, a schema or shared
+generator code changes, on `workflow_dispatch` (the periodic audit) and on a release. Its tests skip when the checkout is
+absent unless `REQUIRE_LEGACY=1`.
 
 The model and its rules are recorded in `docs/decisions/0001` to `0008` (0007 and 0008 correct parts of 0001 and 0005); what the imports kept, dropped and could not map is in `docs/migration/taxonomy-report.md` and `docs/migration/cases-report.md`, and how each legacy case was reclassified is in `docs/migration/reclassification-report.md`.
 
