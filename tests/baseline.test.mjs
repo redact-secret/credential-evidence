@@ -7,7 +7,7 @@
 // and for a ledger with any number of declared edits; tests/ledger-hermetic.test.mjs runs this file against a non-empty one.
 
 import assert from "node:assert/strict";
-import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 import {
@@ -196,9 +196,14 @@ test("a declaration for a path the baseline does not list, a forged or stray led
   try {
     const path = firstRecord("records/families/");
     const dir = join(c.root, AMENDMENTS_DIR);
+    // Reset to the live ledger, not an empty one: emptying it would turn every declared edit of the live tree into an
+    // "undeclared edited" problem, and `baseline.mjs check` prints only the first 40 problems, so once the live tree has
+    // more than 40 declared edits the problem under test is cut off the output (#102).
+    const liveLedger = join(repoRoot, AMENDMENTS_DIR);
     const fresh = () => {
       rmSync(dir, { recursive: true, force: true });
       mkdirSync(dir, { recursive: true });
+      if (existsSync(liveLedger)) cpSync(liveLedger, dir, { recursive: true });
     };
     fresh();
     writeAmendment({ path: "records/families/nope/none.json", change: "edited", reason: "a path the baseline never had" }, c.root);
