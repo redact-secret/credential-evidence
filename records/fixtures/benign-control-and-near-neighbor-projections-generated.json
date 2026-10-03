@@ -1,0 +1,1401 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "benign-control-and-near-neighbor-projections-generated",
+  "title": "Surrounding-text projections of benign controls and near-neighbor positives (generated)",
+  "description": "36 projections: each of the 12 controls and positives placed between ordinary English prose, ordinary Korean prose, or a Markdown code fence. The expected spans are the secret bytes only, so any normal surrounding text a consumer masks is outside the span. 12 bases, 36 correlated inputs. Synthetic: every credential-shaped value has a body that starts with the word synthetic (or is the marker word EXAMPLE plus filler) and continues with characters derived from a fixed label, so it was never issued; personal-data-shaped values use the reserved example.invalid domain and the fictional 555-0100 telephone range. None was tested against any service.",
+  "origin": {
+    "type": "generation-rule",
+    "rule": "surrounding-text-placement-of-controls-and-ambiguous-bases",
+    "generator": {
+      "name": "benign-reference-and-ambiguity-projector",
+      "version": "1.0.0",
+      "entrypoint": "scripts/generate-benign-reference-and-ambiguity-plans.mjs",
+      "sourceRevision": "e19df7cba3e567a827da0f648630da4b5ef7f55f"
+    },
+    "seed": "benign-reference-and-ambiguity-1"
+  },
+  "generated": true,
+  "evidence": {
+    "stripe-publishable-key-safe-to-expose": {
+      "basis": "provider-documented",
+      "rationale": "Stripe documents the publishable key type (pk_) as safe to expose, and the label STRIPE_PUBLISHABLE_KEY agrees. Not flagged as a credential. The expectation covers the credential population only; it is not a statement about any product's redaction choice for public identifiers.",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Key types table: a publishable API key (pk_...) is 'Safe to expose: Yes' and can be included in front-end code or distributed applications; it cannot perform sensitive operations such as creating charges or reading account data.",
+          "locator": "#key-types"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    },
+    "stripe-publishable-and-secret-key-in-one-input": {
+      "basis": "provider-documented",
+      "rationale": "One label is repeated for a documented publishable value and a documented secret value; the two are told apart by each value's documented prefix, not by the label. One span on the secret value and none on the publishable one; silence on the publishable value follows from its documented class and is stated as inference.",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Key types table: a secret API key (sk_...) is 'Safe to expose: No' and has unrestricted permissions on all Stripe APIs; 'Only publishable keys are safe to expose outside your application's backend.'",
+          "locator": "#key-types"
+        },
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Key types table: a publishable API key (pk_...) is 'Safe to expose: Yes' and can be included in front-end code or distributed applications; it cannot perform sensitive operations such as creating charges or reading account data.",
+          "locator": "#key-types"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    },
+    "stripe-secret-key-not-safe-to-expose": {
+      "basis": "provider-documented",
+      "rationale": "Stripe documents the secret key type (sk_) as not safe to expose. The value's class follows from its documented prefix; the label, the surrounding text and the carrier do not change it. That the surrounding normal text is outside the span is the exact-span statement of this fixture, not a provider rule.",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Key types table: a secret API key (sk_...) is 'Safe to expose: No' and has unrestricted permissions on all Stripe APIs; 'Only publishable keys are safe to expose outside your application's backend.'",
+          "locator": "#key-types"
+        }
+      ],
+      "observedAt": "2026-10-03"
+    }
+  },
+  "fixtures": [
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--publishable-key-under-matching-label-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "public-identifier",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "publishable-key-under-matching-label-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--publishable-key-under-matching-label-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-publishable-key-safe-to-expose",
+      "sha256": "e9dcdcc0661679114f516180849f58fae250237779e47938c53a00b1afd58bd9",
+      "text": "Please review the following note before the release.\nSTRIPE_PUBLISHABLE_KEY=pk_test_syntheticRyKkmA2yQStYJ0wCMtVSuiR\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--publishable-key-under-matching-label-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "public-identifier",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "publishable-key-under-matching-label-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--publishable-key-under-matching-label-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-publishable-key-safe-to-expose",
+      "sha256": "9168c1681d2fdb880863cfaaa649010a58b0d6a19868fd929a7ad0bb9c1c4411",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nSTRIPE_PUBLISHABLE_KEY=pk_test_syntheticRyKkmA2yQStYJ0wCMtVSuiR\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--publishable-key-under-matching-label-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "public-identifier",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "publishable-key-under-matching-label-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--publishable-key-under-matching-label-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "stripe-publishable-key-safe-to-expose",
+      "sha256": "d6dd89b3e325a08fcb35ddc3ace9acc368dee161f7cd67834f7f0cc691e1b58e",
+      "text": "```text\nSTRIPE_PUBLISHABLE_KEY=pk_test_syntheticRyKkmA2yQStYJ0wCMtVSuiR\n```\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--environment-interpolation-reference-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "templated-reference",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "environment-interpolation-reference-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--environment-interpolation-reference-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "74e10b0578cef6e4fae3054e9c5dc1e2db36ace3c7cdabb3855f9b5c218a0e10",
+      "text": "Please review the following note before the release.\nSTRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--environment-interpolation-reference-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "templated-reference",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "environment-interpolation-reference-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--environment-interpolation-reference-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "779bd5058256b2667132bc0b882d97813b70060132eaef5b6515f25d271bb0ee",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nSTRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--environment-interpolation-reference-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "templated-reference",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "environment-interpolation-reference-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--environment-interpolation-reference-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "sha256": "5cbe198e8fd046d94489fcf98b236aca91445049b40b4306548b5f4c0d2bb7a4",
+      "text": "```text\nSTRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}\n```\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--kubernetes-secret-key-reference-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "templated-reference",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "kubernetes-secret-key-reference-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--kubernetes-secret-key-reference-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "6a12af6dd3dc76419125eb3fbbc3d7a2969b924ea69348f60b247b54950584f3",
+      "text": "Please review the following note before the release.\n- name: STRIPE_SECRET_KEY\n  valueFrom:\n    secretKeyRef:\n      name: payments-secrets\n      key: stripe-secret-key\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--kubernetes-secret-key-reference-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "templated-reference",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "kubernetes-secret-key-reference-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--kubernetes-secret-key-reference-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "2bd2db937d7280dd51a9f7ebb93f74baa433a15f4f9f53f74c0466bff8a6a669",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\n- name: STRIPE_SECRET_KEY\n  valueFrom:\n    secretKeyRef:\n      name: payments-secrets\n      key: stripe-secret-key\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--kubernetes-secret-key-reference-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "templated-reference",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "kubernetes-secret-key-reference-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--kubernetes-secret-key-reference-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "sha256": "31c3a97df6f72757c131f484df22deb5ad146f1e6f9a3e7fb3f06da2417012b8",
+      "text": "```text\n- name: STRIPE_SECRET_KEY\n  valueFrom:\n    secretKeyRef:\n      name: payments-secrets\n      key: stripe-secret-key\n```\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--regular-expression-source-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "benign-lookalike",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "regular-expression-source-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--regular-expression-source-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "3fe4fec1ecb1758f8546997a5a555c8ea2350ed6f43fafce1d948c1f4604d954",
+      "text": "Please review the following note before the release.\nconst stripeSecretKeyPattern = /sk_(test|live)_[A-Za-z0-9]{24,99}/;\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--regular-expression-source-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "benign-lookalike",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "regular-expression-source-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--regular-expression-source-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "434e0773698e0a5b9a98b1fc5d4e418c814be13d9b1ea491c699a323879abd3c",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nconst stripeSecretKeyPattern = /sk_(test|live)_[A-Za-z0-9]{24,99}/;\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--regular-expression-source-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "benign-lookalike",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "regular-expression-source-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--regular-expression-source-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "sha256": "94feadbbaf19886472b229e1e00e6335e4def9d2c823fe8d69af118ebe7ca3a0",
+      "text": "```text\nconst stripeSecretKeyPattern = /sk_(test|live)_[A-Za-z0-9]{24,99}/;\n```\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--prefix-prose-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "prose-mention",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "prefix-prose-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--prefix-prose-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "1a7db0579585a205c0e123484d4d488e34135618f2bbce2941ff029be63fc5b8",
+      "text": "Please review the following note before the release.\nStripe secret keys begin with sk_test_ in a sandbox and sk_live_ in live mode; publishable keys begin with pk_.\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--prefix-prose-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "prose-mention",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "prefix-prose-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--prefix-prose-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "a81d671fa5b7441911e23bf540b8010255115e17376d77e2532830208e715c19",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nStripe secret keys begin with sk_test_ in a sandbox and sk_live_ in live mode; publishable keys begin with pk_.\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--prefix-prose-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "prose-mention",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "prefix-prose-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--prefix-prose-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "sha256": "5c37c4f45fb4932c8ce6f1085d7e3d23260696d3a50ce1c6440fd9e11cd5bbfb",
+      "text": "```text\nStripe secret keys begin with sk_test_ in a sandbox and sk_live_ in live mode; publishable keys begin with pk_.\n```\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--personal-data-contact-line-in-english-prose",
+      "case": "personal-data-shaped-values-under-credential-only-scope",
+      "path": "personal-data-contact-line-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--personal-data-contact-line-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "2589d85a90abecf1336ee811d612722fa45e0103a14ae2e2cf54e7782788cb6d",
+      "text": "Please review the following note before the release.\nContact Jane Example at jane.example@example.invalid or +1 555 0100 before Friday.\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--personal-data-contact-line-in-korean-prose",
+      "case": "personal-data-shaped-values-under-credential-only-scope",
+      "path": "personal-data-contact-line-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--personal-data-contact-line-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "sha256": "e7bb7b15c6f6784cef4b8faabdf6c4d763edb112384aef12ecb8f4f19e783791",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nContact Jane Example at jane.example@example.invalid or +1 555 0100 before Friday.\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--personal-data-contact-line-in-markdown-fence",
+      "case": "personal-data-shaped-values-under-credential-only-scope",
+      "path": "personal-data-contact-line-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--personal-data-contact-line-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "sha256": "49d4301757dc6aac350ca5a9cf91d701fdee6167b8fcda928f4588a22f034c9f",
+      "text": "```text\nContact Jane Example at jane.example@example.invalid or +1 555 0100 before Friday.\n```\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-beside-publishable-under-one-label-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-beside-publishable-under-one-label-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-beside-publishable-under-one-label-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-publishable-and-secret-key-in-one-input",
+      "sha256": "a2727998d0f8cc53a0954c6d23f3077985159794ebb0e0c5f914446eb89d2425",
+      "text": "Please review the following note before the release.\nSTRIPE_KEY=pk_test_syntheticTABqTuWfb0Efps6SWBrsOS2\nSTRIPE_KEY=sk_test_syntheticBOVw2KquuD1FtoKGILnfqHT\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 116,
+            "end": 156,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-beside-publishable-under-one-label-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-beside-publishable-under-one-label-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-beside-publishable-under-one-label-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-beside-publishable-under-one-label-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-publishable-and-secret-key-in-one-input",
+      "sha256": "4c270c842efe14887fde564343b82d967eec9902353cb4205fc3cc192eafe5f6",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nSTRIPE_KEY=pk_test_syntheticTABqTuWfb0Efps6SWBrsOS2\nSTRIPE_KEY=sk_test_syntheticBOVw2KquuD1FtoKGILnfqHT\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 118,
+            "end": 158,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-beside-publishable-under-one-label-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-beside-publishable-under-one-label-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "multiple-credentials-per-input",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-beside-publishable-under-one-label-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-beside-publishable-under-one-label-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "stripe-publishable-and-secret-key-in-one-input",
+      "sha256": "f60c8b42ac0fd035b55f714717658b262eaa3a5333e8db90d6fb7cda46cecca6",
+      "text": "```text\nSTRIPE_KEY=pk_test_syntheticTABqTuWfb0Efps6SWBrsOS2\nSTRIPE_KEY=sk_test_syntheticBOVw2KquuD1FtoKGILnfqHT\n```\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 71,
+            "end": 111,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-beside-publishable-under-one-label-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-in-reference-position-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-in-reference-position-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-in-reference-position-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "37c8a06887bd68aa1183582fd026f7e7e6a0961219aae935eee12f4305a923dc",
+      "text": "Please review the following note before the release.\nSTRIPE_SECRET_KEY=sk_test_syntheticJYFgmu5mfLvb8E1Q4et4vZU\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 71,
+            "end": 111,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-in-reference-position-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-in-reference-position-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-in-reference-position-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-in-reference-position-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "dbd52901a7f5e8603a910721df71f1129c3b62005a2eb312a5409e432198b504",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nSTRIPE_SECRET_KEY=sk_test_syntheticJYFgmu5mfLvb8E1Q4et4vZU\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 73,
+            "end": 113,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-in-reference-position-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-in-reference-position-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "environment-assignment",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-in-reference-position-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-in-reference-position-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "66f3d66a936fdc6c197cc8c2f51a4e11ea46bcb46e95365cd512bea9641b9937",
+      "text": "```text\nSTRIPE_SECRET_KEY=sk_test_syntheticJYFgmu5mfLvb8E1Q4et4vZU\n```\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 26,
+            "end": 66,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-in-reference-position-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-beside-kubernetes-reference-shape-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-beside-kubernetes-reference-shape-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-beside-kubernetes-reference-shape-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "0e32e1c3b5559e50098f9f59660a3d57fb618604703494768df0218ee1977cea",
+      "text": "Please review the following note before the release.\n- name: STRIPE_SECRET_KEY\n  value: sk_test_syntheticFf5aHg8FXlJa89rjqtVGLa3\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 88,
+            "end": 128,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-beside-kubernetes-reference-shape-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-beside-kubernetes-reference-shape-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-beside-kubernetes-reference-shape-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-beside-kubernetes-reference-shape-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "0454dbfc097fa23842ce9145bc5bf730f969f367411d97db1f0ccbee57b4e60f",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\n- name: STRIPE_SECRET_KEY\n  value: sk_test_syntheticFf5aHg8FXlJa89rjqtVGLa3\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 90,
+            "end": 130,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-beside-kubernetes-reference-shape-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-beside-kubernetes-reference-shape-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "structured-text-value",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-beside-kubernetes-reference-shape-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-beside-kubernetes-reference-shape-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "ec317ced6122e149742f51b587bc9c65f9fab56256cc0a0d43090a45d4b92ddd",
+      "text": "```text\n- name: STRIPE_SECRET_KEY\n  value: sk_test_syntheticFf5aHg8FXlJa89rjqtVGLa3\n```\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 43,
+            "end": 83,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-beside-kubernetes-reference-shape-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-where-the-pattern-was-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "source-code-string-literal",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-where-the-pattern-was-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-where-the-pattern-was-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "303b2599555c7174f6676c468303f0dfe1eb6e6efe6b9d84ea1d4f6bf423a46d",
+      "text": "Please review the following note before the release.\nconst stripeSecretKey = \"sk_test_synthetic71DUVz64J7wwiBVBJtyuNi5\";\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 78,
+            "end": 118,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-where-the-pattern-was-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-where-the-pattern-was-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "source-code-string-literal",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-where-the-pattern-was-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-where-the-pattern-was-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "cf23c5a49b1a7583fbffb1dc6a59347ff866aaa1ca81a32ba23b17ad8e6c4255",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nconst stripeSecretKey = \"sk_test_synthetic71DUVz64J7wwiBVBJtyuNi5\";\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 80,
+            "end": 120,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-where-the-pattern-was-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-literal-where-the-pattern-was-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "source-code-string-literal",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-literal-where-the-pattern-was-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-literal-where-the-pattern-was-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "0efb0def963d3912fba84c2f9ff7826d72ccb7c1d87063b2abc98b4b2b94283d",
+      "text": "```text\nconst stripeSecretKey = \"sk_test_synthetic71DUVz64J7wwiBVBJtyuNi5\";\n```\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 33,
+            "end": 73,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-literal-where-the-pattern-was-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-after-prefix-prose-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "markdown-and-comment-value",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-after-prefix-prose-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-after-prefix-prose-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "ec715536834f4a216389ce085e974beae5fc41e7dad2af05506979e28ba4c879",
+      "text": "Please review the following note before the release.\nStripe secret keys begin with sk_test_ in a sandbox. The sandbox key for this build is sk_test_syntheticzeKn7wiTJv8tDMrPz2A69Rk and must not be pasted into tickets.\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 140,
+            "end": 180,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-after-prefix-prose-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-after-prefix-prose-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "markdown-and-comment-value",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-after-prefix-prose-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-after-prefix-prose-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "1aacfe37c293aed5cad49f1dad5670c2d72a35c995dfec1298bd5ac6e3394ea8",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nStripe secret keys begin with sk_test_ in a sandbox. The sandbox key for this build is sk_test_syntheticzeKn7wiTJv8tDMrPz2A69Rk and must not be pasted into tickets.\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 142,
+            "end": 182,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-after-prefix-prose-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-after-prefix-prose-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "markdown-and-comment-value",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-after-prefix-prose-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-after-prefix-prose-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "7559174c4f86dde08f8178c8412f56a9cfdfdfb707fe20777e51d838e00b21f7",
+      "text": "```text\nStripe secret keys begin with sk_test_ in a sandbox. The sandbox key for this build is sk_test_syntheticzeKn7wiTJv8tDMrPz2A69Rk and must not be pasted into tickets.\n```\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 95,
+            "end": 135,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-after-prefix-prose-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-after-personal-data-contact-line-in-english-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-after-personal-data-contact-line-in-english-prose/input.txt",
+      "context": "english-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-after-personal-data-contact-line-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "english-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "e512c6b84c80da792775b8c8d0c00fd7dd4e2cd4cb2a591a8694416a4a453796",
+      "text": "Please review the following note before the release.\nContact Jane Example at jane.example@example.invalid or +1 555 0100 before Friday. Sandbox key: sk_test_synthetic8FcwWEHF4oqjoNhdjkFnxz8\nThanks for checking; nothing else changed this week.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 149,
+            "end": 189,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-after-personal-data-contact-line-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-after-personal-data-contact-line-in-korean-prose",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-after-personal-data-contact-line-in-korean-prose/input.txt",
+      "context": "korean-prose-before-and-after",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-after-personal-data-contact-line-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "korean-prose-before-and-after"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "1f5eeab452129063a728e31a7a846cc40907993dd5062593fc94bbc97e01f9ee",
+      "text": "릴리스 전에 아래 내용을 확인해 주세요.\nContact Jane Example at jane.example@example.invalid or +1 555 0100 before Friday. Sandbox key: sk_test_synthetic8FcwWEHF4oqjoNhdjkFnxz8\n확인해 주셔서 감사합니다.\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 151,
+            "end": 191,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-after-personal-data-contact-line-base"
+          }
+        ]
+      }
+    },
+    {
+      "id": "benign-control-and-near-neighbor-projections-generated--secret-after-personal-data-contact-line-in-markdown-fence",
+      "cell": {
+        "plan": "benign-control-and-near-neighbor-matrix-of-bases",
+        "scenario": "partial-span-leakage",
+        "families": [
+          "stripe:secret-key-test"
+        ]
+      },
+      "path": "secret-after-personal-data-contact-line-in-markdown-fence/input.txt",
+      "context": "markdown-code-fence",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "benign-control-and-near-neighbor-bases-authored--secret-after-personal-data-contact-line-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "markdown-code-fence"
+          }
+        ]
+      },
+      "evidence": "stripe-secret-key-not-safe-to-expose",
+      "sha256": "797501e9754e9f3ed31e459a39dec7b734e0f5c686960b2b59acbc4e1e3d0da2",
+      "text": "```text\nContact Jane Example at jane.example@example.invalid or +1 555 0100 before Friday. Sandbox key: sk_test_synthetic8FcwWEHF4oqjoNhdjkFnxz8\n```\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 104,
+            "end": 144,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "benign-control-and-near-neighbor-bases-authored--secret-after-personal-data-contact-line-base"
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Generated; never edited by hand: rerun the generator. Each projection keeps its base's Case or Scenario, expectation and evidence entry."
+}

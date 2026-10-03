@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-example-marker-inside-provider-shaped-value-not-published-by-provider",
+  "subject": {
+    "kind": "case",
+    "id": "example-marker-inside-provider-shaped-value-not-published-by-provider"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored by an AI agent run (issue #98, parent #92). The AWS statement was read on 2026-10-03; synthetic values only; not independently reviewed. Opened as unresolved: no provider statement covers marker words inside a value other than the published literals."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'expectation' is recorded as unresolved: Whether a provider-shaped value whose body is the word EXAMPLE plus filler is a placeholder is not settled by any provider source; needs a provider statement or a project-policy decision with a named reviewer and dissent."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

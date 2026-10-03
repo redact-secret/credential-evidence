@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "benign-control-and-near-neighbor-matrix-of-bases",
+  "title": "Benign controls and near-neighbor positives of authored bases",
+  "description": "Public identifier versus secret, reference versus literal, key-prefix text versus a key, and personal-data-shaped text under a credential-only scope, as 6 benign bases and 6 near-neighbor positives, each placed in three surrounding texts. Reuses existing Scenarios and Cases (benign-lookalike, environment-assignment, markdown-and-comment-value, multiple-credentials-per-input, partial-span-leakage, prose-mention, public-identifier, source-code-string-literal, structured-text-value, templated-reference, personal-data-shaped-values-under-credential-only-scope) and adds one Case for the credential-only personal-data scope. Declares its 12 bases, so the independent base count is 12 whatever the number of generated inputs.",
+  "matrix": {
+    "families": {
+      "select": "listed",
+      "ids": [
+        "stripe:secret-key-test"
+      ]
+    },
+    "targets": [
+      {
+        "type": "scenario",
+        "id": "benign-lookalike"
+      },
+      {
+        "type": "scenario",
+        "id": "environment-assignment"
+      },
+      {
+        "type": "scenario",
+        "id": "markdown-and-comment-value"
+      },
+      {
+        "type": "scenario",
+        "id": "multiple-credentials-per-input"
+      },
+      {
+        "type": "scenario",
+        "id": "partial-span-leakage"
+      },
+      {
+        "type": "scenario",
+        "id": "prose-mention"
+      },
+      {
+        "type": "scenario",
+        "id": "public-identifier"
+      },
+      {
+        "type": "scenario",
+        "id": "source-code-string-literal"
+      },
+      {
+        "type": "scenario",
+        "id": "structured-text-value"
+      },
+      {
+        "type": "scenario",
+        "id": "templated-reference"
+      },
+      {
+        "type": "case",
+        "id": "personal-data-shaped-values-under-credential-only-scope"
+      }
+    ],
+    "carriers": [
+      "english-prose-before-and-after",
+      "env-assignment",
+      "korean-prose-before-and-after",
+      "markdown-code-fence",
+      "prose",
+      "source-code",
+      "structured-file"
+    ],
+    "coverage": "sparse"
+  },
+  "generation": {
+    "rule": "surrounding-text-placement-of-controls-and-ambiguous-bases",
+    "generator": {
+      "name": "benign-reference-and-ambiguity-projector",
+      "version": "1.0.0",
+      "entrypoint": "scripts/generate-benign-reference-and-ambiguity-plans.mjs",
+      "sourceRevision": "e19df7cba3e567a827da0f648630da4b5ef7f55f"
+    },
+    "inputs": [
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--publishable-key-under-matching-label-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--environment-interpolation-reference-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--kubernetes-secret-key-reference-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--regular-expression-source-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--prefix-prose-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--secret-beside-publishable-under-one-label-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--secret-literal-in-reference-position-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--secret-literal-beside-kubernetes-reference-shape-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--secret-literal-where-the-pattern-was-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--secret-after-prefix-prose-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "benign-control-and-near-neighbor-bases-authored--secret-after-personal-data-contact-line-base"
+      },
+      {
+        "kind": "case",
+        "id": "personal-data-shaped-values-under-credential-only-scope"
+      },
+      {
+        "kind": "format-contract",
+        "id": "stripe:secret-key-test@1"
+      }
+    ],
+    "seed": "benign-reference-and-ambiguity-1"
+  },
+  "lineage": {
+    "origin": "authored",
+    "derivedFrom": [
+      {
+        "kind": "scenario",
+        "id": "benign-lookalike"
+      },
+      {
+        "kind": "scenario",
+        "id": "environment-assignment"
+      },
+      {
+        "kind": "scenario",
+        "id": "markdown-and-comment-value"
+      },
+      {
+        "kind": "scenario",
+        "id": "multiple-credentials-per-input"
+      },
+      {
+        "kind": "scenario",
+        "id": "partial-span-leakage"
+      },
+      {
+        "kind": "scenario",
+        "id": "prose-mention"
+      },
+      {
+        "kind": "scenario",
+        "id": "public-identifier"
+      },
+      {
+        "kind": "scenario",
+        "id": "source-code-string-literal"
+      },
+      {
+        "kind": "scenario",
+        "id": "structured-text-value"
+      },
+      {
+        "kind": "scenario",
+        "id": "templated-reference"
+      },
+      {
+        "kind": "case",
+        "id": "personal-data-shaped-values-under-credential-only-scope"
+      }
+    ]
+  },
+  "output": [
+    "benign-control-and-near-neighbor-bases-authored",
+    "benign-control-and-near-neighbor-projections-generated"
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. The matrix is sparse and single-family because the reasoning is not family-specific; Stripe is the family with a provider statement for both sides of the public-versus-secret question. A personal-data base has no credential family. Expected spans are the secret bytes only, with no envelope: bytes a consumer reports outside the secret are a separate observation. Downstream comparison must record, for every configuration it measures, whether generic credential-assignment detection and personal-data detection were enabled; those settings change the result on these inputs and are not stated here."
+}
