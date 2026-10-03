@@ -11,7 +11,7 @@
       "name": "context-large-input-projector",
       "version": "1.0.0",
       "entrypoint": "scripts/generate-context-large-input-plans.mjs",
-      "sourceRevision": "62e7e3413de593c99f649ed484b836028931ff31"
+      "sourceRevision": "58e9cc2af23de2c791ddbce12fffaa4dbec92de8"
     },
     "seed": "context-large-input-seed-1"
   },
@@ -533,10 +533,11 @@
             "mode": "embedded",
             "carrier": "bom-prefixed-assignment"
           }
-        ]
+        ],
+        "note": "Content is stored as bytesHex so the leading U+FEFF (bytes ef bb bf) is visible to a reviewer; it is valid UTF-8 and every span is a byte offset into it."
       },
       "sha256": "7f015be3bbcf02d77e0a99d584b37e23f72435a0f3135c82814c65db40c00c7a",
-      "text": "\ufeffSENDGRID_API_KEY=SG.SYNTHETICCTXBASEA00000.SYNTHETIC-NEVER-ISSUED-CTX-BASE-A-000000000\n",
+      "bytesHex": "efbbbf53454e44475249445f4150495f4b45593d53472e53594e544845544943435458424153454130303030302e53594e5448455449432d4e455645522d4953535545442d4354582d424153452d412d3030303030303030300a",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -1107,10 +1108,11 @@
             "mode": "embedded",
             "carrier": "bom-prefixed-assignment"
           }
-        ]
+        ],
+        "note": "Content is stored as bytesHex so the leading U+FEFF (bytes ef bb bf) is visible to a reviewer; it is valid UTF-8 and every span is a byte offset into it."
       },
       "sha256": "4a3ecdfc2a2974f2c54c8095289d66cd72da0aa82e42428403d33daf1bf2389c",
-      "text": "\ufeffGITHUB_TOKEN=ghp_SYNTHETICCTXBASEA0000000000000000000\n",
+      "bytesHex": "efbbbf4749544855425f544f4b454e3d6768705f53594e5448455449434354584241534541303030303030303030303030303030303030300a",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -1681,10 +1683,11 @@
             "mode": "embedded",
             "carrier": "bom-prefixed-assignment"
           }
-        ]
+        ],
+        "note": "Content is stored as bytesHex so the leading U+FEFF (bytes ef bb bf) is visible to a reviewer; it is valid UTF-8 and every span is a byte offset into it."
       },
       "sha256": "f32c40eb8c60bf1a66caa7e0d646b5bb59a4d2dd233016651c7b5c34470b22a3",
-      "text": "\ufeffGITLAB_TOKEN=glpat-SYNTHETICCTXBASEA000\n",
+      "bytesHex": "efbbbf4749544c41425f544f4b454e3d676c7061742d53594e54484554494343545842415345413030300a",
       "expected": {
         "outcome": "must-flag",
         "spans": [
@@ -2255,10 +2258,11 @@
             "mode": "embedded",
             "carrier": "bom-prefixed-assignment"
           }
-        ]
+        ],
+        "note": "Content is stored as bytesHex so the leading U+FEFF (bytes ef bb bf) is visible to a reviewer; it is valid UTF-8 and every span is a byte offset into it."
       },
       "sha256": "fabd389272f6a736eb06578ea5664ba380e723da532d63848814b0c934d99dd1",
-      "text": "\ufeffNPM_TOKEN=npm_SYNTHETICCTXBASEA0000000000000000000\n",
+      "bytesHex": "efbbbf4e504d5f544f4b454e3d6e706d5f53594e5448455449434354584241534541303030303030303030303030303030303030300a",
       "expected": {
         "outcome": "must-flag",
         "spans": [
