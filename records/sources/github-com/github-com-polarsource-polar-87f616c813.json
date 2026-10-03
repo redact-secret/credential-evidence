@@ -19,6 +19,13 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy contract-field, contract-providerSource, contract-reference, dossier-research, taxonomy-source; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "unchanged",
+      "observer": "research-agent",
+      "contentDigest": "e02b4393cc76abb5f6d5ecf9d1af618b28436b3f5aa0f825d12adb12f3a3c8db",
+      "note": "Re-read raw blob at the pinned commit 2026-10-03: generate_token (lines 21-32) builds prefix + 37 ascii_letters/digits + 6-character base62 CRC32; generate_token_hash_pair (lines 78-81) calls it."
     }
   ],
   "lifecycle": "draft",
