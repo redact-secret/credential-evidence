@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "authored-prefixless-key-shape-discrimination",
+  "title": "Prefixless key shapes and same-shape public identifiers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "authored-prefixless-key-shape-discrimination--trace-context-header",
+      "case": "spec-defined-identifiers-with-key-shape",
+      "path": "trace-context-header/fixture.txt",
+      "sha256": "6abf15de454133dcb353f7a06123248b0f65a0d7897bd103c86a2daefd00b5fb",
+      "text": "GET /v1/orders HTTP/1.1\nHost: api.example.invalid\ntraceparent: 00-5f370ebc0bad023679188289bc898e75-350c8a7e212fde71-01\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-prefixless-key-shape-discrimination--git-commit-reference",
+      "case": "spec-defined-identifiers-with-key-shape",
+      "path": "git-commit-reference/fixture.txt",
+      "sha256": "7e4dc23286eb0cb434ba309fc94b70d3163159a5434365ab40460d0259bb1b3d",
+      "text": "commit ffb6c6d52b709108c466e37ea9a015d77a15d937\nAuthor: Example Dev <dev@example.invalid>\n\n    bump build tooling\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-prefixless-key-shape-discrimination--request-id-header-uuid",
+      "case": "spec-defined-identifiers-with-key-shape",
+      "path": "request-id-header-uuid/fixture.txt",
+      "sha256": "8f38fc5bccd479087946396514a0395325daf5b488a6c0f9e78df6fc2b6fbccd",
+      "text": "HTTP/1.1 200 OK\nx-request-id: 469a9f18-d544-4b25-86ab-230992fa89ad\ncontent-type: application/json\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-prefixless-key-shape-discrimination--legacy-uuid-key-and-request-id",
+      "case": "key-beside-same-shape-public-identifier",
+      "path": "legacy-uuid-key-and-request-id/fixture.txt",
+      "sha256": "14a1ec864a6cc8335f4d53caebdae916114fc62a939172437781639ae9ba504f",
+      "text": "HEROKU_API_KEY=a53cfac7-b15a-475e-8c8f-4fd08c578075\nx-request-id: b49eda37-62f7-433f-8b4a-02952989ee4e\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 15,
+            "end": 51,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-prefixless-key-shape-discrimination--hex-auth-token-and-trace-id",
+      "case": "key-beside-same-shape-public-identifier",
+      "path": "hex-auth-token-and-trace-id/fixture.txt",
+      "sha256": "ea4d8f1d1549f5b1d9f353b43efce06601a489c9c11130c42525a1332d731c52",
+      "text": "TWILIO_AUTH_TOKEN=f4ba0d3c725415f2e3f561d2cdf824f8\ntraceparent: 00-ddb0153d48c4d1a801652091aa9b5911-4010f33cb962bd4c-01\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-prefixless-key-shape-discrimination--hex-api-key-and-commit-name",
+      "case": "key-beside-same-shape-public-identifier",
+      "path": "hex-api-key-and-commit-name/fixture.txt",
+      "sha256": "0415005d058651c86db803edcbfd7569fea69d5e06338611d55165850a5b6fb9",
+      "text": "DEEPGRAM_API_KEY=6c4f6b96c22ee80975a2d9290a9b82583900e0ba\ncommit 957d5f09eb52aa35060fb6f4d9baf5eb53022277\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 57,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-prefixless-key-shape-discrimination--uuid-under-generic-api-key-name",
+      "case": "uuid-under-credential-name-without-provider-context",
+      "path": "uuid-under-generic-api-key-name/fixture.txt",
+      "sha256": "82d937a6f70bde89cdeb7e14786870b11058cfd3f4966cf7056c5645d292380d",
+      "text": "api_key: 2dca9aeb-7c97-4893-800c-739abb41fc57\nregion: eu\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-prefixless-key-shape-discrimination--sdk-bump-commit-line",
+      "case": "git-object-name-on-a-line-naming-a-provider",
+      "path": "sdk-bump-commit-line/fixture.txt",
+      "sha256": "f4f6d1db3649881adc55346c11b9f08130f6c4eee1b4f7141e277897dfbfd021",
+      "text": "Bump deepgram sdk to 5.2.0 (52fc338e507b8065df4f8d8c5552e7624ee38a4f)\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-prefixless-key-shape-discrimination--x-api-key-unattributed-host",
+      "case": "bare-thirty-two-character-value-under-unattributed-auth-header",
+      "path": "x-api-key-unattributed-host/fixture.txt",
+      "sha256": "8761818338ab51b4cf9955801bab37f9cc34de1df4ad82fb132b5aa9e7b57abd",
+      "text": "GET /v1/items HTTP/1.1\nHost: api.example.invalid\nX-Api-Key: k0zTbGVJ3t7bTG2DGFeXD2p7HmFMfAV5\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "description": "Hand-written inputs for cases about unprefixed credential shapes and the public identifiers (W3C trace-ids, git object names, UUIDs) that share their length and alphabet. Every value was derived by the author from a SHA-512 of a fixed label, so it was never issued by any provider and was never tested against a service. Unresolved items assert no outcome."
+}

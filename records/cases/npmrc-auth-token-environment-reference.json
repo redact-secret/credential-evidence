@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "npmrc-auth-token-environment-reference",
+  "title": ".npmrc: _authToken given as an environment variable reference",
+  "summary": "The same scoped _authToken line as the literal case, where the value is ${NPM_TOKEN} or ${NPM_TOKEN?}.",
+  "rationale": "npm substitutes environment variables into config values, so the file holds the name of the variable and the token stays in the environment. The setting name is identical to the literal case; only the value differs.",
+  "caseTypes": [
+    "benign",
+    "twin"
+  ],
+  "families": [
+    {
+      "family": "npm:npmrc-registry-credential",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. npm documents that environment variables can be replaced using ${VARIABLE_NAME} in config files, with ? after the name forcing an empty string when undefined. The value is a reference, not the token.",
+    "sources": [
+      {
+        "sourceId": "docs-npmjs-com-8f8a96c89d",
+        "supports": "Environment variables can be replaced using ${VARIABLE_NAME}. By default if the variable is not defined, it is left unreplaced. By adding ? after variable name they can be forced to evaluate to an empty string instead.",
+        "locator": "section: Files"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories.",
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "npmrc-registry-scoped-literal-auth-token",
+      "note": "Same file with the literal replaced by an environment reference."
+    }
+  ]
+}

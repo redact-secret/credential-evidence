@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "http-set-cookie-session-identifier-value-span",
+  "title": "Session identifier value in a Set-Cookie header with attributes",
+  "summary": "A synthetic Set-Cookie response header that sets a session-identifier cookie with Path, Secure, HttpOnly and Max-Age attributes.",
+  "rationale": "The attributes describe scope and handling, not the credential: the Path, Secure, HttpOnly and lifetime values are not part of the secret, and including them is over-coverage that destroys information readers need. Only the nonce value is the credential span.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:http-session-cookie",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag the cookie-value only, up to the semicolon that starts the attributes. RFC 6265 separates cookie-pair from the attribute-value pairs and describes the session identifier nonce as the replayable item.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-e003fbf5ed",
+        "supports": "set-cookie-string = cookie-pair *( \";\" SP cookie-av )",
+        "locator": "#section-4.1.1"
+      },
+      {
+        "sourceId": "rfc-editor-org-e003fbf5ed",
+        "supports": "servers commonly store a nonce (or \"session identifier\") in a cookie",
+        "locator": "#section-8.4"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited standards read on 2026-10-03, before any scanner was consulted. All values are synthetic and were not tested against any service. Header coalescing, parser and action policy, decoded-token mapping and product masking stay with the downstream repositories."
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "aws-session-token-alone-confidentiality",
+  "title": "AWS session token alone: confidentiality not stated",
+  "summary": "An AWS session token (long base64-like string) appearing alone in an AWS_SESSION_TOKEN assignment, with no key ID or secret in the input. Value is synthetic.",
+  "rationale": "The provider documents the session token as the value users must pass to use temporary credentials, but the pages read do not say whether a token separated from its key pair is confidential or what its length and alphabet are. Left open.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "aws:sts-temporary-access-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "identifier-and-secret-pair-component-roles"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved: the STS Credentials type says 'The token that users must pass to the service API to use the temporary credentials' and gives no confidentiality statement, length or alphabet. Would resolve: a provider statement on the session token, or a project-policy decision with a second reviewer. A session-token family is not proposed here; see the PR notes.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-1e7f14016c",
+        "supports": "SessionToken: the token users must pass to use the temporary credentials; no confidentiality statement",
+        "locator": "Credentials, SessionToken"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "http-authorization-and-proxy-authorization-in-one-request",
+  "title": "Origin and proxy credentials in one request",
+  "summary": "One synthetic request carrying a different Basic token in each of the Authorization and Proxy-Authorization headers.",
+  "rationale": "The two headers address different recipients: the proxy consumes its credentials and the origin server its own. Both values are credentials in the same input, so each needs its own exact span; merging them or reporting only one leaves a credential exposed.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:http-basic-credentials",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "multiple-credentials-per-input"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag both tokens, each with its own extent. RFC 9110 gives Proxy-Authorization to the first inbound proxy that demanded it and passes Authorization to the origin server unmodified.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-e593c606c9",
+        "supports": "the Proxy-Authorization header field applies only to the next inbound proxy that demanded authentication",
+        "locator": "#section-11.7.2"
+      },
+      {
+        "sourceId": "rfc-editor-org-e593c606c9",
+        "supports": "A proxy forwarding a request MUST NOT modify any Authorization header fields in that request",
+        "locator": "#section-11.6.2"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited standards read on 2026-10-03, before any scanner was consulted. All values are synthetic and were not tested against any service. Header coalescing, parser and action policy, decoded-token mapping and product masking stay with the downstream repositories."
+}

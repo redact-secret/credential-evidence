@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "distributed-trace-identifier-hex",
+  "families": [
+    "datadog:api-key",
+    "twilio:auth-token",
+    "ai21:api-key",
+    "mistral:api-key"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Distributed trace identifier (32 lowercase hex)",
+  "description": "The trace-id of a W3C Trace Context traceparent header: a 16-byte identifier written as 32 lowercase hexadecimal characters (all zero is invalid). It is propagated unchanged to downstream services and other vendors to correlate one distributed trace, so it is an identifier shared by design. It has the same length and, for several families, the same alphabet as 32-character bare keys (the Datadog API key, Twilio auth token, AI21 and Mistral keys), which are recognised only by context. The specification does not call the trace-id a secret; it does not settle how a given 32-hex value outside a traceparent header should be read.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "w3-org-6a0029787a",
+      "supports": "trace-id is a 16-byte array identifying a distributed trace, shown as 32 hexadecimal characters; the all-zero value is invalid.",
+      "locator": "#trace-id"
+    },
+    {
+      "sourceId": "w3-org-6a0029787a",
+      "supports": "The traceparent field, including the trace-id, must be sent on outgoing requests, with the trace-id kept constant across the trace so it can be correlated across vendors.",
+      "locator": "#mutating-the-traceparent-field"
+    }
+  ],
+  "observedAt": "2026-10-03",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Class is unresolved because the cited sources are standards, not statements by a credential issuer: they support the shape and propagation facts quoted in the description and nothing about whether any value is a credential."
+}
