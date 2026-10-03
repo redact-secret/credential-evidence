@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "twilio-sid-only-and-placeholder-token-near-neighbors",
+  "title": "Twilio SIDs without a token value",
+  "summary": "Twilio inputs that carry an identifier but no secret value: an Account SID alone, an API key SID alone, and an Account SID beside a TWILIO_AUTH_TOKEN assignment whose value is a template placeholder. Values are synthetic.",
+  "rationale": "Near neighbors of the paired cases: the identifier shapes are the same, the secret component is absent. A policy that flags every AC or SK value over-redacts; a policy that treats the SID as harmless everywhere is not supported either, since no source states the SID is non-sensitive, which is why the basis is recorded as policy.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "twilio:auth-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "twilio:api-key-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "identifier-and-secret-pair-component-roles",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Question: should an identifier-only input be expected to be flagged. Options: expect flagging (identifier treated as secret); expect no flag (no secret component present). Chosen: expect no flag, since the provider documents the secret as the Auth Token or key secret and no page read says the SID is confidential; the Twilio authtoken page marks accountSid 'Not PII'. This is a project decision, not a provider rule, and does not say a SID is harmless in every setting. Would reverse if Twilio states the SID is confidential or a maintainer decides to treat account identifiers as sensitive. Deciding maintainer and a second reviewer: not yet recorded (draft).",
+    "sources": [
+      {
+        "sourceId": "twilio-com-e7679bb537",
+        "supports": "accountSid pattern AC + 32 hex, flagged Not PII; no secrecy statement for the SID",
+        "locator": "authtoken page, accountSid property"
+      },
+      {
+        "sourceId": "twilio-com-5daf729305",
+        "supports": "secrecy statement covers the Auth Token only",
+        "locator": "security considerations"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

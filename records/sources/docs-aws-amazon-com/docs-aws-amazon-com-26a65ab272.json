@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "docs-aws-amazon-com-26a65ab272",
+  "sourceType": "provider-documentation",
+  "title": "Use temporary credentials with AWS resources",
+  "publisher": "docs.aws.amazon.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "read",
+      "observer": "research-agent",
+      "note": "Read page text via fetch (no raw digest). States a call with temporary credentials must include the session token returned with them; the CLI example sets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and AWS_SESSION_TOKEN together; API requests carry the session token in a header or query parameter X-Amz-Security-Token. Does not state whether the session token alone is confidential."
+    }
+  ],
+  "lifecycle": "draft"
+}
