@@ -158,15 +158,16 @@ export function buildRecords({ sourceRevision, seed = SEED }) {
     for (const c of CONTEXTS) {
       const bytes = Buffer.from(c.build(f, f.a), "utf8");
       const start = uniqueOffset(bytes, f.a, `${f.short} ${c.name}`);
+      const hex = bytes.toString("utf8").includes("\uFEFF"); // a literal byte order mark is an invisible character: keep it as hex
       contextItems.push({
         id: `${IDS.contextSet}--${f.short}-${c.name}`,
         cell: { plan: IDS.contextPlan, scenario: c.scenario, families: [f.family] },
         path: `${f.short}-${c.name}/input.txt`,
         context: c.carrier,
         derivation: { kind: "projection", bases: [baseId(f, "a")] },
-        transformation: { steps: [{ op: "embed", mode: c.mode, carrier: c.carrier }] },
+        transformation: { steps: [{ op: "embed", mode: c.mode, carrier: c.carrier }], ...(hex ? { note: "Content is stored as bytesHex so the leading U+FEFF (bytes ef bb bf) is visible to a reviewer; it is valid UTF-8 and every span is a byte offset into it." } : {}) },
         sha256: sha(bytes),
-        text: bytes.toString("utf8"),
+        ...(hex ? { bytesHex: bytes.toString("hex") } : { text: bytes.toString("utf8") }),
         expected: { outcome: "must-flag", spans: [{ start, end: start + Buffer.byteLength(f.a), role: "secret", note: SYNTH, base: baseId(f, "a") }] },
       });
     }
