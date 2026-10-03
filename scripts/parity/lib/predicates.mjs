@@ -16,6 +16,8 @@
 //   ctx.familyDossierClass(id)     evidence class of the family's dossier-research claim, or undefined
 //   ctx.recomputeDigest(path)      the legacy digestJson of the projected document a fixture-index digest field covers
 
+import { REPEATED_REASON } from "../../migrate/lib/legacy-model.mjs";
+
 const DOWNGRADE_NOTE = /^Legacy tier T[12] \((tool-corroborated|provider-documented)\), but /;
 
 const normalize = (t) => t.replace(/\s+/g, " ").trim();
@@ -34,16 +36,27 @@ export const PREDICATES = {
   /** The projected value is the canonical target id of the fixture: its Case, or for a matrix cell its Scenario (the legacy display group is replaced by it). */
   "value-is-target-id": (d, ctx) => ctx.caseOf(d.path)?.id === d.projected,
 
-  /** The legacy per-fixture reason was collapsed to the fixture's evidence reason: the most common legacy reason of its group (whitespace-normalized, possibly clipped), optionally after the importer recorded basis note. */
+  /**
+   * The legacy per-fixture reason was collapsed to the fixture's evidence reason. An evidence entry splits on distinct reasons
+   * (ADR 0014), so a fixture's projected reason is its own legacy reason (whitespace-normalized, possibly clipped, optionally
+   * after the importer's basis note). The one legitimate collapse is a repetition: the fixture's own legacy wording and the
+   * entry's are both "Negative twin of <positive>: ..." template renderings, and the entry's wording is a legacy reason of a
+   * peer in the entry. A distinct reason that took another fixture's wording is not explained.
+   */
   "reason-collapsed-to-case": (d, ctx) => {
     const c = ctx.caseOf(d.path);
     if (!c || typeof d.projected !== "string" || d.projected !== c.expectation.rationale) return false;
     const core = stripBasisNote(d.projected);
     const clipped = core.endsWith("…") ? core.slice(0, -1) : null;
-    return [d.path, ...ctx.peerPaths(d.path)].map((p) => ctx.legacy(p)).filter((r) => typeof r === "string").some((r) => {
+    const matches = (r) => {
       const n = normalize(r);
       return n === core || (clipped !== null && n.startsWith(clipped));
-    });
+    };
+    const own = ctx.legacy(d.path);
+    if (typeof own !== "string") return false;
+    if (matches(own)) return true;
+    if (!REPEATED_REASON.test(normalize(own)) || !REPEATED_REASON.test(core)) return false;
+    return ctx.peerPaths(d.path).map((p) => ctx.legacy(p)).some((r) => typeof r === "string" && matches(r));
   },
 
   /** The legacy evidence tier was re-expressed after an importer downgrade that the case rationale records (fewer than two distinct owners, or no provider-owned source). */

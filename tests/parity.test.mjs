@@ -60,6 +60,34 @@ describe("semantic comparison", () => {
   });
 });
 
+describe("reason-collapsed-to-case (#76)", () => {
+  const mask = "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.";
+  const floor = "Control at the sk_org_ support-policy floor (redact-secret#1030): no body.";
+  const twinA = "Negative twin of aws-a: prefix: x. Exactly one structural property differs from the positive.";
+  const twinB = "Negative twin of aws-b: alphabet: y. Exactly one structural property differs from the positive.";
+  // legacy: map of path -> reason; peers: paths sharing the evidence entry
+  const ctxOf = (rationale, legacy, peers = []) => ({ caseOf: () => ({ expectation: { rationale } }), legacy: (p) => legacy[p], peerPaths: () => peers });
+  const diff = (projected) => ({ path: "f[x].assessment.reason", projected });
+  const p = PREDICATES["reason-collapsed-to-case"];
+
+  test("a repeated wording still collapses: a twin rendering takes its entry's twin wording", () => {
+    assert.ok(p(diff(twinA), ctxOf(twinA, { "f[x].assessment.reason": twinB, "f[y].assessment.reason": twinA }, ["f[y].assessment.reason"])));
+  });
+
+  test("a distinct reason that took another fixture's wording is not explained", () => {
+    assert.equal(p(diff(floor), ctxOf(floor, { "f[x].assessment.reason": mask, "f[y].assessment.reason": floor }, ["f[y].assessment.reason"])), false);
+  });
+
+  test("a fixture's own wording is explained after whitespace normalization and a basis note", () => {
+    const note = "Legacy tier T0: the evidence is unresolved and the fixtures were unscored, so no outcome is asserted. ";
+    assert.ok(p(diff(`${note}${mask}`), ctxOf(`${note}${mask}`, { "f[x].assessment.reason": `  ${mask}\n` })));
+  });
+
+  test("a twin rendering does not excuse a non-twin entry wording", () => {
+    assert.equal(p(diff(floor), ctxOf(floor, { "f[x].assessment.reason": twinA, "f[y].assessment.reason": floor }, ["f[y].assessment.reason"])), false);
+  });
+});
+
 describe("explained-difference rules", () => {
   const rules = loadRules(rulesPath);
   const classes = new Set(["product-state-dropped", "presentation-substitute", "case-level-aggregation", "dropped-legacy-metadata", "lossy-import", "not-imported-scope", "derived-digest"]);

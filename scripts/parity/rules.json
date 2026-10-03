@@ -59,7 +59,7 @@
       "patterns": ["fixtures[*].assessment.reason"],
       "change": "changed",
       "predicate": "reason-collapsed-to-case",
-      "justification": "Legacy carries one prose reason per fixture. A canonical evidence entry records one reason: the most common reason among the fixtures it was built from (whitespace-normalized, clipped at 2000 characters), after a note when the evidence basis was downgraded. The projection repeats the entry's reason on each fixture that cites it. Checked: the projected text is the entry's reason and equals a legacy reason of a fixture in the same case (or its clipped prefix)."
+      "justification": "Legacy carries one prose reason per fixture. A canonical evidence entry records one reason, and the importer gives each distinct reason its own entry (ADR 0014), so a fixture keeps its own wording (whitespace-normalized, clipped at 2000 characters, after a note when the evidence basis was downgraded). What is collapsed is a repetition: the per-fixture \"Negative twin of <positive>: ...\" renderings of one twin template share an entry and carry its most common wording. Checked: the projected text is the entry's reason and equals the fixture's own legacy reason (or its clipped prefix); or both are twin-template renderings and it equals a legacy reason of a peer in the entry. A distinct reason that took another fixture's wording is not explained."
     },
     {
       "id": "assessment-tier-downgraded-on-import",

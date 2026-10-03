@@ -258,7 +258,7 @@ export function buildRecords({ model, taxonomy }) {
         R.inc("kept:t0-fixtures-with-candidate");
         spans = [];
       }
-      const ev = e.agg.evidence;
+      const ev = e.evidence;
       const key = evidenceKey(ev);
       if (evidence[key] && json(evidence[key]) !== json(ev)) throw new Error(`evidence key collision ${key}`);
       evidence[key] = ev;

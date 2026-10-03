@@ -20,7 +20,7 @@ import { CASES } from "../scripts/migrate/authored/cases.mjs";
 import { SCENARIOS } from "../scripts/migrate/authored/scenarios.mjs";
 import { scrubFileName, scrubName } from "../scripts/migrate/lib/build-records.mjs";
 import { classifyAgg, RULES } from "../scripts/migrate/lib/classify.mjs";
-import { loadLegacyModel, loadTaxonomy } from "../scripts/migrate/lib/legacy-model.mjs";
+import { groupByReason, loadLegacyModel, loadTaxonomy } from "../scripts/migrate/lib/legacy-model.mjs";
 import { findLegacyDir, LEGACY_PATHS, LEGACY_REVISION, loadGeneratedCorpora, materializeLegacy, readLegacyJson } from "../scripts/migrate/lib/legacy-source.mjs";
 
 const { errors, records } = validateTree([join(repoRoot, "records"), join(repoRoot, "migration")]);
@@ -281,6 +281,43 @@ describe("the semantic tree (no legacy checkout needed)", () => {
     assert.match(problems, /evidence 'ev-missing' is not in the set's evidence map/);
     assert.match(problems, /sha256 does not match text/);
     assert.match(problems, /lineage\.of unknown fixture/);
+  });
+});
+
+describe("evidence entries split on distinct reasons (#76, ADR 0014)", () => {
+  const fx = (id, reason) => ({ id, f: { assessment: { reason } } });
+
+  test("two distinct reasons in one imported case are two groups; twin repetitions stay one", () => {
+    const mask = "Placeholder, reference, template, mask, documentation or ordinary text. Expected silence is project policy.";
+    const floor = "Control at the sk_org_ support-policy floor (redact-secret#1030): no body.";
+    const groups = groupByReason([fx("a", mask), fx("b", floor), fx("c", `  ${mask}\n`)]);
+    assert.equal(groups.size, 2, "the mask wording (whitespace-normalized) and the floor wording are distinct reasons");
+    assert.deepEqual(groups.get(mask).map((e) => e.id), ["a", "c"]);
+    const twins = groupByReason([fx("t1", "Negative twin of aws-a: prefix: x. Exactly one structural property differs."), fx("t2", "Negative twin of aws-b: alphabet: y. Exactly one structural property differs."), fx("t3", "Negative twin of aws-c: context: z.")]);
+    assert.equal(twins.size, 1, "per-fixture twin renderings repeat one reason");
+    assert.equal([...twins.values()][0].length, 3);
+  });
+
+  test("a distinct reason beside twin repetitions is not swallowed by them", () => {
+    const groups = groupByReason([fx("t1", "Negative twin of a: m. x"), fx("t2", "Negative twin of b: n. x"), fx("own", "Relabelled by docs/decisions/x.md: was must-not-flag.")]);
+    assert.equal(groups.size, 2);
+  });
+
+  test("grouping is deterministic, independent of input order", () => {
+    const xs = [fx("a", "one"), fx("b", "two"), fx("c", "one")];
+    assert.deepEqual([...groupByReason(xs).keys()], [...groupByReason([...xs].reverse()).keys()]);
+  });
+
+  test("stripe controls keep their own rationale; the sk_org_ floor controls keep the floor wording", () => {
+    const stripe = sets.find((s) => s.id === "stripe");
+    const byId = new Map(stripe.fixtures.map((f) => [f.id, f]));
+    for (const slug of ["stripe-token-mask", "stripe-token-reference", "stripe-token-label-prose"]) {
+      const rationale = stripe.evidence[byId.get(`stripe--${slug}`).evidence].rationale;
+      assert.match(rationale, /^Placeholder, reference, template, mask, documentation or ordinary text\. Expected silence is project policy\./, slug);
+    }
+    const orgControls = stripe.fixtures.filter((f) => /^stripe--stripe-token-policy-org-.*-control$/.test(f.id));
+    assert.equal(orgControls.length, 10);
+    for (const f of orgControls) assert.match(stripe.evidence[f.evidence].rationale, /^Control at the sk_org_ support-policy floor/, f.id);
   });
 });
 

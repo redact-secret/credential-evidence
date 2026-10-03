@@ -11,6 +11,25 @@ import { LEGACY_PATHS, LEGACY_REPOSITORY, LEGACY_REVISION, readLegacyJson } from
 import { clip, isProjectOwned, ownerOf, sourceIdFor, splitUrl } from "./sources.mjs";
 
 export const TEXT_MAX = 2000;
+/** A per-fixture wording that repeats the twin template rather than giving a reason of its own ("Negative twin of <positive>: <mutation>. ..."). */
+export const REPEATED_REASON = /^Negative twin of \S+: /;
+export const normReason = (r) => String(r).replace(/\s+/g, " ").trim();
+/**
+ * Partition the fixtures of one imported case by the reason they cite, in a stable order: every "Negative twin of <positive>: ..."
+ * wording is one repetition group; any other wording is a distinct reason of its own (issue #76, ADR 0014).
+ * @param {{ f: { assessment: { reason: string } } }[]} entries
+ * @returns {Map<string, object[]>}
+ */
+export function groupByReason(entries) {
+  const groups = new Map();
+  for (const e of entries) {
+    const r = normReason(e.f.assessment.reason);
+    const k = REPEATED_REASON.test(r) ? REPEATED_REASON.source : r;
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(e);
+  }
+  return new Map([...groups.entries()].sort((a, b) => cmp(a[0], b[0])));
+}
 export const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 export const uniqSorted = (xs) => [...new Set(xs)].sort(cmp);
 export const slugify = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -137,14 +156,16 @@ export function loadLegacyModel({ root, generated, taxonomy, revision = LEGACY_R
 
   // ---- sources
   const sourceRecord = (base) => taxonomy.sources.get(sourceIdFor(base).id);
-  const resolveSources = (urls) => {
+  const resolveSources = (urls, count = true) => {
     const refs = [];
     for (const raw of urls ?? []) {
       const { base, fragment } = splitUrl(raw);
       const rec = sourceRecord(base);
       if (!rec) {
-        R.inc("dropped:assessment-source-not-in-taxonomy-import");
-        R.add("dropped:assessment-source-not-in-taxonomy-import", base);
+        if (count) {
+          R.inc("dropped:assessment-source-not-in-taxonomy-import");
+          R.add("dropped:assessment-source-not-in-taxonomy-import", base);
+        }
         continue;
       }
       refs.push({ record: rec, base, locator: fragment ? clip(fragment, 300) : undefined });
@@ -219,14 +240,20 @@ export function loadLegacyModel({ root, generated, taxonomy, revision = LEGACY_R
     agg.legacyCaseId = id;
   }
 
-  // ---- evidence per group: the legacy tier re-expressed as a canonical basis, same rules as #4
+  // ---- evidence per group: the legacy tier re-expressed as a canonical basis, same rules as #4.
+  // One evidence entry per (imported case, distinct reason): the per-fixture "Negative twin of <positive>: ..." wordings
+  // are repetitions of one twin rationale and share an entry (the most frequent wording); any other wording is a
+  // substantively distinct reason and gets its own entry, cited by its own fixtures (issue #76, ADR 0014).
   const reviewedAt = semantics.reviewedAt;
-  for (const agg of aggs) {
-    const fixturesOf = agg.entries.map((e) => e.f);
+  const evidenceFor = (agg, members, count) => {
+    const inc = (k, n = 1) => {
+      if (count) R.inc(k, n);
+    };
+    const fixturesOf = members.map((e) => e.f);
     const refs = [];
     const seen = new Set();
-    for (const e of agg.entries) {
-      for (const r of resolveSources(e.f.assessment.sources)) {
+    for (const e of members) {
+      for (const r of resolveSources(e.f.assessment.sources, count)) {
         const supports = `Cited by the legacy assessment (${SOURCE_TYPE_WORDS[r.record.sourceType] ?? "source"}); claim not itemised.`;
         const k = `${r.record.id}|${r.locator ?? ""}`;
         if (seen.has(k)) continue;
@@ -245,18 +272,18 @@ export function loadLegacyModel({ root, generated, taxonomy, revision = LEGACY_R
       else if (owners.length >= 2) {
         basis = "tool-corroborated";
         basisNote = "Legacy tier T1 (provider-documented), but no cited source is provider-owned; recorded as tool-corroborated. ";
-        R.inc("basis:downgrade:T1-without-provider-source", agg.entries.length);
+        inc("basis:downgrade:T1-without-provider-source", members.length);
       } else {
         basis = "project-policy";
         basisNote = "Legacy tier T1 (provider-documented), but no cited source is provider-owned; recorded as project-policy pending review. ";
-        R.inc("basis:downgrade:T1-without-provider-source", agg.entries.length);
+        inc("basis:downgrade:T1-without-provider-source", members.length);
       }
     } else if (agg.tier === "T2") {
       if (owners.length >= 2) basis = "tool-corroborated";
       else {
         basis = "project-policy";
         basisNote = "Legacy tier T2 (tool-corroborated), but the cited sources do not include artifacts from two distinct owners, so the corroboration rule of docs/governance/evidence-classes.md is not met; the legacy expectation is recorded as project-policy pending review. ";
-        R.inc("basis:downgrade:T2-fewer-than-two-owners", agg.entries.length);
+        inc("basis:downgrade:T2-fewer-than-two-owners", members.length);
       }
     } else if (agg.tier === "T3") basis = "project-policy";
     else if (agg.tier === "T0") {
@@ -265,13 +292,23 @@ export function loadLegacyModel({ root, generated, taxonomy, revision = LEGACY_R
     } else throw new Error(`${agg.legacyCaseId}: unknown tier ${agg.tier}`);
 
     const reasonCounts = new Map();
-    for (const f of fixturesOf) reasonCounts.set(f.assessment.reason, (reasonCounts.get(f.assessment.reason) ?? 0) + 1);
+    for (const f of fixturesOf) reasonCounts.set(normReason(f.assessment.reason), (reasonCounts.get(normReason(f.assessment.reason)) ?? 0) + 1);
     const reasons = [...reasonCounts.entries()].sort((a, b) => b[1] - a[1] || cmp(a[0], b[0]));
-    if (reasons.length > 1) R.inc("collapsed:assessment-reason-variants", reasons.length - 1);
-    const rationale = clip(`${basisNote}${String(reasons[0][0]).replace(/\s+/g, " ").trim()}`, TEXT_MAX, () => R.inc("truncated:evidence-rationale"));
+    if (reasons.length > 1) inc("collapsed:assessment-reason-variants", reasons.length - 1);
+    const rationale = clip(`${basisNote}${reasons[0][0]}`, TEXT_MAX, () => inc("truncated:evidence-rationale"));
     const dates = refs.flatMap((x) => x.record.observations.map((o) => o.observedAt));
     const observedAt = dates.length ? dates.sort(cmp).at(-1) : reviewedAt;
-    agg.evidence = { basis, rationale, sources: refs.map((x) => x.ref), observedAt };
+    return { basis, rationale, sources: refs.map((x) => x.ref), observedAt };
+  };
+  for (const agg of aggs) {
+    // The imported case's own reading (basis, sources, date) is unchanged: computed over all its fixtures, not tallied.
+    agg.evidence = evidenceFor(agg, agg.entries, false);
+    const groups = groupByReason(agg.entries);
+    if (groups.size > 1) R.inc("split:assessment-reason-distinct", groups.size - 1);
+    for (const members of groups.values()) {
+      const ev = evidenceFor(agg, members, true);
+      for (const e of members) e.evidence = ev;
+    }
   }
 
   // ---- known gaps: historical incidents, keyed by legacy fixture slug
