@@ -74,6 +74,18 @@
       },
       "verdict": "inconclusive",
       "note": "Evidence review (2026-10-03, AI agent run, not independently reviewed). Five fixture expectations re-based to provider-documented on statements read in the RFC 6750 page (the alphabet of a Bearer credential, a credential needs at least one token character, the parameters of a Bearer challenge). Seven fixtures stay project-policy. A 10-character Bearer value: RFC 6750 states no length, and open-source rule minimums read as leads are 6 and 8 characters, so they do not corroborate a floor above 10. Content-MD5, ETag, X-Request-Id and X-Amzn-Trace-Id values: the pages read define the field's role or format but do not state that the value is not a credential. The token_type-only object and the client_id key: RFC 6749 (access_token is the member that carries the token; the client identifier is not a secret) was read, but its source record is typed standard-or-rfc, which the evidence-class check does not accept as provider-authored, so a maintainer decides whether it counts."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review, second pass (2026-10-03, AI agent run, not independently reviewed). The token_type-only object is re-based to provider-documented on RFC 6750 section 2.1 (the Bearer scheme is followed by spaces and a token; here it is followed by a quote) and section 4 (the example response carries the token in an access_token member, absent here); the example is illustrative, so the entry relies on the syntax statement. Six fixtures stay project-policy. A 10-character value in an Authorization header is a valid b64token, so the Bearer syntax does not exclude it. RFC 6749 section 10.10 (a standard-or-rfc source, re-read 2026-10-03) requires a guess probability of at most 2^-128 for generated tokens, which a 10-character value cannot reach, but that binds a conforming issuer and does not say a short value is not a credential. The client_id key: RFC 6749 section 2.2 states the client identifier is not a secret; the source record is typed standard-or-rfc, so it waits on the maintainer decision on that type. ETag, Content-MD5, X-Request-Id and X-Amzn-Trace-Id: the pages read define the field role or format and do not state the value is not a credential; RFC 6750 section 2 defines three ways to send a token and does not say they are the only ones, so the field name alone does not exclude a token."
     }
   ],
   "externalRefs": [
