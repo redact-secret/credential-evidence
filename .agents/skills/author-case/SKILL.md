@@ -38,8 +38,9 @@ At most one Case or one Scenario per run.
    - The reasoning is the same sentence for every family it applies to: a **Scenario**. First check
      `records/scenarios` for one with that meaning; if it exists and covers the family, no record is needed (say
      so); if it exists and lists families explicitly or a fixture plan lists them, adding the family is an edit
-     to a pipeline-owned record: write it under Needs human with the owning generator
-     (`scripts/lib/ownership.mjs`), do not edit it. If none exists, `npm run record:new -- scenario <slug> --title "..."`
+     to a record of the import baseline: make the edit and declare it
+     (`npm run baseline:amend`, [research-run](../_shared/research-run.md#step-0-for-every-run-imported-records-and-new-records)).
+     If none exists, `npm run record:new -- scenario <slug> --title "..."`
      and write it once with no family-specific prose.
    - Only a mechanical cell (family x existing Scenario or Case): a **matrix projection**; no record. Name the
      plan it belongs in under Needs human.
@@ -84,8 +85,8 @@ At most one Case or one Scenario per run.
    ```
    Say what is conflicting or undecided in that note.
 7. **Check and land.** `npm run record:check`, then the gate and the landing check in
-   [research-run](../_shared/research-run.md#the-gate): records under `records/cases`, `records/scenarios` and
-   `records/fixtures` are in directories a pipeline owns, so expect the landing note. Commit
+   [research-run](../_shared/research-run.md#the-gate): a new Case, Scenario or fixture set needs nothing
+   special (the importers no longer own those directories); an edit to an imported record is declared. Commit
    `feat(records): case <case-slug>`; open a pull request; stop.
 
 ## Stop conditions
@@ -115,7 +116,7 @@ Apply [research-run](../_shared/research-run.md) and also:
 2. **Research notes** with the fixed headings. For this skill, Established is the Case criteria that held and the
    expectation's source and locator; Inferred is your reasoning on any criterion and on the carrier or value you
    chose; Unresolved is an expectation left `not-assertable` and what would settle it; Needs human is every
-   outcome decision, every edit to a pipeline-owned record, and the projection or Scenario that should carry a
+   outcome decision, every amendment of an imported record (path and reason), and the projection or Scenario that should carry a
    situation you did not turn into a Case.
 
 An expectation is scanner-neutral: it states a semantic outcome, names no scanner and would still mean something

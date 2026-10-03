@@ -10,7 +10,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { addedLines, makeGit, secretShapes } from "./review-check.mjs";
-import { ownerOf } from "./ownership.mjs";
+import { baselineOwners } from "./baseline.mjs";
 
 // ---------------------------------------------------------------- constants
 
@@ -31,7 +31,6 @@ export const LABELS = [
   { name: "research", color: "0E8A16", description: "Research or record-curation work" },
   { name: "research-cron", color: "1D76DB", description: "Opened by the unattended research run" },
   { name: "needs-human", color: "D93F0B", description: "An agent stopped: a person has to decide" },
-  { name: "blocked-by-pipeline-ownership", color: "B60205", description: "Valid change set that migrate/projection/parity checks reject until records ownership is decided" },
   { name: "review-failed", color: "E99695", description: "The review-research-pr verdict was fail" },
 ];
 
@@ -279,8 +278,8 @@ export function buildPlan({ chosen, skipped, budget, allowlist, base, date, epic
         `git fetch origin; git worktree add -b ${branch} <run-dir>/worktree origin/${base}`,
         "npm ci --ignore-scripts (in the worktree)",
         `run the agent with skill ${chosen.suggestedSkill} on ${chosen.suggestedInput} (time limit ${budget.maxMinutes} min)`,
-        "gate: path scope, source hosts, secret scan, npm run check, coverage:gaps:check, fixtures:materialize:check, review:check, then migrate:check, export:legacy:check, parity:check",
-        `on pass: git push origin ${branch}; gh pr create (draft when a pipeline-ownership check fails or a human must decide), labels research, research-cron`,
+        "gate: path scope, source hosts, secret scan, npm run check (includes baseline:check), coverage:gaps:check, fixtures:materialize:check, review:check",
+        `on pass: git push origin ${branch}; gh pr create (draft only when a human must decide), labels research, research-cron`,
         "otherwise: gh issue create --label needs-human (deduped by the item tag)",
         "write <run-dir>/summary.json and summary.md",
       ]
@@ -298,7 +297,7 @@ export function buildPlan({ chosen, skipped, budget, allowlist, base, date, epic
     dedupe,
     skipped,
     actions: writes,
-    neverDone: ["merge", "close", "approve", "force-push", "schedule creation", "records-ownership change"],
+    neverDone: ["merge", "close", "approve", "force-push", "schedule creation", "importer, projection or parity change"],
   };
 }
 
@@ -399,8 +398,9 @@ ${a}
   ${plan.budget.maxMinutes} minutes of wall clock (the harness kills the run at the limit and discards it).
 - Change only files under \`records/\` and \`docs/research/\`. Commit with conventional commits on this branch.
   Do not push, open a pull request, label, merge, or run \`gh\`. The harness does that after its gate.
-- Never edit a pipeline-owned or generated record in place (research-run.md, Step 0). Never change a migration
-  importer, the legacy export, parity, or records ownership.
+- A record that belongs to the import baseline may be edited when the evidence requires it (research-run.md, Step 0): declare
+  the edit with \`npm run baseline:amend -- <path> --reason "<why>"\`, or \`npm run check\` fails. Adding records needs no
+  declaration. Never change a migration importer, the legacy export, parity, or the baseline manifest.
 - If the evidence is ambiguous or conflicting beyond what the skill lets you record as \`unresolved\`, or you
   lack an input, stop and report instead of guessing.
 
@@ -496,10 +496,10 @@ const entryHost = (u) => {
   }
 };
 
-export function buildPrBody({ item, plan, notes, gates, review, blocked, needsHuman, epic }) {
+export function buildPrBody({ item, plan, notes, gates, review, amended = [], needsHuman, epic }) {
   const gateLines = gates.map((g) => `- \`${g.name}\`: ${g.status}`).join("\n");
-  const blockedNote = blocked.length
-    ? `**Landing blocked by pipeline ownership:** ${blocked.map((g) => `\`${g.name}\` (${g.status === "fail" ? "failed" : "not run"})`).join(", ")}. The change set is valid for the checks that gate it but the migration importers, legacy projection or parity compare the whole tree with the pinned legacy files. A maintainer decides how authored records land; the run changed no pipeline. First lines of each failure are in the run summary. Draft until then.\n`
+  const amendedNote = amended.length
+    ? `**Baseline records amended (${amended.length}):** ${amended.slice(0, 12).map((p) => `\`${p}\``).join(", ")}${amended.length > 12 ? ", ..." : ""}. Each is declared with its cause in docs/migration/baseline-amendments.json (ADR 0015); the pinned import stays reproducible.\n`
     : "";
   return `${plan.prTag}
 
@@ -509,7 +509,7 @@ Unattended research run for backlog item \`${item.id}\` (skill \`${item.suggeste
 
 Part of #${epic}
 
-${blockedNote}
+${amendedNote}
 ## Claims and provenance
 
 See the research notes below: ids created or appended, claims added, sources with URL, type, pin and observed-at, and how each credential-shaped value was made.
@@ -775,7 +775,7 @@ function executeRun({ opts, deps, summary, chosen, plan, runId, branch, budget, 
         if (g.status === "fail") hard.push("gitleaks reported a finding in the change set");
       } else summary.gates.push({ name: "gitleaks", status: "not-run", exitCode: null, required: false, firstLines: ["gitleaks is not installed; the built-in secret-shape scan below still runs"] });
 
-      const body = buildPrBody({ item: chosen, plan, notes, gates: [], review: null, blocked: [], needsHuman: outcome.needsHuman, epic });
+      const body = buildPrBody({ item: chosen, plan, notes, gates: [], review: null, needsHuman: outcome.needsHuman, epic });
       const bodyFile = join(runDir, "pr-body-draft.md");
       writeFileSync(bodyFile, body);
       const rv = deps.exec("npm", ["run", "--silent", "review:check", "--", `origin/${base}..HEAD`, "--json", "--body-file", bodyFile], { cwd: wt, env: gateEnv(env) });
@@ -807,27 +807,18 @@ function executeRun({ opts, deps, summary, chosen, plan, runId, branch, budget, 
       return finish("gate-failed", 1);
     }
 
-    // Pipeline-ownership checks: valid change sets that these reject are drafts for a maintainer.
-    const blocked = [];
-    const legacy = env.LEGACY_BENCHMARKS_DIR;
-    for (const script of ["migrate:check", "export:legacy:check", "parity:check"]) {
-      if (!legacy) {
-        const g = { name: `npm run ${script}`, status: "not-run", exitCode: null, required: false, firstLines: ["LEGACY_BENCHMARKS_DIR is not set; the legacy checkout is needed"] };
-        summary.gates.push(g);
-        blocked.push(g);
-      } else {
-        const g = runGate(deps, `npm run ${script}`, "npm", ["run", "--silent", script], ctx, { required: false });
-        if (g.status === "fail") blocked.push(g);
-      }
-    }
-    const owned = changed.filter((p) => ownerOf(p, null) !== "authored");
-    if (owned.length) summary.notes.push(`${owned.length} changed path(s) are in pipeline-owned directories (e.g. ${owned[0]})`);
+    // No pipeline-ownership gate (ADR 0015). A reviewed edit to an imported record is allowed once it is declared
+    // (`npm run check` includes `baseline:check`, which failed above if it was not); the historical importer,
+    // projection and parity checks regenerate the pinned baseline and run in CI only when their own paths change.
+    // The pull request body lists the amended baseline records so the reviewer sees them.
+    const owners = baselineOwners(wt);
+    const amended = changed.filter((p) => owners.has(p));
+    if (amended.length) summary.notes.push(`${amended.length} baseline record(s) amended (declared in docs/migration/baseline-amendments.json), e.g. ${amended[0]}`);
 
-    const draft = blocked.length > 0 || human.length > 0 || outcome.needsHuman.some((n) => n.blocksLanding);
+    const draft = human.length > 0 || outcome.needsHuman.some((n) => n.blocksLanding);
     const labels = ["research", "research-cron"];
-    if (blocked.length) labels.push("blocked-by-pipeline-ownership");
     if (human.length || outcome.needsHuman.some((n) => n.blocksLanding)) labels.push("needs-human");
-    const prBody = buildPrBody({ item: chosen, plan, notes, gates: summary.gates, review: summary.review, blocked, needsHuman: outcome.needsHuman, epic });
+    const prBody = buildPrBody({ item: chosen, plan, notes, gates: summary.gates, review: summary.review, amended, needsHuman: outcome.needsHuman, epic });
     mkdirSync(runDir, { recursive: true });
     const prBodyFile = join(runDir, "pr-body.md");
     writeFileSync(prBodyFile, prBody);
@@ -842,7 +833,7 @@ function executeRun({ opts, deps, summary, chosen, plan, runId, branch, budget, 
       throw new Error(`gh pr create failed (the pushed branch was deleted again): ${sanitizeLines(pr.stderr, { max: 2 }).join(" ")}`);
     }
     summary.outputs = { ...summary.outputs, pr: pr.stdout.trim().split("\n").at(-1), draft, labels };
-    return finish(human.length || outcome.needsHuman.some((n) => n.blocksLanding) ? "pr-draft-needs-human" : blocked.length ? "pr-draft-blocked" : "pr-opened", human.length || outcome.needsHuman.some((n) => n.blocksLanding) ? 3 : 0);
+    return finish(human.length || outcome.needsHuman.some((n) => n.blocksLanding) ? "pr-draft-needs-human" : "pr-opened", human.length || outcome.needsHuman.some((n) => n.blocksLanding) ? 3 : 0);
   } catch (e) {
     summary.notes.push(`failure: ${sanitizeLines(e.message, { max: 2 }).join(" ")}`);
     try {

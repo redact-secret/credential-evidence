@@ -33,7 +33,7 @@ There are two roles. Read the one that applies.
 
    | Exit | Meaning | You do |
    | --- | --- | --- |
-   | 0 | PR opened (draft when blocked by pipeline ownership), nothing to do, or planned | report the PR URL or the plan |
+   | 0 | PR opened (a draft only when a human must decide), nothing to do, or planned | report the PR URL or the plan |
    | 1 | failed; a needs-human issue was filed where possible | report which gate failed; do not retry by hand |
    | 2 | usage or preflight error (no agent command, bad flag) | report the message |
    | 3 | stopped for a human: needs-human issue, or a draft PR labeled `needs-human` | report the URL; stop |
@@ -56,9 +56,9 @@ budget and an allowlist. Do this and nothing more:
    credential-shaped value anywhere ([safety](../_shared/synthetic-safety.md)). If you need a host that is not
    listed, do not fetch it: record it under Needs human.
 3. Change only `records/` and `docs/research/` (run `npm run coverage:gaps` and commit its two files). Use
-   `npm run record:new` and `npm run record:check`. Never edit a generated record, a migration importer, the
-   legacy export, parity or records ownership; if the change set cannot land because of pipeline ownership,
-   say so in the notes (research-run Step 0) and still finish.
+   `npm run record:new` and `npm run record:check`. An edit to an imported record is declared with
+   `npm run baseline:amend` (research-run Step 0); a new record needs nothing. Never change a migration importer,
+   the legacy export, parity or the baseline manifest.
 4. Commit with conventional commits on the branch. Do not push, open a PR, label, run `gh` or merge.
 5. Leave two files at the paths the prompt names: the research notes (exact headings from research-run) and
    the outcome file (JSON) with a status:

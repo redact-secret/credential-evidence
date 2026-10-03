@@ -86,9 +86,11 @@ case's outcome.
 ## Before you commit
 
 1. `npm run record:check -- <paths>` while editing; `npm run check` before the PR.
-2. If you changed anything the migration or exporter reads, also run `migrate:check`,
-   `export:legacy:check`, `parity:check`, `fixtures:materialize:check` (all in
-   [AGENTS.md](../../../AGENTS.md) / README), then `graft build`.
+2. If you edited or removed a record that is in the import baseline, declare it
+   (`npm run baseline:amend -- <path> --reason "<why>"`; `npm run check` fails otherwise). Run
+   `fixtures:materialize:check` and `coverage:gaps`, then `graft build`. The historical pinned checks
+   (`migrate:check`, `export:legacy:check`, `parity:check`) run in CI only when an importer, the projection,
+   parity, a schema or shared generator code changes ([validation tiers](../../../docs/migration/validation-split.md)).
 3. Say in the PR: ids touched, claims added or changed, source provenance, how each
    credential-shaped value was made, commands run. Never claim scanner support or independent
    validation.

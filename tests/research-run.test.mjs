@@ -8,6 +8,7 @@ import {
   agentEnv,
   allowedToolRules,
   branchFor,
+  buildPrBody,
   buildAllowlist,
   buildPrompt,
   computeBudget,
@@ -371,28 +372,51 @@ test("a needs-human issue that appeared since selection is not duplicated at wri
   }
 });
 
-test("real run, valid change set blocked by pipeline ownership: draft PR with the label, never merged", () => {
-  const h = harness({ items: ITEMS(), agent: (o) => writeOutcome(o, { status: "change-set", budgetUsed: { pages: 5, fetches: 9 }, needsHuman: [] }), checks: { "migrate:check": { status: 1, stdout: "stale: records/cases/x.json", stderr: "" } } });
+test("real run, a change set that adds or amends records passes the ordinary gate: a ready PR, no ownership label, no historical check (ADR 0015)", () => {
+  const h = harness({ items: ITEMS(), agent: (o) => writeOutcome(o, { status: "change-set", budgetUsed: { pages: 5, fetches: 9 }, needsHuman: [] }) });
   try {
     const s = h.run();
-    assert.equal(s.status, "pr-draft-blocked");
+    assert.equal(s.status, "pr-opened");
     assert.equal(s.exitCode, 0);
     const pr = h.calls.find((c) => c.args.join(" ").startsWith("pr create"));
-    assert.ok(pr.args.includes("--draft"));
-    assert.ok(pr.args.includes("blocked-by-pipeline-ownership"));
+    assert.ok(!pr.args.includes("--draft"), "a green change set is a ready PR");
+    assert.ok(!pr.args.includes("blocked-by-pipeline-ownership") && !pr.args.includes("needs-human"));
     assert.ok(pr.args.includes("research") && pr.args.includes("research-cron"));
     assert.equal(pr.args[pr.args.indexOf("--base") + 1], "main");
     assert.equal(pr.args[pr.args.indexOf("--head") + 1], "research/contract-missing/acme-api-key");
     const body = readFileSync(join(h.dir, ".research-runs", s.runId, "pr-body.md"), "utf8");
-    assert.match(body, /Landing blocked by pipeline ownership/);
+    assert.doesNotMatch(body, /pipeline ownership/i);
     assert.match(body, /Part of #21/);
     assert.match(body, /not independent evidence; not reviewed/);
     assert.deepEqual(h.writes, ["push", "pr create"]);
     assert.ok(!h.calls.some((c) => c.cmd === "gh" && /merge|close|review|--admin/.test(c.args.join(" "))), "no gh call merges, closes or approves");
-    assert.ok(s.gates.some((g) => g.name === "npm run migrate:check" && g.status === "fail"));
+    for (const name of ["migrate:check", "export:legacy:check", "parity:check"]) assert.ok(!s.gates.some((g) => g.name === `npm run ${name}`), `${name} is a historical check, not part of a research run`);
   } finally {
     h.cleanup();
   }
+});
+
+test("real run, an undeclared edit to an imported record fails `npm run check` (baseline:check): an issue, nothing pushed", () => {
+  const h = harness({
+    items: ITEMS(),
+    agent: (o) => writeOutcome(o, { status: "change-set" }),
+    checks: { check: { status: 1, stdout: "undeclared edited: records/families/aws/x.json; declare it with npm run baseline:amend", stderr: "" } },
+  });
+  try {
+    const s = h.run();
+    assert.equal(s.status, "gate-failed");
+    assert.equal(s.exitCode, 1);
+    assert.deepEqual(h.writes, ["issue create"]);
+  } finally {
+    h.cleanup();
+  }
+});
+
+test("the pull request body lists the amended baseline records and the ordinary gate needs no legacy checkout", () => {
+  const body = buildPrBody({ item: ITEMS()[0], plan: { prTag: "<!-- tag -->", branch: "research/x" }, notes: "n", gates: [], review: null, amended: ["records/families/aws/a.json", "records/sources/h/s.json"], needsHuman: [], epic: 21 });
+  assert.match(body, /Baseline records amended \(2\)/);
+  assert.match(body, /baseline-amendments\.json/);
+  assert.doesNotMatch(buildPrBody({ item: ITEMS()[0], plan: { prTag: "<!-- tag -->", branch: "research/x" }, notes: "n", gates: [], review: null, needsHuman: [], epic: 21 }), /Baseline records amended/);
 });
 
 test("real run, everything green: a ready PR (not draft) with only the research labels", () => {
@@ -411,13 +435,12 @@ test("real run, everything green: a ready PR (not draft) with only the research 
   }
 });
 
-test("without the legacy checkout the ownership checks are not run and the PR is a draft that says so", () => {
+test("without a legacy checkout the run is unaffected: the historical checks are not part of it", () => {
   const h = harness({ items: ITEMS(), legacy: null, agent: (o) => writeOutcome(o, { status: "change-set" }) });
   try {
     const s = h.run();
-    assert.equal(s.status, "pr-draft-blocked");
-    assert.ok(s.gates.some((g) => g.status === "not-run" && /LEGACY_BENCHMARKS_DIR/.test(g.firstLines[0])));
-    assert.match(readFileSync(join(h.dir, ".research-runs", s.runId, "pr-body.md"), "utf8"), /not run/);
+    assert.equal(s.status, "pr-opened");
+    assert.ok(!s.gates.some((g) => g.status === "not-run" && /LEGACY_BENCHMARKS_DIR/.test(g.firstLines?.[0] ?? "")));
   } finally {
     h.cleanup();
   }
@@ -564,7 +587,7 @@ test("ensureLabels creates the harness labels idempotently (--force)", () => {
   const res = ensureLabels({ exec: (c, a) => (calls.push(a), { status: 0, stdout: "", stderr: "" }) }, { cwd: ".", env: {} });
   assert.equal(res.length, LABELS.length);
   assert.ok(calls.every((a) => a[0] === "label" && a[1] === "create" && a.includes("--force")));
-  assert.deepEqual(LABELS.map((l) => l.name), ["research", "research-cron", "needs-human", "blocked-by-pipeline-ownership", "review-failed"]);
+  assert.deepEqual(LABELS.map((l) => l.name), ["research", "research-cron", "needs-human", "review-failed"]);
 });
 
 test("verdict consumption trusts only the configured login, the marker for the current head, and the last line", () => {

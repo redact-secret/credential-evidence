@@ -126,8 +126,9 @@ Apply [research-run](../_shared/research-run.md) and also:
 - **A sample value is wanted but its shape is undocumented**: describe, do not exemplify.
 - **A value in a page looks real**: apply [synthetic safety](../_shared/synthetic-safety.md#if-something-looks-real):
   copy it nowhere.
-- **The family is generated and the change needs an edit in place**: add new records beside it and list the edit
-  under Needs human with the generator input that owns it (`scripts/lib/ownership.mjs`).
+- **The family or its contract is an imported (baseline) record and the evidence needs an edit in place**: make the
+  edit, declare it with `npm run baseline:amend -- <path> --reason "<why>"` and list it under Established with
+  that reason; add new variants, siblings and the narrative beside it (research-run Step 0).
 - **More than 12 pages needed**: stop at 12 and list the rest.
 
 ## Output
