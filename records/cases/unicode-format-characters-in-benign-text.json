@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "unicode-format-characters-in-benign-text",
+  "title": "Benign text that uses format characters meaningfully",
+  "summary": "Ordinary text that uses ZWJ (emoji family sequence), ZWNJ (Persian), variation selector U+FE0F, a leading BOM and NBSP between a number and its unit, with no credential in it.",
+  "rationale": "These code points carry meaning in ordinary text, which is why stripping every invisible character from an input is not assumed safe: it would change a ZWJ emoji sequence into separate emoji and a Persian word. A format character is not evidence of a credential.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "Input-domain control about text, not about any one credential family.",
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy: text with format characters and no credential-grammar value is not a credential; the fixtures carry no spans. A decoder succeeding or a high-entropy look does not make a value a secret.",
+    "sources": [
+      {
+        "sourceId": "unicode-org-a374b42bff",
+        "supports": "U+FEFF in UTF-8 is the bytes EF BB BF and, away from the start of a stream, is a ZERO WIDTH NO-BREAK SPACE, not a signature.",
+        "locator": "'What should I do with U+FEFF in the middle of a file?' and 'Can a UTF-8 data stream contain the BOM character?'"
+      },
+      {
+        "sourceId": "unicode-org-f3eb97bcc1",
+        "supports": "Revision 58 (Unicode 18.0.0): defines NFC, NFD, NFKC and NFKD; ASCII-only text is unchanged by every form. Does not state that normalization removes zero-width or format characters.",
+        "locator": "sections 1.2 and 1.3"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Research for #96 (parent #92). Synthetic fixtures only; input facts and expectations live here, while stream APIs, limits, actual output and rejection assertions belong to downstream engine and product regression populations."
+}

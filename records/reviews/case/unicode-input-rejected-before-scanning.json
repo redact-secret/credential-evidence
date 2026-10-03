@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-unicode-input-rejected-before-scanning",
+  "subject": {
+    "kind": "case",
+    "id": "unicode-input-rejected-before-scanning"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Evidence review for #96 (refs #92). Each input's invalidity is derived from the bytes or the chunk boundary and re-checked by the validator; the not-a-TP-or-FN rule is project policy, not a fact about any product."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
