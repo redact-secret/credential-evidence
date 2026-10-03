@@ -166,6 +166,12 @@ function scanText(findings, add, rawText, where, rules, check) {
     const m = re.exec(text);
     if (!m) continue;
     const disclaimed = check === "wording" || check === "scanner-consensus" ? negated(text, m.index) : false;
+    // A fixture file exists to carry hostile inputs. Its invisible code points are acceptable only when
+    // spelled as \uXXXX (a reviewer can read them), and then they still need a human; a literal one fails.
+    if (check === "injection" && label === "invisible or bidirectional control character" && !re.test(rawText) && /^records\/fixtures\//.test(where.path ?? "")) {
+      add({ check, severity: "needs-human", path: where.path, line: where.line, message: `${label}, spelled as a \\uXXXX escape in a fixture (readable, not literal); confirm each is a deliberate test input` });
+      continue;
+    }
     add({ check, severity: disclaimed ? "info" : severity, path: where.path, line: where.line, message: `${label}${disclaimed ? " (negated: a disclaimer, not a claim)" : ""}` });
   }
 }

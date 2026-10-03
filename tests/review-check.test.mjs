@@ -127,6 +127,31 @@ test("a PR body is scanned for wording, injection and secret-shaped values", () 
   }
 });
 
+test("invisible code points: a fixture may spell them as escapes (needs-human); a literal one, or an escape outside fixtures, fails", () => {
+  const { root, base } = build("good-docs-only");
+  try {
+    const put = (rel, text) => {
+      mkdirSync(dirname(join(root, rel)), { recursive: true });
+      writeFileSync(join(root, rel), text);
+    };
+    const run = (rel, text) => {
+      put(rel, text);
+      git(root, "add", "-A");
+      git(root, "commit", "-q", "-m", rel);
+      const r = reviewRange({ root, base, head: git(root, "rev-parse", "HEAD"), today: TODAY });
+      return r.findings.filter((f) => f.check === "injection" && f.path === rel);
+    };
+    const escaped = run("records/fixtures/esc.json", '{"input": "a\\u200bb\\ud83d\\udc68\\u200d\\ud83d\\udc69"}\n');
+    assert.ok(escaped.length > 0 && escaped.every((f) => f.severity === "needs-human"), JSON.stringify(escaped));
+    const literal = run("records/fixtures/lit.json", `{"input": "a${SUBST["@@ZWSP@@"]}b"}\n`);
+    assert.ok(literal.some((f) => f.severity === "fail"), JSON.stringify(literal));
+    const elsewhere = run("records/cases/esc.json", '{"note": "a\\u202eb"}\n');
+    assert.ok(elsewhere.some((f) => f.severity === "fail"), JSON.stringify(elsewhere));
+  } finally {
+    cleanup(root);
+  }
+});
+
 test("secretShapes triage: markers lower the hint, digests and slugs are ignored, text is never returned", () => {
   const aws = SUBST["@@AWS_SHAPED@@"];
   assert.deepEqual(secretShapes(`x ${aws}`), [{ shape: "aws-access-key-id", length: 20, marked: false }]);
