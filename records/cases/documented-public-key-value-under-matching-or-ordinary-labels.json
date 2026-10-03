@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "documented-public-key-value-under-matching-or-ordinary-labels",
+  "title": "Documented public key value under a matching or ordinary field label",
+  "summary": "A synthetic Stripe publishable-key-shaped value and a synthetic Supabase publishable-key-shaped value under labels that agree with them (STRIPE_PUBLISHABLE_KEY, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) or under an ordinary field (id, description), with identical value bytes across each pair.",
+  "rationale": "These are the base controls for the label-conflict pairs: the value is documented as safe to expose and the label does not contradict it. A recogniser keyed on the shared key-like shape or on the word key would report a value the provider says is meant to ship in client code. This case does not decide what happens when the label says secret; see the secret-like-label case.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "stripe:secret-key-test",
+      "role": "lookalike"
+    },
+    {
+      "family": "supabase:secret-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. Each provider documents the publishable key type as safe to expose in client-side code and source, and the label is consistent with or silent about that. The expectation covers the credential population only; it is not a statement about any product's redaction choice for public identifiers.",
+    "sources": [
+      {
+        "sourceId": "docs-stripe-com-3e992d348a",
+        "supports": "Key types table: a publishable API key (pk_...) is 'Safe to expose: Yes' and can be included in front-end code or distributed applications; it cannot perform sensitive operations such as creating charges or reading account data.",
+        "locator": "#key-types"
+      },
+      {
+        "sourceId": "supabase-com-73d939b464",
+        "supports": "Key types: sb_publishable_ keys are 'Safe to expose online: web page, mobile or desktop app, GitHub actions, CLIs, source code.'",
+        "locator": "Section: API key types (publishable vs secret)"
+      },
+      {
+        "sourceId": "supabase-com-877b0772be",
+        "supports": "Opaque key layout: sb_publishable_<22-char-random>_<8-char-checksum> and sb_secret_<22-char-random>_<8-char-checksum>.",
+        "locator": "Section: opaque API key format"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
