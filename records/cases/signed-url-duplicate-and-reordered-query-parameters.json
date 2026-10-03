@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "signed-url-duplicate-and-reordered-query-parameters",
+  "title": "Signed URL with reordered or duplicated query parameters",
+  "summary": "A signed URL whose query parameters are reordered, or in which one parameter key appears twice, with the signature in a different position than in the documented examples.",
+  "rationale": "AWS sorts parameters only to build the canonical string for signing; the sources do not say how a shared URL with reordered or duplicated keys behaves, or which duplicate would be honoured. The failure mode is anchoring on a fixed parameter order or on the first occurrence of a key. Expected extents cannot be derived without that statement.",
+  "caseTypes": [
+    "mutation"
+  ],
+  "families": [
+    {
+      "family": "aws:s3-presigned-url",
+      "role": "subject"
+    },
+    {
+      "family": "azure-storage:shared-access-signature-token",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved. The sources describe canonical sorting for signing but not acceptance or semantics of reordered or duplicate keys in a presented URL. Candidate outcome: the bearer extent is unchanged by order. Settling it needs a provider statement or a maintainer decision. No fixture is authored.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-28f7e2245c",
+        "supports": "Sort the parameters in the canonical query string alphabetically by key name.",
+        "locator": "#create-canonical-request"
+      },
+      {
+        "sourceId": "learn-microsoft-com-485da28839",
+        "supports": "The signature is constructed from the SAS parameters.",
+        "locator": "#how-a-shared-access-signature-works"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories.",
+  "relations": [
+    {
+      "type": "mutation-of",
+      "target": "s3-presigned-url-bearer-query-string",
+      "mutationKind": "reordered-or-duplicated-parameters"
+    }
+  ]
+}

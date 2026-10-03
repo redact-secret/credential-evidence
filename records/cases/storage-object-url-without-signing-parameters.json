@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "storage-object-url-without-signing-parameters",
+  "title": "Storage object URLs without any signing parameters",
+  "summary": "The same synthetic storage object URL shapes as the signed positives, with the signing query parameters absent: a plain object link for each of the three providers.",
+  "rationale": "The near-neighbor of the signed positives: same host and path, no signature. The providers document the capability as carried by the signing parameters; a URL without them carries none, whether or not the object happens to be publicly readable (not claimed here). Prevents a rule keyed on the storage host or object path from flagging the address.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "aws:s3-presigned-url",
+      "role": "lookalike"
+    },
+    {
+      "family": "google:cloud-storage-signed-url",
+      "role": "lookalike"
+    },
+    {
+      "family": "azure-storage:shared-access-signature-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. Each provider documents access as granted by signing parameters appended to the resource URI (AWS SigV4 query parameters, X-Goog-Signature, SAS sig); a URL with none of them contains no such value. This asserts nothing about whether the object is public.",
+    "sources": [
+      {
+        "sourceId": "learn-microsoft-com-485da28839",
+        "supports": "A shared access signature is a token that is appended to the URI for an Azure Storage resource.",
+        "locator": "#how-a-shared-access-signature-works"
+      },
+      {
+        "sourceId": "docs-cloud-google-com-f0e50620cb",
+        "supports": "Signed URL query parameters X-Goog-Signature and related.",
+        "locator": "query string parameters section"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-28f7e2245c",
+        "supports": "Authentication information carried in X-Amz-* query parameters.",
+        "locator": "#add-signature-to-request"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}
