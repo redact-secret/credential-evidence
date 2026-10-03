@@ -78,7 +78,7 @@ test("review: authored by default, agents cannot write a review, unresolved even
   refused("review", ["case:no-such-case"], { actor: "a" }, /unknown case/);
 });
 
-test("review --append adds events after the last seq and never touches earlier ones; migration-owned histories are refused", () => {
+test("review --append adds events after the last seq and never touches earlier ones; an imported history takes one too (ADR 0015)", () => {
   const mine = {
     path: "records/reviews/mine/x.json",
     record: { schemaVersion: 1, kind: "evidence-review-history", id: "review-mine-x", subject: { kind: "family", id: aws }, events: [{ seq: 1, type: "authored", at: "2026-09-30", actor: { id: "a", role: "author", affiliation: "project-maintainer" }, note: "first" }] },
@@ -91,7 +91,11 @@ test("review --append adds events after the last seq and never touches earlier o
   assert.deepEqual(p.record.events.map((e) => e.seq), [1, 2]);
   assert.equal(p.record.events[1].verdict, "inconclusive");
   assert.deepEqual(validator.validateRecord(p.record), []);
-  refused("review", [`family:${aws}`], { actor: "b", append: true }, /legacy-\* externalRef/);
+  // the imported history of an AWS family is no longer refused: the edit is declared as a baseline amendment by the CLI
+  const imported = plan("review", [`family:${aws}`], { actor: "b", role: "automation", append: true, event: "observed", verdict: "inconclusive", note: "Re-read; unchanged." });
+  assert.equal(imported.append, true);
+  assert.ok(imported.record.externalRefs.some((r) => r.system.startsWith("legacy-")));
+  assert.deepEqual(imported.record.events.slice(0, -1), index.find((e) => e.path === imported.path).record.events);
   refused("review", ["case:no-such"], { actor: "b", append: true }, /unknown case/);
   const someCase = index.find((e) => e.record.kind === "case").record.id;
   refused("review", [`case:${someCase}`], { actor: "b", append: true }, /no review history exists/);

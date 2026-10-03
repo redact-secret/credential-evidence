@@ -1,7 +1,11 @@
 // Tests for the reclassifying import (#12 stage B), the semantic tree it writes and the
 // fixture materialization.
 //
-// Two groups. The first reads only committed records and always runs. The second
+// The tree asserted here is the import baseline (tests/historical/baseline-root.mjs, ADR 0015), not the
+// working tree: canonical records added or amended after the import do not change these assertions.
+//
+// Two groups. The first reads only the baseline records and needs no legacy checkout while the tree is
+// unamended. The second
 // compares the records with the pinned legacy revision (it runs the legacy fixture
 // generators) and runs when a legacy checkout is reachable (LEGACY_BENCHMARKS_DIR or a
 // sibling directory); set REQUIRE_LEGACY=1 to make a missing checkout a failure.
@@ -13,17 +17,20 @@ import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } 
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, describe, test } from "node:test";
-import { identityViolations } from "../scripts/lib/identity.mjs";
-import { buildMaterialization } from "../scripts/lib/materialize.mjs";
-import { checkIntegrity, repoRoot, validateTree } from "../scripts/lib/validator.mjs";
-import { CASES } from "../scripts/migrate/authored/cases.mjs";
-import { SCENARIOS } from "../scripts/migrate/authored/scenarios.mjs";
-import { scrubFileName, scrubName } from "../scripts/migrate/lib/build-records.mjs";
-import { classifyAgg, RULES } from "../scripts/migrate/lib/classify.mjs";
-import { groupByReason, loadLegacyModel, loadTaxonomy } from "../scripts/migrate/lib/legacy-model.mjs";
-import { findLegacyDir, LEGACY_PATHS, LEGACY_REVISION, loadGeneratedCorpora, materializeLegacy, readLegacyJson } from "../scripts/migrate/lib/legacy-source.mjs";
+import { identityViolations } from "../../scripts/lib/identity.mjs";
+import { buildMaterialization } from "../../scripts/lib/materialize.mjs";
+import { checkIntegrity, repoRoot, validateTree } from "../../scripts/lib/validator.mjs";
+import { CASES } from "../../scripts/migrate/authored/cases.mjs";
+import { SCENARIOS } from "../../scripts/migrate/authored/scenarios.mjs";
+import { scrubFileName, scrubName } from "../../scripts/migrate/lib/build-records.mjs";
+import { classifyAgg, RULES } from "../../scripts/migrate/lib/classify.mjs";
+import { groupByReason, loadLegacyModel, loadTaxonomy } from "../../scripts/migrate/lib/legacy-model.mjs";
+import { findLegacyDir, LEGACY_PATHS, LEGACY_REVISION, loadGeneratedCorpora, materializeLegacy, readLegacyJson } from "../../scripts/migrate/lib/legacy-source.mjs";
 
-const { errors, records } = validateTree([join(repoRoot, "records"), join(repoRoot, "migration")]);
+import { baseline } from "./baseline-root.mjs";
+
+const base = (await baseline()).root;
+const { errors, records } = validateTree([join(base, "records"), join(base, "migration")], { root: base });
 const all = records.map((r) => r.record);
 const entries = records;
 const byKind = (kind) => all.filter((r) => r.kind === kind);
@@ -257,9 +264,9 @@ describe("the semantic tree (no legacy checkout needed)", () => {
   });
 
   test("the tree stays compact: sharded sets, evidence entries shared between fixtures", () => {
-    const total = ["cases", "scenarios", "fixture-plans", "fixtures"].reduce((n, d) => n + dirBytes(join(repoRoot, "records", d)), 0);
+    const total = ["cases", "scenarios", "fixture-plans", "fixtures"].reduce((n, d) => n + dirBytes(join(base, "records", d)), 0);
     assert.ok(total < 12 * 1024 * 1024, `the semantic tree takes ${total} bytes`);
-    assert.ok(dirBytes(join(repoRoot, "migration")) < 4 * 1024 * 1024);
+    assert.ok(dirBytes(join(base, "migration")) < 4 * 1024 * 1024);
     const entriesTotal = sets.reduce((n, s) => n + Object.keys(s.evidence).length, 0);
     assert.ok(entriesTotal < items.length / 2, `${entriesTotal} evidence entries for ${items.length} fixtures`);
   });

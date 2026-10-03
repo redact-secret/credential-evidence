@@ -8,13 +8,13 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { after, before, describe, test } from "node:test";
-import { generate } from "../scripts/export/legacy-projection.mjs";
-import { repoRoot } from "../scripts/lib/validator.mjs";
-import { compareDocs, flatten, satisfies } from "../scripts/parity/lib/diff.mjs";
-import { openLegacy } from "../scripts/parity/lib/legacy.mjs";
-import { checkOverlayRules, compilePattern, loadRules, runParity } from "../scripts/parity/lib/parity.mjs";
-import { PREDICATES } from "../scripts/parity/lib/predicates.mjs";
-import { renderParityReport, verdictOf } from "../scripts/parity/lib/report.mjs";
+import { generate, loadBaselineInputs } from "../../scripts/export/legacy-projection.mjs";
+import { repoRoot } from "../../scripts/lib/validator.mjs";
+import { compareDocs, flatten, satisfies } from "../../scripts/parity/lib/diff.mjs";
+import { openLegacy } from "../../scripts/parity/lib/legacy.mjs";
+import { checkOverlayRules, compilePattern, loadRules, runParity } from "../../scripts/parity/lib/parity.mjs";
+import { PREDICATES } from "../../scripts/parity/lib/predicates.mjs";
+import { renderParityReport, verdictOf } from "../../scripts/parity/lib/report.mjs";
 
 const rulesPath = join(repoRoot, "scripts", "parity", "rules.json");
 const inventoryPath = join(repoRoot, "scripts", "parity", "inventory.json");
@@ -161,8 +161,9 @@ describe("projection versus the pinned legacy revision", { skip: skipReason ?? f
   let inputs;
   let projection;
   let result;
-  before(() => {
-    ({ inputs, projection } = generate());
+  before(async () => {
+    // the import baseline (ADR 0015), not the working tree
+    ({ inputs, projection } = generate(await loadBaselineInputs()));
     result = runParity({ legacyRoot: legacy.root, inputs, projection, rulesPath, inventoryPath });
   });
 
