@@ -83,7 +83,8 @@ npm run record:check -- --base origin/<base>
 `npm run review:check` is the deterministic pre-filter
 ([scripts/review-check.mjs](../../../scripts/review-check.mjs)): forbidden and
 independence wording, scanner-consensus phrasing, provenance and evidence-class
-completeness over changed records, ADR 0007 identity, the additive rule,
+completeness over the claims and citations the PR adds or alters (an untouched legacy entry of an edited fixture set is
+not re-judged; a new file is checked in full), ADR 0007 identity, the additive rule,
 conflict recording, a Case that reads as a Scenario, prompt-injection
 indicators, and secret-shaped values with a triage hint. It prints findings
 per check and a `VERDICT:` line (exit 0 pass, 1 fail, 3 needs-human). Its

@@ -131,3 +131,77 @@ test("secretShapes triage: markers lower the hint, digests and slugs are ignored
   assert.ok(entropy("aaaaaaaa") < entropy("a1B2c3D4"));
   assert.ok(!JSON.stringify(secretShapes(`x ${aws}`)).includes(aws));
 });
+
+// Findings follow the change, not the file (#86). A fixture set carries hundreds of evidence entries imported from the legacy
+// benchmark, many citing a source without a locator. An edit to one entry must not return needs-human for all the others.
+const SOURCE = "examplecloud-token-format-doc";
+const legacyEntry = (n) => ({ basis: "provider-documented", rationale: `Legacy entry ${n}.`, sources: [{ sourceId: SOURCE, supports: "Cited by the legacy assessment (provider documentation); claim not itemised." }], observedAt: "2026-09-29" });
+const locatedEntry = { basis: "provider-documented", rationale: "A new entry with a located citation.", sources: [{ sourceId: SOURCE, supports: "Documents the exc_live_ prefix.", locator: "section 2, key format" }], observedAt: "2026-09-30" };
+const unlocatedEntry = { basis: "provider-documented", rationale: "A new entry whose citation has no locator.", sources: [{ sourceId: SOURCE, supports: "Documents the exc_live_ prefix." }], observedAt: "2026-09-30" };
+const fixtureSet = (evidence, description = "Legacy fixtures.") => ({ schemaVersion: 1, kind: "fixture-set", id: "legacyset", title: "Legacy set", description, evidence });
+const SET_PATH = "records/fixtures/legacyset.json";
+
+function buildSet(baseSet, headSet) {
+  const root = mkdtempSync(join(tmpdir(), "review-check-set-"));
+  git(root, "init", "-q", "-b", "main");
+  cpSync(join(FIXTURES, "_baseline", "records"), join(root, "records"), { recursive: true });
+  mkdirSync(join(root, "records", "fixtures"), { recursive: true });
+  const put = (set) => writeFileSync(join(root, SET_PATH), `${JSON.stringify(set, null, 2)}\n`);
+  put(baseSet);
+  git(root, "add", "-A");
+  git(root, "commit", "-q", "-m", "base");
+  const base = git(root, "rev-parse", "HEAD");
+  put(headSet);
+  git(root, "add", "-A");
+  git(root, "commit", "-q", "-m", "head");
+  return { root, base, head: git(root, "rev-parse", "HEAD") };
+}
+
+function reviewSets(baseSet, headSet) {
+  const { root, base, head } = buildSet(baseSet, headSet);
+  try {
+    const r = reviewRange({ root, base, head, today: TODAY });
+    return { r, text: formatReport(r, { base: "base", head: "head" }) };
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+}
+
+test("an edited fixture set with a legacy unlocated citation left untouched does not trigger; a changed description and a new located entry pass", () => {
+  const base = fixtureSet({ "ev-0001": legacyEntry(1), "ev-0002": legacyEntry(2) });
+  // the same file, a legacy entry untouched, plus an edited description and one added, located entry
+  const { r, text } = reviewSets(base, fixtureSet({ "ev-0001": legacyEntry(1), "ev-0002": legacyEntry(2), "ev-0003": locatedEntry }, "Legacy fixtures, one entry added."));
+  assert.equal(r.verdict, "pass", text);
+  assert.ok(!r.findings.some((f) => f.check === "provenance"), text);
+  // sanity: the same legacy entries in a NEW file are judged in full (a new file has no earlier version)
+  const added = reviewSets(fixtureSet({}), fixtureSet({ "ev-0001": legacyEntry(1) }));
+  assert.equal(added.r.verdict, "needs-human", added.text);
+});
+
+test("a newly added unlocated citation in an edited fixture set still triggers, and only for the added entry", () => {
+  const base = fixtureSet({ "ev-0001": legacyEntry(1), "ev-0002": legacyEntry(2) });
+  const { r, text } = reviewSets(base, fixtureSet({ "ev-0001": legacyEntry(1), "ev-0002": legacyEntry(2), "ev-0003": unlocatedEntry }));
+  assert.equal(r.verdict, "needs-human", text);
+  const located = r.findings.filter((f) => f.check === "provenance" && /without a locator/.test(f.message));
+  assert.deepEqual(located.map((f) => f.message.split(":")[0]), ["/evidence/ev-0003"], text);
+});
+
+test("an entry that gains a citation is judged on the new citation only; the legacy citation next to it is not re-judged", () => {
+  const base = fixtureSet({ "ev-0001": legacyEntry(1), "ev-0002": legacyEntry(2) });
+  const touched = legacyEntry(2);
+  touched.sources = [...touched.sources, { sourceId: SOURCE, supports: "Documents the key body length.", locator: "section 2, key format" }];
+  const located = reviewSets(base, fixtureSet({ "ev-0001": legacyEntry(1), "ev-0002": touched }));
+  assert.equal(located.r.verdict, "pass", located.text);
+  touched.sources[1] = { sourceId: SOURCE, supports: "Documents the key body length." };
+  const unlocated = reviewSets(base, fixtureSet({ "ev-0001": legacyEntry(1), "ev-0002": touched }));
+  assert.equal(unlocated.r.verdict, "needs-human", unlocated.text);
+  assert.equal(unlocated.r.findings.filter((f) => /without a locator/.test(f.message)).length, 1, unlocated.text);
+});
+
+test("a changed entry that breaks a structural rule fails even when the file was otherwise untouched", () => {
+  const base = fixtureSet({ "ev-0001": legacyEntry(1) });
+  const bad = { ...legacyEntry(1), observedAt: "2027-01-01" };
+  const { r, text } = reviewSets(base, fixtureSet({ "ev-0001": bad }));
+  assert.equal(r.verdict, "fail", text);
+  assert.ok(r.findings.some((f) => /in the future/.test(f.message)), text);
+});

@@ -258,7 +258,14 @@ function sourceIndex(git, rev) {
 
 const dateOf = (s) => (typeof s === "string" && DATE_RE.test(s) ? s.slice(0, 10) : null);
 
-function checkClaims({ add, git, head, path, record, today }) {
+/**
+ * Provenance and evidence-class rules apply to what a change adds or alters, not to what it leaves alone. In a modified
+ * file (a fixture set holds hundreds of evidence entries, a contract several claims) a claim object that is byte-identical
+ * in `before` is skipped; in a claim that did change, a citation that is byte-identical in the same claim of `before` is
+ * not re-judged (a legacy citation without a locator stays a legacy fact until somebody touches it). A new file has no
+ * `before`: everything in it is checked. The structural rules after the loop run on the whole record.
+ */
+function checkClaims({ add, git, head, path, record, before, today }) {
   const sources = (git._sources ??= { head: sourceIndex(git, head), cache: new Map() });
   if (!sources.fetched) {
     sources.fetched = true;
@@ -270,7 +277,12 @@ function checkClaims({ add, git, head, path, record, today }) {
     if (!sources.cache.has(p)) sources.cache.set(p, parse(git.tryShow(head, p) ?? ""));
     return sources.cache.get(p) ?? null;
   };
+  const prior = new Map();
+  if (before) for (const c of collectClaims(before)) prior.set(c.where, c);
+  const priorClaims = new Set([...prior.values()].map((c) => JSON.stringify(c.claim)));
   for (const c of collectClaims(record)) {
+    if (priorClaims.has(JSON.stringify(c.claim))) continue;
+    const knownRefs = new Set((prior.get(c.where)?.refs ?? []).map((r) => JSON.stringify(r)));
     const at = { path, line: undefined };
     const here = c.where || "/";
     if (c.cls === "unresolved") continue;
@@ -287,6 +299,13 @@ function checkClaims({ add, git, head, path, record, today }) {
     }
     const loaded = [];
     for (const r of c.refs) {
+      const unchanged = knownRefs.has(JSON.stringify(r));
+      if (unchanged) {
+        // still loaded: the evidence-class rules below judge the claim's whole source set
+        const s0 = load(r.sourceId);
+        if (s0) loaded.push(s0);
+        continue;
+      }
       if (c.hasSupports) {
         if (!String(r.supports ?? "").trim()) add({ check: "provenance", severity: "fail", ...at, message: `${here}: source ${r.sourceId} cited without the exact supported statement (supports)` });
         if (!String(r.locator ?? "").trim()) add({ check: "provenance", severity: "needs-human", ...at, message: `${here}: source ${r.sourceId} cited without a locator (section, anchor or line); the reviewer cannot re-check it quickly` });
@@ -467,7 +486,7 @@ export function reviewRange({ root, base, head, today = new Date().toISOString()
     if (before) beforeById.set(f.path, before);
     if (f.status === "A" && after.lifecycle && after.lifecycle !== "draft") add({ check: "additive", severity: "needs-human", path: f.path, message: `${f.path}: new record starts as ${after.lifecycle}; agents add drafts and a second person reviews` });
     if (f.status === "A" && /TODO\(record:new\)/.test(JSON.stringify(after))) add({ check: "provenance", severity: "fail", path: f.path, message: `${f.path}: scaffold placeholder TODO(record:new) left unfilled` });
-    checkClaims({ add, git, head, path: f.path, record: after, today });
+    checkClaims({ add, git, head, path: f.path, record: after, before, today });
   }
 
   const identityErrors = checkIdentity(headEntries);

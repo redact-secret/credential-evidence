@@ -28,6 +28,9 @@ const USAGE = `usage: npm run record:new -- <kind> <arg> [flags]
   review    <kind>:<subject-id>         --actor <slug> [--role author|automation|contributor] [--affiliation <a>]
                                         [--event authored|observed|corrected|disputed] [--verdict <v>] [--note <text>]
                                         [--unresolved <section>/<statement-id>=<reason>]... [--append]
+                                        kind: family, family-narrative, case, variant, benign-sibling, scenario,
+                                        format-contract or evidence-source. --unresolved takes <section>/<id>=<reason> for a
+                                        family-narrative and <id>=<reason> for every other subject.
   fixture   <case-slug>                 --set <set-slug> --name <slug> (--text <value> | --text-file <path>)
                                         [--secret <substring>]... [--context <slug>] [--path <p>] [--title <set title>]
                                         (sha256, byte spans and outcome are computed; the case must be assertable)

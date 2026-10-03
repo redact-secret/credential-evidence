@@ -33,7 +33,7 @@ until you cite sources.
 | variant | `record:new -- variant retired-hex-form --family acme:api-key --name "Retired hex form" --variant-type historical-form --change retired [--contract acme:api-key@1] [--replaces <slug>]` | family and contract check, path, first history entry (no sources, no dates) | `records/variants/acme/<slug>.json` (TODO: description, history note) |
 | benign-sibling | `record:new -- benign-sibling acme-public-key-id --family acme:api-key --sibling-class public-identifier --name "Public key id"` | family check, path; starts `unresolved` with no sources and no samples | `records/siblings/acme/<slug>.json` (TODO: description) |
 | family-narrative | `record:new -- family-narrative acme:api-key [--contract acme:api-key@1]` | contract (given, current or latest), path; one unresolved placeholder statement per section | `records/narratives/acme/api-key.json` (TODO: each statement and its reason) |
-| review | `record:new -- review family-narrative:acme:api-key --actor my-agent --role automation --note "..." [--unresolved "shape/length=Not documented."]` | subject check, id, path, `seq`, one `observed` / `not-assertable` event per `--unresolved`, and the printed `reviewEvent` numbers to copy into the narrative | `records/reviews/<provider>/<family>.json` (family), `records/narrative-reviews/...` (narrative), `records/reviews/<kind>/<id>.json` (other subjects) |
+| review | `record:new -- review family-narrative:acme:api-key --actor my-agent --role automation --note "..." [--unresolved "shape/length=Not documented."]` | subject check, id, path, `seq`, one `observed` / `not-assertable` event per `--unresolved`, and the printed `reviewEvent` numbers to copy into the narrative | `records/reviews/<provider>/<family>.json` (family), `records/narrative-reviews/...` (narrative), `records/reviews/<kind>/<id>.json` (other subjects, including `evidence-source`) |
 | fixture | `record:new -- fixture example-key-in-readme --set acme-authored --name readme-literal --text-file ./v.txt --secret "<exact value>" [--context carrier]` | the item's sha256, UTF-8 byte spans of each `--secret`, outcome from the case | `records/fixtures/<set>.json` (an authored set; created on first use, appended to after) |
 
 Flags: `--name` (provider, family), `--title` (scenario, case, source), `--alias`, `--homepage`,
@@ -69,7 +69,10 @@ The scaffolder does not support `fixture-plan`, `fixture-projection` or `legacy-
 
 - **`review`** writes only `authored`, `observed`, `corrected` or `disputed` events, as `author`,
   `automation` or `contributor`. `reviewed`, `resolved` and `withdrawn` are another person's act, so the tool refuses
-  them. A second history for the same subject is refused; `--append` adds events after the last `seq` and
+  them. The subject is a family, family-narrative, case, variant, benign-sibling, scenario, format-contract or
+  evidence-source. `--unresolved` writes one `observed` / `not-assertable` event per statement and prints its
+  `reviewEvent` number: `<section>/<statement-id>=<reason>` for a family-narrative, `<statement-id>=<reason>`
+  (no section) for every other subject. A second history for the same subject is refused; `--append` adds events after the last `seq` and
   never touches an earlier one. Appending to an imported history (a `legacy-*`
   external reference) is allowed: the tool declares the baseline amendment itself (ADR 0015). The role and affiliation of an agent run are `automation` and `project-maintainer`, and
   a run is never the independent reviewer of its own output.
@@ -91,6 +94,13 @@ That is why the skeleton is `not-assertable`. Raise the outcome (and its basis, 
 same change that adds the fixture. See [case vs scenario](../.agents/skills/_shared/case-vs-scenario.md)
 before creating a case at all.
 
+## Setup in a fresh checkout or worktree
+
+`npm ci --ignore-scripts` first. A worktree does not share `node_modules` with the main checkout (the scripts may still
+resolve it from a parent directory, which is why a failure shows up only later). The tests that build a throwaway copy
+of the repository link the copy to the directory that really holds `ajv` and stop with a message naming `npm ci` when
+there is none, instead of an `ERR_MODULE_NOT_FOUND` from inside a child process.
+
 ## `record:check`
 
 Fast subset of `npm run validate` for the records you touched: JSON schema, references and
@@ -100,7 +110,7 @@ the placeholder lint. Uses the validator's own code.
 ```bash
 npm run record:check                                       # every record changed vs merge-base with origin/main, in the working tree, or untracked
 npm run record:check -- records/cases/example-key-in-readme.json records/scenarios
-npm run record:check -- --base origin/develop             # a different base
+npm run record:check -- --base origin/<branch>            # a different base (origin/develop only if origin has one)
 ```
 
 Exit 0 when clean, 1 with one problem per line. It reports problems **in the files it checks**; a
@@ -150,3 +160,10 @@ that reads as a Scenario, prompt-injection indicators and secret-shaped values (
 only, never the text). The last line is `VERDICT: pass|fail|needs-human`; exit codes 0, 1, 3 (2 is a
 usage error). `pass` means no mechanical rule broke, not that any claim is true. Seeded good and
 bad diffs for it live under `tests/fixtures/review/`.
+
+Findings follow the change, not the file. In a **modified** record the provenance and evidence-class rules judge only
+the claims and citations the range adds or alters: a claim object that is byte-identical in `base` is skipped, and in a
+claim that did change, a citation identical to one already in `base` is not re-judged (so editing one evidence entry of
+a legacy fixture set, whose other entries cite sources without a locator, does not return `needs-human` for all of
+them). A **new** file is checked in full, and the structural rules (an `unresolved` basis needs outcome
+`not-assertable`, id and kind never change, histories are append-only) stay whole-file.

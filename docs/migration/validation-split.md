@@ -72,3 +72,23 @@ See `docs/migration/cutover.md`, "Re-pinning". With the manifest the steps are: 
 Verified here: the ordinary gate passes for an edit to a migrated record and for a synthetic new provider, family, source, scenario, case and fixture in a copy (`tests/canonical-change.test.mjs`); the historical checks reproduce the baseline and parity at the pin with the same numbers over a tree that carries both (`tests/historical/amended-tree.test.mjs`) and fail on an undeclared mutation or deletion, a tampered manifest or a changed importer input; the credential-eval snapshot digest of the current tree is unchanged (`sha256:66dcb94b...`).
 
 Not verified: that the branch protection of `main` requires `verify` (the repository reports no protection on `main`; whether `historical` should be required too is the maintainer's choice, and it is safe to require because it reports success when out of scope).
+
+## 8. Tests must not assume an empty ledger (#86)
+
+The first research pull requests that declared an amendment (#83, #84, #85) turned both jobs red although each change
+was valid: the tests that copy the repository assumed `baseline-amendments.json` was empty and the baseline records
+pristine, and one ordinary test regenerated the baseline from the legacy checkout that `verify` does not have. The rules
+since:
+
+- **Ordinary tests** (`tests/*.test.mjs`, the `verify` job) copy the live tree, ledger included, and mutate a record the
+  live tree still holds unchanged (`untouchedRecord` in `tests/repo-copy.mjs`). Counts come from the live classification
+  (`liveCounts`) or from the live tree (fixture totals), never from the size of the import at the pin. They never need the
+  legacy checkout (`tests/workflows.test.mjs` forbids it). A test that asserts the baseline itself belongs to the
+  historical tier.
+- **Historical tests** (`tests/historical/`) that mutate the tree start from `copyBaseline()`
+  (`tests/historical/baseline-copy.mjs`): every baseline record restored byte for byte (amended ones regenerated from the
+  pin and proven equal to the manifest), additions dropped, empty ledger. The plain copy of the live tree is used
+  to prove the other direction: the historical checks pass over whatever amendments the live tree declares and print the
+  same numbers as over the pristine baseline.
+- `tests/ledger-hermetic.test.mjs` is the regression test: it declares three real amendments in a copy (the three tools that
+  declare them) and runs `baseline.test.mjs` and `canonical-change.test.mjs` inside it with no legacy checkout.
