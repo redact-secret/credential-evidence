@@ -1,6 +1,6 @@
 # Agent instructions
 
-@/Users/minhokang/.codex/RTK.md
+@\~/.codex/RTK.md
 
 Read `README.md` and `ARCHITECTURE.md` before changing this repository. They
 define the canonical ownership and dependency direction.
