@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "npmrc-tls-file-path-settings",
+  "title": ".npmrc: cafile, certfile and keyfile path settings",
+  "summary": "A synthetic .npmrc with registry-scoped cafile, certfile and keyfile settings whose values are file paths.",
+  "rationale": "keyfile and certfile sit in the same list as _authToken and are scoped the same way, so they look like credentials; npm documents them as paths to files. A path names where the key lives and contains none.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "npm:npmrc-registry-credential",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. The npm documentation lists cafile as the path to a certificate authority file, certfile as the path to a certificate file and keyfile as the path to a key file. The value is a path, not the content of the file.",
+    "sources": [
+      {
+        "sourceId": "docs-npmjs-com-8f8a96c89d",
+        "supports": "cafile (path to certificate authority file), certfile (path to certificate file), keyfile (path to key file).",
+        "locator": "#auth-related-configuration"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

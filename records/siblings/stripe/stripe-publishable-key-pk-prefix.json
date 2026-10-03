@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "stripe-publishable-key-pk-prefix",
+  "families": [
+    "stripe:secret-key-live"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Stripe publishable key",
+  "description": "A Stripe publishable API key (pk_ prefix; pk_test_ in a sandbox, pk_live_ in live mode). It shares the sk_ key's prefix style, length and alphabet and often sits beside it in configuration. Stripe documents the publishable key as safe to expose, for use in Stripe.js, Elements and mobile SDKs and in front-end code or distributed applications. A field label such as secret_key does not change what Stripe says about the value.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "docs-stripe-com-3e992d348a",
+      "supports": "Key types table: a publishable API key (pk_...) is 'Safe to expose: Yes' and can be included in front-end code or distributed applications; it cannot perform sensitive operations such as creating charges or reading account data.",
+      "locator": "#key-types"
+    }
+  ],
+  "observedAt": "2026-10-03",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. The related benign-reference and public-identifier research under #98 may reuse this sibling instead of adding another. The related benign-reference and public-identifier research under #98 may reuse this sibling instead of adding another. The related benign-reference and public-identifier research under #98 may reuse this sibling instead of adding another."
+}

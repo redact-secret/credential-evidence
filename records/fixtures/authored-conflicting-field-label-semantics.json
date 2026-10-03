@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "authored-conflicting-field-label-semantics",
+  "title": "Conflicting field labels and credential value semantics (authored)",
+  "description": "Hand-written inputs for cases where the field label and the value disagree: a documented secret under a public or ordinary label, a documented public key under a matching, ordinary or secret-like label, repeated labels holding a public and a secret value, and an opaque key shape whose public or secret reading the text alone cannot settle. Every value is synthetic: its random part begins with the literal word synthetic and continues with characters derived from a SHA-512 of a fixed label, so it was never issued by any provider and was never tested against a service; the Supabase checksums are computed over a synthetic project reference. Items marked metamorphic-of keep the value bytes of their base and change only the label, nesting or carrier. Unresolved items assert no outcome.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-secret-under-publishable-label",
+      "case": "provider-secret-value-under-public-or-ordinary-labels",
+      "path": "stripe-secret-under-publishable-label/fixture.txt",
+      "context": "structured-file",
+      "sha256": "e779a39a3f724b8195b21077875b0d839145c6142411b89133e934e0e7e8cff6",
+      "text": "{\"publishable_key\":\"sk_test_syntheticHHH5Fu4cDPruAAgZODt0lOc\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 60,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-secret-under-name-field",
+      "case": "provider-secret-value-under-public-or-ordinary-labels",
+      "path": "stripe-secret-under-name-field/fixture.txt",
+      "context": "structured-file",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-secret-under-publishable-label",
+        "mutationKind": "label",
+        "mutation": "Field label changed from publishable_key to name; value bytes identical."
+      },
+      "sha256": "ab1f8c459be7718eba2535ae819a0adf1eeaaf643283a983ddee0fe111b87da9",
+      "text": "{\"name\":\"sk_test_syntheticHHH5Fu4cDPruAAgZODt0lOc\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 9,
+            "end": 49,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-secret-under-nested-display-label",
+      "case": "provider-secret-value-under-public-or-ordinary-labels",
+      "path": "stripe-secret-under-nested-display-label/fixture.txt",
+      "context": "structured-file",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-secret-under-publishable-label",
+        "mutationKind": "nesting-and-label",
+        "mutation": "Value moved under account.profile.display_name; value bytes identical."
+      },
+      "sha256": "90613349f7d9646936f3836bbe911a70b5595a8972bc6c9818771e388b0ba2c1",
+      "text": "{\"account\":{\"profile\":{\"display_name\":\"sk_test_syntheticHHH5Fu4cDPruAAgZODt0lOc\"}}}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 39,
+            "end": 79,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-secret-beside-public-visibility-flag",
+      "case": "provider-secret-value-under-public-or-ordinary-labels",
+      "path": "stripe-secret-beside-public-visibility-flag/fixture.txt",
+      "context": "structured-file",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-secret-under-publishable-label",
+        "mutationKind": "misleading-sibling-field",
+        "mutation": "Label changed to key and a visibility:public field added beside it; value bytes identical."
+      },
+      "sha256": "2d9569b9139c3d8d52f02b25556e80f8a2939e4a52cb8f560b2b5a21794c74b0",
+      "text": "{\"key\":\"sk_test_syntheticHHH5Fu4cDPruAAgZODt0lOc\",\"visibility\":\"public\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 8,
+            "end": 48,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-secret-under-public-env-label",
+      "case": "provider-secret-value-under-public-or-ordinary-labels",
+      "path": "stripe-secret-under-public-env-label/fixture.txt",
+      "context": "env",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-secret-under-publishable-label",
+        "mutationKind": "carrier-and-label",
+        "mutation": "JSON field replaced by an env assignment named NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY; value bytes identical."
+      },
+      "sha256": "7abe50ab79e78170f30986c7510acb96427a05fcf4574e1e2814b2687d812f92",
+      "text": "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=sk_test_syntheticHHH5Fu4cDPruAAgZODt0lOc\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 35,
+            "end": 75,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-publishable-under-publishable-env-label",
+      "case": "documented-public-key-value-under-matching-or-ordinary-labels",
+      "path": "stripe-publishable-under-publishable-env-label/fixture.txt",
+      "context": "env",
+      "sha256": "fb1329102fa6ec6d8453eaa042465ec431e64956cb3436542a85baebc4107873",
+      "text": "STRIPE_PUBLISHABLE_KEY=pk_test_syntheticAy7SaqRGQVwmmAgAStJ2FuU\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-publishable-under-id-field",
+      "case": "documented-public-key-value-under-matching-or-ordinary-labels",
+      "path": "stripe-publishable-under-id-field/fixture.txt",
+      "context": "structured-file",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-publishable-under-publishable-env-label",
+        "mutationKind": "carrier-and-label",
+        "mutation": "Env assignment replaced by a JSON id field; value bytes identical."
+      },
+      "sha256": "7d6729efb95fafbca00f01d173e021b597d021fe78414d5a06cff224a921f711",
+      "text": "{\"id\":\"pk_test_syntheticAy7SaqRGQVwmmAgAStJ2FuU\"}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--supabase-publishable-under-public-env-label",
+      "case": "documented-public-key-value-under-matching-or-ordinary-labels",
+      "path": "supabase-publishable-under-public-env-label/fixture.txt",
+      "context": "env",
+      "sha256": "95e2c6c346c0b19c5a1aecd808b871d6ea3532a81e0d5c2fa2ca341a14fc71d8",
+      "text": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_syntheticHSyuHKsLG9uco_nSS6yHUe\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--supabase-publishable-under-description-field",
+      "case": "documented-public-key-value-under-matching-or-ordinary-labels",
+      "path": "supabase-publishable-under-description-field/fixture.txt",
+      "context": "structured-file",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--supabase-publishable-under-public-env-label",
+        "mutationKind": "carrier-and-label",
+        "mutation": "Env assignment replaced by a YAML description field; value bytes identical."
+      },
+      "sha256": "c3c9142eed04ef115f5777e6350a769818318437642da1fb45ebdc7977299774",
+      "text": "title: Demo project\ndescription: sb_publishable_syntheticHSyuHKsLG9uco_nSS6yHUe\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-publishable-under-secret-key-env-label",
+      "case": "documented-public-key-value-under-secret-like-labels",
+      "path": "stripe-publishable-under-secret-key-env-label/fixture.txt",
+      "context": "env",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-publishable-under-publishable-env-label",
+        "mutationKind": "label",
+        "mutation": "Label changed from STRIPE_PUBLISHABLE_KEY to STRIPE_SECRET_KEY; value bytes identical."
+      },
+      "sha256": "324c53cc07fb68810ed638ef2b3b63dc62109879308db28f18cf676a5897999b",
+      "text": "STRIPE_SECRET_KEY=pk_test_syntheticAy7SaqRGQVwmmAgAStJ2FuU\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-publishable-under-client-secret-field",
+      "case": "documented-public-key-value-under-secret-like-labels",
+      "path": "stripe-publishable-under-client-secret-field/fixture.txt",
+      "context": "structured-file",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-publishable-under-id-field",
+        "mutationKind": "label",
+        "mutation": "Field label changed from id to client_secret; value bytes identical."
+      },
+      "sha256": "6237ff76fb68d5517f5ba32e1ca624466deaf31ba806ff3c1fde3fdb75c132cf",
+      "text": "{\"client_secret\":\"pk_test_syntheticAy7SaqRGQVwmmAgAStJ2FuU\"}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--supabase-publishable-under-service-role-env-label",
+      "case": "documented-public-key-value-under-secret-like-labels",
+      "path": "supabase-publishable-under-service-role-env-label/fixture.txt",
+      "context": "env",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--supabase-publishable-under-public-env-label",
+        "mutationKind": "label",
+        "mutation": "Label changed from NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY to SUPABASE_SERVICE_ROLE_KEY; value bytes identical."
+      },
+      "sha256": "60986b67da7044baa04a255c3f10c62e883535487c050366039fd2f4e3837224",
+      "text": "SUPABASE_SERVICE_ROLE_KEY=sb_publishable_syntheticHSyuHKsLG9uco_nSS6yHUe\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-keys-array-repeated-key-label",
+      "case": "repeated-key-label-with-public-and-secret-values",
+      "path": "stripe-keys-array-repeated-key-label/fixture.txt",
+      "context": "structured-file",
+      "sha256": "fd40ed6c99881a46773a88a0fdae7bf397252011f43ba046cdc6fd9361eb0e1b",
+      "text": "{\"keys\":[{\"key\":\"pk_test_syntheticAy7SaqRGQVwmmAgAStJ2FuU\"},{\"key\":\"sk_test_syntheticHHH5Fu4cDPruAAgZODt0lOc\"}]}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 68,
+            "end": 108,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-env-repeated-key-label-order-swapped",
+      "case": "repeated-key-label-with-public-and-secret-values",
+      "path": "stripe-env-repeated-key-label-order-swapped/fixture.txt",
+      "context": "env",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-keys-array-repeated-key-label",
+        "mutationKind": "carrier-and-order",
+        "mutation": "JSON array replaced by two env lines with the same label, order swapped; value bytes identical."
+      },
+      "sha256": "2ce2f7061af3ae5537dd2377074e33c43ec92081d3d52441eee4d9230b6387fa",
+      "text": "STRIPE_KEY=sk_test_syntheticHHH5Fu4cDPruAAgZODt0lOc\nSTRIPE_KEY=pk_test_syntheticAy7SaqRGQVwmmAgAStJ2FuU\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 11,
+            "end": 51,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--stripe-nested-key-label-under-two-parents",
+      "case": "repeated-key-label-with-public-and-secret-values",
+      "path": "stripe-nested-key-label-under-two-parents/fixture.txt",
+      "context": "structured-file",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--stripe-keys-array-repeated-key-label",
+        "mutationKind": "nesting",
+        "mutation": "Array of key objects replaced by two parent objects each holding a key field; value bytes identical."
+      },
+      "sha256": "dbe769608d264605833817d106fde17b04c3651fbbb82131e6b1dbec9f64054e",
+      "text": "{\"server\":{\"key\":\"sk_test_syntheticHHH5Fu4cDPruAAgZODt0lOc\"},\"client\":{\"key\":\"pk_test_syntheticAy7SaqRGQVwmmAgAStJ2FuU\"}}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 58,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--google-key-shape-under-firebase-config-label",
+      "case": "google-api-key-shape-under-firebase-and-generic-labels",
+      "path": "google-key-shape-under-firebase-config-label/fixture.txt",
+      "context": "source-literal",
+      "sha256": "98e67709213bc3b8f3d5bc3b20b345f80fca085c8db6e406c69810d33615d884",
+      "text": "const firebaseConfig = {\n  apiKey: \"AIzasyntheticE4eYVSqlSRj_y9JcHK-cU1jWol\",\n  projectId: \"demo-project-example\"\n};\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--google-key-shape-under-generative-api-env-label",
+      "case": "google-api-key-shape-under-firebase-and-generic-labels",
+      "path": "google-key-shape-under-generative-api-env-label/fixture.txt",
+      "context": "env",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--google-key-shape-under-firebase-config-label",
+        "mutationKind": "carrier-and-label",
+        "mutation": "Firebase web config literal replaced by an env assignment named for a generative-API key; value bytes identical."
+      },
+      "sha256": "700f17607a580cf3bf3bc8dddf9bff90ad8d1f281a38da613fc62f91f546ee60",
+      "text": "GEMINI_API_KEY=AIzasyntheticE4eYVSqlSRj_y9JcHK-cU1jWol\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "authored-conflicting-field-label-semantics--google-key-shape-under-json-api-key-field",
+      "case": "google-api-key-shape-under-firebase-and-generic-labels",
+      "path": "google-key-shape-under-json-api-key-field/fixture.txt",
+      "context": "structured-file",
+      "lineage": {
+        "relation": "metamorphic-of",
+        "of": "authored-conflicting-field-label-semantics--google-key-shape-under-firebase-config-label",
+        "mutationKind": "carrier",
+        "mutation": "JavaScript object literal replaced by a JSON object with the same label; value bytes identical."
+      },
+      "sha256": "0671a63cd3fe40c548e9eb7b289ffc2f431cbcd04df15a83059b3a0b5b19cd91",
+      "text": "{\"apiKey\":\"AIzasyntheticE4eYVSqlSRj_y9JcHK-cU1jWol\"}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

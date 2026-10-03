@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "http-repeated-authorization-header-lines",
+  "title": "Several Authorization values in one request",
+  "summary": "Synthetic requests with two Authorization field lines (Basic, then Bearer) and with one line whose value joins a Basic and a Bearer credential with a comma.",
+  "rationale": "A sender must not repeat a field that is not a list, and a recipient may combine lines, so the effective credential is not determined by the standard; a later line can even be deliberately misleading. Each value is still a credential-shaped token on its own line, so leaving any one unprotected may leak, but which is effective and whether the comma-joined form is two credentials is a parser policy question.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:http-basic-credentials",
+      "role": "subject"
+    },
+    {
+      "family": "generic:bearer-token",
+      "role": "companion"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input",
+    "multiple-credentials-per-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. RFC 9110 says a sender must not generate multiple lines of a field that does not allow list recombination and that duplicates can be misleading, but does not say which value governs. Candidate reading: all values as credentials. Header coalescing and parser policy are handed off to the owning repositories.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-e593c606c9",
+        "supports": "a sender MUST NOT generate multiple field lines with the same name ... unless that field's definition allows multiple field line values to be recombined as a comma-separated list",
+        "locator": "#section-5.3"
+      },
+      {
+        "sourceId": "rfc-editor-org-e593c606c9",
+        "supports": "later field lines might include conditionals, authentication credentials, or deliberately misleading duplicate header fields",
+        "locator": "#section-5.3"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited standards read on 2026-10-03, before any scanner was consulted. All values are synthetic and were not tested against any service. Header coalescing, parser and action policy, decoded-token mapping and product masking stay with the downstream repositories."
+}
