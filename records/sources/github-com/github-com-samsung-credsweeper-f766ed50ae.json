@@ -3,7 +3,7 @@
   "kind": "evidence-source",
   "id": "github-com-samsung-credsweeper-f766ed50ae",
   "sourceType": "scanner-rule-source",
-  "title": "Samsung/CredSweeper @ 6aa86333: credsweeper/rules/config.yaml (rule Twilio Multi)",
+  "title": "Samsung/CredSweeper @ 6aa86333 (main, 2026-10-02): credsweeper/rules/config.yaml",
   "publisher": "Samsung/CredSweeper",
   "publishedAt": null,
   "locator": {
@@ -19,6 +19,12 @@
       "outcome": "read",
       "observer": "research-agent",
       "note": "Read raw file at commit 6aa86333: rule 'Twilio Multi' (L879-L896), type multi, first pattern (AC|SK) plus 32 hex, second pattern 32 lowercase hex. Also read credsweeper/scanner/scan_type/multi_pattern.py at the same commit: a candidate is returned only when the second part is found within MAX_SEARCH_MARGIN = 10 lines of the first."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "read",
+      "observer": "research-agent",
+      "note": "Read raw file at commit 6aa86333: rule 'Discord Bot Token' (L1896), cited by the discord:bot-token fixture evidence."
     }
   ],
   "lifecycle": "draft"

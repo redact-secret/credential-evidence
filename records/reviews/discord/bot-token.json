@@ -67,6 +67,17 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'discord-bot-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Discord's own single documented example matches the legacy 24/6/27 shape exactly, corroborated by TruffleHog's discordbottoken detector (its \\b-anchored regex matches only that exact width). Re-checked 2026-09-22 (redact-secret#646, redact-secret-benchmarks#159): no pinned scanner or Discord-owned page documents the current 24/6/38 or 26/6/38 shapes; the body-length change is corroborated only by third-party tool regexes and dated empirical reports (see redact-secret#646's broad-discovery and web-search passes), never by either pinned scanner, so it stays prose-only, not a `corroboration` entry. Gitleaks's discord-api-token and discord-client-secret rules target different, unrelated Discord credential shapes and are not cited."
+    },
+    {
+      "seq": 3,
+      "type": "authored",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Evidence review for issue 49 (2026-10-03, automation, not independently reviewed). Of 32 fixtures: 24 (seven evidence entries) re-based from project-policy to tool-corroborated on pinned open-source rule artifacts from different maintainers (detect-secrets, CredSweeper, titus, trufflehog) and the Discord.Net validation code, each worded as consistency; 1 (interactions public key) re-based to provider-documented on the interactions documentation; 7 stay project-policy: the 37-character third-segment twins (3) and the 25-character first-segment twins (2), because pinned rule artifacts accept those values, and the application-id and user-mention public ids, because no source states their non-secrecy. Searched: discord-api-docs (reference, interactions, application, message), trufflehog, detect-secrets, CredSweeper, titus (kingfisher ids), gitleaks config (discord-api-token, client-id and client-secret rules only, no bot-token rule), semgrep-rules (gitleaks ports), Nosey Parker (no discord file in its tree) and Kingfisher (its discord rule file was not located in the repository tree; titus carries it under kingfisher rule ids)."
     }
   ],
   "externalRefs": [
