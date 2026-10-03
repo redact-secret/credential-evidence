@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "netrc-login-field-and-anonymous-template-sensitivity",
+  "title": ".netrc: sensitivity of the login field and the anonymous default template",
+  "summary": "Whether the login value is confidential, and whether the password in the page's own template \"default login anonymous password user@domain\" is a placeholder or a secret.",
+  "rationale": "Some tools put a token in the login position and a dummy value in the password position; anonymous logins by convention carry an email-shaped password. curl calls login the username string and gives the anonymous line as an example of a default anonymous login, but states neither that a login is non-secret nor that the anonymous password is a placeholder.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:netrc-password",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Left unresolved. The curl page read documents the tokens but not their confidentiality beyond the password token. A GNU inetutils manual page, searched as a second documentation source, returned HTTP 403 and was not read. A cross-implementation specification or a maintainer policy decision would settle it.",
+    "sources": [
+      {
+        "sourceId": "everything-curl-dev-3a0a540399",
+        "supports": "login name: The username string for the remote machine. ... default login anonymous password user@domain",
+        "locator": "section: The .netrc file format"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}
