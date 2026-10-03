@@ -1,0 +1,915 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "line-break-and-fragment-authored",
+  "title": "Line breaks, escapes and fragments of credentials (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "line-break-and-fragment-authored--sendgrid-key-base-first",
+      "case": "sendgrid-key-in-provider-named-fields",
+      "path": "sendgrid-key-base-first/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "e7213d778aebf281c79da78e49e1b1e54caac9a173d4f8fe71e1bee7d27f248f",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETICEXAMPLEID0000.SYNTHETICEXAMPLEKEYNEVERISSUED0000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--sendgrid-key-base-second",
+      "case": "sendgrid-key-in-provider-named-fields",
+      "path": "sendgrid-key-base-second/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "76ca37b6e34cb4557b88012b95f4913d43352e759b6915f8053de06fa72e0917",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETICEXAMPLEID0001.SYNTHETIC_EXAMPLE-SECOND-KEY-NOT-ISSUED000-\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--public-digest-base",
+      "case": "hashes-commit-ids-and-uuids",
+      "path": "public-digest-base/fixture.txt",
+      "context": "config-value",
+      "sha256": "f8066865ddb155783c7b33dbe1fdc0cabd97a4e45fe7a74f177e9acc10feb1c4",
+      "text": "checksum=d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--public-text-base64-base",
+      "case": "base64-of-public-text",
+      "path": "public-text-base64-base/fixture.txt",
+      "context": "config-value",
+      "sha256": "0f894a07db7a3f4b462675dc816b06b6f8037789b76126ac83f3b313f7ee0a14",
+      "text": "message=VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZzsgdGhpcyBpcyBwdWJsaWMgc2FtcGxlIHRleHQsIG5vdCBhIGNyZWRlbnRpYWwu\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--prefix-then-prose",
+      "case": "credential-prefix-before-unrelated-line",
+      "path": "prefix-then-prose/fixture.txt",
+      "context": "plain-text",
+      "sha256": "1d52d9b426b42907d2f7ece56025b1f12b651d037cf4881f8619d5d5e1128493",
+      "text": "Set the key (it starts with SG.\nContact your administrator for the remaining part.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--prefix-then-public-encoded-text",
+      "case": "credential-prefix-before-unrelated-line",
+      "path": "prefix-then-public-encoded-text/fixture.txt",
+      "context": "plain-text",
+      "sha256": "370d3dc0ef517557c6182785daec7f99b1f9dd3050094076a103631eef7d1c36",
+      "text": "Header token starts with SG.\nVGhpcyBpcyBwdWJsaWMgc2FtcGxlIHRleHQ=\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-by-unquoted-shell-continuation",
+      "case": "credential-split-by-shell-backslash-newline",
+      "path": "key-split-by-unquoted-shell-continuation/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "8e9b3f74b8a235648b17bdde8d4a94a36e87da32070b90e221a7658c39660c0c",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETICEXAMPLEID0000.SYNTHETICEXAMP\\\nLEKEYNEVERISSUED0000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 88,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-first",
+            "fragments": [
+              {
+                "start": 17,
+                "end": 57
+              },
+              {
+                "start": 59,
+                "end": 88
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "shell-line-continuation",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-by-double-quoted-shell-continuation",
+      "case": "credential-split-by-shell-backslash-newline",
+      "path": "key-split-by-double-quoted-shell-continuation/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "bd3b08482ac22e57e95201b2ff11a988b67a172e3f615c076a3fb30966fdc087",
+      "text": "SENDGRID_API_KEY=\"SG.SYNTHETICEXAMPLEID0000.\\\nSYNTHETICEXAMPLEKEYNEVERISSUED0000000000000\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-first",
+            "fragments": [
+              {
+                "start": 18,
+                "end": 44
+              },
+              {
+                "start": 46,
+                "end": 89
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "shell-line-continuation",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-after-prefix-by-shell-continuation",
+      "case": "credential-split-by-shell-backslash-newline",
+      "path": "key-split-after-prefix-by-shell-continuation/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "9b007719075c91439a530a69fe9fd0bfeaf28e661fd1f6d40516cd03c246991c",
+      "text": "SENDGRID_API_KEY=SG.\\\nSYNTHETICEXAMPLEID0001.SYNTHETIC_EXAMPLE-SECOND-KEY-NOT-ISSUED000-\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 88,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-second",
+            "fragments": [
+              {
+                "start": 17,
+                "end": 20
+              },
+              {
+                "start": 22,
+                "end": 88
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "shell-line-continuation",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-before-last-character-by-shell-continuation",
+      "case": "credential-split-by-shell-backslash-newline",
+      "path": "key-split-before-last-character-by-shell-continuation/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "b5ee716f2cf513d759d8893ea78fa99a4f2c33c96575097a8348d3f7e47e8ca6",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETICEXAMPLEID0001.SYNTHETIC_EXAMPLE-SECOND-KEY-NOT-ISSUED000\\\n-\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 88,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-second",
+            "fragments": [
+              {
+                "start": 17,
+                "end": 85
+              },
+              {
+                "start": 87,
+                "end": 88
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "shell-line-continuation",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-by-python-literal-continuation",
+      "case": "credential-split-by-string-literal-line-continuation",
+      "path": "key-split-by-python-literal-continuation/fixture.txt",
+      "context": "python-source",
+      "sha256": "efaab07611efe99c40a9746550ef27366271007bf388eebc2b8f285aea63da04",
+      "text": "SENDGRID_API_KEY = \"SG.SYNTHETICEXAMPLEID0000.SYNTHETIC\\\nEXAMPLEKEYNEVERISSUED0000000000000\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 20,
+            "end": 91,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-first",
+            "fragments": [
+              {
+                "start": 20,
+                "end": 55
+              },
+              {
+                "start": 57,
+                "end": 91
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "string-literal-line-continuation",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-by-javascript-literal-continuation",
+      "case": "credential-split-by-string-literal-line-continuation",
+      "path": "key-split-by-javascript-literal-continuation/fixture.txt",
+      "context": "javascript-source",
+      "sha256": "9d8542937d30c4e679d2e545e4a81a36860532af735f8ea0ca452fe4e58e6167",
+      "text": "const apiKey = 'SG.SYNTHETICEXAMPLEID0001.SYNT\\\nHETIC_EXAMPLE-SECOND-KEY-NOT-ISSUED000-';\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 87,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-second",
+            "fragments": [
+              {
+                "start": 16,
+                "end": 46
+              },
+              {
+                "start": 48,
+                "end": 87
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "string-literal-line-continuation",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-across-python-adjacent-literals",
+      "case": "credential-split-across-concatenated-string-literals",
+      "path": "key-split-across-python-adjacent-literals/fixture.txt",
+      "context": "python-source",
+      "sha256": "9ccf4c1fcb216e38e5fdc6655df161addb0c103d95647059751ed2f2093731ad",
+      "text": "SENDGRID_API_KEY = (\n    \"SG.SYNTHETICEXAMPLEID0000.SYNTHETIC\"\n    \"EXAMPLEKEYNEVERISSUED0000000000000\"\n)\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 26,
+            "end": 102,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-first",
+            "fragments": [
+              {
+                "start": 26,
+                "end": 61
+              },
+              {
+                "start": 68,
+                "end": 102
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "adjacent-string-literals",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-across-javascript-added-literals",
+      "case": "credential-split-across-concatenated-string-literals",
+      "path": "key-split-across-javascript-added-literals/fixture.txt",
+      "context": "javascript-source",
+      "sha256": "1bf568144a6736fc5c3afe12ac5b51de20feefa1236893cc5f59f7487eb98b7d",
+      "text": "const apiKey = \"SG.SYNTHETICEXAMPLEID0001.SYNT\" + \"HETIC_EXAMPLE-SECOND-KEY-NOT-ISSUED000-\";\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 90,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-second",
+            "fragments": [
+              {
+                "start": 16,
+                "end": 46
+              },
+              {
+                "start": 51,
+                "end": 90
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "string-literal-addition",
+            "lineBreak": "none",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-in-three-javascript-added-literals",
+      "case": "credential-split-across-concatenated-string-literals",
+      "path": "key-split-in-three-javascript-added-literals/fixture.txt",
+      "context": "javascript-source",
+      "sha256": "94753bb59d5f86b029a551c1500c22dc30857f0483612a2d51337a7984fbe64d",
+      "text": "const apiKey = \"SG.\" + \"SYNTHETICEXAMPLEID0001.\" + \"SYNTHETIC_EXAMPLE-SECOND-KEY-NOT-ISSUED000-\";\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 95,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-second",
+            "fragments": [
+              {
+                "start": 16,
+                "end": 19
+              },
+              {
+                "start": 24,
+                "end": 47
+              },
+              {
+                "start": 52,
+                "end": 95
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "string-literal-addition",
+            "lineBreak": "none",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-divided-mid-secret-by-byte-chunks",
+      "case": "credential-bytes-divided-between-stream-chunks-intact",
+      "path": "key-divided-mid-secret-by-byte-chunks/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "e7213d778aebf281c79da78e49e1b1e54caac9a173d4f8fe71e1bee7d27f248f",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETICEXAMPLEID0000.SYNTHETICEXAMPLEKEYNEVERISSUED0000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-first"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "shell-assignment"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf8-byte",
+        "boundaries": [
+          40
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-after-emoji-with-boundary-inside-emoji",
+      "case": "credential-bytes-divided-between-stream-chunks-intact",
+      "path": "key-after-emoji-with-boundary-inside-emoji/fixture.txt",
+      "context": "plain-text",
+      "sha256": "214de6f0cdb3d8888625c528883bf5bb4723fec05be86a9dcc8f7bd36d20902f",
+      "text": "note=\ud83d\udd11SG.SYNTHETICEXAMPLEID0001.SYNTHETIC_EXAMPLE-SECOND-KEY-NOT-ISSUED000-\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 9,
+            "end": 78,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "line-break-and-fragment-authored--sendgrid-key-base-second"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "plain-text"
+          }
+        ]
+      },
+      "chunking": {
+        "unit": "utf8-byte",
+        "boundaries": [
+          7,
+          40
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--public-digest-wrapped-at-32",
+      "case": "hashes-commit-ids-and-uuids",
+      "path": "public-digest-wrapped-at-32/fixture.txt",
+      "context": "config-value",
+      "sha256": "5a2650b9050d98c8c34b31d794f0206f1809a3123e74e44ee6ad2730bfc99141",
+      "text": "checksum=d7a8fbb307d7809469ca9abcb0082e4f\n8d5651e46d3cdb762d02d0bf37c9e592\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--public-digest-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "fixed-width-wrap",
+            "lineBreak": "lf",
+            "reconstruction": "inserts-separator",
+            "width": 32
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--public-text-base64-wrapped-at-76",
+      "case": "base64-of-public-text",
+      "path": "public-text-base64-wrapped-at-76/fixture.txt",
+      "context": "config-value",
+      "sha256": "858840f0f152b385c12ab7b8688b28e53971ccbc380bb7b578b8b1c74519d2c0",
+      "text": "message=\nVGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZzsgdGhpcyBpcyBwdWJs\naWMgc2FtcGxlIHRleHQsIG5vdCBhIGNyZWRlbnRpYWwu\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--public-text-base64-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "encode",
+            "codec": "base64",
+            "alphabet": "standard",
+            "padding": "padded"
+          },
+          {
+            "op": "fragment",
+            "mechanism": "mime-base64-line-wrap",
+            "lineBreak": "lf",
+            "reconstruction": "reconstructs-original",
+            "width": 76
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-by-backslash-newline-in-single-quotes",
+      "case": "credential-split-by-backslash-newline-inside-single-quotes",
+      "path": "key-split-by-backslash-newline-in-single-quotes/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "e7976296b8ffa8314171a4b8666b27e887e75f720e93e0f9e7cc7bbce018b672",
+      "text": "SENDGRID_API_KEY='SG.SYNTHETICEXAMPLEID0000.SYNTHETIC\\\nEXAMPLEKEYNEVERISSUED0000000000000'\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "shell-line-continuation-in-single-quotes",
+            "lineBreak": "lf",
+            "reconstruction": "inserts-separator"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-by-literal-line-feed",
+      "case": "credential-split-by-literal-line-break-in-plain-text",
+      "path": "key-split-by-literal-line-feed/fixture.txt",
+      "context": "plain-text",
+      "sha256": "e8f5690963e64ca537f91232f249f42536423b977120d8ce3c0faac5a6f40181",
+      "text": "Pasted from the ticket: SG.SYNTHETICEXAMPLEID0000.SYNTHETIC\nEXAMPLEKEYNEVERISSUED0000000000000\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "literal-line-feed",
+            "lineBreak": "lf",
+            "reconstruction": "inserts-separator"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-by-literal-crlf",
+      "case": "credential-split-by-literal-line-break-in-plain-text",
+      "path": "key-split-by-literal-crlf/fixture.txt",
+      "context": "plain-text",
+      "sha256": "dc864abb4de075c7a136ccbc440c40d5d6de86e790888ec11831ed1468e901af",
+      "text": "Pasted from the ticket: SG.SYNTHETICEXAMPLEID0000.SYNTHETIC\r\nEXAMPLEKEYNEVERISSUED0000000000000\r\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "literal-crlf",
+            "lineBreak": "crlf",
+            "reconstruction": "inserts-separator"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-wrapped-in-markdown-paragraph",
+      "case": "credential-split-by-markdown-paragraph-line-ending",
+      "path": "key-wrapped-in-markdown-paragraph/fixture.txt",
+      "context": "markdown",
+      "sha256": "4120bebdc9d87d0e7c0cce314ea28fddff7be05e5554f27ab18a1169630bb0a0",
+      "text": "Set the variable to the key SG.SYNTHETICEXAMPLEID0001.SYNTHETIC_EXAMPLE-\nSECOND-KEY-NOT-ISSUED000- before deploying.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "markdown-soft-line-break",
+            "lineBreak": "lf",
+            "reconstruction": "inserts-separator"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-wrapped-in-markdown-code-span",
+      "case": "credential-split-by-markdown-paragraph-line-ending",
+      "path": "key-wrapped-in-markdown-code-span/fixture.txt",
+      "context": "markdown",
+      "sha256": "4ff8abe1c85bd52ee6a92b6123f202bc6b93a8837a73515c1fbfb343fac25387",
+      "text": "Use `SG.SYNTHETICEXAMPLEID0001.SYNTHETIC_EXAMPLE-\nSECOND-KEY-NOT-ISSUED000-` as the key.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "markdown-code-span-line-ending",
+            "lineBreak": "lf",
+            "reconstruction": "inserts-separator"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-split-by-backslash-crlf-continuation",
+      "case": "credential-split-by-backslash-crlf-continuation",
+      "path": "key-split-by-backslash-crlf-continuation/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "33cf1abcee9fa2622b81be79780e3565e9eccadc30a484ed1bcdc9bc06c46647",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETICEXAMPLEID0000.SYNTHETICEXAMP\\\r\nLEKEYNEVERISSUED0000000000000\r\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "shell-line-continuation",
+            "lineBreak": "crlf",
+            "reconstruction": "unresolved"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-with-json-escaped-line-feed",
+      "case": "credential-with-escaped-line-break-text",
+      "path": "key-with-json-escaped-line-feed/fixture.txt",
+      "context": "json",
+      "sha256": "552cc99afa287a568102311eab5c1bdc67d78390015a8b6d49076db2ee361c34",
+      "text": "{\"api_key\": \"SG.SYNTHETICEXAMPLEID0001.SYNTHETIC_EXAM\\nPLE-SECOND-KEY-NOT-ISSUED000-\"}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-second"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "escape",
+            "style": "json-string"
+          },
+          {
+            "op": "fragment",
+            "mechanism": "escaped-newline-text",
+            "lineBreak": "lf",
+            "reconstruction": "unresolved"
+          }
+        ]
+      }
+    },
+    {
+      "id": "line-break-and-fragment-authored--key-with-literal-backslash-n-in-log-line",
+      "case": "credential-with-escaped-line-break-text",
+      "path": "key-with-literal-backslash-n-in-log-line/fixture.txt",
+      "context": "plain-text",
+      "sha256": "1c93082cf1e6beaf80d6c9d23f4ccd2f65bd4c332a2b67ea577fbaecd4c99dd5",
+      "text": "request failed key=SG.SYNTHETICEXAMPLEID0000.SYNTHETICEXAMP\\nLEKEYNEVERISSUED0000000000000\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "line-break-and-fragment-authored--sendgrid-key-base-first"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "escape",
+            "style": "literal-backslash-n"
+          },
+          {
+            "op": "fragment",
+            "mechanism": "escaped-newline-text",
+            "lineBreak": "lf",
+            "reconstruction": "unresolved"
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "scenario",
+  "id": "value-rebuilt-by-the-surrounding-language",
+  "title": "Credential split in text but rebuilt by the language that reads it",
+  "description": "A credential is written across a line break or across several string pieces in a carrier whose language rebuilds the original value before the program uses it: a shell backslash-newline, a string-literal line continuation, or concatenated string literals.",
+  "semantics": "The language removes the separator or concatenates the pieces, so the value the program sees is the intact credential. Every fragment of the value is covered; the separators (backslash, line break, quotes, operator) are not part of it. This holds per mechanism, and only for a mechanism a cited language definition states: it never licenses removing whitespace in general.",
+  "expectedOutcomeClass": "must-flag",
+  "applicability": {
+    "appliesTo": "any-family",
+    "rationale": "Carrier-level: the reasoning is about the language construct, not about a credential family."
+  },
+  "evidenceBasis": {
+    "basis": "tool-corroborated",
+    "rationale": "Each mechanism is stated by two language definitions from different maintainers (shell: POSIX and the GNU Bash manual; string-literal continuation and concatenation: the Python reference and ECMAScript). The record claims consistency of those texts with the reading, not a provider rule. Whether a given carrier is read by such a language at all is per fixture and per Case.",
+    "sources": [
+      {
+        "sourceId": "pubs-opengroup-org-895cb3895a",
+        "supports": "If a newline follows the backslash, the shell shall interpret this as line continuation; the backslash and newline are removed before splitting the input into tokens.",
+        "locator": "2.2.1 Escape Character (Backslash)"
+      },
+      {
+        "sourceId": "gnu-org-e7dab104ac",
+        "supports": "An unquoted backslash-newline pair is treated as a line continuation: removed from the input stream and effectively ignored.",
+        "locator": "Escape Character"
+      },
+      {
+        "sourceId": "docs-python-org-9c178ce981",
+        "supports": "A backslash followed by a newline inside a string literal is an ignored end of line: neither is part of the string value.",
+        "locator": "2.5.4.1 Ignored end of line"
+      },
+      {
+        "sourceId": "tc39-es-80655998e0",
+        "supports": "A LineContinuation in a string literal has the empty String as its string value, and a line terminator can appear in a string literal only as part of one.",
+        "locator": "12.9.4 String Literals, Static Semantics: SV"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
