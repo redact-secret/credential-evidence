@@ -33,6 +33,14 @@ Redact Secret did not exist?
 - Disclose that the repository is maintained by the Redact Secret project;
   never describe project-maintained evidence as independent validation.
 
+## Branches
+
+`main` is the default and, today, the only long-lived branch on `origin`: open pull requests against it
+(`gh pr create --base main`). CI (`verify` and `historical`) runs on every pull request and every push to `main`.
+There is no `develop`; `npm run research:run` uses `develop` as its base only if `origin` has that branch, else `main`,
+and `record:check` defaults to `origin/main`. If `develop` is ever introduced, this section changes first. Never merge your
+own pull request.
+
 ## Before finishing
 
 Run all validation, schema, reference, generation, and formatting checks that

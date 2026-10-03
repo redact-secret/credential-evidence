@@ -78,6 +78,22 @@ test("review: authored by default, agents cannot write a review, unresolved even
   refused("review", ["case:no-such-case"], { actor: "a" }, /unknown case/);
 });
 
+test("review: an evidence-source is a supported subject, and --unresolved names a statement directly outside a narrative (#86)", () => {
+  const hasHistory = (id) => index.some((h) => h.record.kind === "evidence-review-history" && h.record.subject.kind === "evidence-source" && h.record.subject.id === id);
+  const src = index.find((e) => e.record.kind === "evidence-source" && !hasHistory(e.record.id)).record;
+  const p = plan("review", [`evidence-source:${src.id}`], { actor: "test-agent", role: "automation", note: "Re-read the page; the version line is not shown.", unresolved: ["version-line=The page does not show which API version the key belongs to."] });
+  assert.deepEqual(validator.validateRecord(p.record), []);
+  assert.deepEqual(p.record.subject, { kind: "evidence-source", id: src.id });
+  assert.equal(p.path, `records/reviews/evidence-source/${src.id}.json`);
+  assert.deepEqual(p.record.events.map((e) => [e.seq, e.type, e.verdict]), [[1, "authored", undefined], [2, "observed", "not-assertable"]]);
+  assert.match(p.record.events[1].note, /^Statement 'version-line' is recorded as unresolved: The page does not show/);
+  assert.match(p.note, /set these on the evidence-source: version-line -> unresolved\.reviewEvent 2/);
+  // outside a narrative there are no sections: the narrative form is refused with the right shape, and so is a bare id inside one
+  refused("review", [`evidence-source:${src.id}`], { actor: "a", unresolved: ["shape/version-line=x"] }, /--unresolved for a evidence-source must be <statement-id>=<reason>/);
+  const noNarrativeHistory = index.filter((e) => !(e.record.kind === "evidence-review-history" && e.record.subject.kind === "family-narrative" && e.record.subject.id === aws));
+  refused("review", [`family-narrative:${aws}`], { actor: "a", unresolved: ["version-line=x"] }, /--unresolved for a family-narrative must be <section>\/<statement-id>=<reason>/, noNarrativeHistory);
+});
+
 test("review --append adds events after the last seq and never touches earlier ones; an imported history takes one too (ADR 0015)", () => {
   const mine = {
     path: "records/reviews/mine/x.json",

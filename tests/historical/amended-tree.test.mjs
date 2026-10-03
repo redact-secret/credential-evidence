@@ -8,15 +8,24 @@
 // without a declaration, a tampered manifest digest.
 //
 // Needs the legacy checkout (LEGACY_BENCHMARKS_DIR or a sibling directory); REQUIRE_LEGACY=1 makes a missing one a failure.
+//
+// Hermetic against the live ledger (#86). The live tree may itself carry declared amendments and additions (that is the
+// point of ADR 0015), so:
+//   - the "untouched" runs use a plain copy of the live tree: the historical checks must pass over it, with the same output
+//     as over the pristine baseline, whatever it carries;
+//   - every test that mutates the tree starts from copyBaseline(): the baseline itself (amended records restored from the
+//     pin, additions dropped, empty ledger), so "undeclared", "stale" and "wrote 0 file(s)" mean what the test says.
 
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import test, { before, describe } from "node:test";
-import { AMENDMENTS_PATH, loadManifest, MANIFEST_PATH, serializeManifest } from "../../scripts/lib/baseline.mjs";
+import { AMENDMENTS_PATH, classifyTree, loadManifest, MANIFEST_PATH, serializeManifest } from "../../scripts/lib/baseline.mjs";
+import { buildSnapshot } from "../../scripts/export/lib/projection.mjs";
 import { loadBaselineFiles } from "../../scripts/migrate/lib/baseline-view.mjs";
 import { findLegacyDir, LEGACY_REVISION } from "../../scripts/migrate/lib/legacy-source.mjs";
 import { authorNewProvider, copyRepo } from "../repo-copy.mjs";
+import { copyBaseline } from "./baseline-copy.mjs";
 
 let legacyDir = null;
 let skip = false;
@@ -48,13 +57,27 @@ describe("historical checks over a tree with canonical changes", { skip }, () =>
     }
   });
 
-  test("the untouched tree passes every historical check, with 0 unexplained parity differences", () => {
+  test("the live tree, whatever amendments and additions it declares, passes every historical check, with 0 unexplained parity differences", () => {
     for (const [name, r] of Object.entries(untouched)) assert.equal(r.status, 0, `${name}: ${out(r)}`);
     assert.match(untouched["parity:check"].stdout, /unexplained 0,/);
   });
 
-  test("(c) with an amended record and a brand-new provider in the tree, the baseline is reproduced and the projection and parity are unchanged", () => {
-    const c = copyRepo();
+  test("the live tree's declared amendments change none of the historical output: it equals the pristine baseline's, byte for byte", async () => {
+    assert.deepEqual(classifyTree().problems, [], "the live tree is a valid baseline plus declared amendments");
+    const c = await copyBaseline({ legacyDir });
+    try {
+      for (const [name, script, args] of HISTORICAL) {
+        const r = c.run(script, args, env());
+        assert.equal(r.status, 0, `${name}: ${out(r)}`);
+        assert.equal(r.stdout, untouched[name].stdout, name);
+      }
+    } finally {
+      c.cleanup();
+    }
+  });
+
+  test("(c) with an amended record and a brand-new provider in the tree, the baseline is reproduced and the projection and parity are unchanged", async () => {
+    const c = await copyBaseline({ legacyDir });
     try {
       const path = loadManifest().files.find((f) => f.path.startsWith("records/families/")).path;
       const abs = join(c.root, path);
@@ -76,8 +99,8 @@ describe("historical checks over a tree with canonical changes", { skip }, () =>
     }
   });
 
-  test("(c) a baseline record removed with a declaration does not stop the baseline being reproduced; parity stays at 0 unexplained", () => {
-    const c = copyRepo();
+  test("(c) a baseline record removed with a declaration does not stop the baseline being reproduced; parity stays at 0 unexplained", async () => {
+    const c = await copyBaseline({ legacyDir });
     try {
       const path = loadManifest().files.find((f) => f.path.startsWith("records/reviews/")).path;
       rmSync(join(c.root, path));
@@ -92,8 +115,8 @@ describe("historical checks over a tree with canonical changes", { skip }, () =>
     }
   });
 
-  test("(c) a deleted or mutated baseline record without a declaration fails the baseline check that historical:check starts with", () => {
-    const c = copyRepo();
+  test("(c) a deleted or mutated baseline record without a declaration fails the baseline check that historical:check starts with", async () => {
+    const c = await copyBaseline({ legacyDir });
     try {
       const list = loadManifest().files;
       const edited = list.find((f) => f.path.startsWith("records/sources/")).path;
@@ -135,8 +158,8 @@ describe("historical checks over a tree with canonical changes", { skip }, () =>
     }
   });
 
-  test("a re-import refuses to overwrite declared amendments and never deletes or overwrites a post-import file", () => {
-    const c = copyRepo();
+  test("a re-import refuses to overwrite declared amendments and never deletes or overwrites a post-import file", async () => {
+    const c = await copyBaseline({ legacyDir });
     try {
       authorNewProvider(c);
       const added = join(c.root, "records/providers/synthvendor.json");
@@ -160,20 +183,31 @@ describe("historical checks over a tree with canonical changes", { skip }, () =>
   });
 
   test("the baseline view regenerates from the pin when a record is amended, and equals the manifest byte for byte", async () => {
-    const c = copyRepo();
+    const c = await copyBaseline({ legacyDir });
     try {
+      // the baseline tree is read as it is; the same tree with one amended record is regenerated from the pin
+      const clean = await loadBaselineFiles({ root: c.root, legacyDir });
+      assert.equal(clean.source, "tree");
       const path = loadManifest().files.find((f) => f.path.startsWith("records/families/")).path;
       writeFileSync(join(c.root, path), `${readFileSync(join(c.root, path), "utf8").trimEnd()}\n\n`);
       assert.equal(c.run("baseline.mjs", ["amend", path, "--reason", "Whitespace normalised by a reviewed change"]).status, 0);
       const view = await loadBaselineFiles({ root: c.root, legacyDir });
       assert.equal(view.source, "regenerated");
-      const clean = await loadBaselineFiles({ legacyDir });
-      assert.equal(clean.source, "tree");
       assert.deepEqual([...view.files.keys()], [...clean.files.keys()]);
       for (const [p, bytes] of clean.files) assert.ok(bytes.equals(view.files.get(p)), p);
     } finally {
       c.cleanup();
     }
+  });
+
+  test("the release snapshot of the baseline equals the legacy projection's snapshot: one definition, two callers", async () => {
+    // Moved here from tests/canonical-change.test.mjs (#86). It asserts the baseline, and the ordinary tier can only read the
+    // baseline from the tree while no record is amended: with a declared amendment loadBaselineInputs regenerates it from the
+    // pinned legacy revision, which `verify` does not have. Same assertion, in the tier that does.
+    const { generate, loadBaselineInputs } = await import("../../scripts/export/legacy-projection.mjs");
+    const inputs = await loadBaselineInputs({ legacyDir });
+    const { projection } = generate(inputs);
+    assert.equal(buildSnapshot(inputs).text, projection.artifacts.get("credential-eval/corpus-snapshot.json"));
   });
 
   test("the legacy side is read at the pinned revision, never at the benchmark checkout's HEAD", () => {
