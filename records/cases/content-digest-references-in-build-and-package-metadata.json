@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "content-digest-references-in-build-and-package-metadata",
+  "title": "Content digests in image references, integrity attributes and package metadata",
+  "summary": "Several kinds of content digest in developer artifacts: an OCI image reference pinned by sha256 digest, an HTML script tag with a Subresource Integrity attribute, an npm lock-file integrity field, Go go.sum h1 hashes and pip requirement hashes. Alphabets are lowercase hex (64 characters) and standard Base64 (44 to 88 characters), each behind an algorithm tag.",
+  "rationale": "A hex string or a Base64 string of credential-like length is not universally benign, so the evidence is the carrier: each format defines the value as a digest of content, written next to an algorithm tag (sha256:, sha384-, sha512-, h1:, --hash=sha256:) so that a consumer can verify bytes it fetched. A digest identifies content that anyone holding the content can recompute; it does not authorise access to anything. The failure mode is treating the tagged digest as a key because its length and alphabet match one. This is not a duplicate of the existing lock-file case: it covers image references, HTML and requirement files, and records the documented role of each format, which the earlier case does not.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [],
+  "unscopedReason": "A digest is not issued by a provider and belongs to no credential family; the lookalike population is every family whose alphabet and length coincide, which is a Scenario (benign-encoded-value), not a family list.",
+  "scenarios": [
+    "benign-encoded-value"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Expected unflagged. Each format document defines the value as a hash of content used to verify that content (OCI: the digest is a content identifier and content from an insecure source can be verified against it; SRI: the hash is integrity metadata to validate a fetched resource; npm: integrity is an SRI string for the archive; Go: h1 is a hash of module content; pip: --hash values verify downloads). The step from \"content-verification digest\" to \"not a credential\" is inference, not a quoted statement: none of the sources says the word secret. A maintainer may prefer to label the outcome project policy. It would be reversed by a source stating that such a digest, in that position, grants access.",
+    "sources": [
+      {
+        "sourceId": "github-com-opencontainers-image-spec-66864ead86",
+        "supports": "A digest is an algorithm portion and an encoded portion (algorithm \":\" encoded); for sha256 the encoded portion matches [a-f0-9]{64}; it provides content addressability and content can be verified against it.",
+        "locator": "Digests; Verification"
+      },
+      {
+        "sourceId": "w3-org-d2503d3645",
+        "supports": "An integrity value is hash-algorithm \"-\" base64-value, the algorithms being sha256, sha384 and sha512; integrity metadata is used to verify a fetched response.",
+        "locator": "sections 2, 3.1 and 3.5"
+      },
+      {
+        "sourceId": "docs-npmjs-com-893bbb3425",
+        "supports": "integrity is a sha512 or sha1 Standard Subresource Integrity string for the artifact unpacked at the location.",
+        "locator": "packages and dependencies, integrity"
+      },
+      {
+        "sourceId": "go-dev-5fb6edc5a8",
+        "supports": "go.sum records h1: hashes (hash of module content, base64).",
+        "locator": "go.sum files"
+      },
+      {
+        "sourceId": "pip-pypa-io-ae875c4a04",
+        "supports": "Hash-checking mode uses hashes embedded in a requirements file (--hash=sha256:...) to protect against remote tampering and network issues.",
+        "locator": "Hash-checking Mode"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Cargo.lock checksums were searched for and not included: the Cargo page read does not describe them. Product masking, action policy and measurement stay with the downstream repositories."
+}
