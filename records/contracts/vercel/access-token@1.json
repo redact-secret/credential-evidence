@@ -93,5 +93,12 @@
       "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=vercel:access-token]"
     }
+  ],
+  "openQuestions": [
+    {
+      "id": "candidate-source-wording-moved",
+      "question": "The claim candidate-source cites vercel.com/docs/accounts/access-tokens (vercel-com-8ba2d5b3b4) for 'opaque format, not intended to be human-readable, prefixes per credential type'. Re-read 2026-10-03: that page now names only the vcp_ prefix and states no body length or alphabet; the opaque-format wording is on vercel.com/docs/sign-in-with-vercel/tokens (vercel-com-ee64691632) for access and refresh tokens only. The claim is left unedited (class unresolved); which page, if any, supports it needs a maintainer decision, and no provider page read states a body length or minimum length for any of the five prefixes.",
+      "raisedAt": "2026-10-03"
+    }
   ]
 }

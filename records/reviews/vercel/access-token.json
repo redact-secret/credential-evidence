@@ -88,6 +88,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'vercel-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-checked 2026-09-22 (#127, following #45): Vercel documents all five prefixes (vcp_/vci_/vca_/vcr_/vck_) as visual/scanning markers, but no page states a body length or alphabet for any of them; the pinned TruffleHog detector matches only a different, unprefixed 24-character contextual credential (Vercel's OAuth code-exchange access_token/client_secret) that this shape's own evidence excludes as a separate surface. redact-secret#516 is closed (PR #536): the product's own taxonomy audit (docs/audits/evidence/516/README.md) reached the identical conclusion — all five prefixed classes stay pending T0, no detector was authored — and recorded the same unblocking condition this contract uses. This corpus's bar is unmet on that same evidence, not on an open product issue."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence-class review for issue #72 (fixtures vercel--vercel-token-prefix-only, vercel--vercel-token-short-body), read 2026-10-03; AI agent run, not reviewed. Outcome: neither T1 nor T2 is met, both expectations stay project-policy (legacy T3). Provider pages read (vercel.com/changelog/new-token-formats-and-secret-scanning, /docs/accounts/access-tokens, /docs/sign-in-with-vercel/tokens, /docs/rest-api/authentication/create-an-auth-token, /docs/ai-gateway/authentication-and-byok/api-keys, /docs/cli/tokens): they document the five prefixes and that vca_/vcr_ use an opaque format with server-side validation, but state no body length, minimum length or alphabet, and no statement about a prefix-only or short value. Scanner-rule artifacts searched: the pinned TruffleHog detector (363923b, v3.97.4) matches only an unprefixed 24-character value near the keyword vercel and has no vcp_/vci_/vca_/vcr_/vck_ rule, so it is not an artifact consistent with the prefix grammar; the Betterleaks rules (2a387a5) define all five prefixes followed by 56 characters; the CredSweeper rule (1aa6046) defines only vcp_ followed by 56 characters; the Kingfisher rules are generated from Betterleaks (generated/provenance.json at f177f95 names the Betterleaks revision and its vercel rule ids match), so they count as one artifact with it; Gitleaks (b58d3f1) and Google osv-scalibr (484c657) have no Vercel rule. Result: two distinct maintainers (Betterleaks, CredSweeper) agree on a 56-character body only for vcp_; for vci_, vca_, vcr_ and vck_ there is one. Each fixture holds all five prefixes, so no fixture reaches two distinct artifacts across its content. What would restore T2: a second independent artifact defining the vci_/vca_/vcr_/vck_ body, or a provider statement of body length (then T1). Proposal for a maintainer: leave as project-policy and close #72 as not restorable on present evidence."
     }
   ],
   "externalRefs": [
