@@ -59,7 +59,7 @@
       "path": "format-characters-text-base/input.txt",
       "context": "plain-text",
       "sha256": "96464f109cd04aea2ecfc8f0b583fa49a0fde7120debfd87c3efbc94633a75d0",
-      "text": "family: 👨‍👩‍👧 ; نمی‌خواهم ; ❤️ ; 5 km\n",
+      "text": "family: 👨\u200d👩\u200d👧 ; نمی\u200cخواهم ; ❤\ufe0f ; 5\u00a0km\n",
       "derivation": {
         "kind": "authored-base"
       },
@@ -104,7 +104,7 @@
       "path": "key-a-with-zero-width-space-in-second-segment/input.txt",
       "context": "shell-assignment",
       "sha256": "17b79aab783d77045303b83eb42b5ff1f90caa9922f38687b6b8b56ae9052bed",
-      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAM​PLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAM\u200bPLE_NOT_A_REAL_KEY_NEVER00000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -153,7 +153,7 @@
       "path": "key-a-with-zero-width-non-joiner-in-first-segment/input.txt",
       "context": "shell-assignment",
       "sha256": "ff375e9c59329cf8acb42e8496fea0a2f005ae8cf8b649428290f7b17a48ee5e",
-      "text": "SENDGRID_API_KEY=SG.SYNTHET‌IC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "text": "SENDGRID_API_KEY=SG.SYNTHET\u200cIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -202,7 +202,7 @@
       "path": "key-a-with-word-joiner-near-end/input.txt",
       "context": "shell-assignment",
       "sha256": "5e3d5cd3cdc4d26482de8581be2de544e466fcb9d802643c3e1f524d8d656248",
-      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00⁠000\n",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00\u2060000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -251,7 +251,7 @@
       "path": "key-b-with-zero-width-joiner-after-dot/input.txt",
       "context": "shell-assignment",
       "sha256": "99647e78d466eb28b15019c0ca14a4a168c9a00ddb3c7d58b180834c604395e3",
-      "text": "SENDGRID_API_KEY=SG.‍SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "text": "SENDGRID_API_KEY=SG.\u200dSYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -300,7 +300,7 @@
       "path": "key-b-with-two-different-zero-width-code-points/input.txt",
       "context": "shell-assignment",
       "sha256": "afa8368874906be1d3f539a5ca38792ff3405c92cde8ca267bffda1f0a5b11d5",
-      "text": "SENDGRID_API_KEY=SG.SYNTH​ETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_‌DO_NOT_USE000000000\n",
+      "text": "SENDGRID_API_KEY=SG.SYNTH\u200bETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_\u200cDO_NOT_USE000000000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -351,7 +351,7 @@
       "path": "key-b-with-zero-width-space-between-every-character/input.txt",
       "context": "shell-assignment",
       "sha256": "eb75cdaa141544be4a81adbc18e80a23b8ce094ae41ef0c87d7551f12b6f4255",
-      "text": "SENDGRID_API_KEY=S​G​.​S​Y​N​T​H​E​T​I​C​_​S​E​C​O​N​D​_​K​E​Y​0​0​.​E​X​A​M​P​L​E​_​O​N​L​Y​_​N​O​T​_​I​S​S​U​E​D​_​D​O​_​N​O​T​_​U​S​E​0​0​0​0​0​0​0​0​0\n",
+      "text": "SENDGRID_API_KEY=S\u200bG\u200b.\u200bS\u200bY\u200bN\u200bT\u200bH\u200bE\u200bT\u200bI\u200bC\u200b_\u200bS\u200bE\u200bC\u200bO\u200bN\u200bD\u200b_\u200bK\u200bE\u200bY\u200b0\u200b0\u200b.\u200bE\u200bX\u200bA\u200bM\u200bP\u200bL\u200bE\u200b_\u200bO\u200bN\u200bL\u200bY\u200b_\u200bN\u200bO\u200bT\u200b_\u200bI\u200bS\u200bS\u200bU\u200bE\u200bD\u200b_\u200bD\u200bO\u200b_\u200bN\u200bO\u200bT\u200b_\u200bU\u200bS\u200bE\u200b0\u200b0\u200b0\u200b0\u200b0\u200b0\u200b0\u200b0\u200b0\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -400,7 +400,7 @@
       "path": "key-a-after-leading-byte-order-mark/input.txt",
       "context": "shell-assignment",
       "sha256": "80e88265187e8ea54ea6e3c76dfac980baafc93b20aa6dc7d0fe09a20bc48bac",
-      "text": "﻿SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "text": "\ufeffSENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -438,7 +438,7 @@
       "path": "key-a-after-zero-width-space-before-value/input.txt",
       "context": "shell-assignment",
       "sha256": "88543c45df44a58ea5569bfc4b536ccd32a49ef4ac0109b15a14e1a4aba47e76",
-      "text": "SENDGRID_API_KEY=​SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "text": "SENDGRID_API_KEY=\u200bSG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -476,7 +476,7 @@
       "path": "key-b-after-no-break-space-before-value/input.txt",
       "context": "shell-assignment",
       "sha256": "3f0a8e25a8f8d6d3e859bd7b0a40e6bbd65d4977c1cfadecbae1150e95b6aa8b",
-      "text": "SENDGRID_API_KEY= SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "text": "SENDGRID_API_KEY=\u00a0SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -514,7 +514,7 @@
       "path": "key-b-before-zero-width-non-joiner/input.txt",
       "context": "shell-assignment",
       "sha256": "bc7d6a660e6cdeb5a846009ba6340439320ef80d69b1eb2ccad15419763f2c17",
-      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000‌\n",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\u200c\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -590,7 +590,7 @@
       "path": "key-b-after-emoji-with-variation-selector/input.txt",
       "context": "shell-assignment",
       "sha256": "ac7344603f686d2d8fca8982a5a4c5a81df248e9e7e518840746315107785298",
-      "text": "🔑️SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "text": "🔑\ufe0fSENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -629,7 +629,7 @@
       "path": "key-a-with-no-break-space-inside/input.txt",
       "context": "shell-assignment",
       "sha256": "d1fa9927ebaa6dd9152d758ba9431877fa851588772635b1db77242bb7dd83e5",
-      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC _EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_NEVER_ISSUED.SYNTHETIC\u00a0_EXAMPLE_NOT_A_REAL_KEY_NEVER00000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -659,7 +659,7 @@
       "path": "key-b-with-combining-acute-after-last-character/input.txt",
       "context": "shell-assignment",
       "sha256": "e73d484af9e111d2f97d83bbdd5766447bbec4ba41e11050334c92ebd4c35cb7",
-      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000́\n",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\u0301\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -717,7 +717,7 @@
       "path": "release-notes-with-leading-byte-order-mark/input.txt",
       "context": "plain-text",
       "sha256": "fef8fe93780505bda0ecada1c86851276c2b7caa5ef9aa198ee88fe64f2ef6fd",
-      "text": "﻿Release notes: nothing to report this week.\n",
+      "text": "\ufeffRelease notes: nothing to report this week.\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -746,7 +746,7 @@
       "path": "non-ascii-identifiers-nfd/input.txt",
       "context": "plain-text",
       "sha256": "2c941dc7f929c5a1d87892e4fdaf435e6331e45afa6b803d20331c62c33d416a",
-      "text": "key_name=名前_naïve_café\nuser_id=zoë\n",
+      "text": "key_name=名前_nai\u0308ve_cafe\u0301\nuser_id=zoe\u0308\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -772,7 +772,7 @@
       "path": "key-name-identifier-with-zero-width-space/input.txt",
       "context": "plain-text",
       "sha256": "07de0a02a61dcd026e00bfd1658118438050e412f7c41706541040d2dca82129",
-      "text": "key_name=名前_na​ïve_café\nuser_id=zoë\n",
+      "text": "key_name=名前_na\u200bïve_café\nuser_id=zoë\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -981,7 +981,7 @@
       "path": "key-b-with-zero-width-space-chunked-inside-it/input.txt",
       "context": "shell-assignment",
       "sha256": "b635da6a7c4d5f9fe5e505ab4bb278e53415c76d7395f4aa923c625b2576d316",
-      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_​KEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETIC_SECOND_\u200bKEY00.EXAMPLE_ONLY_NOT_ISSUED_DO_NOT_USE000000000\n",
       "derivation": {
         "kind": "projection",
         "bases": [
@@ -1147,7 +1147,7 @@
       "path": "format-characters-text-utf16-pair-split/input.txt",
       "context": "plain-text",
       "sha256": "96464f109cd04aea2ecfc8f0b583fa49a0fde7120debfd87c3efbc94633a75d0",
-      "text": "family: 👨‍👩‍👧 ; نمی‌خواهم ; ❤️ ; 5 km\n",
+      "text": "family: 👨\u200d👩\u200d👧 ; نمی\u200cخواهم ; ❤\ufe0f ; 5\u00a0km\n",
       "derivation": {
         "kind": "projection",
         "bases": [
