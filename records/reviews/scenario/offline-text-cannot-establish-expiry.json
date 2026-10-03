@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-scenario-offline-text-cannot-establish-expiry",
+  "subject": {
+    "kind": "scenario",
+    "id": "offline-text-cannot-establish-expiry"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored from provider pages read on 2026-10-03; expectation unresolved."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'expired-looking-expectation' is recorded as unresolved: No provider statement; policy decision needed."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

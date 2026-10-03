@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "slack-rotated-token-pair-with-grace-period",
+  "title": "Slack rotated access token and the refresh token it replaced",
+  "summary": "A rotating access token and the refresh token it came with, shown with a note that an earlier pair has been replaced. Shape only; no value is recorded in this record.",
+  "rationale": "With Slack token rotation an access token expires after 43,200 seconds and a used refresh token is revoked after a short grace period, while the existing access token is not invalidated immediately. A replaced pair can therefore still be partly usable at the moment it is read. Offline text shows neither the moment nor the grace length.",
+  "caseTypes": [
+    "twin"
+  ],
+  "families": [
+    {
+      "family": "slack:user-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "rotation-overlap-predecessor-credential"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome asserted. Provider-documented: 12-hour access token expiry; refresh token revoked after a short grace period (length not stated on the page read); calling oauth.v2.access does not immediately invalidate the existing access token. Not documented: treatment of replaced values in text, and whether the xoxe.-prefixed forms are covered by the slack:user-token contract (not checked here). Would settle it: a project-policy decision and a contract review for the rotated prefixes.",
+    "sources": [
+      {
+        "sourceId": "docs-slack-dev-046acee641",
+        "supports": "Access tokens expire every 12 hours; refresh tokens are single-use and revoked after a short grace period; calling oauth.v2.access does not immediately invalidate the existing access token.",
+        "locator": "token rotation page, sections on access token expiry and refresh"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
