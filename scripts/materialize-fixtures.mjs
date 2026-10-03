@@ -7,9 +7,11 @@
 // The output is a plain file tree (one file per fixture, <set>/<path>) and a
 // manifest.json giving each fixture's outcome, byte ranges, case and lineage. It is
 // derived from committed records only and is never committed. --check fails if the
-// records are invalid, if any fixture's digest is wrong, if an existing output tree
-// differs from what the records produce, or if the digest disagrees with the one
-// recorded in docs/migration/cases-report.md.
+// records are invalid, if any fixture's digest is wrong, or if an existing output tree
+// differs from what the records produce. The digest is not compared with the one in
+// docs/migration/cases-report.md: that report describes the import baseline, and the
+// materialization of a tree that gained records after the import legitimately differs
+// (the historical check compares the baseline's digest, ADR 0015).
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
@@ -43,7 +45,7 @@ const sets = all.filter((r) => r.kind === "fixture-set");
 const cases = all.filter((r) => r.kind === "case");
 const scenarios = all.filter((r) => r.kind === "scenario");
 if (!sets.length) {
-  console.error("FAIL: no fixture-set records under records/; run npm run migrate:cases");
+  console.error("FAIL: no fixture-set records under records/; run the importers (npm run migrate:cases)");
   process.exit(1);
 }
 const built = buildMaterialization({ sets, cases, scenarios });
@@ -63,11 +65,6 @@ function readTree(dir) {
 
 if (check) {
   const problems = [];
-  const reportPath = join(repoRoot, "docs", "migration", "cases-report.md");
-  if (existsSync(reportPath)) {
-    const m = /materialization digest: `([0-9a-f]{64})`/.exec(readFileSync(reportPath, "utf8"));
-    if (m && m[1] !== built.digest) problems.push(`digest ${built.digest} differs from docs/migration/cases-report.md (${m[1]}); run npm run migrate:cases`);
-  }
   if (existsSync(out)) {
     const have = readTree(out);
     const want = new Map([...built.files, ["manifest.json", Buffer.from(built.manifestText)]]);

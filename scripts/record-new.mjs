@@ -7,6 +7,7 @@
 import { parseArgs } from "node:util";
 import { PLACEHOLDER, placeholderLocations } from "./lib/placeholders.mjs";
 import { planRecord, ScaffoldError, serialize, SCAFFOLD_KINDS, SOURCE_TYPES, writeRecord } from "./lib/scaffold.mjs";
+import { baselineOwners, declareAmendment, loadAmendments } from "./lib/baseline.mjs";
 import { repoRoot } from "./lib/validator.mjs";
 
 const USAGE = `usage: npm run record:new -- <kind> <arg> [flags]
@@ -75,6 +76,11 @@ try {
   } else {
     writeRecord(plan, root);
     console.log(`${plan.append ? "appended to" : "created"} ${plan.path}`);
+    // appending to a record of the import baseline is an amendment: declare it with the tool's own cause (ADR 0015)
+    if (plan.append && baselineOwners(root).has(plan.path) && !loadAmendments(root).amendments.some((x) => x.path === plan.path)) {
+      const a = declareAmendment({ root, path: plan.path, reason: `record:new appended a ${plan.record.events.at(-1).type} event to an imported review history` });
+      console.log(`declared baseline amendment (${a.change}) for ${plan.path}`);
+    }
   }
   if (plan.note) console.log(`note: ${plan.note}`);
   const todos = placeholderLocations(plan.record);

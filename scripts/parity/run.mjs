@@ -13,7 +13,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { generate } from "../export/legacy-projection.mjs";
+import { generate, loadBaselineInputs } from "../export/legacy-projection.mjs";
 import { repoRoot } from "../lib/validator.mjs";
 import { openLegacy } from "./lib/legacy.mjs";
 import { runParity } from "./lib/parity.mjs";
@@ -31,7 +31,8 @@ for (const a of args) if (!["--check", "--legacy"].includes(a) && a !== legacyAr
   process.exit(2);
 }
 
-const { inputs, projection } = generate();
+// The historical parity proof reads the import baseline, not the working tree (ADR 0015).
+const { inputs, projection } = generate(await loadBaselineInputs({ legacyDir: legacyArg }));
 const { root, cleanup } = openLegacy(legacyArg);
 let result;
 try {

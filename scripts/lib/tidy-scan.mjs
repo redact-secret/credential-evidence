@@ -142,7 +142,7 @@ export function scanRecords(entries, opts = {}) {
   const kinds = opts.kinds ? new Set(opts.kinds) : null;
   const recordAt = new Map(entries.map((e) => [e.path, e.record]));
   return findings
-    .map((f) => ({ ...f, owner: ownerOf(f.path, recordAt.get(f.path)) }))
+    .map((f) => ({ ...f, owner: ownerOf(f.path, recordAt.get(f.path), opts.owners) }))
     .filter((f) => !kinds || kinds.has(f.kind))
     .filter((f) => !opts.owner || f.owner === opts.owner)
     .sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : a.kind < b.kind ? -1 : a.kind > b.kind ? 1 : a.detail < b.detail ? -1 : a.detail > b.detail ? 1 : 0));

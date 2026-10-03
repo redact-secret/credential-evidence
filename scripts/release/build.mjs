@@ -16,11 +16,11 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
-import { generate } from "../export/legacy-projection.mjs";
-import { VOCABULARY_PATH } from "../export/lib/source.mjs";
+import { buildSnapshot } from "../export/lib/projection.mjs";
+import { loadCanonicalInputs, VOCABULARY_PATH } from "../export/lib/source.mjs";
 import { buildMaterialization } from "../lib/materialize.mjs";
 import { listJson, repoRoot } from "../lib/validator.mjs";
-import { buildRelease, MANIFEST_ASSET, SNAPSHOT_PATH, tagProblem, verifyRelease } from "./lib/bundle.mjs";
+import { buildRelease, MANIFEST_ASSET, tagProblem, verifyRelease } from "./lib/bundle.mjs";
 
 const VALUE_FLAGS = ["--tag", "--out", "--dir", "--manifest-digest"];
 const BOOL_FLAGS = ["--check", "--verify"];
@@ -46,7 +46,8 @@ function fail(message, code = 1) {
 const git = (...args) => execFileSync("git", args, { cwd: repoRoot, encoding: "utf8" }).trim();
 
 export function collectInputs({ tag, commit }) {
-  const { inputs, projection } = generate();
+  // the snapshot covers the whole working tree (records added or amended after the import included), and needs no legacy name
+  const inputs = loadCanonicalInputs();
   const sourcePaths = [...listJson(join(repoRoot, "records")), ...listJson(join(repoRoot, "migration")), join(repoRoot, VOCABULARY_PATH)];
   const read = (abs) => ({ path: relative(repoRoot, abs), bytes: readFileSync(abs) });
   const sourceFiles = sourcePaths.map(read);
@@ -64,7 +65,7 @@ export function collectInputs({ tag, commit }) {
     sourceFiles,
     sourceDigest: inputs.sourceDigest,
     schemaFiles,
-    snapshotText: projection.artifacts.get(SNAPSHOT_PATH),
+    snapshotText: buildSnapshot(inputs).text,
     fixtures: { manifestText: fixtures.manifestText, digest: fixtures.digest, count: fixtures.manifest.count },
   };
 }

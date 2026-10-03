@@ -61,6 +61,6 @@ else {
   }
   const fmt = (o) => Object.entries(o).map(([k, n]) => `${k} ${n}`).join(", ");
   console.error(`\n${findings.length} finding(s) in ${entries.length} record(s): ${fmt(by)}\nby owner: ${fmt(owners)}`);
-  for (const owner of Object.keys(owners).sort()) if (owner !== "authored") console.error(`${owner}: do not edit the JSON; change ${GENERATOR_INPUT[owner]}`);
+  for (const owner of Object.keys(owners).sort()) if (owner !== "authored") console.error(`${owner}: baseline records (ADR 0015). A fix is an edit: declare it with npm run baseline:amend -- <path> --reason "...". The pinned import is regenerated from ${GENERATOR_INPUT[owner]}, not from these files.`);
 }
 process.exitCode = findings.length ? 1 : 0; // not process.exit: piped stdout must drain first
