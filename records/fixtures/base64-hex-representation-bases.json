@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "base64-hex-representation-bases",
+  "title": "Base64 and hex representation bases (authored)",
+  "description": "Seven authored base samples, the only independent values behind base64-hex-representation-projections: three credential-shaped (a SendGrid-shaped key whose 69-character length needs no Base64 padding, a 40-character generic literal holding '~' and '?' at positions that make the two Base64 alphabets differ and that needs '==' padding, a 41-character generic literal holding the same characters at unaligned positions that needs one '='), and four benign (a public sentence, a small public JSON document, the public SHA-256 digest of empty input, and the SendGrid redaction mask). Synthetic: every credential-shaped value was built here from the words SYNTHETIC, NEVER, ISSUED, EXAMPLE and fixed punctuation, matches no issued key, and was never tested against any service.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "base64-hex-representation-bases--sendgrid-key-base",
+      "case": "sendgrid-key-in-provider-named-fields",
+      "path": "sendgrid-key-base/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "cd7c3b00e51e4f14e5d31a1f9a2e5456d02c700cd16ddffb237fa4906ae92a39",
+      "text": "SENDGRID_API_KEY=SG.SYNTHETICNEVERISSUED00.BASE64HEXREPRESENTATIONEXAMPLE_NEVER-ISSUED\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
+      "case": "literal-secrets-under-generic-credential-names",
+      "path": "generic-literal-alphabet-edge-base/fixture.txt",
+      "context": "quoted-assignment",
+      "sha256": "d947c97bbc7001b98ec845e6b1fe90b5d347fb18199a382bcd9fd31668ed57c0",
+      "text": "api_key=\"SY~THETIC-NEVER-ISSUED_EXA?PLE.BASE64HEX\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 9,
+            "end": 49,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "base64-hex-representation-bases--generic-literal-padding-edge-base",
+      "case": "literal-secrets-under-generic-credential-names",
+      "path": "generic-literal-padding-edge-base/fixture.txt",
+      "context": "quoted-assignment",
+      "sha256": "d7af06294add660c36fb0edff6f0217dfc64faa56fa37f7acde39a0cabc50a96",
+      "text": "api_key=\"SYNTHETIC~NEVER-ISSUED?EXAMPLE.BASE64.HEX\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 9,
+            "end": 50,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "base64-hex-representation-bases--public-sentence-base",
+      "case": "ordinary-prose-code-and-numbers",
+      "path": "public-sentence-base/fixture.txt",
+      "context": "plain-text",
+      "sha256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592",
+      "text": "The quick brown fox jumps over the lazy dog",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "base64-hex-representation-bases--public-json-document-base",
+      "case": "ordinary-prose-code-and-numbers",
+      "path": "public-json-document-base/fixture.txt",
+      "context": "json",
+      "sha256": "b5f33be63e50b553013ff932ff3d65f132d78157916333ea2063221011495077",
+      "text": "{\"name\":\"example-package\",\"version\":\"1.0.0\",\"license\":\"MIT\"}",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "base64-hex-representation-bases--empty-input-sha256-digest-base",
+      "case": "hashes-commit-ids-and-uuids",
+      "path": "empty-input-sha256-digest-base/fixture.txt",
+      "context": "plain-text",
+      "sha256": "cd372fb85148700fa88095e3492d3f9f5beb43e555e5ff26d95f5a6adc36f8e6",
+      "text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "base64-hex-representation-bases--sendgrid-redacted-mask-base",
+      "case": "sendgrid-near-miss-values",
+      "path": "sendgrid-redacted-mask-base/fixture.txt",
+      "context": "plain-text",
+      "sha256": "fb69f0a9bff18ba61f340a305e3f734b8603857417f308fff4f33ebb1a60fdb2",
+      "text": "SG.[REDACTED].[REDACTED]",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

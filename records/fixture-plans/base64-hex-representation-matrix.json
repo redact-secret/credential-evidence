@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-plan",
+  "id": "base64-hex-representation-matrix",
+  "title": "Base64 and hex forms of authored bases",
+  "description": "Three scenarios (single-layer encoded credential, stacked encodings, benign encoded value) instantiated over seven authored bases by one deterministic rule: encode the base value with Base64 (standard or URL-safe, padded or unpadded) or hex (lower, upper, mixed), up to three layers, and place the text whole in an assignment or embedded in a JSON document or a URL query. Declares the seven authored bases it reads, so the independent base count is seven whatever the number of generated inputs.",
+  "matrix": {
+    "families": {
+      "select": "listed",
+      "ids": [
+        "generic:unclassified-assignment-literal",
+        "sendgrid:api-key"
+      ]
+    },
+    "targets": [
+      {
+        "type": "scenario",
+        "id": "credential-in-base64-or-hex-form"
+      },
+      {
+        "type": "scenario",
+        "id": "credential-in-nested-encoding-layers"
+      },
+      {
+        "type": "scenario",
+        "id": "benign-encoded-value"
+      }
+    ],
+    "carriers": [
+      "json",
+      "shell-assignment",
+      "url-query"
+    ],
+    "coverage": "sparse"
+  },
+  "generation": {
+    "rule": "base64-hex-projection",
+    "generator": {
+      "name": "base64-hex-projection-generator",
+      "version": "1.0.0",
+      "sourceRevision": "47534af4ab4c549b46d93304540d105e30cf4b94"
+    },
+    "inputs": [
+      {
+        "kind": "fixture",
+        "id": "base64-hex-representation-bases--sendgrid-key-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "base64-hex-representation-bases--generic-literal-alphabet-edge-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "base64-hex-representation-bases--generic-literal-padding-edge-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "base64-hex-representation-bases--public-sentence-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "base64-hex-representation-bases--public-json-document-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "base64-hex-representation-bases--empty-input-sha256-digest-base"
+      },
+      {
+        "kind": "fixture",
+        "id": "base64-hex-representation-bases--sendgrid-redacted-mask-base"
+      }
+    ],
+    "seed": "base64-hex-projection-1"
+  },
+  "lineage": {
+    "origin": "authored",
+    "derivedFrom": [
+      {
+        "kind": "scenario",
+        "id": "credential-in-base64-or-hex-form"
+      },
+      {
+        "kind": "scenario",
+        "id": "credential-in-nested-encoding-layers"
+      }
+    ]
+  },
+  "output": [
+    "base64-hex-representation-projections"
+  ],
+  "lifecycle": "draft"
+}
