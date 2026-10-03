@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "signature-parameter-name-with-placeholder-value",
+  "title": "Signature parameter name followed by a documentation placeholder",
+  "summary": "Documentation-style text naming the signature parameter with a placeholder instead of a value, in the form AWS itself prints.",
+  "rationale": "A parameter named signature is not ground truth for a secret. The AWS signing page prints X-Amz-Signature with a calculated-signature placeholder; the parameter name is public and the placeholder was never issued.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "aws:s3-presigned-url",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "documentation-placeholder"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. AWS documents the parameter name and prints it with a placeholder value in its own request example; no signature value is present.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-28f7e2245c",
+        "supports": "X-Amz-Signature={calculated-signature} in the query-string example.",
+        "locator": "#add-signature-to-request"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

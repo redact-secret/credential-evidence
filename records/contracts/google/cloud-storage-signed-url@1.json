@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "google:cloud-storage-signed-url@1",
+  "family": "google:cloud-storage-signed-url",
+  "revision": 1,
+  "period": "current",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "separators": [
+      "?",
+      "&",
+      "="
+    ],
+    "components": [
+      {
+        "name": "resource-url",
+        "role": "other",
+        "description": "Host and object path."
+      },
+      {
+        "name": "signing-parameters",
+        "role": "other",
+        "description": "X-Goog-Algorithm, X-Goog-Credential, X-Goog-Date, X-Goog-Expires, X-Goog-SignedHeaders and X-Goog-Signature query parameters."
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "anyone-holding-url",
+      "statement": "Google states that anyone in possession of a signed URL can use it while it is active, regardless of whether they have a valid account.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "docs-cloud-google-com-f0e50620cb",
+          "supports": "Anyone in possession of the signed URL can use it while it's active, regardless of whether they have a valid account.",
+          "locator": "page introduction"
+        }
+      ]
+    },
+    {
+      "id": "query-parameter-names",
+      "statement": "The page describes X-Goog-Signature (the authentication string), X-Goog-Credential (information about the credentials used to create the URL), X-Goog-Expires (seconds from X-Goog-Date) and X-Goog-Algorithm.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "docs-cloud-google-com-f0e50620cb",
+          "supports": "X-Goog-Signature, X-Goog-Credential, X-Goog-Expires, X-Goog-Algorithm query parameter descriptions.",
+          "locator": "query string parameters section"
+        }
+      ]
+    },
+    {
+      "id": "maximum-expiry",
+      "statement": "The longest expiration value is 604800 seconds (7 days).",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "docs-cloud-google-com-f0e50620cb",
+          "supports": "The longest expiration value is 604800 seconds (7 days).",
+          "locator": "expiration section"
+        }
+      ]
+    },
+    {
+      "id": "which-part-is-secret-extent",
+      "statement": "The page establishes that possession of the URL grants access. It was not read for a minimal masking span, for which parameters are public metadata (X-Goog-Credential identifies the signing credential), or for signature length and alphabet.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "docs-cloud-google-com-f0e50620cb",
+          "supports": "Possession statement only; no minimal-span statement.",
+          "locator": "page introduction"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Signature length and alphabet were not read from the page and are not asserted.",
+      "raisedAt": "2026-10-03"
+    },
+    {
+      "id": "open-question-2",
+      "question": "Minimal masking extent and public-metadata status of X-Goog-Credential are not stated.",
+      "raisedAt": "2026-10-03"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "signed-url-expiry-elapsed",
+  "title": "Signed URL whose expiry parameters are in the past",
+  "summary": "A signed URL (any of the three providers) whose expiry parameters place it in the past.",
+  "rationale": "Providers document expiry as ending validity, and AWS notes URLs also expire when the signing credential is revoked. Whether an elapsed or revoked URL should still be treated as a value to protect (it may reveal the signing identity, bucket and path, and expiry is not checkable from text alone) is a policy question, not a provider statement. Stored access policies mean the expiry may not even appear in an Azure SAS URL.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "aws:s3-presigned-url",
+      "role": "subject"
+    },
+    {
+      "family": "google:cloud-storage-signed-url",
+      "role": "subject"
+    },
+    {
+      "family": "azure-storage:shared-access-signature-token",
+      "role": "subject"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved. Sources document validity windows, not whether expired values remain sensitive. Candidate outcomes: flag regardless of expiry, or allow expiry-aware handling. A maintainer decision with a non-author reviewer would settle it; the expiry parameter alone cannot be used as ground truth. No fixture is authored.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-3a070b6e70",
+        "supports": "A presigned URL remains valid for the period of time specified when the URL is generated.",
+        "locator": "#PresignedUrl-Expiration"
+      },
+      {
+        "sourceId": "docs-cloud-google-com-f0e50620cb",
+        "supports": "The longest expiration value is 604800 seconds (7 days).",
+        "locator": "expiration section"
+      },
+      {
+        "sourceId": "learn-microsoft-com-485da28839",
+        "supports": "With a stored access policy the SAS inherits start time, expiry time and permissions from the policy.",
+        "locator": "#types-of-shared-access-signatures"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}
