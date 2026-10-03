@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "installation-token-with-incomplete-jwt-segments",
+  "title": "ghs_-prefixed values with an incomplete JWT",
+  "summary": "Two synthetic ghs_-prefixed values cut from the stateless literal: the app id, header and payload with no signature (one dot), and the app id and header only (no dot).",
+  "rationale": "The documented tests are two dots for the stateless form and none for the opaque form; one dot satisfies neither, and a header-only value has no dot yet is 48 characters. The recommended expression still matches both. Whether either is a token, a truncation of one, or neither is not documented.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No expectation is asserted. The provider describes complete tokens only; truncated or incomplete JWT segments are not addressed, so neither an outcome nor the extent of a finding can be derived from the sources.",
+    "sources": [
+      {
+        "sourceId": "github-blog-30e232220c",
+        "supports": "Stateless token is a ghs_-prefixed JWT with two dots; recommended expression ghs_[A-Za-z0-9\\.\\-_]{36,}.",
+        "locator": "How to use it; Verifying the token type"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "relations": [
+    {
+      "type": "mutation-of",
+      "target": "stateless-jwt-installation-token-literal",
+      "mutationKind": "incomplete-jwt-segments",
+      "note": "Signature segment, or payload and signature, removed from the stateless literal."
+    }
+  ]
+}

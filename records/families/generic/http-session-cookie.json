@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "generic:http-session-cookie",
+  "provider": "generic",
+  "name": "HTTP session identifier cookie",
+  "description": "A cookie whose value is a session identifier the server uses to look up authenticated state (RFC 6265 section 8.4); cookie names and value formats are application-defined, so only the session-identifier role, not a name or a length, makes it a credential.",
+  "lifecycle": "draft",
+  "currentContract": "generic:http-session-cookie@1",
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-10-03",
+    "issues": [
+      "redact-secret/credential-evidence#114",
+      "redact-secret/credential-evidence#92"
+    ],
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "No standard names which cookies are session identifiers; the name-to-role mapping is application-defined and stays unresolved."
+      }
+    ]
+  },
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

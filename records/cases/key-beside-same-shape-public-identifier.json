@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "key-beside-same-shape-public-identifier",
+  "title": "Keyed bare credential next to a public identifier of the same shape in one input",
+  "summary": "One input holds a bare key under its provider-named variable and, on another line, a public identifier with the same length and alphabet (a UUID request id, a trace-id, a commit name). Only the key is expected to be reported.",
+  "rationale": "A recogniser that keys on shape alone would report both values or neither. The two values are indistinguishable by shape, so the expectation records that the keyed one is a credential and the identifier is not, and the span covers the key only. This guards partial attribution within a single input.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "heroku:legacy-api-key",
+      "role": "subject"
+    },
+    {
+      "family": "twilio:auth-token",
+      "role": "subject"
+    },
+    {
+      "family": "deepgram:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "The key is expected to be reported because it sits under its provider-named variable (the family contracts record context as the recognition signal for these unprefixed shapes); the identifier on the other line is a public identifier. The context rule is a project decision, not a provider statement.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

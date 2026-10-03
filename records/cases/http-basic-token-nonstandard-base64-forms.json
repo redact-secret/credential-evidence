@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "http-basic-token-nonstandard-base64-forms",
+  "title": "Basic tokens in unpadded or URL-safe Base64 forms",
+  "summary": "Three synthetic tokens after the Basic scheme: one with its padding removed, one in the URL-safe alphabet and one whose value has been split by a space.",
+  "rationale": "token68 admits the URL-safe alphabet and unpadded values while Basic's Base64 is the standard alphabet with padding; a recipient may accept, repair or reject these forms. Whether such a string is a Basic credential, and where a split value ends, is not stated, so no extent is frozen.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:http-basic-credentials",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. RFC 9110 token68 admits unpadded and URL-safe forms, RFC 7617 specifies standard Base64, and the sources do not say how a recipient handles the difference or a value split by whitespace.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-e593c606c9",
+        "supports": "token68 can hold a base64, base64url, base32, or base16 encoding, with or without padding, but excluding whitespace",
+        "locator": "#section-11.2"
+      },
+      {
+        "sourceId": "rfc-editor-org-0da70d4b9a",
+        "supports": "Base 64 Encoding with URL and Filename Safe Alphabet is a distinct encoding from the standard Base 64 Encoding",
+        "locator": "#section-5"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited standards read on 2026-10-03, before any scanner was consulted. All values are synthetic and were not tested against any service. Header coalescing, parser and action policy, decoded-token mapping and product masking stay with the downstream repositories."
+}

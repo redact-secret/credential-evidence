@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "url-username-only-userinfo-in-token-position",
+  "title": "URL userinfo with a username and no colon",
+  "summary": "A synthetic URL with a user name before the at-sign and no colon, the position some services use for a token.",
+  "rationale": "RFC 3986 speaks only of data after the first colon. Whether a colon-less userinfo value is a public user name or a token used in the user position depends on the service and the value; no source read settles it for the generic case.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:connection-string-password",
+      "role": "lookalike"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved. The RFC statement covers data after the first colon only; a colon-less userinfo is not addressed. Candidate outcomes: not flagged as a user name, or flagged when the value is a recognised credential in the user position. A maintainer decision (project-policy with a non-author reviewer), or a provider statement per family, would settle it. No fixture is authored.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-937e771069",
+        "supports": "Statement limited to data after the first colon.",
+        "locator": "#section-3.2.1"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

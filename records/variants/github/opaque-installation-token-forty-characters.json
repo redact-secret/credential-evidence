@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "variant",
+  "id": "opaque-installation-token-forty-characters",
+  "family": "github:app-server-to-server-token",
+  "contract": "github:app-server-to-server-token@1",
+  "name": "Opaque 40-character installation token",
+  "variantType": "historical-form",
+  "description": "The stateful installation token GitHub issued before the stateless rollout: ghs_ followed by an opaque body with no dots, described by the provider as 40 characters long (ghs_ plus 36). The provider says existing tokens of this kind keep working until they expire and that a temporary request header can still ask for this form during the rollout, so the form is still observable; the date after which it is no longer issued is not stated.",
+  "effective": {
+    "from": null,
+    "until": null
+  },
+  "history": [
+    {
+      "observedAt": "2026-10-03",
+      "occurredAt": "2026-04-27",
+      "change": "revised",
+      "note": "From 2026-04-27 GitHub began issuing the stateless form to newly minted installation tokens in a staged rollout; this opaque form stays valid for tokens already issued and can be requested with the disabled header value. No retirement date is stated, so this is recorded as revised, not retired.",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "Staged rollout from 2026-04-27 changes the format of newly minted installation tokens; existing tokens continue to work until they expire; applications that rely on exactly 40 characters may break.",
+          "locator": "What is changing?; Scope"
+        },
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "The header value disabled returns a stateful (classic opaque) token even if the integration is already in the rollout.",
+          "locator": "What is the header?"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. The 40-character figure is stated by the provider as an assumption applications must not rely on; the 36-character body and the CRC32 checksum remain in contract revision 1."
+}

@@ -27,7 +27,7 @@
       },
       {
         "id": "body-36",
-        "text": "The body after the prefix is 36 characters, following the 36-byte body scheme of GitHub's 2021-04-05 token-format post, whose last six characters are a CRC32 checksum. The token-formats page does not restate the length or the checksum, so this part rests on that post and on scanner rules that agree with it.",
+        "text": "For the opaque (stateful) form, the body after the prefix is 36 characters, following the 36-byte body scheme of GitHub's 2021-04-05 token-format post, whose last six characters are a CRC32 checksum. The 2026 provider notes speak of installation tokens as 40 characters long, which is the prefix plus that body. The token-formats page does not restate the checksum, so that part rests on the 2021 post and on scanner rules that agree with it, and none of it describes the stateless form.",
         "evidenceClass": "tool-corroborated",
         "temporality": "current",
         "observedAt": "2026-09-20",
@@ -41,18 +41,91 @@
             "claimId": "tool-corroboration"
           }
         ]
+      },
+      {
+        "id": "stateless-jwt-form",
+        "text": "Since the staged rollout that began on 2026-04-27, newly minted installation tokens are written ghs_APPID_JWT: the ghs_ prefix, an app identifier, an underscore and a JWT. GitHub describes them as about 520 characters long, varying with their contents, and containing two dots, where the opaque form has none. GitHub's recommended expression for both forms is ghs_[A-Za-z0-9\\.\\-_]{36,}.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-03",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-dd07252324",
+            "locator": "What is changing?"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-blog-30e232220c",
+            "locator": "How to use it; Verifying the token type"
+          }
+        ]
+      },
+      {
+        "id": "app-id-segment-grammar",
+        "text": "The alphabet and length of the APPID segment, and whether every stateless token carries one, are not documented; the recommended expression also accepts a ghs_ value with no such segment.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-03",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The provider writes the stateless form as ghs_APPID_JWT but documents neither the alphabet nor the length of the APPID segment, nor whether every stateless token carries it; the recommended regex also accepts a ghs_ value without one."
+        }
       }
     ],
     "lifecycle": [
       {
         "id": "jwt-installation-token",
-        "text": "GitHub announced a new installation-token format of the form ghs_ followed by an app ID and a JWT, of variable length (about 520 characters), rolling out from 2026-04-27. It belongs to this family and not to the fine-grained personal access token family.",
+        "text": "GitHub announced on 2026-04-24 that, from 2026-04-27, newly minted GitHub App installation tokens move in a staged rollout to the ghs_APPID_JWT form, that the ghs_ prefix does not change, and that it belongs to this family as the installation access token prefix, not to the fine-grained personal access token family. A temporary per-request header, added on 2026-05-15, lets an application ask for either form during the rollout.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-03",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-dd07252324",
+            "locator": "What is changing?; Scope"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-blog-30e232220c",
+            "locator": "What is the header?"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-github-com-094b941a54",
+            "locator": "#githubs-token-formats"
+          }
+        ]
+      },
+      {
+        "id": "opaque-form-persists",
+        "text": "Installation tokens issued before the rollout keep working until they expire, and the header value disabled still returns an opaque token during the rollout, so both forms can be seen in the same period.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-03",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-dd07252324",
+            "locator": "Scope"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-blog-30e232220c",
+            "locator": "What is the header?"
+          }
+        ]
+      },
+      {
+        "id": "rollout-completion",
+        "text": "The date after which every eligible app receives only the stateless form is not stated.",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-09-20",
+        "observedAt": "2026-10-03",
         "unresolved": {
-          "reviewEvent": 2,
-          "reason": "The announcement is recorded in a research note, but none of the sources this family's contract cites states it, so no evidence-source record backs the date or the format here."
+          "reviewEvent": 7,
+          "reason": "The provider says the temporary header will stop being respected at a date to be announced and that all eligible apps will then receive stateless tokens; no date or completion statement was found on the pages read."
         }
       }
     ],
@@ -86,6 +159,17 @@
         "unresolved": {
           "reviewEvent": 3,
           "reason": "The only provider statement is the prefix and role. The body length and checksum come from a 2021 post that the token-formats page does not repeat, so it is not established that every token of this family issued today follows it."
+        }
+      },
+      {
+        "id": "stateless-length-bounds",
+        "text": "Does the stateless form have a documented lower or upper length bound beyond about 520 characters?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-03",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "The provider says about 520 characters and varying with the token contents, with no stated lower or upper bound."
         }
       }
     ]

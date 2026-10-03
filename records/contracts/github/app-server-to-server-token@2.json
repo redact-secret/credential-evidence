@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "github:app-server-to-server-token@2",
+  "family": "github:app-server-to-server-token",
+  "revision": 2,
+  "period": "current",
+  "validity": {
+    "from": "2026-04-27",
+    "until": null
+  },
+  "supersedes": "github:app-server-to-server-token@1",
+  "structure": {
+    "prefixes": [
+      "ghs_"
+    ],
+    "alphabet": {
+      "name": "other",
+      "characters": "A-Za-z0-9.-_"
+    },
+    "length": {
+      "min": 36
+    },
+    "separators": [
+      "_",
+      "."
+    ],
+    "components": [
+      {
+        "name": "prefix",
+        "role": "prefix",
+        "description": "ghs_ marks an installation access token for a GitHub App; the prefix is unchanged by the stateless format."
+      },
+      {
+        "name": "app-id",
+        "role": "other",
+        "description": "Stateless form only: the APPID of ghs_APPID_JWT, followed by an underscore. Its alphabet and length are not documented."
+      },
+      {
+        "name": "jwt",
+        "role": "body",
+        "description": "Stateless form only: a JWT signed with a GitHub-internal issuer, about 520 characters in total for the token, containing two dots. Clients must not parse or validate it."
+      },
+      {
+        "name": "opaque-body",
+        "role": "body",
+        "description": "Stateful (opaque) form: no dots; the provider describes these tokens as 40 characters long."
+      }
+    ],
+    "descriptivePattern": "^ghs_[A-Za-z0-9.\\-_]{36,}$",
+    "checksum": "Not documented for the stateless form. The 2021 CRC32 checksum in the last six characters of the opaque body is carried by contract revision 1 only and is not restated here."
+  },
+  "claims": [
+    {
+      "id": "stateless-rollout",
+      "statement": "GitHub states that from 2026-04-27 it began a staged rollout of a stateless installation-token format, written ghs_APPID_JWT, for newly minted GitHub App installation tokens, that the ghs_ prefix is unchanged, and that existing installation tokens keep working until they expire. The rollout is stated for GitHub Enterprise Cloud and Data Residency, not GitHub Enterprise Server.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "Staged rollout starting 2026-04-27; token format changes to ghs_APPID_JWT; prefixes are not changing; existing tokens continue to work until they expire; GitHub Enterprise Server is not impacted.",
+          "locator": "What is changing?; Scope"
+        },
+        {
+          "sourceId": "docs-github-com-094b941a54",
+          "supports": "Note under GitHub's token formats: staged rollout of a stateless format (ghs_APPID_JWT) to all newly minted installation tokens beginning 2026-04-27.",
+          "locator": "#githubs-token-formats"
+        }
+      ]
+    },
+    {
+      "id": "stateless-length-and-dots",
+      "statement": "GitHub describes the stateless installation token as longer than the previous form (about 520 characters, varying with the data stored in it) and as a ghs_-prefixed JWT with two dots, and the stateful token as a short opaque string with no dots; it says to tell them apart by counting the dots after the ghs_ prefix. Two dots is consistent with the three-part JWS compact serialization used by RFC 7519 JWTs.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "A stateless token is a ghs_-prefixed JWT, longer (~520 characters), containing two dots; a stateful token is a short opaque string with no dots; verify the type by the number of dots after the prefix.",
+          "locator": "How to use it; Verifying the token type"
+        },
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "The overall length will be longer (~520 characters) and will vary based on the data stored within it.",
+          "locator": "What is changing?"
+        },
+        {
+          "sourceId": "rfc-editor-org-7bb6aaba0f",
+          "supports": "A JWT is a sequence of URL-safe parts separated by period characters, each base64url-encoded; the JWS compact serialization has three parts, hence two periods.",
+          "locator": "Section 3"
+        }
+      ]
+    },
+    {
+      "id": "previous-form-40-characters",
+      "statement": "GitHub warns that applications which expect installation tokens to be exactly 40 characters long may mishandle the new format, which states that the previous (stateful, opaque) form is 40 characters, that is ghs_ plus 36 characters.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "If your application expects or relies on installation tokens being exactly 40 characters long, it may not handle this new token format correctly.",
+          "locator": "Opening paragraph"
+        },
+        {
+          "sourceId": "docs-github-com-094b941a54",
+          "supports": "The same warning in the note under GitHub's token formats.",
+          "locator": "#githubs-token-formats"
+        }
+      ]
+    },
+    {
+      "id": "recommended-regex",
+      "statement": "GitHub recommends ghs_[A-Za-z0-9\\.\\-_]{36,} to match both the new and the current format, and asks that any validating regex handle additional underscores and the presence of a JWT. The page records an editor's note dated 2026-05-26 that updated this regex guidance, so earlier wording of it differed.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "Our recommended regex to match both new and current format tokens is ghs_[A-Za-z0-9\\.\\-_]{36,}; Editor's note (May 26th, 2026): Updated the regex format guidance.",
+          "locator": "How to use it"
+        }
+      ]
+    },
+    {
+      "id": "per-request-override-header",
+      "statement": "GitHub provides a temporary request header, X-GitHub-Stateless-S2S-Token, on POST /app/installations/:installation_id/access_tokens: enabled returns a stateless token, disabled a stateful one, absent means normal rollout, and any other value is ignored. The header is temporary and GitHub says it will stop being respected at a deprecation point to be announced, after which eligible apps always receive stateless tokens.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "Header name, values enabled and disabled, temporary status and the planned deprecation point.",
+          "locator": "What is the header?; Scope"
+        }
+      ]
+    },
+    {
+      "id": "app-id-and-jwt-contents-undocumented",
+      "statement": "The provider documents neither the alphabet nor the length of the APPID segment, nor whether every stateless token carries it, and says the JWT contents are not for clients to depend on. The recommended regex also accepts a ghs_ value without an APPID segment, so the APPID-less shape is described by the regex but not by the ghs_APPID_JWT notation.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-03",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "The JWT is signed with a GitHub-internal issuer and client apps must not take a dependency on its contents; no statement on the APPID segment's alphabet or length.",
+          "locator": "What is changing?"
+        },
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "The regex guidance covers additional underscores and a JWT; no statement on the APPID segment.",
+          "locator": "How to use it"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Supersedes revision 1, whose 36-character body claim is correct for the opaque form only; revision 1 is kept unchanged as the record of that form. Read 2026-10-03 from the live provider pages; the pages are unpinned, so a later reader should re-read them.",
+  "openQuestions": [
+    {
+      "id": "app-id-segment-grammar",
+      "question": "What are the alphabet and length of the APPID segment of ghs_APPID_JWT, and is the segment present in every stateless token?",
+      "raisedAt": "2026-10-03"
+    },
+    {
+      "id": "stateless-length-bounds",
+      "question": "Is there a documented upper bound or exact range for the stateless token length beyond \"about 520 characters, varying with its contents\"?",
+      "raisedAt": "2026-10-03"
+    },
+    {
+      "id": "opaque-form-checksum-current",
+      "question": "Does the 2021 CRC32 checksum still apply to the opaque (stateful) form, and does any equivalent apply to the stateless form?",
+      "raisedAt": "2026-10-03"
+    },
+    {
+      "id": "rollout-completion",
+      "question": "When does the per-request header stop being respected, and from which date do all eligible apps receive only stateless tokens? The page says this will be announced separately.",
+      "raisedAt": "2026-10-03"
+    }
+  ]
+}

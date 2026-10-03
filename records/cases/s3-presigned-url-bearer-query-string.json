@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "s3-presigned-url-bearer-query-string",
+  "title": "S3 presigned URL carrying SigV4 query parameters",
+  "summary": "A synthetic S3 object URL with the SigV4 query parameters (algorithm, credential, date, expires, signed headers, signature) appended, as in a link pasted into a ticket or log line.",
+  "rationale": "AWS describes the whole presigned URL as a bearer token, so the capability is the URL, not only the signature value. The failure mode is covering only the object path, or only the X-Amz-Signature value while leaving the other signed parameters beside it, and treating the parameter name or URL validity as the test. The minimal narrower span is not stated by AWS and is not asserted here.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "aws:s3-presigned-url",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag, with the whole URL as the secret extent. AWS states that presigned URLs are bearer tokens that grant access to those who possess them; the extent follows from treating the URL as the bearer token. A narrower extent (signature value or query string only) is neither asserted nor excluded and belongs to the downstream masking-envelope decision.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-3a070b6e70",
+        "supports": "In essence, presigned URLs are bearer tokens that grant access to those who possess them.",
+        "locator": "#PresignedUrlUploadObject-LimitCapabilities"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-28f7e2245c",
+        "supports": "Request with authentication parameters in the query string: X-Amz-Algorithm, X-Amz-Credential, X-Amz-Date, X-Amz-SignedHeaders, X-Amz-Signature.",
+        "locator": "#add-signature-to-request"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited provider and RFC pages read on 2026-10-03, before any scanner was consulted. Product masking envelopes, decoded-source mapping and action policy stay with the downstream repositories."
+}

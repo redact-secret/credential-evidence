@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "bare-thirty-two-character-value-under-unattributed-auth-header",
+  "title": "Bare 32-character value under an authentication header with no provider",
+  "summary": "An X-Api-Key style header with a 32-character alphanumeric value sent to a reserved example host that names no provider.",
+  "rationale": "The authentication carrier makes a credential reading credible, but the value matches two unprefixed 32-alphanumeric families and no provider evidence attributes it to either. Family recognition is unresolved. A generic header-credential policy is a separate question owned downstream and is not asserted here; entropy of the value is not evidence.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "ai21:api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "mistral:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Missing: a provider host or name in the input, or a recorded project decision on unattributed header values. Family attribution and generic suspicion are kept separate.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

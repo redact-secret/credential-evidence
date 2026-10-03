@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "google-api-key-shape-under-firebase-and-generic-labels",
+  "title": "Google API key shape under a Firebase web config label and under generic labels",
+  "summary": "One synthetic AIza-prefixed 39-character value, byte for byte, in a Firebase web app config literal (apiKey), in a JSON apiKey field and in a GEMINI_API_KEY environment assignment.",
+  "rationale": "Firebase documents that API keys restricted to Firebase services are not secrets, and documents that a key used for the Gemini Developer API must be protected. Both are AIza-shaped, and the value bytes carry no restriction information, so the value grammar alone cannot say which reading holds; the label points one way in each carrier but a name alone does not establish it. This is a case where context is necessary for an opaque value and the context available in the text is itself not provider-established.",
+  "caseTypes": [
+    "benign",
+    "metamorphic"
+  ],
+  "families": [
+    {
+      "family": "google:generic-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled: the Firebase page's non-secret statement is conditional on the key being restricted to Firebase services, and the Gemini statement is the opposite. Missing: any text-visible signal of a key's restrictions, or a maintainer decision (project-policy, named reviewer, dissent recorded) on how label context should treat AIza-shaped values. A Google key in a Firebase config literal is therefore neither asserted benign nor asserted secret. Policy and measurement belong downstream.",
+    "sources": [
+      {
+        "sourceId": "firebase-google-com-afeed4cd2b",
+        "supports": "API keys restricted to Firebase services 'do not need to be treated as secrets' and may be included in code or configuration files, because they only identify the project and app; authorization is handled by IAM, Security Rules and App Check. The same page says a key used for the Gemini Developer API must never be included in code or configuration files.",
+        "locator": "Sections: API keys for Firebase services are not secrets; keys for the Gemini Developer API"
+      },
+      {
+        "sourceId": "docs-cloud-google-com-4b6eb8032c",
+        "supports": "Google Cloud API key example: the page shows an AIza-prefixed key_string as an API key (observed by the earlier family record; not re-read in this change).",
+        "locator": "API key creation and exposure example (key_string)"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
