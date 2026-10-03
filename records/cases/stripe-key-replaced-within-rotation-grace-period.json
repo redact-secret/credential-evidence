@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "stripe-key-replaced-within-rotation-grace-period",
+  "title": "Replaced Stripe key still inside its documented grace period",
+  "summary": "A secret-key-shaped value that a notes file says was rotated out, written beside its replacement, with no indication of when the rotation happened. Shape only; no value is recorded in this record.",
+  "rationale": "The provider documents that a rotated key keeps working for up to 7 days when rotated in the Dashboard. A reader of the text cannot tell whether the note was written minutes or years ago. The ambiguity is whether a predecessor value should be treated as live; the facts do not choose, and neither does any scanner.",
+  "caseTypes": [
+    "twin"
+  ],
+  "families": [
+    {
+      "family": "stripe:secret-key-test",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "rotation-overlap-predecessor-credential"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome asserted. Provider-documented: both keys work for up to 7 days after a Dashboard rotation. Not documented: any statement on how text that names a rotated-out key should be treated. Candidate outcomes: must-flag (an old key may still be live inside the window) or may-flag. Recommendation to the maintainers, not a decision: expect it to be flagged, because offline text cannot establish that the window has passed. Would settle it: a recorded project-policy decision with a non-author reviewer.",
+    "sources": [
+      {
+        "sourceId": "docs-stripe-com-3e992d348a",
+        "supports": "When you rotate a key in the Dashboard, both the old and new keys work for up to 7 days.",
+        "locator": "section 'Rotate safely to avoid downtime', item 'Use the grace period'"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
