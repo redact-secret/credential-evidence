@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "installation-token-notation-and-header-name-in-prose",
+  "title": "The ghs_APPID_JWT notation and the stateless header name in prose",
+  "summary": "A sentence that writes the ghs_APPID_JWT notation and the X-GitHub-Stateless-S2S-Token header name with its enabled value.",
+  "rationale": "Documentation and migration notes will repeat the notation and the header for months; both begin like the credential but hold none, the notation being shorter than the documented minimum and holding capital placeholder words.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. There is no token in the text. A project decision, pending a maintainer and an independent reviewer.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "variant",
+  "id": "stateless-jwt-installation-token",
+  "family": "github:app-server-to-server-token",
+  "contract": "github:app-server-to-server-token@2",
+  "name": "Stateless JWT installation token",
+  "variantType": "format-revision",
+  "description": "The stateless installation token: a ghs_-prefixed JWT, written ghs_APPID_JWT, about 520 characters long (varying with its contents) and containing two dots, signed with a GitHub-internal issuer and not for clients to parse or validate. It replaces the opaque form for newly minted tokens as the staged rollout reaches an installation; the APPID segment grammar is not documented, and a ghs_ value without it also matches the provider-recommended regex.",
+  "effective": {
+    "from": "2026-04-27",
+    "until": null
+  },
+  "replaces": "opaque-installation-token-forty-characters",
+  "history": [
+    {
+      "observedAt": "2026-10-03",
+      "occurredAt": "2026-04-27",
+      "change": "introduced",
+      "note": "GitHub announced on 2026-04-24 a staged rollout starting 2026-04-27, and on 2026-05-15 added a temporary per-request header (enabled) to request this form on demand. A statement on rollout completion was not found on the pages read; it is recorded as an open question in the contract, not as a fact.",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "Staged rollout starting 2026-04-27; token format changes to ghs_APPID_JWT.",
+          "locator": "What is changing?"
+        },
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "Header value enabled returns a stateless (JWT-format) token regardless of rollout position; a stateless token is a ghs_-prefixed JWT with two dots.",
+          "locator": "What is the header?; How to use it"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

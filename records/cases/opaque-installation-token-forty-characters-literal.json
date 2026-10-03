@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "opaque-installation-token-forty-characters-literal",
+  "title": "Opaque 40-character GitHub App installation token",
+  "summary": "A synthetic ghs_ token of the opaque form: the prefix and 36 base62 characters (40 in total) with no dots, in a bare form and in env, JSON and CRLF carriers.",
+  "rationale": "The opaque form is still issued to installations the rollout has not reached and still valid for tokens issued earlier. A matcher updated only for the JWT form must keep the 40-character form; one that requires a dot must not.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "documented-format-literal"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flagged. The provider describes the earlier form as 40 characters with no dots and recommends an expression that covers it; the 36-character body also matches contract revision 1.",
+    "sources": [
+      {
+        "sourceId": "github-blog-dd07252324",
+        "supports": "ghs_APPID_JWT notation; about 520 characters; applications relying on exactly 40 characters may break.",
+        "locator": "What is changing?"
+      },
+      {
+        "sourceId": "github-blog-30e232220c",
+        "supports": "Stateful token is a short opaque string with no dots.",
+        "locator": "How to use it"
+      },
+      {
+        "sourceId": "docs-github-com-094b941a54",
+        "supports": "Staged rollout of ghs_APPID_JWT and the warning about relying on exactly 40 characters.",
+        "locator": "#githubs-token-formats"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

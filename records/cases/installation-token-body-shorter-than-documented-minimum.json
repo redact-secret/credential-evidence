@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "installation-token-body-shorter-than-documented-minimum",
+  "title": "ghs_ followed by fewer than 36 characters",
+  "summary": "A synthetic ghs_ value followed by 35 base62 characters, one fewer than the documented minimum, in a bare form.",
+  "rationale": "Exactly one property differs from the opaque literal: the length. It is below the 36 characters the recommended expression requires and below the 40-character total the provider describes.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "format-near-miss"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. The value does not satisfy the documented length. This is a project decision, pending a maintainer and an independent reviewer, not a provider statement that shorter values are not tokens.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "opaque-installation-token-forty-characters-literal",
+      "mutationKind": "length",
+      "note": "One character removed from the opaque literal body."
+    }
+  ]
+}

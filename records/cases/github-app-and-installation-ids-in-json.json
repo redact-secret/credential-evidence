@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "github-app-and-installation-ids-in-json",
+  "title": "Numeric GitHub App and installation ids in a JSON document",
+  "summary": "A JSON document with numeric app, installation and account ids and no token field.",
+  "rationale": "The ids sit next to installation tokens in API payloads and are digits only; they are public-data controls that must not be taken for part of a token.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged. The numbers are identifiers, not credentials. A project decision, pending a maintainer and an independent reviewer; the provider pages read do not classify these ids.",
+    "sources": [],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
