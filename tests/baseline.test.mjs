@@ -21,6 +21,11 @@ import { repoRoot } from "../scripts/lib/validator.mjs";
 import { copyRepo } from "./repo-copy.mjs";
 
 const manifest = loadManifest();
+// The tree may already carry declared amendments and additions (research changes), so counts are relative to a pristine copy's own.
+const counts = (stdout) => {
+  const m = /(\d+) edited, (\d+) removed \(all declared\); (\d+) post-import file\(s\) added/.exec(stdout);
+  return { edited: Number(m[1]), removed: Number(m[2]), added: Number(m[3]) };
+};
 const firstRecord = (prefix) => manifest.files.find((f) => f.path.startsWith(prefix)).path;
 
 test("the repository's tree is its baseline plus declared amendments: classification is clean", () => {
@@ -55,6 +60,7 @@ test("an edited baseline record fails until it is declared with a cause; then it
   try {
     const path = firstRecord("records/families/");
     const abs = join(c.root, path);
+    const b = counts(c.run("baseline.mjs", ["check"]).stdout);
     const rec = JSON.parse(readFileSync(abs, "utf8"));
     rec.description = `${rec.description} Reviewed against the vendor's current documentation.`;
     writeFileSync(abs, `${JSON.stringify(rec, null, 2)}\n`);
@@ -74,9 +80,9 @@ test("an edited baseline record fails until it is declared with a cause; then it
     assert.equal(declared.status, 0, declared.stderr);
     const ok = c.run("baseline.mjs", ["check"]);
     assert.equal(ok.status, 0, ok.stderr);
-    assert.match(ok.stdout, /1 edited, 0 removed \(all declared\); 0 post-import file\(s\) added/);
+    assert.deepEqual(counts(ok.stdout), { ...b, edited: b.edited + 1 });
     const ledger = JSON.parse(readFileSync(join(c.root, AMENDMENTS_PATH), "utf8"));
-    assert.deepEqual(ledger.amendments, [{ path, change: "edited", reason: "Description widened after reading the vendor documentation", ref: "#79" }]);
+    assert.deepEqual(ledger.amendments.find((a) => a.path === path), { path, change: "edited", reason: "Description widened after reading the vendor documentation", ref: "#79" });
 
     // reverting the edit makes the declaration stale: the ledger cannot outlive its cause
     writeFileSync(abs, readFileSync(join(repoRoot, path)));
@@ -92,6 +98,7 @@ test("a removed baseline record fails until it is declared as removed", () => {
   const c = copyRepo();
   try {
     const path = firstRecord("records/reviews/");
+    const b = counts(c.run("baseline.mjs", ["check"]).stdout);
     rmSync(join(c.root, path));
     const r = c.run("baseline.mjs", ["check", "--list"]);
     assert.equal(r.status, 1);
@@ -100,10 +107,10 @@ test("a removed baseline record fails until it is declared as removed", () => {
     assert.equal(c.run("baseline.mjs", ["amend", path, "--reason", "Withdrawn: the page it describes no longer exists"]).status, 0);
     const ok = c.run("baseline.mjs", ["check"]);
     assert.equal(ok.status, 0, ok.stderr);
-    assert.match(ok.stdout, /0 edited, 1 removed/);
+    assert.deepEqual(counts(ok.stdout), { ...b, removed: b.removed + 1 });
     // declaring it as edited while it is gone is a contradiction
     const ledger = JSON.parse(readFileSync(join(c.root, AMENDMENTS_PATH), "utf8"));
-    ledger.amendments[0].change = "edited";
+    ledger.amendments.find((a) => a.path === path).change = "edited";
     writeFileSync(join(c.root, AMENDMENTS_PATH), serializeAmendments(ledger.amendments));
     assert.match(c.run("baseline.mjs", ["check"]).stderr, /is removed but .* says edited/);
   } finally {
@@ -140,12 +147,13 @@ test("the importer reports and the legacy map are immutable references: no amend
 test("a file the baseline does not list is an addition: allowed, counted, never an amendment; the legacy map is closed", () => {
   const c = copyRepo();
   try {
+    const b = counts(c.run("baseline.mjs", ["check"]).stdout);
     const family = JSON.parse(readFileSync(join(c.root, firstRecord("records/families/")), "utf8"));
     writeFileSync(join(c.root, "records/families/aaa-new-provider-key.json"), `${JSON.stringify({ ...family, id: "aaa-new:key" }, null, 2)}\n`);
     const r = c.run("baseline.mjs", ["check", "--list"]);
     assert.equal(r.status, 0, r.stderr);
     assert.match(r.stdout, /added: records\/families\/aaa-new-provider-key\.json/);
-    assert.match(r.stdout, /0 edited, 0 removed \(all declared\); 1 post-import file\(s\) added/);
+    assert.deepEqual(counts(r.stdout), { ...b, added: b.added + 1 });
     const refused = c.run("baseline.mjs", ["amend", "records/families/aaa-new-provider-key.json", "--reason", "a new record needs no amendment"]);
     assert.equal(refused.status, 1);
     assert.match(refused.stderr, /not in the baseline/);
@@ -182,13 +190,14 @@ test("declareAmendment keeps one entry per record and a record that equals the b
   const c = copyRepo();
   try {
     const path = firstRecord("records/families/");
+    const before = loadAmendments(c.root).amendments.length;
     assert.throws(() => declareAmendment({ root: c.root, path, reason: "nothing changed in this record" }), /equals the baseline/);
     const abs = join(c.root, path);
     writeFileSync(abs, `${readFileSync(abs, "utf8").trimEnd()}\n\n`);
     declareAmendment({ root: c.root, path, reason: "whitespace normalised by a reviewed change" });
     declareAmendment({ root: c.root, path, reason: "whitespace normalised by a reviewed change, restated" });
-    assert.equal(loadAmendments(c.root).amendments.length, 1);
-    assert.equal(loadAmendments(c.root).amendments[0].reason, "whitespace normalised by a reviewed change, restated");
+    assert.equal(loadAmendments(c.root).amendments.length, before + 1);
+    assert.equal(loadAmendments(c.root).amendments.find((a) => a.path === path).reason, "whitespace normalised by a reviewed change, restated");
   } finally {
     c.cleanup();
   }
