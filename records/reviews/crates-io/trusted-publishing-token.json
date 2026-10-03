@@ -78,6 +78,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'crates-io-trusted-publishing-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1031; #1014 handoff crates-io.md, READY). A trusted-publishing token is minted from a CI OIDC exchange and can publish for its short lifetime. T1 for every fact under R1. POLICY, not T1: the check character is corroboration only; a shape-valid token whose last character is not the check character is still claimed (ruling Q1 open; security-first standing decision), so positives carry a matching and a mismatching check character and nothing asserts silence on a check failure. No pinned peer (and no scanner the handoff found) covers cio_tp_."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 48 (2026-10-03, automation, not independently reviewed). Seven format-negative fixtures (wrong-length, wrong-alphabet, prefix-near-miss, format-near-miss) re-based from project-policy to provider-documented on the provider-owned crates.io source: AccessToken::from_str returns MissingPrefix, InvalidLength or InvalidCharacter for these values. Boundary and public-identifier fixtures stay project-policy: no provider statement and no two independent artifacts found."
     }
   ],
   "externalRefs": [

@@ -78,6 +78,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'crates-io-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#528, product redact-secret#1031; #1014 handoff crates-io.md, READY). An API token publishes, yanks and changes owners of crates within its scopes. T1 for every fact under R1 from the provider server code; unprefixed pre-cio tokens are no longer accepted. cio is a trigram, so the exact 32-byte body and both identifier boundaries (handoff decision) keep it precise: a random standalone 35-byte alphanumeric value that starts with cio (about 1 in 238,000) is the accepted false positive. The body excludes _, so a cio_tp_ token never reads as an API token. Excluded: words and identifiers that start with cio (ciound, cio_config) and cio + 32 inside a longer run. Neither pinned peer has a crates.io rule. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1039)."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence review for issue 47 (2026-10-03, automation, not independently reviewed). Eight format-negative fixtures (wrong-length, wrong-alphabet, prefix-near-miss, benign-lookalike, format-near-miss) re-based from project-policy to provider-documented on the provider-owned crates.io source: the generator emits cio plus 32 Alphanumeric characters; the verifying parse is prefix-only. Boundary, public-identifier and encoded-value fixtures stay project-policy: no provider statement and no two independent artifacts found. Reviewer may prefer project-policy for the eight because the provider states no rejection rule."
     }
   ],
   "externalRefs": [

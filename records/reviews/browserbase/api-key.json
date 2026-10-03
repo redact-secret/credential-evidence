@@ -78,6 +78,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'browserbase-api-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#464, product redact-secret#973; #860 handoff browserbase.md, READY for bb_live_ with an open-ended body). T1: the bb_live_ prefix is the docs placeholder (R4) and a provider redaction regex bb_(live|test)_ in browserbase/stagehand (R2); the alphabet and the floor of 20 are a provider CI gate whose author is a public Browserbase-organization member (R2), and no public scanner has a Browserbase rule, so it is not a vendored rule. The stagehand redactor admits _ and - after four alphanumerics while the CI gate is alphanumeric only; both are provider-authored, and the contract takes the alphanumeric class, which keeps bb_live_session_ style identifiers out. POLICY, not T1: the 128-byte upper bound (a bounded run for streaming; rejected whole, never truncated), so positives reach 128 and nothing asserts silence on 129. Excluded: bb_test_ keys (issuance-gated: only a floor-5 regex and a T2 comment), bb_live_session_ and other snake_case identifiers, bb_live_... and bb_live_your_api_key_here placeholders, bb_<timestamp> cookie names and project-ID UUIDs. Neither pinned peer has a Browserbase rule. Graduated to a registry detector at the 4fb7882 re-pin (redact-secret PR #1037)."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-03",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Evidence-class review for #46, read 2026-10-03; not reviewed. Six fixtures (leading-glue, leading-underscore, hyphen-prefix, uppercase-prefix, prefix-only, prefix-at-eol) re-based to tool-corroborated on three pinned artifacts from three maintainers (Browserbase cookbook, NousResearch/hermes-agent agent/redact.py, rishabhcli/WebAccessible ops_redact.py). Seven stay project-policy: the artifacts disagree on the minimum body length (20, 10, 6, 4) and on a hyphen or underscore glued after the body, and no source speaks to the live-session identifier, the project id or the bb_ timestamp cookie. Searched without a hit: the Browserbase documentation pages for the key format, the gitleaks default config, secrets-patterns-db, the trufflehog defaults list, the betterleaks default config, and GitHub code search for bb_live_ (the other redaction patterns found with a 10-character floor are copies of the NousResearch list). No provider statement of the key format or length was found."
     }
   ],
   "externalRefs": [

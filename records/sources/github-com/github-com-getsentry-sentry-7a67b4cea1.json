@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "evidence-source",
   "id": "github-com-getsentry-sentry-7a67b4cea1",
-  "sourceType": "other",
+  "sourceType": "provider-sdk-source",
   "title": "getsentry/sentry @ f5d6d77049257892315c3823ebb504d189ddafb8: src/sentry/types/token.py",
   "publisher": "getsentry/sentry",
   "publishedAt": null,
@@ -19,6 +19,13 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy dossier-research; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "unchanged",
+      "observer": "research-agent",
+      "contentDigest": "7739d687107e93ac27ee66f199e5dde30e312d0e7e509606256bd351a05c65a4",
+      "note": "Re-read raw file at the pinned commit 2026-10-03: AuthTokenType enum values are the expected prefixes sntryu_, sntrys_, sntrya_, sntryi_."
     }
   ],
   "lifecycle": "draft",
@@ -29,5 +36,6 @@
       "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/dossiers/sentry.md",
       "note": "cited by families[id=sentry:user-auth-token].research.sources"
     }
-  ]
+  ],
+  "notes": "sourceType restated from 'other' to 'provider-sdk-source' on 2026-10-03: the file is part of the provider's own open-source implementation (getsentry organization), read at the pinned commit."
 }

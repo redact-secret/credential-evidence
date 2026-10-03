@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "twilio-com-e3aaaf5f82",
+  "sourceType": "provider-documentation",
+  "title": "Webhooks security (Twilio): Authenticate with signatures",
+  "publisher": "twilio.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://www.twilio.com/docs/usage/webhooks/webhooks-security",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-10-03",
+      "outcome": "read",
+      "observer": "research-agent",
+      "contentDigest": "978831320d4a3609591c6a64c7442ce1fbc1f6a3f17164e93c7c37e9b3663477",
+      "note": "Re-read raw page (curl). States Twilio signs HTTP requests with an X-Twilio-Signature header, hashed with HMAC-SHA1 using the account auth token as the secret key; the page's own example signatures are 28-character base64 strings ending in =. Does not state the signature header is safe or unsafe to disclose."
+    }
+  ],
+  "lifecycle": "draft"
+}
