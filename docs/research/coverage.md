@@ -7,14 +7,14 @@ statement about any product.
 
 Reference date: 2026-10-03 (the newest date recorded in `records/`). Staleness period: 12 months.
 
-93 providers, 173 families, 29 scenarios: **465 open items**.
+93 providers, 173 families, 29 scenarios: **468 open items**.
 
 ## By priority
 
 | Priority | Score | Items |
 | --- | --- | --- |
 | P0 | 90+ | 1 |
-| P1 | 70-89 | 12 |
+| P1 | 70-89 | 15 |
 | P2 | 45-69 | 404 |
 | P3 | 0-44 | 48 |
 
@@ -27,7 +27,7 @@ Reference date: 2026-10-03 (the newest date recorded in `records/`). Staleness p
 | `evidence-unresolved-only` | 85 | 0 | `research-family` | the family's contract holds no claim above unresolved |
 | `provider-no-families` | 85 | 0 | `research-provider` | the provider is recorded but no credential family is |
 | `no-provider-source` | 80 | 1 | `research-family` | no claim rests on a provider-authored source |
-| `source-unreachable` | 75 | 0 | `source-freshness` | the last observation of a cited source found it unreachable, changed or superseded |
+| `source-unreachable` | 75 | 3 | `source-freshness` | the last observation of a cited source found it unreachable, changed or superseded |
 | `evidence-stale` | 70 | 0 | `source-freshness` | a claim about current behavior was last observed more than 12 months ago |
 | `narrative-missing` | 60 | 0 | `research-family` | the family has no claim-backed narrative |
 | `narrative-unresolved-heavy` | 50 | 111 | `research-family` | at least half of the narrative's statements are unresolved |
@@ -44,28 +44,28 @@ Reference date: 2026-10-03 (the newest date recorded in `records/`). Staleness p
 | 1 | `no-provider-source:atlassian:api-token` | P0 | 90 | `research-family` |
 | 2 | `contract-missing:notion:integration-token` | P1 | 85 | `research-family` |
 | 3 | `contract-missing:stripe:organization-api-key` | P1 | 85 | `research-family` |
-| 4 | `contract-missing:atlassian:access-token` | P1 | 75 | `research-family` |
-| 5 | `contract-missing:google:oauth2-credential` | P1 | 75 | `research-family` |
-| 6 | `contract-missing:linear:oauth-access-token` | P1 | 75 | `research-family` |
-| 7 | `contract-missing:mistral:realtime-client-token` | P1 | 75 | `research-family` |
-| 8 | `contract-missing:netlify:other-prefixed-tokens` | P1 | 75 | `research-family` |
-| 9 | `contract-missing:openrouter:management-api-key` | P1 | 75 | `research-family` |
-| 10 | `contract-missing:slack:workflow-webhook-token` | P1 | 75 | `research-family` |
-| 11 | `contract-missing:vercel:api-key` | P1 | 75 | `research-family` |
-| 12 | `contract-missing:vercel:integration-token` | P1 | 75 | `research-family` |
-| 13 | `contract-missing:voyage-ai:api-key` | P1 | 75 | `research-family` |
-| 14 | `narrative-unresolved-heavy:atlassian:api-token` | P2 | 67 | `research-family` |
-| 15 | `narrative-unresolved-heavy:groq:api-key` | P2 | 67 | `research-family` |
-| 16 | `narrative-unresolved-heavy:browserbase:api-key` | P2 | 66 | `research-family` |
-| 17 | `narrative-unresolved-heavy:cloudflare:api-token` | P2 | 66 | `research-family` |
-| 18 | `narrative-unresolved-heavy:fireworks-ai:api-key` | P2 | 66 | `research-family` |
-| 19 | `narrative-unresolved-heavy:generic:private-key` | P2 | 66 | `research-family` |
-| 20 | `narrative-unresolved-heavy:google:generic-api-key` | P2 | 66 | `research-family` |
-| 21 | `narrative-unresolved-heavy:new-relic:license-key` | P2 | 66 | `research-family` |
-| 22 | `narrative-unresolved-heavy:postman:api-key` | P2 | 66 | `research-family` |
-| 23 | `narrative-unresolved-heavy:supabase:personal-access-token` | P2 | 66 | `research-family` |
-| 24 | `narrative-unresolved-heavy:twilio:api-key-secret` | P2 | 66 | `research-family` |
-| 25 | `narrative-unresolved-heavy:cerebras:inference-api-key` | P2 | 65 | `research-family` |
+| 4 | `source-unreachable:vercel:app-access-token` | P1 | 85 | `source-freshness` |
+| 5 | `source-unreachable:vercel:app-refresh-token` | P1 | 85 | `source-freshness` |
+| 6 | `source-unreachable:vercel:personal-access-token` | P1 | 85 | `source-freshness` |
+| 7 | `contract-missing:atlassian:access-token` | P1 | 75 | `research-family` |
+| 8 | `contract-missing:google:oauth2-credential` | P1 | 75 | `research-family` |
+| 9 | `contract-missing:linear:oauth-access-token` | P1 | 75 | `research-family` |
+| 10 | `contract-missing:mistral:realtime-client-token` | P1 | 75 | `research-family` |
+| 11 | `contract-missing:netlify:other-prefixed-tokens` | P1 | 75 | `research-family` |
+| 12 | `contract-missing:openrouter:management-api-key` | P1 | 75 | `research-family` |
+| 13 | `contract-missing:slack:workflow-webhook-token` | P1 | 75 | `research-family` |
+| 14 | `contract-missing:vercel:api-key` | P1 | 75 | `research-family` |
+| 15 | `contract-missing:vercel:integration-token` | P1 | 75 | `research-family` |
+| 16 | `contract-missing:voyage-ai:api-key` | P1 | 75 | `research-family` |
+| 17 | `narrative-unresolved-heavy:atlassian:api-token` | P2 | 67 | `research-family` |
+| 18 | `narrative-unresolved-heavy:groq:api-key` | P2 | 67 | `research-family` |
+| 19 | `narrative-unresolved-heavy:browserbase:api-key` | P2 | 66 | `research-family` |
+| 20 | `narrative-unresolved-heavy:cloudflare:api-token` | P2 | 66 | `research-family` |
+| 21 | `narrative-unresolved-heavy:fireworks-ai:api-key` | P2 | 66 | `research-family` |
+| 22 | `narrative-unresolved-heavy:generic:private-key` | P2 | 66 | `research-family` |
+| 23 | `narrative-unresolved-heavy:google:generic-api-key` | P2 | 66 | `research-family` |
+| 24 | `narrative-unresolved-heavy:new-relic:license-key` | P2 | 66 | `research-family` |
+| 25 | `narrative-unresolved-heavy:postman:api-key` | P2 | 66 | `research-family` |
 
 ## By provider
 
@@ -76,13 +76,13 @@ Items per provider (family and provider-scope items; scenarios and wishlist entr
 | atlassian | 7 | 90 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, no-provider-source, observation-unverified |
 | notion | 6 | 85 | benign-siblings-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | stripe | 14 | 85 | benign-siblings-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
+| vercel | 17 | 85 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified, source-unreachable |
 | google | 10 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | linear | 6 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | mistral | 7 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | netlify | 7 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | openrouter | 7 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | slack | 12 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
-| vercel | 14 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy, observation-unverified |
 | voyage-ai | 4 | 75 | benign-siblings-missing, cases-missing, contract-missing, narrative-unresolved-heavy |
 | groq | 3 | 67 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
 | browserbase | 3 | 66 | benign-siblings-missing, narrative-unresolved-heavy, observation-unverified |
