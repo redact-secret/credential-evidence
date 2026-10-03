@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "spec-defined-identifiers-with-key-shape",
+  "title": "Specification-defined identifiers that share a bare key shape",
+  "summary": "A traceparent header carrying a 32-hex trace-id, a git commit reference carrying a 40-hex object name, and a request-id header carrying a UUID, none under a credential name and none beside a provider keyword.",
+  "rationale": "Families without a prefix are recognised by length, alphabet and context, and three public identifiers defined by other specifications have exactly those lengths and alphabets (32 hex, 40 hex, 8-4-4-4-12). Shape alone cannot separate them from a key, so the carrier and the identifier role are the discriminating evidence. The owning specifications define each as an identifier propagated or shown for correlation; none of them says the value is secret.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "datadog:api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "twilio:auth-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "ai21:api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "mistral:api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "deepgram:api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "cohere:api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "heroku:legacy-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Expected silence is a project decision: each value is a spec-defined identifier (W3C trace-id, git object name, UUID) in its identifier position, with no credential name, no provider keyword and no authentication carrier. The specifications support what the values are, not that they are non-secret, so the outcome is labeled policy. It would be reversed by a provider statement that such a value is a credential in that position.",
+    "sources": [
+      {
+        "sourceId": "w3-org-6a0029787a",
+        "supports": "trace-id is a 16-byte identifier shown as 32 hexadecimal characters and propagated across vendors to correlate a trace.",
+        "locator": "#trace-id"
+      },
+      {
+        "sourceId": "git-scm-com-710b608df6",
+        "supports": "Git objects are named by a 40 hexadecimal digit SHA-1 name or a 64 hexadecimal digit SHA-256 name.",
+        "locator": "#object-names"
+      },
+      {
+        "sourceId": "rfc-editor-org-886568d8f7",
+        "supports": "A UUID has the 8-4-4-4-12 hex-and-dash textual form.",
+        "locator": "#section-4"
+      }
+    ],
+    "observedAt": "2026-10-03"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

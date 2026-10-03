@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "git-object-name-hex",
+  "families": [
+    "deepgram:api-key",
+    "cohere:api-key"
+  ],
+  "siblingClass": "lookalike",
+  "name": "Git object name (40 hex SHA-1 or 64 hex SHA-256)",
+  "description": "A git object name: the 40 hexadecimal digit SHA-1 name or the 64 hexadecimal digit SHA-256 name of a commit, tree or blob. The 40-hex form has the length and alphabet of bare 40-character keys (the Deepgram API key as contracted; the Cohere key is 40 alphanumerics, a superset alphabet). Git documents these as object names, not as credentials. A git object name in a CI log, commit reference or build metadata is a public reference; whether it sits in a credential-bearing position is a per-input question this sibling does not decide.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "git-scm-com-710b608df6",
+      "supports": "Objects can be named by their 40 hexadecimal digit SHA-1 name or 64 hexadecimal digit SHA-256 name.",
+      "locator": "#object-names"
+    }
+  ],
+  "observedAt": "2026-10-03",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
