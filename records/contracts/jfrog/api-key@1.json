@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "jfrog:api-key@1",
+  "family": "jfrog:api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "prefixes": [
+      "AKCp"
+    ]
+  },
+  "claims": [
+    {
+      "id": "existence-prefix-deprecated",
+      "statement": "JFrog documents the Artifactory API key as a per-user secret introduced in Artifactory 4.4.3, states that the API key is deprecated from Artifactory 7.47.x, and states that API keys start with AKCp.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "\"API Keys follow this pattern: .*\\bAKCp[A-Za-z0-9]{69}\\b.*, starting with AKCp\"; API Keys introduced in Artifactory 4.4.3, never expire, can be retrieved from a database",
+          "locator": "section \"Comparing Identity Reference Tokens With API Keys\""
+        },
+        {
+          "sourceId": "docs-jfrog-com-cb04684087",
+          "supports": "\"From Artifactory 7.47.x, the API Key is being deprecated.\"",
+          "locator": "Create API Key description (deprecated: true)"
+        }
+      ]
+    },
+    {
+      "id": "total-length-73-consistency",
+      "statement": "Gitleaks (jfrog.go) and TruffleHog (artifactory detector), maintained separately, both treat a JFrog API key as a 73-character alphanumeric value: Gitleaks as a keyword-gated rule for a 73-character alphanumeric run, TruffleHog as the literal AKCp prefix followed by 69 alphanumeric characters. This agrees with the length stated by the provider page for the AKCp form and is not the provider's rule.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-142a1c28a9",
+          "supports": "rule jfrog-api-key uses a 73-character alphanumeric capture, gated by the keywords jfrog, artifactory, bintray, xray",
+          "locator": "JFrogAPIKey, line 25"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-6aa9891ff6",
+          "supports": "keyPat matches AKCp followed by 69 alphanumeric characters (73 total)",
+          "locator": "line 33"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "existence-only",
+      "question": "Candidate established at existence level only; format, variants, benign siblings and lifecycle are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "api-key-format-conflict",
+      "question": "The Identity Tokens page states an AKCp prefix with 69 alphanumerics (73 characters), and two independent scanner rule artifacts (Gitleaks, TruffleHog) are consistent with 73 characters, while the Create API Key page example shows a 44-character value with no AKCp prefix. Which form applies to which Artifactory versions is unresolved; alphabet is recorded only as alphanumeric via the claims above and no structure field is set until the conflict is settled.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "api-key-temporality-period",
+      "question": "Introduction at 4.4.3 and deprecation from 7.47.x are documented; whether existing keys still authenticate on current releases, and any end-of-life date, are not established. A historical period needs a durable pin and is not asserted.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
