@@ -9,10 +9,10 @@
     "shape": [
       {
         "id": "prefix-and-sections",
-        "text": "A bot token begins xoxb- and is divided into dash-separated sections, with the secret as the last section. Slack's tokens page lists the prefix and the structure and gives no section widths or alphabet.",
+        "text": "A bot token begins xoxb-. Slack's tokens page states that Slack tokens are divided into dash-separated sections with the secret last, in its user-token section with an xoxp- example, and gives no section widths or alphabet for xoxb-.",
         "evidenceClass": "provider-documented",
         "temporality": "current",
-        "observedAt": "2026-09-17",
+        "observedAt": "2026-10-04",
         "citations": [
           {
             "kind": "claim",
@@ -34,6 +34,40 @@
           {
             "kind": "claim",
             "claimId": "tool-corroboration"
+          }
+        ]
+      },
+      {
+        "id": "rotating-form",
+        "text": "With token rotation, exchanging a granular bot token returns an access token with a new xoxe. prefix, shown as xoxe.xoxb-1-... in an elided example, and a refresh token shown as xoxe-1-.... The access token lasts 43,200 seconds. This form is outside the contract grammar and is not a benign control.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-rotating-xoxe-xoxb-access-token"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-046acee641"
+          }
+        ]
+      },
+      {
+        "id": "workflow-prefix",
+        "text": "Workflow tokens are described as a subset of bot tokens but begin xwfp-, and the page contrasts them with xoxb- tokens.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "field-workflow-token-prefix-distinct"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-slack-dev-8af6cd6628"
           }
         ]
       }
@@ -61,6 +95,39 @@
         "unresolved": {
           "reviewEvent": 3,
           "reason": "No source states the secret width or alphabet and no issued token was inspected."
+        }
+      },
+      {
+        "id": "rotating-version-digit",
+        "text": "What does the digit after xoxe.xoxb- mean, and what values can it take?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The page shows xoxe.xoxb-1-... elided and states no range or meaning for the digit."
+        }
+      },
+      {
+        "id": "legacy-bot-token",
+        "text": "What prefix and format did legacy bot tokens have?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "unresolved": {
+          "reviewEvent": 6,
+          "reason": "The page names legacy bot tokens but states no prefix or format."
+        }
+      },
+      {
+        "id": "public-identifiers",
+        "text": "Which team, bot-user, app and client identifiers resemble token sections, and are they non-secret?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "unresolved": {
+          "reviewEvent": 7,
+          "reason": "Team, bot-user, app and client ids appear only as placeholders; widths and non-secret status are not stated."
         }
       }
     ]
