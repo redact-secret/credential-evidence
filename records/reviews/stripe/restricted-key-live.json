@@ -45,6 +45,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'stripe-token', a contract shared by 4 families (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Re-checked 2026-09-20 (#33): the page documents key types and safety-to-expose per prefix, nothing about body length or alphabet. No length/alphabet twin is authored for this family; it is un-probeable from provider evidence. Added 2026-09-30 (#1030, product #1101): core also claims sk_org_, sk_org_live_ and sk_org_test_ + at least 20 [A-Za-z0-9] as one stripe finding. That is a support-policy floor, not a provider grammar, and no organization key has been observed, so this contract's pattern stays the live/test secret-key grammar and the sk_org_ forms are exercised as policy/T3 fixtures that assert no body (docs/decisions/2026-09-24-stop-asserting-provider-undecided-format-properties.md); see the stripe:organization-api-key rows in `fields`."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Research issue 186, read 2026-10-04 (raw): docs.stripe.com/keys documents the rk_live_/rk_test_ prefixes and that restricted keys must be protected, and gives no body length or alphabet. Revision 2 of the contract isolates the restricted-key claims; the revision-1 wording that a 32-character body is tool-corroborated is not supported by the pinned scanner rule ranges (gitleaks 10 to 99, trufflehog 20 to 247) and is recorded unresolved. Drafted by an AI agent run; not reviewed."
     }
   ],
   "externalRefs": [
