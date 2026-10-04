@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "postman-authored",
+  "title": "Postman collection and environment exports (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "postman-authored--collection-apikey-auth-literal",
+      "case": "postman-collection-auth-value-attribute-holding-literal-credential",
+      "path": "collection-apikey-auth-literal/fixture.txt",
+      "context": "collection-export-json",
+      "sha256": "b009bd9a98beadf71f155ca58a0a044e526e63a8c2e1f34b1939e61c7e767e75",
+      "text": "{\n  \"info\": {\n    \"_postman_id\": \"00000000-0000-4000-8000-000000000195\",\n    \"name\": \"synthetic-collection\",\n    \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n  },\n  \"auth\": {\n    \"type\": \"apikey\",\n    \"apikey\": [\n      {\n        \"key\": \"key\",\n        \"value\": \"X-API-Key\",\n        \"type\": \"string\"\n      },\n      {\n        \"key\": \"value\",\n        \"value\": \"PMAK-1a2b3c4d5e6f1a2b3c4d5e6f-9f8e7d6c5b4a9f8e7d6c5b4a9f8e7d6c5b\",\n        \"type\": \"string\"\n      },\n      {\n        \"key\": \"in\",\n        \"value\": \"header\",\n        \"type\": \"string\"\n      }\n    ]\n  },\n  \"item\": []\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 393,
+            "end": 457,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "postman-authored--collection-apikey-auth-reference",
+      "case": "postman-collection-auth-value-attribute-holding-variable-reference",
+      "path": "collection-apikey-auth-reference/fixture.txt",
+      "context": "collection-export-json",
+      "sha256": "39a348d6c1dea4012774a0f5ddf352e29dcf1282c8e9faf1265df4626f9d1d45",
+      "text": "{\n  \"info\": {\n    \"_postman_id\": \"00000000-0000-4000-8000-000000000195\",\n    \"name\": \"synthetic-collection\",\n    \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n  },\n  \"auth\": {\n    \"type\": \"apikey\",\n    \"apikey\": [\n      {\n        \"key\": \"key\",\n        \"value\": \"X-API-Key\",\n        \"type\": \"string\"\n      },\n      {\n        \"key\": \"value\",\n        \"value\": \"{{postman_api_key}}\",\n        \"type\": \"string\"\n      },\n      {\n        \"key\": \"in\",\n        \"value\": \"header\",\n        \"type\": \"string\"\n      }\n    ]\n  },\n  \"item\": []\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "lineage": {
+        "relation": "twin-of",
+        "of": "postman-authored--collection-apikey-auth-literal",
+        "mutationKind": "literal-to-variable-reference",
+        "mutation": "The string held by the value attribute entry changes from a synthetic PMAK-shaped literal to the double-brace reference {{postman_api_key}}; every other byte is unchanged."
+      }
+    },
+    {
+      "id": "postman-authored--environment-secret-typed-literal",
+      "case": "postman-environment-variable-typed-secret-holding-literal-value",
+      "path": "environment-secret-typed-literal/fixture.txt",
+      "context": "environment-export-json",
+      "sha256": "776a6005ada9a42940e092ad83b4f0c99c06a871d7ff6fbf33994271656e9870",
+      "text": "{\n  \"id\": \"00000000-0000-4000-8000-000000000196\",\n  \"name\": \"synthetic-environment\",\n  \"values\": [\n    {\n      \"key\": \"base_url\",\n      \"value\": \"https://api.example.test\",\n      \"type\": \"default\",\n      \"enabled\": true\n    },\n    {\n      \"key\": \"postman_api_key\",\n      \"value\": \"PMAK-2b3c4d5e6f7a2b3c4d5e6f7a-8e7d6c5b4a3f8e7d6c5b4a3f8e7d6c5b4a\",\n      \"type\": \"secret\",\n      \"enabled\": true\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 281,
+            "end": 345,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "postman-authored--environment-secret-empty-value-source-object",
+      "case": "postman-environment-secret-variable-without-value-resolved-from-source",
+      "path": "environment-secret-empty-value-source-object/fixture.txt",
+      "context": "environment-export-json",
+      "sha256": "644e83ad544f2e3c5f6414b7ec3772791e7244ae07b8c4d910348e2d8a6efde6",
+      "text": "{\n  \"id\": \"00000000-0000-4000-8000-000000000197\",\n  \"name\": \"synthetic-environment\",\n  \"values\": [\n    {\n      \"key\": \"postman_api_key\",\n      \"value\": \"\",\n      \"type\": \"secret\",\n      \"enabled\": true,\n      \"source\": {\n        \"provider\": \"postman\",\n        \"postman\": {\n          \"type\": \"local\",\n          \"secretId\": \"synthetic-secret-id\",\n          \"vaultId\": \"synthetic-vault-id\"\n        }\n      }\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "postman-authored--collection-scope-literal-with-reference",
+      "case": "postman-same-variable-name-in-collection-and-environment-scopes",
+      "path": "collection-scope-literal-with-reference/fixture.txt",
+      "context": "collection-export-json",
+      "sha256": "ea17c0e3870affe834c53afc06ab0b9122d24ecefc0e78b709646aa16a0a7cb7",
+      "text": "{\n  \"info\": {\n    \"_postman_id\": \"00000000-0000-4000-8000-000000000198\",\n    \"name\": \"synthetic-collection\",\n    \"schema\": \"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"\n  },\n  \"auth\": {\n    \"type\": \"apikey\",\n    \"apikey\": [\n      {\n        \"key\": \"key\",\n        \"value\": \"X-API-Key\",\n        \"type\": \"string\"\n      },\n      {\n        \"key\": \"value\",\n        \"value\": \"{{postman_api_key}}\",\n        \"type\": \"string\"\n      },\n      {\n        \"key\": \"in\",\n        \"value\": \"header\",\n        \"type\": \"string\"\n      }\n    ]\n  },\n  \"variable\": [\n    {\n      \"key\": \"postman_api_key\",\n      \"value\": \"PMAK-4d5e6f7a8b9c4d5e6f7a8b9c-6c5b4a3f2e1d6c5b4a3f2e1d6c5b4a3f2e\",\n      \"type\": \"string\"\n    }\n  ],\n  \"item\": []\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 619,
+            "end": 683,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "postman-authored--environment-scope-literal",
+      "case": "postman-same-variable-name-in-collection-and-environment-scopes",
+      "path": "environment-scope-literal/fixture.txt",
+      "context": "environment-export-json",
+      "sha256": "e779cb069992080cf6a3e58aa4bf0c1448d047e7d2f561093a31c8b5a6a503dd",
+      "text": "{\n  \"id\": \"00000000-0000-4000-8000-000000000199\",\n  \"name\": \"synthetic-environment\",\n  \"values\": [\n    {\n      \"key\": \"postman_api_key\",\n      \"value\": \"PMAK-3c4d5e6f7a8b3c4d5e6f7a8b-7d6c5b4a3f2e7d6c5b4a3f2e7d6c5b4a3f\",\n      \"type\": \"default\",\n      \"enabled\": true\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 153,
+            "end": 217,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
