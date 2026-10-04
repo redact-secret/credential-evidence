@@ -63,6 +63,25 @@
           "locator": "Regenerate API keys and tokens"
         }
       ]
+    },
+    {
+      "id": "artifacts-bearer-leading-run-and-percent",
+      "statement": "Two scanner rule artifacts by different maintainers both treat an X bearer token as a value that begins with a run of 22 uppercase letters (the Gitleaks pattern fixes them to the letter A) and whose remainder contains percent characters: the Gitleaks pattern allows 80 to 100 further alphanumeric or percent characters, and the TruffleHog v1 pattern is a percent-separated form of 120 characters in total. This states consistency between the two artifacts only; the provider documents no format.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+          "supports": "Rule twitter-bearer-token captures a value of 22 repeated letters A followed by 80 to 100 characters from the set letters, digits and percent sign, after a twitter keyword and an assignment operator.",
+          "locator": "config/gitleaks.toml lines 3154-3157"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-944b4f44bc",
+          "supports": "The Twitter v1 detector pattern captures 22 uppercase letters then five percent-separated alphanumeric groups of 23, 6, 3, 9 and 52 characters, after a twitter keyword.",
+          "locator": "pkg/detectors/twitter/v1/twitter_v1.go line 30"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -86,6 +105,11 @@
     {
       "id": "open-question-4",
       "question": "The candidate is established to exist from the pages read; its format (prefix, alphabet, length) is not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-5",
+      "question": "The TruffleHog Twitter v2 detector (pkg/detectors/twitter/v2/twitter_v2.go, same maintainer as v1, not counted as a separate artifact) uses a different percent-delimited shape, so the two TruffleHog versions do not agree with each other; the tool-corroborated claim covers only the leading run and the presence of percent characters, and no structure field is recorded.",
       "raisedAt": "2026-10-04"
     }
   ]
