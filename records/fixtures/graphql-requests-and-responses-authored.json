@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "graphql-requests-and-responses-authored",
+  "title": "GraphQL requests and responses (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "graphql-requests-and-responses-authored--variables-object-base-a",
+      "case": "graphql-variables-map-value-and-literal-beside-variable-references",
+      "path": "variables-object-base-a/fixture.txt",
+      "context": "json",
+      "sha256": "b9ba5e592e8dc9f1b1eb2328d412e8a77c1977cebb063f1d67f9654fe5f48fb8",
+      "text": "{\"apiKey\": \"SG.SYNTHETICGQLVARSA00000.NEVER-ISSUED-EXAMPLE-GQL-VARIABLES-A-000000\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 12,
+            "end": 81,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--post-body-variables-value",
+      "case": "graphql-variables-map-value-and-literal-beside-variable-references",
+      "path": "post-body-variables-value/fixture.txt",
+      "context": "json",
+      "sha256": "60a0132dd5ee2c42bf93c8d822285b12cc56cead89e4c3cf32298e38305e2e20",
+      "text": "{\"query\":\"query Login($apiKey: String!) { login(apiKey: $apiKey) { ok } }\",\"operationName\":\"Login\",\"variables\":{\"apiKey\":\"SG.SYNTHETICGQLVARSA00000.NEVER-ISSUED-EXAMPLE-GQL-VARIABLES-A-000000\"}}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 122,
+            "end": 191,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "graphql-requests-and-responses-authored--variables-object-base-a"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "graphql-requests-and-responses-authored--variables-object-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "graphql-over-http-json-request"
+          }
+        ]
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--get-url-variables-value",
+      "case": "graphql-variables-map-value-and-literal-beside-variable-references",
+      "path": "get-url-variables-value/fixture.txt",
+      "context": "url",
+      "sha256": "f6ea6a18ec02e4dfb80e763d2cff54190798499185650401871bec7b5b654570",
+      "text": "GET /graphql?query=query%20Login%28%24apiKey%3A%20String%21%29%20%7B%20login%28apiKey%3A%20%24apiKey%29%20%7B%20ok%20%7D%20%7D&operationName=Login&variables=%7B%22apiKey%22%3A%22SG.SYNTHETICGQLVARSA00000.NEVER-ISSUED-EXAMPLE-GQL-VARIABLES-A-000000%22%7D HTTP/1.1\nHost: api.example.test\nAccept: application/graphql-response+json\n\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 178,
+            "end": 247,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "graphql-requests-and-responses-authored--variables-object-base-a"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "graphql-requests-and-responses-authored--variables-object-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "escape",
+            "style": "url-query-percent-encoding"
+          },
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "graphql-over-http-get-url"
+          }
+        ]
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--post-body-inline-literal",
+      "case": "graphql-variables-map-value-and-literal-beside-variable-references",
+      "path": "post-body-inline-literal/fixture.txt",
+      "context": "json",
+      "sha256": "5d78d23a2597aca14d203cbe5e9b8fa24fbff62cb033cbc6cc2cf17697e293ec",
+      "text": "{\"query\":\"mutation Login { login(apiKey: \\\"SG.SYNTHETICGQLVARSA00000.NEVER-ISSUED-EXAMPLE-GQL-VARIABLES-A-000000\\\") { ok } }\",\"operationName\":\"Login\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 43,
+            "end": 112,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "graphql-requests-and-responses-authored--variables-object-base-a"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "graphql-requests-and-responses-authored--variables-object-base-a"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "escape",
+            "style": "json-string"
+          },
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "graphql-over-http-json-request"
+          }
+        ]
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--variables-object-base-b",
+      "case": "graphql-error-response-echo-of-supplied-secret",
+      "path": "variables-object-base-b/fixture.txt",
+      "context": "json",
+      "sha256": "663c4487af886eb931f66f7ce43887d9625bc79273f21fc7ea8ffe109bd540b0",
+      "text": "{\"apiKey\": \"SG.SYNTHETICGQLECHOB00000.NOT-REAL-NEVER-ISSUED-GQL-ECHO-B-0000000000\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 12,
+            "end": 81,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--request-then-full-echo-in-error-message",
+      "case": "graphql-error-response-echo-of-supplied-secret",
+      "path": "request-then-full-echo-in-error-message/fixture.txt",
+      "context": "http-transcript",
+      "sha256": "b53a63d2314b6ee382a067b7f4eab1a4c2142372f68d6ad37bdf5c688058ce16",
+      "text": "POST /graphql HTTP/1.1\nHost: api.example.test\nContent-Type: application/json\nAccept: application/graphql-response+json\n\n{\"query\":\"query Login($apiKey: String!) { login(apiKey: $apiKey) { ok } }\",\"variables\":{\"apiKey\":\"SG.SYNTHETICGQLECHOB00000.NOT-REAL-NEVER-ISSUED-GQL-ECHO-B-0000000000\"}}\n\nHTTP/1.1 422 Unprocessable Content\nContent-Type: application/graphql-response+json; charset=utf-8\n\n{\"errors\":[{\"message\":\"Variable \\\"$apiKey\\\" was rejected: \\\"SG.SYNTHETICGQLECHOB00000.NOT-REAL-NEVER-ISSUED-GQL-ECHO-B-0000000000\\\" is not accepted.\",\"locations\":[{\"line\":1,\"column\":13}]}]}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 218,
+            "end": 287,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "graphql-requests-and-responses-authored--variables-object-base-b"
+          },
+          {
+            "start": 451,
+            "end": 520,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "graphql-requests-and-responses-authored--variables-object-base-b"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "graphql-requests-and-responses-authored--variables-object-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "http-transcript"
+          },
+          {
+            "op": "repeat",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--request-then-response-without-value",
+      "case": "graphql-error-response-echo-of-supplied-secret",
+      "path": "request-then-response-without-value/fixture.txt",
+      "context": "http-transcript",
+      "sha256": "5b61e1be0b92786290099362b477cef91eaf307e1073cbd8e8e196625a7fb8d6",
+      "text": "POST /graphql HTTP/1.1\nHost: api.example.test\nContent-Type: application/json\nAccept: application/graphql-response+json\n\n{\"query\":\"query Login($apiKey: String!) { login(apiKey: $apiKey) { ok } }\",\"variables\":{\"apiKey\":\"SG.SYNTHETICGQLECHOB00000.NOT-REAL-NEVER-ISSUED-GQL-ECHO-B-0000000000\"}}\n\nHTTP/1.1 422 Unprocessable Content\nContent-Type: application/graphql-response+json; charset=utf-8\n\n{\"errors\":[{\"message\":\"Variable \\\"$apiKey\\\" was rejected; the supplied value is not repeated here.\",\"locations\":[{\"line\":1,\"column\":13}]}]}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 218,
+            "end": 287,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "graphql-requests-and-responses-authored--variables-object-base-b"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "graphql-requests-and-responses-authored--variables-object-base-b"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "http-transcript"
+          }
+        ]
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--error-message-with-truncated-value",
+      "case": "bare-prefixes-and-truncated-tokens",
+      "path": "error-message-with-truncated-value/fixture.txt",
+      "context": "json",
+      "sha256": "f3a032c280bc5caebf2d72796e9576e70f95f860fa15fce167cbe26c99c6c56b",
+      "text": "{\"errors\":[{\"message\":\"Variable \\\"$apiKey\\\" was rejected: \\\"SG.SYNTHETI...\\\" is not accepted.\"}]}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--error-extensions-with-masked-variable",
+      "case": "already-masked-values",
+      "path": "error-extensions-with-masked-variable/fixture.txt",
+      "context": "json",
+      "sha256": "14d3fbd2031b11df6074602852539be8e4535f4764d53eb3e20348bf81488ce7",
+      "text": "{\"errors\":[{\"message\":\"Variable \\\"$apiKey\\\" was rejected.\",\"extensions\":{\"variables\":{\"apiKey\":\"********\"}}}]}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--definition-and-use-without-variables-member",
+      "case": "graphql-credential-named-variables-and-fields-without-value-bytes",
+      "path": "definition-and-use-without-variables-member/fixture.txt",
+      "context": "json",
+      "sha256": "20b8de2c34145a027d9a91ac1fb4d4fec8842a03e8f6fac9a4b24f14c64cf797",
+      "text": "{\"query\":\"query Login($apiKey: String!) { login(apiKey: $apiKey) { ok } }\",\"operationName\":\"Login\"}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--selected-token-field-without-value",
+      "case": "graphql-credential-named-variables-and-fields-without-value-bytes",
+      "path": "selected-token-field-without-value/fixture.txt",
+      "context": "json",
+      "sha256": "56dbfd86f716b38553fb73280b950702c8769ec1e8db65e900aab861031fb80c",
+      "text": "{\"query\":\"mutation { createApiToken(name: \\\"ci-bot\\\") { token expiresAt } }\"}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "graphql-requests-and-responses-authored--response-names-the-variable-only",
+      "case": "graphql-credential-named-variables-and-fields-without-value-bytes",
+      "path": "response-names-the-variable-only/fixture.txt",
+      "context": "http-transcript",
+      "sha256": "45b48740ba330107233a4328d0887533c3481818acd2bc4520216902c5598cdd",
+      "text": "HTTP/1.1 422 Unprocessable Content\nContent-Type: application/graphql-response+json; charset=utf-8\n\n{\"errors\":[{\"message\":\"Variable \\\"$apiKey\\\" of required type \\\"String!\\\" was not provided.\",\"locations\":[{\"line\":1,\"column\":13}]}]}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

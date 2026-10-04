@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "graphql-variables-map-value-and-literal-beside-variable-references",
+  "title": "GraphQL request: secret in the variables map or an inline literal, variable references unflagged",
+  "summary": "A synthetic GraphQL-over-HTTP request whose document defines and uses a variable named like a credential ($apiKey) while the secret itself is a string in the separate variables map, in a POST JSON body and in a GET URL, and the same secret as an inline string literal of the document inside the JSON-escaped query string.",
+  "rationale": "A GraphQL request has two parts that a reader sees side by side: the document and the variables map. In the document, `$apiKey` is a variable definition and a variable use, that is a name and a type and a reference, not a value; the value is supplied in the variables map, a different JSON member. A name-driven reading flags the reference or the whole line and misses the span boundary; the secret bytes are only the string in the map, between its quotation marks. When the same value is written as an inline string literal, the document is itself a JSON string, so its quotation marks arrive as a backslash and a quotation mark and the secret ends before the backslash. In a GET request the map is a JSON string inside a percent-encoded query parameter. The key alphabet is unreserved in a URL, so its bytes are not changed by percent-encoding; that is a property of the chosen synthetic value, not a general rule. Preconditions: the span is stated on the original source bytes, no JSON or percent decoding is needed to locate it, and the value contains no character that a JSON string or a URL must escape. A value that contains such a character is a separate representation question and is not asserted here.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "sendgrid:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value",
+    "templated-reference",
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flagged: the span is the documented-shape key and nothing else. The variable definition, the variable uses and the member name are not secret bytes: the October 2021 specification describes a variable as a name that parameterises the operation and says its values are provided separately as part of the request. The key shape is the family contract (the provider documents the total length); the GraphQL specifications locate the value and say nothing about its confidentiality, so the expectation is that of the family, applied to a new carrier. Project-authored, not independent.",
+    "sources": [
+      {
+        "sourceId": "spec-graphql-org-5304917fe6",
+        "supports": "A GraphQL operation can be parameterized with variables; variables are defined at the top of the operation and values for them are provided to the service as part of a request, separately from the document.",
+        "locator": "2.10 Variables"
+      },
+      {
+        "sourceId": "spec-graphql-org-5304917fe6",
+        "supports": "A string value is wrapped in quotation marks and the backslash and quotation mark characters must be escaped inside it.",
+        "locator": "2.9.4 String Value"
+      },
+      {
+        "sourceId": "http-spec-graphql-org-397b6b8d02",
+        "supports": "The request has a query parameter (document source text as a string) and an optional variables map whose keys are variable names and whose values are the variable values; as a JSON object these are members of the request body.",
+        "locator": "4.1 GraphQL-over-HTTP Request; 4.4.1 JSON Encoding"
+      },
+      {
+        "sourceId": "http-spec-graphql-org-397b6b8d02",
+        "supports": "For GET, the parameters are in the URL query component in application/x-www-form-urlencoded format and the variables parameter is a JSON string.",
+        "locator": "4.3 GET"
+      },
+      {
+        "sourceId": "rfc-editor-org-4d089713c1",
+        "supports": "The quotation mark and reverse solidus must be escaped inside a JSON string.",
+        "locator": "7. Strings"
+      },
+      {
+        "sourceId": "rfc-editor-org-937e771069",
+        "supports": "Unreserved characters are letters, digits, hyphen, period, underscore and tilde.",
+        "locator": "#section-2.3"
+      },
+      {
+        "sourceId": "support-sendgrid-com-135e975bd1",
+        "supports": "The key is documented as always 69 characters; the alphabet and segment split are tool-corroborated, not this citation.",
+        "locator": "contract claim provider-source"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-04, before any scanner was consulted. Research for #197 (parent #158). Origin of the inputs: evidence-derived and synthetic, not observed in a real incident or product; the request shapes follow the specification examples and the response texts are invented. All values are synthetic and were not tested against any service. JSON and URL decoding, GraphQL parsing and variable resolution are not assumed of any consumer; the fixtures state source-byte spans only. Escaped or non-ASCII values in these positions are linked to the representation handoff (#150) and are not asserted."
+}
