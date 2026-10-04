@@ -39,6 +39,11 @@
       "id": "still-issued-after-2021",
       "question": "Whether long-lived tokens are still issued or still honoured after the mid 2021 date in the guide is not stated by the pages read. Distinguishing this family from the short-lived access token by shape is not supported by any statement read.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "single-artifact-lead",
+      "question": "One rule artifact (Gitleaks, rule dropbox-long-lived-api-token, lines 460-464 at the pinned commit) matches an 11-character start, a run of ten \"A\" characters and 43 more characters (64 in all) after a dropbox keyword. TruffleHog and Nosey Parker at the pinned commits carry no rule for this form. One artifact does not meet the tool-corroborated requirement, so no format claim is recorded; a second independent artifact or a provider statement would resolve it.",
+      "raisedAt": "2026-10-04"
     }
   ]
 }
