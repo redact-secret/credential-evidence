@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "figma:personal-access-token@1",
+  "family": "figma:personal-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Figma's REST API documentation describes a personal access token: a token a user generates in account Settings (Security tab), shown only once at generation, that gives the holder API access as if they were that user, and that is passed in the X-Figma-Token request header.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-0de277db62",
+          "supports": "A personal access token gives the holder access to an account through the API as if they were the user who generated the token. ... This will be your only chance to copy the token. ... passing the token to the API in the X-Figma-Token header of your request.",
+          "locator": "#generate-a-personal-access-token"
+        },
+        {
+          "sourceId": "developers-figma-com-3940c0e765",
+          "supports": "Generate a personal access token for your Figma account. A personal access token allows you to make REST API requests using your personal Figma account.",
+          "locator": "#access-tokens"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "format-not-researched",
+      "question": "Candidate only: existence is documented, but the pages read state no prefix, alphabet, length or other format. Not researched beyond existence; the format is not inferred from sample tokens.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
