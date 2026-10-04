@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "elastic:cross-cluster-api-key@1",
+  "family": "elastic:cross-cluster-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Elastic documents a Cross-cluster Elasticsearch API key type that allows other clusters to connect to a cluster for tasks like cross-cluster search and replication.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-ab9b9eb129",
+          "supports": "Cross-cluster API key: allows other clusters to connect to this cluster for tasks like cross-cluster search and replication.",
+          "locator": "#elasticsearch-api-keys (type list)"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "format-vs-user-api-key",
+      "question": "Whether a cross-cluster key has the same id/api_key/encoded representation as a user API key is not established by the pages read; research its response type before treating it as the same shape or a distinct one.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Elastic documentation source files read on 2026-10-04; the family is not researched beyond what the claims state."
+}

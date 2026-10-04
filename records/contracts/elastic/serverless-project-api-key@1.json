@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "elastic:serverless-project-api-key@1",
+  "family": "elastic:serverless-project-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Elastic documents Personal API keys created inside a Serverless project, used to call the project Elasticsearch and Kibana APIs on behalf of a user.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-2b309553de",
+          "supports": "Personal API keys, that you can create to allow external services to access your serverless project, including the Elasticsearch and Kibana APIs, on behalf of a user.",
+          "locator": "#api-keys"
+        }
+      ]
+    },
+    {
+      "id": "encoded-carrier",
+      "statement": "Elastic documents that after creation the encoded API key is copied and sent as an Authorization: ApiKey header value to the Elasticsearch HTTP API.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-2b309553de",
+          "supports": "Once created, you can copy the encoded API key and use it to send requests to the Elasticsearch HTTP API: -H \"Authorization: ApiKey ${API_KEY}\"",
+          "locator": "#api-keys-create-an-api-key"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "same-family-as-elasticsearch-api-key",
+      "question": "Whether a Serverless project key is the same credential family as the Elasticsearch user API key (same encoded representation, same issuance API) or a distinct one is not established; the documentation describes them on separate pages and the Serverless response type shares the encoded field with the stack one.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Elastic documentation source files read on 2026-10-04; the family is not researched beyond what the claims state."
+}
