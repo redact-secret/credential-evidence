@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "asana:oauth-access-token@1",
+  "family": "asana:oauth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Asana issues OAuth access tokens: short-lived bearer tokens (typically one hour) returned by the token exchange endpoint when an app exchanges an authorization code or refresh token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "An access token (i.e., a bearer token, which lasts an hour)",
+          "locator": "#overview-of-the-oauth-process step 4"
+        },
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "The number of seconds that the token is valid, typically `3600` (one hour)",
+          "locator": "#token-exchange-endpoint (response, expires_in)"
+        }
+      ]
+    },
+    {
+      "id": "format-opaque",
+      "statement": "Asana states its API tokens, including OAuth access tokens, should be treated as opaque and that token formats may change without notice; the documentation states no prefix, alphabet or length.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "Asana API tokens should be treated as opaque. Token formats may change without notice. This applies to any Asana API tokens, including: personal access tokens, service account tokens, and both OAuth refresh tokens and access tokens.",
+          "locator": "#token-expiration (Note on token format)"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "Candidate is not researched beyond existence: the format (prefix, alphabet, length, checksum) is not recorded and has not been researched by research-family.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "format-unstated",
+      "question": "The documented token exchange response is described by property; the page states no literal format. An official page that states one, or an officially published test token, would be needed before any contract is written.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "scanner-rule-lead",
+      "question": "Lead only, not a claim: one scanner rule artifact (trufflesecurity/trufflehog at 59e3b04e820c4cad30462696ac497853a5f7679c, pkg/detectors/asanaoauth/asanaoauth.go line 26, read 2026-10-04) uses a 51-character class of lowercase letters, digits, slash and colon near the word \"asana\". One maintainer only; not corroborated and not recorded as structure.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

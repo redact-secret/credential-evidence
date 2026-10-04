@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "asana:personal-access-token@1",
+  "family": "asana:personal-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Asana issues personal access tokens (PATs): long-lived tokens a user generates in the Asana developer console and uses to authenticate requests to the Asana REST API.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-526e7d0a68",
+          "supports": "PATs are long-lived tokens allowing programmatic authentication to the API and should be stored securely.",
+          "locator": "#personal-access-token"
+        },
+        {
+          "sourceId": "developers-asana-com-0bccb998c0",
+          "supports": "A personal access token (PAT) contains your security credentials for the Asana platform.",
+          "locator": "#overview"
+        }
+      ]
+    },
+    {
+      "id": "presentation-bearer-header",
+      "statement": "A PAT is passed to the API like an OAuth access token, in the Authorization header as a Bearer token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-0bccb998c0",
+          "supports": "Personal access tokens should be used similarly to OAuth access tokens when accessing the API (i.e., passing them in the `Authorization` header).",
+          "locator": "#example"
+        }
+      ]
+    },
+    {
+      "id": "format-opaque",
+      "statement": "Asana states its API tokens, including personal access tokens, should be treated as opaque and that token formats may change without notice; the documentation states no prefix, alphabet or length for a PAT.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-0bccb998c0",
+          "supports": "Asana API tokens should be treated as opaque. Token formats may change without notice. This applies to any Asana API tokens, including: personal access tokens, service account tokens, and both OAuth refresh tokens and access tokens.",
+          "locator": "#example (Note on token format)"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "Candidate is not researched beyond existence: the format (prefix, alphabet, length, checksum) is not recorded and has not been researched by research-family.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "format-unstated",
+      "question": "The documentation says tokens are opaque and formats may change. Is any literal prefix, alphabet or length published anywhere on an official Asana page? Until one is found, attribution of a PAT from string shape alone is not supported and context (Authorization header, a developer-console token) is the only documented signal.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "gid-confusion-controls",
+      "question": "Task, project, user and workspace GIDs are documented as globally unique object identifiers (FAQ: \"What does GID mean?\"). Their digit-string shape is not recorded here; research-family should record them as benign siblings (public identifiers) so a bare numeric ID is never attributed as a token.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "scanner-rule-lead",
+      "question": "Lead only, not a claim: one open-source scanner rule artifact (trufflesecurity/trufflehog at 59e3b04e820c4cad30462696ac497853a5f7679c, pkg/detectors/asanapersonalaccesstoken/asanapersonalaccesstoken.go line 28, read 2026-10-04) treats a digits/digits(/digits)-colon-alphanumeric shape near the word \"asana\" as a personal access token. No second artifact by a different maintainer was found (no Asana rule in the other rule sets checked), so tool-corroborated is not met and Asana says tokens are opaque; no structure is recorded.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

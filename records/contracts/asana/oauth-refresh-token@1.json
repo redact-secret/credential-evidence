@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "asana:oauth-refresh-token@1",
+  "family": "asana:oauth-refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Asana issues OAuth refresh tokens: long-lived tokens returned when an authorization code is exchanged, used at the token exchange endpoint to obtain new access tokens until the user deauthorizes the app.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "If exchanging a `code`, this is a long-lived token that can be used to get new access tokens when older ones expire",
+          "locator": "#token-exchange-endpoint (response, refresh_token)"
+        }
+      ]
+    },
+    {
+      "id": "format-opaque",
+      "statement": "Asana states its API tokens, including OAuth refresh tokens, should be treated as opaque and that token formats may change without notice; the documentation states no prefix, alphabet or length.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "Asana API tokens should be treated as opaque. Token formats may change without notice. This applies to any Asana API tokens, including: personal access tokens, service account tokens, and both OAuth refresh tokens and access tokens.",
+          "locator": "#token-expiration (Note on token format)"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "Candidate is not researched beyond existence: the format (prefix, alphabet, length, checksum) is not recorded and has not been researched by research-family.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "format-unstated",
+      "question": "The documentation states no literal format for a refresh token (the token exchange example response uses an obviously illustrative string). An official page stating one would be needed before any contract is written.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
