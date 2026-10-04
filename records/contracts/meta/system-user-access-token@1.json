@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "meta:system-user-access-token@1",
+  "family": "meta:system-user-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Meta documents a System User Access Token, generated in Business settings for a system user, that lets an app take automated actions on Ad objects or Pages without an app user or re-authentication.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "System User access tokens let your app perform programmatic, automated actions on Ad objects or Pages without requiring input from an app user or re-authentication.",
+          "locator": "Access Tokens for Meta Technologies, System User Access Tokens"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "existence-only",
+      "question": "Only existence is established. The access-tokens page states that token length changes over time and gives no format grammar; it is not recorded here.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
