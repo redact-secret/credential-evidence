@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "figma:cli-plan-access-token@1",
+  "family": "figma:cli-plan-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Figma's plan access tokens documentation describes a Figma CLI token as a plan access token category created from the same developer hub by Organization administrators, with a fixed scope set for supported Figma CLI workflows (including Code Connect and codebase uploads), plan-wide authorization, and an expiration of up to 365 days; it is not a general-purpose REST API token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "Figma CLI tokens have a fixed scope set for supported Figma CLI workflows, including Code Connect and codebase uploads. They aren't general-purpose REST API tokens.",
+          "locator": "#supported-endpoints"
+        },
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "Organization administrators can create a Figma CLI token from the same developer hub ... select an expiration period of up to 365 days. ... immediately store the token secret in a secure location.",
+          "locator": "#create-a-figma-cli-token"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "separate-family-or-category",
+      "question": "Candidate only. The page presents Figma CLI tokens as a category of plan access token, with different scopes and no scope or resource selection. Whether it is a family distinct from the REST API plan access token (same or different format) is unresolved; no format is stated.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
