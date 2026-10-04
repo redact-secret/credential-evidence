@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "airtable:personal-access-token@1",
+  "family": "airtable:personal-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Airtable issues personal access tokens, which a user creates with chosen scopes and base or workspace access and passes as a bearer token in the Authorization header of Airtable API requests.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "airtable-com-3770a0226e",
+          "supports": "Personal access tokens should be passed with your API requests as a `Authorization: Bearer header`.",
+          "locator": "#using-personal-access-tokens"
+        },
+        {
+          "sourceId": "support-airtable-com-0c413d2898",
+          "supports": "Personal Access Tokens (PATs) allow users to create multiple access tokens that allow for a wide range of access to the information held in Airtable bases.",
+          "locator": "What are Personal Access Tokens?"
+        },
+        {
+          "sourceId": "airtable-com-c31dd3fe16",
+          "supports": "We currently support using personal access tokens and OAuth access tokens during the authentication process.",
+          "locator": "#types-of-token"
+        }
+      ]
+    },
+    {
+      "id": "opaque-format",
+      "statement": "Airtable states that personal access tokens are prefixed with their ID but should otherwise be treated as opaque, variable-length strings, with no reliance on a particular length or format.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "airtable-com-3770a0226e",
+          "supports": "While personal access tokens are prefixed with their ID, they should be otherwise treated as opaque, variable-length strings. In particular, do not rely on tokens having a particular length or format.",
+          "locator": "#using-personal-access-tokens"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "The literal prefix, alphabet and length of a personal access token are not stated on the pages read, and the provider says not to rely on any; the candidate is not researched beyond existence. The token ID that prefixes the token is not described.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

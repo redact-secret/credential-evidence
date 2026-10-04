@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "airtable:legacy-api-key@1",
+  "family": "airtable:legacy-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Airtable user API keys were the former API credential; their deprecation period ended on 1 February 2024 and they can no longer access the Airtable API.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "support-airtable-com-0c413d2898",
+          "supports": "On Jan 18, 2023, we began the deprecating user API keys, completing the deprecation process on Feb 1, 2024, meaning: API Keys can no longer access the Airtable API.",
+          "locator": "FAQs: How do I find my API key?"
+        },
+        {
+          "sourceId": "airtable-com-c31dd3fe16",
+          "supports": "As of February 1st 2024, the deprecation period for Airtable API keys has ended.",
+          "locator": "#types-of-token"
+        },
+        {
+          "sourceId": "airtable-com-78b7ef5a0e",
+          "supports": "Updated [Authentication](/api/authentication) to reflect that the deprecation period for Airtable API keys has ended.",
+          "locator": "changelog entry"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "The format of the legacy API key is not stated on the pages read, and the pages read do not give a durable pin for historical claims; the candidate is not researched beyond existence and its deprecated status.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

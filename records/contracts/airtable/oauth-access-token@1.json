@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "airtable:oauth-access-token@1",
+  "family": "airtable:oauth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Airtable issues OAuth access tokens after a user authorizes a registered OAuth integration; they are passed as a bearer token and expire after an expected 60 minutes.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "airtable-com-c4d52d6cd9",
+          "supports": "The OAuth access tokens you receive should be passed with your API requests as a `Authorization: Bearer header`.",
+          "locator": "#making-api-requests"
+        },
+        {
+          "sourceId": "airtable-com-b4c77d59e9",
+          "supports": "`access_token` | An opaque string. Can be used to make requests to the Airtable API on behalf of the user, and cannot be recovered if lost.",
+          "locator": "token response table"
+        },
+        {
+          "sourceId": "airtable-com-b4c77d59e9",
+          "supports": "Access tokens expire after 60 minutes.",
+          "locator": "#token-expiry-refresh-tokens"
+        }
+      ]
+    },
+    {
+      "id": "opaque-format",
+      "statement": "Airtable states that OAuth access and refresh tokens are opaque, variable-length strings with no reliance on a particular length or format.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "airtable-com-c4d52d6cd9",
+          "supports": "OAuth access and refresh tokens should be treated as opaque, variable-length strings. In particular, do not rely on tokens having a particular length or format.",
+          "locator": "#making-api-requests"
+        },
+        {
+          "sourceId": "airtable-com-b4c77d59e9",
+          "supports": "`access_token`: An opaque string.",
+          "locator": "token response table"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "No prefix, alphabet or length is stated for OAuth access tokens and the provider says not to rely on any; the candidate is not researched beyond existence.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
