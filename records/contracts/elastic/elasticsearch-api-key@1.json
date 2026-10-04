@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "elastic:elasticsearch-api-key@1",
+  "family": "elastic:elasticsearch-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Elastic documents a Personal/User Elasticsearch API key type that lets external services access the Elasticsearch and Kibana APIs on behalf of a user.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-ab9b9eb129",
+          "supports": "Personal/User API key: allows external services to access the Elastic Stack, including the Elasticsearch and Kibana APIs, on behalf of a user.",
+          "locator": "#elasticsearch-api-keys (type list)"
+        }
+      ]
+    },
+    {
+      "id": "encoded-representation",
+      "statement": "The create-API-key response carries the key as separate id and api_key fields and, since Elasticsearch 7.16.0 and on Serverless, an encoded field defined as the base64 encoding of the UTF-8 representation of id and api_key joined by a colon.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-46ec10b715",
+          "supports": "API key credentials which is the base64-encoding of the UTF-8 representation of `id` and `api_key` joined by a colon (`:`).",
+          "locator": "class Response, fields id, api_key, encoded"
+        }
+      ]
+    },
+    {
+      "id": "authorization-carrier",
+      "statement": "Elastic documents the encoded API key value as the credential sent in the Authorization header with the ApiKey scheme.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-21dfae93f5",
+          "supports": "You must create an API key and use the encoded value in the request header: Authorization: ApiKey ${API_KEY}",
+          "locator": "components.securitySchemes.apiKeyAuth.description"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "base64-alphabet-padding-length",
+      "question": "Which base64 alphabet and padding the encoded field uses, and the length and alphabet of the generated api_key and id values, are not stated in the pages read; the family is not researched beyond existence and the documented encoded representation.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "id-confidentiality",
+      "question": "Whether the id half of the pair is documented as non-secret on its own is not established by the pages read; it must not be treated as a benign sibling until a source says so.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Elastic documentation source files read on 2026-10-04; the family is not researched beyond what the claims state."
+}
