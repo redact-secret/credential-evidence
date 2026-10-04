@@ -243,11 +243,15 @@ export function checkItemRepresentation(item, bytes, ctx) {
   const fragmented = spans.some((s) => s.fragments);
   const fragmentSteps = steps.filter((s) => s.op === "fragment");
   if (fragmented && !fragmentSteps.length) out.push("a span with fragments needs a fragment step in transformation");
+  // ADR 0020: a maintainer-only item (ctx.protectFragments) rests on a decided policy to protect the fragments of a value a
+  // separator interrupts, not on a fact about how a language rebuilds it, so the reconstruction facts stay as stated
+  // (inserts-separator, unresolved) and no longer force the outcome.
+  const protect = ctx.protectFragments === true;
   for (const f of fragmentSteps) {
-    if (f.reconstruction !== "reconstructs-original" && item.expected.outcome === "must-flag") out.push(`a fragment step whose reconstruction is ${f.reconstruction} cannot back a must-flag expectation`);
-    if (f.reconstruction === "unresolved" && item.expected.outcome !== "not-assertable") out.push("an unresolved reconstruction is not assertable: the outcome must be not-assertable");
+    if (!protect && f.reconstruction !== "reconstructs-original" && item.expected.outcome === "must-flag") out.push(`a fragment step whose reconstruction is ${f.reconstruction} cannot back a must-flag expectation`);
+    if (!protect && f.reconstruction === "unresolved" && item.expected.outcome !== "not-assertable") out.push("an unresolved reconstruction is not assertable: the outcome must be not-assertable");
   }
-  if (fragmented && fragmentSteps.some((f) => f.reconstruction !== "reconstructs-original")) out.push("a span with fragments needs reconstruction reconstructs-original");
+  if (!protect && fragmented && fragmentSteps.some((f) => f.reconstruction !== "reconstructs-original")) out.push("a span with fragments needs reconstruction reconstructs-original");
   if (decodedSpans.length && !item.transformation) out.push("decoded needs a transformation on the item");
   const secrets = spans.filter((s) => s.role === "secret");
   if (secrets.length === 1 && secrets[0].decoded && item.transformation) {

@@ -14,6 +14,8 @@ import { buildProjection, digestJson, GENERATOR, indexRecords } from "../../scri
 import { collectFixtures } from "../../scripts/export/lib/fixtures.mjs";
 import { loadLegacyNames, nameFixtures } from "../../scripts/export/lib/legacy-map.mjs";
 
+// the current revision of the schemas, not a pinned number: a schema bump must not need a test edit
+const SCHEMA_REVISION = JSON.parse(readFileSync(join(repoRoot, "schemas/v1/common.schema.json"), "utf8"))["x-schemaRevision"];
 const inputs = await loadBaselineInputs();
 const { projection } = generate(inputs);
 const sha = (t) => createHash("sha256").update(t).digest("hex");
@@ -39,7 +41,7 @@ describe("legacy projection: determinism and provenance", () => {
     assert.equal(manifest.artifacts.length, projection.artifacts.size);
     assert.match(manifest.sourceRevision.digest, /^[0-9a-f]{64}$/);
     assert.equal(manifest.sourceRevision.kind, "records-tree-sha256");
-    assert.equal(manifest.schemaRevision, "1.6.0");
+    assert.equal(manifest.schemaRevision, SCHEMA_REVISION);
     for (const e of manifest.artifacts) {
       const text = projection.artifacts.get(e.path);
       assert.ok(text !== undefined, e.path);
@@ -299,7 +301,7 @@ describe("credential-eval corpus snapshot", () => {
     assert.equal(snapshot.identity.corpus_digest, `sha256:${sha(canon(snapshot.cases))}`);
     assert.equal(snapshot.identity.source, "credential-evidence");
     assert.equal(snapshot.identity.revision, `records-tree-sha256:${projection.manifest.sourceRevision.digest}`);
-    assert.equal(snapshot.identity.evidence_schema, "credential-evidence/schema/1.6.0");
+    assert.equal(snapshot.identity.evidence_schema, `credential-evidence/schema/${SCHEMA_REVISION}`);
   });
 
   test("the legacy id map re-keys every snapshot case to its legacy fixture id and corpus path, and only the map says so", () => {

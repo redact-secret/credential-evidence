@@ -410,6 +410,7 @@ function changedMeaning(before, after) {
     const old = before.events ?? [];
     if (JSON.stringify(old) !== JSON.stringify((after.events ?? []).slice(0, old.length))) notes.push({ severity: "fail", message: "review-history events were edited or removed; the history is append-only" });
   }
+  if (before.lifecycle !== after.lifecycle && after.lifecycle === "maintainer-only") notes.push({ severity: "needs-human", message: "lifecycle became maintainer-only (ADR 0020): finalized by the sole maintainer, not reviewed, not independent validation; a human confirms the instruction, the project-policy basis and the decided event" });
   if (before.lifecycle !== after.lifecycle && after.lifecycle === "reviewed") notes.push({ severity: "needs-human", message: "lifecycle became reviewed; an agent never sets it and the reviewer must not be the author" });
   return notes;
 }

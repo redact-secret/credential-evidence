@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:case",
   "title": "Case",
   "description": "The authored unit of human reasoning: what happened, why it matters, the scanner-neutral expected outcome and the evidence for it. A case relates to zero or more families (many-to-many); the relation is stored here only, families never list their cases. Executable fixtures are separate fixture-projection records that point back here.",
-  "x-schemaRevision": "1.6.0",
+  "x-schemaRevision": "1.7.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "title", "summary", "rationale", "caseTypes", "families", "expectation", "lifecycle"],

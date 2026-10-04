@@ -20,6 +20,7 @@ import { buildSnapshot } from "../export/lib/projection.mjs";
 import { loadCanonicalInputs, VOCABULARY_PATH } from "../export/lib/source.mjs";
 import { buildMaterialization } from "../lib/materialize.mjs";
 import { listJson, repoRoot } from "../lib/validator.mjs";
+import { reviewStateAccounting } from "./lib/review-state.mjs";
 import { buildRelease, MANIFEST_ASSET, tagProblem, verifyRelease } from "./lib/bundle.mjs";
 
 const VALUE_FLAGS = ["--tag", "--out", "--dir", "--manifest-digest"];
@@ -68,6 +69,7 @@ export function collectInputs({ tag, commit }) {
     schemaFiles,
     snapshotText: snapshotBuild.text,
     evalExport: snapshotBuild.accounting,
+    reviewState: reviewStateAccounting(records),
     fixtures: { manifestText: fixtures.manifestText, digest: fixtures.digest, count: fixtures.manifest.count },
   };
 }
@@ -81,6 +83,7 @@ function summary(release) {
     `schema ${m.schemaRevision}, generator ${m.generator.name} ${m.generator.version}`,
     `fixtures ${m.fixtures.count} (digest ${m.fixtures.digest})`,
     `eval v1 export: ${m.evalExport.exported} exported, ${m.evalExport.notExported.total} not exported to eval v1 ${JSON.stringify(m.evalExport.notExported.byReason)}`,
+    ...(m.reviewState ? [`review state ${JSON.stringify(m.reviewState.fixtures)}, maintainer-only ${JSON.stringify(m.reviewState.maintainerOnly)} (${m.reviewState.rule})`] : []),
     ...(m.evalExport.representation ? [`representation ${JSON.stringify(m.evalExport.representation)}`] : []),
     ...m.files.map((f) => `  ${f.asset}  ${f.bytes} bytes  sha256 ${f.sha256}`),
     `manifest digest ${release.manifestDigest}`,

@@ -165,6 +165,10 @@ jobs:
             echo "- tag: \`$RELEASE_TAG\`"
             echo "- manifest digest (sha256 of \`release-manifest.json\`): \`$MANIFEST_DIGEST\`"
             echo
+            echo "Review state (ADR 0020, solo-maintainer period; the credential-eval snapshot does not carry it, \`release-manifest.json\` does):"
+            echo
+            jq -r '"- \(.reviewState.maintainerOnly.fixtures) of \(.reviewState.fixtures.total) fixtures are `maintainer-only` (\(.reviewState.maintainerOnly.decisions) recorded decisions, \(.reviewState.maintainerOnly.records.case) cases, \(.reviewState.maintainerOnly.records.scenario) scenarios): finalized by the sole maintainer, never reviewed, never independent validation.\n- \(.reviewState.fixtures.reviewed) fixtures are `reviewed`; the rest are `draft`."' "$RUNNER_TEMP/release/release-manifest.json"
+            echo
             echo "Verify after download as described in docs/releases.md. This release is immutable; a correction is a new release (ADR 0011)."
             echo
             echo "Maintained by the Redact Secret project; project-maintained evidence is not independent validation."

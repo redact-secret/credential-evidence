@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:evidence-review-history",
   "title": "Evidence review history",
   "description": "Append-only log of who looked at one evidence record, when, and what they concluded. It describes the evidence, never a product status: no event type means stable, provisional, pending or any release decision. Product workflow steps (issue filed, fix shipped) are recorded, if at all, as externalRefs on an event.",
-  "x-schemaRevision": "1.6.0",
+  "x-schemaRevision": "1.7.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "subject", "events"],
@@ -28,9 +28,19 @@
         "type": "object",
         "additionalProperties": false,
         "required": ["seq", "type", "at", "actor", "note"],
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "decided" } }, "required": ["type"] },
+            "then": {
+              "required": ["dissent", "reversingEvidence"],
+              "properties": { "actor": { "properties": { "role": { "const": "maintainer" }, "affiliation": { "const": "project-maintainer" } } } }
+            },
+            "else": { "not": { "anyOf": [{ "required": ["dissent"] }, { "required": ["reversingEvidence"] }] } }
+          }
+        ],
         "properties": {
           "seq": { "type": "integer", "minimum": 1 },
-          "type": { "enum": ["authored", "observed", "reviewed", "disputed", "resolved", "corrected", "withdrawn", "superseded"] },
+          "type": { "description": "decided (schema revision 1.7.0, ADR 0020): the sole maintainer finalized a project-policy outcome or class during the solo-maintainer period. It is not a review, never moves a record to reviewed, and needs dissent and reversingEvidence.", "enum": ["authored", "observed", "reviewed", "decided", "disputed", "resolved", "corrected", "withdrawn", "superseded"] },
           "at": { "description": "When the reviewed evidence was observed or the decision was made.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/dateOrDateTime" },
           "actor": {
             "type": "object",
@@ -53,6 +63,8 @@
           },
           "verdict": { "enum": ["supports", "does-not-support", "inconclusive", "not-assertable"] },
           "note": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+          "dissent": { "description": "Only on a decided event: the strongest argument against the decision. 'None was raised' is not an answer; state the best counter-argument.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+          "reversingEvidence": { "description": "Only on a decided event: the evidence that would reverse the decision.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
           "evidence": { "type": "array", "items": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/pinnedLink" } },
           "externalRefs": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/externalRefs" }
         }

@@ -10,6 +10,7 @@ import Ajv2020 from "ajv/dist/2020.js";
 import { checkIdentity } from "./identity.mjs";
 import { checkNarrativeLint } from "./narrative-lint.mjs";
 import { checkPlaceholders } from "./placeholders.mjs";
+import { fixtureReviewState } from "./review-state.mjs";
 import { checkItemRepresentation, contentBytes, sha256Hex } from "./representation.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -152,6 +153,34 @@ export function checkIntegrity(entries) {
     if (record.kind !== "evidence-review-history" || record.subject.kind !== "family-narrative") continue;
     if (narrativeHistory.has(record.subject.id)) err(path, `a second review history for narrative '${record.subject.id}' (also ${narrativeHistory.get(record.subject.id).id})`);
     else narrativeHistory.set(record.subject.id, record);
+  }
+
+  // Review state `maintainer-only` (schema revision 1.7.0, ADR 0020, docs/governance/solo-maintainer-period.md): the sole
+  // maintainer finalized a project-policy outcome. It is valid only on a project-policy basis and only with a `decided` event
+  // (dissent and reversing evidence, by a maintainer) in the review history of the record that holds the decision.
+  const historiesOf = new Map(); // `${subject.kind}:${subject.id}` -> events
+  for (const { record } of entries) {
+    if (record.kind !== "evidence-review-history") continue;
+    const key = `${record.subject.kind}:${record.subject.id}`;
+    historiesOf.set(key, [...(historiesOf.get(key) ?? []), ...record.events]);
+  }
+  const hasDecision = (kind, id) => (historiesOf.get(`${kind}:${id}`) ?? []).some((e) => e.type === "decided");
+  for (const { path, record: r } of entries) {
+    if (r.lifecycle === "maintainer-only") {
+      if (r.kind !== "case" && r.kind !== "scenario") err(path, `lifecycle 'maintainer-only' is only for a case or a scenario (a fixture set states it per evidence entry with reviewState); ${r.kind} cannot carry it`);
+      else {
+        const basis = r.kind === "case" ? r.expectation.basis : r.evidenceBasis.basis;
+        if (basis !== "project-policy") err(path, `lifecycle 'maintainer-only' needs basis 'project-policy', not '${basis}': the solo-maintainer rule never covers provider-documented, tool-corroborated or unresolved claims`);
+        if (!hasDecision(r.kind, r.id)) err(path, `lifecycle 'maintainer-only' needs a 'decided' event (with dissent and reversingEvidence) in the review history of ${r.kind} '${r.id}'`);
+      }
+    }
+    if (r.kind === "fixture-set") {
+      for (const [key, ev] of Object.entries(r.evidence ?? {})) {
+        if (ev.reviewState === undefined) continue;
+        if (!has(ev.decidedIn.kind, ev.decidedIn.id)) err(path, `evidence '${key}': decidedIn ${ev.decidedIn.kind} '${ev.decidedIn.id}' does not exist`);
+        else if (!hasDecision(ev.decidedIn.kind, ev.decidedIn.id)) err(path, `evidence '${key}': reviewState 'maintainer-only' needs a 'decided' event in the review history of ${ev.decidedIn.kind} '${ev.decidedIn.id}'`);
+      }
+    }
   }
 
   const legacyMapped = new Map(); // legacy entity -> the map file that lists it (unique across shards)
@@ -334,7 +363,8 @@ export function checkIntegrity(entries) {
             }
           }
           const planOfCell = item.cell ? get("fixture-plan", item.cell.plan) : undefined;
-          for (const problem of checkItemRepresentation(item, bytes, { set: r, itemById, bytesOf: (i) => contentBytes(i, baseBytes), plan: planOfCell })) err(path, `${where}: ${problem}`);
+          const policy = fixtureReviewState(item, r, get) === "maintainer-only";
+          for (const problem of checkItemRepresentation(item, bytes, { set: r, itemById, bytesOf: (i) => contentBytes(i, baseBytes), plan: planOfCell, protectFragments: policy })) err(path, `${where}: ${problem}`);
           if (item.candidateReading) {
             // A candidate remains non-asserting, but its representation metadata is a
             // factual claim: re-derive it with the same rules as expected spans.
