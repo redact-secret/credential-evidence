@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "postman-collection-auth-value-attribute-holding-variable-reference",
+  "title": "Postman collection export: variable reference in an auth attribute entry",
+  "summary": "The same synthetic Postman Collection v2.1 export as the literal twin, with one change: the entry whose key is value now holds the double-brace reference {{postman_api_key}} instead of a credential-shaped string. The header name, the in entry and the collection id are unchanged.",
+  "rationale": "Postman's documentation recommends exactly this arrangement for API key and bearer auth: store the value in a variable and reference it by name. The twin differs from the literal in one value only, so the expectation flips on that value. A reader that reacts to the apikey auth block, to the entry label value or to the name postman_api_key reports a reference that holds no secret byte and penalises the recommended practice. The reference names a variable that is not defined in this input; where it resolves is outside the bytes.",
+  "caseTypes": [
+    "twin"
+  ],
+  "families": [
+    {
+      "family": "postman:api-key",
+      "role": "context"
+    }
+  ],
+  "scenarios": [
+    "templated-reference",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "No span. Postman documents the double-brace form as a reference to a variable, not as a value, and recommends storing API key and bearer values in variables and referencing them. The string {{postman_api_key}} therefore carries no credential bytes. Preconditions: the input is read as exported text; no variable resolution is performed, so the expectation says nothing about what the name resolves to in any other input.",
+    "sources": [
+      {
+        "sourceId": "learning-postman-com-148f3e489e",
+        "supports": "For API key auth: 'You can store your values in variables for extra security.' For bearer auth: 'For added security, store it in a variable and reference the variable by name.'",
+        "locator": "sections: API key; Bearer token"
+      },
+      {
+        "sourceId": "learning-postman-com-4e02ef8609",
+        "supports": "Double curly braces reference a variable throughout Postman, for example in a request's authorization settings.",
+        "locator": "section: Use variables, 'double curly braces ({{ and }})'"
+      },
+      {
+        "sourceId": "github-com-postmanlabs-postman-collection-38ff9999b6",
+        "supports": "A variable is referred to from anywhere in the collection using the double-brace {{variable-id}} format and replaced by its value when resolved.",
+        "locator": "lib/collection/variable.js#L136-L140"
+      },
+      {
+        "sourceId": "learning-postman-com-1db253b8e8",
+        "supports": "Request auth can use environment, collection and global variables, and Postman recommends storing sensitive data as vault secrets.",
+        "locator": "section: View authorization details"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "postman-collection-auth-value-attribute-holding-literal-credential",
+      "note": "One property changed: the value of the value attribute entry, a literal for a reference. Expected outcome flips from must-flag to must-not-flag."
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-04; no scanner was run. Origin: evidence-derived twin of the literal case, synthetic input. This case adds the Postman auth attribute layout to the generic reference rule; it does not restate that a reference is safe."
+}

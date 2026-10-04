@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "postman-same-variable-name-in-collection-and-environment-scopes",
+  "title": "Postman exports: one variable name defined with different literals in collection and environment scope",
+  "summary": "Two synthetic exports defining the variable postman_api_key. In the collection export it is a collection variable holding one synthetic PMAK-shaped literal, and the collection's apikey auth value is the reference {{postman_api_key}}. In the environment export the same name is an ordinary variable holding a different synthetic PMAK-shaped literal. Each export is its own input.",
+  "rationale": "Postman documents that when a name is declared in two scopes the narrowest scope supplies the value, and that environment is narrower than collection, so at run time the environment literal would shadow the collection one. The bytes of each export do not say so. A reader that de-duplicates by variable name, follows the reference to one definition, or treats the shadowed definition as dead drops a stored credential. Each literal is a stored value in its own file and gets its own span; the reference in the collection export holds no secret byte and gets none. Which value wins is a resolution fact that needs both documents and a declared scope order, and it does not change where the literals are.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "postman:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "multiple-credentials-per-input",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "tool-corroborated",
+    "rationale": "Flag one span in each input: the PMAK-shaped literal in the collection variable's value property, and the different PMAK-shaped literal in the environment variable's value property; the double-brace reference in the collection auth value is not flagged. The spans rest on the family grammar (two artifacts by different maintainers are consistent with it). The scope facts come from Postman's variables page: scopes run from global to local, collection and environment values are held independently, and the narrowest scope wins. Preconditions: each export is scanned as its own input, read as UTF-8 JSON text. Any expectation that depends on resolving the reference or on the scope order across the two inputs is not asserted here; it needs a declared variable-resolution input contract, which is linked consumer work, not an assumed capability.",
+    "sources": [
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+        "supports": "The postman-api-token rule matches PMAK- followed by 24 hexadecimal characters, a hyphen and 34 hexadecimal characters.",
+        "locator": "config/gitleaks.toml#L2770-L2775 (tag v8.30.1)"
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-8e737b1594",
+        "supports": "The Postman detector pattern matches PMAK- followed by 59 characters, consistent with the 24 + hyphen + 34 split but wider in alphabet.",
+        "locator": "pkg/detectors/postman/postman.go#L29 (tag v3.97.4)"
+      },
+      {
+        "sourceId": "learning-postman-com-5a58f5b4a8",
+        "supports": "If a variable with the same name is declared in two scopes the value from the narrowest scope is used; scopes run from broadest to narrowest as global, collection, environment, data, local; collection variables are independent of environments.",
+        "locator": "section: Variable scopes"
+      },
+      {
+        "sourceId": "github-com-postmanlabs-postman-collection-31071a711d",
+        "supports": "An environment export is a name plus a values array of key/value variable definitions; with duplicate names in one scope the last enabled variable is the one returned.",
+        "locator": "lib/collection/variable-scope.js#L32-L53 and #L132-L139"
+      },
+      {
+        "sourceId": "schema-postman-com-592510d80e",
+        "supports": "A collection document holds a variable list whose entries have a key, a value and a type.",
+        "locator": "#/definitions/variable and the top-level variable property"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-04; no scanner was run. Origin: evidence-derived from documented scope semantics, synthetic inputs. Cross-input resolution (reference to definition, shadowing) is not measurable under a per-input contract and is handed off to #150 and credential-eval."
+}
