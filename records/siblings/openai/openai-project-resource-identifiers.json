@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "openai-project-resource-identifiers",
+  "families": [
+    "openai:secret-api-key",
+    "openai:admin-api-key"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "OpenAI key, project and service-account identifiers",
+  "description": "Identifiers in OpenAI's Administration API reference: a project API key id (shown as key_abc), a project id (proj_abc) and a service account id (svc_acct_abc), also passed in headers such as OpenAI-Project. The reference describes them as identifiers that can be referenced in API endpoints. They appear next to key values in the same responses and configuration, which is why a reader may confuse them with the key; no page read states a grammar for these identifiers or says anything about whether they are confidential.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "developers-openai-com-b6d42e4346",
+      "supports": "ProjectAPIKey.id is the identifier which can be referenced in API endpoints; example id key_abc."
+    },
+    {
+      "sourceId": "developers-openai-com-0953928294",
+      "supports": "Example response with service account id svc_acct_abc and key id key_abc; project path parameter proj_abc."
+    },
+    {
+      "sourceId": "developers-openai-com-e9461e6493",
+      "supports": "Organization and project IDs are found in dashboard settings and are passed in OpenAI-Organization and OpenAI-Project headers."
+    }
+  ],
+  "observedAt": "2026-10-04",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Class is unresolved because the sources document the identifier role and example spellings only, not a format and not non-confidentiality; an identifier role is not extended to a benign-expectation basis."
+}
