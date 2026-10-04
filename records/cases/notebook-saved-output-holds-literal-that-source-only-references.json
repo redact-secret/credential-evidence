@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "notebook-saved-output-holds-literal-that-source-only-references",
+  "title": "Notebook: source names an environment variable, saved stdout holds the value",
+  "summary": "A synthetic notebook with one code cell whose source only names an environment variable (os.environ[\"AWS_SECRET_ACCESS_KEY\"]) and prints it, and whose saved stdout stream output holds the resolved 40-character value on a line labelled aws_secret_access_key. A twin keeps the same source and saves a row of asterisks instead.",
+  "rationale": "A notebook stores a cell's outputs next to its source. The source carries a reference, which names a secret without holding it; the output carries the resolved literal. Failure mode: reading the reference in the source as proof that the file is clean, or the literal in the output as covered because the source was. The expected span is the literal in the output only; the reference text gets no span. The pairing is authored, not observed: the output is written as if the cell had run, but no notebook was executed and no real value existed. Which of the two a consumer sees depends on whether it reads output blocks at all, an unmeasured capability recorded as a consumer follow-up and not assumed.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "aws:iam-user-secret-access-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag the value inside the stdout text and nothing in the source. The notebook format documents that a code cell holds source code and a list of outputs of executing it, and that a stream output stores its text under name stdout or stderr; the IAM user guide states that the secret access key is confidential. That a printed environment value is the secret is the authored premise of the fixture, not a claim made by either source. Synthetic and never issued: each value was built from an authored stem (SYNTHETIC plus a role word plus NEVERISSUED), zero padding and a fixed tail so that it matches the 40-character shape but is not a value any AWS account issued; no notebook was executed, so every output block is authored text, not a recording.",
+    "sources": [
+      {
+        "sourceId": "nbformat-readthedocs-io-5392927899",
+        "supports": "Code cells contain source code and a list of outputs associated with executing that code; a stream output has output_type stream, name stdout or stderr, and text.",
+        "locator": "Code cells; Code cell outputs: stream output (nbformat 5.11)"
+      },
+      {
+        "sourceId": "raw-githubusercontent-com-jupyter-nbformat-35a7b92105",
+        "supports": "A stream output requires output_type, name and text; text is a string or an array of strings.",
+        "locator": "definitions/stream"
+      },
+      {
+        "sourceId": "jupyter-client-readthedocs-io-7c1e84028b",
+        "supports": "The transient dict of a display_data message is information not to be persisted to a notebook or other documents, intended to live only during a live kernel session; cited to separate transient message fields from the persisted output fields.",
+        "locator": "Display Data (transient)"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-1e9489a68f",
+        "supports": "access key = ID + secret used together; secret retrievable only at creation; do not provide access keys to unauthorized parties",
+        "locator": "Manage access keys for IAM users, introduction and Important box"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

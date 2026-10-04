@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "jupyter-notebook-files-authored",
+  "title": "Jupyter notebook files: code, saved outputs and metadata (authored)",
+  "description": "Hand-authored synthetic .ipynb texts for issue #194. Each notebook is written in the nbformat 4.5 JSON shape (sorted keys, one-space indent) from an authored description, never produced by executing a notebook. Every secret-shaped value is synthetic, built from an obviously fake stem and never issued; the benign image is a 48x48 PNG built from a fixed pseudo-random generator.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "jupyter-notebook-files-authored--secret-base-source-array",
+      "case": "aws-access-key-pair-secret-boundary",
+      "path": "secret-base-source-array/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "5a9695d0afd07464d4c9a0a3252cfddefac8e84617112b5ba1837d0fd73680f6",
+      "text": "aws_secret_access_key=SYNTHETICNBSOURCEARRAYNEVERISSUED000+/Ab\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "jupyter-notebook-files-authored--secret-base-output-only",
+      "case": "aws-access-key-pair-secret-boundary",
+      "path": "secret-base-output-only/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "8faa233ade658994364cd6cc60897f06dbe4d5a7af5e5da4f4cf7c8325d01ce4",
+      "text": "aws_secret_access_key=SYNTHETICNBOUTPUTONLYNEVERISSUED0000+/Ab\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "jupyter-notebook-files-authored--secret-base-repeated",
+      "case": "aws-access-key-pair-secret-boundary",
+      "path": "secret-base-repeated/fixture.txt",
+      "context": "shell-assignment",
+      "sha256": "58882b60f9720368f7a819570f81ab591253233e8eeb28c96db9496f922700bc",
+      "text": "aws_secret_access_key=SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "jupyter-notebook-files-authored--source-one-array-element-per-line",
+      "case": "notebook-cell-source-lines-joined-across-array-elements",
+      "path": "source-one-array-element-per-line/fixture.ipynb",
+      "context": "jupyter-notebook-json",
+      "sha256": "32bd42d8394a2130c337c285b0fdd858460c10f7e1e3ac7281b902a86cefc3e1",
+      "text": "{\n \"cells\": [\n  {\n   \"cell_type\": \"code\",\n   \"execution_count\": null,\n   \"id\": \"synthetic-cell-0001\",\n   \"metadata\": {},\n   \"outputs\": [],\n   \"source\": [\n    \"import os\\n\",\n    \"aws_secret_access_key = \\\"SYNTHETICNBSOURCEARRAYNEVERISSUED000+/Ab\\\"\\n\",\n    \"print(len(aws_secret_access_key))\"\n   ]\n  }\n ],\n \"metadata\": {\n  \"kernelspec\": {\n   \"display_name\": \"Python 3\",\n   \"language\": \"python\",\n   \"name\": \"python3\"\n  },\n  \"language_info\": {\n   \"name\": \"python\"\n  }\n },\n \"nbformat\": 4,\n \"nbformat_minor\": 5\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 204,
+            "end": 244,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-source-array"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "jupyter-notebook-files-authored--secret-base-source-array"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "jupyter-notebook-json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jupyter-notebook-files-authored--source-value-split-between-array-elements",
+      "case": "notebook-cell-source-lines-joined-across-array-elements",
+      "path": "source-value-split-between-array-elements/fixture.ipynb",
+      "context": "jupyter-notebook-json",
+      "sha256": "8ed83546f42fa87ab988012a9e55e7ce917f1e77338c53feb3dc3d5aec9a7876",
+      "text": "{\n \"cells\": [\n  {\n   \"cell_type\": \"code\",\n   \"execution_count\": null,\n   \"id\": \"synthetic-cell-0001\",\n   \"metadata\": {},\n   \"outputs\": [],\n   \"source\": [\n    \"import os\\n\",\n    \"aws_secret_access_key = \\\"SYNTHETICNBSOURCE\",\n    \"ARRAYNEVERISSUED000+/Ab\\\"\\n\",\n    \"print(len(aws_secret_access_key))\"\n   ]\n  }\n ],\n \"metadata\": {\n  \"kernelspec\": {\n   \"display_name\": \"Python 3\",\n   \"language\": \"python\",\n   \"name\": \"python3\"\n  },\n  \"language_info\": {\n   \"name\": \"python\"\n  }\n },\n \"nbformat\": 4,\n \"nbformat_minor\": 5\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 204,
+            "end": 252,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-source-array",
+            "fragments": [
+              {
+                "start": 204,
+                "end": 221
+              },
+              {
+                "start": 229,
+                "end": 252
+              }
+            ]
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "jupyter-notebook-files-authored--secret-base-source-array"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "jupyter-notebook-json"
+          },
+          {
+            "op": "fragment",
+            "mechanism": "json-string-array-elements",
+            "lineBreak": "none",
+            "reconstruction": "reconstructs-original"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jupyter-notebook-files-authored--stdout-literal-where-source-has-environment-reference",
+      "case": "notebook-saved-output-holds-literal-that-source-only-references",
+      "path": "stdout-literal-where-source-has-environment-reference/fixture.ipynb",
+      "context": "jupyter-notebook-json",
+      "sha256": "8820ea2c20a3a69e667a38f5a5350baa1aaf1863c9680d9c9f66ba4baaa414fe",
+      "text": "{\n \"cells\": [\n  {\n   \"cell_type\": \"code\",\n   \"execution_count\": 1,\n   \"id\": \"synthetic-cell-0001\",\n   \"metadata\": {},\n   \"outputs\": [\n    {\n     \"name\": \"stdout\",\n     \"output_type\": \"stream\",\n     \"text\": [\n      \"aws_secret_access_key=SYNTHETICNBOUTPUTONLYNEVERISSUED0000+/Ab\\n\"\n     ]\n    }\n   ],\n   \"source\": [\n    \"import os\\n\",\n    \"print(\\\"aws_secret_access_key=\\\" + os.environ[\\\"AWS_SECRET_ACCESS_KEY\\\"])\"\n   ]\n  }\n ],\n \"metadata\": {\n  \"kernelspec\": {\n   \"display_name\": \"Python 3\",\n   \"language\": \"python\",\n   \"name\": \"python3\"\n  },\n  \"language_info\": {\n   \"name\": \"python\"\n  }\n },\n \"nbformat\": 4,\n \"nbformat_minor\": 5\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 237,
+            "end": 277,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-output-only"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "jupyter-notebook-files-authored--secret-base-output-only"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "jupyter-notebook-json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jupyter-notebook-files-authored--stdout-mask-where-source-has-environment-reference",
+      "case": "already-masked-values",
+      "path": "stdout-mask-where-source-has-environment-reference/fixture.ipynb",
+      "context": "jupyter-notebook-json",
+      "sha256": "a08d3acd0525595e4627737469b2a78eb4b4d2763222d14620230e48404b4499",
+      "text": "{\n \"cells\": [\n  {\n   \"cell_type\": \"code\",\n   \"execution_count\": 1,\n   \"id\": \"synthetic-cell-0001\",\n   \"metadata\": {},\n   \"outputs\": [\n    {\n     \"name\": \"stdout\",\n     \"output_type\": \"stream\",\n     \"text\": [\n      \"aws_secret_access_key=****************************************\\n\"\n     ]\n    }\n   ],\n   \"source\": [\n    \"import os\\n\",\n    \"print(\\\"aws_secret_access_key=\\\" + os.environ[\\\"AWS_SECRET_ACCESS_KEY\\\"])\"\n   ]\n  }\n ],\n \"metadata\": {\n  \"kernelspec\": {\n   \"display_name\": \"Python 3\",\n   \"language\": \"python\",\n   \"name\": \"python3\"\n  },\n  \"language_info\": {\n   \"name\": \"python\"\n  }\n },\n \"nbformat\": 4,\n \"nbformat_minor\": 5\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jupyter-notebook-files-authored--same-value-in-source-stream-result-json-error-and-traceback",
+      "case": "notebook-literal-repeated-in-source-and-each-saved-output-kind",
+      "path": "same-value-in-source-stream-result-json-error-and-traceback/fixture.ipynb",
+      "context": "jupyter-notebook-json",
+      "sha256": "31174e82262e74eb9b516b89cf79b7cc871e39de2a56ade5a948ca60414113d7",
+      "text": "{\n \"cells\": [\n  {\n   \"cell_type\": \"code\",\n   \"execution_count\": 1,\n   \"id\": \"synthetic-cell-0001\",\n   \"metadata\": {},\n   \"outputs\": [\n    {\n     \"name\": \"stdout\",\n     \"output_type\": \"stream\",\n     \"text\": [\n      \"aws_secret_access_key=SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab\\n\"\n     ]\n    },\n    {\n     \"data\": {\n      \"application/json\": {\n       \"aws_secret_access_key\": \"SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab\"\n      },\n      \"text/plain\": [\n       \"{'aws_secret_access_key': 'SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab'}\"\n      ]\n     },\n     \"execution_count\": 1,\n     \"metadata\": {},\n     \"output_type\": \"execute_result\"\n    }\n   ],\n   \"source\": [\n    \"aws_secret_access_key = \\\"SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab\\\"\\n\",\n    \"print(\\\"aws_secret_access_key=\\\" + aws_secret_access_key)\\n\",\n    \"{\\\"aws_secret_access_key\\\": aws_secret_access_key}\"\n   ]\n  },\n  {\n   \"cell_type\": \"code\",\n   \"execution_count\": 2,\n   \"id\": \"synthetic-cell-0002\",\n   \"metadata\": {},\n   \"outputs\": [\n    {\n     \"ename\": \"RuntimeError\",\n     \"evalue\": \"aws_secret_access_key=SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab\",\n     \"output_type\": \"error\",\n     \"traceback\": [\n      \"---------------------------------------------------------------------------\",\n      \"RuntimeError                              Traceback (most recent call last)\",\n      \"Cell In[2], line 1\",\n      \"----> 1 raise RuntimeError(\\\"aws_secret_access_key=SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab\\\")\",\n      \"\",\n      \"RuntimeError: aws_secret_access_key=SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab\"\n     ]\n    }\n   ],\n   \"source\": [\n    \"raise RuntimeError(\\\"aws_secret_access_key=SYNTHETICNBREPEATEDNEVERISSUED000000+/Ab\\\")\"\n   ]\n  }\n ],\n \"metadata\": {\n  \"kernelspec\": {\n   \"display_name\": \"Python 3\",\n   \"language\": \"python\",\n   \"name\": \"python3\"\n  },\n  \"language_info\": {\n   \"name\": \"python\"\n  }\n },\n \"nbformat\": 4,\n \"nbformat_minor\": 5\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 237,
+            "end": 277,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-repeated"
+          },
+          {
+            "start": 377,
+            "end": 417,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-repeated"
+          },
+          {
+            "start": 485,
+            "end": 525,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-repeated"
+          },
+          {
+            "start": 688,
+            "end": 728,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-repeated"
+          },
+          {
+            "start": 1063,
+            "end": 1103,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-repeated"
+          },
+          {
+            "start": 1411,
+            "end": 1451,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-repeated"
+          },
+          {
+            "start": 1510,
+            "end": 1550,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-repeated"
+          },
+          {
+            "start": 1634,
+            "end": 1674,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "jupyter-notebook-files-authored--secret-base-repeated"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "jupyter-notebook-files-authored--secret-base-repeated"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "jupyter-notebook-json"
+          },
+          {
+            "op": "repeat",
+            "count": 8
+          }
+        ]
+      }
+    },
+    {
+      "id": "jupyter-notebook-files-authored--base64-png-display-output-with-cell-ids-and-execution-timestamps",
+      "case": "notebook-image-data-cell-ids-and-execution-metadata-without-credential",
+      "path": "base64-png-display-output-with-cell-ids-and-execution-timestamps/fixture.ipynb",
+      "context": "jupyter-notebook-json",
+      "sha256": "ed1e77bb5b0b36c3e3e8d6c00e5bec7521f62eec988ab057f4802df6baf25feb",
+      "text": "{\n \"cells\": [\n  {\n   \"cell_type\": \"markdown\",\n   \"id\": \"a1b2c3d4\",\n   \"metadata\": {},\n   \"source\": [\n    \"# Synthetic notebook\\n\",\n    \"Output below is generated image data.\"\n   ]\n  },\n  {\n   \"cell_type\": \"code\",\n   \"execution_count\": 3,\n   \"id\": \"3b1f7a52-0c1d-4e8a-9b6f-5d2e8c7a9f10\",\n   \"metadata\": {\n    \"execution\": {\n     \"iopub.execute_input\": \"2026-10-04T09:00:00.000000Z\",\n     \"iopub.status.busy\": \"2026-10-04T09:00:00.000000Z\",\n     \"iopub.status.idle\": \"2026-10-04T09:00:01.000000Z\",\n     \"shell.execute_reply\": \"2026-10-04T09:00:01.000000Z\"\n    },\n    \"tags\": [\n     \"synthetic-example\"\n    ]\n   },\n   \"outputs\": [\n    {\n     \"data\": {\n      \"application/vnd.exampleorg.type+json\": {\n       \"key1\": \"data\",\n       \"key2\": [\n        \"some\",\n        \"values\"\n       ]\n      },\n      \"image/png\": [\n       \"iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAbIUlEQVR4nC2ZY3SeXbeF79hWkye2\\n\",\n       \"baOxbdu2baexGrMxGrsxG9tG4zQ6o+93/u8x9o8919zXnAvYgHzwfqbGQ4i8KOXLz+Y575mJgBHm\\n\",\n       \"yF3tI810r9q6AInVCafGrLgszUzOW33TK+SyG3eiSIi8EopcAZ0JgOs2l5z6HM/rHcYFh1eeO5jd\\n\",\n       \"6nqRTboBULOHKOiffYxe1li6C+QmQi1wqSykEPdlzAgf2mgUkjUDVeVtKOod0SWzgxA+V9HK9Rdi\\n\",\n       \"KUXI9SEMjhYAawRerXK3xTW5uFkiGeTZlVlf2kz81ZXBm4wJCZtN3M7MjV+NaxvCwhghgeRjwIiL\\n\",\n       \"32kO69dhy6/rQpGB3xBtGZvs1ZLdizDeDvBZLO7vu8nXF1VGqzPVRbKIS2/CTbg+dsUM+yWSVkY7\\n\",\n       \"FYW9DdYlBGFdOQyuNroOVck5FSEaoM6O9KVe54P+9mTcr81uQlI3AZJU6ftn6jDM/fuIwSqKsFM/\\n\",\n       \"fIdWxy2FS3kVfiZgRG2jQnurFE08dOCWRlv5QthR38h8xyk7+DSizy1ecfzONays+PQoZl1ruZc+\\n\",\n       \"HEfmbz/IHyaNbX33dYP1sqreOEDoobGzKBqVLPTjgax8r5vRc/QWkg3h9JxXANWr4eKhYDJ/OgIJ\\n\",\n       \"ImjX3ERFNtJJk/ClEg8QVOjCZ/HWlae64GA226L9wd4mTut3bMZxbT/o6f9i5PLndkvVqjMqd6x9\\n\",\n       \"kKMFYtZHLytoT4vDhqWXm+/ZHpINQaMhST1D7l4ecF4F79ZMEHLqE5bhSfLB3WqfJllWf4WXh2FP\\n\",\n       \"Gu2Asvw4c0FHhtxhH5V/4DFMIRFHLH7v7NlUpiZrmlEvvxuOl3QTmO4+XU4H8Cmy/z64cDi3DhbH\\n\",\n       \"kqSPpmSUGUbPzIZ4om04ifsqeI0Q0BULMKoum0PAtl6nhgob2ugkqxZc75MfS2m/arOQFmyva0NW\\n\",\n       \"Z//8OAd7xNr+sSQY08yAEXzV9/ujne5b2uizpPKoCpqHEyX0xnBxSJkh/vLq0tUPFtXIZTdnkKtI\\n\",\n       \"IzjWvq0qlQw9Ni/s7TG3cu7QJQBrWO3jXccmoXMzko7H+muvWIGz0Vh2JsYvIRnuuLG9/MytnXGi\\n\",\n       \"T5EJvPGLstDV2HNuMGSLnIIFmXPCtLnPVT52vOGSEanWawXF3Cnzf9Kd0qZFDxtM5eh8rHk6Z6KK\\n\",\n       \"T8G8GnxkWmAi5O+yYvFv2vgofNDyLVmux/89jn59F5ocKU5XG7IUtvBGCjtSYAcD7MStQTUUGOP3\\n\",\n       \"lC3VXGxUhSO2pS57ZeHxVPfLnLw2usguEfo8Cq8nYCHTl58EHWJ7wcx1NJbY3MIpSv3VEux0HQrH\\n\",\n       \"tK8fs+l+DuQcWKL13/0eHXUgyZW/FOmojy+grdhWulDF36MHCX7HM4XLHfXHW+oL9yVjbBmididD\\n\",\n       \"5OQ3v4YH7XWB1Ulw4tubaMpmJKf6EmDFJ14L5+QDLR8JUYAr9Jdjhez74cDAd/ogLIR8/Er36rme\\n\",\n       \"X7NnCl+9X48MKjrTK/F/MmyEJBYW/m/y696zEGm+jiB3v9ljmk3sRCuSTuvXQJB8Sxs1Q+JLwZiY\\n\",\n       \"/Ez5zcoBxb1aiL4WCfXhWFs1Gfb+3sk16TbsfRTh6NAU5C9dm3/5FtiGqj+QFgqiFHEDBEPWhJVv\\n\",\n       \"au3s3gBIzr/gF+7YqtOY/RCLKM03bcEJauuCCafDkaHdns9V7w+FxB+zZwHWmhJ9N4cIcd4f4lr1\\n\",\n       \"OREl7qK4TecYWX0o6Sz5ae7fD3PdS6lXnnhecg3tS0bQHdBbcXfR6A1N3hLU1nFqn9Pnm6Xcrtd8\\n\",\n       \"LuSae/UA1T+T6z8/Istif+GHfYMbn/X7BfQ5Zh6Gbs8cvSF0OJ0iT3j8aDc1543NmLaVLr/KJe0g\\n\",\n       \"aoYq7bNvEFbBQOsywhvN1NFf1jL6274GNtHnTS4VfkJEMnrip2BuOMTADveNbb51kP6k3kPB97Wl\\n\",\n       \"AC2BCZnf3L9A5Uf1KXl6nK0xklJqOwSVBZZGBjLkDriYw9I8mO1GRq8NGelUx9UkoheYzw05yztw\\n\",\n       \"8qSDybS/9aTW03SdFkPH+bG2VNh59eCACDO6w2KaxDXJOQUSysYqs1orjcyHDyBS2YWaNCWsWB3e\\n\",\n       \"xh5jrmm6N3NY+YkR1V5fwN3Rsz5bu+1ssWJ+ox8UxE4do+/n0/+pSrjp3OuF2Xac4KIcNeV+Aqln\\n\",\n       \"d9q67Umb2Cue7IJpnC7lsVaBrZTxKjRHjCDTo68BEBaS5r4ONeXb1WnX7tm5mOSmefKxLJnim4bL\\n\",\n       \"bkJ2sb4nfnmYW77S4qEEpblBZ5neT5ro67BNclY5jUbIDjt+3xJyCbj5jXqFukFAw3h7F8Y6FxCY\\n\",\n       \"KI39OLICFdQyzWmH9MYh3pOnWvxFoZ5fAGXTXOKuWJEm/CiGXvtB4N7/iRVDl7HRJxiJU6LBMVVM\\n\",\n       \"1B7qCZDjBEjhOpzDdDLhqacL0vUlsEXo3ww+eXw3Tcj78fWtv29HosTM1xHBmYbfDpb9b57IzYJ8\\n\",\n       \"R+ZGzomIGHNEA8IFs0iE+XsVl/DE9RmYh5HNPBLF/jTg6APqUFeWCkTH7b7jzF34K3d+vlIIWB0e\\n\",\n       \"tcPJcicWkIk5s9i/OJCuTQL4eNgt/KV1rvr0K3dHGYAV+ce+UrB4BpC1PK3PMfglfhIsV+IiL9zg\\n\",\n       \"gI6LKKijvefTRI+rkhGc7p9866A1+artP/nhrIoGv5uGy0qHu7Y17r5XXmqD+qLDGah3fjANW+M2\\n\",\n       \"mVo5kSHM8n3e6mUyjlTJvsl4RMVZLVx99Lqz8rVESXi5WAx9mBEW1+v0/kCUxukqckbBj5VBy0JO\\n\",\n       \"1yKoBqTRHsW69KnTisjn90fEs2ZxjK/Yyz3Pqxre3j8GnAS1Vkym52aXRJwvnS9PRJ0RbPZ0PJjj\\n\",\n       \"Hfc+FO7Gp38vH7bujWNuLSFj7P7iheaYuMGxW1P/iwLzaMP8370s53xGsP8OT/rjKHwyB9nFfHiy\\n\",\n       \"+8qH3WdipLrVYoTd5N2KlxVvec3ByhufPtwQxNF/AL/L3pT1xkbJIxH+bM8FbQwXX6dKKeeIFvf8\\n\",\n       \"/lT1nKmMR2NrMQgnJ4jetaXIlZX9nzJW/rJBUSJRGm/qgsm6qN7fz8ayL9CfFkv/3T09RL3ZfBCT\\n\",\n       \"bXKF2Nvz2XYbnrd/Vq2icMrSQKZ/vzpwWY9treC2tERkTKR+Z56+kz/zM2ngXNh6NAo0mtjvOU6f\\n\",\n       \"7QPcdXNbfCe5pizpSsDWSW69vwtEwWLxUEdSNwS7JgZ+8T3TaStHqf1BdugOIpNY9OEEei3u5etv\\n\",\n       \"vOhCPmRBf3NkCzm9zMQ9KZB4Rzm1JbU5jkCXBiShTyBPa/tpWbghGSFVlu3mW18m3bX1c4Itq99o\\n\",\n       \"D6SANVOgN/mXqcYGffkpA4JgBar8Rbsu+h0VVwVyFDIAhohCZlUV3UZU8GdirWv/0wNIert7OTbM\\n\",\n       \"WDEN5vFDTNmzW9o+rCol4ol7qRRGyQs01QE+4iVUaOy+klGM4Hv2EwyLZTyU+gXW1PJ5mt1+4asi\\n\",\n       \"lFASTRh23T6aMtd73L9v1WnFtkmL7JcItrgxmHOBQriw/gyy5vwl/KU+DH8zju5cDDYUu6ZoJ+pM\\n\",\n       \"XsBzgB2grLxVZuGItrAstIxEXgxdDYV4etnR3o8ZJq0j2UjdSM7Mpk1MaW829nJA6B9mwGAiHzTB\\n\",\n       \"YGiwkNhMK7tEiAwHq+NYmTaqVLaXxlNpadxqDtZCHkmkVdKVMgX/R+mIrOSkoaQ2QIQe1VOZHs3m\\n\",\n       \"HwQmqtSLcxh4TfJYNc2XvWvRdJgU3DqL8UYRYG8Z7b0m0ACy4daa2LmltX977D/Zvzn19Hf92cAQ\\n\",\n       \"qEHfrneKGeJw8aQn2Mw0l37G8bpfUjjPAidTPnuvq799dZeC5mbtgHSjm49dawTbqvOX7a0++2JV\\n\",\n       \"0h2BWMyAHh/17WeFFWAzPtFUpv9zUK3uqbiymHNWiTsXLNLm2W+ZVs9rrHrTbcROroFQDM+OxVp+\\n\",\n       \"7s69YSh7JQsCGJ8oEIIckQyC052xOjhjJvjuxFTP3UnoKtT6btFqbHgGVHWdECoFi/uJymw57pM0\\n\",\n       \"4lvYNHv+Uc3gvgyyKmCvmtDIT6h/b9sWyCudjGT9lhP5EEMW6PZWK4J8bY6oEwsrADipPCTiD7eG\\n\",\n       \"o21/mE2RKlbNI0ZZRjEfo7oBSzXZ+0bn935W7vkfTw0jHOTeMc4ugGwapJXcFoneBPEhwWCJF4Ym\\n\",\n       \"taCyyyuq9TLGbgZWp3Wg8+MUHXtq03GAFSlqIZGIxu3Xqvg0UKfjjdfrnxEpqut3x7VPsD0YROGR\\n\",\n       \"o8fmojUeW9EwL7y508Eoaejk9szFY4mctq4UyiSHVCf6FjUtxPqwUcUmVN+jMKuiQZ8QuweaIxwt\\n\",\n       \"17fXUbNmkkKfTvTpZWDsTwTIvy/CNPGI/x2/j4RhdzqsaMOgPC7Hm5YdHrZ7t7LdguHoF9ccs9iU\\n\",\n       \"nRpKPHMlFRqW0IXgFSVDMaJDl/n8TRYifiG59R2tthgL1zrae1BG8S7u2RW7VDZoCXF5i1Qpv6Q9\\n\",\n       \"nkrP54mlTyhotEAEAfg5C+sXwQ4dYfTITQ7FdTj1N8oE2qJq3SAJEs1INgawMeFb3ifRTo90Bhmu\\n\",\n       \"PcsOY4M+7W2VDDx9ZXGNFNGIvpRzgZBDnhmdF0N2xlCgefPkd4yj1sDJgopC3p8/f3qF5Lf0XSg1\\n\",\n       \"j6lTC5+nu0F9YlNNvKLCBzWxnbHGbZnhpLHXC7mUK79S91GUqEK+DXYReFceewWk9WJwJS5OiwES\\n\",\n       \"6JRm6Heio0/v3nIMovLDmEFAE9tZvncwcS7bQGD18r73Kp9asL1YdFWvR2VSlSBNaMTEhkFF6mLA\\n\",\n       \"RsaXG7AIvJswhzjEnj/riJC8A9uJP1VbTFzBewOV6y/qAtc2P3pCDFv3cOt43/enQ2GTBjP0KSv3\\n\",\n       \"MuESgufBPcTGLeQtvkdHSSyS1CU0b95u/3W/DtI2brJ5oKuoh3R4Y0xg30CbDyPrBjgDgkJARlPj\\n\",\n       \"pt5jkMGl6Myrcno7ZtgvaqZfaaewsZmie6Y2IERviOYZ6axLqogkyWGHIed+tSSV+Lp0EwTMq0Au\\n\",\n       \"TAdjKvcgW4u73riPDC8k6ZbYQQq6Pqz08EVqGn+2ZGDh1kAodTAMaKFft88E026PmKdT18DeJRDe\\n\",\n       \"YUVqaDiOfSBF52GQH/3JNCtChy01vwMAzRe11Lc60TApEzkmae7cCrC41JlpAbIMcKKZ+DKVQwau\\n\",\n       \"UArb01KMZRV7wiB0/0BOjVNDxi1r9jnxr65cTHSHoUdek5O+fuDDorsHdh6EEYvsqxJlUwuxRPOR\\n\",\n       \"DVJwuaFPkWbs+YFuiX1wQsI5xp8RWxqPq+uOBbmI3WasO3wfIWJp6bCVl+WhcxYnn6f2mAhAWRIH\\n\",\n       \"gJ/7asvgDAT25RqMXy3fMpN1/1jQPDzYqfRuED+eNBmXXB6wjpy5cmCfRq355Jic5hD88RK2W4li\\n\",\n       \"935vYyy16f9FdE6KnWgb7PbCrTUt4LazJdYX9cgqTZp3CyydNrWWjM3KADPba2sd44CCHUlAoz9T\\n\",\n       \"9XNh6KGxEyLU51ztZ57X2JpDzbjRUKVEGLQnYGg6Yjs8KXCcFOnCL1rHss4GhgZn9LTgVCgRPMhf\\n\",\n       \"RcYBXqVgBDNqvUks9OzQGI8TE3jxnLzikP2uZsfvnU0zJi0aNX483hCdbpl4vNl8h+1Lk14MrRLI\\n\",\n       \"8MWn8PobS8m50CAla66KmFZyUQpr4r+sq/3k/ZhgcsCnVcVjoDuIDyG1n6V+hAhrSm97IFKXsw4O\\n\",\n       \"nNxTnFbU6H+1Ssg6haqkdPifgUBqsDozOEBn6z1GNaaZpJYlfVfYVdNR288PUIaUaV3pL/yKlStH\\n\",\n       \"JVqejwKgdsGknV3pgguK49foKYGbBlDNr7+qGwv80aUqfU7jsixi8FE52QHNQ5uRrkhP96OLkjr9\\n\",\n       \"MC1jKdtClxIUiWuCvVIRARn/f1nwmK0OCKUcs7NlwTd4cxDT65ygIv6DLybLDn4xixmrwLCbsq09\\n\",\n       \"ssiHR9TWr5tvE/ijeKKmfXs5N2nCd04PEqvzw2Klyei2iGI3OBNtH5e5oopG9w8yIGTH5KWdk8w2\\n\",\n       \"8zLA59cA/AERpLVQ/dSA3GPwK8KNVmAjKWFKC3V99EG8ZhvNj+vM3kEBDGgz5eQyE5yr/lHADMHO\\n\",\n       \"j3fQZ/3u96v28Hc1ST2bgMSbgTwrCBhQsbYDA07E9JJoYbvRks1CkAf/qlKY7I1tMAFykL7Ym1R7\\n\",\n       \"qX/jKf19ok37yz5ttR1irsdDbjqUDs4B9UDf2H+Q8o++DnqE8euSTz0sdvWr9cpzVi1zO7hk4o5b\\n\",\n       \"gnvL/8xTgbR9NZR0HmN27uZG+ruJ+LCAa9RODMYMXIyXMzTtb0Acr9QNwMSKeIVqQmJCqnHv0BR0\\n\",\n       \"VjzSyI+O8UG5J3hiupJevbOgFhkdzKhsJ4j5n7nH44UTRpuq0t0xzUtfa7egynQCmbgCOv4C+PX0\\n\",\n       \"HPXHqaIcnEqPYdE0onRkaGZTvovRxUGLLamsWf+QIIriECaVrUsRZm1jCGC5VjLjYwXQbrKX4imc\\n\",\n       \"a/RWay8rK6lrjL3tr0naxAW68Ao46AuirJmJmRKDcaQTvlkFqWbuLFheeqTMoUKcsx8gHGdTK8n5\\n\",\n       \"SfM/cK8Iq8ZYpJJL7h9L0SyhWFgb6361ofHiVGgMoVvEe4GyHtU1lYuaxXYAgdR7xfszDBk6XWab\\n\",\n       \"XusQAsu4BqKKqTrJIz23QuKz9GiXrC6A9TQW2bm9SrSgWPuihRqxJ2PL8ZUWiirszoGsx2Le/2F7\\n\",\n       \"eGH2xCy1tTwtkkWb+ifT6t2/YixZcRld2O3Q6hQju+uMIsYwtIlVUWUBY/yVXDougQl5fTl143sm\\n\",\n       \"Rb0xQYMXyc8FvSKwTcXutzyeugyoJvgoBFc2ZtLLecLWr4OqCRXTqzQN1p5ZDa/uuLuAQtkBI+4j\\n\",\n       \"IXPYld8PZCweLMl6G4fIZC7ZOhko0eF+M6hqeHY1bxTh6N4+0O75ZAtxiJDoWL9Dcs3kleJJd1h6\\n\",\n       \"9IZop3/XooLEPzMOdISw/Ayn5RkJdzVWKGTfqhEv6GbuHOsqI3l0OQ4oRU8kFQ3GGF9hOHKov53o\\n\",\n       \"PnPZO+2oSFSNJ1vqx2csVR4YR+4jLACYrNVOEWZTZMoKK+VkBH4elrIJZ/CkLVRKo9ssKZOwelBK\\n\",\n       \"/RLH2rWrxbJEQMgcdiVRYDzZAnaIX51vPO7JRRif8EPmdK1RhNIvKsa6L/7Be7INQhc8p1Rtq18f\\n\",\n       \"/JH8rDbNAXOT6PlQCnaHKOkB9QA9Gb+RyL2CyJ/w75eqttLlIXWaK3DrJVPdScrtW8NS04B1rJny\\n\",\n       \"e2qWjwdfUHUNrvhwEk8wEvTCpGpL58tukgEroc3a9wZFegyoDTv8ksULB+gUobPioouaP1SIboHR\\n\",\n       \"4e9FMC8vimt4e+Qwc6wwvlM6w+Ot6yYUelYZZ70EqksuLKEeqVoPBw4IGI+j24JJnunVkTsPn8kN\\n\",\n       \"sPKwpqFQOj1cLn8rxgyKPTMkFiJM1Vh7JSmB1wx8KGhKznv3bCa3ZLohkR5t5mcryZZWs+jJaUcF\\n\",\n       \"EM6CcTALvqr/hQrRzVcoEfN/lZfvT44Y9jTPtPYW9sQABXjBrNBpSrMfWR75K5e9IGjyBya8szA9\\n\",\n       \"No3HaMuGOyF3p/eSjRexvqy/3lHQsqMlU2bwLkfLdGO8kNlaUwSUQqu38fMwCDnxMWQrr2sBFgkA\\n\",\n       \"Y0YEwEwhO0lB12UpgBOlvi9NvNVLf6tivJ5Hm6OtTqsGPtj5BtHvzYn54cLHYR/t7cmObCRP3prb\\n\",\n       \"pQEqw8HQKqQyOftAcRIlOAnF+3GR18QDvUFAM2UGD/1SOGrFgY5QSObxMvytBEHpapWR7Vc5tukS\\n\",\n       \"DFdszYy/A2/yL5fFdYtyeaFqApftJ2FNxNJMnhJCgPe/RL0i/0ifn1HNo82q9Z7zdMp/EgUbl/B5\\n\",\n       \"llTgMcVoTUd1qvBM7CSGShVdUsyT9Vqu9sj+ll2dvPK1VDP8MrsCvON2bpeJZHy9EwqFMIKxg3zT\\n\",\n       \"KR+sL9QjdciDKSt3vCa948GwIFKiNIQMR7MylnpnjpI6cmYcizx2FszOwxOxGUqOJ2FnqiRcpjBm\\n\",\n       \"yRbI+/MaXWeYkc3yt8KVomOFMbjjbHGRvxjlbb297Jd/f3LfDJTLWaHYbempe49lHsLPGv7fmoLw\\n\",\n       \"llbOOJunJIYwiZ5CluBb+PsXohAqkbF18X0I9iMB9BR8OeaFXl226eWG7tbYmrXNYmA/PdQEMeB6\\n\",\n       \"zyF1zevFSZ96hN05IKbE0ft4U86sueMHGRD4Ltijz7peAZJOsE7UQkSJh/MQMT6/6wHbnLE7pThw\\n\",\n       \"783Go3xrz/Biag3n/pek13SagrWCe3sC/R8MtATbrA2hPqM31lI0kvL/qP+FVU5+cpnLG55cDg/X\\n\",\n       \"AY/VYbShmYI4gEYQ4hz+ygwXVFuyirlKWW2CaZuYoUih5/sh1j18rZQyzFycGpg1ehrKXeGWkIcu\\n\",\n       \"UM8nzT8MYJDce67fO4CDeEfF3k+TyzrzjMogQHL2G98oCP2bQr0YUevr2xxiT3WvifDjsDNqfpeu\\n\",\n       \"6hDHZTTKp/wydMAu6rzUIZ3HVS4NRw0Uwqypw6BxALk5Lmcyg9eGvqA4m1Iplue5NS39S1jJ/VIN\\n\",\n       \"cPu9DTDqSHI2Cp4LMuhKQsW9DnJxz8F/nUoIba52D7pKZ+EAMmCAVCbYMiisFTcqXTg0evOUnfUj\\n\",\n       \"9rbGMw8u5n9vy4nPDyuZMWob5pebwziM+jkwNlScjtQeWZV8Uf2hboSSoo3ZZJEHm4HEnknpaAv+\\n\",\n       \"IXlkQu1EEL5nwiB/Jl9Jz6BykHoOSVerKi5n1nGouYAKfvC6XU7UUkO0+56eZTtpmNfmUKBEHJeh\\n\",\n       \"pNoZUF8OWGRu94F9Oyg5OmajHkJ7Pq8uncFSPoZAxbxLlRwnVWC2xuR2tHKIpgv70yAR0oZsfOJ0\\n\",\n       \"03D5uiIQsuOk4Vtx6wl949GMwnAn4umeQ9uGNMJT5q7mLWRulVe7vJlqB9EWj/kffvUF1ELtBhN/\\n\",\n       \"xZ07zBHfX/IjKB1V6XdAEND8/7UNkjU+uj5EbL6JDSD+9k4vB743FHwOkXxP/9z+X7DGOzah/aJi\\n\",\n       \"XzeiTUbsrXNp9f4dg2onSe8Rf1g/RXy583WUI3F5sTWWgaA4P6HR/x8KcjiD4yKKGrEmx4/4sG1b\\n\",\n       \"fHDPiRZfvsgQMrP3ctYg7PHpfCWHuzMlLQ8D/SuI5eFtvoFhENFAB0zTZEl4v8iWBq8d3xp8rgS7\\n\",\n       \"AjC/sZ0qectTolLCUFN5pgtjBp1ZaG9a7iD4CTzcFCGLNCJBxE+UkEll3P+1IHjwAMxQu84ZxLaa\\n\",\n       \"Xvz3kIdmr8MU5kXswWm1+6w6IxqXbFoxojSmnUrDnU6w2Av1WicdNCXlaexRfon7/3UYJ5MGHNeY\\n\",\n       \"ApD0TxkTm8pjEgcJA9tCK+VOztkUoGZYyZX/A4DNcCNnTyNOAAAAAElFTkSuQmCC\"\n      ],\n      \"text/plain\": [\n       \"<Figure size 48x48 with 1 Axes>\"\n      ]\n     },\n     \"metadata\": {\n      \"image/png\": {\n       \"height\": 48,\n       \"width\": 48\n      }\n     },\n     \"output_type\": \"display_data\"\n    }\n   ],\n   \"source\": [\n    \"import matplotlib.pyplot as plt\\n\",\n    \"plt.imshow(noise)\"\n   ]\n  }\n ],\n \"metadata\": {\n  \"kernelspec\": {\n   \"display_name\": \"Python 3\",\n   \"language\": \"python\",\n   \"name\": \"python3\"\n  },\n  \"language_info\": {\n   \"name\": \"python\"\n  }\n },\n \"nbformat\": 4,\n \"nbformat_minor\": 5\n}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
