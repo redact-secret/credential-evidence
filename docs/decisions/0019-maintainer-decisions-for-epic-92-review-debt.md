@@ -41,6 +41,7 @@ Status column: **applied** = records changed in this PR; **blocked** = decision 
 | 10 | #113 structured files | The five sensitivity cases stay unresolved (no new provider statement found; no fixtures exist, so no denominator moves). Docker client config stays under provider `docker`. The unresolved AWS identifier and Kubernetes serialization contract claims keep their review owed. | **kept**, no change | A provider statement for any of the five, or a recorded policy plus new fixtures. |
 | 11 | Schema proposals | Closed v1 snapshot representation facts: done (ADR 0018, PR #152, `snapshot-2026.10.04.2`). Decoded sub-range: proceed only after item 2 has a second reviewer, byte coordinates and strict decoded bounds first, additive 1.7.0, credential-eval contract agreed first. Compound `group` field: agree the meaning first, not urgent (existing per-component spans are enough). | v1 snapshot **done**; two **kept** (no schema change here) | |
 | 12 | Review debt | Plan B plus C: review the asserted project-policy and the newly `provider-documented` structured-file and HTTP records first, then the rest; split reviews by scope (source reading versus expectation follows) and record each as `confirmed`, `disputed` or `out of scope`. No reviewer is named here. | **kept** | |
+| 13 | #140 PII scope | Option A, as a scope statement: this credential-evidence population is scoped to credentials and does not assert PII expectations. Personal data is measured in the project's separate PII evaluation (pii-eval) with its own population. It is not a statement that PII is out of scope for the project or that such values are harmless. Downstream comparisons record whether generic-assignment and PII detection were enabled (stated here, not enforceable here). | decision recorded in the case and its review history; outcome unchanged (`must-not-flag`, project-policy), still draft, no second reviewer | PII expectations being placed in this population. |
 
 ## Follow-ups a second reviewer must do
 
@@ -52,7 +53,7 @@ Name a non-author reviewer (a project member's review is labeled project review,
 4. **Item 5.** Edit the marker-body case to `must-flag` with spans. Check that the 24 fixtures do not collide with the 277 `documentation-placeholder` `must-not-flag` fixtures (not yet checked). Regenerate the generated projections and run the generator `--check`.
 5. **Items 6 and 7.** Give the 3 lifecycle fixtures a span and `must-flag`; set the `http-basic-*` expectations as in the table, using password-only `secret` spans and a `companion` span for the user-id.
 6. **Item 8(b).** Re-base the 11 evidence entries to `project-policy` with a `baseline:amend` only where an entry is imported.
-7. **Item 9.** Record the second reviewer in the case's expectation rationale, then a review `confirmed` event.
+7. **Items 9 and 13.** Record the second reviewer in each case's expectation rationale, then a review `confirmed` event.
 8. **Item 7.** Read RFC 6265 and 6265bis status once and record it.
 9. After any of the above: a new immutable snapshot, then the consumer's adoption workflow. This repository claims no score change; a larger denominator is not evidence of improved performance.
 
