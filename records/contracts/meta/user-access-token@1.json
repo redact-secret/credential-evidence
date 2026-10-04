@@ -44,6 +44,11 @@
       "id": "short-vs-long-lived",
       "question": "Short-lived and long-lived user tokens are described as lifetimes of one credential kind; whether they are distinguishable by form is not stated and no split is made.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "scanner-rule-leads",
+      "question": "Leads, not claims: one scanner rule artifact (Gitleaks, pinned in source github-com-gitleaks-gitleaks-d47395c7b2) treats strings starting with the literal prefixes EAAM or EAAC followed by 100 or more alphanumeric characters as a Facebook Page access token candidate, and another (Nosey Parker, source github-com-praetorian-inc-noseyparker-8d6f62ccdb) treats a longer literal older prefix as a generic Facebook access token. They name different token kinds, so no corroborated claim is made and no family attribution is drawn. A Meta page stating a token grammar would settle it.",
+      "raisedAt": "2026-10-04"
     }
   ]
 }
