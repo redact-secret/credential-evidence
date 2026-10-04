@@ -93,6 +93,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'github-fine-grained-pat' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival contract (#211, research #223, observed 2026-09-24). T2, not T1: GitHub documents only the github_pat_ prefix; the 22 + \"_\" + 59 body positives depend on rests on a community grammar (discussion 36441, the magnetikonline gist) that a GitHub PM endorsed in-thread, and on exact-82 tool rules (gitleaks 8.30.1, Nosey Parker, secretlint). No checksum, fixed \"11\" lead or GHES parity is claimed. Twins mutate only properties no source admits (prefix spelling, case, the \"_\" separator, a non-alphanumeric byte, a glued leading letter); none mutates width, because TruffleHog and r-lib/gh accept 36–255 and GitHub's 2021 guidance says tokens may grow to 255. The product matches this shape inside its shared github-token detector, so a product finding on a twin is recorded as co-detection by that family, not as a false alarm for this one."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Issue 180 desk research read on 2026-10-04: GHES 3.17 docs list the github_pat_ prefix (new provider-documented claim); no provider page states length, underscore position, alphabet or checksum for github_pat_; the 2021 format sources do not name this token. Claims left unresolved. Project-authored, not independent."
     }
   ],
   "externalRefs": [

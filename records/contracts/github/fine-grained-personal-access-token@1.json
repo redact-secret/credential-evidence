@@ -254,6 +254,88 @@
           "locator": "#githubs-token-formats"
         }
       ]
+    },
+    {
+      "id": "ghes-3-17-prefix",
+      "statement": "The GitHub Enterprise Server 3.17 documentation lists github_pat_ as the prefix of the fine-grained personal access token in its token-formats table, and its managing-tokens page documents fine-grained personal access tokens; neither page states a length, alphabet, segment split or checksum for the token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-68d32d0f44",
+          "supports": "the GHES 3.17 token-formats table lists Fine-grained personal access token with prefix github_pat_; no length, alphabet, segment or checksum",
+          "locator": "#githubs-token-formats"
+        },
+        {
+          "sourceId": "docs-github-com-ae2991d333",
+          "supports": "the GHES 3.17 page describes fine-grained personal access tokens (advantages, limitations); it states no token format",
+          "locator": "#fine-grained-personal-access-tokens"
+        }
+      ]
+    },
+    {
+      "id": "ghes-shape-beyond-prefix",
+      "statement": "Whether GitHub Enterprise Server issues the same 22 + underscore + 59 body as github.com is not stated by the GHES 3.17 pages read, which give the prefix only; the general-availability announcement says only that GHES customers should expect the changes in version 3.17.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-68d32d0f44",
+          "supports": "prefix only; the page is silent on the body",
+          "locator": "#githubs-token-formats"
+        },
+        {
+          "sourceId": "github-blog-c231f4ae03",
+          "supports": "GHES customers should expect these changes to arrive in version 3.17; no token format is stated"
+        }
+      ]
+    },
+    {
+      "id": "2021-format-sources-scope",
+      "statement": "The 2021 token-format changelog and engineering post describe the ghp_, gho_, ghu_, ghs_ and ghr_ token types; read raw on 2026-10-04, neither names github_pat_ or fine-grained tokens, so their statements about a [A-Za-z0-9_] character set, tokens up to 255 characters, an underscore separator and a 32-bit CRC32 Base62 checksum in the last six characters are not evidence about the github_pat_ body, its length, underscore position or checksum.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-blog-ffc2d4823e",
+          "supports": "character set [A-Za-z0-9_] and a 255-character allowance are stated for the 2021 prefixed types; github_pat_ is not named"
+        },
+        {
+          "sourceId": "github-blog-f485ce2339",
+          "supports": "separator and CRC32 Base62 checksum in the last six characters are described for the 2021 prefixed types; github_pat_ is not named"
+        }
+      ]
+    },
+    {
+      "id": "no-provider-length-or-segment-statement",
+      "statement": "No GitHub documentation page read raw on 2026-10-04 (github.com and GHES 3.17 token-formats tables, the GHES 3.17 managing-tokens page, the general-availability changelog) states the total or body length, the position of the underscore after the prefix, the alphabet or a checksum of the github_pat_ token; the 93-character and 22 + 59 statements remain community or tool-corroborated only.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-094b941a54",
+          "supports": "token-formats table gives the prefix only",
+          "locator": "#githubs-token-formats"
+        },
+        {
+          "sourceId": "docs-github-com-68d32d0f44",
+          "supports": "GHES token-formats table gives the prefix only",
+          "locator": "#githubs-token-formats"
+        },
+        {
+          "sourceId": "docs-github-com-ae2991d333",
+          "supports": "GHES managing-tokens page states no token format",
+          "locator": "#fine-grained-personal-access-tokens"
+        },
+        {
+          "sourceId": "github-blog-c231f4ae03",
+          "supports": "general-availability announcement states no token format"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -310,6 +392,28 @@
       "id": "1020d2b5905e8973098235e57c4cdca3359bba57:benchmarks/support/taxonomy.json",
       "url": "https://github.com/redact-secret/redact-secret-benchmarks/blob/1020d2b5905e8973098235e57c4cdca3359bba57/benchmarks/support/taxonomy.json",
       "note": "families[id=github:fine-grained-personal-access-token]"
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "body-length-exact-or-range",
+      "question": "Is the github_pat_ body always exactly 82 characters (22 + underscore + 59), or may GitHub issue other lengths? Only an issued token or a provider statement would settle it; the 2021 notice that tokens may grow toward 255 characters names other token types.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "underscore-position-fixed",
+      "question": "Is the single underscore after the prefix always at body offset 22, and may a body ever contain further underscores? No provider page states it; tools that accept an underscore anywhere in the body are supersets, not evidence.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "checksum-applies-to-fine-grained",
+      "question": "Does the 2021 CRC32 Base62 checksum in the last six characters apply to github_pat_ tokens? The sources that describe it do not name this token.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "ghes-body-parity",
+      "question": "Does GitHub Enterprise Server 3.17 or later issue the same github_pat_ body shape as github.com? Only the prefix is documented for GHES.",
+      "raisedAt": "2026-10-04"
     }
   ]
 }
