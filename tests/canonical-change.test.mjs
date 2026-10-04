@@ -99,7 +99,7 @@ test("(b) a brand-new provider, family, source, scenario, case and fixture pass 
 
     const base = c.run("baseline.mjs", ["check", "--list"]);
     assert.equal(base.status, 0, base.stderr);
-    assert.match(base.stdout, new RegExp(`${live.edited} edited, ${live.removed} removed \\(all declared\\); \\d+ post-import file\\(s\\) added`));
+    assert.match(base.stdout, new RegExp(`${live.edited} edited, ${live.removed} removed \\(all declared\\); [\\d,]+ post-import file\\(s\\) added`));
     for (const p of ["records/providers/synthvendor.json", "records/families/synthvendor/api-key.json", "records/scenarios/synth-key-in-quoted-env.json", "records/cases/synth-key-in-env-line.json", "records/fixtures/synthvendor-authored.json"]) assert.match(base.stdout, new RegExp(`added: ${p.replaceAll(".", "\\.")}`));
 
     // the fixture is materialized and in the release snapshot; the snapshot is deterministic
