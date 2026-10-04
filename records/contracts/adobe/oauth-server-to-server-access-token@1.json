@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "adobe:oauth-server-to-server-access-token@1",
+  "family": "adobe:oauth-server-to-server-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "s2s-access-token-bearer-expiry",
+      "statement": "A client_credentials request to the Adobe IMS token endpoint returns an access_token with token_type \"bearer\" and an expires_in value in seconds; access tokens usually expire in 24 hours and the documentation recommends caching them until expiry.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-adobe-com-09955d5cc6",
+          "supports": "Sample response shows access_token, token_type bearer and expires_in; no refresh token is used for OAuth Server-to-Server credentials.",
+          "locator": "section \"Fetching access tokens\", Sample Response"
+        },
+        {
+          "sourceId": "developer-adobe-com-69389b938d",
+          "supports": "Access tokens usually expire in 24 hours; expires_in is in seconds; integrations should cache tokens until expiry.",
+          "locator": "section \"Generating access tokens programmatically\""
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "format-not-documented",
+      "question": "Adobe documentation read for this candidate gives no prefix, alphabet, length or other format rule for this value; any example in it is a placeholder or a public identifier. Not researched beyond existence.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "token-structure",
+      "question": "The pages read do not say whether the access token is a structured token (for example a JWT) or opaque, so no prefix or segment shape is recorded. It is also not established whether a token from this credential is distinguishable from an access token issued through user authentication.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
