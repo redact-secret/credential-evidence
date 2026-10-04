@@ -40,7 +40,7 @@ Releases are immutable: a tag is never moved or reused and assets are never repl
 | --- | --- | --- |
 | `release-manifest.json` | (the manifest) | Tag, source commit, records-tree digest, schema revision, generator version, fixture digest and generation rule, and `files[]` with `path`, `asset`, `bytes`, `sha256` per file, plus `filesDigest`. |
 | `release-manifest.json.sha256` | (the manifest digest) | `<hex>  release-manifest.json` (`sha256sum` format). |
-| `credential-eval-corpus-snapshot.json` | `credential-eval/corpus-snapshot.json` | The `credential-eval/corpus-snapshot/v1` input, in canonical ids (ADR 0009). |
+| `credential-eval-corpus-snapshot.json` | `credential-eval/corpus-snapshot.json` | The `credential-eval/corpus-snapshot/v1` input, in canonical ids (ADR 0009). It holds the fixtures the closed v1 contract can represent; the rest are counted in the manifest's `evalExport` as `not exported to eval v1` (ADR 0017). |
 | `records-bundle.json` | `records/bundle.json` | Every canonical record and schema file byte for byte (`records[]`, `schemas[]`, each with `path`, `sha256`, `bytes`, `text`); the legacy map and exporter vocabulary by digest only (`compatibilityInputs[]`). |
 | `fixtures-materialized-manifest.json` | `fixtures/materialized-manifest.json` | The fixture materialization manifest (ADR 0005). The fixture tree is regenerated with `npm ci && npm run fixtures:materialize` at `sourceRevision.commit`; its `manifest.json` equals this asset and its digest equals the manifest's `fixtures.digest`. |
 
@@ -69,6 +69,10 @@ npm run release:verify -- --dir "evidence-$TAG" --tag "$TAG" --manifest-digest "
 Without `--manifest-digest` the command checks internal consistency only and says the release is not pinned.
 
 To check that a records file is canonical at the release, compare it with the bundle: each `records[]` entry carries the exact `text` and its `sha256`. The records-tree digest in `sourceRevision.recordsTree` is the SHA-256 of the sorted `<path> <sha256>` lines of `records[]` and `compatibilityInputs[]`, joined by newlines.
+
+## What the v1 snapshot does not carry
+
+The v1 contract holds `content` as one string and a twin as a negative. A fixture whose bytes are not valid UTF-8 is not exported to the snapshot, and a twin that carries a secret span is exported without `twin` (ADR 0017). Both are counted in `release-manifest.json` under `evalExport` (`exported`, `notExported.byReason`, `twinLineageNotExported`), with `exported + notExported.total` equal to the materialized fixture count; they stay in `fixtures-materialized-manifest.json`. Releases up to `snapshot-2026.10.03` have no `evalExport`, and `snapshot-2026.10.03` cannot be read by credential-eval `v0.1.0-alpha.1` (75 cases without `content`).
 
 ## Consuming it from credential-eval
 

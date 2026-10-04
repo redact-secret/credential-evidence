@@ -66,9 +66,10 @@ test("(a) an authored edit to a migrated record passes the ordinary gate once it
     assert.deepEqual(ordinaryGate(c), []);
 
     // the release snapshot is built from the amended tree, with every fixture and no legacy name
-    const { snapshot, fixtures } = buildSnapshot(loadCanonicalInputs(c.root));
+    const { snapshot, fixtures, notExported } = buildSnapshot(loadCanonicalInputs(c.root));
     assert.equal(fixtures, before);
-    assert.equal(snapshot.cases.length, before);
+    // every fixture is exported or counted as not exported to eval v1 (ADR 0017)
+    assert.equal(snapshot.cases.length + notExported.length, before);
   } finally {
     c.cleanup();
   }

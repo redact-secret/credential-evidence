@@ -15,6 +15,7 @@
 // states exactly what, and it is regenerated with every projection.
 
 import { createHash } from "node:crypto";
+import { contentBytes, isValidUtf8 } from "../../lib/representation.mjs";
 import { collectFixtures } from "./fixtures.mjs";
 import { loadLegacyNames, nameFixtures } from "./legacy-map.mjs";
 
@@ -273,7 +274,19 @@ export function canonicalJson(value) {
 function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
   const byId = new Map(fixtures.map((f) => [f.id, f]));
   const cases = [];
+  // ADR 0017: the v1 contract's `content` is one JSON string, so it carries a fixture exactly when its bytes are valid UTF-8
+  // (`text`, `bytesHex` or an assembled `recipe`, at any size the schema allows). A fixture that is not carried stays in the
+  // materialized manifest and is counted by reason; it is never dropped silently and never scored as zero detections.
+  const baseItems = new Map();
+  for (const f of fixtures) if (f.item.derivation?.kind === "authored-base") baseItems.set(f.item.id, f.item);
+  const baseBytes = (id) => (baseItems.has(id) ? contentBytes(baseItems.get(id)) : undefined);
+  const bytesOf = new Map(fixtures.map((f) => [f.id, contentBytes(f.item, baseBytes)]));
+  const notExported = fixtures.filter((f) => !isValidUtf8(bytesOf.get(f.id))).map((f) => ({ id: f.id, reason: NOT_EXPORTED_INVALID_UTF8, bytes: bytesOf.get(f.id).length }));
+  const twinNotExported = [];
+  const notExportedIds = new Set(notExported.map((n) => n.id));
   for (const f of fixtures) {
+    if (notExportedIds.has(f.id)) continue;
+    const bytes = bytesOf.get(f.id);
     // A T0 case keeps the kind its candidate proposes (credential-eval counts it under pending/T0 candidate kinds), but the
     // candidate spans are never expected spans: the v1 snapshot contract has no non-asserting span field, so they are left out.
     const { kind, tier } = legacyAssessment(f.outcome, f.evidence.basis, f.candidate);
@@ -283,11 +296,23 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
     const out = {
       id: f.id,
       path: f.materializedPath,
-      content: item.text,
+      content: item.text !== undefined ? item.text : bytes.toString("utf8"),
       expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
       grouping,
     };
-    if (item.lineage?.mutation && byId.get(item.lineage.of)?.outcome === "must-flag") out.twin = { twin_of: item.lineage.of, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
+    // v1 twin rules (credential-eval corpus.rs validate): a twin is a negative (no secret span) of a case in the snapshot that
+    // has one. Lineage that does not meet them stays in the records and the materialized manifest, is not written here, and is
+    // counted in the export accounting (ADR 0017).
+    if (item.lineage?.mutation) {
+      const parent = byId.get(item.lineage.of);
+      const hasSecret = (x) => x.item.expected.spans.some((sp) => sp.role === "secret");
+      if (parent?.outcome === "must-flag") {
+        if (notExportedIds.has(parent.id)) twinNotExported.push({ id: f.id, reason: "twin-positive-not-exported" });
+        else if (hasSecret(f)) twinNotExported.push({ id: f.id, reason: "twin-carries-secret-span" });
+        else if (!hasSecret(parent)) twinNotExported.push({ id: f.id, reason: "twin-positive-has-no-secret-span" });
+        else out.twin = { twin_of: item.lineage.of, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
+      }
+    }
     cases.push(out);
   }
   // ADR 0013: a twin that names no family of its own is scoped by the family of the positive it twins, as the legacy
@@ -299,7 +324,7 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
     if (parentFamily !== undefined) c.grouping.family = parentFamily;
   }
   cases.sort((a, b) => cmp(a.id, b.id));
-  return {
+  const snapshot = {
     schema: "credential-eval/corpus-snapshot/v1",
     identity: {
       source: "credential-evidence",
@@ -308,6 +333,30 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
       corpus_digest: `sha256:${sha256(canonicalJson(cases))}`,
     },
     cases,
+  };
+  return { snapshot, notExported, twinNotExported };
+}
+
+/** Reason code: the fixture's bytes are not valid UTF-8, so the v1 `content` string cannot hold them exactly (ADR 0017). */
+export const NOT_EXPORTED_INVALID_UTF8 = "invalid-utf8";
+
+/**
+ * The export accounting a release records next to the snapshot (ADR 0017): every fixture is either in the v1 snapshot or listed
+ * here with its reason, so `exported + notExported.total` is the materialized fixture count. Derived, never an assertion.
+ */
+export function exportAccounting(snapshot, notExported, materialized, twinNotExported = []) {
+  const countBy = (list) => {
+    const out = {};
+    for (const n of list) out[n.reason] = (out[n.reason] ?? 0) + 1;
+    return Object.fromEntries(Object.entries(out).sort(([a], [b]) => cmp(a, b)));
+  };
+  const byReason = countBy(notExported);
+  return {
+    target: snapshot.schema,
+    materialized,
+    exported: snapshot.cases.length,
+    twinLineageNotExported: { total: twinNotExported.length, byReason: countBy(twinNotExported), cases: twinNotExported.map((n) => ({ id: n.id, reason: n.reason })).sort((a, b) => cmp(a.id, b.id)) },
+    notExported: { total: notExported.length, byReason, cases: notExported.map((n) => ({ id: n.id, reason: n.reason, bytes: n.bytes })).sort((a, b) => cmp(a.id, b.id)) },
   };
 }
 
@@ -412,8 +461,8 @@ export function buildSnapshot({ records, sourceDigest, schemaRevision }) {
   const ix = indexRecords(records);
   if (!ix.sets.size) throw new Error("records/ has no fixture sets; run the importers first");
   const fixtures = collectFixtures(ix);
-  const snapshot = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision });
-  return { text: json(snapshot), snapshot, fixtures: fixtures.length };
+  const { snapshot, notExported, twinNotExported } = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision });
+  return { text: json(snapshot), snapshot, fixtures: fixtures.length, notExported, accounting: exportAccounting(snapshot, notExported, fixtures.length, twinNotExported) };
 }
 
 // ------------------------------------------------------------------ entry point
@@ -436,7 +485,7 @@ export function buildProjection({ records, legacyMaps, vocabulary, sourceDigest,
   const index = buildIndex({ catalog, semantics, scenarios, taxonomy });
   const corpora = buildCorpora(ix, catalog, vocabulary);
   const overlay = buildOverlayInterface({ taxonomy, index });
-  const snapshot = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision });
+  const { snapshot } = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision });
   const legacyIds = buildLegacyIdMap(catalog, snapshot);
 
   const artifacts = new Map();

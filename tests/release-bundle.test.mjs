@@ -64,7 +64,7 @@ describe("release bundle: synthetic inputs", () => {
     assert.equal(m.sourceRevision.commit, COMMIT);
     assert.match(m.sourceRevision.recordsTree.digest, /^[0-9a-f]{64}$/);
     assert.equal(m.schemaRevision, "1.4.0");
-    assert.deepEqual(m.generator, { name: "credential-evidence/release-bundle", version: "1.0.0" });
+    assert.deepEqual(m.generator, { name: "credential-evidence/release-bundle", version: "1.1.0" });
     assert.deepEqual(m.files.map((f) => f.path), [SNAPSHOT_PATH, FIXTURES_MANIFEST_PATH, BUNDLE_PATH].sort());
     assert.equal(a.manifestDigest, sha256(a.manifestText));
     assert.equal(a.assets.get(MANIFEST_DIGEST_ASSET).toString(), `${a.manifestDigest}  ${MANIFEST_ASSET}\n`);
@@ -131,6 +131,20 @@ describe("release bundle: the repository's records", () => {
     assert.deepEqual(verifyRelease({ read: reader(a.assets), tag: TAG, manifestDigest: a.manifestDigest }).problems, []);
     const snapshot = JSON.parse(a.assets.get("credential-eval-corpus-snapshot.json"));
     assert.equal(snapshot.identity.revision, `records-tree-sha256:${a.manifest.sourceRevision.recordsTree.digest}`);
-    assert.equal(a.manifest.fixtures.count, snapshot.cases.length);
+    // ADR 0017: every materialized fixture is exported or counted as not exported, with a reason
+    const x = a.manifest.evalExport;
+    assert.equal(x.exported, snapshot.cases.length);
+    assert.equal(x.exported + x.notExported.total, a.manifest.fixtures.count);
+    assert.ok(x.notExported.cases.every((c) => c.reason === "invalid-utf8"));
+    for (const c of snapshot.cases) assert.equal(typeof c.content, "string", `${c.id} has no content (closed v1 contract requires it)`);
+    const missing = new Set(x.notExported.cases.map((c) => c.id));
+    for (const c of snapshot.cases) assert.ok(!missing.has(c.id), `${c.id} is both exported and not exported`);
+    for (const c of snapshot.cases) if (c.twin) assert.ok(snapshot.cases.some((o) => o.id === c.twin.twin_of), `${c.id} twins a case that is not in the snapshot`);
+  });
+
+  test("the export accounting must add up", () => {
+    const s = synthetic();
+    const bad = { target: "x", materialized: 3, exported: 1, notExported: { total: 1, byReason: { "invalid-utf8": 1 }, cases: [{ id: "a", reason: "invalid-utf8", bytes: 1 }] } };
+    assert.throws(() => buildRelease({ ...s, evalExport: bad }), /evalExport|dropped silently/);
   });
 });
