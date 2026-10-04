@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-aws-temporary-key-id-length-inside-documented-api-range",
+  "subject": {
+    "kind": "case",
+    "id": "aws-temporary-key-id-length-inside-documented-api-range"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored by an AI agent run for issue 184 from source ids docs-aws-amazon-com-1e7f14016c and docs-aws-amazon-com-f4520419ab read raw on 2026-10-04, before any scanner was consulted; not reviewed. Left not-assertable and unresolved: the provider documents a 16 to 128 range that the existing wrong-length twin fixtures for this family do not respect; those fixtures are not changed here."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
