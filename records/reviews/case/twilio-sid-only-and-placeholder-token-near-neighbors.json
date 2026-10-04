@@ -17,6 +17,17 @@
         "affiliation": "project-maintainer"
       },
       "note": "Maintainer decision recorded 2026-10-04 (ADR 0019, issue #142): deciding maintainer Milo Kang (milocosmopolitan) adopted option A (identifier-only input expected unflagged). Decided, awaiting second review; no non-author reviewer is recorded, no dissent recorded. Outcome and class unchanged, record stays draft."
+    },
+    {
+      "seq": 2,
+      "type": "authored",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Re-authored the API key SID value in three fixtures of the twilio compound set from SK plus 32 mixed-case characters to SK plus 32 lowercase hex (the documented sid pattern, twilio-com-4d9fdf50dc), same length so every span offset is unchanged; outcomes are unchanged. Proposed in #221 row 2 after the product found the old value was not the documented shape. Agent action under the maintainer's instruction of 2026-10-04; not an independent review."
     }
   ],
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
