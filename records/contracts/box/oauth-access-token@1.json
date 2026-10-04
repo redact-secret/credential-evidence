@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "box:oauth-access-token@1",
+  "family": "box:oauth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Box documents an access token returned by its token endpoint as a bearer token (token_type bearer) with an expires_in lifetime in seconds, used to make authenticated API calls. Existence and lifecycle shape only: no prefix, alphabet or length is established.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "raw-githubusercontent-com-1053c82b3a",
+          "supports": "A token that can be used to make authenticated API calls. (AccessToken); token_type: The type of access token returned. enum [bearer]; expires_in: The time in seconds by which this token will expire.",
+          "locator": "components.schemas.AccessToken.description; components.schemas.AccessToken.properties.token_type; components.schemas.AccessToken.properties.expires_in"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "app-token-and-developer-token",
+      "question": "The specification mentions an \"app token\" only as an accepted subject_token for token exchange and does not define it, and does not mention a developer token. Are app tokens and developer tokens distinct credential families with their own format or issuance, or the same access-token family obtained by another route? Needs the developer documentation (starting locator: app token with SDK guide), which was not readable.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "format-not-researched",
+      "question": "Which prefix, alphabet and length, if any, does the provider state? The specification's example access-token value has a different shape from its example client secret and is not a format statement; no format claim is recorded.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "downscoped-token-distinct",
+      "question": "Is a downscoped access token (issued_token_type urn:ietf:params:oauth:token-type:access_token, restricted_to resources) a separate family or a scoped instance of this one?",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
