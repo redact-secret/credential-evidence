@@ -271,6 +271,9 @@ const dateOf = (s) => (typeof s === "string" && DATE_RE.test(s) ? s.slice(0, 10)
  * not re-judged (a legacy citation without a locator stays a legacy fact until somebody touches it). A new file has no
  * `before`: everything in it is checked. The structural rules after the loop run on the whole record.
  */
+// Records of the `generic` provider group (a family with no issuer): its fixture sets and the records filed under it.
+const GENERIC_GROUP_PATH = /^records\/(fixtures\/generic\.json|[a-z-]+\/generic\/)/;
+
 function checkClaims({ add, git, head, path, record, before, today }) {
   const sources = (git._sources ??= { head: sourceIndex(git, head), cache: new Map() });
   if (!sources.fetched) {
@@ -329,7 +332,12 @@ function checkClaims({ add, git, head, path, record, before, today }) {
     }
     if (!c.hasSupports) continue; // narrative citations inherit the class of the contract claim they cite
     const types = loaded.map((s) => s.sourceType);
-    if (c.cls === "provider-documented" && loaded.length && !types.some((t) => t === "provider-documentation" || t === "provider-sdk-source")) {
+    const providerAuthored = types.some((t) => t === "provider-documentation" || t === "provider-sdk-source");
+    if (c.cls === "provider-documented" && loaded.length && !providerAuthored && types.includes("standard-or-rfc") && GENERIC_GROUP_PATH.test(path)) {
+      // docs/governance/evidence-classes.md, "Standards for a family with no issuer": allowed for the generic provider group, for
+      // a claim about the standard's own text only. The script cannot tell what the claim is about, so a person confirms it.
+      add({ check: "evidence-class", severity: "needs-human", ...at, message: `${here}: provider-documented rests on a standard-or-rfc source (generic provider group); confirm the claim is about the standard's own text, located, and not a role description read as non-secrecy` });
+    } else if (c.cls === "provider-documented" && loaded.length && !providerAuthored) {
       add({ check: "evidence-class", severity: "fail", ...at, message: `${here}: provider-documented but no cited source is provider-authored (types: ${[...new Set(types)].join(", ")})` });
     }
     if (c.cls === "tool-corroborated" && loaded.length) {

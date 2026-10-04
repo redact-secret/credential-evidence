@@ -27,7 +27,7 @@ does not say what is true: a claim does, by citing the source with an exact `sup
 | `provider-documentation` | the issuer's docs, API reference, changelog, security notice, published test value | `provider-documented` |
 | `provider-sdk-source` | an official SDK or reference implementation published by the provider | `provider-documented` |
 | `scanner-rule-source` | an open-source scanner rule or public test vector (pinned) | `tool-corroborated` only, two distinct maintainers |
-| `standard-or-rfc` | a standard the format follows | the part the standard states |
+| `standard-or-rfc` | a standard the format follows | the part the standard states. `provider-documented` only for a `generic` family and only for a claim about the standard's own text ([evidence classes](../../../docs/governance/evidence-classes.md#provider-documented)); `project-policy` or a lead otherwise |
 | `third-party-writeup` | blog, tutorial, forum answer, support thread | a lead; never `provider-documented` |
 | `issue-or-discussion` | a tracker thread or discussion | a lead or a dated observation |
 | `project-research-note` | this project's own note | `project-policy` or a lead; never independent corroboration |

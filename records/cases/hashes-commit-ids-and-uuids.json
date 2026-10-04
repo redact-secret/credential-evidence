@@ -16,8 +16,19 @@
   "expectation": {
     "outcome": "must-not-flag",
     "basis": "project-policy",
-    "rationale": "Not flagged. Hashes, commit ids, UUIDs and URLs are public identifiers, not credentials, and their field names say so.",
-    "sources": [],
+    "rationale": "Not flagged. Hashes, commit ids, UUIDs and URLs are public identifiers, not credentials, and their field names say so. Sources added under the maintainer decision recorded in ADR 0019 (issue #142) show each value's role (an integrity or content hash, a revision identifier); none states that the value is not a credential, so the basis stays project-policy.",
+    "sources": [
+      {
+        "sourceId": "go-dev-5fb6edc5a8",
+        "supports": "A pseudo-version is a specially formatted pre-release version that encodes information about a specific revision; form vX.0.0-yyyymmddhhmmss-abcdefabcdef with a 12-character commit hash prefix.",
+        "locator": "Pseudo-versions"
+      },
+      {
+        "sourceId": "semver-org-044be17746",
+        "supports": "Build metadata is a plus sign and dot-separated identifiers of [0-9A-Za-z-], ignored for precedence; example 1.0.0-beta+exp.sha.5114f85.",
+        "locator": "Item 10"
+      }
+    ],
     "observedAt": "2026-09-29"
   },
   "lifecycle": "draft",

@@ -32,6 +32,29 @@ provider publishes for testing.
   durable reference (an archived copy or a revision permalink) so a later
   reader can see what was observed.
 
+**Standards for a family with no issuer.** For a family with no issuer (provider
+group `generic`), a standards-body document (an RFC or an equivalent standard)
+may be the source for a claim about the standard's own text: its syntax, its
+required members, a role it defines, or a non-secrecy it states. This
+applies on these conditions only:
+
+- The statement is located (section or anchor) and quoted, or derived by a step
+  a reviewer can repeat, as above.
+- It is never used for a claim about what a provider issues or how a provider's
+  credential is formatted. Those need the provider's own source.
+- It is never extended from a role description to non-secrecy. A standard that
+  says a header field carries a validator, a digest or an identifier does not
+  thereby say its value is not a credential; such a claim stays
+  [`project-policy`](#project-policy) unless the standard says so.
+- It does not tell a reader how to treat a value (what to flag or redact).
+  That is an expectation, and its basis is judged on its own.
+
+A source of this kind is typed `standard-or-rfc` in the record. It does not
+make the claim provider-documented for any family that has an issuer, and the
+rule is not applied retroactively: an existing entry is re-based only through
+a reviewed change that names it
+([ADR 0019](../decisions/0019-maintainer-decisions-for-epic-92-review-debt.md)).
+
 **Does not qualify.** A third-party blog, tutorial, forum answer, or support
 thread; a provider employee's personal statement outside an official channel; a
 scanner rule that cites the provider; an example found in a public repository.
