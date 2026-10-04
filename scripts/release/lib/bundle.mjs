@@ -14,7 +14,7 @@ export const RELEASE_MANIFEST_FORMAT = "credential-evidence/release-manifest";
 export const RELEASE_MANIFEST_FORMAT_VERSION = 1;
 export const BUNDLE_FORMAT = "credential-evidence/records-bundle";
 export const BUNDLE_FORMAT_VERSION = 1;
-export const GENERATOR = { name: "credential-evidence/release-bundle", version: "1.0.0" };
+export const GENERATOR = { name: "credential-evidence/release-bundle", version: "1.1.0" };
 
 /** Asset name of the release manifest itself (not listed in its own `files`). */
 export const MANIFEST_ASSET = "release-manifest.json";
@@ -32,6 +32,20 @@ export const TAG_PATTERN = /^snapshot-(\d{4})\.(\d{2})\.(\d{2})(?:\.([2-9]|[1-9]
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 export const sha256 = (data) => createHash("sha256").update(data).digest("hex");
 const HEX64 = /^[0-9a-f]{64}$/;
+
+/**
+ * ADR 0017: the export accounting must add up. Every materialized fixture is in the v1 snapshot or listed with a reason.
+ * Returns null when consistent, else the reason.
+ */
+export function evalExportProblem(e, snapshotCases, materialized) {
+  const n = e?.notExported;
+  if (!n || !Array.isArray(n.cases) || typeof n.byReason !== "object" || n.byReason === null) return "evalExport.notExported is missing or malformed";
+  if (e.exported !== snapshotCases) return `evalExport.exported ${e.exported} differs from the snapshot's ${snapshotCases} cases`;
+  if (e.materialized !== materialized) return `evalExport.materialized ${e.materialized} differs from the fixture count ${materialized}`;
+  if (n.total !== n.cases.length || n.total !== Object.values(n.byReason).reduce((a, b) => a + b, 0)) return "evalExport.notExported total, byReason and cases disagree";
+  if (e.exported + n.total !== e.materialized) return "evalExport: exported + notExported is not the materialized fixture count (a fixture was dropped silently)";
+  return null;
+}
 
 /** Returns null for a valid release tag, otherwise the reason it is not one. */
 export function tagProblem(tag) {
@@ -69,7 +83,7 @@ export function treeDigest(entries) {
  * @param {{manifestText: string, digest: string, count: number}} input.fixtures  the fixture materialization
  * @returns {{assets: Map<string, Buffer>, manifest: object, manifestText: string, manifestDigest: string}}
  */
-export function buildRelease({ tag, commit, schemaRevision, sourceFiles, sourceDigest, schemaFiles, snapshotText, fixtures }) {
+export function buildRelease({ tag, commit, schemaRevision, sourceFiles, sourceDigest, schemaFiles, snapshotText, fixtures, evalExport }) {
   const problem = tagProblem(tag);
   if (problem) throw new Error(problem);
   if (!/^[0-9a-f]{40}$/.test(commit ?? "")) throw new Error(`commit must be a 40-hex git commit id, got '${commit}'`);
@@ -88,6 +102,11 @@ export function buildRelease({ tag, commit, schemaRevision, sourceFiles, sourceD
   const snapshot = JSON.parse(snapshotText);
   if (snapshot?.identity?.revision !== `records-tree-sha256:${sourceDigest}`) throw new Error("the corpus snapshot was not built from these records (identity.revision differs)");
   if (snapshot.identity.release !== undefined) throw new Error("the corpus snapshot must not declare identity.release; only credential-eval writes it");
+
+  if (evalExport !== undefined) {
+    const problem = evalExportProblem(evalExport, snapshot.cases.length, fixtures.count);
+    if (problem) throw new Error(problem);
+  }
 
   const isRecord = (e) => e.path.startsWith("records/");
   const bundle = {
@@ -124,6 +143,7 @@ export function buildRelease({ tag, commit, schemaRevision, sourceFiles, sourceD
       digest: fixtures.digest,
       rule: `npm ci && npm run fixtures:materialize at commit ${commit}; the tree's manifest.json equals ${FIXTURES_MANIFEST_PATH} and its digest equals fixtures.digest`,
     },
+    ...(evalExport === undefined ? {} : { evalExport }),
     filesDigest: sha256(files.map((f) => `${f.path} ${f.sha256}`).join("\n")),
     files,
   };
@@ -166,6 +186,19 @@ export function verifyRelease({ read, tag, manifestDigest }) {
     const bytes = read(f.asset);
     if (!bytes) problems.push(`missing asset ${f.asset} (${f.path})`);
     else if (sha256(bytes) !== f.sha256 || bytes.length !== f.bytes) problems.push(`asset ${f.asset} (${f.path}) does not match its sha256`);
+  }
+  if (manifest.evalExport !== undefined) {
+    const snapBytes = read(files.find((f) => f.path === SNAPSHOT_PATH)?.asset ?? "");
+    if (snapBytes) {
+      let cases;
+      try {
+        cases = JSON.parse(snapBytes.toString("utf8")).cases.length;
+      } catch {
+        cases = -1;
+      }
+      const problem = evalExportProblem(manifest.evalExport, cases, manifest.fixtures?.count);
+      if (problem) problems.push(problem);
+    }
   }
   const digestFile = read(MANIFEST_DIGEST_ASSET);
   if (digestFile && digestFile.toString("utf8").split(/\s+/)[0] !== actual) problems.push(`${MANIFEST_DIGEST_ASSET} does not match ${MANIFEST_ASSET}`);
