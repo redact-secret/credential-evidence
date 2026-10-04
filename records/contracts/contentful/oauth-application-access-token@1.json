@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "contentful:oauth-application-access-token@1",
+  "family": "contentful:oauth-application-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Contentful's Authentication page names OAuth tokens as the second type of content management token, for public integrations that request access to other Contentful users' data, and states that Contentful has no API for acquiring an OAuth token directly for a user account: OAuth applications acquire them.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "OAuth tokens - Use if you’re building a public integration that requests access to other Contentful user’s data",
+          "locator": "#the-content-management-api"
+        },
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "Contentful doesn’t have an API for acquiring an OAuth token directly for a user account, OAuth applications acquire them.",
+          "locator": "#getting-an-oauth-token"
+        },
+        {
+          "sourceId": "github-com-contentful-contentful-management-js-dcbed1081f",
+          "supports": "make sure to also check out the section about [Creating an OAuth Application]",
+          "locator": "#authentication"
+        },
+        {
+          "sourceId": "github-com-contentful-contentful-cli-b634d9dd56",
+          "supports": "Securely login and logout with our [OAuth service]",
+          "locator": "#features"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Candidate established at existence level only. No format, expiry or refresh behavior is stated in the pages read. Whether the token the Contentful CLI obtains through its OAuth login is this kind is not stated in the CLI README read.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
