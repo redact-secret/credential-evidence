@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "har-exports-authored",
+  "title": "HAR export contexts (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "har-exports-authored--sanitized-entry-without-credentials",
+      "case": "har-sanitized-export-without-credential-headers",
+      "path": "sanitized-entry-without-credentials/fixture.txt",
+      "context": "har-json",
+      "sha256": "c1626ebf2dbb3696c2ed435cb3e3ca2817b74ca5baca17cbe79a91d9ecdadb15",
+      "text": "{\n  \"log\": {\n    \"version\": \"1.2\",\n    \"creator\": { \"name\": \"synthetic-har-author\", \"version\": \"0\" },\n    \"entries\": [\n      {\n        \"startedDateTime\": \"2026-01-01T00:00:00.000Z\",\n        \"time\": 12,\n        \"request\": {\n          \"method\": \"GET\",\n          \"url\": \"https://app.example.test/dashboard\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [],\n          \"headers\": [\n            { \"name\": \"Host\", \"value\": \"app.example.test\" },\n            { \"name\": \"Accept\", \"value\": \"text/html\" }\n          ],\n          \"queryString\": [],\n          \"headersSize\": -1,\n          \"bodySize\": 0\n        },\n        \"response\": {\n          \"status\": 200,\n          \"statusText\": \"OK\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [],\n          \"headers\": [\n            { \"name\": \"Content-Type\", \"value\": \"text/html\" }\n          ],\n          \"content\": { \"size\": 0, \"mimeType\": \"text/html\" },\n          \"redirectURL\": \"\",\n          \"headersSize\": -1,\n          \"bodySize\": 0\n        },\n        \"cache\": {},\n        \"timings\": { \"send\": 0, \"wait\": 12, \"receive\": 0 }\n      }\n    ]\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "har-exports-authored--session-cookie-in-headers-and-cookies-arrays",
+      "case": "har-session-cookie-in-header-strings-and-cookies-arrays",
+      "path": "session-cookie-in-headers-and-cookies-arrays/fixture.txt",
+      "context": "har-json",
+      "sha256": "d6eac04a84e0c0e86bb3318550e40a823015870afd92a552808cab36e2243bb5",
+      "text": "{\n  \"log\": {\n    \"version\": \"1.2\",\n    \"creator\": { \"name\": \"synthetic-har-author\", \"version\": \"0\" },\n    \"entries\": [\n      {\n        \"startedDateTime\": \"2026-01-01T00:00:00.000Z\",\n        \"time\": 12,\n        \"request\": {\n          \"method\": \"GET\",\n          \"url\": \"https://app.example.test/dashboard\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [\n            { \"name\": \"locale\", \"value\": \"en-US\" },\n            { \"name\": \"synthetic_session_id\", \"value\": \"synthetic0har0session0request0nonce0001\" }\n          ],\n          \"headers\": [\n            { \"name\": \"Host\", \"value\": \"app.example.test\" },\n            { \"name\": \"Cookie\", \"value\": \"locale=en-US; synthetic_session_id=synthetic0har0session0request0nonce0001\" }\n          ],\n          \"queryString\": [],\n          \"headersSize\": -1,\n          \"bodySize\": 0\n        },\n        \"response\": {\n          \"status\": 200,\n          \"statusText\": \"OK\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [\n            { \"name\": \"synthetic_session_id\", \"value\": \"synthetic0har0session0response0nonce002\", \"path\": \"/\", \"secure\": true, \"httpOnly\": true }\n          ],\n          \"headers\": [\n            { \"name\": \"Content-Type\", \"value\": \"text/html\" },\n            { \"name\": \"Set-Cookie\", \"value\": \"synthetic_session_id=synthetic0har0session0response0nonce002; Path=/; Secure; HttpOnly\" }\n          ],\n          \"content\": { \"size\": 0, \"mimeType\": \"text/html\" },\n          \"redirectURL\": \"\",\n          \"headersSize\": -1,\n          \"bodySize\": 0\n        },\n        \"cache\": {},\n        \"timings\": { \"send\": 0, \"wait\": 12, \"receive\": 0 }\n      }\n    ]\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 473,
+            "end": 512,
+            "role": "secret",
+            "note": "Synthetic nonce built by hand from plain words and digits; never issued."
+          },
+          {
+            "start": 690,
+            "end": 729,
+            "role": "secret",
+            "note": "Synthetic nonce built by hand from plain words and digits; never issued."
+          },
+          {
+            "start": 1032,
+            "end": 1071,
+            "role": "secret",
+            "note": "Synthetic nonce built by hand from plain words and digits; never issued."
+          },
+          {
+            "start": 1287,
+            "end": 1326,
+            "role": "secret",
+            "note": "Synthetic nonce built by hand from plain words and digits; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "har-exports-authored--bearer-token-in-url-and-querystring-array",
+      "case": "har-bearer-token-in-url-query-and-form-body-beside-removed-headers",
+      "path": "bearer-token-in-url-and-querystring-array/fixture.txt",
+      "context": "har-json",
+      "sha256": "ffbb4e6211a0aec91febc71e19ed48d2f0e26ca49f5dbb8ef364df29e9f2af89",
+      "text": "{\n  \"log\": {\n    \"version\": \"1.2\",\n    \"creator\": { \"name\": \"synthetic-har-author\", \"version\": \"0\" },\n    \"entries\": [\n      {\n        \"startedDateTime\": \"2026-01-01T00:00:00.000Z\",\n        \"time\": 8,\n        \"request\": {\n          \"method\": \"GET\",\n          \"url\": \"https://api.example.test/resource?access_token=synthetic.har.bearer-token_0123456789abc&p=q\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [],\n          \"headers\": [\n            { \"name\": \"Host\", \"value\": \"api.example.test\" },\n            { \"name\": \"Accept\", \"value\": \"application/json\" }\n          ],\n          \"queryString\": [\n            { \"name\": \"access_token\", \"value\": \"synthetic.har.bearer-token_0123456789abc\" },\n            { \"name\": \"p\", \"value\": \"q\" }\n          ],\n          \"headersSize\": -1,\n          \"bodySize\": 0\n        },\n        \"response\": {\n          \"status\": 200,\n          \"statusText\": \"OK\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [],\n          \"headers\": [\n            { \"name\": \"Content-Type\", \"value\": \"application/json\" }\n          ],\n          \"content\": { \"size\": 0, \"mimeType\": \"application/json\" },\n          \"redirectURL\": \"\",\n          \"headersSize\": -1,\n          \"bodySize\": 0\n        },\n        \"cache\": {},\n        \"timings\": { \"send\": 0, \"wait\": 8, \"receive\": 0 }\n      }\n    ]\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 314,
+            "end": 354,
+            "role": "secret",
+            "note": "Synthetic token built by hand from the RFC 6750 b64token alphabet; never issued."
+          },
+          {
+            "start": 657,
+            "end": 697,
+            "role": "secret",
+            "note": "Synthetic token built by hand from the RFC 6750 b64token alphabet; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "har-exports-authored--bearer-token-in-postdata-params",
+      "case": "har-bearer-token-in-url-query-and-form-body-beside-removed-headers",
+      "path": "bearer-token-in-postdata-params/fixture.txt",
+      "context": "har-json",
+      "sha256": "03c921707deb4ae272ba1db82f9519cdc96b50c069e00ea2488fafdc8ef56228",
+      "text": "{\n  \"log\": {\n    \"version\": \"1.2\",\n    \"creator\": { \"name\": \"synthetic-har-author\", \"version\": \"0\" },\n    \"entries\": [\n      {\n        \"startedDateTime\": \"2026-01-01T00:00:00.000Z\",\n        \"time\": 8,\n        \"request\": {\n          \"method\": \"POST\",\n          \"url\": \"https://api.example.test/resource\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [],\n          \"headers\": [\n            { \"name\": \"Host\", \"value\": \"api.example.test\" },\n            { \"name\": \"Content-Type\", \"value\": \"application/x-www-form-urlencoded\" }\n          ],\n          \"queryString\": [],\n          \"postData\": {\n            \"mimeType\": \"application/x-www-form-urlencoded\",\n            \"params\": [\n              { \"name\": \"access_token\", \"value\": \"synthetic.har.bearer-token_0123456789abd\" },\n              { \"name\": \"p\", \"value\": \"q\" }\n            ]\n          },\n          \"headersSize\": -1,\n          \"bodySize\": 57\n        },\n        \"response\": {\n          \"status\": 200,\n          \"statusText\": \"OK\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [],\n          \"headers\": [\n            { \"name\": \"Content-Type\", \"value\": \"application/json\" }\n          ],\n          \"content\": { \"size\": 0, \"mimeType\": \"application/json\" },\n          \"redirectURL\": \"\",\n          \"headersSize\": -1,\n          \"bodySize\": 0\n        },\n        \"cache\": {},\n        \"timings\": { \"send\": 0, \"wait\": 8, \"receive\": 0 }\n      }\n    ]\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 736,
+            "end": 776,
+            "role": "secret",
+            "note": "Synthetic token built by hand from the RFC 6750 b64token alphabet; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "har-exports-authored--bearer-token-in-postdata-text-percent-escaped",
+      "case": "har-bearer-token-in-url-query-and-form-body-beside-removed-headers",
+      "path": "bearer-token-in-postdata-text-percent-escaped/fixture.txt",
+      "context": "har-json",
+      "sha256": "1a086680a81854d4679e7e5100215dbefc54108bde0df5705697e9de76faf393",
+      "text": "{\n  \"log\": {\n    \"version\": \"1.2\",\n    \"creator\": { \"name\": \"synthetic-har-author\", \"version\": \"0\" },\n    \"entries\": [\n      {\n        \"startedDateTime\": \"2026-01-01T00:00:00.000Z\",\n        \"time\": 8,\n        \"request\": {\n          \"method\": \"POST\",\n          \"url\": \"https://api.example.test/resource\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [],\n          \"headers\": [\n            { \"name\": \"Host\", \"value\": \"api.example.test\" },\n            { \"name\": \"Content-Type\", \"value\": \"application/x-www-form-urlencoded\" }\n          ],\n          \"queryString\": [],\n          \"postData\": {\n            \"mimeType\": \"application/x-www-form-urlencoded\",\n            \"text\": \"access_token=synthetic.har.bearer%2Btoken%2F0123456789abe&p=q\"\n          },\n          \"headersSize\": -1,\n          \"bodySize\": 61\n        },\n        \"response\": {\n          \"status\": 200,\n          \"statusText\": \"OK\",\n          \"httpVersion\": \"HTTP/1.1\",\n          \"cookies\": [],\n          \"headers\": [\n            { \"name\": \"Content-Type\", \"value\": \"application/json\" }\n          ],\n          \"content\": { \"size\": 0, \"mimeType\": \"application/json\" },\n          \"redirectURL\": \"\",\n          \"headersSize\": -1,\n          \"bodySize\": 0\n        },\n        \"cache\": {},\n        \"timings\": { \"send\": 0, \"wait\": 8, \"receive\": 0 }\n      }\n    ]\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 696,
+            "end": 740,
+            "role": "secret",
+            "note": "Synthetic token built by hand from the RFC 6750 b64token alphabet; never issued. The span is the percent-escaped text exactly as written."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

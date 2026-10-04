@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "har-bearer-token-in-url-query-and-form-body-beside-removed-headers",
+  "title": "Bearer value in a HAR URL query and form body after header removal",
+  "summary": "Three synthetic HAR 1.2 entries with no Authorization or Cookie header, in which a bearer-token-shaped value is in the request URL and its queryString array, in postData.params, or in postData.text with percent-escaped characters.",
+  "rationale": "Removing the Authorization, Cookie and Set-Cookie headers does not remove a bearer token that the client sent as the access_token URI query parameter or the access_token form-encoded body parameter, which RFC 6750 defines as two other ways to send the same token. HAR then writes that token again: the url string and the queryString name and value pairs both hold it, and a form body is either postData.params (name and value pairs) or postData.text (one form-encoded string), never both. The span is the token as written in each place, so in the text form it includes the percent-escapes literally (the original bytes, not a decoded form); mapping an escaped or JSON-embedded form back to the decoded token belongs to the downstream owners. Whether Chrome's sanitized export also drops URLs, query strings or bodies is not stated on the page read, so the expectation here does not depend on it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:bearer-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value",
+    "partial-span-leakage"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag the access_token value at each occurrence in each fixture, covering the token only (not the parameter name, the ampersand or the p parameter). RFC 6750 defines the access_token form-encoded body parameter and the URI query parameter as ways to send a bearer token and defines a bearer token as one that any party in possession of can use. The token's alphabet is the RFC 6750 b64token alphabet; the RFC states no length, so no length rule is asserted. This is a standards statement for the generic bearer-token family, not a Chrome or HAR claim.",
+    "sources": [
+      {
+        "sourceId": "rfc-editor-org-6450ea2bfd",
+        "supports": "When sending the access token in the HTTP request entity-body, the client adds the access token to the request-body using the \"access_token\" parameter (application/x-www-form-urlencoded).",
+        "locator": "#section-2.2"
+      },
+      {
+        "sourceId": "rfc-editor-org-6450ea2bfd",
+        "supports": "When sending the access token in the HTTP request URI, the client adds the access token to the request URI query component using the \"access_token\" parameter.",
+        "locator": "#section-2.3"
+      },
+      {
+        "sourceId": "rfc-editor-org-6450ea2bfd",
+        "supports": "Bearer Token: A security token with the property that any party in possession of the token (a \"bearer\") can use the token in any way that any other party in possession of it can.",
+        "locator": "#section-1.2"
+      },
+      {
+        "sourceId": "web-archive-org-75985a4994",
+        "supports": "queryString: list of all parameters & values parsed from a query string, if any (embedded in the request object); postData: params and text fields are mutually exclusive.",
+        "locator": "sections: queryString, postData"
+      },
+      {
+        "sourceId": "developer-chrome-com-7ec61e9448",
+        "supports": "The sanitized export excludes sensitive information such as Cookie, Set-Cookie, and Authorization headers (the page names headers only).",
+        "locator": "section: Export requests data > Save all network requests to a HAR file"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited specification, RFC and documentation read on 2026-10-04, before any scanner was consulted. Origin: evidence-derived (carrier forms documented by RFC 6750 and the HAR field structure; the combination is composed here, not observed). Unresolved and not asserted: whether a real Chrome sanitized export retains URL query strings and request bodies. All values are synthetic, built by hand from a documented grammar (a plain nonce or token under an obviously fake host and name) and were not tested against any service. HAR parsing, the decoding of a postData.text string, header coalescing, parser and action policy and product masking stay with the downstream repositories (credential-evidence#150, credential-eval).",
+  "relations": [
+    {
+      "type": "mutation-of",
+      "target": "har-sanitized-export-without-credential-headers",
+      "mutationKind": "credential-added-where-header-removal-does-not-reach",
+      "note": "Same header-sanitized shape as the control, with a bearer token carried in the URL query or a form body instead of a header."
+    }
+  ]
+}
