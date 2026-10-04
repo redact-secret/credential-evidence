@@ -78,6 +78,18 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'aws-sts-temporary-access-key' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Arrival evidence (#1012 READY-T2; product redact-secret#1027, which claims ASIA inside aws-access-key under aws_access_key_id). A temporary (AWS STS) access key id: an identifier AWS says is \"unique only in combination with the secret access key and the session token\", so a bare id scores as project policy and this contract fixes its grammar only. The ASIA prefix is T1 (the IAM identifier-prefix table and GetAccessKeyInfo). The 16-character [A-Z0-9] body is T2: the AWS AssumeRole example (R5), AWS-owned ferret-scan (R2 not applied) and AWS-merged git-secrets, and peers from Truffle Security, gitleaks, Praetorian and Google. Contradictions bounded by the research record: [A-Z0-9] vs [A-Z2-7] (the wider class is kept; R8 forbids narrowing from a third-party rule) and 16–128 (API) vs exactly 20 (every example and rule; 20 is claimed). Excluded: ids of 17–128 characters or with lowercase, ABIA and ACCA and resource ids (AIDA, AROA, …), and the session token. The AWS docs EXAMPLE ids are authored neither way."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "inconclusive",
+      "note": "Issue 184 strengthening run, 2026-10-04, from AWS pages read raw (reference_identifiers, STS Credentials, AssumeRole, GetAccessKeyInfo, temporary credentials use). Contract revision 2 drafted beside revision 1: the exactly-16 body claim was classed provider-documented but the provider range is 16 to 128 word characters, so it is split into provider statements and a tool-corroborated fixed-length claim; base32-only alphabet, lone-id and lone-session-token confidentiality stay unresolved. Two not-assertable cases added for lengths and lowercase bytes inside the documented API range. Three source types corrected. Not reviewed; revision 2 is not made current."
     }
   ],
   "externalRefs": [

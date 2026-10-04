@@ -77,6 +77,24 @@
         ]
       },
       {
+        "id": "ghes-prefix",
+        "text": "The GitHub Enterprise Server 3.17 documentation lists github_pat_ as the prefix of the fine-grained personal access token and states no length, alphabet or segment split for it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "ghes-3-17-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-github-com-68d32d0f44",
+            "locator": "#githubs-token-formats"
+          }
+        ]
+      },
+      {
         "id": "no-checksum-claimed",
         "text": "No body checksum and no fixed leading digits are claimed for the 22 plus 59 layout.",
         "evidenceClass": "unresolved",

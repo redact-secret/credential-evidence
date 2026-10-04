@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "shopify:custom-app-access-token@2",
+  "family": "shopify:custom-app-access-token",
+  "revision": 2,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": "shopify:custom-app-access-token@1",
+  "structure": {
+    "prefixes": [
+      "shpat_"
+    ],
+    "components": [
+      {
+        "name": "prefix",
+        "role": "prefix",
+        "description": "The access-tokens page says offline and online access tokens begin shpat_, whichever grant produced them."
+      },
+      {
+        "name": "body",
+        "role": "body",
+        "description": "The provider calls the token an opaque string and states no length, alphabet or case. Two scanner rule artifacts read the body as 32 hexadecimal characters; that reading is recorded as a tool-corroborated claim, not as provider structure."
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "shpat-prefix-offline-online",
+      "statement": "Shopify documents offline and online access tokens as opaque strings that begin with shpat_, whichever grant produced them. The page states no difference of prefix between tokens of public apps and tokens of custom apps.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "shopify-dev-198f512ad9",
+          "supports": "Offline and online access tokens are opaque strings that begin with shpat_, whichever grant produced them.",
+          "locator": "#access-token-types"
+        }
+      ]
+    },
+    {
+      "id": "shppa-is-delegate-token",
+      "statement": "Shopify documents the shppa_ prefix as the prefix of delegate access tokens, which derive from an app's offline access token and carry only the scopes the app specifies. The page does not describe shppa_ as the prefix of a custom-app token or of a public-app token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "shopify-dev-198f512ad9",
+          "supports": "Delegate access tokens begin with shppa_.",
+          "locator": "#access-token-types"
+        },
+        {
+          "sourceId": "shopify-dev-198f512ad9",
+          "supports": "A delegate access token derives from your app's offline access token and carries only the scopes you specify.",
+          "locator": "#delegate-access-tokens"
+        }
+      ]
+    },
+    {
+      "id": "admin-created-custom-app-token",
+      "statement": "For an admin-created custom app, Shopify pre-generates the API access token when the merchant installs the app, shows it only once, and does not allow rotation of the app API key or secret; a new token comes from uninstalling and reinstalling the app. New admin-created custom apps can no longer be created. The page gives no prefix, length or alphabet for this token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "shopify-dev-856281066a",
+          "supports": "Shopify pre-generates API access tokens when the merchant installs the app.",
+          "locator": "Introduction"
+        },
+        {
+          "sourceId": "shopify-dev-856281066a",
+          "supports": "Your app's API access token is shown only once, when it's generated, so store it somewhere secure at that point.",
+          "locator": "#make-authenticated-requests"
+        },
+        {
+          "sourceId": "shopify-dev-856281066a",
+          "supports": "You can't rotate the API key or secret for an admin-created custom app. To generate a new access token, uninstall and reinstall the app from the Shopify admin.",
+          "locator": "#rotate-or-generate-new-credentials"
+        },
+        {
+          "sourceId": "shopify-dev-856281066a",
+          "supports": "You can no longer create new admin-created custom apps. Existing apps are unaffected and continue to work.",
+          "locator": "Introduction"
+        }
+      ]
+    },
+    {
+      "id": "custom-app-non-expiring-offline",
+      "statement": "Shopify documents that the requirement to use expiring offline access tokens applies to public apps and not to custom apps, and that non-expiring offline tokens remain available to custom apps. This is a lifecycle contrast, not a format difference.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "shopify-dev-198f512ad9",
+          "supports": "Public apps must use expiring offline access tokens for GraphQL Admin API requests by January 1, 2027. This doesn't apply to custom apps or apps created by merchants.",
+          "locator": "#offline-access-tokens"
+        },
+        {
+          "sourceId": "shopify-dev-bcae99a1fb",
+          "supports": "Non-expiring offline tokens remain available to custom apps.",
+          "locator": "#re-pin-a-non-expiring-offline-token"
+        }
+      ]
+    },
+    {
+      "id": "tool-corroboration-shpat-hex32",
+      "statement": "Two scanner rule artifacts of different maintainers read a shpat_ token as the prefix followed by 32 hexadecimal characters of either case (gitleaks 8.30.1 config/gitleaks.toml, rule shopify-access-token; trufflehog 3.97.4 pkg/detectors/shopify/shopify.go, pattern key). The artifacts differ at the edges: the trufflehog pattern is word-bounded, and the gitleaks pattern has no boundary. The provider page states none of this.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "regex = shpat_[a-fA-F0-9]{32} in rule shopify-access-token at tag v8.30.1",
+          "locator": "config/gitleaks.toml"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-19bb1c1e31",
+          "supports": "keyPat matches (shppa_|shpat_) followed by [0-9A-Fa-f]{32} between word boundaries at tag v3.97.4",
+          "locator": "pkg/detectors/shopify/shopify.go"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Revision 2 corrects revision 1, whose provider claim was shared with the public-app family and listed both shpat_ and shppa_ as this family's prefixes; the provider page read on 2026-10-04 assigns shppa_ to delegate access tokens. Revision 1 is left unchanged.",
+  "openQuestions": [
+    {
+      "id": "body-length-alphabet",
+      "question": "What are the length, alphabet and case of the body after shpat_? The provider pages read call tokens opaque strings and state none. Two scanner rules read 32 hexadecimal characters; scanner agreement does not establish a provider rule, so a longer or shorter body, or a non-hex body, cannot be classed as not a token from these sources. Settling it needs a provider statement.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "admin-created-token-prefix",
+      "question": "Does the pre-generated token of an admin-created custom app begin shpat_? The page on admin-created custom apps states no prefix, and the access-tokens page names offline and online tokens, not these. Settling it needs a provider statement.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "public-versus-custom-discrimination",
+      "question": "Can a shpat_ token of a custom app be told apart from a shpat_ token of a public app by its text? The provider states a single prefix for both and no other difference, so family attribution of a bare shpat_ value to custom apps is not supported by the sources read. Settling it needs a provider statement.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "other-shop-prefixes",
+      "question": "Gitleaks 8.30.1 also carries rules for shpca_ (labelled custom access token) and shpss_ (labelled shared secret) and labels shppa_ private app access token. No Shopify page read states these prefixes or labels, and a scanner label is not provider evidence. Settling it needs a provider statement.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "refresh-token-format",
+      "question": "What do the refresh tokens that accompany expiring offline access tokens look like? The access-tokens page documents their lifetime and rotation but states no prefix, length or alphabet. Settling it needs a provider statement.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

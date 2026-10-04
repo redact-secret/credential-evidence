@@ -16,14 +16,14 @@
   "claims": [
     {
       "id": "provider-source",
-      "statement": "xoxb-/xoxp-/xapp-/xwfp- prefixes, dash-separated sections: prefixes and section structure with the secret last; numeric section widths and 24-character secret are tool-corroborated",
+      "statement": "xoxb- bot token prefix; the page states that Slack tokens are dash-separated sections with the secret last (shown for an xoxp- user token) and states no section widths, secret width or alphabet for xoxb-",
       "evidenceClass": "provider-documented",
       "temporality": "current",
-      "observedAt": "2026-09-17",
+      "observedAt": "2026-10-04",
       "sources": [
         {
           "sourceId": "docs-slack-dev-8af6cd6628",
-          "supports": "prefixes and section structure with the secret last; numeric section widths and 24-character secret are tool-corroborated"
+          "supports": "Bot token strings begin with xoxb-; tokens are divided into sections separated by a dash and the final section is the secret (stated in the user-token secret-rotation section, example xoxp-111-222-333-...)"
         }
       ]
     },
@@ -41,6 +41,88 @@
         {
           "sourceId": "github-com-trufflesecurity-trufflehog-7ed9f8b5f1",
           "supports": "trufflehog 3.97.4: slack/slack"
+        }
+      ]
+    },
+    {
+      "id": "field-numeric-section-widths-and-secret",
+      "statement": "numeric section widths and secret width or alphabet: no Slack page read states them for xoxb-; the only provider-stated widths are for user tokens (32-character secret in the page's example; pre-August-2016 user-token secrets of 6 or 10 characters), and the only xoxb- strings shown are elided (xoxb-1234-...). The 12/12/24 grammar rests on scanner rules only.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "No xoxb- widths stated; user-token secret widths 6, 10 and 32 characters stated for xoxp- examples"
+        },
+        {
+          "sourceId": "docs-slack-dev-046acee641",
+          "supports": "Example request token=xoxb-1234-... is elided and gives no widths"
+        }
+      ]
+    },
+    {
+      "id": "field-rotating-xoxe-xoxb-access-token",
+      "statement": "rotating bot access token: oauth.v2.exchange on a granular bot token returns an access token that the page says has a new xoxe. prefix, shown as xoxe.xoxb-1-... (elided), with a refresh token shown as xoxe-1-...; the access token expires after 43,200 seconds and the original long-lived access token expires after the first refresh. The page states no widths, no meaning of the digit after the prefix and no alphabet for these forms. Outside descriptivePattern until scope is decided; never a benign control.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-046acee641",
+          "supports": "oauth.v2.exchange sample response: access_token xoxe.xoxb-1-... (elided), refresh_token xoxe-1-..., expires_in 43200, token_type bot; access_token now has a new xoxe. prefix"
+        }
+      ]
+    },
+    {
+      "id": "field-rotating-form-version-digit",
+      "statement": "digit after xoxe.xoxb-: the page shows 1 in an elided example; no source read states the range or meaning of this digit",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-046acee641",
+          "supports": "Examples show xoxe.xoxb-1-... and xoxe-1-... only"
+        }
+      ]
+    },
+    {
+      "id": "field-workflow-token-prefix-distinct",
+      "statement": "workflow tokens are described as a subset of bot tokens but begin xwfp-, and the page contrasts them with xoxb- tokens; the page states no relation between the two secret formats",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "Workflow token strings begin with xwfp-; unlike xoxb- tokens, workflow tokens can sometimes access private channels"
+        }
+      ]
+    },
+    {
+      "id": "field-legacy-bot-token",
+      "statement": "legacy bot tokens: the page says they were obtained through an older OAuth flow and are discouraged, and states no prefix or format for them",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-8af6cd6628",
+          "supports": "Legacy token types section, Legacy bot tokens: no prefix stated"
+        }
+      ]
+    },
+    {
+      "id": "field-token-like-public-identifiers",
+      "statement": "identifiers shown beside bot tokens in OAuth responses (team id T123456, bot_user_id U123456, app_id A123456, client_id 60503450.61416): shown only as placeholders; no source read states their widths or that they are non-secret, and the relation of the xoxb- numeric sections to team or bot ids is not stated",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-slack-dev-046acee641",
+          "supports": "oauth.v2.exchange and oauth.v2.access sample requests and responses"
         }
       ]
     },

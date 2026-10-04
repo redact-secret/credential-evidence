@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "openai-redacted-key-display",
+  "families": [
+    "openai:secret-api-key"
+  ],
+  "siblingClass": "other",
+  "name": "OpenAI redacted key display",
+  "description": "The redacted_value returned when an existing project API key is retrieved, shown in the reference as sk-abc...def: a short prefix, an ellipsis and a suffix in place of the key body. The documentation says the full value is available only in the creation response and that later retrieval returns a redacted value. It starts with the sk- stem shared with real keys but is not itself a key value. The documented example is illustrative; no page states how many characters of a real key a redacted display keeps.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "developers-openai-com-b6d42e4346",
+      "supports": "ProjectAPIKey.redacted_value is the redacted value of the API key; example sk-abc...def."
+    },
+    {
+      "sourceId": "developers-openai-com-7b8f0892be",
+      "supports": "The full API-key value is available only in the create response; later project API-key retrieval returns a redacted value."
+    }
+  ],
+  "observedAt": "2026-10-04",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Class is unresolved: the sources establish that the display is redacted, not what a given redacted rendering does or does not reveal, and not how any consumer should treat it."
+}

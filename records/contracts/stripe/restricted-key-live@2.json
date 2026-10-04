@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "stripe:restricted-key-live@2",
+  "family": "stripe:restricted-key-live",
+  "revision": 2,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": "stripe:restricted-key-live@1",
+  "structure": {},
+  "claims": [
+    {
+      "id": "rk-live-prefix",
+      "statement": "A live-mode Stripe restricted API key (RAK) starts with rk_live_.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Live mode keys start with pk_live_, rk_live_ and sk_live_; the key-types table gives rk_ as the Restricted API key (RAK) prefix.",
+          "locator": "#test-live-modes"
+        },
+        {
+          "sourceId": "docs-stripe-com-720fdac0b2",
+          "supports": "A restricted API key (RAK) starts with rk_live_ or rk_test_.",
+          "locator": "#what-is-a-restricted-api-key"
+        }
+      ]
+    },
+    {
+      "id": "rk-mode-sibling",
+      "statement": "A sandbox restricted key starts with rk_test_; the mode segment (live_ or test_) separates rk_live_ from rk_test_ and the first segment (pk_, rk_, sk_) names the key type.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Sandbox keys start with pk_test_ for publishable keys, rk_test_ for restricted keys and sk_test_ for secret keys.",
+          "locator": "#test-live-modes"
+        }
+      ]
+    },
+    {
+      "id": "rk-not-public",
+      "statement": "A restricted key is not safe to expose: only publishable keys (pk_) are documented as safe to expose outside the backend, and restricted keys are named among the keys the account holder must protect.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "Only publishable keys are safe to expose outside your application's backend; you are responsible for protecting other Stripe API keys, including restricted API keys.",
+          "locator": "#safe-keys"
+        },
+        {
+          "sourceId": "docs-stripe-com-720fdac0b2",
+          "supports": "Treat RAKs with the same caution as secret API keys; a RAK is an API key your server-side applications include in Stripe API requests.",
+          "locator": "#what-is-a-restricted-api-key"
+        }
+      ]
+    },
+    {
+      "id": "body-lexical-range-tool-consistent",
+      "statement": "Two pinned scanner rules by different maintainers are both consistent with rk_live_ followed by a run of 20 to 99 ASCII letters or digits: gitleaks 8.30.1 stripe-access-token matches (?:sk|rk)_(?:test|live|prod)_ plus [a-zA-Z0-9]{10,99}, and trufflehog 3.97.4 stripe detector matches [rs]k_live_ plus [a-zA-Z0-9]{20,247}. The overlap is a lexical range, not a documented grammar, and says nothing about issued keys.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks v8.30.1 config/gitleaks.toml rule stripe-access-token: [a-zA-Z0-9]{10,99} after the sk|rk _ test|live|prod _ prefix.",
+          "locator": "stripe-access-token"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-a80307467e",
+          "supports": "trufflehog v3.97.4 pkg/detectors/stripe/stripe.go: [rs]k_live_[a-zA-Z0-9]{20,247}.",
+          "locator": "stripe.go secretKey"
+        }
+      ]
+    },
+    {
+      "id": "body-length-exact-32",
+      "statement": "Whether the body of a restricted key is exactly 32 characters is not established: the Stripe pages state no body length or alphabet, and neither pinned scanner rule fixes the length at 32 (they accept ranges). The earlier revision's wording that a 32-character body is tool-corroborated is not supported by those rules; 32 lies inside the overlap above but is not singled out by it.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-stripe-com-3e992d348a",
+          "supports": "The keys page names the rk_live_ and rk_test_ prefixes and gives no body length or alphabet."
+        },
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-e50f42b821",
+          "supports": "gitleaks v8.30.1 accepts a 10 to 99 character body."
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-a80307467e",
+          "supports": "trufflehog v3.97.4 accepts a 20 to 247 character body."
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Revision 2 isolates the restricted-key claims that revision 1 inherited from the shared legacy 'stripe-token' contract (organization-key statements are not restated here; see stripe:organization-api-key) and corrects the revision-1 wording that a 32-character body is tool-corroborated, which the pinned scanner rule ranges do not show. Key rotation and expiry (#112) are out of scope."
+}

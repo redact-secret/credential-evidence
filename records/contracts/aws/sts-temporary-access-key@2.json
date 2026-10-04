@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "aws:sts-temporary-access-key@2",
+  "family": "aws:sts-temporary-access-key",
+  "revision": 2,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": "aws:sts-temporary-access-key@1",
+  "structure": {
+    "prefixes": [
+      "ASIA"
+    ],
+    "components": [
+      {
+        "name": "prefix",
+        "role": "prefix",
+        "description": "ASIA marks a temporary (AWS STS) access key ID."
+      },
+      {
+        "name": "body",
+        "role": "body",
+        "description": "The provider bounds the whole AccessKeyId at 16 to 128 word characters and its examples are 20 characters in all; which lengths and bytes are issued is not documented."
+      },
+      {
+        "name": "secret-access-key",
+        "role": "companion",
+        "description": "Returned with the id; no length or alphabet is documented."
+      },
+      {
+        "name": "session-token",
+        "role": "companion",
+        "description": "Returned with the id; its size is documented as not fixed and no alphabet is documented."
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "field-prefix",
+      "statement": "prefix: ASIA",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-59c608844f",
+          "supports": "ASIA: temporary (AWS STS) access key IDs",
+          "locator": "#identifiers-prefixes"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-a33beae256",
+          "supports": "access key IDs beginning with ASIA are temporary credentials"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-dc376a81fa",
+          "supports": "Access key IDs beginning with ASIA are temporary credentials access keys created using AWS STS operations; AKIA are long-term"
+        }
+      ]
+    },
+    {
+      "id": "id-length-api-range",
+      "statement": "The STS Credentials type bounds AccessKeyId at a minimum length of 16 and a maximum of 128 with the pattern [\\w]*; the type does not single out ASIA ids and states no fixed length for them.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-1e7f14016c",
+          "supports": "Credentials, AccessKeyId: String, minimum length 16, maximum length 128, Pattern [\\w]*",
+          "locator": "Credentials > Contents > AccessKeyId"
+        }
+      ]
+    },
+    {
+      "id": "id-length-documented-example",
+      "statement": "The AssumeRole response example gives an ASIA-prefixed AccessKeyId of 20 characters (ASIA followed by 16 uppercase letters and digits); it is an illustration and the page does not state that every issued id has that length.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-f4520419ab",
+          "supports": "AssumeRole response example: AccessKeyId with the ASIA prefix, 20 characters of uppercase letters and digits",
+          "locator": "Examples > Sample Response"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-26a65ab272",
+          "supports": "CLI example exports the same documented example id as AWS_ACCESS_KEY_ID",
+          "locator": "Using temporary security credentials with the AWS CLI"
+        }
+      ]
+    },
+    {
+      "id": "id-length-fixed-16",
+      "statement": "Pinned scanner rules by several maintainers are consistent with ASIA followed by exactly 16 characters (20 in all): rules by AWS Labs (two artifacts), Google, Praetorian and Trufflesecurity read that length. No provider page states a fixed length, and the provider range is wider (id-length-api-range).",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-awslabs-ferret-scan-eb13b62ba2",
+          "supports": "AWS Labs rule: \\b(?:AKIA|ASIA)[0-9A-Z]{16}\\b",
+          "locator": "#L1444"
+        },
+        {
+          "sourceId": "github-com-awslabs-git-secrets-57d690e6e4",
+          "supports": "AWS Labs rule: (A3T[A-Z0-9]|AKIA|...|ASIA)[A-Z0-9]{16}",
+          "locator": "#L239"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-b037e591e6",
+          "supports": "Google rule: \\b(AKIA[A-Z0-9]{16}|ASIA[A-Z0-9]{16})\\b",
+          "locator": "#L25-L26"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-b3a9bb034f",
+          "supports": "Praetorian rule: AWS id prefix set followed by [A-Z0-9]{16}",
+          "locator": "#L3-L6"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-cf4da7cc86",
+          "supports": "Trufflesecurity rule: \\b((?:ASIA)[A-Z0-9]{16})\\b with a session token",
+          "locator": "#L74-L75"
+        }
+      ]
+    },
+    {
+      "id": "id-alphabet-api-pattern",
+      "statement": "The STS API reference accepts word characters for AccessKeyId (Credentials: [\\w]*) and describes the GetAccessKeyInfo AccessKeyId input as allowing any upper- or lowercase letter or digit; these are request and response type patterns, not statements about which characters are issued.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-1e7f14016c",
+          "supports": "Credentials, AccessKeyId: Pattern [\\w]*",
+          "locator": "Credentials > Contents > AccessKeyId"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-a33beae256",
+          "supports": "AccessKeyId parameter: a string that can consist of any upper- or lowercase letter or digit; Pattern [\\w]*",
+          "locator": "Request Parameters > AccessKeyId"
+        }
+      ]
+    },
+    {
+      "id": "id-alphabet-doc-example-digit-8",
+      "statement": "The GetAccessKeyInfo sample request uses an AKIA-prefixed example id whose body contains the digits 4 and 8, so a provider example for the long-term prefix has a body byte outside A-Z2-7; it is illustrative and does not show which characters an ASIA id uses.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-a33beae256",
+          "supports": "Sample Request: AccessKeyId example with the AKIA prefix and a body containing the digit 8",
+          "locator": "Examples > Sample Request"
+        }
+      ]
+    },
+    {
+      "id": "id-alphabet-upper-alnum",
+      "statement": "Pinned scanner rules by several maintainers are consistent with accepting any uppercase letter or digit [A-Z0-9] in the 16-character body of an ASIA id; this is the wider of the two classes the rules use and does not say which bytes are issued.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-awslabs-ferret-scan-eb13b62ba2",
+          "supports": "AWS Labs rule: [0-9A-Z]{16}",
+          "locator": "#L1444"
+        },
+        {
+          "sourceId": "github-com-awslabs-git-secrets-57d690e6e4",
+          "supports": "AWS Labs rule: [A-Z0-9]{16}",
+          "locator": "#L239"
+        },
+        {
+          "sourceId": "github-com-google-osv-scalibr-b037e591e6",
+          "supports": "Google rule: [A-Z0-9]{16}",
+          "locator": "#L25-L26"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-b3a9bb034f",
+          "supports": "Praetorian rule: [A-Z0-9]{16}",
+          "locator": "#L3-L6"
+        }
+      ]
+    },
+    {
+      "id": "id-alphabet-base32-only",
+      "statement": "Whether issued ASIA bodies are limited to A-Z and 2-7 (never 0, 1, 8 or 9) is unresolved: one scanner rule narrows to [A-Z2-7] with a comment, a 2018 third-party blog states A-Z and 2-7 for access key IDs generally, a 2020 third-party blog describes a base32 flavour for AKIA-prefixed ids and notes older ids that differ, and no provider page states it.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-4127284f03",
+          "supports": "Scanner rule narrows the body to [A-Z2-7] with the comment that current tokens cannot contain 0, 1, 8 or 9",
+          "locator": "#L15-L24"
+        },
+        {
+          "sourceId": "summitroute-com-f8a30bb19a",
+          "supports": "Third-party blog (2018): other than the prefix the characters are A-Z and 2-7 (no 0,1,8,9)"
+        },
+        {
+          "sourceId": "awsteele-com-b4e7b24a61",
+          "supports": "Third-party blog (2020): AKIA-prefixed ids decode with a base32 flavour A-Z2-7; older ids differ; nothing about ASIA ids"
+        }
+      ]
+    },
+    {
+      "id": "field-boundary",
+      "statement": "boundary: not [A-Za-z0-9] on either side (A research-record boundary decision, not a provider statement.)",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-redact-secret-redact-secret-13337316c7",
+          "supports": "supported shape: boundary is a product rule (policy)"
+        }
+      ]
+    },
+    {
+      "id": "companion-unique-combination",
+      "statement": "ASIA temporary access key IDs are unique only in combination with the secret access key and the session token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-59c608844f",
+          "supports": "ASIA: temporary (AWS STS) access key IDs use this prefix, but are unique only in combination with the secret access key and the session token",
+          "locator": "#identifiers-prefixes"
+        }
+      ]
+    },
+    {
+      "id": "companion-session-token-required",
+      "statement": "A call made with temporary security credentials must include the session token returned with them; the STS Credentials type lists AccessKeyId, SecretAccessKey and SessionToken as required values.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-26a65ab272",
+          "supports": "When you make a call using temporary security credentials, the call must include a session token, which is returned along with those temporary credentials",
+          "locator": "Use temporary credentials with AWS resources, introduction"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-1e7f14016c",
+          "supports": "Credentials: AccessKeyId, SecretAccessKey and SessionToken all Required: Yes",
+          "locator": "Credentials > Contents"
+        }
+      ]
+    },
+    {
+      "id": "companion-secret-used-like-long-term",
+      "statement": "The access key ID and secret access key returned by STS are used the same way as long-term credentials to sign a request, with the session token added in an HTTP header or in a query parameter named X-Amz-Security-Token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-26a65ab272",
+          "supports": "You use the access key ID and secret access key the same way you would use long-term credentials to sign a request; add the session token to a header or query parameter X-Amz-Security-Token",
+          "locator": "Using temporary security credentials with API operations"
+        }
+      ]
+    },
+    {
+      "id": "session-token-size-not-fixed",
+      "statement": "AWS states that the size of the security token STS operations return is not fixed and recommends making no assumptions about its maximum size; the Credentials type gives SecretAccessKey and SessionToken no length constraint or pattern.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-f4520419ab",
+          "supports": "The size of the security token that AWS STS API operations return is not fixed; make no assumptions about the maximum size",
+          "locator": "Response Elements > Credentials"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-1e7f14016c",
+          "supports": "SecretAccessKey and SessionToken: Type String, Required, no length constraint or pattern",
+          "locator": "Credentials > Contents"
+        }
+      ]
+    },
+    {
+      "id": "companion-confidentiality-scope",
+      "statement": "Whether an ASIA id on its own, or a session token on its own, is confidential is not stated by the pages read: they say the id is unique only with the other two values and that the token must accompany a call, but give no sensitivity statement for either value alone. The secret access key is read as confidential by analogy with long-term credentials (companion-secret-used-like-long-term), which the pages do not word as a confidentiality rule.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-aws-amazon-com-59c608844f",
+          "supports": "ASIA ids are unique only in combination with the secret access key and the session token; no sensitivity statement",
+          "locator": "#identifiers-prefixes"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-1e7f14016c",
+          "supports": "SessionToken: the token users must pass to use the temporary credentials; no sensitivity statement",
+          "locator": "Credentials > Contents"
+        },
+        {
+          "sourceId": "docs-aws-amazon-com-26a65ab272",
+          "supports": "Temporary credentials need the session token; no statement that the token or the id alone is confidential",
+          "locator": "Use temporary credentials with AWS resources"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Supersedes revision 1, which is kept unchanged. Changes from revision 1: the single exactly-16 body claim, which was classed provider-documented, is split into the provider statements (id-length-api-range, id-length-documented-example) and a tool-corroborated fixed-length claim, because the provider range is 16 to 128 and no page fixes the length; the alphabet claim is split into the provider API patterns, a provider example with a digit outside A-Z2-7, the [A-Z0-9] rule consistency and an unresolved base32-only claim; the companion claim is split into provider statements and an unresolved confidentiality scope; the session-token size statement is new. Revision 1 legacy provenance claims (listed references, dossier research, taxonomy sources) and its peer-lag claim are not restated here and remain in revision 1. Read 2026-10-04 from the live provider pages, which are unpinned.",
+  "openQuestions": [
+    {
+      "id": "issued-body-length",
+      "question": "Is the body of every issued ASIA access key ID exactly 16 characters, or can issued ids be longer within the documented 16 to 128 range? Only an issued id would show it.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "issued-body-alphabet",
+      "question": "Are issued ASIA bodies limited to A-Z and 2-7, or can they contain 0, 1, 8 or 9? No provider page states it.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "session-token-grammar",
+      "question": "What alphabet and length range does the session token have, and does it carry any stable marker? The provider states only that its size is not fixed.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "lone-companion-confidentiality",
+      "question": "Does AWS treat an ASIA id alone, or a session token alone, as confidential? The pages read do not say.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

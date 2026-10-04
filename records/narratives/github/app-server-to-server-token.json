@@ -119,14 +119,17 @@
       },
       {
         "id": "rollout-completion",
-        "text": "The date after which every eligible app receives only the stateless form is not stated.",
-        "evidenceClass": "unresolved",
+        "text": "GitHub stated on 2026-10-02 that the staged rollout is complete: by default every newly minted installation token is now the stateless ghs_APPID_JWT form, about 520 characters instead of 40. The temporary header is to be deprecated on 2026-11-30, after which all eligible apps always receive stateless tokens. Whether the opaque form is issued at all after that date is not stated.",
+        "evidenceClass": "provider-documented",
         "temporality": "current",
-        "observedAt": "2026-10-03",
-        "unresolved": {
-          "reviewEvent": 7,
-          "reason": "The provider says the temporary header will stop being respected at a date to be announced and that all eligible apps will then receive stateless tokens; no date or completion statement was found on the pages read."
-        }
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-blog-4ce371788d",
+            "locator": "What's changed; What to expect going forward"
+          }
+        ]
       }
     ],
     "collisions": [
@@ -166,10 +169,10 @@
         "text": "Does the stateless form have a documented lower or upper length bound beyond about 520 characters?",
         "evidenceClass": "unresolved",
         "temporality": "current",
-        "observedAt": "2026-10-03",
+        "observedAt": "2026-10-04",
         "unresolved": {
           "reviewEvent": 6,
-          "reason": "The provider says about 520 characters and varying with the token contents, with no stated lower or upper bound."
+          "reason": "The provider says about 520 characters and varying with the token contents. Its only other figure is storage guidance that columns must fit at least 520 characters, a lower bound for storage rather than a token length bound; no upper bound is stated."
         }
       }
     ]

@@ -18,6 +18,12 @@
       "redact-secret/redact-secret-benchmarks#223",
       "redact-secret/redact-secret-benchmarks#367",
       "redact-secret/redact-secret-benchmarks#371"
+    ],
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "Exact body length, underscore position, checksum and GHES body parity of github_pat_ tokens are not provider-documented; only an issued token or a provider statement would settle them."
+      }
     ]
   },
   "externalRefs": [
