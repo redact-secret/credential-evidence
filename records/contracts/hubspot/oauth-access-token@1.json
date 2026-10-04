@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "hubspot:oauth-access-token@1",
+  "family": "hubspot:oauth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "oauth-access-token-exists",
+      "statement": "HubSpot's OAuth token documentation describes an access token used as a Bearer token on every API request made for the installing user and account, which expires after 30 minutes; the client credentials grant also issues access tokens for webhooks journal use.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-5873f5074b",
+          "supports": "Access token: your app's authentication credential used for every API request made on behalf of the user and the account where they installed your app. This token is provided as a Bearer token in the request, and expires after 30 minutes.",
+          "locator": "#token-types"
+        },
+        {
+          "sourceId": "developers-hubspot-com-5873f5074b",
+          "supports": "OAuth access tokens have no defined maximum size, and the size may increase or decrease as HubSpot updates the information encoded in tokens.",
+          "locator": "Generate initial access and refresh tokens"
+        },
+        {
+          "sourceId": "developers-hubspot-com-ddf7f2759b",
+          "supports": "We're updating our recommendation for storing access tokens to allow tokens to be at least 512 characters in length.",
+          "locator": "Updated recommendations"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is not researched beyond existence: the pages read name the credential but state no literal prefix, alphabet, length or checksum, and no format is recorded or inferred.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The documentation states tokens have no defined maximum size and may encode information that changes, so no length is recorded. The example values in the docs are placeholders and are not a format. Whether tokens from the client credentials grant are one family with user-authorized tokens is not stated.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

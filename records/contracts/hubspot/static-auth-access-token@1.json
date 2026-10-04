@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "hubspot:static-auth-access-token@1",
+  "family": "hubspot:static-auth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "static-auth-token-exists",
+      "statement": "HubSpot's authentication overview describes a static auth access token, found in app settings, for apps limited to a single authorized account and sent as a Bearer token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-1876a2b7bb",
+          "supports": "If you want to limit distribution of your app to a single authorized account, you'll use a static auth access token. This token can be found in your app settings.",
+          "locator": "#static-auth"
+        },
+        {
+          "sourceId": "developers-hubspot-com-1876a2b7bb",
+          "supports": "There are two authentication types available ... OAuth is required for multiple accounts, while static auth access tokens are used for installing in a single account at a time.",
+          "locator": "App authentication"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is not researched beyond existence: the pages read name the credential but state no literal prefix, alphabet, length or checksum, and no format is recorded or inferred.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The page's only token example is masked; no literal format is shown. Whether a static auth token is distinguishable from a legacy private app token is not stated.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

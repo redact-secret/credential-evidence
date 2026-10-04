@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "hubspot:personal-access-key@1",
+  "family": "hubspot:personal-access-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "personal-access-key-exists",
+      "statement": "HubSpot's CLI documentation describes a personal access key, one per user per account, used to authenticate the HubSpot CLI and stored in a local global config file.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-cc3f520c9e",
+          "supports": "Personal access keys provide secure account authentication for the HubSpot CLI and local development tools. Each user can only have one personal access key at a time per account.",
+          "locator": "Intro"
+        },
+        {
+          "sourceId": "developers-hubspot-com-cc3f520c9e",
+          "supports": "personal access keys should be kept secure and should not be shared publicly.",
+          "locator": "Generating and using your key"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is not researched beyond existence: the pages read name the credential but state no literal prefix, alphabet, length or checksum, and no format is recorded or inferred.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "No example value or format is given in the text read; not researched beyond existence.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

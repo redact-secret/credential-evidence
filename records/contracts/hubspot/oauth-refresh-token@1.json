@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "hubspot:oauth-refresh-token@1",
+  "family": "hubspot:oauth-refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "oauth-refresh-token-exists",
+      "statement": "HubSpot's OAuth token documentation describes a refresh token as the app's long-term credential that generates a new access token after the previous one expires.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-5873f5074b",
+          "supports": "Refresh token: your app's long-term authentication credential that you can use to generate a new access token after the previous one expires.",
+          "locator": "#token-types"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is not researched beyond existence: the pages read name the credential but state no literal prefix, alphabet, length or checksum, and no format is recorded or inferred.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "No format statement for refresh tokens appears in the page read; placeholder values in examples are not a format.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

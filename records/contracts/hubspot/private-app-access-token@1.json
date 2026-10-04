@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "hubspot:private-app-access-token@1",
+  "family": "hubspot:private-app-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "private-app-token-exists",
+      "statement": "HubSpot's legacy private apps documentation describes an access token, unique to each private app, that is sent as a Bearer token in the Authorization header and that does not change when scopes change.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "Private apps allow you to use HubSpot's APIs to access specific data from your HubSpot account. You can authorize what each private app can request or change in your account, which will generate an access token that's unique to your app.",
+          "locator": "Overview intro"
+        },
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "When making a call to one of the HubSpot API endpoints, set the value of the Authorization field to Bearer [YOUR_TOKEN].",
+          "locator": "Make API calls with your app's access token"
+        },
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "Private app access tokens will be updated to reflect available scopes ... but the token string itself will not change.",
+          "locator": "Make API calls with your app's access token"
+        }
+      ]
+    },
+    {
+      "id": "pat-prefix-lead",
+      "statement": "A single scanner rule artifact (the TruffleHog hubspot_apikey v2 detector) treats a pat-na1- or pat-eu1- prefix followed by five hyphen-separated groups of 8-4-4-4-12 alphanumeric characters as a HubSpot private app token; no second independent artifact and no HubSpot page was found, so this is an unconfirmed lead and not a format claim.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-928ac53cb6",
+          "supports": "keyPat: pat-(eu|na)1- followed by 8-4-4-4-12 alphanumeric groups; keywords pat-na1- and pat-eu1-.",
+          "locator": "pkg/detectors/hubspot_apikey/v2/apikey.go lines 31 and 37 at commit 59e3b04e820c4cad30462696ac497853a5f7679c"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is not researched beyond existence: the pages read name the credential but state no literal prefix, alphabet, length or checksum, and no format is recorded or inferred.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "Whether the legacy private app access token and the static auth access token are one credential family or two is not settled by the pages read; they are kept as two candidates.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "Whether private app (and static auth) access tokens carry a pat-na1- or pat-eu1- prefix is unconfirmed: HubSpot pages read show masked or placeholder values only, and only one scanner maintainer's artifact (the TruffleHog v2 detector) shows the prefix. It needs a second independent artifact or a HubSpot statement.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "hubspot:legacy-api-key@1",
+  "family": "hubspot:legacy-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "separators": [
+      "-"
+    ],
+    "components": [
+      {
+        "name": "uuid-shaped-body",
+        "role": "body",
+        "description": "Five groups of 8-4-4-4-12 characters joined by hyphens, per the corroborating artifacts; their character sets differ (hexadecimal versus alphanumeric) and are not settled."
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "legacy-api-key-exists",
+      "statement": "HubSpot's changelog states that API keys were one of three authentication methods for HubSpot APIs and that HubSpot was sunsetting them in favor of private apps; the authentication overview documents a separate developer API key passed in a hapikey query parameter.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-1f6444edd2",
+          "supports": "API Keys have been one of three authentication methods supported by HubSpot APIs. However, ... we will be sunsetting API Keys.",
+          "locator": "What's changing?"
+        },
+        {
+          "sourceId": "developers-hubspot-com-1f6444edd2",
+          "supports": "As of July 15, 2022, we no longer allowed new API keys to be created.",
+          "locator": "When is this change happening?"
+        },
+        {
+          "sourceId": "developers-hubspot-com-1f6444edd2",
+          "supports": "Developer Account API Keys, for configuring public apps, will still be available for use in Developer Accounts after November 30, 2022 and will not be affected by the API Key Sunset.",
+          "locator": "When is this change happening?"
+        }
+      ]
+    },
+    {
+      "id": "uuid-shaped-key-body-consistency",
+      "statement": "Two open-source scanner rule artifacts from different maintainers (the Gitleaks default configuration and the TruffleHog hubspot_apikey v1 detector) both treat a HubSpot API key value as five hyphen-separated groups of 8-4-4-4-12 characters (hexadecimal in the first, alphanumeric in the second) that appears near a HubSpot-related keyword; neither artifact states which HubSpot credential kind the shape belongs to, and this is consistency between artifacts, not HubSpot's stated format.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+          "supports": "Rule hubspot-api-key (keyword hubspot): the captured value matches [0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}, case-insensitive, after a hubspot-named left-hand context.",
+          "locator": "config/gitleaks.toml lines 2357-2361 at commit b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-e62e0770c9",
+          "supports": "keyPat: a prefix regex over the words hubapi, hapi_?key and hubspot followed by [a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12} bounded by word boundaries.",
+          "locator": "pkg/detectors/hubspot_apikey/v1/apikey.go lines 31 and 37 at commit 59e3b04e820c4cad30462696ac497853a5f7679c"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is not researched beyond existence: the pages read name the credential but state no literal prefix, alphabet, length or checksum, and no format is recorded or inferred.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "Dates come from a 2022 announcement read as a live page, not a pinned snapshot; no historical claim is made. Whether the legacy account API key and the developer API key (hapikey, see the authentication overview) share a format is not stated; the developer API key is not recorded as a candidate here.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "Which HubSpot credential kind the UUID-shaped value belongs to is not stated by either scanner artifact. The v1 TruffleHog source verifies it as a hapikey query parameter, but that is one artifact and not a provider statement. Gitleaks's rule is also vendored into other scanner rule sets (for example MongoDB Kingfisher, which lists it as an import of the same upstream rule); such copies count once. The character set (hex versus alphanumeric) is unresolved.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
