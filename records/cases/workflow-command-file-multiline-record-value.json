@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "workflow-command-file-multiline-record-value",
+  "title": "Token on its own line between the delimiter lines of a multiline environment-file record",
+  "summary": "A synthetic ghs_ installation token on its own line between the delimiter lines of a multiline GITHUB_ENV or GITHUB_OUTPUT record (NAME<<DELIMITER, the value, DELIMITER), with a fixed EOF delimiter and with a random-identifier delimiter.",
+  "rationale": "In the multiline form the name and the value are not on one line: the name sits on the opening line with <<DELIMITER, the value follows on the next line, and a closing line repeats the delimiter. The documentation's own PowerShell example generates the delimiter as a GUID, so one of the three lines can look like a credential-sized identifier while being only framing. The reported range is the value line alone: not the opening line, not the delimiter, not the closing line.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "github:app-server-to-server-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "documented-format-literal"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flagged. The value between the delimiter lines is the record's value and holds a token of the documented family; the delimiter lines are framing that the documentation says must not occur on a line of its own within the value, and carry no secret.",
+    "sources": [
+      {
+        "sourceId": "docs-github-com-5d9b688ebd",
+        "supports": "Multiline strings use {name}<<{delimiter}, then {value}, then {delimiter}; the delimiter must not occur on a line of its own within the value; the PowerShell example generates the delimiter with New-Guid.",
+        "locator": "section: Multiline strings"
+      },
+      {
+        "sourceId": "docs-github-com-5d9b688ebd",
+        "supports": "An output parameter can be set to a multi-line value with the same technique used for multi-line environment variables.",
+        "locator": "section: Setting an output parameter"
+      },
+      {
+        "sourceId": "docs-github-com-094b941a54",
+        "supports": "Format of the ghs_ token family (opaque form of 40 characters; the staged rollout of the ghs_APPID_JWT form).",
+        "locator": "#githubs-token-formats"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-04, before any scanner was consulted. Origin of the inputs: the command shapes are taken from the cited documentation examples (observed); the token is a synthetic value built from an existing authored base; the arrangement of one value in each command shape is evidence-derived, not an observed workflow. No workflow was executed and no value was tested. Whether a consumer reads a workflow file, an environment file or a runner log, and how it treats a mask, is the consumer's measurement contract and is not assumed here. The GUID delimiter is a synthetic, obviously fake identifier built from an authored description (all-zero groups with a synthetic marker), not a captured value."
+}

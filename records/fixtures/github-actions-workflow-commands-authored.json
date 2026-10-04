@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "github-actions-workflow-commands-authored",
+  "title": "GitHub Actions workflow command fixtures (authored)",
+  "description": "Authored fixtures for one synthetic installation token written into workflow command lines and environment-file records, with reference, expression, empty-value and runner-mask twins. One independent base value; every other must-flag item is a carrier projection of it.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "github-actions-workflow-commands-authored--base-token",
+      "case": "workflow-command-literal-credential-in-command-text",
+      "path": "base-token/fixture.txt",
+      "context": "bare",
+      "sha256": "4e70c11eae571fc5ca741d679dd7f90503527a36fb5ba67622755cc1d1b5c59f",
+      "text": "ghs_SYNTHETICneverissuedworkflowcmd00000",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 0,
+            "end": 40,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--expression-in-environment-file-echo",
+      "case": "workflow-command-reference-and-masked-value-in-place-of-credential",
+      "path": "expression-in-environment-file-echo/fixture.txt",
+      "context": "shell-command",
+      "sha256": "a6964cdd011162356ddcdd7062dfd583da3ce3941b45de047555a5a65dc675be",
+      "text": "echo \"GH_TOKEN=${{ secrets.GITHUB_TOKEN }}\" >> \"$GITHUB_ENV\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--variable-reference-in-add-mask-and-output",
+      "case": "workflow-command-reference-and-masked-value-in-place-of-credential",
+      "path": "variable-reference-in-add-mask-and-output/fixture.txt",
+      "context": "shell-command",
+      "sha256": "f0285d1540a485bf26d0b4bd99aa34fb03436970604766d050d795b8755b2e28",
+      "text": "echo \"::add-mask::$MY_TOKEN\"\necho \"token=$MY_TOKEN\" >> \"$GITHUB_OUTPUT\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--runner-mask-in-log-line",
+      "case": "workflow-command-reference-and-masked-value-in-place-of-credential",
+      "path": "runner-mask-in-log-line/fixture.txt",
+      "context": "log-line",
+      "sha256": "a2d455bea14e99e252fe4a625561401d4d0276a044f2dcb9de028aa3a77ae939",
+      "text": "We retrieved our masked secret: ***\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--unset-secret-expanded-to-empty-value",
+      "case": "workflow-command-reference-and-masked-value-in-place-of-credential",
+      "path": "unset-secret-expanded-to-empty-value/fixture.txt",
+      "context": "shell-command",
+      "sha256": "d4ac8f9aa50cd9500fcb54d42da01623b6e2b6b3f4cd13da63f3f3568e6eaab2",
+      "text": "echo \"GH_TOKEN=\" >> \"$GITHUB_ENV\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--env-file-echo",
+      "case": "workflow-command-literal-credential-in-command-text",
+      "path": "env-file-echo/fixture.txt",
+      "context": "shell-command",
+      "sha256": "3c506de7faecb30cb84a34e3490397f961856de378c0694459465f095cda8d4c",
+      "text": "echo \"GH_TOKEN=ghs_SYNTHETICneverissuedworkflowcmd00000\" >> \"$GITHUB_ENV\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 15,
+            "end": 55,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "github-actions-workflow-commands-authored--base-token"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "github-actions-workflow-commands-authored--base-token"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "workflow-command-line"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--output-file-echo",
+      "case": "workflow-command-literal-credential-in-command-text",
+      "path": "output-file-echo/fixture.txt",
+      "context": "shell-command",
+      "sha256": "5a58957125fe755e93e96033403c5d847c7a61187afc8fe82e44344d2b115ee1",
+      "text": "echo \"token=ghs_SYNTHETICneverissuedworkflowcmd00000\" >> \"$GITHUB_OUTPUT\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 12,
+            "end": 52,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "github-actions-workflow-commands-authored--base-token"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "github-actions-workflow-commands-authored--base-token"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "workflow-command-line"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--add-mask-literal-argument",
+      "case": "workflow-command-literal-credential-in-command-text",
+      "path": "add-mask-literal-argument/fixture.txt",
+      "context": "shell-command",
+      "sha256": "9f6c22daba3381f56d5b526795f52854ec57365cbf2b383d0b99e4c88ff20e24",
+      "text": "echo \"::add-mask::ghs_SYNTHETICneverissuedworkflowcmd00000\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 58,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "github-actions-workflow-commands-authored--base-token"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "github-actions-workflow-commands-authored--base-token"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "workflow-command-line"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--multiline-record-eof-delimiter",
+      "case": "workflow-command-file-multiline-record-value",
+      "path": "multiline-record-eof-delimiter/fixture.txt",
+      "context": "environment-file",
+      "sha256": "81fa8480c1949e4006ea94d66b44b47029d3deec2ec6958fe9bc50deecdaa570",
+      "text": "GH_TOKEN<<EOF\nghs_SYNTHETICneverissuedworkflowcmd00000\nEOF\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 14,
+            "end": 54,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "github-actions-workflow-commands-authored--base-token"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "github-actions-workflow-commands-authored--base-token"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "environment-file-multiline-record"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--multiline-record-guid-delimiter",
+      "case": "workflow-command-file-multiline-record-value",
+      "path": "multiline-record-guid-delimiter/fixture.txt",
+      "context": "environment-file",
+      "sha256": "57453d8a1100442ad0100ad667af9643b79bbd6b30e325ddb92dcec07906f10b",
+      "text": "GH_TOKEN<<00000000-0000-4000-8000-000000000000\nghs_SYNTHETICneverissuedworkflowcmd00000\n00000000-0000-4000-8000-000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 47,
+            "end": 87,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "github-actions-workflow-commands-authored--base-token"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "github-actions-workflow-commands-authored--base-token"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "environment-file-multiline-record"
+          }
+        ]
+      }
+    },
+    {
+      "id": "github-actions-workflow-commands-authored--multiline-record-written-by-brace-group",
+      "case": "workflow-command-file-multiline-record-value",
+      "path": "multiline-record-written-by-brace-group/fixture.txt",
+      "context": "shell-command",
+      "sha256": "6db9354e1be559343e029d7eaca496e812534b13acccb0f04536ba488682dfc6",
+      "text": "{\n  echo 'GH_TOKEN<<EOF'\n  echo 'ghs_SYNTHETICneverissuedworkflowcmd00000'\n  echo EOF\n} >> \"$GITHUB_ENV\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 33,
+            "end": 73,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "github-actions-workflow-commands-authored--base-token"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "github-actions-workflow-commands-authored--base-token"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "environment-file-multiline-record"
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Every credential-shaped value is synthetic and was never issued or tested against any service. Base token: ghs_ followed by the 36 characters SYNTHETICneverissuedworkflowcmd00000, authored from the opaque 40-character form the existing installation-token Cases describe; it shares no bytes with the existing authored bases beyond the documented prefix and marker. The command shapes are the documentation's own examples (observed 2026-10-04); embedding the token in them is an evidence-derived arrangement, not an observed workflow. The runner-mask log line copies the documentation's example output (a masked value is printed as ***); it is not a captured log. The GUID delimiter is the all-zero-groups identifier 00000000-0000-4000-8000-000000000000, a synthetic placeholder. The benign items carry no derivation: they are controls, not projections of a credential base. No workflow was executed. Verification must remain disabled."
+}
