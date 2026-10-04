@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "zoom:server-to-server-access-token@1",
+  "family": "zoom:server-to-server-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "The Zoom token endpoint issues a Bearer access token for the account_credentials grant used by Server-to-Server OAuth apps; it lives one hour (3600 seconds), has no refresh token, and stops working when the app is deactivated.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-5cd68eb092",
+          "supports": "Use the account_credentials grant type to generate an access token.",
+          "locator": "#generate-access-token"
+        },
+        {
+          "sourceId": "developers-zoom-us-5cd68eb092",
+          "supports": "The token's time to live is one hour (3600 seconds).",
+          "locator": "#generate-access-token"
+        },
+        {
+          "sourceId": "developers-zoom-us-5cd68eb092",
+          "supports": "There is no refresh token.",
+          "locator": "#generate-access-token"
+        }
+      ]
+    },
+    {
+      "id": "jwt-app-mention",
+      "statement": "The API-usage page, as read on this date, still refers to JWT apps as an app kind separate from OAuth apps whose requests need no scopes; it does not describe the JWT-app credential, its format or its retirement.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-a87ee19b8c",
+          "supports": "You do not need scopes for JWT apps.",
+          "locator": "Requests for JWT apps"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Not researched beyond existence: prefix, alphabet, length and any checksum are not stated on the pages read, and no value shape may be inferred from the examples (docs examples are placeholders or illustrative).",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "Documentation examples show the access_token value as the placeholder <JWT_TOKEN> but the pages read do not state that issued tokens are JWTs or give any structure; shape stays unresolved.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "Historical JWT-app credentials (API key/secret and the JWT signed from them) are not documented on the pages read beyond a passing mention; whether and when they were retired needs a pinned historical source before any historical claim.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
