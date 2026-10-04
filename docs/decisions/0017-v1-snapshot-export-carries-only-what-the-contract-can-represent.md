@@ -3,6 +3,7 @@
 - Status: accepted
 - Date: 2026-10-03
 - Issue: redact-secret/redact-secret-benchmarks#680, credential-evidence#142 (representation-aware export stays with credential-eval#34 and #150)
+- Amended by: ADR 0018 (representation facts are exported; `invalid-utf8` stays not exported)
 - Amends: ADR 0009 and ADR 0011 (what `credential-eval/corpus-snapshot.json` holds, and what the release manifest records), ADR 0016 (items without `text`)
 
 ## Context

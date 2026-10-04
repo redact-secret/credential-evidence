@@ -64,7 +64,7 @@ describe("release bundle: synthetic inputs", () => {
     assert.equal(m.sourceRevision.commit, COMMIT);
     assert.match(m.sourceRevision.recordsTree.digest, /^[0-9a-f]{64}$/);
     assert.equal(m.schemaRevision, "1.4.0");
-    assert.deepEqual(m.generator, { name: "credential-evidence/release-bundle", version: "1.1.0" });
+    assert.deepEqual(m.generator, { name: "credential-evidence/release-bundle", version: "1.2.0" });
     assert.deepEqual(m.files.map((f) => f.path), [SNAPSHOT_PATH, FIXTURES_MANIFEST_PATH, BUNDLE_PATH].sort());
     assert.equal(a.manifestDigest, sha256(a.manifestText));
     assert.equal(a.assets.get(MANIFEST_DIGEST_ASSET).toString(), `${a.manifestDigest}  ${MANIFEST_ASSET}\n`);

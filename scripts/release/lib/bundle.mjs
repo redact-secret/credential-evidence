@@ -9,12 +9,13 @@
 // a pinned manifest digest). It is what a consumer runs after `gh release download`.
 
 import { createHash } from "node:crypto";
+import { REPRESENTATION_CONTRACT, representationAccounting } from "../../export/lib/representation-facts.mjs";
 
 export const RELEASE_MANIFEST_FORMAT = "credential-evidence/release-manifest";
 export const RELEASE_MANIFEST_FORMAT_VERSION = 1;
 export const BUNDLE_FORMAT = "credential-evidence/records-bundle";
 export const BUNDLE_FORMAT_VERSION = 1;
-export const GENERATOR = { name: "credential-evidence/release-bundle", version: "1.1.0" };
+export const GENERATOR = { name: "credential-evidence/release-bundle", version: "1.2.0" };
 
 /** Asset name of the release manifest itself (not listed in its own `files`). */
 export const MANIFEST_ASSET = "release-manifest.json";
@@ -37,13 +38,20 @@ const HEX64 = /^[0-9a-f]{64}$/;
  * ADR 0017: the export accounting must add up. Every materialized fixture is in the v1 snapshot or listed with a reason.
  * Returns null when consistent, else the reason.
  */
-export function evalExportProblem(e, snapshotCases, materialized) {
+export function evalExportProblem(e, snapshotCases, materialized, snapshot) {
   const n = e?.notExported;
   if (!n || !Array.isArray(n.cases) || typeof n.byReason !== "object" || n.byReason === null) return "evalExport.notExported is missing or malformed";
   if (e.exported !== snapshotCases) return `evalExport.exported ${e.exported} differs from the snapshot's ${snapshotCases} cases`;
   if (e.materialized !== materialized) return `evalExport.materialized ${e.materialized} differs from the fixture count ${materialized}`;
   if (n.total !== n.cases.length || n.total !== Object.values(n.byReason).reduce((a, b) => a + b, 0)) return "evalExport.notExported total, byReason and cases disagree";
   if (e.exported + n.total !== e.materialized) return "evalExport: exported + notExported is not the materialized fixture count (a fixture was dropped silently)";
+  // ADR 0018: the facts the manifest records must be the facts the snapshot carries, recomputed from the snapshot's own bytes.
+  if (snapshot !== undefined) {
+    const declared = snapshot.identity?.representation;
+    if (declared !== undefined && declared !== REPRESENTATION_CONTRACT) return `the snapshot declares an unknown representation contract ${declared}`;
+    if ((declared === undefined) !== (e.representation === undefined)) return "evalExport.representation and the snapshot's identity.representation disagree about whether the representation contract is used";
+    if (declared !== undefined && JSON.stringify(e.representation) !== JSON.stringify(representationAccounting(snapshot.cases))) return "evalExport.representation (contract, facts_digest, counts) differs from the facts the snapshot carries";
+  }
   return null;
 }
 
@@ -104,7 +112,7 @@ export function buildRelease({ tag, commit, schemaRevision, sourceFiles, sourceD
   if (snapshot.identity.release !== undefined) throw new Error("the corpus snapshot must not declare identity.release; only credential-eval writes it");
 
   if (evalExport !== undefined) {
-    const problem = evalExportProblem(evalExport, snapshot.cases.length, fixtures.count);
+    const problem = evalExportProblem(evalExport, snapshot.cases.length, fixtures.count, snapshot);
     if (problem) throw new Error(problem);
   }
 
@@ -190,13 +198,13 @@ export function verifyRelease({ read, tag, manifestDigest }) {
   if (manifest.evalExport !== undefined) {
     const snapBytes = read(files.find((f) => f.path === SNAPSHOT_PATH)?.asset ?? "");
     if (snapBytes) {
-      let cases;
+      let doc;
       try {
-        cases = JSON.parse(snapBytes.toString("utf8")).cases.length;
+        doc = JSON.parse(snapBytes.toString("utf8"));
       } catch {
-        cases = -1;
+        doc = undefined;
       }
-      const problem = evalExportProblem(manifest.evalExport, cases, manifest.fixtures?.count);
+      const problem = evalExportProblem(manifest.evalExport, doc?.cases?.length ?? -1, manifest.fixtures?.count, doc?.cases ? doc : undefined);
       if (problem) problems.push(problem);
     }
   }

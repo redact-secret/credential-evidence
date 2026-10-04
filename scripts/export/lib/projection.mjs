@@ -17,6 +17,7 @@
 import { createHash } from "node:crypto";
 import { contentBytes, isValidUtf8 } from "../../lib/representation.mjs";
 import { collectFixtures } from "./fixtures.mjs";
+import { REPRESENTATION_CONTRACT, caseRepresentation, canonicalJson, factsCounts, representationAccounting, spanFacts } from "./representation-facts.mjs";
 import { loadLegacyNames, nameFixtures } from "./legacy-map.mjs";
 
 export const GENERATOR = { name: "credential-evidence/legacy-projection", version: "2.0.0" };
@@ -253,12 +254,7 @@ function buildIndex({ catalog, semantics, scenarios, taxonomy }) {
 
 // --------------------------------------------- credential-eval corpus snapshot
 
-/** Compact JSON with object keys sorted by byte order at every depth (credential-eval docs/contracts/identity.md). */
-export function canonicalJson(value) {
-  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
-  if (value && typeof value === "object") return `{${Object.keys(value).sort(cmp).map((k) => `${JSON.stringify(k)}:${canonicalJson(value[k])}`).join(",")}}`;
-  return JSON.stringify(value);
-}
+export { canonicalJson };
 
 /**
  * The input document credential-eval reads (`credential-eval/corpus-snapshot/v1`), in canonical names: case id = the
@@ -271,7 +267,7 @@ export function canonicalJson(value) {
  * No legacy name appears in it (credential-eval's case ids are a closed grammar with no room for provenance). A consumer
  * that has to compare against a run over the legacy corpus re-keys through `credential-eval/legacy-id-map.json`.
  */
-function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
+function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision, representation = false }) {
   const byId = new Map(fixtures.map((f) => [f.id, f]));
   const cases = [];
   // ADR 0017: the v1 contract's `content` is one JSON string, so it carries a fixture exactly when its bytes are valid UTF-8
@@ -297,9 +293,16 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
       id: f.id,
       path: f.materializedPath,
       content: item.text !== undefined ? item.text : bytes.toString("utf8"),
-      expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}) })),
+      expected: item.expected.spans.map((sp) => ({ start: sp.start, end: sp.end, role: sp.role, ...(sp.envelope ? { envelope: { start: sp.envelope.start, end: sp.envelope.end, reason: sp.envelope.reason } } : {}), ...(representation ? spanFacts(sp) : {}) })),
       grouping,
     };
+    // ADR 0018: with the representation contract the case-level facts are written too. An expected rejection (a valid UTF-8
+    // input whose UTF-16 chunk boundary splits a surrogate pair) is exported as T0 with no spans, so it is in no denominator.
+    const rep = representation ? caseRepresentation(item) : undefined;
+    if (rep !== undefined) {
+      if (rep.input_validity !== undefined && (out.expected.length > 0 || grouping.tier !== "T0")) throw new Error(`fixture ${f.id}: an expected rejection must have no spans and tier T0`);
+      out.representation = rep;
+    }
     // v1 twin rules (credential-eval corpus.rs validate): a twin is a negative (no secret span) of a case in the snapshot that
     // has one. Lineage that does not meet them stays in the records and the materialized manifest, is not written here, and is
     // counted in the export accounting (ADR 0017).
@@ -324,17 +327,55 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision }) {
     if (parentFamily !== undefined) c.grouping.family = parentFamily;
   }
   cases.sort((a, b) => cmp(a.id, b.id));
+  if (representation) assertNoFactLoss(fixtures, notExportedIds, cases);
   const snapshot = {
     schema: "credential-eval/corpus-snapshot/v1",
     identity: {
       source: "credential-evidence",
       revision: `records-tree-sha256:${sourceDigest}`,
       evidence_schema: `credential-evidence/schema/${schemaRevision}`,
+      ...(representation ? { representation: REPRESENTATION_CONTRACT } : {}),
       corpus_digest: `sha256:${sha256(canonicalJson(cases))}`,
     },
     cases,
   };
   return { snapshot, notExported, twinNotExported };
+}
+
+/**
+ * ADR 0018: fail the export on accidental field loss. The facts the exported items state are counted from the records, apart
+ * from the mapping that wrote them, and compared with the counts of what was written (the same counts the engine reports).
+ */
+function assertNoFactLoss(fixtures, notExportedIds, cases) {
+  const want = { cases: 0, transformed_cases: 0, chunked_cases: 0, expected_rejections: 0, fragmented_spans: 0, fragments: 0, decoded_spans: 0, decoded_verified: 0, decoded_unverified: 0 };
+  let derivations = 0;
+  let bases = 0;
+  for (const f of fixtures) {
+    if (notExportedIds.has(f.id)) continue;
+    const it = f.item;
+    let any = false;
+    if (it.derivation) { derivations++; any = true; }
+    if (it.transformation) { want.transformed_cases++; any = true; }
+    if (it.chunking) { want.chunked_cases++; any = true; }
+    if (it.inputValidity !== undefined && it.inputValidity !== "valid") { want.expected_rejections++; any = true; }
+    for (const sp of it.expected.spans) {
+      if (sp.base !== undefined) { bases++; any = true; }
+      if (sp.fragments) { want.fragmented_spans++; want.fragments += sp.fragments.length; any = true; }
+      if (sp.decoded) {
+        want.decoded_spans++;
+        want[sp.decoded.via.some((s) => s.codec === "normalize") ? "decoded_unverified" : "decoded_verified"]++;
+        any = true;
+      }
+    }
+    if (any) want.cases++;
+  }
+  const got = factsCounts(cases);
+  const writtenDerivations = cases.filter((c) => c.representation?.derivation).length;
+  const writtenBases = cases.reduce((n, c) => n + c.expected.filter((sp) => sp.base !== undefined).length, 0);
+  const lost = Object.keys(want).filter((k) => want[k] !== got[k]);
+  if (derivations !== writtenDerivations) lost.push("derivations");
+  if (bases !== writtenBases) lost.push("bases");
+  if (lost.length) throw new Error(`representation export lost or invented facts (${lost.join(", ")}): records ${JSON.stringify({ ...want, derivations, bases })}, snapshot ${JSON.stringify({ ...got, derivations: writtenDerivations, bases: writtenBases })}`);
 }
 
 /** Reason code: the fixture's bytes are not valid UTF-8, so the v1 `content` string cannot hold them exactly (ADR 0017). */
@@ -353,6 +394,7 @@ export function exportAccounting(snapshot, notExported, materialized, twinNotExp
   const byReason = countBy(notExported);
   return {
     target: snapshot.schema,
+    ...(snapshot.identity.representation !== undefined ? { representation: representationAccounting(snapshot.cases) } : {}),
     materialized,
     exported: snapshot.cases.length,
     twinLineageNotExported: { total: twinNotExported.length, byReason: countBy(twinNotExported), cases: twinNotExported.map((n) => ({ id: n.id, reason: n.reason })).sort((a, b) => cmp(a.id, b.id)) },
@@ -455,13 +497,15 @@ function buildOverlayInterface({ taxonomy, index }) {
  * baseline (a test pins that the two agree there).
  *
  * @param {{ records: object[], sourceDigest: string, schemaRevision: string }} input
+ * @param {{ representation?: boolean }} [options] `representation: true` writes the credential-eval/representation/1 facts and declares
+ *   the contract (ADR 0018, the release path). The default writes the closed v1 document exactly as before ADR 0018.
  * @returns {{ text: string, snapshot: object, fixtures: number }}
  */
-export function buildSnapshot({ records, sourceDigest, schemaRevision }) {
+export function buildSnapshot({ records, sourceDigest, schemaRevision }, { representation = false } = {}) {
   const ix = indexRecords(records);
   if (!ix.sets.size) throw new Error("records/ has no fixture sets; run the importers first");
   const fixtures = collectFixtures(ix);
-  const { snapshot, notExported, twinNotExported } = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision });
+  const { snapshot, notExported, twinNotExported } = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision, representation });
   return { text: json(snapshot), snapshot, fixtures: fixtures.length, notExported, accounting: exportAccounting(snapshot, notExported, fixtures.length, twinNotExported) };
 }
 

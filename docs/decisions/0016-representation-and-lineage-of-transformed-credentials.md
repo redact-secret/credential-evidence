@@ -4,6 +4,7 @@
 - Date: 2026-10-03
 - Issue: groundwork for #94, #95, #96 and #99 (refs #92; no `Closes`)
 - Amends: ADR 0002 (schema revision 1.6.0, additive), ADR 0005 and ADR 0008 (fixture-set items and fixture plans)
+- Amended by: ADR 0018 (the snapshot builder now writes these facts under credential-eval's representation contract)
 - Builds on: ADR 0007 (identity, Cases, Scenarios, plans), ADR 0012 (additive item facts), ADR 0015 (ordinary validation of new records)
 
 ## Context
