@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "mongodb-atlas:programmatic-api-private-key",
+  "family": "mongodb-atlas:programmatic-api-private-key",
+  "lifecycle": "draft",
+  "contract": "mongodb-atlas:programmatic-api-private-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "two-parts",
+        "text": "A programmatic API key has a Public Key and a Private Key, which serve as a username and a password; the public key is specified as exactly 8 characters.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "two-part-key"
+          },
+          {
+            "kind": "claim",
+            "claimId": "public-key-length"
+          }
+        ]
+      },
+      {
+        "id": "private-key-grammar",
+        "text": "The private key has a documented prefix, alphabet, length or separator grammar.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No page read states one: the specification shows a single example, and a provider example does not prove a universal rule."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "shown-unredacted-once",
+        "text": "The private key is returned unredacted when the key is first created; later responses return a redacted private key.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "private-key-unredacted-once"
+          }
+        ]
+      },
+      {
+        "id": "digest-scheme",
+        "text": "A programmatic API key is declared under an HTTP digest security scheme, in which the credential is hashed with a short-lived nonce, and not under a bearer scheme.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "digest-not-bearer"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "legacy",
+        "text": "MongoDB describes programmatic API keys as a legacy method of authenticating to the Atlas Administration API, with service accounts as the recommended method.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "legacy-method"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "object-id",
+        "text": "The 24-character hexadecimal object identifier that the API returns for a key is documented as an identifier of the key, not as part of the credential.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "github-com-mongodb-openapi-e316639242",
+            "locator": "#L3399-L3404"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "earlier-forms",
+        "text": "Programmatic API private keys were issued in more than one form over time.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No page read gives a history, and no archive snapshot was available to pin a historical claim."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed. Drafted from pages read 2026-10-04; nothing here asserts any product behaviour."
+}
