@@ -23,6 +23,11 @@
           "sourceId": "docs-stripe-com-3e992d348a",
           "supports": "Live mode keys start with pk_live_, rk_live_ and sk_live_; the key-types table gives rk_ as the Restricted API key (RAK) prefix.",
           "locator": "#test-live-modes"
+        },
+        {
+          "sourceId": "docs-stripe-com-720fdac0b2",
+          "supports": "A restricted API key (RAK) starts with rk_live_ or rk_test_.",
+          "locator": "#what-is-a-restricted-api-key"
         }
       ]
     },
@@ -51,6 +56,11 @@
           "sourceId": "docs-stripe-com-3e992d348a",
           "supports": "Only publishable keys are safe to expose outside your application's backend; you are responsible for protecting other Stripe API keys, including restricted API keys.",
           "locator": "#safe-keys"
+        },
+        {
+          "sourceId": "docs-stripe-com-720fdac0b2",
+          "supports": "Treat RAKs with the same caution as secret API keys; a RAK is an API key your server-side applications include in Stripe API requests.",
+          "locator": "#what-is-a-restricted-api-key"
         }
       ]
     },
