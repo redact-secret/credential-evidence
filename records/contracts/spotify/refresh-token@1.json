@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "spotify:refresh-token@1",
+  "family": "spotify:refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Spotify returns a refresh_token alongside the access token in the authorization token response of the user-authorized flows; it is exchanged at the token endpoint with grant_type refresh_token for new access tokens, and for apps registered in the Developer Dashboard it has a lifetime of 6 months that refreshing does not extend.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-spotify-com-c358a1c8d6",
+          "supports": "A refresh token is a security credential that allows client applications to obtain new access tokens without requiring users to reauthorize the application.",
+          "locator": "Refreshing tokens page, introduction"
+        },
+        {
+          "sourceId": "developer-spotify-com-c358a1c8d6",
+          "supports": "Refresh tokens issued to apps registered in the Developer Dashboard have a lifetime of 6 months. ... Refreshing an access token does not extend the refresh token's lifetime.",
+          "locator": "Refreshing tokens page, section Refresh token lifetime"
+        },
+        {
+          "sourceId": "developer-spotify-com-662494dbf7",
+          "supports": "Flow table: Client credentials - Access User Resources: No; Requires Secret Key (Server-Side): Yes; Access Token Refresh: No.",
+          "locator": "Authorization page, flow behaviour table"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "The pages read show only elided example tokens and state no prefix, alphabet or length, so the candidate is not researched beyond existence. Whether the 6-month lifetime applies to apps not registered in the Developer Dashboard is not covered.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
