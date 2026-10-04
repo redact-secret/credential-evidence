@@ -18,6 +18,12 @@
       "outcome": "read",
       "observer": "research-agent",
       "note": "Read page text via fetch (no raw digest). States a call with temporary credentials must include the session token returned with them; the CLI example sets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and AWS_SESSION_TOKEN together; API requests carry the session token in a header or query parameter X-Amz-Security-Token. Does not state whether the session token alone is confidential."
+    },
+    {
+      "observedAt": "2026-10-04",
+      "outcome": "unchanged",
+      "observer": "research-agent",
+      "note": "Re-read raw for issue 184. Also states the access key ID and secret access key from AWS STS are used 'the same way you would use long-term credentials to sign a request', with the session token added in a header or query parameter X-Amz-Security-Token."
     }
   ],
   "lifecycle": "draft"
