@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "hubspot:service-key@1",
+  "family": "hubspot:service-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "service-key-exists",
+      "statement": "HubSpot's developer blog and changelog describe Service Keys as account-level API credentials, created under Settings > Integrations > Service Keys, with scopes, used as a Bearer token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-bf27f315ce",
+          "supports": "Service Keys are account-level API credentials built specifically for system-to-system, data-only integrations.",
+          "locator": "What Service Keys actually are"
+        },
+        {
+          "sourceId": "developers-hubspot-com-bf27f315ce",
+          "supports": "create a key, name it, add scopes, copy/paste it, and use it as a Bearer token or API key.",
+          "locator": "How Service Keys replace legacy private apps"
+        },
+        {
+          "sourceId": "developers-hubspot-com-1f9e235294",
+          "supports": "Service Keys, available via Developer Platform Projects version 2026.09 or later, which supports system-to-system integrations. Create a Service Key at Settings > Integrations > Service Keys.",
+          "locator": "What's Changing"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is not researched beyond existence: the pages read name the credential but state no literal prefix, alphabet, length or checksum, and no format is recorded or inferred.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "Only a blog post and a changelog entry were read for Service Keys; no reference or guide page was found in the pages read, so the format and key-handling rules are unknown.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
