@@ -104,6 +104,9 @@ and the project chose to expect it to be treated as benign.
   and the reason.
 - The record names the deciding maintainer and at least one reviewer who is not
   the author ([review independence](attribution.md#review-independence)).
+  During the [solo-maintainer period](solo-maintainer-period.md) the deciding
+  maintainer alone may finalize it; the record is then `maintainer-only`, not
+  `reviewed`, and is queued for retro-review.
 - Dissent, including from external reviewers, is recorded with the decision.
 - The record states what evidence would reverse it.
 

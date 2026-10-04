@@ -141,6 +141,24 @@ That is why the skeleton is `not-assertable`. Raise the outcome (and its basis, 
 same change that adds the fixture. See [case vs scenario](../.agents/skills/_shared/case-vs-scenario.md)
 before creating a case at all.
 
+## `maintainer-only` records (solo-maintainer period)
+
+Only the sole maintainer, or an agent on that person's explicit instruction, records a decision under the
+[solo-maintainer period](governance/solo-maintainer-period.md) ([ADR 0020](decisions/0020-solo-maintainer-period.md)).
+It is never `reviewed`. A decision is three things, and the validator refuses one without the others:
+
+1. the outcome on a project-policy basis (a case's `expectation`, a scenario's `evidenceBasis`, or a fixture-set evidence
+   entry);
+2. the state: `lifecycle: "maintainer-only"` on the case or scenario, or `reviewState: "maintainer-only"` with `decidedIn`
+   (the case or scenario that holds the decision) on an evidence entry;
+3. a `decided` event in that record's review history, by an actor with role `maintainer` and affiliation
+   `project-maintainer`, with `note` (question, options, decision, reason), `dissent` (the strongest counter-argument, not
+   "none was raised") and `reversingEvidence`.
+
+`record:new` does not write `decided` events or the state: they are written by hand against the schema. A fragment step
+whose `reconstruction` is `inserts-separator` or `unresolved` can back a `must-flag` span with `fragments` only on a
+`maintainer-only` item. `npm run release:check` prints the counts every release records.
+
 ## Setup in a fresh checkout or worktree
 
 `npm ci --ignore-scripts` first. A worktree does not share `node_modules` with the main checkout (the scripts may still

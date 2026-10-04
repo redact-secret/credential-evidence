@@ -29,6 +29,18 @@
       },
       "verdict": "not-assertable",
       "note": "Statement 'treatment-of-replaced-token-pair' is recorded as unresolved: No provider statement; policy decision and contract review for rotated prefixes needed."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "claude-research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "ADR 0019 item 6 decided must-flag for rotated and expired-looking values (scenario rotation-overlap-predecessor-credential, maintainer-only). This case has no fixture and an assertable case needs one, so its outcome stays not-assertable until a fixture is authored; nothing about the decision is reopened. Whether the xoxe.-prefixed forms are covered by the slack:user-token contract is still unchecked."
     }
   ],
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."

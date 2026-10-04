@@ -11,6 +11,7 @@ Start with [GOVERNANCE.md](../../GOVERNANCE.md). These pages hold the detail.
 | [case authorship](case-authorship.md) | know how project-authored and independently contributed cases differ |
 | [corrections and disputes](corrections-and-disputes.md) | fix an error, flag a stale source, or challenge an interpretation |
 | [external review](external-review.md) | review a claim or case without knowing the Redact Secret product |
+| [solo-maintainer period](solo-maintainer-period.md) | know what a `maintainer-only` record is, and when the temporary one-maintainer rule ends |
 
 These pages describe concepts. Field names, IDs, and file layout are defined by
 the schemas (tracked in #2) and are deliberately not repeated here. Where a page

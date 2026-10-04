@@ -17,6 +17,19 @@
         "affiliation": "project-maintainer"
       },
       "note": "Authored by an AI agent run from the cited format documents read on 2026-10-03, before any scanner was consulted; not reviewed. The benign-from-role step is inference (see Case rationale); a maintainer may prefer project policy."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-04 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner), ADR 0019 item 8(b) (#115). This case decides its fixtures: the class changes, the outcome does not. Question: Is 'a content-verification digest, therefore not a credential' a provider-documented claim? Options: keep provider-documented, lower to project-policy (outcome unchanged), or lower to unresolved. Decision: Lower the class from provider-documented to project-policy; the outcome stays must-not-flag. No source says these digests are not secrets: the step from role to non-secrecy is an inference, and the evidence-class rule says a role description is not non-secrecy. Reason: The class must match its basis (evidence-classes: demotion when a reviewer shows the source does not say what the record says). Project policy, not a provider rule or a fact. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "Each format document does define the value as a hash of content, and calling a digest a possible credential contradicts the documents; lowering the class understates the evidence.",
+      "reversingEvidence": "A source that says such digests are not secrets (then re-promote), or one that says they grant access (then reconsider the outcome)."
     }
   ],
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."

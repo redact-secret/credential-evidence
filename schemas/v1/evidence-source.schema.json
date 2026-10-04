@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:evidence-source",
   "title": "Evidence source",
   "description": "One external source. Claims cite it via sourceRefs; the source records where it lives, how it is pinned, and an append-only log of when it was actually read. Freshness of the source is separate from the validity of any claim citing it: a stale source can still be sound historical evidence.",
-  "x-schemaRevision": "1.6.0",
+  "x-schemaRevision": "1.7.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "sourceType", "title", "locator", "observations", "lifecycle"],

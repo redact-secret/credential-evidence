@@ -77,6 +77,7 @@ researcher.
 | Project-authored versus independently contributed cases | [case authorship](docs/governance/case-authorship.md) |
 | Corrections, staleness, historical revisions, disputes | [corrections and disputes](docs/governance/corrections-and-disputes.md) |
 | Reviewing without Redact Secret product knowledge | [external review](docs/governance/external-review.md) |
+| The temporary one-maintainer rule and the `maintainer-only` review state | [solo-maintainer period](docs/governance/solo-maintainer-period.md) |
 
 The index is [docs/governance/README.md](docs/governance/README.md).
 
@@ -87,6 +88,12 @@ The index is [docs/governance/README.md](docs/governance/README.md).
 - A maintainer merges. A maintainer must not be the only reviewer of their own
   change to a claim or expectation; see
   [review independence](docs/governance/attribution.md#review-independence).
+  One temporary exception: while the repository has a single maintainer, a
+  project-policy outcome or a change of class to `project-policy` may be
+  finalized by that maintainer alone, recorded as `maintainer-only` (never
+  `reviewed`, never independent validation) and queued for retro-review. See
+  [solo-maintainer period](docs/governance/solo-maintainer-period.md) and
+  [ADR 0020](docs/decisions/0020-solo-maintainer-period.md).
 - Where evidence does not settle a question, a maintainer may record a
   `project-policy` decision. That decision is labeled as policy, carries its
   rationale, and records any dissent. It is revisable. See
@@ -102,4 +109,5 @@ which rule changes, why, and which existing records it affects. It is reviewed
 like any other change, and it is not applied retroactively to records without a
 recorded migration. A change that weakens a rule in
 [safety](docs/governance/safety.md) or the disclosure above needs review by a
-person who is not the author.
+person who is not the author. The solo-maintainer period does not relax that:
+it covers project-policy outcomes and class changes to `project-policy` only.

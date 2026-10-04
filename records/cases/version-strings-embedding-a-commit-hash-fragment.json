@@ -15,8 +15,8 @@
   ],
   "expectation": {
     "outcome": "must-not-flag",
-    "basis": "provider-documented",
-    "rationale": "Expected unflagged. Go documents the pseudo-version as a pre-release version that encodes a revision, with a 12-character commit hash prefix; the semver specification defines build metadata as identifiers that do not affect precedence and gives the example 1.0.0-beta+exp.sha.5114f85. A full 40-character hash is a longer instance of the same grammar; the specification does not cap the length.",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 8(b) (#115)): class lowered from provider-documented to project-policy; the outcome stays must-not-flag. Each cited document defines the value's role (a content hash, a cache key, a version string); none says the value is not a secret, so the step from role to non-secrecy is an inference. The cited statements stay listed as context. Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Earlier reading: Expected unflagged. Go documents the pseudo-version as a pre-release version that encodes a revision, with a 12-character commit hash prefix; the semver specification defines build metadata as identifiers that do not affect precedence and gives the example 1.0.0-beta+exp.sha.5114f85. A full 40-character hash is a longer instance of the same grammar; the specification does not cap the length.",
     "sources": [
       {
         "sourceId": "go-dev-5fb6edc5a8",
@@ -31,6 +31,6 @@
     ],
     "observedAt": "2026-10-03"
   },
-  "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Product masking, action policy and measurement stay with the downstream repositories."
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Maintainer-only (ADR 0020): decided by the sole maintainer, not reviewed, not independent validation; queued for retro-review (#154). Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Product masking, action policy and measurement stay with the downstream repositories."
 }

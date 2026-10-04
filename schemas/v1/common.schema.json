@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:common",
   "title": "Shared definitions for credential-evidence v1 records",
   "description": "Only $defs live here. Every entity schema references these so ID, date and link rules are defined exactly once.",
-  "x-schemaRevision": "1.6.0",
+  "x-schemaRevision": "1.7.0",
   "$defs": {
     "slug": {
       "description": "Lowercase ASCII words joined by single hyphens. No dates, versions or scanner names unless intrinsic to the entity.",
@@ -70,8 +70,8 @@
       "enum": ["must-flag", "must-not-flag", "may-flag", "not-assertable"]
     },
     "lifecycle": {
-      "description": "Lifecycle of the evidence record itself.",
-      "enum": ["draft", "reviewed", "deprecated", "withdrawn"]
+      "description": "Lifecycle of the evidence record itself. maintainer-only (schema revision 1.7.0, ADR 0020) is the review state of a case or scenario whose project-policy outcome the sole maintainer finalized during the solo-maintainer period: it is never reviewed, never independent validation, and is queued for retro-review (docs/governance/solo-maintainer-period.md).",
+      "enum": ["draft", "maintainer-only", "reviewed", "deprecated", "withdrawn"]
     },
     "externalRefs": {
       "description": "Optional pointers into other systems (scanners, products, trackers). Purely informational; never part of identity and never consulted to interpret the record. This is the only place a detector or product identifier may appear.",

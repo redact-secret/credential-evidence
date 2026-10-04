@@ -29,6 +29,19 @@
       },
       "verdict": "not-assertable",
       "note": "Statement 'nonstandard-forms-status' is recorded as unresolved: Recipient handling of unpadded, URL-safe and split tokens is not stated."
+    },
+    {
+      "seq": 3,
+      "type": "decided",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-04 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner), ADR 0019 item 7 (#114), nonstandard Base64 forms. This case decides its three fixtures. Question: Are a Basic token with padding removed, in the URL-safe alphabet or split by a space credentials, and where does the value end? Options: follow the #94 policy (the whole encoded run is the range), or keep unresolved. Decision: must-flag, following #94: when the decoded value is a credential, the whole encoded run is the range, including a space that splits it. No decoded fact is stated because the token has no authored base. Reason: Encoding form does not change what the token carries; the same policy as an encoded credential. Project policy, not a provider rule or a fact. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "RFC 7617 specifies standard padded Base64, and a recipient may reject these forms; a token a server rejects is not a usable credential, and a value split by a space is not one token.",
+      "reversingEvidence": "The reversing evidence of the #94 policy, or a source that recipients must reject nonstandard forms."
     }
   ],
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."

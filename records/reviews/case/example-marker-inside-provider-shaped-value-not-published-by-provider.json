@@ -29,6 +29,19 @@
       },
       "verdict": "not-assertable",
       "note": "Statement 'expectation' is recorded as unresolved: Whether a provider-shaped value whose body is the word EXAMPLE plus filler is a placeholder is not settled by any provider source; needs a provider statement or a project-policy decision with a named reviewer and dissent."
+    },
+    {
+      "seq": 3,
+      "type": "decided",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-04 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner), ADR 0019 item 5 (#98). This case decides its eight fixtures (two bases and six projections); the bare-word case stays unresolved. Question: Is a provider-shaped value whose body is the marker word EXAMPLE (an sk_test_ or AKIA value with an EXAMPLE body) a placeholder? Options: A: placeholder (must-not-flag). B: only the exact provider-published literal is exempt (must-flag). C: a closed vocabulary decides. D: keep unresolved. Decision: B for these values: only a literal a provider publishes is exempt, as aws-example-keys-one-character-off already holds. A provider-shaped value whose body is EXAMPLE has no provider statement and is must-flag. The bare words EXAMPLE and SAMPLE (16 fixtures) stay unresolved until a recorded vocabulary addition. Downstream comparisons record whether generic-assignment and personal-data detection were enabled. Reason: AWS publishes exact literals and Stripe's page is silent on example markers; the closed placeholder vocabulary of this repository exempts recognised spellings only, and a marker inside a body is not one. Project policy, not a provider rule or a fact. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The word EXAMPLE in a provider-shaped body is exactly how documentation writes a value that cannot be issued; flagging it makes every documentation snippet a must-flag input and teaches scanners to report placeholders.",
+      "reversingEvidence": "A provider statement that it issues body-EXAMPLE values or that such values are examples, or a recorded vocabulary addition that covers them."
     }
   ],
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."

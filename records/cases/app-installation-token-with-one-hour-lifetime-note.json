@@ -18,9 +18,9 @@
     "offline-text-cannot-establish-expiry"
   ],
   "expectation": {
-    "outcome": "not-assertable",
-    "basis": "unresolved",
-    "rationale": "No outcome asserted. Provider-documented: the installation access token expires after 1 hour. Not documented: treatment of an expired-looking or short-lived token in text. Recommendation, not a decision: expect it to be reported while its age is unknown. Would settle it: a recorded project-policy decision with a non-author reviewer.",
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 6 (#112)): expect it to be flagged. Provider-documented: the installation access token expires after 1 hour. Not documented: treatment of an expired-looking or short-lived token in text. Offline text cannot establish revocation or expiry. This is a policy, not a validity claim. Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history.",
     "sources": [
       {
         "sourceId": "docs-github-com-6052acfa2f",
@@ -30,6 +30,6 @@
     ],
     "observedAt": "2026-10-03"
   },
-  "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Maintainer-only (ADR 0020): decided by the sole maintainer, not reviewed, not independent validation; queued for retro-review (#154)."
 }

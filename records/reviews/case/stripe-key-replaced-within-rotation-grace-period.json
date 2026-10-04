@@ -29,6 +29,19 @@
       },
       "verdict": "not-assertable",
       "note": "Statement 'treatment-of-rotated-out-key' is recorded as unresolved: No provider statement; policy decision needed."
+    },
+    {
+      "seq": 3,
+      "type": "decided",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-04 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner), ADR 0019 item 6 (#112). This case decides its fixture. Question: Must a rotated-out, expired-looking or short-lived credential in text be flagged? Options: must-flag, may-flag (not an outcome), or keep unresolved. Decision: must-flag. Offline text cannot establish revocation or expiry, and providers document grace periods and lifetimes, so a predecessor or expired-looking value is expected to be flagged. Reason: A reader cannot tell from text whether a rotation window has passed or a value was reissued. Project policy, not a provider rule or a fact. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "An expired timestamp is the provider's own statement that the credential stopped working; expecting a flag on text whose own fields say it is dead rewards noise and punishes a scanner that reads the Expiration field.",
+      "reversingEvidence": "A provider statement that a rotated-out or expired value is safe to publish, or an offline signal a reader can verify that the value is dead."
     }
   ],
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."

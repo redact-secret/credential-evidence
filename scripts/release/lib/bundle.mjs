@@ -10,12 +10,13 @@
 
 import { createHash } from "node:crypto";
 import { REPRESENTATION_CONTRACT, representationAccounting } from "../../export/lib/representation-facts.mjs";
+import { reviewStateProblem } from "./review-state.mjs";
 
 export const RELEASE_MANIFEST_FORMAT = "credential-evidence/release-manifest";
 export const RELEASE_MANIFEST_FORMAT_VERSION = 1;
 export const BUNDLE_FORMAT = "credential-evidence/records-bundle";
 export const BUNDLE_FORMAT_VERSION = 1;
-export const GENERATOR = { name: "credential-evidence/release-bundle", version: "1.2.0" };
+export const GENERATOR = { name: "credential-evidence/release-bundle", version: "1.3.0" };
 
 /** Asset name of the release manifest itself (not listed in its own `files`). */
 export const MANIFEST_ASSET = "release-manifest.json";
@@ -91,7 +92,7 @@ export function treeDigest(entries) {
  * @param {{manifestText: string, digest: string, count: number}} input.fixtures  the fixture materialization
  * @returns {{assets: Map<string, Buffer>, manifest: object, manifestText: string, manifestDigest: string}}
  */
-export function buildRelease({ tag, commit, schemaRevision, sourceFiles, sourceDigest, schemaFiles, snapshotText, fixtures, evalExport }) {
+export function buildRelease({ tag, commit, schemaRevision, sourceFiles, sourceDigest, schemaFiles, snapshotText, fixtures, evalExport, reviewState }) {
   const problem = tagProblem(tag);
   if (problem) throw new Error(problem);
   if (!/^[0-9a-f]{40}$/.test(commit ?? "")) throw new Error(`commit must be a 40-hex git commit id, got '${commit}'`);
@@ -152,6 +153,7 @@ export function buildRelease({ tag, commit, schemaRevision, sourceFiles, sourceD
       rule: `npm ci && npm run fixtures:materialize at commit ${commit}; the tree's manifest.json equals ${FIXTURES_MANIFEST_PATH} and its digest equals fixtures.digest`,
     },
     ...(evalExport === undefined ? {} : { evalExport }),
+    ...(reviewState === undefined ? {} : { reviewState }),
     filesDigest: sha256(files.map((f) => `${f.path} ${f.sha256}`).join("\n")),
     files,
   };
@@ -205,6 +207,21 @@ export function verifyRelease({ read, tag, manifestDigest }) {
         doc = undefined;
       }
       const problem = evalExportProblem(manifest.evalExport, doc?.cases?.length ?? -1, manifest.fixtures?.count, doc?.cases ? doc : undefined);
+      if (problem) problems.push(problem);
+    }
+  }
+  if (manifest.reviewState !== undefined) {
+    // ADR 0020: the review-state counts must be the ones the bundled records carry.
+    const bundleBytes = read(files.find((f) => f.path === BUNDLE_PATH)?.asset ?? "");
+    if (!bundleBytes) problems.push(`reviewState is recorded but ${BUNDLE_PATH} is not available to recompute it`);
+    else {
+      let records;
+      try {
+        records = JSON.parse(bundleBytes.toString("utf8")).records.map((r) => JSON.parse(r.text));
+      } catch {
+        records = undefined;
+      }
+      const problem = records ? reviewStateProblem(manifest.reviewState, records) : `${BUNDLE_PATH} is not a records bundle`;
       if (problem) problems.push(problem);
     }
   }

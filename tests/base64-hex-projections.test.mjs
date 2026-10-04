@@ -14,14 +14,16 @@ test("the committed Base64 and hex projections equal the generator output", () =
   assert.equal(r.status, 0, r.stdout + r.stderr);
 });
 
-test("every candidate reading independently re-derives its authored base", () => {
+test("every credential projection states its encoded source range and re-derives its authored base", () => {
   const bases = read("records/fixtures/base64-hex-representation-bases.json");
   const set = read("records/fixtures/base64-hex-representation-projections.json");
   const byId = new Map(bases.fixtures.map((f) => [f.id, f]));
   let checked = 0;
   for (const item of set.fixtures) {
-    assert.equal(item.expected.outcome === "not-assertable", item.candidateReading !== undefined, item.id);
-    for (const span of item.candidateReading?.spans ?? []) {
+    // ADR 0020 (ADR 0019 item 2): the candidate readings were promoted to expected spans, so none remains
+    assert.equal(item.candidateReading, undefined, item.id);
+    assert.equal(item.expected.outcome === "must-flag", item.expected.spans.length > 0, item.id);
+    for (const span of item.expected.spans) {
       const base = byId.get(span.base);
       assert.ok(base, `${item.id}: unknown base`);
       const value = baseValue(base, contentBytes(base));
@@ -33,5 +35,9 @@ test("every candidate reading independently re-derives its authored base", () =>
       checked++;
     }
   }
-  assert.ok(checked > 0);
+  assert.equal(checked, 47);
+  // the twins: a decoded base that is not a credential stays unflagged and cites the maintainer-only evidence entry
+  const twins = set.fixtures.filter((i) => i.expected.outcome === "must-not-flag");
+  assert.equal(twins.length, 12);
+  for (const t of twins) assert.equal(set.evidence[t.evidence].reviewState, "maintainer-only", t.id);
 });
