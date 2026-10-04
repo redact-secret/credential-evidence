@@ -22,7 +22,7 @@ import { join } from "node:path";
 import { resolveSourceRevision } from "./lib/source-revision.mjs";
 import { repoRoot } from "./lib/validator.mjs";
 
-export const GENERATOR = { name: "benign-reference-and-ambiguity-projector", version: "1.0.0", entrypoint: "scripts/generate-benign-reference-and-ambiguity-plans.mjs" };
+export const GENERATOR = { name: "benign-reference-and-ambiguity-projector", version: "1.1.0", entrypoint: "scripts/generate-benign-reference-and-ambiguity-plans.mjs" };
 export const RULE = "surrounding-text-placement-of-controls-and-ambiguous-bases";
 
 export const IDS = {
@@ -58,7 +58,7 @@ const EVIDENCE_KEY = "stripe-secret-key-not-safe-to-expose";
 const PK_KEY = "stripe-publishable-key-safe-to-expose";
 const PAIR_KEY = "stripe-publishable-and-secret-key-in-one-input";
 const SAMPLE_KEY = "example-and-sample-words-policy-unresolved";
-const MARKER_KEY = "example-marker-in-provider-shaped-value-unresolved";
+const MARKER_KEY = "example-marker-in-provider-shaped-value-policy";
 const SK_SOURCE = {
   sourceId: "docs-stripe-com-3e992d348a",
   supports: "Key types table: a secret API key (sk_...) is 'Safe to expose: No' and has unrestricted permissions on all Stripe APIs; 'Only publishable keys are safe to expose outside your application's backend.'",
@@ -100,10 +100,12 @@ const EVIDENCE = {
     observedAt: "2026-10-03",
   },
   [MARKER_KEY]: {
-    basis: "unresolved",
-    rationale: `No outcome is asserted: AWS publishes exact example literals, but nothing recorded says a value that merely carries the word EXAMPLE in its body is a placeholder. Open question and review history: Case ${CASES.marker}.`,
+    basis: "project-policy",
+    rationale: `Project policy, maintainer-only (ADR 0020, ADR 0019 item 5): a provider-shaped value whose body is the marker word EXAMPLE is flagged. AWS publishes exact example literals and that statement is about those strings only; nothing recorded says a value that merely carries the word EXAMPLE in its body is a placeholder, so only a literal a provider publishes is exempt. Not reviewed, not independent validation, queued for retro-review (#154). Question, options, dissent and reversing evidence: review history of Case ${CASES.marker}.`,
     sources: [AWS_SOURCE],
-    observedAt: "2026-10-03",
+    observedAt: "2026-10-04",
+    reviewState: "maintainer-only",
+    decidedIn: { kind: "case", id: CASES.marker },
   },
 };
 
@@ -133,8 +135,8 @@ const AMBIGUOUS = [
   { name: "access-token-equals-sample-base", target: { scenario: "unsettled-evidence-input", families: [GENERIC] }, evidence: SAMPLE_KEY, text: "access_token=SAMPLE\n", context: "env-assignment" },
   { name: "api-key-equals-example-word-run-base", target: { scenario: "unsettled-evidence-input", families: [GENERIC] }, evidence: SAMPLE_KEY, text: "API_KEY=EXAMPLE_API_KEY\n", context: "env-assignment" },
   { name: "yaml-secret-colon-sample-base", target: { scenario: "unsettled-evidence-input", families: [GENERIC] }, evidence: SAMPLE_KEY, text: "secret: SAMPLE\n", context: "structured-file" },
-  { name: "stripe-shaped-body-of-example-marker-base", target: { scenario: "unsettled-evidence-input", families: [STRIPE] }, evidence: MARKER_KEY, text: `STRIPE_SECRET_KEY=sk_test_${"EXAMPLE".repeat(5).slice(0, 32)}\n`, context: "env-assignment" },
-  { name: "aws-key-id-shaped-body-of-example-marker-base", target: { scenario: "unsettled-evidence-input", families: [AWS_KEY] }, evidence: MARKER_KEY, text: "AWS_ACCESS_KEY_ID=AKIAEXAMPLEFILLER000\n", context: "env-assignment" },
+  { name: "stripe-shaped-body-of-example-marker-base", kind: "positive", target: { case: CASES.marker, families: [STRIPE] }, evidence: MARKER_KEY, secret: `sk_test_${"EXAMPLE".repeat(5).slice(0, 32)}`, build: (s) => `STRIPE_SECRET_KEY=${s}\n`, context: "env-assignment" },
+  { name: "aws-key-id-shaped-body-of-example-marker-base", kind: "positive", target: { case: CASES.marker, families: [AWS_KEY] }, evidence: MARKER_KEY, secret: "AKIAEXAMPLEFILLER000", build: (s) => `AWS_ACCESS_KEY_ID=${s}\n`, context: "env-assignment" },
 ];
 
 const CARRIERS = [
@@ -143,7 +145,8 @@ const CARRIERS = [
   { name: "markdown-fence", carrier: "markdown-code-fence", head: "```text\n", tail: "```\n" },
 ];
 
-const targetFields = (plan, t) => (t.case ? { case: t.case } :{ cell: { plan, scenario: t.scenario, families: t.families } });
+// A case target may narrow the families it is an instance of (schema 1.5.0 families override).
+const targetFields = (plan, t) => (t.case ? { case: t.case, ...(t.families ? { families: t.families } : {}) } : { cell: { plan, scenario: t.scenario, families: t.families } });
 
 function locate(bytes, value, where) {
   const needle = Buffer.from(value, "utf8");
@@ -164,7 +167,7 @@ export function buildRecords({ sourceRevision }) {
     const bytes = Buffer.from(b.text, "utf8");
     const positive = b.kind === "positive";
     const start = positive ? locate(bytes, b.secret, b.name) : 0;
-    const ambiguousItem = set === IDS.ambiguousAuthored;
+    const ambiguousItem = set === IDS.ambiguousAuthored && !positive;
     return {
       id: baseOf(set, b.name),
       ...targetFields(plan, b.target),
@@ -189,7 +192,7 @@ export function buildRecords({ sourceRevision }) {
         const bytes = Buffer.concat([head, baseBytes, Buffer.from(c.tail, "utf8")]);
         const id = baseOf(authoredSet, b.name);
         const secretStart = positive ? head.length + locate(baseBytes, b.secret, b.name) : 0;
-        const ambiguousItem = authoredSet === IDS.ambiguousAuthored;
+        const ambiguousItem = authoredSet === IDS.ambiguousAuthored && !positive;
         items.push({
           id: `${set}--${b.name.replace(/-base$/, "")}-in-${c.name}`,
           ...targetFields(plan, b.target),
@@ -221,6 +224,7 @@ export function buildRecords({ sourceRevision }) {
   const ambiguousProjected = projections(IDS.ambiguousGenerated, IDS.ambiguousAuthored, IDS.ambiguousPlan, ambiguous);
   const nBenign = controls.filter((b) => b.kind === "benign").length;
   const nPositive = controls.length - nBenign;
+  const ambiguousUndecided = ambiguous.filter((b) => b.kind !== "positive");
 
   const controlsAuthoredSet = {
     schemaVersion: 1, kind: "fixture-set", id: IDS.controlsAuthored,
@@ -235,7 +239,7 @@ export function buildRecords({ sourceRevision }) {
   const ambiguousAuthoredSet = {
     schemaVersion: 1, kind: "fixture-set", id: IDS.ambiguousAuthored,
     title: "Policy-ambiguous assignment base samples (authored)",
-    description: `${ambiguous.length} authored base samples whose expectation is not settled: the bare words EXAMPLE and SAMPLE as the whole value under credential-named keys, and provider-shaped values whose body is the marker word EXAMPLE. Every item is not-assertable and carries no span: no must-not-flag or must-flag label is fabricated. ${synthNote}`,
+    description: `${ambiguous.length} authored base samples: the bare words EXAMPLE and SAMPLE as the whole value under credential-named keys (${ambiguousUndecided.length} bases, expectation not settled: not-assertable, no span, no must-not-flag or must-flag label fabricated) and provider-shaped values whose body is the marker word EXAMPLE (${ambiguous.length - ambiguousUndecided.length} bases, must-flag under a maintainer-only project policy, ADR 0020 and ADR 0019 item 5). ${synthNote}`,
     origin: { type: "authored-cases" }, generated: false,
     ...evidenceFor(ambiguousAuthoredItems),
     fixtures: ambiguousAuthoredItems,
@@ -255,12 +259,12 @@ export function buildRecords({ sourceRevision }) {
   const ambiguousGeneratedSet = {
     schemaVersion: 1, kind: "fixture-set", id: IDS.ambiguousGenerated,
     title: "Surrounding-text projections of policy-ambiguous assignments (generated)",
-    description: `${ambiguousProjected.length} projections of the ${ambiguous.length} policy-ambiguous bases in the same three surrounding texts. All are not-assertable. ${ambiguous.length} bases, ${ambiguousProjected.length} correlated inputs. ${synthNote}`,
+    description: `${ambiguousProjected.length} projections of the ${ambiguous.length} policy-ambiguous bases in the same three surrounding texts. The ${ambiguousUndecided.length * 3} bare-word projections are not-assertable; the ${(ambiguous.length - ambiguousUndecided.length) * 3} marker-body projections are must-flag under the maintainer-only policy of Case ${CASES.marker}. ${ambiguous.length} bases, ${ambiguousProjected.length} correlated inputs. ${synthNote}`,
     origin, generated: true,
     ...evidenceFor(ambiguousProjected),
     fixtures: ambiguousProjected,
     lifecycle: "draft",
-    notes: `${authorship} Generated; never edited by hand: rerun the generator. Nothing may be scored against these inputs until a recorded decision or provider statement resolves their Cases.`,
+    notes: `${authorship} Generated; never edited by hand: rerun the generator. Nothing may be scored against the bare-word inputs until a recorded decision or provider statement resolves their Case; the marker-body inputs are maintainer-only (ADR 0020), not reviewed.`,
   };
 
   const inputs = (setItems, contracts, cases = []) => [...setItems.filter((i) => i.cell).map((i) => ({ kind: "fixture", id: i.id })), ...cases.map((id) => ({ kind: "case", id })), ...contracts.map((id) => ({ kind: "format-contract", id }))];
@@ -286,13 +290,13 @@ export function buildRecords({ sourceRevision }) {
   const ambiguousPlan = {
     schemaVersion: 1, kind: "fixture-plan", id: IDS.ambiguousPlan,
     title: "Policy-ambiguous assignments of authored bases",
-    description: `Bare EXAMPLE and SAMPLE words under credential-named keys and provider-shaped values with an EXAMPLE marker body, as ${ambiguous.length} authored bases each placed in three surrounding texts. Every input is not-assertable. Projects two Cases that hold the open questions and their review history. Declares its ${ambiguous.length} bases.`,
+    description: `Bare EXAMPLE and SAMPLE words under credential-named keys and provider-shaped values with an EXAMPLE marker body, as ${ambiguous.length} authored bases each placed in three surrounding texts. The ${ambiguousUndecided.length * 3} bare-word inputs are not-assertable; the ${(ambiguous.length - ambiguousUndecided.length) * 3} marker-body inputs are must-flag under a maintainer-only policy (ADR 0020). Projects two Cases that hold the questions, the decision and their review history. Declares its ${ambiguousUndecided.length} bare-word bases; the ${ambiguous.length - ambiguousUndecided.length} marker-body bases project the Case they decide directly and are not declared, as the personal-data base of the controls plan is not.`,
     matrix: { families: { select: "listed", ids: [AWS_KEY, GENERIC, STRIPE].sort() }, targets: targets(ambiguousAuthoredItems), carriers: [...new Set(ambiguousAuthoredItems.concat(ambiguousProjected).map((i) => i.context))].sort(), coverage: "sparse" },
     generation: { rule: RULE, generator: { ...GENERATOR, sourceRevision }, inputs: inputs(ambiguousAuthoredItems, [], [CASES.sample, CASES.marker]), seed: origin.seed },
     lineage: { origin: "authored", derivedFrom: derived(ambiguousAuthoredItems, [CASES.sample, CASES.marker]) },
     output: [IDS.ambiguousAuthored, IDS.ambiguousGenerated],
     lifecycle: "draft",
-    notes: `${authorship} These inputs are a policy-observation population, not a benign control population and not a positive population: no outcome is asserted, so they are never scored as true or false positives. A consumer that reports what it did with them records its generic-assignment setting next to the observation.`,
+    notes: `${authorship} These inputs are a policy-observation population, not a benign control population and not a positive population: no outcome is asserted for the bare-word inputs, so they are never scored as true or false positives; the marker-body inputs carry a maintainer-only must-flag, not reviewed. A consumer that reports what it did with them records its generic-assignment setting next to the observation.`,
   };
 
   return {

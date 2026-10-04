@@ -3,19 +3,38 @@
   "kind": "fixture-set",
   "id": "base64-hex-representation-projections",
   "title": "Base64 and hex projections of authored bases (generated)",
-  "description": "Generated, correlated projections of the seven authored bases of base64-hex-representation-bases: single and stacked Base64 (standard and URL-safe, padded and unpadded) and hex (lower, upper, mixed) encodings of a base value, whole in an assignment or embedded in a JSON document or a URL query. Seven independent bases, 59 generated inputs: the inputs are not independent samples. Positive-side inputs are not-assertable with a non-asserting candidate source range (the evidence is unresolved); benign inputs are must-not-flag under the benign-encoded-value scenario. Where two variants of one base give identical text (the Base64 alphabets and padding coincide for a 69-byte ASCII value without '>', '~' or '?'), one input is kept and the transformation note names the other reading.",
+  "description": "Generated, correlated projections of the seven authored bases of base64-hex-representation-bases: single and stacked Base64 (standard and URL-safe, padded and unpadded) and hex (lower, upper, mixed) encodings of a base value, whole in an assignment or embedded in a JSON document or a URL query. Seven independent bases, 59 generated inputs: the inputs are not independent samples. Positive-side inputs are must-flag under the decided policy of the two encoded-credential scenarios (maintainer-only, ADR 0020): the whole encoded text is the secret range and its decoded digest is the base's; benign inputs are must-not-flag, the twins of that policy. Where two variants of one base give identical text (the Base64 alphabets and padding coincide for a 69-byte ASCII value without '>', '~' or '?'), one input is kept and the transformation note names the other reading.",
   "origin": {
     "type": "generation-rule",
     "rule": "base64-hex-projection",
     "generator": {
       "name": "base64-hex-projection-generator",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "entrypoint": "scripts/generate-base64-hex-projections.mjs",
-      "sourceRevision": "e19df7cba3e567a827da0f648630da4b5ef7f55f"
+      "sourceRevision": "421b7d3ac1d032d455276daa5d7fb0f8d5a3879a"
     },
     "seed": "base64-hex-projection-1"
   },
   "generated": true,
+  "evidence": {
+    "encoded-benign-twin-of-protected-credential": {
+      "basis": "project-policy",
+      "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 2): an encoded text whose decoded base is not a credential (public text, an encoded digest, a redacted mask) stays unflagged. It is the benign twin of the encoded-credential policy: the encoded text follows the status of its decoded base in both directions, and a decoder succeeding on a value never makes it a secret. Not reviewed, not independent validation, queued for retro-review (#154). Dissent and reversing evidence: the review history of scenario credential-in-base64-or-hex-form.",
+      "sources": [
+        {
+          "sourceId": "rfc-editor-org-0da70d4b9a",
+          "supports": "Defines the standard Base64 alphabet, the URL and filename safe alphabet that replaces '+' and '/' with '-' and '_', when padding may be omitted, and Base16 as hexadecimal digits; implementations reject characters outside the alphabet.",
+          "locator": "#section-3.2, #section-4, #section-5, #section-8"
+        }
+      ],
+      "observedAt": "2026-10-04",
+      "reviewState": "maintainer-only",
+      "decidedIn": {
+        "kind": "scenario",
+        "id": "credential-in-base64-or-hex-form"
+      }
+    }
+  },
   "fixtures": [
     {
       "id": "base64-hex-representation-projections--sendgrid-key-base64-standard-padded-in-env",
@@ -53,18 +72,13 @@
       "sha256": "5d28e4590f4c3a0d374beb4e6392e8aefb67e5a237d5e94225f130343fbc81c4",
       "text": "ENCODED_VALUE=U0cuU1lOVEhFVElDTkVWRVJJU1NVRUQwMC5CQVNFNjRIRVhSRVBSRVNFTlRBVElPTkVYQU1QTEVfTkVWRVItSVNTVUVE\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 106,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -115,18 +129,13 @@
       "sha256": "8326fad5dd76f83d57f3e96541688a118219ffed3ac7bc5af9c9636140420267",
       "text": "ENCODED_VALUE=53472e53594e5448455449434e4556455249535355454430302e424153453634484558524550524553454e544154494f4e4558414d504c455f4e455645522d495353554544\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 152,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -176,18 +185,13 @@
       "sha256": "d53e8f7e21cb3ace604a20757977565c4ff6c7ea16611a455db54ae5cf458473",
       "text": "ENCODED_VALUE=53472E53594E5448455449434E4556455249535355454430302E424153453634484558524550524553454E544154494F4E4558414D504C455F4E455645522D495353554544\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 152,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -237,18 +241,13 @@
       "sha256": "c1896f82d068c0492c1d0aa0e418186b8ebbeb0f603965fc82a4399bdc51eb8f",
       "text": "ENCODED_VALUE=53472e53594E5448455449434e4556455249535355454430302E424153453634484558524550524553454e544154494F4e4558414D504c455F4e455645522D495353554544\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 152,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -300,18 +299,13 @@
       "sha256": "928202d2e5555b0763c8cd710b5a9903b88ee794359fd9bfe928ea802be70db5",
       "text": "{\"event\":\"config-sync\",\"payload\":\"U0cuU1lOVEhFVElDTkVWRVJJU1NVRUQwMC5CQVNFNjRIRVhSRVBSRVNFTlRBVElPTkVYQU1QTEVfTkVWRVItSVNTVUVE\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 126,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -362,18 +356,13 @@
       "sha256": "9f81140824baa524361c1f5ea294e13e32eb2e040c8571f570d6aeae871c92e0",
       "text": "{\"event\":\"config-sync\",\"payload\":\"53472E53594E5448455449434E4556455249535355454430302E424153453634484558524550524553454E544154494F4E4558414D504C455F4E455645522D495353554544\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 172,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -425,18 +414,13 @@
       "sha256": "70454931487bf47073553dbf645b8e2fac71b0a2ebe69323d0436d27c37bcd25",
       "text": "https://example.invalid/callback?payload=U0cuU1lOVEhFVElDTkVWRVJJU1NVRUQwMC5CQVNFNjRIRVhSRVBSRVNFTlRBVElPTkVYQU1QTEVfTkVWRVItSVNTVUVE&v=1\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 41,
             "end": 133,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -487,18 +471,13 @@
       "sha256": "98549f4f8bebbd4aa3b25ec192e03a9e31b1dc89d937ddf59ba80e6caadbcf5e",
       "text": "https://example.invalid/callback?payload=53472e53594e5448455449434e4556455249535355454430302e424153453634484558524550524553454e544154494f4e4558414d504c455f4e455645522d495353554544&v=1\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 41,
             "end": 179,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -554,18 +533,13 @@
       "sha256": "7eacbdcec8dd7550b10b0cd7b05931f11f07dee4d1983933ba7a5a30747b69b7",
       "text": "ENCODED_VALUE=5530637555316c4f5645684656456c44546b565752564a4a55314e56525551774d43354351564e464e6a5249525668535256425352564e46546c524256456c50546b56595155315154455666546b56575256497453564e5456555645\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 198,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -627,18 +601,13 @@
       "sha256": "58dfc7f5d6eec56aa2357ac46937fd3b598be566fda4ab59a46bc68773b9228a",
       "text": "ENCODED_VALUE=VTBjdVUxbE9WRWhGVkVsRFRrVldSVkpKVTFOVlJVUXdNQzVDUVZORk5qUklSVmhTUlZCU1JWTkZUbFJCVkVsUFRrVllRVTFRVEVWZlRrVldSVkl0U1ZOVFZVVkU\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 137,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -707,18 +676,13 @@
       "sha256": "ec4fa8ef6ba9e3b6ade09fa6164559ca04813e1f7a546468696572b6f5925deb",
       "text": "ENCODED_VALUE=VlRCamRWVXhiRTlXUldoR1ZrVnNSRlJyVmxkU1ZrcEtWVEZPVmxKVlVYZE5RelZEVVZaT1JrNXFVa2xTVm1oVFVsWkNVMUpXVGtaVWJGSkNWa1ZzVUZSclZsbFJWVEZSVkVWV1psUnJWbGRTVmtsMFUxWk9WRlpWVmtVPQ==\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 182,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -784,18 +748,13 @@
       "sha256": "415f3feaa2069871935a8831dbfc11a5e0bcd28d487cb259aca8d758c72f0467",
       "text": "ENCODED_VALUE=353334373265353335393465353434383435353434393433346534353536343535323439353335333535343534343330333032653432343135333435333633343438343535383532343535303532343535333435346535343431353434393466346534353538343134643530346334353566346534353536343535323264343935333533353534353434\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 290,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -861,18 +820,13 @@
       "sha256": "73528c3c609cbec30005b64ca0c68916764314e9aad0488f80b7d25f82142105",
       "text": "{\"event\":\"config-sync\",\"payload\":\"NTUzMDYzNzU1NTMxNkM0RjU2NDU2ODQ2NTY0NTZDNDQ1NDZCNTY1NzUyNTY0QTRBNTUzMTRFNTY1MjU1NTE3NzRENDMzNTQzNTE1NjRFNDY0RTZBNTI0OTUyNTY2ODUzNTI1NjQyNTM1MjU2NEU0NjU0NkM1MjQyNTY0NTZDNTA1NDZCNTY1OTUxNTUzMTUxNTQ0NTU2NjY1NDZCNTY1NzUyNTY0OTc0NTM1NjRFNTQ1NjU1NTY0NQ\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 280,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--sendgrid-key-base",
             "decoded": {
               "via": [
@@ -933,18 +887,13 @@
       "sha256": "a0f6c276a9a180073527c4d2411e6f9e945f9fa3d6afeb648b234530cc251c78",
       "text": "ENCODED_VALUE=U1l+VEhFVElDLU5FVkVSLUlTU1VFRF9FWEE/UExFLkJBU0U2NEhFWA==\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 70,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -996,18 +945,13 @@
       "sha256": "92b10fd5edae014b83fdb109b1ac4d8ec901f336a8fefd8f7ec2a4e6f5f7d802",
       "text": "ENCODED_VALUE=U1l-VEhFVElDLU5FVkVSLUlTU1VFRF9FWEE_UExFLkJBU0U2NEhFWA\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 68,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1059,18 +1003,13 @@
       "sha256": "ae2095a4ae9f36ccd8f4b5bdadb7885a35e4f2f0f5916301fd53edd59b0b198f",
       "text": "ENCODED_VALUE=U1l+VEhFVElDLU5FVkVSLUlTU1VFRF9FWEE/UExFLkJBU0U2NEhFWA\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 68,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1122,18 +1061,13 @@
       "sha256": "88c2311a5cab70931e02d134d1dc3ef73ec2af707e7a8ae2555f558c74fecf60",
       "text": "ENCODED_VALUE=U1l-VEhFVElDLU5FVkVSLUlTU1VFRF9FWEE_UExFLkJBU0U2NEhFWA==\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 70,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1184,18 +1118,13 @@
       "sha256": "dd6c77364ef3b9521af8fa21f21eb552560249734d911876a0cbf6802753a54c",
       "text": "ENCODED_VALUE=53597e5448455449432d4e455645522d4953535545445f4558413f504c452e424153453634484558\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 94,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1245,18 +1174,13 @@
       "sha256": "06c48e2e18e09b4f83ee2f133c36d382d2d35d1eb3973ca4377d5444ee6b19fd",
       "text": "ENCODED_VALUE=53597E5448455449432D4E455645522D4953535545445F4558413F504C452E424153453634484558\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 94,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1306,18 +1230,13 @@
       "sha256": "5dad2c6c847a4d67676eaddccecd0b004225715c62d7a71e3b2d00e776f6604f",
       "text": "ENCODED_VALUE=53597e5448455449432D4e455645522D4953535545445f4558413F504c452E424153453634484558\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 94,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1368,18 +1287,13 @@
       "sha256": "af36b86bc6a41b7820ffa66c12bca115e0a2803f37a0d9552d925ff31b6658e9",
       "text": "{\"event\":\"config-sync\",\"payload\":\"U1l+VEhFVElDLU5FVkVSLUlTU1VFRF9FWEE/UExFLkJBU0U2NEhFWA==\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 90,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1431,18 +1345,13 @@
       "sha256": "b03926aa917abf7753016fa445046890334622c6b0aed7fdf44396afb90a980a",
       "text": "{\"event\":\"config-sync\",\"payload\":\"U1l-VEhFVElDLU5FVkVSLUlTU1VFRF9FWEE_UExFLkJBU0U2NEhFWA\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 88,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1493,18 +1402,13 @@
       "sha256": "ec70314f063e08a9aa4b4aea80f431306fe67ee47748a7c17b6d4994a66fd038",
       "text": "{\"event\":\"config-sync\",\"payload\":\"53597E5448455449432D4E455645522D4953535545445F4558413F504C452E424153453634484558\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 114,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1555,18 +1459,13 @@
       "sha256": "dc48a834401c57a2a811f3a43edfc880747897dc9d1ee9e571915aaf9e99ce5e",
       "text": "https://example.invalid/callback?payload=U1l+VEhFVElDLU5FVkVSLUlTU1VFRF9FWEE/UExFLkJBU0U2NEhFWA==&v=1\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 41,
             "end": 97,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1618,18 +1517,13 @@
       "sha256": "139819260b52d52e52a28595f4b3fb26e52e1a0c1b15069f408508b518d7692f",
       "text": "https://example.invalid/callback?payload=U1l-VEhFVElDLU5FVkVSLUlTU1VFRF9FWEE_UExFLkJBU0U2NEhFWA&v=1\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 41,
             "end": 95,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1680,18 +1574,13 @@
       "sha256": "608cfff68c3796f613d727220406a90ef2dc2327e8bc061185324818583872e5",
       "text": "https://example.invalid/callback?payload=53597e5448455449432d4e455645522d4953535545445f4558413f504c452e424153453634484558&v=1\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 41,
             "end": 121,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1747,18 +1636,13 @@
       "sha256": "7bf79d0e883c2eb42c6e90630cfe5e807f4b5d669184cd751c165f3a058a5ffa",
       "text": "ENCODED_VALUE=55316c2b5645684656456c444c553546566b56534c556c5455315646524639465745452f554578464c6b4a42553055324e45684657413d3d\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 126,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1820,18 +1704,13 @@
       "sha256": "75aa84e7b9c589f34d04308a552bc7d5e986e15a9129b4eadbd8a8f103b48d3e",
       "text": "ENCODED_VALUE=VTFsK1ZFaEZWRWxETFU1RlZrVlNMVWxUVTFWRlJGOUZXRUUvVUV4RkxrSkJVMFUyTkVoRldBPT0\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 89,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1900,18 +1779,13 @@
       "sha256": "500daaf7640d95bf41746fcd844f869242fef044b0d862e2bfdb198dabe70754",
       "text": "ENCODED_VALUE=VlRGc0sxWkZhRVpXUld4RVRGVTFSbFpyVmxOTVZXeFVWVEZXUmxKR09VWlhSVVV2VlVWNFJreHJTa0pWTUZVeVRrVm9SbGRCUFQwPQ==\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 118,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -1977,18 +1851,13 @@
       "sha256": "2570f3141a2ded063c13cfcd152e1d1a80863351e76800daffaf0a7b09c6e047",
       "text": "ENCODED_VALUE=3533353937653534343834353534343934333264346534353536343535323264343935333533353534353434356634353538343133663530346334353265343234313533343533363334343834353538\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 174,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -2054,18 +1923,13 @@
       "sha256": "92a1f9cd2eb8abceb277d86d2340de4c78d442b2f16eb36f084011b48e4f4655",
       "text": "{\"event\":\"config-sync\",\"payload\":\"NTUzMTZDMkI1NjQ1Njg0NjU2NDU2QzQ0NEM1NTM1NDY1NjZCNTY1MzRDNTU2QzU0NTUzMTU2NDY1MjQ2Mzk0NjU3NDU0NTJGNTU0NTc4NDY0QzZCNEE0MjU1MzA1NTMyNEU0NTY4NDY1NzQxM0QzRA\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 184,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-alphabet-edge-base",
             "decoded": {
               "via": [
@@ -2127,18 +1991,13 @@
       "sha256": "9260bbff8855d5a21bd10cb17dab871dfccd485aefa32852b414635adcd10194",
       "text": "ENCODED_VALUE=U1lOVEhFVElDfk5FVkVSLUlTU1VFRD9FWEFNUExFLkJBU0U2NC5IRVg=\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 70,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2191,18 +2050,13 @@
       "sha256": "dd231f91c5122d79e1863536f8c9d4631e7f7736b01d89953a8fc9a3610f07a3",
       "text": "ENCODED_VALUE=U1lOVEhFVElDfk5FVkVSLUlTU1VFRD9FWEFNUExFLkJBU0U2NC5IRVg\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 69,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2253,18 +2107,13 @@
       "sha256": "efe86af9ab6e0c1407a52e79165044140f96e91659d1613213fb9b361f0dd52d",
       "text": "ENCODED_VALUE=53594e5448455449437e4e455645522d4953535545443f4558414d504c452e4241534536342e484558\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 96,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2314,18 +2163,13 @@
       "sha256": "f9dfb8c1dc702289401cb50ad44da7bbf1a41edb309db186871f82e64b43f4ab",
       "text": "ENCODED_VALUE=53594E5448455449437E4E455645522D4953535545443F4558414D504C452E4241534536342E484558\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 96,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2375,18 +2219,13 @@
       "sha256": "4fe93e3c1a7e1c88451455d714e893dbd3006e92d2f91c228f11993d95b3e121",
       "text": "ENCODED_VALUE=53594e5448455449437E4e455645522D4953535545443f4558414D504c452E4241534536342e484558\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 96,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2437,18 +2276,13 @@
       "sha256": "e723020393080c72f8d4bdbdc13975de33ead8d87715d66f7dd39440c27f6a73",
       "text": "{\"event\":\"config-sync\",\"payload\":\"U1lOVEhFVElDfk5FVkVSLUlTU1VFRD9FWEFNUExFLkJBU0U2NC5IRVg=\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 90,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2500,18 +2334,13 @@
       "sha256": "1065fc37efc189e9ce6154fe8c686848432b445a9579b43da90ec042f015ae04",
       "text": "{\"event\":\"config-sync\",\"payload\":\"U1lOVEhFVElDfk5FVkVSLUlTU1VFRD9FWEFNUExFLkJBU0U2NC5IRVg\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 89,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2562,18 +2391,13 @@
       "sha256": "a83422d6412183b2a20e5fdfafd1a8fc22d0102908b27858bdd9c51730c861cb",
       "text": "{\"event\":\"config-sync\",\"payload\":\"53594E5448455449437E4E455645522D4953535545443F4558414D504C452E4241534536342E484558\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 116,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2624,18 +2448,13 @@
       "sha256": "6318f42b351bd8db26ee14ec65fef361ba8fbd08d8ef6124c9f11ec9d2421417",
       "text": "https://example.invalid/callback?payload=U1lOVEhFVElDfk5FVkVSLUlTU1VFRD9FWEFNUExFLkJBU0U2NC5IRVg=&v=1\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 41,
             "end": 97,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2687,18 +2506,13 @@
       "sha256": "79e5ece2de23f16c7f11af93dc575b07e218d8d2e671a8582ffee0160f54bb07",
       "text": "https://example.invalid/callback?payload=U1lOVEhFVElDfk5FVkVSLUlTU1VFRD9FWEFNUExFLkJBU0U2NC5IRVg&v=1\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 41,
             "end": 96,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2749,18 +2563,13 @@
       "sha256": "d211ebd2dfe1e3d7478017ad9393c1135a336a95780242d0ced483c37561a1d0",
       "text": "https://example.invalid/callback?payload=53594e5448455449437e4e455645522d4953535545443f4558414d504c452e4241534536342e484558&v=1\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 41,
             "end": 123,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2816,18 +2625,13 @@
       "sha256": "8631b2261a4f71c7ad3d364a4434b0217fc2a79eeb6075699ab0528cb9cc97d8",
       "text": "ENCODED_VALUE=55316c4f5645684656456c44666b3546566b56534c556c5455315646524439465745464e554578464c6b4a42553055324e4335495256673d\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 126,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2889,18 +2693,13 @@
       "sha256": "9dbaa41c9e1caa5357dce2f72532facdc3a47876629c5fd3c4a74ec7b83fe0e2",
       "text": "ENCODED_VALUE=VTFsT1ZFaEZWRWxEZms1RlZrVlNMVWxUVTFWRlJEOUZXRUZOVUV4RkxrSkJVMFUyTkM1SVJWZz0\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 89,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -2969,18 +2768,13 @@
       "sha256": "2da65c19d1bf6db1c0243605e29466d8adb763e6b0c970836f6453066fbf60b4",
       "text": "ENCODED_VALUE=VlRGc1QxWkZhRVpXUld4RVptczFSbFpyVmxOTVZXeFVWVEZXUmxKRU9VWlhSVVpPVlVWNFJreHJTa0pWTUZVeVRrTTFTVkpXWnowPQ==\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 118,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -3046,18 +2840,13 @@
       "sha256": "e37745295ba546c43c402e901748829d0a79af2c5528941d888c6eb8f40d7191",
       "text": "ENCODED_VALUE=35333539346535343438343535343439343337653465343535363435353232643439353335333535343534343366343535383431346435303463343532653432343135333435333633343265343834353538\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 14,
             "end": 178,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -3123,18 +2912,13 @@
       "sha256": "86ba09c6493e40823fcf767a8a5fb8234a94724761635c122aacaee31daa7014",
       "text": "{\"event\":\"config-sync\",\"payload\":\"NTUzMTZDNEY1NjQ1Njg0NjU2NDU2QzQ0NjY2QjM1NDY1NjZCNTY1MzRDNTU2QzU0NTUzMTU2NDY1MjQ0Mzk0NjU3NDU0NjRFNTU0NTc4NDY0QzZCNEE0MjU1MzA1NTMyNEU0MzM1NDk1MjU2NjczRA\"}\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
           {
             "start": 34,
             "end": 184,
             "role": "secret",
-            "note": "Candidate source range: the encoded text. Synthetic value; never issued.",
+            "note": "Source range: the encoded text. Synthetic value; never issued.",
             "base": "base64-hex-representation-bases--generic-literal-padding-edge-base",
             "decoded": {
               "via": [
@@ -3194,6 +2978,7 @@
       },
       "sha256": "6c1efe19999c61059772ed0add25b5c42daffffcf05365edb4670e47e1ed31c1",
       "text": "ENCODED_VALUE=VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3232,6 +3017,7 @@
       },
       "sha256": "a79d0ce2f2bdaaddae975fb57be441c50e0a1c1fa5c6283f1c7f7790a7af8e15",
       "text": "ENCODED_VALUE=54686520717569636b2062726f776e20666f78206a756d7073206f76657220746865206c617a7920646f67\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3271,6 +3057,7 @@
       },
       "sha256": "43bca117e910d4d527d4798de3e03d8c0b2b0f48f44fff3dc577f7998e18eac2",
       "text": "{\"event\":\"config-sync\",\"payload\":\"VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw\"}\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3310,6 +3097,7 @@
       },
       "sha256": "8454f1446bca6a7c93e9c5ec54a071d9cf7c215637d1e14c79f76f1ef4658640",
       "text": "ENCODED_VALUE=eyJuYW1lIjoiZXhhbXBsZS1wYWNrYWdlIiwidmVyc2lvbiI6IjEuMC4wIiwibGljZW5zZSI6Ik1JVCJ9\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3348,6 +3136,7 @@
       },
       "sha256": "a305849b3cffb60bc1801d5692fe7c84d754e690f1c657a4cc242a38efade503",
       "text": "ENCODED_VALUE=7b226e616d65223a226578616d706c652d7061636b616765222c2276657273696f6e223a22312e302e30222c226c6963656e7365223a224d4954227d\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3387,6 +3176,7 @@
       },
       "sha256": "2227689e0681498b7c42a991c9c5ba5a41295f175fff3439dae7079c4ffcc7b2",
       "text": "{\"event\":\"config-sync\",\"payload\":\"eyJuYW1lIjoiZXhhbXBsZS1wYWNrYWdlIiwidmVyc2lvbiI6IjEuMC4wIiwibGljZW5zZSI6Ik1JVCJ9\"}\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3426,6 +3216,7 @@
       },
       "sha256": "0655bf46086b37fd2dff4466517792ceb719664fab29acb53fcf123652235514",
       "text": "ENCODED_VALUE=ZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NQ==\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3464,6 +3255,7 @@
       },
       "sha256": "e8c7e2501e9b7d42b15684176bb8b4d98d4236dba2e9f5539a120c07e12a6f4c",
       "text": "ENCODED_VALUE=65336230633434323938666331633134396166626634633839393666623932343237616534316534363439623933346361343935393931623738353262383535\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3503,6 +3295,7 @@
       },
       "sha256": "0352bc0bcad94c4e2a76379d0c7883031ff83538df569cd30923dec31859d55a",
       "text": "{\"event\":\"config-sync\",\"payload\":\"ZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NQ\"}\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3542,6 +3335,7 @@
       },
       "sha256": "3d0ae6c155029c6c54f2b1fd1040874cf876606604bd97d095907f26a6591935",
       "text": "ENCODED_VALUE=U0cuW1JFREFDVEVEXS5bUkVEQUNURURd\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3580,6 +3374,7 @@
       },
       "sha256": "b09f21483002e6d1a328d2409aded8dcf67faab5d947c53961655ad4467c1041",
       "text": "ENCODED_VALUE=53472e5b52454441435445445d2e5b52454441435445445d\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []
@@ -3619,6 +3414,7 @@
       },
       "sha256": "2690da3060da4be63c5ad43892a1ed2ad3c9b66b3a27331b5873c0bfa4cca946",
       "text": "{\"event\":\"config-sync\",\"payload\":\"U0cuW1JFREFDVEVEXS5bUkVEQUNURURd\"}\n",
+      "evidence": "encoded-benign-twin-of-protected-credential",
       "expected": {
         "outcome": "must-not-flag",
         "spans": []

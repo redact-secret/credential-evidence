@@ -4,8 +4,8 @@
   "id": "offline-text-cannot-establish-expiry",
   "title": "Expiry or lifetime stated beside a credential that offline text cannot verify",
   "description": "A credential shown with an expiry timestamp, a stated lifetime, or other expired-looking wording (for example an Expiration field or a note that a token lasts one hour), or a value of a family the provider issues as short-lived.",
-  "semantics": "Offline text cannot establish current validity or revocation. A timestamp in or near the text states when the issuer says a credential stops working; it does not show that the time has passed on a reader's clock, that the value was not re-issued, or that the surrounding material is not the live one. Whether to treat such text as benign is a project policy question, so no outcome is asserted until a maintainer decision is recorded.",
-  "expectedOutcomeClass": "not-assertable",
+  "semantics": "Offline text cannot establish current validity or revocation. A timestamp in or near the text states when the issuer says a credential stops working; it does not show that the time has passed on a reader's clock, that the value was not re-issued, or that the surrounding material is not the live one. Policy (maintainer-only, ADR 0020, ADR 0019 item 6): such text is expected to be flagged.",
+  "expectedOutcomeClass": "must-flag",
   "applicability": {
     "appliesTo": "families",
     "families": [
@@ -15,8 +15,8 @@
     "rationale": "AWS temporary credentials (Expiration field) and GitHub App installation tokens (one hour) are the provider-documented short-lived forms read for this scenario. Further families are added after their pages are read."
   },
   "evidenceBasis": {
-    "basis": "unresolved",
-    "rationale": "Lifetimes are provider-documented (sources); the expectation for expired-looking text is not settled by any provider statement. The issue's wording that a timestamp is not sufficient grounds to suppress detection is a maintainer instruction without a recorded non-author review, so it is carried here as a recommendation, not as an expectation.",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 6 (#112)): text that states an expiry or lifetime beside a credential is expected to be flagged. Lifetimes are provider-documented (sources); the expectation is a project choice: offline text cannot establish current validity or revocation. It is not a claim about validity. Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history.",
     "sources": [
       {
         "sourceId": "docs-aws-amazon-com-1e7f14016c",
@@ -36,6 +36,6 @@
     ],
     "observedAt": "2026-10-03"
   },
-  "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Maintainer-only (ADR 0020): decided by the sole maintainer, not reviewed, not independent validation; queued for retro-review (#154)."
 }

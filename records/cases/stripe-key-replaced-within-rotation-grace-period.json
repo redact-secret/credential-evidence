@@ -18,9 +18,9 @@
     "rotation-overlap-predecessor-credential"
   ],
   "expectation": {
-    "outcome": "not-assertable",
-    "basis": "unresolved",
-    "rationale": "No outcome asserted. Provider-documented: both keys work for up to 7 days after a Dashboard rotation. Not documented: any statement on how text that names a rotated-out key should be treated. Candidate outcomes: must-flag (an old key may still be live inside the window) or may-flag. Recommendation to the maintainers, not a decision: expect it to be flagged, because offline text cannot establish that the window has passed. Would settle it: a recorded project-policy decision with a non-author reviewer.",
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 6 (#112)): expect it to be flagged. Provider-documented: both keys work for up to 7 days after a Dashboard rotation. Not documented: how text that names a rotated-out key should be treated. Offline text cannot establish revocation or expiry. This is a policy, not a validity claim. Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history.",
     "sources": [
       {
         "sourceId": "docs-stripe-com-3e992d348a",
@@ -30,6 +30,6 @@
     ],
     "observedAt": "2026-10-03"
   },
-  "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Maintainer-only (ADR 0020): decided by the sole maintainer, not reviewed, not independent validation; queued for retro-review (#154)."
 }

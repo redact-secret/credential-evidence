@@ -3,7 +3,7 @@
   "kind": "fixture-plan",
   "id": "policy-ambiguous-assignment-matrix-of-bases",
   "title": "Policy-ambiguous assignments of authored bases",
-  "description": "Bare EXAMPLE and SAMPLE words under credential-named keys and provider-shaped values with an EXAMPLE marker body, as 6 authored bases each placed in three surrounding texts. Every input is not-assertable. Projects two Cases that hold the open questions and their review history. Declares its 6 bases.",
+  "description": "Bare EXAMPLE and SAMPLE words under credential-named keys and provider-shaped values with an EXAMPLE marker body, as 6 authored bases each placed in three surrounding texts. The 12 bare-word inputs are not-assertable; the 6 marker-body inputs are must-flag under a maintainer-only policy (ADR 0020). Projects two Cases that hold the questions, the decision and their review history. Declares its 4 bare-word bases; the 2 marker-body bases project the Case they decide directly and are not declared, as the personal-data base of the controls plan is not.",
   "matrix": {
     "families": {
       "select": "listed",
@@ -17,6 +17,10 @@
       {
         "type": "scenario",
         "id": "unsettled-evidence-input"
+      },
+      {
+        "type": "case",
+        "id": "example-marker-inside-provider-shaped-value-not-published-by-provider"
       }
     ],
     "carriers": [
@@ -32,9 +36,9 @@
     "rule": "surrounding-text-placement-of-controls-and-ambiguous-bases",
     "generator": {
       "name": "benign-reference-and-ambiguity-projector",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "entrypoint": "scripts/generate-benign-reference-and-ambiguity-plans.mjs",
-      "sourceRevision": "e19df7cba3e567a827da0f648630da4b5ef7f55f"
+      "sourceRevision": "421b7d3ac1d032d455276daa5d7fb0f8d5a3879a"
     },
     "inputs": [
       {
@@ -52,14 +56,6 @@
       {
         "kind": "fixture",
         "id": "policy-ambiguous-assignment-bases-authored--yaml-secret-colon-sample-base"
-      },
-      {
-        "kind": "fixture",
-        "id": "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base"
-      },
-      {
-        "kind": "fixture",
-        "id": "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base"
       },
       {
         "kind": "case",
@@ -81,11 +77,11 @@
       },
       {
         "kind": "case",
-        "id": "example-and-sample-words-as-whole-value-under-credential-names"
+        "id": "example-marker-inside-provider-shaped-value-not-published-by-provider"
       },
       {
         "kind": "case",
-        "id": "example-marker-inside-provider-shaped-value-not-published-by-provider"
+        "id": "example-and-sample-words-as-whole-value-under-credential-names"
       }
     ]
   },
@@ -94,5 +90,5 @@
     "policy-ambiguous-assignment-projections-generated"
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. These inputs are a policy-observation population, not a benign control population and not a positive population: no outcome is asserted, so they are never scored as true or false positives. A consumer that reports what it did with them records its generic-assignment setting next to the observation."
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. These inputs are a policy-observation population, not a benign control population and not a positive population: no outcome is asserted for the bare-word inputs, so they are never scored as true or false positives; the marker-body inputs carry a maintainer-only must-flag, not reviewed. A consumer that reports what it did with them records its generic-assignment setting next to the observation."
 }

@@ -13,9 +13,11 @@
 // (scripts/lib/representation.mjs) before it is written, including the candidate readings, which the validator also
 // re-derives. Credential-shaped bases are synthetic and never issued (see the bases set description).
 //
-// What this generator does not do: decide any outcome. Candidate positives are not-assertable (their scenario's
-// evidence is unresolved) and carry the span as a non-asserting candidateReading; benign projections inherit the
-// benign-encoded-value scenario's outcome. Decoder support, depth limits and actions are the owning product's.
+// What this generator does not do: decide any outcome. The outcomes are the decided policy of the two encoded-credential
+// scenarios (maintainer-only, ADR 0020, ADR 0019 item 2: when the decoded base is a credential, the whole encoded text is
+// the secret range and the outcome is must-flag), and each credential projection states that range with its decoded
+// digest. A benign projection is must-not-flag and cites an evidence entry that ties it to the same decision (the twin
+// policy). Decoder support, depth limits and actions are the owning product's.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -28,7 +30,25 @@ const BASES = join(root, "records/fixtures/base64-hex-representation-bases.json"
 const OUT = join(root, "records/fixtures/base64-hex-representation-projections.json");
 const SET_ID = "base64-hex-representation-projections";
 const PLAN = "base64-hex-representation-matrix";
-const GENERATOR = { name: "base64-hex-projection-generator", version: "1.0.0", entrypoint: "scripts/generate-base64-hex-projections.mjs" };
+const TWIN_KEY = "encoded-benign-twin-of-protected-credential";
+const EVIDENCE = {
+  [TWIN_KEY]: {
+    basis: "project-policy",
+    rationale:
+      "Project policy, maintainer-only (ADR 0020, ADR 0019 item 2): an encoded text whose decoded base is not a credential (public text, an encoded digest, a redacted mask) stays unflagged. It is the benign twin of the encoded-credential policy: the encoded text follows the status of its decoded base in both directions, and a decoder succeeding on a value never makes it a secret. Not reviewed, not independent validation, queued for retro-review (#154). Dissent and reversing evidence: the review history of scenario credential-in-base64-or-hex-form.",
+    sources: [
+      {
+        sourceId: "rfc-editor-org-0da70d4b9a",
+        supports: "Defines the standard Base64 alphabet, the URL and filename safe alphabet that replaces '+' and '/' with '-' and '_', when padding may be omitted, and Base16 as hexadecimal digits; implementations reject characters outside the alphabet.",
+        locator: "#section-3.2, #section-4, #section-5, #section-8",
+      },
+    ],
+    observedAt: "2026-10-04",
+    reviewState: "maintainer-only",
+    decidedIn: { kind: "scenario", id: "credential-in-base64-or-hex-form" },
+  },
+};
+const GENERATOR = { name: "base64-hex-projection-generator", version: "1.1.0", entrypoint: "scripts/generate-base64-hex-projections.mjs" };
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
@@ -153,16 +173,13 @@ for (const [short, spec] of Object.entries(MATRIX)) {
       transformation: { steps: [...layers.map(stepOf), { op: "embed", mode: carrier.mode, carrier: carrier.carrier }] },
       sha256: sha256Hex(text),
       text: text.toString("utf8"),
-      expected: { outcome: spec.kind === "benign" ? "must-not-flag" : "not-assertable", spans: [] },
+      ...(spec.kind === "benign" ? { evidence: TWIN_KEY } : {}),
+      expected: { outcome: spec.kind === "benign" ? "must-not-flag" : "must-flag", spans: [] },
     };
     if (spec.kind === "credential") {
       const decoded = decodeVia(text.subarray(start, end), via);
       if (!decoded.equals(value)) throw new Error(`${id}: decoded value differs from the base`);
-      item.candidateReading = {
-        asserting: false,
-        outcome: "must-flag",
-        spans: [{ start, end, role: "secret", note: "Candidate source range: the encoded text. Synthetic value; never issued.", base: baseId, decoded: { via, sha256: sha256Hex(value), bytes: value.length } }],
-      };
+      item.expected.spans = [{ start, end, role: "secret", note: "Source range: the encoded text. Synthetic value; never issued.", base: baseId, decoded: { via, sha256: sha256Hex(value), bytes: value.length } }];
     }
     seen.set(key, item);
     items.push(item);
@@ -174,9 +191,10 @@ const set = {
   kind: "fixture-set",
   id: SET_ID,
   title: "Base64 and hex projections of authored bases (generated)",
-  description: `Generated, correlated projections of the seven authored bases of ${baseSet.id}: single and stacked Base64 (standard and URL-safe, padded and unpadded) and hex (lower, upper, mixed) encodings of a base value, whole in an assignment or embedded in a JSON document or a URL query. Seven independent bases, ${items.length} generated inputs: the inputs are not independent samples. Positive-side inputs are not-assertable with a non-asserting candidate source range (the evidence is unresolved); benign inputs are must-not-flag under the benign-encoded-value scenario. Where two variants of one base give identical text (the Base64 alphabets and padding coincide for a 69-byte ASCII value without '>', '~' or '?'), one input is kept and the transformation note names the other reading.`,
+  description: `Generated, correlated projections of the seven authored bases of ${baseSet.id}: single and stacked Base64 (standard and URL-safe, padded and unpadded) and hex (lower, upper, mixed) encodings of a base value, whole in an assignment or embedded in a JSON document or a URL query. Seven independent bases, ${items.length} generated inputs: the inputs are not independent samples. Positive-side inputs are must-flag under the decided policy of the two encoded-credential scenarios (maintainer-only, ADR 0020): the whole encoded text is the secret range and its decoded digest is the base's; benign inputs are must-not-flag, the twins of that policy. Where two variants of one base give identical text (the Base64 alphabets and padding coincide for a 69-byte ASCII value without '>', '~' or '?'), one input is kept and the transformation note names the other reading.`,
   origin: { type: "generation-rule", rule: "base64-hex-projection", generator: { ...GENERATOR, version: GENERATOR.version, sourceRevision }, seed: "base64-hex-projection-1" },
   generated: true,
+  evidence: EVIDENCE,
   fixtures: items,
   lifecycle: "draft",
   notes: "Generated by scripts/generate-base64-hex-projections.mjs from the authored bases of base64-hex-representation-bases; do not edit by hand: change the generator or the bases and regenerate. Every credential-shaped value is a synthetic base that was never issued and never tested against any service.",

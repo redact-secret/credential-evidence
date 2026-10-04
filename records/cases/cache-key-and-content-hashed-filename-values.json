@@ -15,8 +15,8 @@
   ],
   "expectation": {
     "outcome": "must-not-flag",
-    "basis": "provider-documented",
-    "rationale": "Expected unflagged for a key built from a file hash and for a content-hashed filename. GitHub documents the key as the identifier used to save and search for a cache and shows it built from hashFiles over a lock file; webpack documents [contenthash] as a hash of the asset content that changes when the content does. A key built from a secret value is outside this expectation.",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 8(b) (#115)): class lowered from provider-documented to project-policy; the outcome stays must-not-flag. Each cited document defines the value's role (a content hash, a cache key, a version string); none says the value is not a secret, so the step from role to non-secrecy is an inference. The cited statements stay listed as context. Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Earlier reading: Expected unflagged for a key built from a file hash and for a content-hashed filename. GitHub documents the key as the identifier used to save and search for a cache and shows it built from hashFiles over a lock file; webpack documents [contenthash] as a hash of the asset content that changes when the content does. A key built from a secret value is outside this expectation.",
     "sources": [
       {
         "sourceId": "docs-github-com-3f9a7bf27e",
@@ -31,6 +31,6 @@
     ],
     "observedAt": "2026-10-03"
   },
-  "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Product masking, action policy and measurement stay with the downstream repositories."
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Maintainer-only (ADR 0020): decided by the sole maintainer, not reviewed, not independent validation; queued for retro-review (#154). Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Product masking, action policy and measurement stay with the downstream repositories."
 }

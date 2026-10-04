@@ -15,8 +15,8 @@
   ],
   "expectation": {
     "outcome": "must-not-flag",
-    "basis": "provider-documented",
-    "rationale": "Expected unflagged. Each format document defines the value as a hash of content used to verify that content (OCI: the digest is a content identifier and content from an insecure source can be verified against it; SRI: the hash is integrity metadata to validate a fetched resource; npm: integrity is an SRI string for the archive; Go: h1 is a hash of module content; pip: --hash values verify downloads). The step from \"content-verification digest\" to \"not a credential\" is inference, not a quoted statement: none of the sources says the word secret. A maintainer may prefer to label the outcome project policy. It would be reversed by a source stating that such a digest, in that position, grants access.",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 8(b) (#115)): class lowered from provider-documented to project-policy; the outcome stays must-not-flag. Each cited document defines the value's role (a content hash, a cache key, a version string); none says the value is not a secret, so the step from role to non-secrecy is an inference. The cited statements stay listed as context. Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Earlier reading: Expected unflagged. Each format document defines the value as a hash of content used to verify that content (OCI: the digest is a content identifier and content from an insecure source can be verified against it; SRI: the hash is integrity metadata to validate a fetched resource; npm: integrity is an SRI string for the archive; Go: h1 is a hash of module content; pip: --hash values verify downloads). The step from \"content-verification digest\" to \"not a credential\" is inference, not a quoted statement: none of the sources says the word secret. It would be reversed by a source stating that such a digest, in that position, grants access.",
     "sources": [
       {
         "sourceId": "github-com-opencontainers-image-spec-66864ead86",
@@ -46,6 +46,6 @@
     ],
     "observedAt": "2026-10-03"
   },
-  "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Cargo.lock checksums were searched for and not included: the Cargo page read does not describe them. Product masking, action policy and measurement stay with the downstream repositories."
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Maintainer-only (ADR 0020): decided by the sole maintainer, not reviewed, not independent validation; queued for retro-review (#154). Authored from the cited pages read on 2026-10-03, before any scanner was consulted. Every value is synthetic: digests are computed over constructed placeholder text, hosts use the reserved .invalid TLD, nothing was tested against any service. Cargo.lock checksums were searched for and not included: the Cargo page read does not describe them. Product masking, action policy and measurement stay with the downstream repositories."
 }

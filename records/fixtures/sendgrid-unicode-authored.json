@@ -625,7 +625,7 @@
     },
     {
       "id": "sendgrid-unicode-authored--key-a-with-no-break-space-inside",
-      "case": "unicode-credential-reading-depends-on-normalization",
+      "case": "unicode-no-break-space-inside-credential-value",
       "path": "key-a-with-no-break-space-inside/input.txt",
       "context": "shell-assignment",
       "sha256": "d1fa9927ebaa6dd9152d758ba9431877fa851588772635b1db77242bb7dd83e5",
@@ -646,11 +646,31 @@
             "positions": "inside"
           }
         ],
-        "note": "A visible gap: whether it is one token with a space-like character inside or two tokens is not settled."
+        "note": "A visible gap inside the key. Decided as one value with an inserted gap (ADR 0019 item 4, maintainer-only): the span is the whole text and its decoded value is the base."
       },
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 88,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "sendgrid-unicode-authored--key-a-base",
+            "decoded": {
+              "via": [
+                {
+                  "codec": "strip-codepoints",
+                  "codePoints": [
+                    "U+00A0"
+                  ]
+                }
+              ],
+              "sha256": "c4f427762a5ae256dbcdc4241a23b9a11c01cfad026ffec7e62b262dae9579e0",
+              "bytes": 69
+            }
+          }
+        ]
       }
     },
     {

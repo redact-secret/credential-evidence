@@ -277,7 +277,7 @@
       "sha256": "9d75944a983e09d6757851bcd0b43641f37914c17431bc075f5d04402666b960",
       "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==\n",
       "expected": {
-        "outcome": "not-assertable",
+        "outcome": "must-not-flag",
         "spans": []
       }
     },
@@ -289,18 +289,19 @@
       "sha256": "74e4a6b9479373ab5ab2f979925f14fc85924745174dcdd85f4dc326d57a27ac",
       "text": "auth request user=svc-reporting header=\"Authorization: Basic c3ZjLXJlcG9ydGluZzpacDktc3ludGhldGljLUtkNFJtMg==\"\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
-      },
-      "candidateReading": {
-        "asserting": false,
         "outcome": "must-flag",
         "spans": [
+          {
+            "start": 18,
+            "end": 31,
+            "role": "companion",
+            "note": "Cleartext user-id beside the token: a companion, not secret, and no personal-data expectation."
+          },
           {
             "start": 61,
             "end": 109,
             "role": "secret",
-            "note": "Candidate only; synthetic value, never issued."
+            "note": "Synthetic value; never issued."
           }
         ]
       }
@@ -313,7 +314,7 @@
       "sha256": "c216bd8e6c58ec797025798d9cf7f59b5c1c883b14736fda55a0bc9cb15eb91f",
       "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzo=\n",
       "expected": {
-        "outcome": "not-assertable",
+        "outcome": "must-not-flag",
         "spans": []
       }
     },
@@ -325,8 +326,15 @@
       "sha256": "6cf417efd6c73304e38547c28135f64950dc7023d694554ee5acf031b277b382",
       "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzpzeW50aGV0aWMtcHctNA\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 107,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
       }
     },
     {
@@ -337,8 +345,15 @@
       "sha256": "aa5b97cb36dfb6d69ad67d2d4ff7c5904872c59abb05115c5269fd6ed5344a0a",
       "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9ydGluZzpzeW50aGV0aWMtPj4-Pz8_LXgx\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 113,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
       }
     },
     {
@@ -349,8 +364,15 @@
       "sha256": "f060611d94b6dbbe9e4a638405a738f0755df53347456ae94926db31ba31c850",
       "text": "GET /v1/reports HTTP/1.1\nHost: api.example.test\nAuthorization: Basic c3ZjLXJlcG9y dGluZzpacDktc3ludGhldGljLUtkNFJtMg==\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 118,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
       }
     },
     {

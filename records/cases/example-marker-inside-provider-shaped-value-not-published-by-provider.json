@@ -6,26 +6,25 @@
   "summary": "Values that have a provider's documented prefix and a body of the right length and alphabet but whose body is the word EXAMPLE followed by filler: a Stripe sandbox secret key shape (sk_test_ then EXAMPLE and filler) and an AWS access key id shape (AKIA then EXAMPLE and filler). The provider published a different, exact example literal (AWS) or none (Stripe).",
   "rationale": "AWS publishes the exact pair AKIAIOSFODNN7EXAMPLE and wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY as examples, so those literals are documented examples. A value that only contains the same marker word is not that literal: nothing the provider wrote says a marker inside a body makes a value non-issuable. aws-example-keys-one-character-off already holds the exact-literal side for AWS under project policy. What stays open is a provider-shaped value with the marker word and no provider statement about it, where the marker could be a placeholder convention borrowed from AWS or a deliberate camouflage of a real key.",
   "caseTypes": [
-    "benign"
+    "positive"
   ],
   "families": [
     {
       "family": "stripe:secret-key-test",
-      "role": "lookalike"
+      "role": "subject"
     },
     {
       "family": "aws:iam-user-access-key",
-      "role": "context"
+      "role": "subject"
     }
   ],
   "scenarios": [
-    "documentation-placeholder",
-    "unsettled-evidence-input"
+    "credential-named-literal-near-miss"
   ],
   "expectation": {
-    "outcome": "not-assertable",
-    "basis": "unresolved",
-    "rationale": "No outcome is asserted. Settled (provider-documented): AWS prints AKIAIOSFODNN7EXAMPLE and wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY as examples of an access key ID and a secret access key; the statement is about those exact strings. Not settled: whether a different value carrying the word EXAMPLE is a placeholder; Stripe's key page read for this case says nothing about example markers. Missing: a provider statement about marker words, or a maintainer project-policy decision with named reviewer and dissent. The values are synthetic (a body of the marker word and filler; never issued); the provider-shaped prefix is why this is not a plain placeholder case. No product action is stated.",
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 5 (#98)): expect it to be flagged. AWS prints AKIAIOSFODNN7EXAMPLE and wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY as examples (provider-documented, about those exact strings); a different value carrying the word EXAMPLE has no provider statement, and Stripe's key page says nothing about example markers. Only a literal a provider publishes is exempt, as in aws-example-keys-one-character-off. The values are synthetic (a body of the marker word and filler; never issued). Whether the product masks or blocks such a value is its own action policy. Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history.",
     "sources": [
       {
         "sourceId": "docs-aws-amazon-com-1e9489a68f",
@@ -35,6 +34,6 @@
     ],
     "observedAt": "2026-10-03"
   },
-  "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Maintainer-only (ADR 0020): decided by the sole maintainer, not reviewed, not independent validation; queued for retro-review (#154)."
 }

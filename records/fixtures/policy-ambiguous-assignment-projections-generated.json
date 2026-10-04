@@ -3,15 +3,15 @@
   "kind": "fixture-set",
   "id": "policy-ambiguous-assignment-projections-generated",
   "title": "Surrounding-text projections of policy-ambiguous assignments (generated)",
-  "description": "18 projections of the 6 policy-ambiguous bases in the same three surrounding texts. All are not-assertable. 6 bases, 18 correlated inputs. Synthetic: every credential-shaped value has a body that starts with the word synthetic (or is the marker word EXAMPLE plus filler) and continues with characters derived from a fixed label, so it was never issued; personal-data-shaped values use the reserved example.invalid domain and the fictional 555-0100 telephone range. None was tested against any service.",
+  "description": "18 projections of the 6 policy-ambiguous bases in the same three surrounding texts. The 12 bare-word projections are not-assertable; the 6 marker-body projections are must-flag under the maintainer-only policy of Case example-marker-inside-provider-shaped-value-not-published-by-provider. 6 bases, 18 correlated inputs. Synthetic: every credential-shaped value has a body that starts with the word synthetic (or is the marker word EXAMPLE plus filler) and continues with characters derived from a fixed label, so it was never issued; personal-data-shaped values use the reserved example.invalid domain and the fictional 555-0100 telephone range. None was tested against any service.",
   "origin": {
     "type": "generation-rule",
     "rule": "surrounding-text-placement-of-controls-and-ambiguous-bases",
     "generator": {
       "name": "benign-reference-and-ambiguity-projector",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "entrypoint": "scripts/generate-benign-reference-and-ambiguity-plans.mjs",
-      "sourceRevision": "e19df7cba3e567a827da0f648630da4b5ef7f55f"
+      "sourceRevision": "421b7d3ac1d032d455276daa5d7fb0f8d5a3879a"
     },
     "seed": "benign-reference-and-ambiguity-1"
   },
@@ -23,9 +23,9 @@
       "sources": [],
       "observedAt": "2026-10-03"
     },
-    "example-marker-in-provider-shaped-value-unresolved": {
-      "basis": "unresolved",
-      "rationale": "No outcome is asserted: AWS publishes exact example literals, but nothing recorded says a value that merely carries the word EXAMPLE in its body is a placeholder. Open question and review history: Case example-marker-inside-provider-shaped-value-not-published-by-provider.",
+    "example-marker-in-provider-shaped-value-policy": {
+      "basis": "project-policy",
+      "rationale": "Project policy, maintainer-only (ADR 0020, ADR 0019 item 5): a provider-shaped value whose body is the marker word EXAMPLE is flagged. AWS publishes exact example literals and that statement is about those strings only; nothing recorded says a value that merely carries the word EXAMPLE in its body is a placeholder, so only a literal a provider publishes is exempt. Not reviewed, not independent validation, queued for retro-review (#154). Question, options, dissent and reversing evidence: review history of Case example-marker-inside-provider-shaped-value-not-published-by-provider.",
       "sources": [
         {
           "sourceId": "docs-aws-amazon-com-1e9489a68f",
@@ -33,7 +33,12 @@
           "locator": "Manage access keys for IAM users, introduction"
         }
       ],
-      "observedAt": "2026-10-03"
+      "observedAt": "2026-10-04",
+      "reviewState": "maintainer-only",
+      "decidedIn": {
+        "kind": "case",
+        "id": "example-marker-inside-provider-shaped-value-not-published-by-provider"
+      }
     }
   },
   "fixtures": [
@@ -447,13 +452,10 @@
     },
     {
       "id": "policy-ambiguous-assignment-projections-generated--stripe-shaped-body-of-example-marker-in-english-prose",
-      "cell": {
-        "plan": "policy-ambiguous-assignment-matrix-of-bases",
-        "scenario": "unsettled-evidence-input",
-        "families": [
-          "stripe:secret-key-test"
-        ]
-      },
+      "case": "example-marker-inside-provider-shaped-value-not-published-by-provider",
+      "families": [
+        "stripe:secret-key-test"
+      ],
       "path": "stripe-shaped-body-of-example-marker-in-english-prose/input.txt",
       "context": "english-prose-before-and-after",
       "derivation": {
@@ -471,23 +473,28 @@
           }
         ]
       },
-      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "evidence": "example-marker-in-provider-shaped-value-policy",
       "sha256": "624179b12c30dbf183ba34720f9f3ae03ec795eae6233bf13e605e6ea59c3bab",
       "text": "Please review the following note before the release.\nSTRIPE_SECRET_KEY=sk_test_EXAMPLEEXAMPLEEXAMPLEEXAMPLEEXAM\nThanks for checking; nothing else changed this week.\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 71,
+            "end": 111,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base"
+          }
+        ]
       }
     },
     {
       "id": "policy-ambiguous-assignment-projections-generated--stripe-shaped-body-of-example-marker-in-korean-prose",
-      "cell": {
-        "plan": "policy-ambiguous-assignment-matrix-of-bases",
-        "scenario": "unsettled-evidence-input",
-        "families": [
-          "stripe:secret-key-test"
-        ]
-      },
+      "case": "example-marker-inside-provider-shaped-value-not-published-by-provider",
+      "families": [
+        "stripe:secret-key-test"
+      ],
       "path": "stripe-shaped-body-of-example-marker-in-korean-prose/input.txt",
       "context": "korean-prose-before-and-after",
       "derivation": {
@@ -505,23 +512,28 @@
           }
         ]
       },
-      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "evidence": "example-marker-in-provider-shaped-value-policy",
       "sha256": "3a5a2413e3e499159c223d272b646306f2f361b097a8cb90b4a0f6279d3d05f7",
       "text": "릴리스 전에 아래 내용을 확인해 주세요.\nSTRIPE_SECRET_KEY=sk_test_EXAMPLEEXAMPLEEXAMPLEEXAMPLEEXAM\n확인해 주셔서 감사합니다.\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 73,
+            "end": 113,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base"
+          }
+        ]
       }
     },
     {
       "id": "policy-ambiguous-assignment-projections-generated--stripe-shaped-body-of-example-marker-in-markdown-fence",
-      "cell": {
-        "plan": "policy-ambiguous-assignment-matrix-of-bases",
-        "scenario": "unsettled-evidence-input",
-        "families": [
-          "stripe:secret-key-test"
-        ]
-      },
+      "case": "example-marker-inside-provider-shaped-value-not-published-by-provider",
+      "families": [
+        "stripe:secret-key-test"
+      ],
       "path": "stripe-shaped-body-of-example-marker-in-markdown-fence/input.txt",
       "context": "markdown-code-fence",
       "derivation": {
@@ -539,23 +551,28 @@
           }
         ]
       },
-      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "evidence": "example-marker-in-provider-shaped-value-policy",
       "sha256": "682e19cf0a322ea5869ff219e62a840beaecf71016781c07571031a7fbc7c862",
       "text": "```text\nSTRIPE_SECRET_KEY=sk_test_EXAMPLEEXAMPLEEXAMPLEEXAMPLEEXAM\n```\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 26,
+            "end": 66,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "policy-ambiguous-assignment-bases-authored--stripe-shaped-body-of-example-marker-base"
+          }
+        ]
       }
     },
     {
       "id": "policy-ambiguous-assignment-projections-generated--aws-key-id-shaped-body-of-example-marker-in-english-prose",
-      "cell": {
-        "plan": "policy-ambiguous-assignment-matrix-of-bases",
-        "scenario": "unsettled-evidence-input",
-        "families": [
-          "aws:iam-user-access-key"
-        ]
-      },
+      "case": "example-marker-inside-provider-shaped-value-not-published-by-provider",
+      "families": [
+        "aws:iam-user-access-key"
+      ],
       "path": "aws-key-id-shaped-body-of-example-marker-in-english-prose/input.txt",
       "context": "english-prose-before-and-after",
       "derivation": {
@@ -573,23 +590,28 @@
           }
         ]
       },
-      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "evidence": "example-marker-in-provider-shaped-value-policy",
       "sha256": "020aa0aefd387ed080758492633414fa4c650e4b1f02c00f98720dad8e45772c",
       "text": "Please review the following note before the release.\nAWS_ACCESS_KEY_ID=AKIAEXAMPLEFILLER000\nThanks for checking; nothing else changed this week.\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 71,
+            "end": 91,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base"
+          }
+        ]
       }
     },
     {
       "id": "policy-ambiguous-assignment-projections-generated--aws-key-id-shaped-body-of-example-marker-in-korean-prose",
-      "cell": {
-        "plan": "policy-ambiguous-assignment-matrix-of-bases",
-        "scenario": "unsettled-evidence-input",
-        "families": [
-          "aws:iam-user-access-key"
-        ]
-      },
+      "case": "example-marker-inside-provider-shaped-value-not-published-by-provider",
+      "families": [
+        "aws:iam-user-access-key"
+      ],
       "path": "aws-key-id-shaped-body-of-example-marker-in-korean-prose/input.txt",
       "context": "korean-prose-before-and-after",
       "derivation": {
@@ -607,23 +629,28 @@
           }
         ]
       },
-      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "evidence": "example-marker-in-provider-shaped-value-policy",
       "sha256": "c86f8b7e7d8efc6ed1db9208bad52ca716e6c5c33144186adc95de034dcd8a9f",
       "text": "릴리스 전에 아래 내용을 확인해 주세요.\nAWS_ACCESS_KEY_ID=AKIAEXAMPLEFILLER000\n확인해 주셔서 감사합니다.\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 73,
+            "end": 93,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base"
+          }
+        ]
       }
     },
     {
       "id": "policy-ambiguous-assignment-projections-generated--aws-key-id-shaped-body-of-example-marker-in-markdown-fence",
-      "cell": {
-        "plan": "policy-ambiguous-assignment-matrix-of-bases",
-        "scenario": "unsettled-evidence-input",
-        "families": [
-          "aws:iam-user-access-key"
-        ]
-      },
+      "case": "example-marker-inside-provider-shaped-value-not-published-by-provider",
+      "families": [
+        "aws:iam-user-access-key"
+      ],
       "path": "aws-key-id-shaped-body-of-example-marker-in-markdown-fence/input.txt",
       "context": "markdown-code-fence",
       "derivation": {
@@ -641,15 +668,23 @@
           }
         ]
       },
-      "evidence": "example-marker-in-provider-shaped-value-unresolved",
+      "evidence": "example-marker-in-provider-shaped-value-policy",
       "sha256": "7d5f5bae883aa09250fb59a9e07e88d3b70b0507f6c1858527f9e3c5c5c07372",
       "text": "```text\nAWS_ACCESS_KEY_ID=AKIAEXAMPLEFILLER000\n```\n",
       "expected": {
-        "outcome": "not-assertable",
-        "spans": []
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 26,
+            "end": 46,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "policy-ambiguous-assignment-bases-authored--aws-key-id-shaped-body-of-example-marker-base"
+          }
+        ]
       }
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Generated; never edited by hand: rerun the generator. Nothing may be scored against these inputs until a recorded decision or provider statement resolves their Cases."
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Generated; never edited by hand: rerun the generator. Nothing may be scored against the bare-word inputs until a recorded decision or provider statement resolves their Case; the marker-body inputs are maintainer-only (ADR 0020), not reviewed."
 }

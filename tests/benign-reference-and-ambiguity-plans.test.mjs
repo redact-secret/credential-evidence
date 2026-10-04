@@ -17,10 +17,19 @@ test("the generator reproduces the committed records byte for byte", () => {
   for (const [path, record] of Object.entries(records)) assert.equal(readFileSync(join(repoRoot, path), "utf8"), serialize(record), path);
 });
 
-test("policy-ambiguous inputs are all not-assertable, carry no span and are never in the controls set", () => {
+test("bare-word policy-ambiguous inputs are not-assertable with no span; marker-body inputs are the maintainer-only must-flag; neither is in the controls set", () => {
   const ambiguous = [...set(IDS.ambiguousAuthored).fixtures, ...set(IDS.ambiguousGenerated).fixtures];
   assert.ok(ambiguous.length > 0);
-  for (const i of ambiguous) assert.deepEqual([i.expected.outcome, i.expected.spans], ["not-assertable", []], i.id);
+  const marker = (i) => i.case === "example-marker-inside-provider-shaped-value-not-published-by-provider";
+  for (const i of ambiguous.filter((x) => !marker(x))) assert.deepEqual([i.expected.outcome, i.expected.spans], ["not-assertable", []], i.id);
+  const decided = ambiguous.filter(marker);
+  assert.equal(decided.length, 8, "two bases and six projections");
+  for (const i of decided) {
+    assert.equal(i.expected.outcome, "must-flag", i.id);
+    assert.deepEqual(i.expected.spans.map((s) => s.role), ["secret"], i.id);
+    const entry = [set(IDS.ambiguousAuthored), set(IDS.ambiguousGenerated)].map((s) => s.evidence?.[i.evidence]).find(Boolean);
+    assert.deepEqual([entry.basis, entry.reviewState], ["project-policy", "maintainer-only"], i.id);
+  }
   const controls = [...set(IDS.controlsAuthored).fixtures, ...set(IDS.controlsGenerated).fixtures];
   assert.ok(controls.every((i) => i.expected.outcome !== "not-assertable"));
   const ids = new Set(controls.map((i) => i.id));
@@ -53,7 +62,9 @@ test("the committed tree validates and reports independent bases against generat
   const plan = (id) => report.plans.find((p) => p.plan === id);
   assert.equal(plan(IDS.controlsPlan).independentBaseValues, 11);
   assert.equal(plan(IDS.controlsPlan).generatedProjections, 33);
-  assert.equal(plan(IDS.ambiguousPlan).independentBaseValues, 6);
-  assert.equal(plan(IDS.ambiguousPlan).generatedProjections, 18);
-  for (const id of [IDS.controlsPlan, IDS.ambiguousPlan]) assert.deepEqual([plan(id).usedButNotDeclared, plan(id).declaredButUnused], [[], []]);
+  // the two marker-body bases (ADR 0020) project their Case directly, so the plan counts the four bare-word bases only
+  assert.equal(plan(IDS.ambiguousPlan).independentBaseValues, 4);
+  assert.equal(plan(IDS.ambiguousPlan).generatedProjections, 12);
+  assert.deepEqual([plan(IDS.ambiguousPlan).usedButNotDeclared, plan(IDS.ambiguousPlan).declaredButUnused], [[], []]);
+  assert.deepEqual(plan(IDS.controlsPlan).declaredButUnused, []);
 });
