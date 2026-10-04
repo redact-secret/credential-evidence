@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "partially-redacted-key-hint",
+  "families": [
+    "anthropic:secret-api-key"
+  ],
+  "siblingClass": "non-secret-companion",
+  "name": "Partially redacted API key hint",
+  "description": "The partially redacted hint the Admin API returns for an API key (partial_key_hint): the sk-ant-api03- prefix, a few leading characters, an ellipsis and a short tail. It resembles the key's start and end but is not the secret value: Anthropic says the Admin API never returns a key's secret value, only a partially redacted hint, and cannot recover a lost key. The provider's one example hint is shown as a sample. The number of characters kept at each end is known only from that example and is not a stated rule.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "platform-claude-com-a6aae96e0c",
+      "supports": "partial_key_hint is described as 'Partially redacted hint for the API key'; the example response shows a value of the form prefix, three characters, '...', four characters.",
+      "locator": "List API Keys, response"
+    },
+    {
+      "sourceId": "platform-claude-com-6b5482cd80",
+      "supports": "The Admin API endpoints 'never return a key's secret value, only a partially redacted hint' and cannot recover a lost key.",
+      "locator": "Copy and store the key"
+    }
+  ],
+  "observedAt": "2026-10-04",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "samples": [
+    {
+      "value": "sk-ant-api03-R2D...igAA",
+      "origin": "provider-documented-placeholder"
+    }
+  ]
+}

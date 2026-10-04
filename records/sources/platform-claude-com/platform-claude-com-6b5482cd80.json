@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-source",
+  "id": "platform-claude-com-6b5482cd80",
+  "sourceType": "provider-documentation",
+  "title": "Get your Claude API key - Claude Platform Docs",
+  "publisher": "platform.claude.com",
+  "publishedAt": null,
+  "locator": {
+    "url": "https://platform.claude.com/docs/en/get-api-key",
+    "pin": {
+      "kind": "live-unpinned"
+    }
+  },
+  "observations": [
+    {
+      "observedAt": "2026-10-04",
+      "outcome": "read",
+      "observer": "research-agent",
+      "contentDigest": "a375d6f6867704a77c3db683da1f3d0bff1c5ff992391077fcbfbe16c89af843",
+      "note": "Raw page read 2026-10-04: 'Settings -> API keys' creates keys; step 4 states the Console shows the full key, which starts with sk-ant-, only once at creation; env example export ANTHROPIC_API_KEY with sk-ant-api03-... ; Admin API returns only a partially redacted hint and cannot recover a lost key. States no body length, alphabet or suffix."
+    }
+  ],
+  "lifecycle": "draft"
+}
