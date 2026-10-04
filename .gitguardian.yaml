@@ -1,0 +1,58 @@
+# GitGuardian scan configuration.
+#
+# ignored-matches lists the SHA-256 of each intentionally credential-shaped
+# value in the authored fixture sets added for epic #158 (round 1). Every one
+# is synthetic and was never issued (see .agents/skills/_shared/synthetic-safety.md);
+# each entry's match is the hash of the value that sits in a "secret" span of
+# the named fixture file, so the plaintext is not repeated here.
+#
+# Only these exact values are ignored. Paths are still scanned in full, so any
+# new or different credential-shaped value is reported. Add an entry only after
+# confirming the value is synthetic.
+version: 2
+secret:
+  ignored-matches:
+    - name: "synthetic fixture value (docker-compose-resolution-authored.json)"
+      match: 14b6faa3ca124fc95ff2002111cc1a633e4adf83f0942c7b2a9082c982a984ad
+    - name: "synthetic fixture value (docker-compose-resolution-authored.json)"
+      match: 1f6d3380464267d658d5a19ff910f53771a442b26a6e32677c360c5b9189bb48
+    - name: "synthetic fixture value (github-actions-workflow-commands-authored.json)"
+      match: 4e70c11eae571fc5ca741d679dd7f90503527a36fb5ba67622755cc1d1b5c59f
+    - name: "synthetic fixture value (graphql-requests-and-responses-authored.json)"
+      match: 30d6c9eafabfdd392703b387198276f10cfd69f9620f919959269653befed0ed
+    - name: "synthetic fixture value (graphql-requests-and-responses-authored.json)"
+      match: e569dd27eae9f2f1a13782e201fbc6ce380602eb22a5fe910be7c4f1025fe6bd
+    - name: "synthetic fixture value (har-exports-authored.json)"
+      match: 169ab523ba4be642cd419857c170b1b40eef2b4dcc3586b172bbee4eed03e40e
+    - name: "synthetic fixture value (har-exports-authored.json)"
+      match: 5fa181e7e7e9ce1ece3c21cdcba0a67da19a6509c8590232caf683bd69356695
+    - name: "synthetic fixture value (har-exports-authored.json)"
+      match: c1ba4a87ce042f9794c5d4d342beb4b0c996e5c94c67b857a094fbc09040eb23
+    - name: "synthetic fixture value (har-exports-authored.json)"
+      match: dd2bb7aad1c10f7025152df557b8cc509772deadf21694b7fd08a9a0e6975e10
+    - name: "synthetic fixture value (har-exports-authored.json)"
+      match: fd3d7076d98633281cbe3273e5740cb76699223399b26cdfa5ab60c71aec8a5f
+    - name: "synthetic fixture value (hashicorp-terraform-authored.json)"
+      match: 0a20802a1927cc79c4e163eea699bd813f03eedb079c62f69d4dcb9c83b860bf
+    - name: "synthetic fixture value (hashicorp-terraform-authored.json)"
+      match: 2eddc179e973ced5f42699748c22fff17694c1829ef12026e5fca0ac240cfac6
+    - name: "synthetic fixture value (hashicorp-terraform-authored.json)"
+      match: b7bb3be0e9b8945f1987d4efc13e4145b62770931b6c95c0fe60904c6e7ffb47
+    - name: "synthetic fixture value (jupyter-notebook-files-authored.json)"
+      match: 3a2a736a8656a0895c12c57a3720bfd46ad7fe943196bf2df9e842f33c4a9b27
+    - name: "synthetic fixture value (jupyter-notebook-files-authored.json)"
+      match: 710467a6aef69277601afceb0ec3d59633b4e66049d89338e6225f6beaa7e5fc
+    - name: "synthetic fixture value (jupyter-notebook-files-authored.json)"
+      match: bf06f85e18261d1862391fee3092810f911e6c9df21278e2dbe969002e7fce65
+    - name: "synthetic fixture value (opentelemetry-log-records-authored.json)"
+      match: 4d7c4ded0e9d5ee0b73e296696987a30647497f96ee873d6c5f2ca3b504361a4
+    - name: "synthetic fixture value (opentelemetry-log-records-authored.json)"
+      match: c712943527f277e3bf472a225db829e62764c8dbfc69db019fa4b39412eeaa87
+    - name: "synthetic fixture value (postman-authored.json)"
+      match: 302f977f6f977578e352ffcbacf047fbf6ff9925f3d6557fccf60508aab84665
+    - name: "synthetic fixture value (postman-authored.json)"
+      match: 3d5540c1690dadde3a8c9b407fead61fb00115964cff0a26eef208f2cc79189f
+    - name: "synthetic fixture value (postman-authored.json)"
+      match: 9f61eaac8509fccd0ce2b5ab30e9721e7071aed59036c911b19a86317cd562c0
+    - name: "synthetic fixture value (postman-authored.json)"
+      match: b97aa407ca7c3ed7668cd9ae5e63cd708935cfd2f717bb562c9dfb38e9c9c6e1
