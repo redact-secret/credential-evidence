@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "reddit:oauth-refresh-token@1",
+  "family": "reddit:oauth-refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "archived-docs-name-refresh-token",
+      "statement": "Reddit's archived OAuth2 documentation says a refresh_token is returned alongside the access token when an authorization requests duration permanent, that it is exchanged at the access_token endpoint with grant_type refresh_token for a new access token, and that revoking a refresh token also revokes related access tokens. App-only grants never receive one. This is a historical statement from an archived page; current behaviour was not checked.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+          "supports": "If you indicate you need permanent access you will additionally receive a refresh_token; grant_type=refresh_token&refresh_token=TOKEN; 'Revoking a refresh token will also revoke any related access tokens!'; 'App-only OAuth token requests never receive a refresh_token.'",
+          "locator": "Authorization (duration); Refreshing the token; Manually Revoking a Token; Application Only OAuth"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "current-refresh-semantics",
+      "question": "Does Reddit's current developer documentation still issue permanent-duration refresh tokens, and does it state any token format? The archived wiki is historical and current Reddit documentation could not be read in this run.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "opaque-token-attribution",
+      "question": "The candidate is researched for existence only. No prefix, alphabet or length is claimed; a bare opaque value would need provider context to be attributed, and whether any bare-value form is safely assertable is unresolved.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Existence claim only, from an archived first-party wiki page; no structure is asserted."
+}
