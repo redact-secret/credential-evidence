@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "reddit:oauth-access-token@1",
+  "family": "reddit:oauth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "archived-docs-name-bearer-access-token",
+      "statement": "Reddit's archived OAuth2 documentation says the access_token endpoint returns a JSON access_token with token_type bearer, that bearer tokens expire after 1 hour, and that API requests carry it in an 'Authorization: bearer TOKEN' header sent to oauth.reddit.com. This is a historical statement from an archived page; the current lifetime and carrier were not checked.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+          "supports": "All bearer tokens expire after 1 hour; the response is JSON with access_token and token_type 'bearer'; requests include the header 'Authorization: bearer TOKEN' and go to https://oauth.reddit.com.",
+          "locator": "Authorization (duration); Retrieving the access token"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "current-token-lifecycle",
+      "question": "Does Reddit's current developer documentation still describe a one-hour bearer access token, and does it state any token format? The archived wiki is historical and current Reddit documentation could not be read in this run.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "opaque-token-attribution",
+      "question": "The candidate is researched for existence only. No prefix, alphabet or length is claimed. A bare opaque token would need provider context (the bearer header and the oauth.reddit.com host) to be attributed; whether any bare-value form is safely assertable is unresolved.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Existence claim only, from an archived first-party wiki page; no structure is asserted."
+}

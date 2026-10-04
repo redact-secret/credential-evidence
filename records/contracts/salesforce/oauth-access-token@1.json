@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "salesforce:oauth-access-token@1",
+  "family": "salesforce:oauth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Salesforce's authorizing server grants access tokens to an external client app or connected app under OAuth 2.0, and a resource server validates them before approving access to the protected REST API resource.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-salesforce-com-6905e579e4",
+          "supports": "In response, an authorizing server grants access tokens to the external client app or connected app.",
+          "locator": "Authorization Through External Client Apps or Connected Apps and OAuth 2.0: flow steps"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "access-token-not-researched",
+      "question": "This candidate is recorded at existence level only: the pages read state no format for an access token, and do not say how a session-bound access token differs from other Salesforce session identifiers. Is its shape documented, or is it opaque and context-dependent? One open-source scanner rule artifact (TruffleHog, read 2026-10-04) describes an org-identifier-plus-token shape for it; a single artifact does not corroborate, so it stays a lead and no shape is recorded.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

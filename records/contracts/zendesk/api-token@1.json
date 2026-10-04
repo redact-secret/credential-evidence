@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "zendesk:api-token@1",
+  "family": "zendesk:api-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Zendesk documents API tokens as auto-generated passwords created in Admin Center (Apps and integrations > APIs > Zendesk API), sent as Basic authentication credentials in the form {email_address}/token:{api_token}; the email address and the literal /token separator are part of the credential string, the token is the secret part.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "API tokens are auto-generated passwords in the Zendesk Admin Center. ... Basic authentication is used for API tokens. ... Use the following format for the credentials: {email_address}/token:{api_token}",
+          "locator": "#api-token-deprecated"
+        }
+      ]
+    },
+    {
+      "id": "retirement-timeline",
+      "statement": "Zendesk documents that Support API tokens are being retired in three phases: from 2026-07-28 tokens unused for 30 days are deactivated (and deleted after 60 further days) and new accounts cannot create or use them; from 2026-10-27 existing accounts cannot create new tokens; on 2027-04-30 all remaining tokens are permanently deactivated. The pages call the API token deprecated and say existing customers must migrate to OAuth access tokens.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "Zendesk API tokens will be permanently deactivated on April 30, 2027. ... Zendesk is retiring Support API tokens in three phases between July 2026 and April 2027.",
+          "locator": "#migration-timeline"
+        },
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "If you're an existing Zendesk customer and are currently using basic authentication or API tokens, you will have to migrate to OAuth access tokens for improved security and compatibility with future requirements.",
+          "locator": "intro note and #api-token-deprecated heading"
+        }
+      ]
+    },
+    {
+      "id": "token-length-consistency",
+      "statement": "Two open-source scanner rule artifacts by different maintainers both treat the Zendesk API token as a run of exactly 40 characters from a letters-and-digits alphabet that follows the keyword zendesk (the TruffleHog artifact also admits underscore and hyphen). This records consistency between those artifacts only; it is not Zendesk's stated format, and the provider pages read give no length or alphabet for API tokens.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+          "supports": "Rule zendesk-secret-key (keyword zendesk) captures ([a-z0-9]{40}) after an assignment-style separator, case-insensitive.",
+          "locator": "config/gitleaks.toml lines 3204-3208 at commit b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-2b009456c5",
+          "supports": "The token pattern is the keyword zendesk followed by ([A-Za-z0-9_-]{40}); the detector sends the token as Basic auth with the username email plus /token, matching the documented credential composition.",
+          "locator": "pkg/detectors/zendeskapi/zendeskapi.go lines 25 and 94 at commit 59e3b04e820c4cad30462696ac497853a5f7679c"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "opaque-grammar",
+      "question": "The provider pages read state no length or alphabet for the API token; the only support for a 40-character letters-and-digits shape is the tool-corroborated claim, which is consistency between two scanner rule artifacts and not a provider statement (the provider's one example value happens to be 40 characters but is not declared representative). A bare value must not be attributed to Zendesk from shape alone; the documented context is the {email_address}/token:{api_token} Basic credential.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "basic-credential-split",
+      "question": "Whether detection evidence should treat the email address and the token as separate identifier and secret parts of one Basic credential string is a modelling question for research-family; this record only states the documented composition.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "variants-over-time",
+      "question": "Whether older or newer API tokens differ in length or alphabet is not established by either artifact or by the provider pages.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Zendesk developer documentation read on 2026-10-04; the family is not researched beyond what the claims state."
+}

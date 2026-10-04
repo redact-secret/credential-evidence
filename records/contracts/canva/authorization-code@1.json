@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "canva:authorization-code@1",
+  "family": "canva:authorization-code",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "After the user authorizes the app, Canva sends an authorization code to the redirect URL; the app exchanges it, with the code_verifier, at the token endpoint.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "canva-dev-7dc1064fcc",
+          "supports": "After the user authorizes your app, you'll receive an authorization code at your specified redirect URL.",
+          "locator": "Obtain user authorization"
+        },
+        {
+          "sourceId": "canva-dev-e6b9def37d",
+          "supports": "code string Required The authorization code you received after the user authorized the app.",
+          "locator": "Body parameters"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Whether the authorization code is a credential family worth a boundary of its own (single-use and short-lived, but held as a string) is unresolved; no format is stated and the example value in the documentation is not copied. The PKCE code_verifier (43 to 128 characters of ASCII letters, digits, and - . _ ~, per the authentication guide) is client-generated, not Canva-issued, and is not recorded as a family.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

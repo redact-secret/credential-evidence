@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "figma:oauth-access-token@1",
+  "family": "figma:oauth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Figma's OAuth apps documentation describes an OAuth 2 access token returned by POST /v1/oauth/token as access_token with token_type \"bearer\" and expires_in, sent as an Authorization: Bearer header, and expiring after 90 days by default.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-441f7912b4",
+          "supports": "you will receive the user access token and token expiration (in seconds) in a JSON response ... \"access_token\": <TOKEN>, \"token_type\": \"bearer\", \"expires_in\": ... pass a Bearer authorization header",
+          "locator": "#authenticate-users"
+        },
+        {
+          "sourceId": "developers-figma-com-441f7912b4",
+          "supports": "By default, access tokens expire after 90 days.",
+          "locator": "#refreshing-tokens"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "format-not-researched",
+      "question": "Candidate only: the page shows only a <TOKEN> placeholder and states no prefix, alphabet, length or other format. Not researched beyond existence; no format is inferred.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "airtable:oauth-refresh-token@1",
+  "family": "airtable:oauth-refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Airtable returns an OAuth refresh token with an access token; exchanging it at the token endpoint invalidates the previous access and refresh tokens, and it is valid for an expected 60 days.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "airtable-com-b4c77d59e9",
+          "supports": "`refresh_token` | An opaque string. Can be used to request a new access token after the current one expires.",
+          "locator": "token response table"
+        },
+        {
+          "sourceId": "airtable-com-b4c77d59e9",
+          "supports": "When a refresh token is exchanged for an access token, the previous access and refresh tokens are invalidated and new tokens are returned.",
+          "locator": "#token-expiry-refresh-tokens"
+        }
+      ]
+    },
+    {
+      "id": "opaque-format",
+      "statement": "Airtable states that OAuth access and refresh tokens are opaque, variable-length strings with no reliance on a particular length or format.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "airtable-com-c4d52d6cd9",
+          "supports": "OAuth access and refresh tokens should be treated as opaque, variable-length strings. In particular, do not rely on tokens having a particular length or format.",
+          "locator": "#making-api-requests"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "No prefix, alphabet or length is stated for OAuth refresh tokens and the provider says not to rely on any; the candidate is not researched beyond existence.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

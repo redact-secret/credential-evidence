@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "salesforce:oauth-refresh-token@1",
+  "family": "salesforce:oauth-refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "prefixes": [
+      "5Aep861"
+    ]
+  },
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "An external client app can be configured so that its OAuth refresh token expires after a set period (the guide uses 90 days), and the Salesforce CLI refers to the refresh token when an access token expires.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-salesforce-com-073e7d3542",
+          "supports": "Setting a maximum of 90 days for the refresh token expiration is a security best practice.",
+          "locator": "Create an External Client App in Your Org: Refresh Token Validity Period step"
+        },
+        {
+          "sourceId": "developer-salesforce-com-073e7d3542",
+          "supports": "Salesforce CLI automatically handles an expired access token by referring to the refresh token.",
+          "locator": "Create an External Client App in Your Org: Session Timeout step"
+        }
+      ]
+    },
+    {
+      "id": "tool-prefix",
+      "statement": "Artifacts TruffleHog salesforcerefreshtoken and Vulnetix vnx-sec-525 both treat a word-bounded value that begins with the literal prefix 5Aep861 (TruffleHog matches it case-insensitively) followed by a run of alphanumerics, dot and underscore as a Salesforce OAuth refresh token. They differ on the minimum length of the remainder (80 versus 40 characters) and on additional permitted characters (equals sign versus hyphen), so length and alphabet are not settled.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-2aaf915fb8",
+          "supports": "refreshTokenPat: (?i)\\b(5AEP861[a-zA-Z0-9._=]{80,})\\b",
+          "locator": "#L29"
+        },
+        {
+          "sourceId": "github-com-vulnetix-cli-d0ad1ac683",
+          "supports": "_pattern := \\b(5Aep861[A-Za-z0-9_.\\-]{40,})\\b",
+          "locator": "#L25"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "refresh-token-length-alphabet",
+      "question": "Salesforce documentation read states no refresh token format. Two rule artifacts agree on a 5Aep861 prefix but differ on minimum remainder length (80 versus 40) and permitted characters. Is the remainder length or alphabet stated by Salesforce, and is the prefix tied to an org, an app or an issuance era? Vulnetix may derive from the same lineage as TruffleHog; independence is for the reviewer to confirm.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

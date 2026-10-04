@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "elastic:cloud-api-key@1",
+  "family": "elastic:cloud-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Elastic documents Elastic Cloud API keys that give programmatic access to Elastic Cloud, Cloud Serverless and Cloud Billing APIs, and optionally to Serverless project Elasticsearch and Kibana APIs.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-8e866982e7",
+          "supports": "Elastic Cloud API keys allow you to programmatically access the following resources: Elastic Cloud APIs; Elastic Cloud Serverless APIs; Elastic Cloud Billing APIs; optionally, Elasticsearch Serverless and Kibana Serverless APIs.",
+          "locator": "#ec-api-authentication"
+        }
+      ]
+    },
+    {
+      "id": "authorization-carrier",
+      "statement": "Elastic documents the Cloud API key as supplied in the Authorization header in the form ApiKey followed by the key value.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-8e866982e7",
+          "supports": "The API key needs to be supplied in the Authorization header of a request, in the following format: Authorization: ApiKey $EC_API_KEY",
+          "locator": "#ec-api-keys"
+        }
+      ]
+    },
+    {
+      "id": "lifecycle",
+      "statement": "An Elastic Cloud API key belongs to the organization rather than its creator, expires by default after three months (configurable up to one year or Never), and an organization can have up to 500 active keys.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-8e866982e7",
+          "supports": "An Elastic Cloud API key belongs to the organization and is not tied to the user who created it.; Each organization can have up to 500 active API keys.; By default, API keys expire after three months.",
+          "locator": "#ec-api-authentication, #expiration"
+        }
+      ]
+    },
+    {
+      "id": "not-for-hosted-elasticsearch",
+      "statement": "In Elastic Cloud Hosted deployments Cloud API keys do not provide access to Elasticsearch or Kibana APIs, which need an Elasticsearch API key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-8e866982e7",
+          "supports": "In Elastic Cloud Hosted deployments, Elastic Cloud API keys do not provide access to Elasticsearch or Kibana APIs.",
+          "locator": "admonition under #ec-api-authentication"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "prefix-and-body-grammar",
+      "question": "No literal prefix, alphabet or length for the Cloud API key is stated in the pages read. A truncated example beginning essu_ appears in a legacy Serverless page of the same documentation repository and is a lead only; it needs a current first-party statement before any prefix is recorded.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Elastic documentation source files read on 2026-10-04; the family is not researched beyond what the claims state."
+}

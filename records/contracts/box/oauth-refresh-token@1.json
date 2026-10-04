@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "box:oauth-refresh-token@1",
+  "family": "box:oauth-refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Box documents a refresh token returned alongside an access token, used with the client ID and client secret to request a new access token once the current one expires. Existence and role only: no prefix, alphabet, length or lifetime is established.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "raw-githubusercontent-com-1053c82b3a",
+          "supports": "The refresh token for this access token, which can be used to request a new access token when the current one expires. (AccessToken.refresh_token); Refresh an Access Token using its client ID, secret, and refresh token. (refresh request)",
+          "locator": "components.schemas.AccessToken.properties.refresh_token.description; paths./oauth2/token#refresh.post.description"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "lifetime-and-rotation",
+      "question": "What lifetime and rotation behaviour does the provider document for refresh tokens (single use, expiry window, which application types receive one)? Needs the developer documentation, which was not readable.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "format-not-researched",
+      "question": "Which prefix, alphabet and length, if any, does the provider state? The specification's example is not a format statement; no format claim is recorded.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "meta:page-access-token@1",
+  "family": "meta:page-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Meta documents a Page Access Token, obtained by exchanging a user access token, that lets an app read, write and modify data belonging to a Facebook Page.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "Page access tokens let you read, write, and modify data belonging to a Facebook Page. To obtain one, first get a user access token, then exchange it for a Page access token via the Graph API.",
+          "locator": "Access Tokens for Meta Technologies, Page Access Tokens"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "existence-only",
+      "question": "Only existence is established. The access-tokens page states that token length changes over time and gives no format grammar; it is not recorded here.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "distinct-from-user-token",
+      "question": "Whether a Page token is distinguishable from a user token by form is not stated; examples in the pages read are truncated placeholders and are not a format statement.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "scanner-rule-leads",
+      "question": "Leads, not claims: one scanner rule artifact (Gitleaks, pinned in source github-com-gitleaks-gitleaks-d47395c7b2) treats strings starting with the literal prefixes EAAM or EAAC followed by 100 or more alphanumeric characters as a Facebook Page access token candidate, and another (Nosey Parker, source github-com-praetorian-inc-noseyparker-8d6f62ccdb) treats a longer literal older prefix as a generic Facebook access token. They name different token kinds, so no corroborated claim is made and no family attribution is drawn. A Meta page stating a token grammar would settle it.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

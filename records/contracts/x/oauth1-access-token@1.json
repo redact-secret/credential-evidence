@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "x:oauth1-access-token@1",
+  "family": "x:oauth1-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "issued-per-user-by-3-legged-flow",
+      "statement": "X documents OAuth 1.0a user access tokens as issued through the 3-legged OAuth flow (an access token and an access token secret) for the X account that authorized the App; these tokens do not expire but can be revoked by the user.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "X allows you to obtain user access tokens through the 3-legged OAuth flow",
+          "locator": "Obtaining access tokens using 3-legged OAuth flow"
+        },
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "These tokens do not expire but can be revoked by the user at any time.",
+          "locator": "Obtaining access tokens using 3-legged OAuth flow"
+        }
+      ]
+    },
+    {
+      "id": "app-owner-token",
+      "statement": "X lists an Access Token and Secret that an App can generate to make requests on behalf of the App owner's own account using OAuth 1.0a.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-58d088945a",
+          "supports": "Make requests on behalf of your own account (OAuth 1.0a).",
+          "locator": "App credentials table"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Format of the OAuth 1.0a access token is not stated on the pages read.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "Whether the token half of the pair is documented as confidential on its own, or only the pair, is not stated.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "The temporary request token (oauth_token) of the 3-legged flow shares the parameter name with the access token; it is not a candidate in this run.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-4",
+      "question": "The candidate is established to exist from the pages read; its format (prefix, alphabet, length) is not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-5",
+      "question": "Lead only: the Gitleaks twitter-access-token rule (config/gitleaks.toml lines 3136-3139) captures 15 to 25 digits, a hyphen, then 20 to 40 alphanumeric characters. No second maintainer was found with a corresponding artifact in the files read (the TruffleHog and Nosey Parker Twitter files read have none), so it stays unresolved.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

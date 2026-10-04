@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "zendesk:oauth-access-token@1",
+  "family": "zendesk:oauth-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Zendesk documents OAuth access tokens, issued by the /oauth/tokens endpoint to an OAuth client, as bearer tokens sent in the Authorization header (Authorization: Bearer {access_token}); a token gives access to a single Zendesk instance.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "Zendesk supports using OAuth access tokens to authenticate API requests. ... An OAuth token gives access to a single Zendesk instance ... Authorization: Bearer {access_token}",
+          "locator": "#oauth-access-token"
+        },
+        {
+          "sourceId": "developer-zendesk-com-08d797ceee",
+          "supports": "Zendesk returns an access token ... \"token_type\": \"bearer\"",
+          "locator": "#step-4-exchange-the-authorization-code-for-an-access-token"
+        }
+      ]
+    },
+    {
+      "id": "documented-maximum-length",
+      "statement": "Zendesk states that access tokens can be up to 184 characters long. The pages give no minimum length, alphabet or prefix.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "Access tokens can be up to 184 characters long.",
+          "locator": "#oauth-access-token"
+        }
+      ]
+    },
+    {
+      "id": "lifetime-and-legacy-clients",
+      "statement": "Zendesk documents that an access token lasts 30 minutes by default and is configurable from 5 minutes to 48 hours; clients created on or after 2026-04-30 get this default automatically, while legacy clients that omit expires_in get a non-expiring access token and no refresh token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "Access token: 30 minutes by default, configurable from 5 minutes to 48 hours. ... For legacy clients, omitting expires_in creates a non-expiring access token, which prevents a refresh token from being issued.",
+          "locator": "#default-token-lifespans"
+        }
+      ]
+    },
+    {
+      "id": "global-token-context",
+      "statement": "Zendesk documents global OAuth access tokens, issued through a Zendesk-approved global OAuth client, as required for apps or integrations distributed to multiple customers; the pages describe the same bearer-token mechanism and do not state a different token shape.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "If you plan on making an app, integration, or bot available to multiple Zendesk customers, you must use global OAuth access tokens to authenticate Zendesk API requests.",
+          "locator": "#global-oauth-access-token"
+        },
+        {
+          "sourceId": "developer-zendesk-com-2bb7f19881",
+          "supports": "you must use global OAuth tokens to authenticate requests. ... You must request a global OAuth client from Zendesk to create global OAuth tokens.",
+          "locator": "intro and #requesting-a-global-oauth-client"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "opaque-grammar",
+      "question": "Only a maximum length (184 characters) is stated. The pages show example access tokens of differing shapes (32 and 64 characters) without saying either is representative, so no prefix, alphabet or fixed length is established; an opaque value must not be attributed to Zendesk from generic shape and needs its documented context (an Authorization: Bearer header on a Zendesk subdomain).",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "global-vs-local-family-boundary",
+      "question": "Whether global and local OAuth access tokens are one family or two is not settled: the pages distinguish them by the client that issued them, not by any visible token difference.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Zendesk developer documentation read on 2026-10-04; the family is not researched beyond what the claims state."
+}

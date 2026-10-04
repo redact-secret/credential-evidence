@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "airtable:personal-access-token@1",
+  "family": "airtable:personal-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Airtable issues personal access tokens, which a user creates with chosen scopes and base or workspace access and passes as a bearer token in the Authorization header of Airtable API requests.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "airtable-com-3770a0226e",
+          "supports": "Personal access tokens should be passed with your API requests as a `Authorization: Bearer header`.",
+          "locator": "#using-personal-access-tokens"
+        },
+        {
+          "sourceId": "support-airtable-com-0c413d2898",
+          "supports": "Personal Access Tokens (PATs) allow users to create multiple access tokens that allow for a wide range of access to the information held in Airtable bases.",
+          "locator": "What are Personal Access Tokens?"
+        },
+        {
+          "sourceId": "airtable-com-c31dd3fe16",
+          "supports": "We currently support using personal access tokens and OAuth access tokens during the authentication process.",
+          "locator": "#types-of-token"
+        }
+      ]
+    },
+    {
+      "id": "opaque-format",
+      "statement": "Airtable states that personal access tokens are prefixed with their ID but should otherwise be treated as opaque, variable-length strings, with no reliance on a particular length or format.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "airtable-com-3770a0226e",
+          "supports": "While personal access tokens are prefixed with their ID, they should be otherwise treated as opaque, variable-length strings. In particular, do not rely on tokens having a particular length or format.",
+          "locator": "#using-personal-access-tokens"
+        }
+      ]
+    },
+    {
+      "id": "tool-artifacts-consistency",
+      "statement": "Two open-source scanner rule artifacts by different maintainers both treat an Airtable personal access token candidate as the literal text \"pat\", then 14 alphanumeric characters, then a period, then 64 lowercase hexadecimal characters. This records consistency of those artifacts only; it is not the provider's format and the provider states that tokens must be treated as opaque, variable-length strings.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+          "supports": "Rule \"airtable-personnal-access-token\" in config/gitleaks.toml: regex \\b(pat[[:alnum:]]{14}\\.[a-f0-9]{64})\\b with keyword \"airtable\" (read raw at the pinned commit)",
+          "locator": "#L118-L121"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-338e38aeba",
+          "supports": "tokenPat in the airtablepersonalaccesstoken detector: the same pat + 14 alphanumeric + period + 64 lowercase hex shape, preceded by an \"airtable\" keyword pattern (read raw at the pinned commit)",
+          "locator": "#L25"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "The provider says not to rely on a particular length or format, so the literal \"pat\" prefix, 14-character part and 64-hex part are recorded only as consistency of two scanner rule artifacts (maintainers differ; whether one was derived from the other is not established). Not researched beyond existence and this consistency claim; whether the pattern is stable across newly issued tokens is unresolved.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "algolia:monitoring-api-key@1",
+  "family": "algolia:monitoring-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "monitoring-api-key-exists",
+      "statement": "Algolia documents a Monitoring API key that authenticates requests to the Monitoring API infrastructure endpoints, sent in the x-algolia-api-key header.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-0a6c6beeda",
+          "supports": "To authenticate requests to the Infrastructure endpoints, add these headers: x-algolia-application-id (your Algolia application ID) and x-algolia-api-key (your Monitoring API key).",
+          "locator": "#availability-and-authentication"
+        },
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Other API keys: Monitoring API key.",
+          "locator": "#other-api-keys"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is established only as existing: the prefix, alphabet, length and structure of the value are not documented on the pages read and are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The pages read do not say whether Algolia keys of different roles share one value shape; role must not be attributed from shape alone, and identification needs the surrounding context (header, variable name, ACL).",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "dropbox:access-token@1",
+  "family": "dropbox:access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "access-token-exists",
+      "statement": "The Dropbox OAuth flow returns a short-lived bearer access token, bound to a user and app pair or to a team and app pair, that is sent in an Authorization: Bearer header; the token response states its lifetime in expires_in.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-aea155a830",
+          "supports": "Dropbox access tokens are short lived, and will expire after a short period of time.",
+          "locator": "#using-refresh-tokens"
+        },
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "Authorized requests to the API should use an Authorization header with the value Bearer <TOKEN>, where <TOKEN> is an access token obtained through the OAuth flow.",
+          "locator": "#authorization"
+        },
+        {
+          "sourceId": "docs-dropboxapi-com-ee9def1cd1",
+          "supports": "User Authentication uses an access token for a specific user and app pair; Team Authentication uses an access token for a specific team and app pair.",
+          "locator": "#user-authentication"
+        }
+      ]
+    },
+    {
+      "id": "access-token-documented-opaque",
+      "statement": "Dropbox documents access tokens as opaque: applications must support variable token size (tokens may exceed 1KB) and must not depend on token composition, which Dropbox reserves the right to change. The pages read state no prefix, alphabet or length.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "Access tokens provided by Dropbox should be treated as opaque. Applications must support variable token size with tokens capable of exceeding 1KB.",
+          "locator": "#authorization"
+        }
+      ]
+    },
+    {
+      "id": "access-token-rule-artifacts-consistent",
+      "statement": "Three open-source scanner rule artifacts from different maintainers (Gitleaks, TruffleHog, Nosey Parker) each treat a short-lived Dropbox access token as a string starting with the literal prefix \"sl.\" followed by a run of at least 130 characters from letters, digits, hyphen and underscore (Gitleaks fixes the run at 135 and also admits \"=\"; Nosey Parker bounds it at 130 to 152; TruffleHog sets no upper bound and also admits an \"sl.u.\" form). The three artifacts are consistent with that prefix and alphabet; this is consistency among rule artifacts, not a statement of the provider's format, and it sits beside the provider's own statement that the token is opaque with composition that may change.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+          "supports": "rule dropbox-short-lived-api-token: sl. then 135 characters of [a-z0-9-=_], case-insensitive, after a dropbox keyword",
+          "locator": "#L466-L469"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-164cc01e1c",
+          "supports": "keyPat: sl. with optional u. then 130 or more characters of [A-Za-z0-9-_], after a dropbox keyword; Keywords include dropbox and sl.",
+          "locator": "#L32"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-4da81bbf6f",
+          "supports": "rule np.dropbox.1: sl. then 130 to 152 characters of [a-zA-Z0-9_-]",
+          "locator": "#L3-L10"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "format-not-researched",
+      "question": "Candidate documented at existence level only. Dropbox says the token is opaque and its composition may change, so no format contract is established; example token strings in the documentation are illustrations, not a stated format. Whether a console-generated token, a user token and a team token are one family is not settled by the pages read.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "opacity-versus-rule-artifacts",
+      "question": "The provider documents tokens as opaque with composition subject to change, while three rule artifacts assume an \"sl.\" prefix and a 130+ character body. Which of those properties Dropbox guarantees, and whether the \"sl.u.\" form (shown in provider examples and handled by one artifact) is a separate variant, is unresolved; whether the artifacts derive from the provider's example strings was not checked.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

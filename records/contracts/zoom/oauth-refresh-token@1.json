@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "zoom:oauth-refresh-token@1",
+  "family": "zoom:oauth-refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "A Zoom user-authorization or device OAuth flow returns a refresh_token with the access token; refresh tokens expire after 90 days and the latest one must be used for the next refresh request.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-8bb98131a7",
+          "supports": "Refresh tokens expire after 90 days. You should always use the latest refresh token for the next refresh request.",
+          "locator": "Refresh an access token"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Not researched beyond existence: prefix, alphabet, length and any checksum are not stated on the pages read, and no value shape may be inferred from the examples (docs examples are placeholders or illustrative).",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "Documentation examples show refresh_token as the placeholder <JWT_TOKEN>; the pages read give no structure.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "The corresponding user-flow access token is not recorded as its own candidate here; whether it is a distinct family from the Server-to-Server access token needs a decision.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

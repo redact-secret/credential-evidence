@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "spotify:access-token@1",
+  "family": "spotify:access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Spotify issues access tokens through its OAuth 2.0 flows; the token is sent as an Authorization header of the form Bearer <Access Token>, is valid for 1 hour (3600 seconds), and is used to make API calls on behalf of a user or of the application. The Client credentials flow does not include user authorization.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-spotify-com-178810eade",
+          "supports": "To use the access token you must include the following header in your API calls: Authorization: Valid access token following the format: Bearer <Access Token>. Note that the access token is valid for 1 hour (3600 seconds). After that time, the token expires and you need to request a new one.",
+          "locator": "Access Token page, introduction"
+        },
+        {
+          "sourceId": "developer-spotify-com-662494dbf7",
+          "supports": "Once the authorization is granted, the authorization server issues an access token, which is used to make API calls on behalf the user or application. ... This flow does not include user authorization, so only endpoints that do not request user information (e.g. user profile data) can be accessed.",
+          "locator": "Authorization page, flow selection"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "The pages read show only elided example tokens and state no prefix, alphabet or length, so the candidate is not researched beyond existence. Whether user-authorized and client-credentials access tokens share one format is not stated.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

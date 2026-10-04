@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "kind": "family",
+  "id": "mongodb-atlas:programmatic-api-private-key",
+  "provider": "mongodb-atlas",
+  "name": "Programmatic API key private key",
+  "description": "The Private Key half of a legacy Atlas programmatic API key (Public Key and Private Key), used with HTTP Digest authentication for the Atlas Administration API.",
+  "lifecycle": "draft",
+  "currentContract": null,
+  "research": {
+    "state": "researched",
+    "researchedAt": "2026-10-04",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "No page read states a grammar for the private key; the specification shows only one example."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "Only an issued key would show the private key grammar; desk research does not issue credentials."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#176"
+    ]
+  },
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
