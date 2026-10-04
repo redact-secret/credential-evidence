@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "shopify-app-client-id",
+  "families": [
+    "shopify:custom-app-access-token",
+    "shopify:public-app-access-token"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Shopify app client ID",
+  "description": "The client ID of a Shopify app, which sits in the app configuration file beside the app's other settings and in the environment variable SHOPIFY_API_KEY. Shopify describes it as the app's public identifier and as safe to include in frontend code, and says its client secret, by contrast, must never be exposed. Some tools and documentation call the client ID and secret the API key and API secret, so a field labelled API key can hold the public client ID. The client ID is a separate value from the access token. The pages read state no format for the client ID.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "shopify-dev-ad3a92eee4",
+      "supports": "The app's public identifier.",
+      "locator": "#global, row client_id"
+    },
+    {
+      "sourceId": "shopify-dev-bcae99a1fb",
+      "supports": "Your client ID is safe to include in frontend code. Your client secret must never be exposed to the browser or included in client-side code.",
+      "locator": "#secure-your-credentials"
+    },
+    {
+      "sourceId": "shopify-dev-bcae99a1fb",
+      "supports": "Some tools and documentation call these the API key and API secret: SHOPIFY_API_KEY holds your client ID, and SHOPIFY_API_SECRET holds your client secret.",
+      "locator": "Introduction"
+    }
+  ],
+  "observedAt": "2026-10-04",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No sample is recorded because the pages read state no format for the client ID. The client secret is a different credential and is not benign."
+}
