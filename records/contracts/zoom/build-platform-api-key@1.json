@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "zoom:build-platform-api-key@1",
+  "family": "zoom:build-platform-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Zoom Platform Studio lets a developer create an API key for Build platform APIs and webhooks; the key is displayed once at creation and cannot be shown again, and a JWT is generated from the account API key and secret.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "Create your API Key to access Build platform APIs and webhooks.",
+          "locator": "Get credentials"
+        },
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "This is your new API key. Make sure to copy it before closing this dialog. For security reasons, it will not be shown again.",
+          "locator": "Create API Key, step 8"
+        },
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "The JWT is created from your account API key and secret.",
+          "locator": "Create JWT"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Not researched beyond existence: prefix, alphabet, length and any checksum are not stated on the pages read, and no value shape may be inferred from the examples (docs examples are placeholders or illustrative).",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The page speaks of an API key and secret; whether the secret is a second credential string, and how the Build-platform JWT relates to Meeting SDK and Video SDK JWTs (documented on other pages not read in this run), is not settled.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
