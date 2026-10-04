@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-terraform-plan-json-configuration-constants-and-variables-versus-documented-omission",
+  "subject": {
+    "kind": "case",
+    "id": "terraform-plan-json-configuration-constants-and-variables-versus-documented-omission"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored by an AI agent run from Terraform documentation pages (manage-sensitive-data, json-format, show, output, write-only) read on 2026-10-04, before any scanner was consulted; evidence-derived synthetic compositions of documented shapes, not observed documents; not reviewed. Left not-assertable and unresolved: the pages do not say whether plan JSON redacts a write-only argument literal or a sensitive variable in its configuration and variables sections."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

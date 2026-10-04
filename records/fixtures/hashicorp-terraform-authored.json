@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "hashicorp-terraform-authored",
+  "title": "Terraform JSON artifacts, authored fixtures",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "hashicorp-terraform-authored--state-json-resource-password-with-sensitive-values",
+      "case": "terraform-json-sensitive-attribute-literal-beside-true-flag",
+      "path": "state-json-resource-password-with-sensitive-values/fixture.txt",
+      "context": "terraform-show-json-state",
+      "sha256": "a832cfb4895640f6df6f1ed0ce666ecdb433329a5e593591cf0256de807f2656",
+      "text": "{\n  \"format_version\": \"1.0\",\n  \"terraform_version\": \"1.11.0\",\n  \"values\": {\n    \"root_module\": {\n      \"resources\": [\n        {\n          \"address\": \"aws_db_instance.main\",\n          \"mode\": \"managed\",\n          \"type\": \"aws_db_instance\",\n          \"name\": \"main\",\n          \"provider_name\": \"registry.terraform.io/hashicorp/aws\",\n          \"schema_version\": 2,\n          \"values\": {\n            \"identifier\": \"synthetic-example-database\",\n            \"engine\": \"postgres\",\n            \"username\": \"admin\",\n            \"password\": \"synthetic-state-db-password-7f3k-not-issued\"\n          },\n          \"sensitive_values\": {\n            \"password\": true\n          }\n        }\n      ]\n    }\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 532,
+            "end": 575,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hashicorp-terraform-authored--state-json-output-password-with-sensitive-true",
+      "case": "terraform-json-sensitive-attribute-literal-beside-true-flag",
+      "path": "state-json-output-password-with-sensitive-true/fixture.txt",
+      "context": "terraform-show-json-state",
+      "sha256": "6501560d884123c3d451a861e1217a56cc305c5759ddf63688b04b85e18a8a5b",
+      "text": "{\n  \"format_version\": \"1.0\",\n  \"terraform_version\": \"1.11.0\",\n  \"values\": {\n    \"outputs\": {\n      \"db_admin_password\": {\n        \"value\": \"synthetic-output-admin-secret-2m9x-not-issued\",\n        \"type\": \"string\",\n        \"sensitive\": true\n      },\n      \"db_endpoint\": {\n        \"value\": \"db.example.invalid:5432\",\n        \"type\": \"string\",\n        \"sensitive\": false\n      }\n    },\n    \"root_module\": {}\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 140,
+            "end": 185,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hashicorp-terraform-authored--plan-json-change-after-password-with-after-sensitive",
+      "case": "terraform-json-sensitive-attribute-literal-beside-true-flag",
+      "path": "plan-json-change-after-password-with-after-sensitive/fixture.txt",
+      "context": "terraform-show-json-plan",
+      "sha256": "f9458ac0e473b3a64acf924d1046a9441e8ca4efe58376d431d696beda40567b",
+      "text": "{\n  \"format_version\": \"1.0\",\n  \"terraform_version\": \"1.11.0\",\n  \"resource_changes\": [\n    {\n      \"address\": \"aws_db_instance.main\",\n      \"mode\": \"managed\",\n      \"type\": \"aws_db_instance\",\n      \"name\": \"main\",\n      \"provider_name\": \"registry.terraform.io/hashicorp/aws\",\n      \"change\": {\n        \"actions\": [\"create\"],\n        \"before\": null,\n        \"after\": {\n          \"identifier\": \"synthetic-example-database\",\n          \"engine\": \"postgres\",\n          \"username\": \"admin\",\n          \"password\": \"synthetic-plan-db-password-4q8d-not-issued\"\n        },\n        \"after_unknown\": {\n          \"id\": true\n        },\n        \"before_sensitive\": {},\n        \"after_sensitive\": {\n          \"password\": true\n        }\n      }\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 507,
+            "end": 549,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hashicorp-terraform-authored--plan-json-write-only-version-without-value",
+      "case": "terraform-json-sensitivity-flag-and-write-only-version-without-value",
+      "path": "plan-json-write-only-version-without-value/fixture.txt",
+      "context": "terraform-show-json-plan",
+      "sha256": "d378ccd7baf39b744e419f1e415f60e3fe2fe63d731d8393ae304fb741029dd0",
+      "text": "{\n  \"format_version\": \"1.0\",\n  \"terraform_version\": \"1.11.0\",\n  \"resource_changes\": [\n    {\n      \"address\": \"aws_db_instance.example\",\n      \"mode\": \"managed\",\n      \"type\": \"aws_db_instance\",\n      \"name\": \"example\",\n      \"provider_name\": \"registry.terraform.io/hashicorp/aws\",\n      \"change\": {\n        \"actions\": [\"create\"],\n        \"before\": null,\n        \"after\": {\n          \"identifier\": \"synthetic-example-database\",\n          \"engine\": \"postgres\",\n          \"username\": \"example\",\n          \"password_wo_version\": 1\n        },\n        \"after_unknown\": {\n          \"id\": true\n        },\n        \"before_sensitive\": {},\n        \"after_sensitive\": {}\n      }\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hashicorp-terraform-authored--plan-json-unknown-password-with-after-sensitive-flag",
+      "case": "terraform-json-sensitivity-flag-and-write-only-version-without-value",
+      "path": "plan-json-unknown-password-with-after-sensitive-flag/fixture.txt",
+      "context": "terraform-show-json-plan",
+      "sha256": "5260295a7d7d975b5970e94297d56a4fc713263712a4c2c6776fbbbef4a44803",
+      "text": "{\n  \"format_version\": \"1.0\",\n  \"terraform_version\": \"1.11.0\",\n  \"resource_changes\": [\n    {\n      \"address\": \"aws_db_instance.main\",\n      \"mode\": \"managed\",\n      \"type\": \"aws_db_instance\",\n      \"name\": \"main\",\n      \"provider_name\": \"registry.terraform.io/hashicorp/aws\",\n      \"change\": {\n        \"actions\": [\"create\"],\n        \"before\": null,\n        \"after\": {\n          \"identifier\": \"synthetic-example-database\",\n          \"engine\": \"postgres\",\n          \"username\": \"admin\"\n        },\n        \"after_unknown\": {\n          \"id\": true,\n          \"password\": true\n        },\n        \"before_sensitive\": {},\n        \"after_sensitive\": {\n          \"password\": true\n        }\n      }\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hashicorp-terraform-authored--state-json-null-password-with-sensitive-values-flag",
+      "case": "terraform-json-sensitivity-flag-and-write-only-version-without-value",
+      "path": "state-json-null-password-with-sensitive-values-flag/fixture.txt",
+      "context": "terraform-show-json-state",
+      "sha256": "12eb0df83d1815d926a70728908140980fb2df474666c19aaa2627df5a53e7e4",
+      "text": "{\n  \"format_version\": \"1.0\",\n  \"terraform_version\": \"1.11.0\",\n  \"values\": {\n    \"root_module\": {\n      \"resources\": [\n        {\n          \"address\": \"aws_db_instance.main\",\n          \"mode\": \"managed\",\n          \"type\": \"aws_db_instance\",\n          \"name\": \"main\",\n          \"provider_name\": \"registry.terraform.io/hashicorp/aws\",\n          \"schema_version\": 2,\n          \"values\": {\n            \"identifier\": \"synthetic-example-database\",\n            \"engine\": \"postgres\",\n            \"username\": \"admin\",\n            \"password\": null\n          },\n          \"sensitive_values\": {\n            \"password\": true\n          }\n        }\n      ]\n    }\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
