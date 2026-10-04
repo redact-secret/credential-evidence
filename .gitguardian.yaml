@@ -1,0 +1,13 @@
+# GitGuardian scan configuration.
+#
+# records/fixtures/ holds the authored and generated fixture sets: values that
+# are shaped like credentials on purpose, built from synthetic or documented
+# public-test material (see .agents/skills/_shared/synthetic-safety.md). They
+# are excluded here so the scanner does not flag the fixtures themselves.
+# Everything else in the repository, including cases, contracts and sources,
+# stays scanned. Accidental real material is still checked by the
+# scan-secrets-in-history skill, which separates synthetic fixtures from real ones.
+version: 2
+secret:
+  ignored-paths:
+    - "records/fixtures/**"
