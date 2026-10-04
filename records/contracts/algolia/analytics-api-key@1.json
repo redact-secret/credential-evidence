@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "algolia:analytics-api-key@1",
+  "family": "algolia:analytics-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "analytics-api-key-exists",
+      "statement": "Algolia lists an Analytics API key among its other predefined API keys, usable only if the plan has access to the Analytics API.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Other API keys: Monitoring API key, Usage API key, Analytics API key. You can only use these APIs if your plan has access to them.",
+          "locator": "#other-api-keys"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is established only as existing: the prefix, alphabet, length and structure of the value are not documented on the pages read and are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The pages read do not say whether Algolia keys of different roles share one value shape; role must not be attributed from shape alone, and identification needs the surrounding context (header, variable name, ACL).",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "Whether the Analytics API key is a distinct credential or an ACL profile of the same key kind as the other predefined keys is not settled by the pages read.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

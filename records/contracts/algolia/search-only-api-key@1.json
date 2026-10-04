@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "algolia:search-only-api-key@1",
+  "family": "algolia:search-only-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "search-only-api-key-exists",
+      "statement": "Algolia documents a predefined Search-only API key that searches all indices of an application.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Algolia provides a search-only API key that lets you search your data. It works on all your Algolia application indices.",
+          "locator": "#search-only-api-key"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-exposure",
+      "statement": "Algolia documents the Search-only API key as intended for production frontend code, and also states that when it is exposed third parties can use it to scrape the indices and flood the account with search requests.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "It works on all your Algolia application indices and is safe to use in your production frontend code. When using Algolia, your search-only API key is exposed and third parties could use it to: Scrape everything from your indices; Flood your account with search requests.",
+          "locator": "#risks-of-api-key-exposure"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-value-shape-consistency",
+      "statement": "No provider page read states the value shape of Algolia API keys. Two pinned open-source scanner rule artifacts, written by different maintainers, are both consistent with a 32-character alphanumeric value that appears near the word \"algolia\" being an Algolia API key candidate. Neither artifact distinguishes admin, search-only or write role from the value, and this claim is consistency with observed practice, not a statement about what Algolia issues.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-6e0b4bcf13",
+          "supports": "The rule builds a semi-generic pattern from the keyword \"algolia\" and the body pattern [a-z0-9]{32} (case-insensitive in the generated configuration), with \"algolia\" as its keyword.",
+          "locator": "#L14-L15"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-1e6b0e7f97",
+          "supports": "The detector pairs the keywords \"algolia\", \"docsearch\" and \"apiKey\" with the body pattern [a-zA-Z0-9]{32} delimited by word boundaries, with \"algolia\" and \"docsearch\" as its keywords.",
+          "locator": "#L35"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is established only as existing: the prefix, alphabet, length and structure of the value are not documented on the pages read and are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The pages read do not say whether Algolia keys of different roles share one value shape; role must not be attributed from shape alone, and identification needs the surrounding context (header, variable name, ACL).",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "Public client exposure of this key is documented as expected; whether a detection of one in public code is a finding is an exposure-policy question that this record does not answer.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-4",
+      "question": "The 32-character alphanumeric shape is only tool-corroborated by two scanner rule artifacts and is not stated by Algolia; whether every key of this role has that shape, and whether any other key kind shares it, is not established. The two artifacts are not checked beyond their rule text, and a reviewer should confirm their authorship is independent.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

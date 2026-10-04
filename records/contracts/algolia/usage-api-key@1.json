@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "algolia:usage-api-key@1",
+  "family": "algolia:usage-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "usage-api-key-exists",
+      "statement": "Algolia lists a Usage API key among its other predefined API keys and shows it as the key for the Usage API, sent in the X-Algolia-API-Key header.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-eac8a40cae",
+          "supports": "export ALGOLIA_API_KEY=\"your usage API key\"; the X-Algolia-Application-Id header identifies which app you are accessing, and the X-Algolia-API-Key header authenticates the endpoint.",
+          "locator": "#request-format"
+        },
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Other API keys: Monitoring API key, Usage API key, Analytics API key.",
+          "locator": "#other-api-keys"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is established only as existing: the prefix, alphabet, length and structure of the value are not documented on the pages read and are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The pages read do not say whether Algolia keys of different roles share one value shape; role must not be attributed from shape alone, and identification needs the surrounding context (header, variable name, ACL).",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "Whether the Usage API key is a distinct credential or an ACL profile of the same key kind as the other predefined keys is not settled by the pages read.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
