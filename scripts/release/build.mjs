@@ -53,7 +53,7 @@ export function collectInputs({ tag, commit }) {
   const sourceFiles = sourcePaths.map(read);
   const schemaFiles = listJson(join(repoRoot, "schemas")).map(read);
   const records = inputs.records;
-  const snapshotBuild = buildSnapshot(inputs);
+  const snapshotBuild = buildSnapshot(inputs, { representation: true });
   const fixtures = buildMaterialization({
     sets: records.filter((r) => r.kind === "fixture-set"),
     cases: records.filter((r) => r.kind === "case"),
@@ -81,6 +81,7 @@ function summary(release) {
     `schema ${m.schemaRevision}, generator ${m.generator.name} ${m.generator.version}`,
     `fixtures ${m.fixtures.count} (digest ${m.fixtures.digest})`,
     `eval v1 export: ${m.evalExport.exported} exported, ${m.evalExport.notExported.total} not exported to eval v1 ${JSON.stringify(m.evalExport.notExported.byReason)}`,
+    ...(m.evalExport.representation ? [`representation ${JSON.stringify(m.evalExport.representation)}`] : []),
     ...m.files.map((f) => `  ${f.asset}  ${f.bytes} bytes  sha256 ${f.sha256}`),
     `manifest digest ${release.manifestDigest}`,
   ];
