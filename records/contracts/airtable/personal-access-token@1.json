@@ -49,6 +49,25 @@
           "locator": "#using-personal-access-tokens"
         }
       ]
+    },
+    {
+      "id": "tool-artifacts-consistency",
+      "statement": "Two open-source scanner rule artifacts by different maintainers both treat an Airtable personal access token candidate as the literal text \"pat\", then 14 alphanumeric characters, then a period, then 64 lowercase hexadecimal characters. This records consistency of those artifacts only; it is not the provider's format and the provider states that tokens must be treated as opaque, variable-length strings.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+          "supports": "Rule \"airtable-personnal-access-token\" in config/gitleaks.toml: regex \\b(pat[[:alnum:]]{14}\\.[a-f0-9]{64})\\b with keyword \"airtable\" (read raw at the pinned commit)",
+          "locator": "#L118-L121"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-338e38aeba",
+          "supports": "tokenPat in the airtablepersonalaccesstoken detector: the same pat + 14 alphanumeric + period + 64 lowercase hex shape, preceded by an \"airtable\" keyword pattern (read raw at the pinned commit)",
+          "locator": "#L25"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -56,7 +75,7 @@
   "openQuestions": [
     {
       "id": "open-question-1",
-      "question": "The literal prefix, alphabet and length of a personal access token are not stated on the pages read, and the provider says not to rely on any; the candidate is not researched beyond existence. The token ID that prefixes the token is not described.",
+      "question": "The provider says not to rely on a particular length or format, so the literal \"pat\" prefix, 14-character part and 64-hex part are recorded only as consistency of two scanner rule artifacts (maintainers differ; whether one was derived from the other is not established). Not researched beyond existence and this consistency claim; whether the pattern is stable across newly issued tokens is unresolved.",
       "raisedAt": "2026-10-04"
     }
   ]
