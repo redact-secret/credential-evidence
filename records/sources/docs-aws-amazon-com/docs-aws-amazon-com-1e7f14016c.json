@@ -24,6 +24,12 @@
       "outcome": "read",
       "observer": "research-agent",
       "note": "Read page text via fetch. STS Credentials type lists AccessKeyId (String, length 16 to 128), SecretAccessKey, SessionToken (The token that users must pass to the service API to use the temporary credentials) and Expiration, all required."
+    },
+    {
+      "observedAt": "2026-10-04",
+      "outcome": "unchanged",
+      "observer": "research-agent",
+      "note": "Re-read raw for issue 184. Credentials type: AccessKeyId String, length 16 to 128, Pattern [\\w]*, required; SecretAccessKey and SessionToken String with no length or pattern, required; SessionToken described only as the token users must pass to use the temporary credentials."
     }
   ],
   "lifecycle": "draft",

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "aws-temporary-key-id-length-inside-documented-api-range",
+  "title": "AWS temporary key ID with a body other than 16 characters, inside the documented API range",
+  "summary": "An ASIA-prefixed identifier assigned to an access key variable whose body is one character shorter or longer than the 16 characters of the documented example, so the whole identifier is 19 or 21 characters. Shape only; no fixture value is recorded.",
+  "rationale": "The generic wrong-length reasoning assumes the value lies outside the length the provider documents. For this family the provider documents a range, not a fixed length: the STS Credentials type bounds AccessKeyId at 16 to 128 characters, so 19 and 21 characters are inside it. The only 20-character evidence is one documented example and the consistency of several scanner rules, which show a common shape, not that other lengths are never issued. Calling such a value benign would rest on the shape of the example. Calling it a credential would rest on the API range, which is also not an issuance statement.",
+  "caseTypes": [
+    "twin"
+  ],
+  "families": [
+    {
+      "family": "aws:sts-temporary-access-key",
+      "role": "subject",
+      "contract": "aws:sts-temporary-access-key@2"
+    }
+  ],
+  "scenarios": [
+    "wrong-length"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved: the Credentials type gives AccessKeyId a length of 16 to 128 and the AssumeRole example is 20 characters; no page fixes the length of an issued ASIA id. Neither a flag nor a no-flag outcome follows. Would resolve: a provider statement of the issued length, or a maintainer decision with a non-author reviewer. The same ASIA id is also usable only with a secret access key and session token, which is a separate question (companion-confidentiality-scope).",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-1e7f14016c",
+        "supports": "Credentials, AccessKeyId: String, minimum length 16, maximum length 128, Pattern [\\w]*",
+        "locator": "Credentials > Contents > AccessKeyId"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-f4520419ab",
+        "supports": "AssumeRole response example: an ASIA-prefixed AccessKeyId of 20 characters; the page does not say issued ids are always that long",
+        "locator": "Examples > Sample Response"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

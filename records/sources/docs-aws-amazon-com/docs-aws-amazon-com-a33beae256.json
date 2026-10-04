@@ -18,6 +18,12 @@
       "outcome": "read",
       "observer": "legacy-import",
       "note": "Legacy import: date recorded by legacy contract-field, contract-reference, taxonomy-source; the exact read time was not recorded."
+    },
+    {
+      "observedAt": "2026-10-04",
+      "outcome": "unchanged",
+      "observer": "research-agent",
+      "note": "Re-read raw for issue 184. States 'Access key IDs beginning with ASIA are temporary credentials that are created using AWS STS operations'. AccessKeyId parameter regex allows any upper- or lowercase letter or digit. The sample request uses an AKIA-prefixed example ID whose body has the digits 4 and 8."
     }
   ],
   "lifecycle": "draft",

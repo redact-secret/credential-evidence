@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "aws-temporary-key-id-lowercase-body-byte-inside-documented-api-pattern",
+  "title": "AWS temporary key ID with a lowercase body byte, inside the documented API pattern",
+  "summary": "An ASIA-prefixed 20-character identifier whose body has one lowercase letter where the documented example has an uppercase letter or digit. Shape only; no fixture value is recorded.",
+  "rationale": "The generic wrong-alphabet reasoning assumes the provider never issues the character. For this family no page lists the issued bytes. The STS Credentials type gives AccessKeyId the pattern [\\w]*, which includes lowercase letters, and the GetAccessKeyInfo input is described as allowing any upper- or lowercase letter or digit. Those are request and response type patterns, so they do not show that lowercase bytes are issued either; the uppercase-only reading rests on a documented example and the shape of several scanner rules.",
+  "caseTypes": [
+    "twin"
+  ],
+  "families": [
+    {
+      "family": "aws:sts-temporary-access-key",
+      "role": "subject",
+      "contract": "aws:sts-temporary-access-key@2"
+    }
+  ],
+  "scenarios": [
+    "wrong-alphabet"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved: the provider patterns for AccessKeyId accept lowercase letters and no page says which bytes are issued, so neither a flag nor a no-flag outcome follows. Would resolve: a provider statement of the issued alphabet, or a maintainer decision with a non-author reviewer.",
+    "sources": [
+      {
+        "sourceId": "docs-aws-amazon-com-1e7f14016c",
+        "supports": "Credentials, AccessKeyId: Pattern [\\w]*",
+        "locator": "Credentials > Contents > AccessKeyId"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-a33beae256",
+        "supports": "AccessKeyId input: allows any upper- or lowercase letter or digit",
+        "locator": "Request Parameters > AccessKeyId"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
