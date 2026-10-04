@@ -50,6 +50,53 @@
       },
       "verdict": "not-assertable",
       "note": "Statement 'secret-width' (openQuestions) is recorded as unresolved: No source states the secret width or alphabet and no issued token was inspected."
+    },
+    {
+      "seq": 4,
+      "type": "authored",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Issue 181 strengthening: Slack tokens and token-rotation pages re-read raw on 2026-10-04 (curl, sha256 recorded in the source observations). Added field-level contract claims; rotating xoxe.xoxb- form documented as a prefix only; widths, version digit, legacy bot token and public-identifier shapes stay unresolved. Proposal awaits non-author review; lifecycle unchanged."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'rotating-version-digit' (openQuestions) is recorded as unresolved: The page shows xoxe.xoxb-1-... elided and states no range or meaning for the digit."
+    },
+    {
+      "seq": 6,
+      "type": "observed",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'legacy-bot-token' (openQuestions) is recorded as unresolved: The page names legacy bot tokens but states no prefix or format."
+    },
+    {
+      "seq": 7,
+      "type": "observed",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'public-identifiers' (openQuestions) is recorded as unresolved: Team, bot-user, app and client ids appear only as placeholders; widths and non-secret status are not stated."
     }
   ],
   "externalRefs": [
