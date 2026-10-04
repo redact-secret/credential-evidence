@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "compose-values-rewritten-before-use-leave-source-bytes-unsettled",
+  "title": "Compose rewrites dollar signs in values, so file bytes and resolved value can differ",
+  "summary": "Compose changes some bytes of a value before using it: $$ becomes one literal dollar sign in a Compose file, and in an env_file the same line is read in one of two modes (default parsing with interpolation of unquoted and double-quoted values, or format: raw, which keeps quotes and dollar signs as written), with the mode declared in the referencing Compose file, not in the env file.",
+  "rationale": "For a secret that contains a dollar sign, the bytes in the file are not the value Compose passes on: $$ shrinks to $, and under default env_file parsing a $NAME inside an unquoted or double-quoted value is replaced by the variable's value or an empty string with a warning. Whether the same env file text is the credential, a reference mixed with part of one, or a different string depends on the parse mode written in another file, which a reader of the env file alone does not have. No Docker page states whether $$ is also an escape inside an env file. The expectation cannot be asserted from the pages read: which source span stands for the secret, and whether a reader must map source bytes to the resolved value, is an unsettled question for consumers. Handoff: decoded-source mapping and resolution preconditions belong to the representation contract owned by #150 and credential-eval; no fixture is added here because a value that needs a dollar sign inside it would have to be invented for a family whose grammar does not allow one.",
+  "caseTypes": [
+    "mutation"
+  ],
+  "families": [
+    {
+      "family": "github:classic-personal-access-token",
+      "role": "context"
+    }
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Not assertable. Docker documents the rewriting rules (a $$ stands for a literal dollar sign; unquoted and double-quoted env file values have interpolation applied; single-quoted values are literal; format: raw passes values as-is, including quotes and $ signs), but no page settles how a source span maps to the resolved secret, and no page states $$ handling inside an env file. What would settle it: a documented decision by the consumer contract (#150 / credential-eval) on source-span coverage for rewritten values, and a Docker statement or a captured Compose behaviour on $$ in env files.",
+    "sources": [
+      {
+        "sourceId": "docs-docker-com-8db6dcde12",
+        "supports": "You can use a $$ (double-dollar sign) when your configuration needs a literal dollar sign. This also prevents Compose from interpolating a value.",
+        "locator": "section: interpolation, paragraph on $$"
+      },
+      {
+        "sourceId": "docs-docker-com-24698539df",
+        "supports": "format: raw (Docker Compose 2.30.0 and later) lets you use an env_file with key=value items, but without any attempt from Compose to parse the value for interpolation. This lets you pass values as-is, including quotes and $ signs. When not set, env_file is parsed according to the Compose rules outlined in Env_file format.",
+        "locator": "section: env_file, attribute format"
+      },
+      {
+        "sourceId": "docs-docker-com-24698539df",
+        "supports": "Unquoted and double-quoted (\") values have Interpolation applied. Single-quoted (') values are used literally.",
+        "locator": "section: env_file, Env_file format"
+      },
+      {
+        "sourceId": "docs-docker-com-3222ad3e92",
+        "supports": "--no-interpolate: Don't interpolate environment variables. --no-env-resolution: Don't resolve service env files.",
+        "locator": "section: Options"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-04. Origin: evidence-derived; no fixture, so no synthetic value. The Compose version boundary for format: raw (2.30.0) and for required: false (2.24.0) is documented on the services page; behaviour of older versions is not claimed."
+}

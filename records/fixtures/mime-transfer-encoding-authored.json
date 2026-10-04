@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "mime-transfer-encoding-authored",
+  "title": "MIME transfer-encoded text projections (authored)",
+  "description": "Four hand-written, non-asserting projections of the authored SendGrid-shaped key base from base64-hex-representation-bases into MIME messages: the key cut by a quoted-printable soft line break (and the same bytes declared 7bit), the key as a base64 text part wrapped at 76 columns, and that part beside an unrelated base64 part inside multipart/mixed. All are not-assertable: the standards define the mechanisms and no confidentiality outcome. Synthetic: the only credential-shaped value is the existing base, built from the words SYNTHETIC, NEVER, ISSUED and EXAMPLE, which matches no issued key and was never tested against any service.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "mime-transfer-encoding-authored--qp-soft-break-in-quoted-printable-part",
+      "case": "credential-split-by-quoted-printable-soft-line-break",
+      "path": "qp-soft-break-in-quoted-printable-part/message.eml",
+      "context": "mime-message",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "base64-hex-representation-bases--sendgrid-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "quoted-printable-soft-line-break",
+            "lineBreak": "crlf",
+            "width": 76,
+            "reconstruction": "reconstructs-original"
+          },
+          {
+            "op": "escape",
+            "style": "quoted-printable-hex-escape"
+          },
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "mime-text-part"
+          }
+        ],
+        "note": "The part is declared quoted-printable. The key is cut by an equal sign ending a 76-character line; the assignment's equal sign is =3D, outside the key. The two fragments joined with the equal sign and CRLF removed are the base's value. The assignment line is the base's SENDGRID_API_KEY= form with the equal sign escaped."
+      },
+      "sha256": "2747f7e0006fff73cc990e810f8c7c012de72f3276c4d34f3244bc26e4caba27",
+      "text": "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=us-ascii\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\nSENDGRID_API_KEY=3DSG.SYNTHETICNEVERISSUED00.BASE64HEXREPRESENTATIONEXAMPLE=\r\n_NEVER-ISSUED\r\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "candidateReading": {
+        "asserting": false,
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 129,
+            "end": 201,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "base64-hex-representation-bases--sendgrid-key-base",
+            "fragments": [
+              {
+                "start": 129,
+                "end": 185
+              },
+              {
+                "start": 188,
+                "end": 201
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mime-transfer-encoding-authored--qp-soft-break-bytes-in-7bit-part",
+      "case": "credential-split-by-quoted-printable-soft-line-break",
+      "path": "qp-soft-break-bytes-in-7bit-part/message.eml",
+      "context": "mime-message",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "base64-hex-representation-bases--sendgrid-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "fragment",
+            "mechanism": "trailing-equals-and-crlf-in-7bit-part",
+            "lineBreak": "crlf",
+            "width": 76,
+            "reconstruction": "inserts-separator"
+          },
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "mime-text-part"
+          }
+        ],
+        "note": "Control with the same body bytes as the quoted-printable fixture; only the declared Content-Transfer-Encoding differs (7bit, the RFC 2045 default). No decoding removes the trailing equal sign and CRLF, so they stay in a different value. Whether the maintainer decision for separator-split values covers this carrier is not recorded here, so no reading is proposed."
+      },
+      "sha256": "c993c4f202e2dd78b3222d17d6edb0b4adc1c462893559339983f4b8d39c2820",
+      "text": "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=us-ascii\r\nContent-Transfer-Encoding: 7bit\r\n\r\nSENDGRID_API_KEY=3DSG.SYNTHETICNEVERISSUED00.BASE64HEXREPRESENTATIONEXAMPLE=\r\n_NEVER-ISSUED\r\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "mime-transfer-encoding-authored--base64-wrapped-in-base64-part",
+      "case": "credential-in-base64-text-part-wrapped-at-76-columns",
+      "path": "base64-wrapped-in-base64-part/message.eml",
+      "context": "mime-message",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "base64-hex-representation-bases--sendgrid-key-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "encode",
+            "codec": "base64",
+            "alphabet": "standard",
+            "padding": "padded"
+          },
+          {
+            "op": "fragment",
+            "mechanism": "mime-base64-line-wrap",
+            "lineBreak": "crlf",
+            "width": 76,
+            "reconstruction": "reconstructs-original"
+          },
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "mime-text-part"
+          }
+        ],
+        "note": "The part body is the standard Base64 of the base's 69-octet value (92 characters, no padding needed), written as a 76-character line and a 16-character line. The fragments joined are the Base64 text; decoding them gives the value."
+      },
+      "sha256": "aa1e8566fa1f683db60530ff1f7ecb56d176b80a6f0d7311bca3de2d980aa454",
+      "text": "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=us-ascii\r\nContent-Transfer-Encoding: base64\r\n\r\nU0cuU1lOVEhFVElDTkVWRVJJU1NVRUQwMC5CQVNFNjRIRVhSRVBSRVNFTlRBVElPTkVYQU1QTEVf\r\nTkVWRVItSVNTVUVE\r\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "candidateReading": {
+        "asserting": false,
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 100,
+            "end": 194,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "base64-hex-representation-bases--sendgrid-key-base",
+            "fragments": [
+              {
+                "start": 100,
+                "end": 176
+              },
+              {
+                "start": 178,
+                "end": 194
+              }
+            ],
+            "decoded": {
+              "via": [
+                {
+                  "codec": "base64",
+                  "alphabet": "standard",
+                  "padding": "padded"
+                }
+              ],
+              "sha256": "077b5ab35bee424e64d47ebeb97a4a0a33d88cff8406e115a17235483553288e",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mime-transfer-encoding-authored--base64-wrapped-part-beside-unrelated-base64-part",
+      "case": "credential-in-base64-text-part-wrapped-at-76-columns",
+      "path": "base64-wrapped-part-beside-unrelated-base64-part/message.eml",
+      "context": "mime-message",
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "base64-hex-representation-bases--sendgrid-key-base",
+          "base64-hex-representation-bases--public-sentence-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "encode",
+            "codec": "base64",
+            "alphabet": "standard",
+            "padding": "padded"
+          },
+          {
+            "op": "fragment",
+            "mechanism": "mime-base64-line-wrap",
+            "lineBreak": "crlf",
+            "width": 76,
+            "reconstruction": "reconstructs-original"
+          },
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "mime-text-part"
+          }
+        ],
+        "note": "A multipart/mixed message with two base64 text parts. The first is the wrapped key part; the second is the Base64 of the public sentence of the listed benign base and holds no secret. The boundary parameter, the boundary delimiter lines and the second part are not part of the value."
+      },
+      "sha256": "9a2d3907b49324d0a6ab7fbd0dfa11c68787deb21f1f05060209007eff4af1bd",
+      "text": "MIME-Version: 1.0\r\nContent-Type: multipart/mixed; boundary=\"----=_SYNTHETIC_boundary_0001\"\r\n\r\nThis is a multi-part message in MIME format.\r\n------=_SYNTHETIC_boundary_0001\r\nContent-Type: text/plain; charset=us-ascii\r\nContent-Transfer-Encoding: base64\r\n\r\nU0cuU1lOVEhFVElDTkVWRVJJU1NVRUQwMC5CQVNFNjRIRVhSRVBSRVNFTlRBVElPTkVYQU1QTEVf\r\nTkVWRVItSVNTVUVE\r\n------=_SYNTHETIC_boundary_0001\r\nContent-Type: text/plain; charset=us-ascii\r\nContent-Transfer-Encoding: base64\r\n\r\nVGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==\r\n------=_SYNTHETIC_boundary_0001--\r\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      },
+      "candidateReading": {
+        "asserting": false,
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 254,
+            "end": 348,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "base64-hex-representation-bases--sendgrid-key-base",
+            "fragments": [
+              {
+                "start": 254,
+                "end": 330
+              },
+              {
+                "start": 332,
+                "end": 348
+              }
+            ],
+            "decoded": {
+              "via": [
+                {
+                  "codec": "base64",
+                  "alphabet": "standard",
+                  "padding": "padded"
+                }
+              ],
+              "sha256": "077b5ab35bee424e64d47ebeb97a4a0a33d88cff8406e115a17235483553288e",
+              "bytes": 69
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Every message was built by a short deterministic script kept out of the repository from the base value and RFC 2045 sections 6.7 and 6.8 and RFC 2046 section 5.1.1, then reviewed and committed as authored text; this is not a generation-rule set. Byte spans are UTF-8 offsets into CRLF text. The candidateReading spans are non-asserting facts about where the fragments of the value sit; the validator does not re-derive them for a not-assertable item, so they were re-derived once by that script (fragments joined equal the base value, Base64 decode gives its 69 octets, SHA-256 of the value matches). No decoder or scanner was consulted."
+}

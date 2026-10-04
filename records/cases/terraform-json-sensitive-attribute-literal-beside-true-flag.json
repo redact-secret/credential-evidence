@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "terraform-json-sensitive-attribute-literal-beside-true-flag",
+  "title": "Terraform JSON: sensitive attribute value in plain text beside its true flag",
+  "summary": "Synthetic excerpts of three machine-readable Terraform JSON documents (a state as printed by terraform show -json, the outputs of that state, and the resource_changes of a plan) in which a database password or admin secret is an ordinary JSON string in values, outputs or change.after, while the parallel sensitive_values, sensitive or after_sensitive structure holds only the boolean true for the same path.",
+  "rationale": "Terraform has two renderings of the same data. The human plan and output text replace a sensitive value with a marker, so a reader may expect the same from the JSON. The JSON format does the opposite: the flag is a separate structure that holds only true, and the value itself stays a plain string next to it. The secret bytes are exactly the string value; the key names, the flag object and the boolean are metadata and not part of the secret. The failure modes are treating the sensitive flag as proof that the value was removed, and reporting the flag or its key instead of the value.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag, with only the string value of the sensitive attribute or output as the secret span. HashiCorp documents that state and plan files hold resource attributes that can contain sensitive values such as initial database passwords or API tokens, that values marked sensitive are stored in both state and plan files, and that terraform show -json displays sensitive values in plain text. The JSON format page documents that the sensitivity structures replace each sensitive leaf with true and are meant to be combined with the values, which means the values are present in the same document. The documents are synthetic compositions built from these documented shapes (origin: evidence-derived, not an observed document); the values are invented and non-issuable. Preconditions: the input is the JSON text as printed, with no decoding step; no claim is made that the value is classifiable without the sensitive flag, and the fixtures keep the flag only to show that the flag does not change the outcome.",
+    "sources": [
+      {
+        "sourceId": "developer-hashicorp-com-8efa1a4bb9",
+        "supports": "Terraform stores values with the sensitive argument in both state and plan files, and anyone who can access those files can access your sensitive values. Additionally, if you use the terraform output CLI command with the -json or -raw flags, Terraform displays sensitive variables and outputs in plain text.",
+        "locator": "section: Hide sensitive variables and outputs"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-8efa1a4bb9",
+        "supports": "Terraform state and plan files contain detailed information about your infrastructure, including resource attributes and metadata that can contain sensitive values, such as initial database passwords or API tokens.",
+        "locator": "section: Background"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-8af3e25d3f",
+        "supports": "When using the -json command-line flag, any sensitive values in Terraform state will be displayed in plain text.",
+        "locator": "note at the top of the page, before section: JSON Output"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-636a1a3afd",
+        "supports": "\"sensitive_values\" is the JSON representation of the sensitivity of the resource's attribute values. Only attributes which are sensitive are included in this structure.",
+        "locator": "section: Values Representation (resources[].sensitive_values)"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-636a1a3afd",
+        "supports": "\"before_sensitive\" and \"after_sensitive\" are object values with similar structure to \"before\" and \"after\", but with all sensitive leaf values replaced with true, and all non-sensitive leaf values omitted. These objects should be combined with \"before\" and \"after\" to prevent accidental display of sensitive values in user interfaces.",
+        "locator": "section: Change Representation"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Evidence-derived synthetic compositions of documented shapes; the human-readable marker rendering is covered by existing fixtures and is not repeated here. The raw terraform.tfstate file format is not documented as a stable interface on the pages read and is not modelled."
+}

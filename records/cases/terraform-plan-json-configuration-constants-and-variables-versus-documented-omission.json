@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "terraform-plan-json-configuration-constants-and-variables-versus-documented-omission",
+  "title": "Terraform plan JSON: configuration constants and input variables beside the documented omission of write-only values",
+  "summary": "A Terraform plan JSON document in which a credential given to a write-only argument as a hard-coded string, or supplied as a sensitive input variable, could be restated outside the resource change: as the constant_value of the argument expression in the configuration representation, or as a value in the variables map of the plan.",
+  "rationale": "Two documented statements point in different directions for this situation. Terraform documents that write-only values are never stored in plan files and that write-only arguments accept a plain string; the JSON format page documents that the configuration representation gives the constant value of any expression without references, and that variables lists all the variables provided for the plan, with no sensitivity field in the documented structure. The pages read do not say whether the plan JSON redacts a write-only argument or a sensitive variable in those two sections. Choosing either outcome would be a guess about Terraform behaviour that cannot be settled from the pages and must not be tested by running Terraform.",
+  "caseTypes": [
+    "mutation"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved; no fixture. Candidate outcomes: (1) the plan JSON omits the value in both sections, so a document holds no secret bytes there; (2) the plan JSON repeats the value in configuration.root_module.resources[].expressions.<argument>.constant_value and variables.<name>.value, so the secret is present and the sensitive or write-only status of the source does not remove it. The write-only page says Terraform does not store the value in the plan file, and also shows a string literal as an accepted value; the JSON format page documents constant_value and variables without any redaction rule. What would settle it: a HashiCorp statement (documentation, reference or release note) about write-only arguments and sensitive variables in terraform show -json plan output, or a pinned Terraform source or test fixture read as a reference (not executed). A hard-coded literal in the HCL configuration itself is outside this case and is covered by the existing code-expression cases.",
+    "sources": [
+      {
+        "sourceId": "developer-hashicorp-com-7f3e265158",
+        "supports": "Write-only arguments accept both ephemeral and non-ephemeral values. For example, you could also use a string as the value of a write-only argument:",
+        "locator": "section: Declare a write-only argument"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-7f3e265158",
+        "supports": "During a Terraform operation, the provider uses the password_wo value to create the database instance, and then Terraform discards that value without storing it in the plan or state file.",
+        "locator": "section: Declare a write-only argument"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-636a1a3afd",
+        "supports": "\"constant_value\" is set only if the expression contains no references to other objects, in which case it gives the resulting constant value.",
+        "locator": "section: Expression Representation"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-636a1a3afd",
+        "supports": "\"variables\" is a representation of all the variables provided for the given plan.",
+        "locator": "section: Plan Representation"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Needs a maintainer or a HashiCorp-sourced statement to settle; no value was produced by running Terraform.",
+  "relations": [
+    {
+      "type": "mutation-of",
+      "target": "terraform-json-sensitive-attribute-literal-beside-true-flag",
+      "mutationKind": "value-restated-in-another-plan-section",
+      "note": "The same secret is moved from change.after to the configuration or variables section of the plan document."
+    }
+  ]
+}

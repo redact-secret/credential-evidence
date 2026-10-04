@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "postman-stored-auth-and-variable-values-not-in-use",
+  "title": "Postman exports: credential-shaped values stored in an unselected auth type or a disabled variable",
+  "summary": "Two situations a Postman export can express in its own bytes. A collection auth object whose type selects one scheme while another scheme's attribute array, holding a credential-shaped value, is still stored. A variable or environment entry marked disabled (or enabled false) that still holds a credential-shaped value. No fixture is authored.",
+  "rationale": "The SDK documents that a request can hold the data of several auth types with one selected, and that disabled variables are skipped by lookup. Whether a value that Postman will not use is still to be treated as a credential is a judgement the sources do not settle: the bytes are as present as in the active case and could be a leftover real value, but nothing documented says that inactive storage changes or keeps its confidentiality. The case records the ambiguity instead of choosing, so that neither a must-flag nor a must-not-flag label is invented.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "postman:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Candidate outcomes: must-flag (the value is a credential-shaped literal in a credential-bearing field; being unselected or disabled is a runtime state of the application, not a property of the bytes), or may-flag (an inactive value may be a leftover, so a report is allowed but not required). The sources show only how Postman treats such values (an unselected auth type keeps its attribute data; a disabled variable is ignored by lookup; a disabled header is not sent), and not how confidentiality follows. A maintainer decision with a named non-author reviewer would settle it; an agent cannot. Until then no fixture is authored and the case is not counted as a true or false negative.",
+    "sources": [
+      {
+        "sourceId": "github-com-postmanlabs-postman-collection-e8dddb056c",
+        "supports": "A request auth definition can hold the attribute data of several auth types at once (for example basic and digest) while one type is selected with use().",
+        "locator": "lib/collection/request-auth.js#L33-L49"
+      },
+      {
+        "sourceId": "github-com-postmanlabs-postman-collection-31071a711d",
+        "supports": "Disabled variables are not returned by has() or get(); a disabled variable is not updated by set(), which adds a new variable instead.",
+        "locator": "lib/collection/variable-scope.js#L132-L139"
+      },
+      {
+        "sourceId": "schema-postman-com-592510d80e",
+        "supports": "A variable and a header can carry a disabled boolean, and a disabled header is not sent with requests.",
+        "locator": "#/definitions/variable properties.disabled and #/definitions/header properties.disabled"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-04; no scanner was run. Needs human: outcome decision (maintainer, with a non-author reviewer); an agent run does not write project-policy."
+}

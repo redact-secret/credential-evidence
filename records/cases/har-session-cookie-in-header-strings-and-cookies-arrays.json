@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "har-session-cookie-in-header-strings-and-cookies-arrays",
+  "title": "Session cookie value in HAR headers and cookies arrays",
+  "summary": "A synthetic HAR 1.2 document with one entry in which the request session identifier appears twice (a Cookie header string and a cookies array entry) and a rotated response session identifier appears twice (a Set-Cookie header string and a response cookies array entry).",
+  "rationale": "A HAR file stores one cookie in more than one place: the headers array keeps the raw header as a name property and a value property that is the whole cookie string, and the cookies array keeps the same cookie again as separate name and value properties. The cookie name that gives the value its role is in a sibling property of the value in the array form and in the same string in the header form. Reporting one place does not cover the other, so each occurrence is its own span and the two occurrences of one value are not one finding. The extent is the cookie value only: not the JSON quotes, the other cookies in the Cookie string, or the Set-Cookie attributes or the path, secure and httpOnly properties beside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "generic:http-session-cookie",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value",
+    "multiple-credentials-per-input"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag the session-identifier value at every one of its four occurrences, each span covering only the value. The HAR 1.2 specification states that the cookies object lists all cookies used in the request and response objects and that a headers entry is a name and a value, so the same cookie is expected both ways. RFC 6265 states that a session identifier nonce is useful only for interacting with the server. The role comes from the fixture's own cookie name, which no standard assigns meaning to (the name-classification question stays unresolved in http-ordinary-cookies-and-opaque-application-state). This is a standards statement about the nonce, not a statement by a HAR tool vendor.",
+    "sources": [
+      {
+        "sourceId": "web-archive-org-75985a4994",
+        "supports": "cookies: This object contains list of all cookies (used in <request> and <response> objects); each entry has a name and a value.",
+        "locator": "section: cookies"
+      },
+      {
+        "sourceId": "web-archive-org-75985a4994",
+        "supports": "headers: This object contains list of all headers (used in <request> and <response> objects); each entry has a name and a value.",
+        "locator": "section: headers"
+      },
+      {
+        "sourceId": "rfc-editor-org-e003fbf5ed",
+        "supports": "servers commonly store a nonce (or \"session identifier\") in a cookie; the nonce is useful only for interacting with the server",
+        "locator": "#section-8.4"
+      },
+      {
+        "sourceId": "rfc-editor-org-e003fbf5ed",
+        "supports": "cookie-string = cookie-pair *( \";\" SP cookie-pair )",
+        "locator": "#section-4.2.1"
+      },
+      {
+        "sourceId": "rfc-editor-org-e003fbf5ed",
+        "supports": "set-cookie-string = cookie-pair *( \";\" SP cookie-av )",
+        "locator": "#section-4.1.1"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited specification and RFC read on 2026-10-04, before any scanner was consulted. Origin: evidence-derived (the HAR field structure and the cookie semantics are documented; the combination is composed here, not observed in a real capture). All values are synthetic, built by hand from a documented grammar (a plain nonce or token under an obviously fake host and name) and were not tested against any service. HAR parsing, the decoding of a postData.text string, header coalescing, parser and action policy and product masking stay with the downstream repositories (credential-evidence#150, credential-eval)."
+}

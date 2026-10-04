@@ -1,0 +1,375 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "opentelemetry-log-records-authored",
+  "title": "OpenTelemetry log record fixtures (authored)",
+  "description": "Two authored benign bases (a 32-character lowercase hex trace id built by hand, and the upper-case trace id example printed in the OTLP specification) and nine hand-written OTLP/JSON log records that project them: the two existing authored GitHub classic personal access token bases (a and b, reused, not re-authored) placed in a body string, a nested map and array body, an attribute, exception text, a resource attribute and a body string holding serialized JSON, plus one record with both tokens, and two identifier-only records. Every record carries a trace id and a span id. Synthetic: the tokens are the existing fake word runs padded with zeros, never issued, and the record structure is an evidence-derived construction from the OpenTelemetry data model and OTLP/JSON encoding, not an observed log. None was tested against any service. The independent base count is four (two token bases, two identifier bases); the nine projections are correlated.",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "opentelemetry-log-records-authored--trace-id-lowercase-hex-base",
+      "case": "spec-defined-identifiers-with-key-shape",
+      "path": "trace-id-lowercase-hex-base/input.txt",
+      "context": "trace-id-hex",
+      "sha256": "f9ef9dbeeb21d59b2279f6e6b18433d0b9456736c36085c83c5f876c7d981595",
+      "text": "7f3a9c1e5b2d4086a1c3e5f70912b4d6",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--trace-id-uppercase-hex-base",
+      "case": "spec-defined-identifiers-with-key-shape",
+      "path": "trace-id-uppercase-hex-base/input.txt",
+      "context": "trace-id-hex",
+      "sha256": "50a246a2e4ff8712f2230ef8889677b6e7a274cbe4096250586fb552d630e55e",
+      "text": "5B8EFFF798038103D269B633813FC60C",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--body-string",
+      "case": "credential-in-opentelemetry-log-record-fields",
+      "path": "body-string/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "b8601c71c079dae68b5ce219784c1b98db3cab6be1418dd6e835e529847db6b2",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"stringValue\":\"upstream call failed for ghp_SYNTHETICCTXBASEA0000000000000000000 after 3 retries\"},\"attributes\":[{\"key\":\"code.function\",\"value\":{\"stringValue\":\"fetchRepo\"}}],\"traceId\":\"7f3a9c1e5b2d4086a1c3e5f70912b4d6\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 315,
+            "end": 355,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "opentelemetry-log-records-authored--trace-id-lowercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--body-nested-map-and-array",
+      "case": "credential-in-opentelemetry-log-record-fields",
+      "path": "body-nested-map-and-array/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "dcd1af0cd677a9a9534c04f1acf01b821a392f077b02f0a277a7995a90b526d7",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"kvlistValue\":{\"values\":[{\"key\":\"request\",\"value\":{\"kvlistValue\":{\"values\":[{\"key\":\"payload\",\"value\":{\"arrayValue\":{\"values\":[{\"stringValue\":\"retry\"},{\"stringValue\":\"ghp_SYNTHETICCTXBASEA0000000000000000000\"}]}}}]}}}]}},\"attributes\":[{\"key\":\"code.function\",\"value\":{\"stringValue\":\"fetchRepo\"}}],\"traceId\":\"7f3a9c1e5b2d4086a1c3e5f70912b4d6\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 441,
+            "end": 481,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "opentelemetry-log-records-authored--trace-id-lowercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--attribute-string",
+      "case": "credential-in-opentelemetry-log-record-fields",
+      "path": "attribute-string/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "367755a2236e2e45cae815fcfbdbcf61e26ab012be9ab82951e82d0b8b303155",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"stringValue\":\"upstream call failed after 3 retries\"},\"attributes\":[{\"key\":\"code.function\",\"value\":{\"stringValue\":\"fetchRepo\"}},{\"key\":\"app.debug.detail\",\"value\":{\"stringValue\":\"ghp_SYNTHETICCTXBASEA0000000000000000000\"}}],\"traceId\":\"7f3a9c1e5b2d4086a1c3e5f70912b4d6\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 453,
+            "end": 493,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "opentelemetry-log-records-authored--trace-id-lowercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--exception-message-and-stacktrace",
+      "case": "credential-in-opentelemetry-log-record-fields",
+      "path": "exception-message-and-stacktrace/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "2901742e8ad807b003edb8e451049101ac30c9ca0b4f13f7982abd36cdedaf17",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"stringValue\":\"upstream call failed after 3 retries\"},\"attributes\":[{\"key\":\"exception.type\",\"value\":{\"stringValue\":\"synthetic.UpstreamError\"}},{\"key\":\"exception.message\",\"value\":{\"stringValue\":\"401 from upstream for ghp_SYNTHETICCTXBASEA0000000000000000000\"}},{\"key\":\"exception.stacktrace\",\"value\":{\"stringValue\":\"Traceback (most recent call last):\\n  File \\\"client.py\\\", line 42, in call\\n    raise UpstreamError(\\\"rejected ghp_NOTREALCONTEXTBASEB00000000000000000\\\")\\nsynthetic.UpstreamError: rejected\"}}],\"traceId\":\"7f3a9c1e5b2d4086a1c3e5f70912b4d6\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 491,
+            "end": 531,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 700,
+            "end": 740,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "context-and-large-input-bases-authored--github-classic-pat-base-b",
+          "opentelemetry-log-records-authored--trace-id-lowercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          },
+          {
+            "op": "escape",
+            "style": "json-string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--resource-attribute",
+      "case": "credential-in-opentelemetry-log-record-fields",
+      "path": "resource-attribute/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "ab3942bad0a5b008ebca3ccbb285699f300a6fd2aa48a077ea01c6ea08898fa9",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}},{\"key\":\"synthetic.resource.note\",\"value\":{\"stringValue\":\"ghp_SYNTHETICCTXBASEA0000000000000000000\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"stringValue\":\"upstream call failed after 3 retries\"},\"attributes\":[{\"key\":\"code.function\",\"value\":{\"stringValue\":\"fetchRepo\"}}],\"traceId\":\"7f3a9c1e5b2d4086a1c3e5f70912b4d6\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 169,
+            "end": 209,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "opentelemetry-log-records-authored--trace-id-lowercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--body-string-holding-serialized-json",
+      "case": "credential-in-opentelemetry-log-record-fields",
+      "path": "body-string-holding-serialized-json/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "8bdd6696fd9959af3fb18dd6bb72ac4ebc53e65ef08972b0b97ec84a7e9704da",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"stringValue\":\"{\\\"op\\\":\\\"refresh\\\",\\\"arg\\\":\\\"ghp_SYNTHETICCTXBASEA0000000000000000000\\\"}\"},\"attributes\":[{\"key\":\"code.function\",\"value\":{\"stringValue\":\"fetchRepo\"}}],\"traceId\":\"7f3a9c1e5b2d4086a1c3e5f70912b4d6\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 320,
+            "end": 360,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "opentelemetry-log-records-authored--trace-id-lowercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          },
+          {
+            "op": "escape",
+            "style": "json-string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--two-secrets-with-upper-case-trace-id",
+      "case": "credential-in-opentelemetry-log-record-fields",
+      "path": "two-secrets-with-upper-case-trace-id/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "524be1fd5bfd3475e527d91120d96ff89e3ebfd2766834972cfa25e22d2456c8",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"stringValue\":\"upstream call failed for ghp_SYNTHETICCTXBASEA0000000000000000000 after 3 retries\"},\"attributes\":[{\"key\":\"code.function\",\"value\":{\"stringValue\":\"fetchRepo\"}},{\"key\":\"app.debug.detail\",\"value\":{\"stringValue\":\"ghp_NOTREALCONTEXTBASEB00000000000000000\"}}],\"traceId\":\"5B8EFFF798038103D269B633813FC60C\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 315,
+            "end": 355,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-a"
+          },
+          {
+            "start": 498,
+            "end": 538,
+            "role": "secret",
+            "note": "Synthetic value; never issued.",
+            "base": "context-and-large-input-bases-authored--github-classic-pat-base-b"
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "context-and-large-input-bases-authored--github-classic-pat-base-a",
+          "context-and-large-input-bases-authored--github-classic-pat-base-b",
+          "opentelemetry-log-records-authored--trace-id-uppercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--ids-only-lowercase-trace-id",
+      "case": "spec-defined-identifiers-with-key-shape",
+      "path": "ids-only-lowercase-trace-id/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "c0aa1dedff9b582428cae9c9e082683226cb6ada4cd2219d7174b79e9ff6f79e",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"stringValue\":\"upstream call failed after 3 retries\"},\"attributes\":[{\"key\":\"code.function\",\"value\":{\"stringValue\":\"fetchRepo\"}}],\"traceId\":\"7f3a9c1e5b2d4086a1c3e5f70912b4d6\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "opentelemetry-log-records-authored--trace-id-lowercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "opentelemetry-log-records-authored--ids-only-upper-case-trace-id",
+      "case": "spec-defined-identifiers-with-key-shape",
+      "path": "ids-only-upper-case-trace-id/input.json",
+      "context": "otlp-json-log-record",
+      "sha256": "05c738b28fda2206c2e9c5f32530d5d5570575ba8b3d26260bb4c8c005811bbf",
+      "text": "{\"resourceLogs\":[{\"resource\":{\"attributes\":[{\"key\":\"service.name\",\"value\":{\"stringValue\":\"synthetic-checkout\"}}]},\"scopeLogs\":[{\"scope\":{\"name\":\"synthetic.example.logger\"},\"logRecords\":[{\"timeUnixNano\":\"1700000000000000000\",\"severityNumber\":17,\"severityText\":\"ERROR\",\"body\":{\"stringValue\":\"upstream call failed after 3 retries\"},\"attributes\":[{\"key\":\"code.function\",\"value\":{\"stringValue\":\"fetchRepo\"}}],\"traceId\":\"5B8EFFF798038103D269B633813FC60C\",\"spanId\":\"a1b2c3d4e5f60718\"}]}]}]}",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "derivation": {
+        "kind": "projection",
+        "bases": [
+          "opentelemetry-log-records-authored--trace-id-uppercase-hex-base"
+        ]
+      },
+      "transformation": {
+        "steps": [
+          {
+            "op": "embed",
+            "mode": "embedded",
+            "carrier": "opentelemetry-log-record-json"
+          }
+        ]
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
