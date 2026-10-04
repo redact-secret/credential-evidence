@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "contentful:cma-personal-access-token@1",
+  "family": "contentful:cma-personal-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Contentful's Authentication page names personal access tokens as one of two types of content management (Content Management API) token: created by a user in the Contentful web app under CMA tokens, used to access data from the user's own account, carrying the same rights as the account owner, and shown for copying only at creation.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "Personal access tokens - Use if you’re using the content management API to access data from your own Contentful user account",
+          "locator": "#the-content-management-api"
+        },
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "This token will have the same rights as the owner of the account.",
+          "locator": "#the-content-management-api"
+        },
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "Make sure to immediately copy your new personal access token. You won’t be able to do it after closing the Create personal access token window.",
+          "locator": "#getting-a-personal-access-token"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Candidate established at existence level only. The page read states no prefix, alphabet, length or expiry for personal access tokens; format must not be inferred from SDK or CLI examples. The Contentful CLI README (login via the OAuth service) does not say which token kind the CLI stores, so a separate CLI token family is unresolved. Public-client exposure is not discussed for this kind; the page says it carries the full rights of the account. Lead, not a claim: one open-source scanner rule artifact (trufflesecurity/trufflehog, pkg/detectors/contentfulpersonalaccesstoken/contentfulpersonalaccesstoken.go at commit 59e3b04e820c4cad30462696ac497853a5f7679c, lines 23 and 29) treats a literal CFPAT- prefix followed by 43 characters of letters, digits, underscore or hyphen as a Contentful personal access token. No second artifact by a different maintainer was found (Gitleaks and Nosey Parker have no rule for this prefix; no checked artifact is from the provider), so a format claim stays unresolved; the class tool-corroborated needs two. This was not tested against any live service.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

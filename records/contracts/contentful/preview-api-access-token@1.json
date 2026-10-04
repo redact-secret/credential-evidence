@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "contentful:preview-api-access-token@1",
+  "family": "contentful:preview-api-access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Contentful documents a separate Preview API access token, available on the same page as the Delivery API token, used with the preview host (preview.contentful.com) of the Content Preview API. The Authentication page treats the Delivery and Preview APIs together: API keys are created through the Content Management API or the web app under Settings > API keys, and a token provides read-only access to one or more environments.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "To request data from the Content Delivery API or Content Preview API you can create API keys in two ways:",
+          "locator": "#the-content-delivery-and-preview-api"
+        },
+        {
+          "sourceId": "github-com-contentful-contentful-js-d397f43119",
+          "supports": "you need to use the Preview API Access token, available on the same page where you get the Delivery API token, and specify the host of the preview API",
+          "locator": "#using-this-library-with-the-preview-api"
+        },
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "A token provides read-only access to one or more environments.",
+          "locator": "#authentication"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "Candidate established at existence level only. The README example shows a placeholder value with a preview_ prefix but does not state a format rule; format, confidentiality and public-client exposure are not stated in the README read. The Authentication page does not say whether delivery and preview tokens are the same string or distinct, nor whether either may appear in public client code.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
