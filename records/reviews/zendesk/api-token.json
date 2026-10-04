@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-zendesk-api-token",
+  "subject": {
+    "kind": "family",
+    "id": "zendesk:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Candidate identified by an AI agent run from the Zendesk developer pages \"Security and authentication\" and \"Migrating from API tokens to OAuth access tokens\" (plus two scanner rule artifacts for a tool-corroborated length claim) read on 2026-10-04; not reviewed, and an agent run is not an independent review."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
