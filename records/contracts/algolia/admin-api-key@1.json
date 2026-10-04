@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "algolia:admin-api-key@1",
+  "family": "algolia:admin-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "admin-api-key-exists",
+      "statement": "Algolia documents a predefined Admin API key, described as its most sensitive key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Algolia comes with a set of predefined API keys, the most important being the Admin API key and the Search-only API key. Your Admin API key is your most sensitive key and should remain confidential.",
+          "locator": "#admin-api-key"
+        }
+      ]
+    },
+    {
+      "id": "admin-api-key-handling",
+      "statement": "Algolia states that the account admin API key gives access to everything in the account, including all indices, and that it must be kept confidential and not used in any app.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "Your account's admin API key gives access to everything in your account, including all your indices. Keep your admin API key confidential and never use it in production.",
+          "locator": "#keep-your-admin-api-key-confidential"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is established only as existing: the prefix, alphabet, length and structure of the value are not documented on the pages read and are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The pages read do not say whether Algolia keys of different roles share one value shape; role must not be attributed from shape alone, and identification needs the surrounding context (header, variable name, ACL).",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

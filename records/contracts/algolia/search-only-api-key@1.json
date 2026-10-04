@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "algolia:search-only-api-key@1",
+  "family": "algolia:search-only-api-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "search-only-api-key-exists",
+      "statement": "Algolia documents a predefined Search-only API key that searches all indices of an application.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Algolia provides a search-only API key that lets you search your data. It works on all your Algolia application indices.",
+          "locator": "#search-only-api-key"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-exposure",
+      "statement": "Algolia documents the Search-only API key as intended for production frontend code, and also states that when it is exposed third parties can use it to scrape the indices and flood the account with search requests.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "It works on all your Algolia application indices and is safe to use in your production frontend code. When using Algolia, your search-only API key is exposed and third parties could use it to: Scrape everything from your indices; Flood your account with search requests.",
+          "locator": "#risks-of-api-key-exposure"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "This candidate is established only as existing: the prefix, alphabet, length and structure of the value are not documented on the pages read and are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The pages read do not say whether Algolia keys of different roles share one value shape; role must not be attributed from shape alone, and identification needs the surrounding context (header, variable name, ACL).",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-3",
+      "question": "Public client exposure of this key is documented as expected; whether a detection of one in public code is a finding is an exposure-policy question that this record does not answer.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
