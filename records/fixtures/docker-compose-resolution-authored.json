@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "docker-compose-resolution-authored",
+  "title": "Docker Compose source versus resolved configuration (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "docker-compose-resolution-authored--resolved-config-literal",
+      "case": "compose-resolved-config-renders-referenced-credential",
+      "path": "resolved-config-literal/fixture.txt",
+      "context": "compose-yaml",
+      "sha256": "778d82d013df54827d8d3b8ee45b71df5e95f5374fa73cf8597ab7af2a0835ff",
+      "text": "services:\n  web:\n    image: example.invalid/synthetic/webapp:1.0\n    environment:\n      GITHUB_TOKEN: ghp_SYNTHETICCOMPOSERESOLVED000000000000\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 102,
+            "end": 142,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "docker-compose-resolution-authored--source-reference",
+      "case": "empty-referenced-and-templated-credential-values",
+      "path": "source-reference/fixture.txt",
+      "context": "compose-yaml",
+      "sha256": "71c4d0af5be463b581e3599765f7e2155808430ef7205ed3c33ed75bcac400d1",
+      "text": "services:\n  web:\n    image: example.invalid/synthetic/webapp:1.0\n    environment:\n      GITHUB_TOKEN: ${GITHUB_TOKEN}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "lineage": {
+        "relation": "twin-of",
+        "of": "docker-compose-resolution-authored--resolved-config-literal",
+        "mutationKind": "reference-vs-resolved-literal",
+        "mutation": "Same Compose file with the environment value left as the reference ${GITHUB_TOKEN} instead of the literal that docker compose config would print once the variable is resolved. Every other line is identical."
+      }
+    },
+    {
+      "id": "docker-compose-resolution-authored--default-literal",
+      "case": "compose-default-value-holds-literal-credential",
+      "path": "default-literal/fixture.txt",
+      "context": "compose-yaml",
+      "sha256": "51c5bf27d81bec58703f8d36ae4a256b54434cfab8c795bee4ab543af5b4558d",
+      "text": "services:\n  web:\n    image: example.invalid/synthetic/webapp:1.0\n    environment:\n      GITHUB_TOKEN: ${GITHUB_TOKEN:-ghp_SYNTHETICCOMPOSEDEFAULT0000000000000}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 118,
+            "end": 158,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      },
+      "derivation": {
+        "kind": "authored-base"
+      }
+    },
+    {
+      "id": "docker-compose-resolution-authored--empty-default",
+      "case": "empty-referenced-and-templated-credential-values",
+      "path": "empty-default/fixture.txt",
+      "context": "compose-yaml",
+      "sha256": "c50abfabf3fad5f7391a780643facd69a74456ea767cff221135c29a72786859",
+      "text": "services:\n  web:\n    image: example.invalid/synthetic/webapp:1.0\n    environment:\n      GITHUB_TOKEN: ${GITHUB_TOKEN:-}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "lineage": {
+        "relation": "twin-of",
+        "of": "docker-compose-resolution-authored--default-literal",
+        "mutationKind": "default-text",
+        "mutation": "Same line with the default text after :- removed (${GITHUB_TOKEN:-}); the credential literal is gone and every other byte is identical."
+      }
+    },
+    {
+      "id": "docker-compose-resolution-authored--required-message",
+      "case": "empty-referenced-and-templated-credential-values",
+      "path": "required-message/fixture.txt",
+      "context": "compose-yaml",
+      "sha256": "1d0d4abdce730e9aec0ff1ce0f9eab7abc5684fbc38e09ea1ef4d68f3b6517c2",
+      "text": "services:\n  web:\n    image: example.invalid/synthetic/webapp:1.0\n    environment:\n      GITHUB_TOKEN: ${GITHUB_TOKEN:?GITHUB_TOKEN must be set}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      },
+      "lineage": {
+        "relation": "twin-of",
+        "of": "docker-compose-resolution-authored--default-literal",
+        "mutationKind": "default-form",
+        "mutation": "Same line with the :- default form replaced by the :? required form and an error message (${GITHUB_TOKEN:?GITHUB_TOKEN must be set}); the text after the operator is a message, not a value."
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "description": "Hand-authored synthetic Docker Compose fixtures (issue #192) for the difference between a Compose source file and the configuration docker compose config renders from it, and for default-value forms. Every ghp_-shaped value was built from an authored description (a SYNTHETIC marker word run padded with zeros, so the trailing checksum characters are deliberately invalid) and was never issued. The resolved layout is written by hand in the mapping form the Docker pages show; it is not captured output of a docker run. Each fixture projects one Case; twin lineage within the set is authored by hand."
+}
