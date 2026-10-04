@@ -1,6 +1,6 @@
 # 0019. Maintainer decisions on the epic #92 review debt
 
-- Status: decided, awaiting second review (an item is final only when its row below names a second reviewer)
+- Status: decided; the `blocked` items were applied as `maintainer-only` by [ADR 0020](0020-solo-maintainer-period.md) (see Addendum 1). Before that, awaiting second review (an item was final only when its row named a second reviewer)
 - Date: 2026-10-04
 - Issue: redact-secret/credential-evidence#142
 - Deciding maintainer: Milo Kang (GitHub `milocosmopolitan`), the repository owner
@@ -75,3 +75,7 @@ Nothing moves out of `not-assertable` in this PR, so the next snapshot's expecta
 - No expectation is asserted without a named non-author reviewer. The decisions are on record so the review is a check of a stated choice, not a fresh decision.
 - All records stay `lifecycle: draft`. Nothing here sets `reviewed`, and a release is not a review.
 - No release is cut by this change.
+
+## Addendum 1 (2026-10-04, ADR 0020)
+
+The owner decided that the project stays a one-person project with no second reviewer, and approved the temporary solo-maintainer period ([ADR 0020](0020-solo-maintainer-period.md)). Under it, every row above whose status is **blocked** was applied exactly as decided, as `maintainer-only` (never `reviewed`): items 2 (#94), 3 (#95, five cases), 4 (NBSP only), 5 (marker body only), 6 (#112, three fixtures; the Slack case has none and stays `not-assertable`), 7 (#114, the decided parts) and 8(b) (#115, class lowered). The rows marked **kept** stay unresolved. Item 1 (a located standard backing `provider-documented`) and item 12 (review debt) are unchanged: a source-based class change and a review are not covered by the rule. The counts in the Counts section above are the "before" of ADR 0020. The text above is the record of the decision and is not edited.

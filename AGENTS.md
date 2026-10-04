@@ -39,7 +39,10 @@ Redact Secret did not exist?
 (`gh pr create --base main`). CI (`verify` and `historical`) runs on every pull request and every push to `main`.
 There is no `develop`; `npm run research:run` uses `develop` as its base only if `origin` has that branch, else `main`,
 and `record:check` defaults to `origin/main`. If `develop` is ever introduced, this section changes first. Never merge your
-own pull request.
+own pull request. The one exception is a merge the repository owner (the sole maintainer, today) has explicitly
+instructed an agent to make in this repository: it is the owner's merge through the agent, the pull request body says so,
+and it waits for green CI. The exception covers no other agent and no other pull request, and does not make a
+`maintainer-only` record `reviewed` ([solo-maintainer period](docs/governance/solo-maintainer-period.md)).
 
 ## Before finishing
 

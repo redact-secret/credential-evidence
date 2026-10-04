@@ -60,6 +60,12 @@ For each claim and case:
 - A reviewer does not review their own contribution, or a contribution from
   their close collaborator on the same change, without disclosing the
   relationship.
+- **Solo-maintainer period (temporary).** While one person is the only
+  maintainer, a project-policy outcome or a change of class to
+  `project-policy` may be finalized by that maintainer alone. The record is
+  `maintainer-only`: not `reviewed`, not a project review, not independent
+  validation, and it waits for retro-review. Nothing else in this section is
+  relaxed. See [solo-maintainer period](solo-maintainer-period.md).
 
 ## Credit for reviews
 

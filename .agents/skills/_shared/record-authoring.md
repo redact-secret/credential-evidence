@@ -64,7 +64,8 @@ still a legitimate *source* (`scanner-rule-source`); its name is not a legitimat
 
 - `lifecycle`: start `draft`. `reviewed` needs a reviewer who is not the author recorded in the
   review history ([attribution](../../../docs/governance/attribution.md#review-independence));
-  an agent never sets it.
+  an agent never sets it. `maintainer-only` (ADR 0020) is not a state an agent chooses: it is written only on the
+  repository owner's explicit instruction, per [authoring](../../../docs/authoring.md#maintainer-only-records-solo-maintainer-period).
 - `notes`: project-authored records say so: "Project-authored by the Redact Secret project,
   which maintains this repository; not independent evidence." The scaffolder writes it.
 - `observedAt`: when a person or tool actually read the evidence; never the authoring date, never
