@@ -36,6 +36,51 @@
             "claimId": "tool-corroboration"
           }
         ]
+      },
+      {
+        "id": "shpat-offline-online",
+        "text": "Shopify documents offline and online access tokens as opaque strings that begin shpat_, whichever grant produced them, and states no prefix difference between the tokens of public apps and of custom apps.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "shopify-dev-198f512ad9"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "delegate-token-prefix",
+        "text": "Shopify documents the shppa_ prefix as the prefix of delegate access tokens, which derive from an app's offline access token and carry only the scopes the app specifies.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "shopify-dev-198f512ad9"
+          }
+        ]
+      },
+      {
+        "id": "client-id-public",
+        "text": "An app's client ID is a public identifier that Shopify describes as safe to include in frontend code, and it is a different value from the app's access tokens and client secret.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "shopify-dev-ad3a92eee4"
+          },
+          {
+            "kind": "source",
+            "sourceId": "shopify-dev-bcae99a1fb"
+          }
+        ]
       }
     ],
     "issuance": [
@@ -67,6 +112,28 @@
         "unresolved": {
           "reviewEvent": 2,
           "reason": "The provider calls the body an opaque string and states no length or alphabet, and no issued token was inspected, so the body grammar cannot be established from provider evidence."
+        }
+      },
+      {
+        "id": "custom-versus-public-discrimination",
+        "text": "Can a shpat_ token of a custom app be told apart from a shpat_ token of a public app by its text alone?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The provider documents one shpat_ prefix for offline and online tokens and states no other difference between app types, so attributing a bare shpat_ value to custom apps is not supported by the pages read."
+        }
+      },
+      {
+        "id": "admin-created-token-prefix",
+        "text": "Does the pre-generated token of an admin-created custom app begin shpat_?",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-04",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The page on admin-created custom apps states no prefix for the token, and the access-tokens page names offline and online tokens rather than these."
         }
       }
     ]
