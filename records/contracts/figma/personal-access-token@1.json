@@ -10,7 +10,11 @@
     "until": null
   },
   "supersedes": null,
-  "structure": {},
+  "structure": {
+    "prefixes": [
+      "figd_"
+    ]
+  },
   "claims": [
     {
       "id": "existence",
@@ -30,14 +34,62 @@
           "locator": "#access-tokens"
         }
       ]
+    },
+    {
+      "id": "prefix-corroboration",
+      "statement": "Two open-source scanner rule artifacts from different maintainers, TruffleHog detector v2 and the Betterleaks rule figma-personal-access-token, both treat a literal figd_ prefix followed by a body of letters, digits, underscore and hyphen as the shape of a Figma personal access token. They differ on body length (the first states 40 characters, the second 38 to 42) and on the stated letter case, so neither length nor alphabet is claimed. This is consistency between artifacts, not a Figma statement of the format.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-8a63ef7f2b",
+          "supports": "TruffleHog detector v2 (pinned at commit 59e3b04): keyword figma plus a figd_-prefixed body of 40 characters from letters, digits, underscore and hyphen (its prefix group is written as a character class that also admits other letters; only the figd_ reading is claimed).",
+          "locator": "#L29"
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-dcd7d3fb07",
+          "supports": "Betterleaks rule figma-personal-access-token (pinned at commit f88a2fd): literal figd_ prefix, keyword figd_, body of 38 to 42 characters from letters, digits, underscore and hyphen.",
+          "locator": "#L32-L35"
+        }
+      ]
+    },
+    {
+      "id": "legacy-grouped-shape-corroboration",
+      "statement": "The same two maintainers' artifacts, TruffleHog detector v1 and the Betterleaks rule figma-personal-access-header-token, both treat a dash-separated value of a leading group followed by groups of 8, 4, 4, 4 and 12 alphanumeric characters as a possible Figma personal access token, only near a context keyword (figma, or an x-figma-token header name). They disagree on the leading group (6 digits against 4 hexadecimal characters). This is consistency between artifacts, not a Figma statement; whether this is an earlier token form is not established.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-dd8194f79b",
+          "supports": "TruffleHog detector v1 (pinned at commit 59e3b04): keyword figma plus a 6-digit group then groups of 8, 4, 4, 4 and 12 lowercase alphanumeric characters separated by dashes.",
+          "locator": "#L29"
+        },
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-dcd7d3fb07",
+          "supports": "Betterleaks rule figma-personal-access-header-token (pinned at commit f88a2fd): x-figma-token style header names plus a 4-character group then groups of 8, 4, 4, 4 and 12 hexadecimal characters separated by dashes.",
+          "locator": "#L54-L56"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
   "openQuestions": [
     {
-      "id": "format-not-researched",
-      "question": "Candidate only: existence is documented, but the pages read state no prefix, alphabet, length or other format. Not researched beyond existence; the format is not inferred from sample tokens.",
+      "id": "format-not-documented",
+      "question": "The Figma pages read state no prefix, alphabet or length for personal access tokens; the figd_ prefix rests only on two scanner-rule artifacts. Does any Figma page state it, and what is the body length and alphabet?",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "figp-prefix-lead",
+      "question": "Lead only: a third TruffleHog detector (v3, same maintainer as v1 and v2, so not a second artifact) treats a figp_ prefix followed by 40 to 54 characters as a Figma personal access token. No second maintainer artifact was found, so nothing is claimed. Is figp_ a distinct token generation?",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "legacy-form-relationship",
+      "question": "Is the dash-separated grouped form an earlier personal access token generation, and does the leading group have 4 or 6 characters? The two artifacts disagree and no Figma page was found that states it.",
       "raisedAt": "2026-10-04"
     }
   ]
