@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "zendesk:oauth-refresh-token@1",
+  "family": "zendesk:oauth-refresh-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Zendesk documents an OAuth refresh token returned with the access token in the authorization code flow and exchanged at /oauth/tokens (grant_type refresh_token) for a new access token and refresh token; the old refresh token stops working immediately, and the default lifetime is 30 days (configurable from 7 to 90 days). The client credentials flow returns no refresh token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "Refresh token: Used behind the scenes to get a new access token when the current one expires. ... Refresh token 30 days by default, configurable from 7 to 90 days ... The old refresh token stops working right away.",
+          "locator": "#how-tokens-work and #default-token-lifespans"
+        },
+        {
+          "sourceId": "developer-zendesk-com-55d989dd48",
+          "supports": "\"grant_type\": \"refresh_token\", \"refresh_token\": \"{YOUR_REFRESH_TOKEN}\"",
+          "locator": "refresh request example"
+        },
+        {
+          "sourceId": "developer-zendesk-com-08d797ceee",
+          "supports": "Unlike the authorization code flow, no user redirect is required and Zendesk does not return a refresh token.",
+          "locator": "#client-credentials-flow"
+        }
+      ]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "opaque-grammar",
+      "question": "The pages show example refresh tokens of differing shapes (32 and 64 characters) and state no format; no shape is recorded.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "not-researched-beyond-existence",
+      "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
+      "raisedAt": "2026-10-04"
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Zendesk developer documentation read on 2026-10-04; the family is not researched beyond what the claims state."
+}
