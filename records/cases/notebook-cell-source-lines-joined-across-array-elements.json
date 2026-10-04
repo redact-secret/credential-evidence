@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "notebook-cell-source-lines-joined-across-array-elements",
+  "title": "Notebook cell source array: value split between list elements",
+  "summary": "A synthetic notebook whose one code cell assigns an AWS-secret-access-key-shaped value to a variable named aws_secret_access_key. In one projection the cell source is a list with one element per line and the value is inside a single element; in the second the same value is divided between two adjacent source elements, so no single JSON string in the file holds it.",
+  "rationale": "The notebook format stores multi-line strings either as one string or as a list of strings that is joined with an empty string. The raw bytes of a split value are separated by a closing quote, a comma, a line break and an opening quote, which belong to the JSON array and not to the value. Failure mode: covering only the first fragment, or treating the quote-and-comma gap as part of the secret. This is a format-level rebuild rule stated by the format owner, a different mechanism from language string concatenation or a shell line continuation. The split position inside the value is an authored stress variant derived from the permission to split a list; it is not an observed notebook, and the specification does not say where a producer splits. Preconditions: the reading that holds the intact value requires parsing the JSON and joining the elements, so whether a consumer does that is a downstream, unmeasured capability (credential-eval handoff #150), not an assumption here.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "aws:iam-user-secret-access-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "value-rebuilt-by-the-surrounding-language",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag the whole value in both projections; in the split projection cover each fragment (the two array elements) and give the quote, comma and line break between them no secret role. Two statements are combined by a step a reviewer can repeat: the notebook format states that a multi-line string field written as a list of strings is joined with an empty string when read back and that readers must accept a string or a list of strings; and the IAM user guide states that the secret access key can be retrieved only at creation and must not be given to unauthorized parties, with the variable name aws_secret_access_key on the value's own line as the documented key-name context of the family contract. Synthetic and never issued: each value was built from an authored stem (SYNTHETIC plus a role word plus NEVERISSUED), zero padding and a fixed tail so that it matches the 40-character shape but is not a value any AWS account issued; no notebook was executed, so every output block is authored text, not a recording.",
+    "sources": [
+      {
+        "sourceId": "nbformat-readthedocs-io-5392927899",
+        "supports": "When these fields are written to disk, they may be written as a list of strings, which should be joined with '' when reading back into memory; if you work with notebook files directly, you must allow multi-line string fields to be either a string or list of strings.",
+        "locator": "Top-level structure (nbformat 5.11)"
+      },
+      {
+        "sourceId": "nbformat-readthedocs-io-06af2c96bd",
+        "supports": "The same sentence about lists of strings joined with '' appears in the 5.2.0 page; no change between the two versions was found for this statement.",
+        "locator": "Top-level structure (nbformat 5.2.0)"
+      },
+      {
+        "sourceId": "raw-githubusercontent-com-jupyter-nbformat-35a7b92105",
+        "supports": "misc.multiline_string is oneOf a string or an array of strings, and cell source is \"Contents of the cell, represented as an array of lines\" using it.",
+        "locator": "definitions/misc/multiline_string; definitions/code_cell/properties/source"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-1e9489a68f",
+        "supports": "access key = ID + secret used together; secret retrievable only at creation; do not provide access keys to unauthorized parties",
+        "locator": "Manage access keys for IAM users, introduction and Important box"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

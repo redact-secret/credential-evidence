@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "notebook-literal-repeated-in-source-and-each-saved-output-kind",
+  "title": "Notebook: one secret in source, stream, result, JSON bundle, error and traceback",
+  "summary": "A synthetic two-cell notebook in which one 40-character value appears eight times in different containers: the first cell's source literal, its stdout stream text, an execute_result text/plain repr, an execute_result application/json object value, the second cell's source literal, its error evalue, the echoed source line in a traceback frame list, and the final traceback frame.",
+  "rationale": "Each output kind is a separate field with its own representation (a list of lines, a repr string, a JSON object included as-is, an array of frame strings), and a notebook keeps them all. Failure mode: finding the value in the source and leaving the copies in saved outputs, or counting one covered occurrence as full-input success. Every occurrence gets its own span, labelled by the variable name on the same line. Only the container diversity is this case's own reasoning: the general repeated-occurrence and separate-span rule is the existing multiple-credentials-per-input scenario. The traceback frames are authored plain text; whether a real kernel adds terminal colour codes or a different frame layout is not cited and not claimed.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "aws:iam-user-secret-access-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "multiple-credentials-per-input",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "provider-documented",
+    "rationale": "Flag all eight occurrences. The notebook format documents each container: stream text, execute_result and display_data data keyed by MIME type with application/json data included as-is (not double-serialized), and an error output with ename, evalue and a traceback list of frames each a string. The secret status of the value is the IAM user guide statement; the repetition across containers is the authored premise. Synthetic and never issued: each value was built from an authored stem (SYNTHETIC plus a role word plus NEVERISSUED), zero padding and a fixed tail so that it matches the 40-character shape but is not a value any AWS account issued; no notebook was executed, so every output block is authored text, not a recording.",
+    "sources": [
+      {
+        "sourceId": "nbformat-readthedocs-io-5392927899",
+        "supports": "display_data and execute_result carry data keyed by MIME type; application/json data is included as-is; an error output has ename, evalue and a traceback that is a list of frames each represented as a string.",
+        "locator": "display_data; execute_result; error (nbformat 5.11)"
+      },
+      {
+        "sourceId": "nbformat-readthedocs-io-06af2c96bd",
+        "supports": "The same output descriptions appear in the 5.2.0 page, including application/json no longer double-serialized since nbformat 4.0.",
+        "locator": "display_data; error (nbformat 5.2.0)"
+      },
+      {
+        "sourceId": "raw-githubusercontent-com-jupyter-nbformat-35a7b92105",
+        "supports": "error requires ename, evalue and traceback (an array of strings); execute_result and display_data hold a mimebundle in which mime-type keys matching application/(.*+)?json may hold any JSON value.",
+        "locator": "definitions/error; definitions/misc/mimebundle"
+      },
+      {
+        "sourceId": "docs-aws-amazon-com-1e9489a68f",
+        "supports": "access key = ID + secret used together; secret retrievable only at creation; do not provide access keys to unauthorized parties",
+        "locator": "Manage access keys for IAM users, introduction and Important box"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
