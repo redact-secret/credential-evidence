@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "mongodb-atlas:programmatic-api-private-key@1",
+  "family": "mongodb-atlas:programmatic-api-private-key",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "components": [
+      {
+        "name": "public-key",
+        "role": "companion",
+        "description": "The Public Key half of the pair: documented as exactly 8 characters. It is the username-like part."
+      },
+      {
+        "name": "private-key",
+        "role": "body",
+        "description": "The Private Key half. The pages read state no grammar for it (no prefix, alphabet, length or separator)."
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "two-part-key",
+      "statement": "A programmatic API key has two parts, a Public Key and a Private Key, which serve as a username and a password and are used with HTTP Digest authentication.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-docs-24390ae37b",
+          "supports": "'API keys have two parts: a Public Key and a Private Key. These serve the same function as a username and a password'",
+          "locator": "#L93-L99"
+        }
+      ]
+    },
+    {
+      "id": "legacy-method",
+      "statement": "MongoDB describes programmatic API keys as a legacy method of authenticating to the Atlas Administration API.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-docs-24390ae37b",
+          "supports": "'API keys are a legacy method of authenticating to the Atlas Administration API'",
+          "locator": "#L93-L94"
+        },
+        {
+          "sourceId": "github-com-mongodb-openapi-e316639242",
+          "supports": "info.description: 'API keys are considered a legacy option.'",
+          "locator": "#L46043"
+        }
+      ]
+    },
+    {
+      "id": "private-key-unredacted-once",
+      "statement": "The private key is returned unredacted when the key is first created; later responses return a redacted private key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-openapi-e316639242",
+          "supports": "ApiKeyUserDetails.privateKey: 'Redacted private key returned for this organization API key. This key displays unredacted when first created.'",
+          "locator": "#L3414-L3418"
+        }
+      ]
+    },
+    {
+      "id": "public-key-length",
+      "statement": "The public key value is specified with minimum and maximum length 8, that is exactly 8 characters; the specification states no alphabet for it.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-openapi-e316639242",
+          "supports": "ApiKeyUserDetails.publicKey: minLength 8, maxLength 8",
+          "locator": "#L3419-L3425"
+        }
+      ]
+    },
+    {
+      "id": "digest-not-bearer",
+      "statement": "A programmatic API key is not sent as a bearer token: the Atlas Administration API declares it under an HTTP digest security scheme, in which the credential is hashed with a short-lived nonce.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-openapi-e316639242",
+          "supports": "securitySchemes.DigestAuth: scheme digest, type http",
+          "locator": "#L46028-L46031"
+        },
+        {
+          "sourceId": "github-com-mongodb-docs-24390ae37b",
+          "supports": "'Atlas hashes the Public Key and Private Key using a unique value called a nonce.'",
+          "locator": "#L101-L105"
+        }
+      ]
+    },
+    {
+      "id": "no-ui-or-data-access",
+      "statement": "A programmatic API key cannot be used to log into the Atlas UI and gives no access to cluster data.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-docs-24390ae37b",
+          "supports": "'You can't use API keys to log into Atlas through the Atlas UI. API keys only grant access to the Atlas Administration API, which does not include UI access or access to cluster data.'",
+          "locator": "#L117-L119"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Not researched beyond the pages named in the claims (read 2026-10-04).",
+  "openQuestions": [
+    {
+      "id": "private-key-grammar",
+      "question": "What is the grammar of the private key (alphabet, length, separators)? The specification's single example is the only shape shown and a provider example does not prove a universal rule; no page read states a grammar. Settling it needs a provider statement or an issued credential.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "public-key-alphabet",
+      "question": "What alphabet does the 8-character public key use? Only its length is specified.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "historical-private-key-forms",
+      "question": "Have private keys been issued in more than one form over time? No page read and no archive snapshot says.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
