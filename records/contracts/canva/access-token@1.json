@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "canva:access-token@1",
+  "family": "canva:access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "The token endpoint returns an access_token described as the bearer access token used to authenticate to Canva REST API endpoints, and the authentication guide says access tokens are valid only for a short period.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "canva-dev-e6b9def37d",
+          "supports": "access_token string The bearer access token to use to authenticate to Canva REST API endpoints.",
+          "locator": "Success response"
+        },
+        {
+          "sourceId": "canva-dev-7dc1064fcc",
+          "supports": "Because access tokens are only valid for a short period time, you can handle requesting new access tokens using a refresh token",
+          "locator": "Generate access tokens"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "open-question-1",
+      "question": "No prefix, length or alphabet is stated by the pages read; the documentation example values are not copied here and the token is treated as opaque. Whether a Canva access token can be told apart from other opaque tokens by shape alone is unresolved. The candidate is not researched beyond existence.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
