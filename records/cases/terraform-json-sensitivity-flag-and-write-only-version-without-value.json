@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "terraform-json-sensitivity-flag-and-write-only-version-without-value",
+  "title": "Terraform JSON: sensitivity flags, unknown or null values and write-only version counters with no value present",
+  "summary": "Synthetic Terraform JSON excerpts that carry the sensitivity metadata of a password but not its value: a plan whose write-only password argument is absent and whose password_wo_version counter is the integer 1, a plan whose password is unknown until apply (after_unknown and after_sensitive are true, no value), and a state in which the password attribute is null while sensitive_values marks it true.",
+  "rationale": "These are the contrast to the sensitive attribute written as a plain string. The key is named password, the flag says sensitive and the name ends in _wo or _wo_version, yet the document holds no secret bytes: a boolean true, a null, an absent key and a version counter. The failure mode is reacting to the credential-shaped key or flag instead of the value, and treating a write-only argument as stored. Terraform documents that a write-only value is discarded and only its version argument is stored, that the sensitivity structures hold only true, and that unknown and null values are absent or null.",
+  "caseTypes": [
+    "twin",
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "public-identifier",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "provider-documented",
+    "rationale": "Not flagged. No secret value is present in any of the three documents: HashiCorp documents that Terraform discards a write-only argument value without storing it in the plan or state file and stores only the version argument, that the after_sensitive and sensitive_values structures replace sensitive leaves with true, that after_unknown replaces unknown leaves with true, and that unknown and null values are treated as absent or null. The documents are synthetic compositions of these documented shapes (origin: evidence-derived). Twin of the case with the literal present: only the value slot differs. Not established: how a given provider populates a null or omitted attribute for a write-only field; the fixtures state only the documented shapes.",
+    "sources": [
+      {
+        "sourceId": "developer-hashicorp-com-7f3e265158",
+        "supports": "During a Terraform operation, the provider uses the password_wo value to create the database instance, and then Terraform discards that value without storing it in the plan or state file.",
+        "locator": "section: Declare a write-only argument"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-7f3e265158",
+        "supports": "Providers implement version arguments to let practitioners track write-only argument values and control when a provider uses those write-only arguments. [...] Terraform stores version arguments in state, and can track if a version argument changes.",
+        "locator": "section: Update write-only arguments with versions"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-636a1a3afd",
+        "supports": "\"after_unknown\" is an object value with similar structure to \"after\", but with all unknown leaf values replaced with \"true\", and all known leaf values omitted.",
+        "locator": "section: Change Representation"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-636a1a3afd",
+        "supports": "Unknown values and null values are both treated as absent or null.",
+        "locator": "section: Values Representation"
+      },
+      {
+        "sourceId": "developer-hashicorp-com-636a1a3afd",
+        "supports": "\"before_sensitive\" and \"after_sensitive\" are object values with similar structure to \"before\" and \"after\", but with all sensitive leaf values replaced with true, and all non-sensitive leaf values omitted.",
+        "locator": "section: Change Representation"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "relations": [
+    {
+      "type": "twin-of",
+      "target": "terraform-json-sensitive-attribute-literal-beside-true-flag",
+      "note": "Same document shape and the same sensitive path; the value slot is absent, unknown or null instead of a literal."
+    }
+  ]
+}
