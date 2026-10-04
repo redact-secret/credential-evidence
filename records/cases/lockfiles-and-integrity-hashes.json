@@ -16,8 +16,24 @@
   "expectation": {
     "outcome": "must-not-flag",
     "basis": "project-policy",
-    "rationale": "Not flagged. The hashes verify published packages and are public by design.",
-    "sources": [],
+    "rationale": "Not flagged. The hashes verify published packages and are public by design. Sources added under the maintainer decision recorded in ADR 0019 (issue #142) show each value's role (an integrity or content hash, a revision identifier); none states that the value is not a credential, so the basis stays project-policy.",
+    "sources": [
+      {
+        "sourceId": "docs-npmjs-com-893bbb3425",
+        "supports": "integrity is a sha512 or sha1 Standard Subresource Integrity string for the artifact unpacked at the location.",
+        "locator": "packages and dependencies, integrity"
+      },
+      {
+        "sourceId": "go-dev-5fb6edc5a8",
+        "supports": "go.sum records h1: hashes (hash of module content, base64).",
+        "locator": "go.sum files"
+      },
+      {
+        "sourceId": "pip-pypa-io-ae875c4a04",
+        "supports": "Hash-checking mode uses hashes embedded in a requirements file (--hash=sha256:...) to protect against remote tampering and network issues.",
+        "locator": "Hash-checking Mode"
+      }
+    ],
     "observedAt": "2026-09-29"
   },
   "lifecycle": "draft",
