@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "openapi-example-references-and-external-values-without-embedded-literal",
+  "title": "OpenAPI example references and external values without an embedded literal",
+  "summary": "A synthetic OpenAPI 3.1 fragment in which a header parameter named X-Api-Key and a request body supply examples only by reference: an Example Object that is a Reference Object to a component in a separate file, and an Example Object whose externalValue is a plain URI.",
+  "rationale": "The parameter name is a strong credential signal and the examples field sits exactly where a sample key would go, but the span holds a pointer: the specification defines externalValue as a URI that identifies the literal example and a Reference Object as a URI identifying the referenced component. The literal, if any, lives in a document that is not part of the input. Reporting the pointer is a false alarm; resolving it is a tool step the input does not contain. The twin case is the same example with the reference resolved into an embedded value, which the sources do not classify.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "generic:unclassified-assignment-literal",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "templated-reference",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "Unresolved as an expectation; the structural facts are settled. The Example Object defines value and externalValue as mutually exclusive and externalValue as a URI that identifies the literal example; a Reference Object holds a $ref URI that identifies the referenced component, and a relative reference is resolved against the referring document's base URI. A span that is such a URI is a pointer and holds no example literal. That states what the span is; it does not state how a reader should treat a pointer, and the standards rule (ADR 0019) keeps a role description read as non-secrecy at project-policy. Candidate outcome, recommended for a maintainer decision (project-policy with a non-author reviewer): must-not-flag for the pointer text, with the precondition that the input is the fragment as written and the referenced documents are neither fetched nor included, so nothing is claimed about the literal they may hold (the twin case, also unresolved). Planned fixture, not built because an assertable fixture needs the decision: an X-Api-Key header parameter whose examples entry is a $ref to a relative file fragment, plus a request-body example whose externalValue is an example.org URI, with no value field and no query string.",
+    "sources": [
+      {
+        "sourceId": "spec-openapis-org-cd0b345bb7",
+        "supports": "Example Object value: embedded literal example; externalValue: a URI that identifies the literal example, for examples that cannot easily be included in JSON or YAML documents; the two fields are mutually exclusive.",
+        "locator": "section 4.8.19.1 Fixed Fields"
+      },
+      {
+        "sourceId": "spec-openapis-org-cd0b345bb7",
+        "supports": "The $ref string value contains a URI that identifies the value being referenced.",
+        "locator": "section 4.8.23 Reference Object"
+      },
+      {
+        "sourceId": "spec-openapis-org-cd0b345bb7",
+        "supports": "Relative URI references in other Objects must be resolved using the referring document's base URI.",
+        "locator": "section 4.6 Relative References in API Description URIs"
+      },
+      {
+        "sourceId": "learn-openapis-org-a42c90f473",
+        "supports": "The examples field is a map pairing an example name with an Example Object that supplies the actual code inside the value field or as an external reference in the externalValue field, but not both.",
+        "locator": "section: Adding Examples (#adding-examples)"
+      }
+    ],
+    "observedAt": "2026-10-04"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Authored from the cited pages read on 2026-10-04, before any scanner was consulted. The OpenAPI Specification is a standard with no issuing provider; it is cited only for its own text, never for what any provider issues. Reference resolution, example generation, request-sample generation and masking are tool behaviors owned downstream (credential-eval, #150); no scanner or adapter capability is assumed."
+}
