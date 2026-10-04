@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "mongodb-atlas-programmatic-api-public-key",
+  "families": [
+    "mongodb-atlas:programmatic-api-private-key"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Atlas programmatic API public key",
+  "description": "The Public Key of an Atlas programmatic API key: a value specified as exactly 8 characters, serving as the username-like half of the pair whose other half is the private key. It sits beside the private key in scripts and configuration. The pages read state no alphabet for it and do not say whether it may be exposed, so its non-secret status is not asserted here.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "github-com-mongodb-openapi-e316639242",
+      "supports": "ApiKeyUserDetails.publicKey: 'Public API key value set for the specified organization API key', minLength 8, maxLength 8",
+      "locator": "#L3419-L3425"
+    },
+    {
+      "sourceId": "github-com-mongodb-docs-24390ae37b",
+      "supports": "API keys have two parts: a Public Key and a Private Key; these serve the same function as a username and a password.",
+      "locator": "#L96-L99"
+    }
+  ],
+  "observedAt": "2026-10-04",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Class is unresolved because the cited pages document the length and role but contain no statement about whether the public key is safe to expose. No sample is recorded because the alphabet is undocumented."
+}
