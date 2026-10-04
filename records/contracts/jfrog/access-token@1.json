@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "jfrog:access-token@1",
+  "family": "jfrog:access-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "JFrog documents the JFrog Access Token as a JSON Web Token that serves as the bearer credential for authenticated requests to the JFrog Platform.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-d6f5b6dafb",
+          "supports": "\"This JSON Web Token (JWT) acts as the primary internal credential for all authenticated interactions\" and \"It serves as the bearer token for all subsequent requests\"",
+          "locator": "section \"The JFrog Access Token: The Canonical Credential\""
+        },
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "access tokens can be used as a bearer token in the Authorization header; since 7.21.1 access tokens are scoped tokens",
+          "locator": "sections \"Authorization Headers\" and property table (Scope)"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "existence-only",
+      "question": "Candidate established at existence level only; format, variants, benign siblings and lifecycle are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "jwt-shape-and-signature-variants",
+      "question": "JWT structure is only stated as \"JSON Web Token\". No prefix, claim names beyond scope (scp) and expiration (exp), or signing algorithm is recorded here; whether a header or claim constant exists that attributes a JWT to JFrog is unresolved.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "oidc-exchange-and-identity-tokens",
+      "question": "The documentation treats tokens from OIDC exchange, identity tokens and admin tokens as access tokens. Whether any needs its own family is unresolved.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}

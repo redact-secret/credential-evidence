@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "jfrog:reference-token@1",
+  "family": "jfrog:reference-token",
+  "revision": 1,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": null,
+  "structure": {
+    "prefixes": [
+      "cmVmd"
+    ]
+  },
+  "claims": [
+    {
+      "id": "existence-and-prefix",
+      "statement": "JFrog documents a Reference Token as a shortened string that refers to an actual longer access token, usable as a basic-auth password or in the X-JFrog-Art-Api header, and states that reference tokens start with cmVmd.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "\"Reference tokens follow this pattern: .*\\bcmVmd[A-Za-z0-9]{59}\\b.*, starting with cmVmd and including 59 alphanumeric characters\"",
+          "locator": "section \"Comparing Identity Reference Tokens With API Keys\""
+        },
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "Reference Token described as a \"shortened,\" 128-character key providing an alias for a longer token (Artifactory 7.38.4 onward); can be used instead of a password for basic authentication",
+          "locator": "sections \"Create an Admin Scoped Reference Token\" and \"Basic Authentication\""
+        }
+      ]
+    },
+    {
+      "id": "total-length-64-consistency",
+      "statement": "Gitleaks (jfrog.go, rule jfrog-identity-token) and TruffleHog (artifactoryreferencetoken detector), maintained separately, both treat a JFrog reference/identity token as a 64-character alphanumeric value: Gitleaks as a keyword-gated 64-character alphanumeric run, TruffleHog as the literal prefix cmVmdGtu followed by 56 alphanumeric characters. This is consistent with the 64-character length on the provider Identity Tokens page and not with the 128-character figure on the Access Tokens page; it is not the provider's rule.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-142a1c28a9",
+          "supports": "rule jfrog-identity-token uses a 64-character alphanumeric capture, gated by the keywords jfrog, artifactory, bintray, xray (no prefix in the rule)",
+          "locator": "JFrogIdentityToken, line 51"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-7dfde64c36",
+          "supports": "tokenPat matches cmVmdGtu followed by 56 alphanumeric characters, commented as 64 characters total",
+          "locator": "lines 32-33"
+        }
+      ]
+    },
+    {
+      "id": "eight-character-prefix-single-artifact",
+      "statement": "TruffleHog's artifactoryreferencetoken detector uses the 8-character prefix cmVmdGtu, a refinement of the documented cmVmd; no second independent artifact was found that states it, so this is a lead only.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-7dfde64c36",
+          "supports": "tokenPat literal prefix cmVmdGtu; comment says it is the base64 encoding of a six-letter string",
+          "locator": "lines 32-33"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "openQuestions": [
+    {
+      "id": "existence-only",
+      "question": "Candidate established at existence level only; format, variants, benign siblings and lifecycle are not researched.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "reference-token-length-conflict",
+      "question": "Two provider pages disagree on length: Access Tokens says 128 characters, Identity Tokens says 64 (cmVmd plus 59 alphanumerics). Two independent scanner rule artifacts are consistent with 64 (a tool-corroborated claim, not a provider statement), so the conflict is not settled by the provider. Whether the 128-character figure describes a different form or is stale is unresolved; no structure length is recorded.",
+      "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "reference-token-identity-token-boundary",
+      "question": "Identity tokens are documented as an access token scoped to a user, and the identity reference token is a reference token. Whether identity reference tokens are the same family as admin-scoped reference tokens is unresolved.",
+      "raisedAt": "2026-10-04"
+    }
+  ]
+}
