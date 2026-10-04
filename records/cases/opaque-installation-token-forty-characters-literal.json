@@ -4,7 +4,7 @@
   "id": "opaque-installation-token-forty-characters-literal",
   "title": "Opaque 40-character GitHub App installation token",
   "summary": "A synthetic ghs_ token of the opaque form: the prefix and 36 base62 characters (40 in total) with no dots, in a bare form and in env, JSON and CRLF carriers.",
-  "rationale": "The opaque form is still issued to installations the rollout has not reached and still valid for tokens issued earlier. A matcher updated only for the JWT form must keep the 40-character form; one that requires a dot must not.",
+  "rationale": "The opaque form is no longer the default for newly minted tokens (the provider stated the rollout complete on 2026-10-02), but it stays valid for tokens issued earlier and the header value disabled still returns it until the header is deprecated on 2026-11-30. A matcher updated only for the JWT form must keep the 40-character form; one that requires a dot must not.",
   "caseTypes": [
     "positive"
   ],

@@ -97,6 +97,17 @@
       },
       "verdict": "not-assertable",
       "note": "Statement 'rollout-completion' (lifecycle) is recorded as unresolved: The provider says the temporary header will stop being respected at a date to be announced and that all eligible apps will then receive stateless tokens; no date or completion statement was found on the pages read."
+    },
+    {
+      "seq": 8,
+      "type": "corrected",
+      "at": "2026-10-04",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Evidence review for issue 179 (2026-10-04, automation, not independently reviewed). The lifecycle statement rollout-completion, recorded as unresolved at event 7, is now backed by GitHub's 2026-10-02 changelog entry (rollout complete, header deprecated 2026-11-30) and is re-classed provider-documented. The APPID segment grammar, the stateless length upper bound and the current checksum stay unresolved: that entry and the pages re-read add no statement on them."
     }
   ],
   "externalRefs": [

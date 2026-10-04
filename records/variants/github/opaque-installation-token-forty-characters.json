@@ -6,7 +6,7 @@
   "contract": "github:app-server-to-server-token@1",
   "name": "Opaque 40-character installation token",
   "variantType": "historical-form",
-  "description": "The stateful installation token GitHub issued before the stateless rollout: ghs_ followed by an opaque body with no dots, described by the provider as 40 characters long (ghs_ plus 36). The provider says existing tokens of this kind keep working until they expire and that a temporary request header can still ask for this form during the rollout, so the form is still observable; the date after which it is no longer issued is not stated.",
+  "description": "The stateful installation token GitHub issued before the stateless rollout: ghs_ followed by an opaque body with no dots, described by the provider as 40 characters long (ghs_ plus 36). The provider says existing tokens of this kind keep working until they expire and that a temporary request header can still ask for this form during the rollout, so the form is still observable. GitHub's 2026-10-02 entry makes the stateless form the default for new tokens and sets 2026-11-30 as the date the header stops being respected; whether the opaque form is issued at all after that is not stated.",
   "effective": {
     "from": null,
     "until": null
@@ -27,6 +27,19 @@
           "sourceId": "github-blog-30e232220c",
           "supports": "The header value disabled returns a stateful (classic opaque) token even if the integration is already in the rollout.",
           "locator": "What is the header?"
+        }
+      ]
+    },
+    {
+      "observedAt": "2026-10-04",
+      "occurredAt": "2026-10-02",
+      "change": "revised",
+      "note": "GitHub stated on 2026-10-02 that by default all newly minted installation tokens are now stateless, so this opaque form is no longer the default for new tokens; tokens minted earlier work until they expire (they last one hour), and the disabled header value is described as returning this form until the header is deprecated on 2026-11-30, after which all eligible apps always receive stateless tokens. No source read says whether the opaque form is issued at all after that date, so this is recorded as revised, not retired.",
+      "sources": [
+        {
+          "sourceId": "github-blog-4ce371788d",
+          "supports": "Default for newly minted tokens is now stateless; earlier tokens work until they expire; one-hour expiration unchanged; header deprecated 2026-11-30 with all eligible apps then always receiving stateless tokens.",
+          "locator": "What's changed; What to expect going forward"
         }
       ]
     }

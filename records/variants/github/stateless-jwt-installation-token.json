@@ -17,7 +17,7 @@
       "observedAt": "2026-10-03",
       "occurredAt": "2026-04-27",
       "change": "introduced",
-      "note": "GitHub announced on 2026-04-24 a staged rollout starting 2026-04-27, and on 2026-05-15 added a temporary per-request header (enabled) to request this form on demand. A statement on rollout completion was not found on the pages read; it is recorded as an open question in the contract, not as a fact.",
+      "note": "GitHub announced on 2026-04-24 a staged rollout starting 2026-04-27, and on 2026-05-15 added a temporary per-request header (enabled) to request this form on demand. Rollout completion was stated later, on 2026-10-02 (next entry).",
       "sources": [
         {
           "sourceId": "github-blog-dd07252324",
@@ -28,6 +28,19 @@
           "sourceId": "github-blog-30e232220c",
           "supports": "Header value enabled returns a stateless (JWT-format) token regardless of rollout position; a stateless token is a ghs_-prefixed JWT with two dots.",
           "locator": "What is the header?; How to use it"
+        }
+      ]
+    },
+    {
+      "observedAt": "2026-10-04",
+      "occurredAt": "2026-10-02",
+      "change": "revised",
+      "note": "GitHub stated on 2026-10-02 that the staged rollout is complete and that by default all newly minted installation tokens are now stateless, about 520 characters instead of 40; the temporary header is to be deprecated on 2026-11-30, after which all eligible apps always receive this form. The 2026-10-02 date is the date of the provider's statement, not necessarily of the last installation reached. This closes the rollout-completion question in the contract.",
+      "sources": [
+        {
+          "sourceId": "github-blog-4ce371788d",
+          "supports": "Rollout complete; default for all newly minted installation tokens is ghs_APPID_JWT; header deprecated 2026-11-30.",
+          "locator": "What's changed; What to expect going forward"
         }
       ]
     }

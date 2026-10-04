@@ -129,7 +129,7 @@
     },
     {
       "id": "per-request-override-header",
-      "statement": "GitHub provides a temporary request header, X-GitHub-Stateless-S2S-Token, on POST /app/installations/:installation_id/access_tokens: enabled returns a stateless token, disabled a stateful one, absent means normal rollout, and any other value is ignored. The header is temporary and GitHub says it will stop being respected at a deprecation point to be announced, after which eligible apps always receive stateless tokens.",
+      "statement": "GitHub provides a temporary request header, X-GitHub-Stateless-S2S-Token, on POST /app/installations/:installation_id/access_tokens: enabled returns a stateless token, disabled a stateful one, absent means normal rollout, and any other value is ignored. The header is temporary: the 2026-05-15 entry said it would stop being respected at a deprecation point to be announced, after which eligible apps always receive stateless tokens, and the 2026-10-02 entry sets that date at 2026-11-30 (see rollout-complete-header-deprecation).",
       "evidenceClass": "provider-documented",
       "temporality": "current",
       "observedAt": "2026-10-03",
@@ -138,6 +138,68 @@
           "sourceId": "github-blog-30e232220c",
           "supports": "Header name, values enabled and disabled, temporary status and the planned deprecation point.",
           "locator": "What is the header?; Scope"
+        }
+      ]
+    },
+    {
+      "id": "rollout-complete-header-deprecation",
+      "statement": "GitHub states, in a changelog entry dated 2026-10-02, that the staged rollout begun on 2026-04-27 is complete: by default all newly minted GitHub App installation tokens are now in the stateless ghs_APPID_JWT format, about 520 characters long instead of 40, with the ghs_ prefix, one-hour expiration and the installation access token endpoint unchanged, and tokens minted earlier working until they expire. It says the temporary X-GitHub-Stateless-S2S-Token header will be deprecated on 2026-11-30, after which GitHub no longer respects it and all eligible apps always receive stateless tokens. Until that date the header value disabled is still described as available (in the 2026-05-15 entry), so the opaque form can still be minted on request until then.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-blog-4ce371788d",
+          "supports": "The staged rollout that began on 2026-04-27 is complete; by default newly minted installation tokens are stateless ghs_APPID_JWT, about 520 characters instead of 40; the header is deprecated on 2026-11-30 and eligible apps then always receive stateless tokens; earlier tokens work until they expire.",
+          "locator": "What's changed; What to expect going forward"
+        },
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "Header value disabled returns a stateful (classic opaque) token even if the integration is already in the rollout.",
+          "locator": "What is the header?"
+        }
+      ]
+    },
+    {
+      "id": "rollout-phase-plan",
+      "statement": "In its 2026-04-24 notice GitHub planned the staged rollout in two phases: 2026-04-27 to mid-May 2026 for the GitHub Actions GITHUB_TOKEN and the installation tokens of GitHub's first-party featured integrations, then mid-May to late June 2026 for all GitHub App installation tokens, with a brownout period before broad enablement. These are planned windows from the announcement; the 2026-10-02 entry states only that the rollout is complete, not the dates of each phase or of any brownout. The stateless format applies to installation server-to-server tokens including the Actions GITHUB_TOKEN; user-to-server tokens are not in scope in these entries.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "Planned phases: April 27 to mid-May 2026 for Actions GITHUB_TOKEN and first-party featured integrations; mid-May to late June 2026 for all installation tokens with a brownout period; scope is installation server-to-server tokens including Actions GITHUB_TOKEN; user-to-server tokens not in scope yet.",
+          "locator": "Scope; What to expect over the next few weeks"
+        },
+        {
+          "sourceId": "github-blog-4ce371788d",
+          "supports": "The rollout is complete; no phase dates are restated.",
+          "locator": "What's changed"
+        }
+      ]
+    },
+    {
+      "id": "storage-length-lower-bound-only",
+      "statement": "GitHub's guidance on storage is a lower bound, not an upper bound on the token: database columns for installation tokens should fit at least a 520 character string (2026-04-24 entry), and columns, secret stores or environment variables with a fixed or small maximum, and proxies that truncate or reject long Authorization headers, are named as things to check (2026-10-02 entry). Neither states a maximum token length, so a stateless token longer than about 520 characters is not excluded or confirmed.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-04",
+      "sources": [
+        {
+          "sourceId": "github-blog-dd07252324",
+          "supports": "Any database columns for access tokens can fit at least a 520 character string; do not take a dependency on tokens being a certain length.",
+          "locator": "How to prepare for this change"
+        },
+        {
+          "sourceId": "github-blog-30e232220c",
+          "supports": "Database columns for token storage and header settings accept at least 520 characters.",
+          "locator": "How to use it"
+        },
+        {
+          "sourceId": "github-blog-4ce371788d",
+          "supports": "Check for columns, secret stores or environment variables with a fixed or small maximum length, and proxies that truncate or reject long Authorization headers.",
+          "locator": "Check your integrations"
         }
       ]
     },
@@ -162,7 +224,7 @@
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Supersedes revision 1, whose 36-character body claim is correct for the opaque form only; revision 1 is kept unchanged as the record of that form. Read 2026-10-03 from the live provider pages; the pages are unpinned, so a later reader should re-read them.",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Supersedes revision 1, whose 36-character body claim is correct for the opaque form only; revision 1 is kept unchanged as the record of that form. Read 2026-10-03 from the live provider pages, and re-read on 2026-10-04 together with the 2026-10-02 rollout-complete changelog entry, which closed the rollout-completion open question (header deprecation date 2026-11-30); the pages are unpinned, so a later reader should re-read them.",
   "openQuestions": [
     {
       "id": "app-id-segment-grammar",
@@ -171,17 +233,12 @@
     },
     {
       "id": "stateless-length-bounds",
-      "question": "Is there a documented upper bound or exact range for the stateless token length beyond \"about 520 characters, varying with its contents\"?",
+      "question": "Is there a documented upper bound or exact range for the stateless token length beyond \"about 520 characters, varying with its contents\"? The 2026-10-02 entry and the storage guidance (columns must fit at least 520 characters) give no maximum.",
       "raisedAt": "2026-10-03"
     },
     {
       "id": "opaque-form-checksum-current",
       "question": "Does the 2021 CRC32 checksum still apply to the opaque (stateful) form, and does any equivalent apply to the stateless form?",
-      "raisedAt": "2026-10-03"
-    },
-    {
-      "id": "rollout-completion",
-      "question": "When does the per-request header stop being respected, and from which date do all eligible apps receive only stateless tokens? The page says this will be announced separately.",
       "raisedAt": "2026-10-03"
     }
   ]
