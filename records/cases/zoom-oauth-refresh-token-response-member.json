@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zoom-oauth-refresh-token-response-member",
+  "title": "Value of the refresh_token member in a Zoom token response",
+  "summary": "A synthetic value of the refresh_token member in a Zoom user-authorization token response, shown as a pretty-printed JSON body, a compact JSON body behind raw HTTP response headers and the output of a curl request.",
+  "rationale": "Zoom documents that a user-authorization or device flow returns a refresh_token that lives 90 days and whose latest value is used for the next refresh. Zoom states no prefix, alphabet or length, and the documentation placeholder does not establish a JWT structure, so the value is flagged because of the member it sits in, not because of its shape. The extent is the member value only.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "zoom:oauth-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the refresh_token member of the token response is treated as a credential whatever its shape. Zoom documents that the token response returns a refresh_token member (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developers-zoom-us-8bb98131a7",
+        "supports": "Refresh tokens expire after 90 days. You should always use the latest refresh token for the next refresh request.",
+        "locator": "Refresh an access token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

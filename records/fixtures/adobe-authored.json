@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "adobe-authored",
+  "title": "Adobe token response and lookalike carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "adobe-authored--s2s-access-pretty-json-response",
+      "case": "adobe-token-response-access-token-member",
+      "path": "s2s-access-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d605d137ab2ad280a1b91c0e678b47267b71f90b06a062c2138676a45e625f43",
+      "text": "{\n  \"access_token\": \"SYNTHETICAdobeS2SAccessNeverIssued0001\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 86400\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 59,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--s2s-access-raw-http-response-compact-json",
+      "case": "adobe-token-response-access-token-member",
+      "path": "s2s-access-raw-http-response-compact-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "43c958399e040020968ffe40714c03a55e69ec49933e1c3465e35078d0fd43be",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"access_token\":\"SYNTHETICAdobeS2SAccessNeverIssued0001\",\"token_type\":\"bearer\",\"expires_in\":86400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 103,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--s2s-access-curl-response-output",
+      "case": "adobe-token-response-access-token-member",
+      "path": "s2s-access-curl-response-output/fixture.txt",
+      "context": "cli",
+      "sha256": "6fc9447b0e689a9c079267da029daa7e0cd010a537d12c864c1d3aa11dadbc5b",
+      "text": "$ curl -s -X POST https://ims.example.test/ims/token/v3 -d \"client_id=SYNTHETIC-client-id\"\n{\"access_token\":\"SYNTHETICAdobeS2SAccessNeverIssued0001\",\"token_type\":\"bearer\",\"expires_in\":86400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 108,
+            "end": 146,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--refresh-pretty-json-response",
+      "case": "adobe-token-response-refresh-token-member",
+      "path": "refresh-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "869194db0b49262836d04281391f0a4b107b277813d118f0c02486e2afa91b22",
+      "text": "{\n  \"refresh_token\": \"SYNTHETICAdobeRefreshNeverIssued0001\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 86400\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 58,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--refresh-raw-http-response-compact-json",
+      "case": "adobe-token-response-refresh-token-member",
+      "path": "refresh-raw-http-response-compact-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "3e2cdb0c08215b7d8d81874b6436a95920ebc8484efe44e7c0e06722bcb7eb21",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"refresh_token\":\"SYNTHETICAdobeRefreshNeverIssued0001\",\"token_type\":\"bearer\",\"expires_in\":86400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 66,
+            "end": 102,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--refresh-curl-response-output",
+      "case": "adobe-token-response-refresh-token-member",
+      "path": "refresh-curl-response-output/fixture.txt",
+      "context": "cli",
+      "sha256": "0a134fc938af9cbbcee67a8b955069e16b73f5f3883fc9ee97611ccf666d85e9",
+      "text": "$ curl -s -X POST https://ims.example.test/ims/token/v3 -d \"client_id=SYNTHETIC-client-id\"\n{\"refresh_token\":\"SYNTHETICAdobeRefreshNeverIssued0001\",\"token_type\":\"bearer\",\"expires_in\":86400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 109,
+            "end": 145,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--lookalike-client-id-expiry-and-scope-only",
+      "case": "adobe-token-response-lookalikes-and-non-values",
+      "path": "lookalike-client-id-expiry-and-scope-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "199150af047d45b75485dfdc1589a306fa46153edb4c8d98a6cb60dc44635bd4",
+      "text": "{\n  \"client_id\": \"SYNTHETIC-client-id\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 86400,\n  \"scope\": \"openid AdobeID offline_access\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--lookalike-access-token-angle-placeholder",
+      "case": "adobe-token-response-lookalikes-and-non-values",
+      "path": "lookalike-access-token-angle-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "f9c90a50c48ffe3e3e4dd75263fb1e1bcbc4b8ce0d6529854007ca4e8c93f32c",
+      "text": "{\n  \"access_token\": \"<ACCESS_TOKEN>\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 86400\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--lookalike-refresh-token-environment-reference",
+      "case": "adobe-token-response-lookalikes-and-non-values",
+      "path": "lookalike-refresh-token-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "3b56d1ea8eb281ea3f60431de99155c7410bd34c020158d4d9abe5c34786da4d",
+      "text": "curl -X POST https://ims.example.test/ims/token/v3 -d \"refresh_token=${ADOBE_REFRESH_TOKEN}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--lookalike-access-token-template-reference",
+      "case": "adobe-token-response-lookalikes-and-non-values",
+      "path": "lookalike-access-token-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "4464a6e856e72019e2caf8c1de1133b698e9ff179187f428ee46ddee4e8e510a",
+      "text": "{\n  \"access_token\": \"{{ secrets.ADOBE_ACCESS_TOKEN }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--lookalike-refresh-token-masked-display",
+      "case": "adobe-token-response-lookalikes-and-non-values",
+      "path": "lookalike-refresh-token-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "21f3c2fa5c8264bb1849110ac8eabcca6ec4596b8a501f33e1eb10c7bb0ee29b",
+      "text": "{\n  \"refresh_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

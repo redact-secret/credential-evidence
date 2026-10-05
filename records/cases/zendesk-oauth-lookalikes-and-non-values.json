@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zendesk-oauth-lookalikes-and-non-values",
+  "title": "Zendesk client identifiers, subdomains and placeholder Bearer or client_secret values",
+  "summary": "A client identifier and subdomain, the documented Authorization: Bearer {access_token} template, a scheme-only header, and Bearer or client_secret values that are placeholders, environment references or masked displays.",
+  "rationale": "The client identifier and the subdomain are public-facing configuration, not credentials. The documented template with braces around the word access_token marks where a value goes and holds none, a scheme with no value has nothing to protect, a reference stands in for a value kept elsewhere, and a masked display has no recoverable value. Protecting any of these would redact text a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "zendesk:oauth-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "zendesk:oauth-client-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the values here are identifiers, placeholders, references, masked text or non-secret outputs, not credential values. That a placeholder or reference is not a value is a project decision, not a Zendesk statement.",
+    "sources": [
+      {
+        "sourceId": "developer-zendesk-com-73874c42bb",
+        "supports": "Zendesk supports using OAuth access tokens to authenticate API requests. ... An OAuth token gives access to a single Zendesk instance ... Authorization: Bearer {access_token}",
+        "locator": "#oauth-access-token"
+      },
+      {
+        "sourceId": "developer-zendesk-com-a681e17a67",
+        "supports": "Identifier: Used as client_id in API requests. Secret: Used as client_secret in API requests. This is shown only once after saving, so store it safely.",
+        "locator": "#step-1-create-or-configure-an-oauth-client"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

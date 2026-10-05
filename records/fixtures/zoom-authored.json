@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "zoom-authored",
+  "title": "Zoom token carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "zoom-authored--s2s-access-token-response-access-token-member",
+      "case": "zoom-server-to-server-access-token-bearer-header-and-response-member",
+      "path": "s2s-access-token-response-access-token-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "3f588db6df85b88996f1e84131cc1b44b99a5ff7344904b9a6903489197c6570",
+      "text": "{\n  \"access_token\": \"SYNTHETICZoomS2SAccessNeverIssued0001\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 3600\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 58,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--s2s-access-raw-http-bearer-header",
+      "case": "zoom-server-to-server-access-token-bearer-header-and-response-member",
+      "path": "s2s-access-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "b80252a9b1533c597b4b09db4ab7110ff7bf058285855cfebe67e57533bcc4eb",
+      "text": "GET /v2/users/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETICZoomS2SAccessNeverIssued0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 71,
+            "end": 108,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--s2s-access-curl-bearer-header",
+      "case": "zoom-server-to-server-access-token-bearer-header-and-response-member",
+      "path": "s2s-access-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "6c96c207b39a4c48b90bf57dd7afedb7dfcc6f8e0f7ff1dd98864dc5407a272a",
+      "text": "curl -H \"Authorization: Bearer SYNTHETICZoomS2SAccessNeverIssued0002\" https://api.example.test/v2/users/me\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 68,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--refresh-pretty-json-response",
+      "case": "zoom-oauth-refresh-token-response-member",
+      "path": "refresh-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "a7130e510db034ff5b6a7457a37b2384cca0825fe4e11bb178d2006640df1f8f",
+      "text": "{\n  \"refresh_token\": \"SYNTHETICZoomRefreshNeverIssued0001\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 3600\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 57,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--refresh-raw-http-response-compact-json",
+      "case": "zoom-oauth-refresh-token-response-member",
+      "path": "refresh-raw-http-response-compact-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "95c9054b433f59a71f22cb89fc77611042184cc0b1c8b91f592bc06bfbd4a05c",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"refresh_token\":\"SYNTHETICZoomRefreshNeverIssued0001\",\"token_type\":\"bearer\",\"expires_in\":3600}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 66,
+            "end": 101,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--refresh-curl-response-output",
+      "case": "zoom-oauth-refresh-token-response-member",
+      "path": "refresh-curl-response-output/fixture.txt",
+      "context": "cli",
+      "sha256": "2f958c16269f642a8b22055b85352b73faff01e2e49ab0e0c5011e6b7852d888",
+      "text": "$ curl -s -X POST https://zoom.example.test/oauth/token -d \"grant_type=authorization_code\"\n{\"refresh_token\":\"SYNTHETICZoomRefreshNeverIssued0001\",\"token_type\":\"bearer\",\"expires_in\":3600}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 109,
+            "end": 144,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--lookalike-account-id-and-client-id-only",
+      "case": "zoom-token-lookalikes-and-non-values",
+      "path": "lookalike-account-id-and-client-id-only/fixture.txt",
+      "context": "form-body",
+      "sha256": "dab625c41d4a5f9dc6c153d3428194e1a111b1abdf7921cdf1111c79fabe49a4",
+      "text": "grant_type=account_credentials&account_id=SYNTHETIC-account-id&client_id=SYNTHETIC-client-id\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--lookalike-access-token-documentation-placeholder",
+      "case": "zoom-token-lookalikes-and-non-values",
+      "path": "lookalike-access-token-documentation-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "ab31e297f23d0e246d0da6e9c46391a36faf9e78972cf1b6935351d92dcfbbd0",
+      "text": "{\n  \"access_token\": \"<JWT_TOKEN>\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 3600\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--lookalike-bearer-environment-reference",
+      "case": "zoom-token-lookalikes-and-non-values",
+      "path": "lookalike-bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "6cd445343357a54d7c6a1577abc0f9fc670b511f51b2a033d7a5527bfbd07487",
+      "text": "curl -H \"Authorization: Bearer ${ZOOM_ACCESS_TOKEN}\" https://api.example.test/v2/users/me\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--lookalike-refresh-token-documentation-placeholder",
+      "case": "zoom-token-lookalikes-and-non-values",
+      "path": "lookalike-refresh-token-documentation-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "9bb1492fc484206a5e7fc38a499af0347f3de60e118d636cfe3b770ebd8a5eaf",
+      "text": "{\n  \"refresh_token\": \"<JWT_TOKEN>\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--lookalike-refresh-token-masked-display",
+      "case": "zoom-token-lookalikes-and-non-values",
+      "path": "lookalike-refresh-token-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "21f3c2fa5c8264bb1849110ac8eabcca6ec4596b8a501f33e1eb10c7bb0ee29b",
+      "text": "{\n  \"refresh_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--lookalike-bearer-scheme-only",
+      "case": "zoom-token-lookalikes-and-non-values",
+      "path": "lookalike-bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "465271559bb68f100ea3450e55251916637e90acb07e445cc1f954eda6a07bd0",
+      "text": "GET /v2/users/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

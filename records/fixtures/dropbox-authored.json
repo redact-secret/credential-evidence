@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "dropbox-authored",
+  "title": "Dropbox app secret carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "dropbox-authored--app-secret-form-body-client-secret",
+      "case": "dropbox-app-secret-token-request-field",
+      "path": "app-secret-form-body-client-secret/fixture.txt",
+      "context": "form-body",
+      "sha256": "300cef9871d89e31903ebbda3cfab5a212838876fd5c0889aac9bb719c932688",
+      "text": "POST /oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=SYNTHETICcode01&client_id=SYNTHETICappkey01&client_secret=SYNTHETICDropboxAppSecretNeverIssued0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 193,
+            "end": 233,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--app-secret-curl-data-client-secret",
+      "case": "dropbox-app-secret-token-request-field",
+      "path": "app-secret-curl-data-client-secret/fixture.txt",
+      "context": "cli",
+      "sha256": "28bf8baacf8a6d661a47b9ad81c9cd1312e21f34d4e8e66caa29202952a13ab0",
+      "text": "curl -d \"client_id=SYNTHETICappkey01&client_secret=SYNTHETICDropboxAppSecretNeverIssued0002&grant_type=refresh_token\" https://api.example.test/oauth2/token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 51,
+            "end": 91,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--app-secret-json-body-client-secret",
+      "case": "dropbox-app-secret-token-request-field",
+      "path": "app-secret-json-body-client-secret/fixture.txt",
+      "context": "structured-file",
+      "sha256": "c69c1fc74cb6a8ed715cb2647139df72791a453100d29f5619263c27ce1b4df4",
+      "text": "{\n  \"client_id\": \"SYNTHETICappkey01\",\n  \"client_secret\": \"SYNTHETICDropboxAppSecretNeverIssued0001\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 58,
+            "end": 98,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--app-secret-lookalike-app-key-only",
+      "case": "dropbox-app-secret-lookalikes-and-non-values",
+      "path": "app-secret-lookalike-app-key-only/fixture.txt",
+      "context": "form-body",
+      "sha256": "ba16e9f4248fe17c0f79ea143ddf0e03683e6c5739279539b4643b2adbed3145",
+      "text": "grant_type=authorization_code&code=SYNTHETICcode01&client_id=SYNTHETICappkey01\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-secret-lookalike-webhook-signature-header",
+      "case": "dropbox-app-secret-lookalikes-and-non-values",
+      "path": "app-secret-lookalike-webhook-signature-header/fixture.txt",
+      "context": "header",
+      "sha256": "1c8827bf899ea98d4e9d438e1e49cb2d8407b147cd2872fefd4cff10a55b7784",
+      "text": "POST /webhook HTTP/1.1\nHost: hooks.example.test\nX-Dropbox-Signature: abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-secret-lookalike-client-secret-angle-placeholder",
+      "case": "dropbox-app-secret-lookalikes-and-non-values",
+      "path": "app-secret-lookalike-client-secret-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "d4dcdec7757c34fc6b02d7207cf10e462ba90b1f52fc6f9eaa614d639f750434",
+      "text": "grant_type=refresh_token&client_secret=<YOUR_APP_SECRET>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-secret-lookalike-client-secret-environment-reference",
+      "case": "dropbox-app-secret-lookalikes-and-non-values",
+      "path": "app-secret-lookalike-client-secret-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "99a2d7e689f12b854766d6845eacab8069922be14e7a3c12406743d2e0631956",
+      "text": "curl -d \"client_secret=${DROPBOX_APP_SECRET}\" https://api.example.test/oauth2/token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-secret-lookalike-client-secret-template-reference",
+      "case": "dropbox-app-secret-lookalikes-and-non-values",
+      "path": "app-secret-lookalike-client-secret-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "19563dec41c645e16153fe198e908c331309a7c17c85426a6e3059521d18dbfb",
+      "text": "{\n  \"client_secret\": \"{{ secrets.DROPBOX_APP_SECRET }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-secret-lookalike-client-secret-masked-display",
+      "case": "dropbox-app-secret-lookalikes-and-non-values",
+      "path": "app-secret-lookalike-client-secret-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1eedb8bef088127600a888f3878b008bd5014a6c9f9972dde1b5b10b435449a6",
+      "text": "{\n  \"client_secret\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

@@ -179,6 +179,147 @@
         "outcome": "not-assertable",
         "spans": []
       }
+    },
+    {
+      "id": "asana-authored--pat-raw-http-bearer-header",
+      "case": "asana-personal-access-token-bearer-header-value",
+      "path": "pat-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "c3825aa46d6b909366d659fd3c2a05008411aaed8596f2b314854d28db4709a1",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer SYNTHETICAsanaPatNeverIssued0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 76,
+            "end": 108,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--pat-curl-bearer-header",
+      "case": "asana-personal-access-token-bearer-header-value",
+      "path": "pat-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "addf4813f3fe1f5bf92d6660aa9f074336f66f77b87e5a7b9b636c636653ba88",
+      "text": "curl -H \"Authorization: Bearer SYNTHETICAsanaPatNeverIssued0002\" https://app.example.test/api/1.0/users/me\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 63,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--pat-json-header-map",
+      "case": "asana-personal-access-token-bearer-header-value",
+      "path": "pat-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "2d7da9c0244f2abec2bac722ca8dc72a34badb25205811020720c2a37135686a",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETICAsanaPatNeverIssued0001\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 78,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-gids-in-request-path",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-gids-in-request-path/fixture.txt",
+      "context": "header",
+      "sha256": "3305b331fe8017369dabf92ef787c808f2435181e7bb39a611e2b4b1cbb0a36c",
+      "text": "GET /api/1.0/tasks/1200000000000001/projects?workspace=1200000000000002 HTTP/1.1\nHost: app.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-gids-in-json-body",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-gids-in-json-body/fixture.txt",
+      "context": "structured-file",
+      "sha256": "83261920b95f0fd248a9bf6b3921136bacb80ff50591fb64abf5f1d10eec62f0",
+      "text": "{\n  \"data\": {\n    \"gid\": \"1200000000000003\",\n    \"resource_type\": \"task\",\n    \"assignee\": { \"gid\": \"1200000000000004\" }\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-scheme-only",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "88135795cd2330ab799af5937265ead3e03b861354b43b96a06b0e5f54906c8c",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-angle-placeholder",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "d0cf0eb23cb9007a9e25a2a803eb642e849efcdb107fba213d29773e370af49b",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer <PERSONAL_ACCESS_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-environment-reference",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "c3cb3e32f4bb350cede65dd56bb7abf969f1046014e39db5f6952f551b7d6ff6",
+      "text": "curl -H \"Authorization: Bearer ${ASANA_PAT}\" https://app.example.test/api/1.0/users/me\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-template-reference",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d7c6920cbcea0e6df15f62420efdc7ed99474bb902809bcb9dde87e75e240721",
+      "text": "{\n  \"Authorization\": \"Bearer {{ secrets.ASANA_PAT }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-masked-display",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "e16cf9d514c1669baf0541cdb5427c70529369311ef130594c697432bbe0a4c3",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "canva-token-response-access-token-member",
+  "title": "Value of the access_token member in a Canva token response",
+  "summary": "A synthetic value of the access_token member in a Canva token endpoint success response, shown as a pretty-printed JSON body, a compact JSON body behind raw HTTP response headers and the output of a curl request.",
+  "rationale": "The member is the carrier: Canva describes the access_token member of the success response as the bearer access token for the REST API. Canva states no prefix, length or alphabet, so the value is flagged because of the member it sits in, not because of its shape. The extent is the member value only: token_type and expires_in are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "canva:access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the access_token member of the token endpoint response is treated as a credential whatever its shape. Canva documents the access_token member of the token endpoint success response (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "canva-dev-e6b9def37d",
+        "supports": "access_token string The bearer access token to use to authenticate to Canva REST API endpoints.",
+        "locator": "Success response"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

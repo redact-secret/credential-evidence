@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zoom-server-to-server-access-token-bearer-header-and-response-member",
+  "title": "Value of a Zoom Server-to-Server access token in a Bearer header or token response",
+  "summary": "A synthetic value of the access_token member in a token response for the account_credentials grant, and after Authorization: Bearer in a raw request and a quoted curl -H argument.",
+  "rationale": "Zoom documents that the account_credentials grant issues a Bearer access token with a one-hour lifetime and no refresh token. Zoom states no prefix, alphabet or length, the documentation placeholder for the value does not establish that issued tokens are JWTs, and a JWT is not assumed, so the value is flagged because of where it sits, not because of its shape. The extent is the value only: the scheme word, the member name, the quotes and token_type and expires_in are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "zoom:server-to-server-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the access_token member of the token response or an Authorization: Bearer header is treated as a credential whatever its shape. Zoom documents a Bearer access token generated with the account_credentials grant (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developers-zoom-us-5cd68eb092",
+        "supports": "Use the account_credentials grant type to generate an access token.",
+        "locator": "#generate-access-token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

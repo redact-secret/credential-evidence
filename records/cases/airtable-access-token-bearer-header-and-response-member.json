@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-access-token-bearer-header-and-response-member",
+  "title": "Value of an Airtable OAuth access token in a Bearer header or token response",
+  "summary": "A synthetic value after Authorization: Bearer in a raw request, a quoted curl -H argument and a JSON header map, and as the access_token member of a token response, including a short value and a much longer value.",
+  "rationale": "The carrier is documented: Airtable passes the OAuth access token as an Authorization: Bearer header and returns it as the access_token member of the token response. Airtable states the token is an opaque, variable-length string and not to rely on any length or format, so the value is flagged because of where it sits, not because of its shape. The extent is the value only: the scheme word, the header name and the closing quote or brace are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "airtable:oauth-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in an Authorization: Bearer header or the access_token member of the token response is treated as a credential whatever its shape. Airtable documents the Authorization: Bearer header and the access_token response member (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-c4d52d6cd9",
+        "supports": "The OAuth access tokens you receive should be passed with your API requests as a `Authorization: Bearer header`.",
+        "locator": "#making-api-requests"
+      },
+      {
+        "sourceId": "airtable-com-b4c77d59e9",
+        "supports": "`access_token` | An opaque string. Can be used to make requests to the Airtable API on behalf of the user, and cannot be recovered if lost.",
+        "locator": "token response table"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
