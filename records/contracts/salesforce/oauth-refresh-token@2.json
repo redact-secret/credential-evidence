@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "salesforce:oauth-refresh-token@2",
+  "family": "salesforce:oauth-refresh-token",
+  "revision": 2,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": "salesforce:oauth-refresh-token@1",
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "An external client app can be configured so that its OAuth refresh token expires after a set period (the guide uses 90 days), and the Salesforce CLI refers to the refresh token when an access token expires.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developer-salesforce-com-073e7d3542",
+          "supports": "Setting a maximum of 90 days for the refresh token expiration is a security best practice.",
+          "locator": "Create an External Client App in Your Org: Refresh Token Validity Period step"
+        },
+        {
+          "sourceId": "developer-salesforce-com-073e7d3542",
+          "supports": "Salesforce CLI automatically handles an expired access token by referring to the refresh token.",
+          "locator": "Create an External Client App in Your Org: Session Timeout step"
+        }
+      ]
+    },
+    {
+      "id": "token-response-member-and-secret",
+      "statement": "Salesforce's OAuth 2.0 Web Server Flow page documents refresh_token as an optional member of the token response, obtained from the web server, user-agent or hybrid app token flow, returned only when the external client app has the refresh_token scope, and states that the value is a secret to be protected. The page gives no prefix, alphabet or length.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "help-salesforce-com-490d26490b",
+          "supports": "refresh_token Token obtained from the web server, user-agent, or hybrid app token flow. This value is a secret. Take appropriate measures to protect it. This parameter is returned only if your external client app is set up with a refresh_token scope.",
+          "locator": "token response, additional response parameters (section following the access token response)"
+        }
+      ]
+    },
+    {
+      "id": "refresh-request-carrier",
+      "statement": "Salesforce's OAuth 2.0 Refresh Token Flow page documents the refresh token as the refresh_token parameter of a POST to /services/oauth2/token with grant_type refresh_token, sent together with client_id and either client_secret or a client_assertion, and states that OAuth tokens and client secrets belong in a POST body or request header and not in a GET query string. Its example request shows a placeholder, not a token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "help-salesforce-com-4202099562",
+          "supports": "grant_type The OAuth 2.0 grant type that the connected app requests. The value must be refresh_token for this flow.",
+          "locator": "Request an Updated Access Token, parameters"
+        },
+        {
+          "sourceId": "help-salesforce-com-4202099562",
+          "supports": "refresh_token Token obtained from the web server, user-agent, or hybrid app token flow. This value is a secret. Take appropriate measures to protect it.",
+          "locator": "Request an Updated Access Token, parameters"
+        },
+        {
+          "sourceId": "help-salesforce-com-4202099562",
+          "supports": "Don't use GET parameters in the URL query string to pass sensitive information. Sensitive information includes but isn't limited to usernames, passwords, OAuth tokens, client secrets, and any personally identifiable information.",
+          "locator": "Request an Updated Access Token, Important note"
+        }
+      ]
+    },
+    {
+      "id": "tool-prefix",
+      "statement": "Artifacts TruffleHog salesforcerefreshtoken and Vulnetix vnx-sec-525 both treat a word-bounded value that begins with the literal prefix 5Aep861 (TruffleHog matches it case-insensitively) followed by a run of alphanumerics, dot and underscore as a Salesforce OAuth refresh token. They differ on the minimum length of the remainder (80 versus 40 characters) and on additional permitted characters (equals sign versus hyphen), so length and alphabet are not settled. Whether the Vulnetix catalog derives from the TruffleHog detector is not stated, so the independence of the two is for the reviewer to confirm. The artifacts read give a prefix and a minimum, not a Salesforce-defined grammar, and no scope (org, app or issuance period) is stated for either.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-2aaf915fb8",
+          "supports": "refreshTokenPat: (?i)\\b(5AEP861[a-zA-Z0-9._=]{80,})\\b",
+          "locator": "#L29"
+        },
+        {
+          "sourceId": "github-com-vulnetix-cli-d0ad1ac683",
+          "supports": "_pattern := \\b(5Aep861[A-Za-z0-9_.\\-]{40,})\\b",
+          "locator": "#L25"
+        }
+      ]
+    },
+    {
+      "id": "format-not-documented",
+      "statement": "No Salesforce page read states a prefix, alphabet, length or era for an OAuth refresh token, and none distinguishes a connected app refresh token from an external client app one by format. The rule artifacts' 5Aep861 prefix and their 80-versus-40 minimum remainder lengths are therefore not recorded in the structure.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "help-salesforce-com-490d26490b",
+          "supports": "The refresh_token response member is described by origin, secrecy and the refresh_token scope; no format is given.",
+          "locator": "Salesforce Grants an Access Token, response parameters"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Revision 2 supersedes revision 1 additively. Revision 1 carried a 5Aep861 prefix in the structure although the only support was the two-artifact claim; the schema reserves the structure for the format as defined by the provider, so this revision leaves it empty and keeps the prefix inside the tool-corroborated claim with its scope and open independence question.",
+  "openQuestions": [
+    {
+      "id": "refresh-token-length-alphabet",
+      "question": "Salesforce documentation read states no refresh token format. Two rule artifacts agree on a 5Aep861 prefix but differ on minimum remainder length (80 versus 40) and permitted characters. Is the remainder length or alphabet stated by Salesforce, and is the prefix tied to an org, an app, a token kind or an issuance era? A Salesforce statement, or a dated archive snapshot of a Salesforce page that states the grammar, would settle it; an issued sample would be issuance-gated and was not sought.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "source-independence",
+      "question": "Independence of the two artifacts is unconfirmed: the TruffleHog expression is reproduced verbatim in other public repositories, which count once with it, and the Vulnetix rule is generated from a catalog of unstated origin. Other rule artifacts read in search results (not recorded as sources) use different minimums (60 and 20), which would widen the length question rather than settle it. A statement of provenance from either maintainer, or a third artifact with a documented independent origin, would settle independence.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "prefix-token-kind",
+      "question": "Third-party connector documentation in public repositories shows values beginning 5Aep861 in the position of an access token as well as a refresh token (not recorded: not a provider source, and not copied). If the prefix is not specific to refresh tokens, a prefix-only attribution is ambiguous across Salesforce token kinds. Not asserted either way.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "connected-versus-external-client-app",
+      "question": "The Web Server Flow page speaks of external client apps and the Refresh Token Flow page of connected apps. Whether their refresh tokens share a grammar is not stated.",
+      "raisedAt": "2026-10-05"
+    }
+  ]
+}
