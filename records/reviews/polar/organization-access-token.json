@@ -125,6 +125,17 @@
       },
       "verdict": "not-assertable",
       "note": "Statement 'field-public-and-short-lived-siblings' is recorded as unresolved: Polar's OAuth setup page calls the client id and secret 'super sensitive' while the contract says the sibling identifiers are public; RFC 6749 section 2.2 is the generic standard, not Polar's statement."
+    },
+    {
+      "seq": 8,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Search extended on 2026-10-05 for #64/#65 after the premise 'only betterleaks has a Polar rule' was questioned. Read raw at pinned commits or dated: betterleaks, mask-go, secret-sniffer, console2svg QuickLeaks (generated from a Betterleaks config, so one with betterleaks), TruffleHog v3.97.9 and Gitleaks (no Polar rule), GitHub's supported secret scanning patterns (8 Polar token types, no formats) and GitGuardian's polar_oat detector (prefixed, no format). Chrome was used for the GitGuardian page; the GitHub code search hit its API limit before Nosey Parker, Kingfisher and detect-secrets could be read from their source trees. Outcome: tool-corroborated claims added to the @2 contract for the prefix and body class only; no fixture changes basis, because the peer artifacts differ from one another on length and boundary and none states an expectation for those inputs. The 11 fixtures moved to not-assertable in ADR 0022 stay there. No class change; this is an agent search, not a review."
     }
   ],
   "externalRefs": [
