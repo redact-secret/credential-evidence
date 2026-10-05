@@ -44,6 +44,30 @@
           "locator": "#making-api-requests"
         }
       ]
+    },
+    {
+      "id": "carrier-response-member-and-refresh-field",
+      "statement": "The Airtable token response carries the refresh token in its refresh_token field, and a refresh request is an application/x-www-form-urlencoded body to the token endpoint with grant_type refresh_token and the saved token in a refresh_token parameter.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "airtable-com-b4c77d59e9",
+          "supports": "`refresh_token` | An opaque string. Can be used to request a new access token after the current one expires.",
+          "locator": "token response table"
+        },
+        {
+          "sourceId": "airtable-com-b4c77d59e9",
+          "supports": "`refresh_token` | The saved refresh token from the previous token grant.",
+          "locator": "#token-refresh-request-body"
+        },
+        {
+          "sourceId": "airtable-com-b4c77d59e9",
+          "supports": "these parameters must be formatted via the `application/x-www-form-urlencoded` encoding.",
+          "locator": "#token-refresh-request-body"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",

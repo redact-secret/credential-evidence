@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "salesforce-authored",
+  "title": "TODO(record:new): title of this set of authored fixtures",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "salesforce-authored--token-response-member",
+      "case": "salesforce-oauth-access-token-response-member-and-bearer-header",
+      "path": "token-response-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1c2dcaae84b292b78a11ce4082bac3678b4ef71c8dcfd1aa3d9eaee08fc08308",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-salesforce-oauth-access-token-never-issued-0001\",\n  \"scope\": \"web openid\",\n  \"instance_url\": \"https://example-org.my.example.test\",\n  \"token_type\": \"Bearer\",\n  \"issued_at\": \"1558553873237\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 78,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--bearer-curl-header",
+      "case": "salesforce-oauth-access-token-response-member-and-bearer-header",
+      "path": "bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "3053f95d3a088d3609db8ca7c263d2c2e90eacd5143561cdd1b40546fd8a54d7",
+      "text": "curl https://example-org.my.example.test/services/data/v68.0/ -H 'Authorization: Bearer SYNTHETIC-salesforce-oauth-access-token-never-issued-0002'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 88,
+            "end": 145,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--bearer-raw-http",
+      "case": "salesforce-oauth-access-token-response-member-and-bearer-header",
+      "path": "bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "9e15c91ab386d5e85e1fe8591513152f803895f95169ee5cfe8e4d2b605e578a",
+      "text": "GET /services/data/v68.0/ HTTP/1.1\nHost: example-org.my.example.test\nAuthorization: Bearer SYNTHETIC-salesforce-oauth-access-token-never-issued-0003\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 91,
+            "end": 148,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--client-secret-form-body",
+      "case": "salesforce-external-client-app-consumer-secret-token-request-field",
+      "path": "client-secret-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "8cf8b67a0d1d454818a4c8f12344a671095b8b6616debc78fa470fa30a14f7e1",
+      "text": "POST /services/oauth2/token HTTP/1.1\nHost: example-org.my.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<authorization code>&client_id=SYNTHETIC-salesforce-consumer-key&client_secret=SYNTHETIC-salesforce-consumer-secret-never-issued-0001&redirect_uri=https%3A%2F%2Fapp.example.test%2Fcb\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 234,
+            "end": 288,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--client-secret-curl-data",
+      "case": "salesforce-external-client-app-consumer-secret-token-request-field",
+      "path": "client-secret-curl-data/fixture.txt",
+      "context": "cli",
+      "sha256": "2474685ebe6b91f58c3a0911a63f32d955b7a1577a5830952b8413b27bc3c43c",
+      "text": "curl -X POST https://example-org.my.example.test/services/oauth2/token -d \"grant_type=authorization_code\" -d \"client_id=SYNTHETIC-salesforce-consumer-key\" -d \"client_secret=SYNTHETIC-salesforce-consumer-secret-never-issued-0002\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 173,
+            "end": 227,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--basic-raw-http",
+      "case": "salesforce-external-client-app-consumer-secret-token-request-field",
+      "path": "basic-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "2a83ccc9fd2709e3f4a3cde2948ba5de75ea8a9d66d5749443d63f07171de137",
+      "text": "POST /services/oauth2/token HTTP/1.1\nHost: example-org.my.example.test\nAuthorization: Basic U1lOVEhFVElDLXNhbGVzZm9yY2UtY29uc3VtZXIta2V5OlNZTlRIRVRJQy1zYWxlc2ZvcmNlLWNvbnN1bWVyLXNlY3JldC1uZXZlci1pc3N1ZWQtMDAwMw==\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 92,
+            "end": 212,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--token-request-consumer-key-only",
+      "case": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+      "path": "token-request-consumer-key-only/fixture.txt",
+      "context": "form-body",
+      "sha256": "65f7ba4e1a767a17daf1491e0eb7585e56bdbdc57f3c0a87d6e00b37b80b685b",
+      "text": "grant_type=authorization_code&code=<authorization code>&client_id=SYNTHETIC-salesforce-consumer-key&redirect_uri=https%3A%2F%2Fapp.example.test%2Fcb\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--token-response-non-secret-members",
+      "case": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+      "path": "token-response-non-secret-members/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d4de29d4ea3d469cad37d4aae80d9b78f00b88636fdb81468335f3f011748434",
+      "text": "{\n  \"signature\": \"U1lOVEhFVElDLWhtYWMtb3V0cHV0\",\n  \"scope\": \"web openid\",\n  \"instance_url\": \"https://example-org.my.example.test\",\n  \"token_type\": \"Bearer\",\n  \"issued_at\": \"1558553873237\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--basic-documented-placeholder",
+      "case": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+      "path": "basic-documented-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "2c7096552313d98af6924011d7b379c249caf105f8af14ea261290254f74eb32",
+      "text": "Authorization: Basic <base64 of client_id:client_secret>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--bearer-documented-placeholder",
+      "case": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+      "path": "bearer-documented-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "e2f8c8bda08f67dd6bd9f7f0f43fdf6d5251427aebf9b3e7fdb3c358503bfa2c",
+      "text": "Authorization: Bearer <access token>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--client-secret-environment-reference",
+      "case": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+      "path": "client-secret-environment-reference/fixture.txt",
+      "context": "env",
+      "sha256": "79367d6623b6aaf04cdb7ee4c7f8fae76418b713188e71ec30b721772258f3ea",
+      "text": "client_secret=${SALESFORCE_CLIENT_SECRET}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--client-secret-masked-display",
+      "case": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+      "path": "client-secret-masked-display/fixture.txt",
+      "context": "form-body",
+      "sha256": "4bbe8849fffcc3d3cef70e9e6c55b21f5dc7742ff0c46bbaee6bc045e0183356",
+      "text": "client_secret=********&redirect_uri=https%3A%2F%2Fapp.example.test%2Fcb\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--access-token-masked-display",
+      "case": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+      "path": "access-token-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d8496ffcc2e5a54716aad0c7f6109fd21898a519f26c6adeab94cc190ad95f4b",
+      "text": "{\n  \"access_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--client-secret-parameter-prose-mention",
+      "case": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+      "path": "client-secret-parameter-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "4d1b7a7cc754ac8d58b04ff07e7918be692b44715789beb71bb0f57efac1183f",
+      "text": "Send the client_secret parameter in the token request unless the app does not require it.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

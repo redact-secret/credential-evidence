@@ -179,6 +179,426 @@
         "outcome": "not-assertable",
         "spans": []
       }
+    },
+    {
+      "id": "asana-authored--pat-raw-http-bearer-header",
+      "case": "asana-personal-access-token-bearer-header-value",
+      "path": "pat-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "c3825aa46d6b909366d659fd3c2a05008411aaed8596f2b314854d28db4709a1",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer SYNTHETICAsanaPatNeverIssued0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 76,
+            "end": 108,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--pat-curl-bearer-header",
+      "case": "asana-personal-access-token-bearer-header-value",
+      "path": "pat-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "addf4813f3fe1f5bf92d6660aa9f074336f66f77b87e5a7b9b636c636653ba88",
+      "text": "curl -H \"Authorization: Bearer SYNTHETICAsanaPatNeverIssued0002\" https://app.example.test/api/1.0/users/me\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 63,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--pat-json-header-map",
+      "case": "asana-personal-access-token-bearer-header-value",
+      "path": "pat-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "2d7da9c0244f2abec2bac722ca8dc72a34badb25205811020720c2a37135686a",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETICAsanaPatNeverIssued0001\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 78,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-gids-in-request-path",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-gids-in-request-path/fixture.txt",
+      "context": "header",
+      "sha256": "3305b331fe8017369dabf92ef787c808f2435181e7bb39a611e2b4b1cbb0a36c",
+      "text": "GET /api/1.0/tasks/1200000000000001/projects?workspace=1200000000000002 HTTP/1.1\nHost: app.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-gids-in-json-body",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-gids-in-json-body/fixture.txt",
+      "context": "structured-file",
+      "sha256": "83261920b95f0fd248a9bf6b3921136bacb80ff50591fb64abf5f1d10eec62f0",
+      "text": "{\n  \"data\": {\n    \"gid\": \"1200000000000003\",\n    \"resource_type\": \"task\",\n    \"assignee\": { \"gid\": \"1200000000000004\" }\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-scheme-only",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "88135795cd2330ab799af5937265ead3e03b861354b43b96a06b0e5f54906c8c",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-angle-placeholder",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "d0cf0eb23cb9007a9e25a2a803eb642e849efcdb107fba213d29773e370af49b",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer <PERSONAL_ACCESS_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-environment-reference",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "c3cb3e32f4bb350cede65dd56bb7abf969f1046014e39db5f6952f551b7d6ff6",
+      "text": "curl -H \"Authorization: Bearer ${ASANA_PAT}\" https://app.example.test/api/1.0/users/me\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-template-reference",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d7c6920cbcea0e6df15f62420efdc7ed99474bb902809bcb9dde87e75e240721",
+      "text": "{\n  \"Authorization\": \"Bearer {{ secrets.ASANA_PAT }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--pat-lookalike-bearer-masked-display",
+      "case": "asana-personal-access-token-lookalikes-and-non-values",
+      "path": "pat-lookalike-bearer-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "e16cf9d514c1669baf0541cdb5427c70529369311ef130594c697432bbe0a4c3",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-access-pretty-json-response",
+      "case": "asana-oauth-token-response-access-token-member",
+      "path": "oauth-access-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "fb9e3b99f0f1c25fb003ea37d9e91360eb34ee6e162740814298cc33a6760e0c",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-never-issued-asana-access-0001\",\n  \"expires_in\": 3600,\n  \"token_type\": \"bearer\",\n  \"data\": {\n    \"id\": 1000000000000001,\n    \"gid\": \"1000000000000001\",\n    \"name\": \"Synthetic Person\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 61,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-access-raw-http-bearer-header",
+      "case": "asana-oauth-token-response-access-token-member",
+      "path": "oauth-access-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "6146da521beba475c0663e44cd66d77280d6ec613fadd91b7d4fb29f93846ffa",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer SYNTHETIC-never-issued-asana-access-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 76,
+            "end": 116,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-access-curl-bearer-header",
+      "case": "asana-oauth-token-response-access-token-member",
+      "path": "oauth-access-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "98a5767d68c22f00dc2f51cf8b43417f0cc1ad073c4f9c7c3c0bf91c50341297",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-never-issued-asana-access-0003\" https://app.example.test/api/1.0/users/me\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 71,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-refresh-pretty-json-response",
+      "case": "asana-oauth-refresh-token-response-member-and-request-field",
+      "path": "oauth-refresh-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d36abca7b1f33eb5b865dd1e11aac4e42aeaced1887898d57be2553c257db000",
+      "text": "{\n  \"expires_in\": 3600,\n  \"token_type\": \"bearer\",\n  \"refresh_token\": \"SYNTHETIC-never-issued-asana-refresh-0001\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 70,
+            "end": 111,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-refresh-raw-http-form-request",
+      "case": "asana-oauth-refresh-token-response-member-and-request-field",
+      "path": "oauth-refresh-raw-http-form-request/fixture.txt",
+      "context": "form-body",
+      "sha256": "e31d8c5d7b2dff3cb80c686fb52fbff743892f038ae3a43686ef265b39344805",
+      "text": "POST /-/oauth_token HTTP/1.1\nHost: app.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&client_id=SYNTHETIC-client-id-0001&refresh_token=SYNTHETIC-never-issued-asana-refresh-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 175,
+            "end": 216,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-refresh-curl-data-urlencode",
+      "case": "asana-oauth-refresh-token-response-member-and-request-field",
+      "path": "oauth-refresh-curl-data-urlencode/fixture.txt",
+      "context": "cli",
+      "sha256": "1b65b47c70ab3356292281a3e16ca621792a043a913e5b94bbefa816ef5a999e",
+      "text": "curl --location 'https://app.example.test/-/oauth_token' --data-urlencode 'grant_type=refresh_token' --data-urlencode 'refresh_token=SYNTHETIC-never-issued-asana-refresh-0003' --data-urlencode 'client_id=SYNTHETIC-client-id-0001'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 133,
+            "end": 174,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-client-secret-form-body",
+      "case": "asana-oauth-client-secret-token-request-field",
+      "path": "oauth-client-secret-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "fe2736e48f07aac45f89115a856c9c7030b07113e7ea727bb42385e1c2318a8a",
+      "text": "POST /-/oauth_token HTTP/1.1\nHost: app.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&client_id=SYNTHETIC-client-id-0001&client_secret=SYNTHETIC-never-issued-asana-client-secret-0001&code=SYNTHETIC-code-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 180,
+            "end": 227,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-client-secret-curl-data-urlencode",
+      "case": "asana-oauth-client-secret-token-request-field",
+      "path": "oauth-client-secret-curl-data-urlencode/fixture.txt",
+      "context": "cli",
+      "sha256": "b042e32b0d0d0759c6b102e259091efc836f783c2755e0e92d4eab607065ece7",
+      "text": "curl --location 'https://app.example.test/-/oauth_token' --data-urlencode 'client_id=SYNTHETIC-client-id-0001' --data-urlencode 'client_secret=SYNTHETIC-never-issued-asana-client-secret-0002'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 143,
+            "end": 190,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-client-secret-json-body",
+      "case": "asana-oauth-client-secret-token-request-field",
+      "path": "oauth-client-secret-json-body/fixture.txt",
+      "context": "structured-file",
+      "sha256": "034fd6469f135d2a51b7871fb33698af16f8397d9e271870396e8a34b8ca3c3a",
+      "text": "{\n  \"grant_type\": \"authorization_code\",\n  \"client_id\": \"SYNTHETIC-client-id-0001\",\n  \"client_secret\": \"SYNTHETIC-never-issued-asana-client-secret-0003\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 103,
+            "end": 150,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-client-id-and-user-ids-only",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-client-id-and-user-ids-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "b36497ca7c02b3e246eb9c31142450d8f99d0e4b0cd964745d58c762e677333f",
+      "text": "{\n  \"client_id\": \"SYNTHETIC-client-id-0001\",\n  \"expires_in\": 3600,\n  \"token_type\": \"bearer\",\n  \"data\": {\n    \"id\": 1000000000000001,\n    \"gid\": \"1000000000000001\",\n    \"name\": \"Synthetic Person\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-request-signature-header",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-request-signature-header/fixture.txt",
+      "context": "header",
+      "sha256": "94baf168a7081343602da6d5257235cc753252ce53c602d2b598b1b355e3707c",
+      "text": "POST /app-component/action HTTP/1.1\nHost: app.example.test\nx-asana-request-signature: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-access-token-angle-placeholder",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-access-token-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "734ea502f25d70d1d03e6d7720f76491a13b8a12213342bcc142e49bf52c1a7e",
+      "text": "GET /api/1.0/users/me HTTP/1.1\nHost: app.example.test\nAuthorization: Bearer <ACCESS_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-access-token-documented-placeholder",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-access-token-documented-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "9a879272b2aa3d87584586097f5c965da70dac250ddc48e1fa94f9e6193cd5cb",
+      "text": "curl -H \"Authorization: Bearer ACCESS_TOKEN\" https://app.example.test/api/1.0/users/me\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-refresh-token-documented-placeholder",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-refresh-token-documented-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "a08d77b69c9112105d9b59bb6b22cc11c6d0336aa00577a01fa957d031038841",
+      "text": "curl --location 'https://app.example.test/-/oauth_token' --data-urlencode 'grant_type=refresh_token' --data-urlencode 'refresh_token=<YOUR_REFRESH_TOKEN>'\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-refresh-token-environment-reference",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-refresh-token-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "b1fd9b392e0dd6890be8c763c73506ed8cad91cf0441a262c61e090948410ad3",
+      "text": "curl -d \"refresh_token=${ASANA_REFRESH_TOKEN}\" https://app.example.test/-/oauth_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-client-secret-documented-placeholder",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-client-secret-documented-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "46768343a5c1b16da0af686b15bd31746ceb486b687e670322532731620ee603",
+      "text": "curl --location 'https://app.example.test/-/oauth_token' --data-urlencode 'client_secret=<YOUR_CLIENT_SECRET>'\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-client-secret-template-reference",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-client-secret-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7ff92749368b9ac4c68c8829881de241c7722faf2f768efbf94850a49ea8efd2",
+      "text": "{\n  \"client_secret\": \"{{ secrets.ASANA_CLIENT_SECRET }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--oauth-lookalike-token-members-masked-display",
+      "case": "asana-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-token-members-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "b5b6648999eb78e4cc81fc2012f11809d9be4bb5f18df183d1ecf939264031b7",
+      "text": "{\n  \"access_token\": \"********\",\n  \"refresh_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

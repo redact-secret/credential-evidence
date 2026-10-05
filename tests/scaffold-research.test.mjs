@@ -113,7 +113,8 @@ test("review --append adds events after the last seq and never touches earlier o
   assert.ok(imported.record.externalRefs.some((r) => r.system.startsWith("legacy-")));
   assert.deepEqual(imported.record.events.slice(0, -1), index.find((e) => e.path === imported.path).record.events);
   refused("review", ["case:no-such"], { actor: "b", append: true }, /unknown case/);
-  const someCase = index.find((e) => e.record.kind === "case").record.id;
+  const withHistory = new Set(index.filter((e) => e.record.kind === "evidence-review-history" && e.record.subject.kind === "case").map((e) => e.record.subject.id));
+  const someCase = index.find((e) => e.record.kind === "case" && !withHistory.has(e.record.id)).record.id;
   refused("review", [`case:${someCase}`], { actor: "b", append: true }, /no review history exists/);
 });
 

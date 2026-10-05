@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-cloud-apikey-authorization-header-value",
+  "title": "Value of an ApiKey Authorization header for an Elastic Cloud API key",
+  "summary": "A synthetic opaque value after the ApiKey scheme in an Authorization header, in a raw request, a quoted curl -H argument and a JSON header map; the value has no documented prefix or width.",
+  "rationale": "Elastic documents the Cloud API key as supplied in the Authorization header as ApiKey followed by the key value. The scheme is the same generic envelope already recorded for the Elasticsearch API key, so the carrier cannot tell a Cloud key from a self-managed one and the attribution stays generic. The page states no prefix, alphabet or width, so none is claimed, and the value is covered whole without decoding. The header name, scheme and closing quote or brace are outside the extent.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "elastic:cloud-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value after an explicit ApiKey scheme in an Authorization header is treated as a credential and covered whole, consistent with the Elasticsearch API key envelope. Elastic documents the scheme as the carrier of the Cloud API key (carrier existence only); the value admission, extent and generic authorization attribution are the project's decisions. No prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-docs-content-8e866982e7",
+        "supports": "The API key needs to be supplied in the Authorization header of a request, in the following format: Authorization: ApiKey $EC_API_KEY",
+        "locator": "#ec-api-keys"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

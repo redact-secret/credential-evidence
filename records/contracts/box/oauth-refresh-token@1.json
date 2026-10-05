@@ -25,6 +25,30 @@
           "locator": "components.schemas.AccessToken.properties.refresh_token.description; paths./oauth2/token#refresh.post.description"
         }
       ]
+    },
+    {
+      "id": "carrier-response-member-and-request-field",
+      "statement": "The Box token endpoint response carries the refresh token in its refresh_token member. A refresh request is an application/x-www-form-urlencoded body to the token endpoint with grant_type refresh_token and the token in a refresh_token field. The illustrative example values on the page are not a format statement.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developer-box-com-ec038b0050",
+          "supports": "The refresh token for this access token, which can be used to request a new access token when the current one expires.",
+          "locator": "Response 200 (refresh_token)"
+        },
+        {
+          "sourceId": "developer-box-com-ec038b0050",
+          "supports": "The refresh token to refresh.",
+          "locator": "Body, application/x-www-form-urlencoded (refresh_token)"
+        },
+        {
+          "sourceId": "developer-box-com-ec038b0050",
+          "supports": "-d \"refresh_token=[REFRESH_TOKEN]\"",
+          "locator": "cURL example"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",

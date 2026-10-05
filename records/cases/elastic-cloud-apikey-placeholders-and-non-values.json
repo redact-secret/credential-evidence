@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-cloud-apikey-placeholders-and-non-values",
+  "title": "Elastic Cloud ApiKey header placeholders and non-values",
+  "summary": "Bare ApiKey prose, a scheme-only header, a placeholder, environment and template references and a masked value after the ApiKey scheme in a Cloud API request.",
+  "rationale": "The word ApiKey names a scheme and is also an everyday term, so prose or a header with no value is not a credential, and a placeholder, reference or masked display carries no value. The documented shell variable form of the key is a reference, not a value.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "elastic:cloud-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder or reference is not a value is a project decision, not an Elastic statement.",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-docs-content-8e866982e7",
+        "supports": "The API key needs to be supplied in the Authorization header of a request, in the following format: Authorization: ApiKey $EC_API_KEY",
+        "locator": "#ec-api-keys"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "mongodb-atlas-authored",
+  "title": "MongoDB Atlas credential carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "mongodb-atlas-authored--bearer-raw-http",
+      "case": "mongodb-atlas-service-account-access-token-bearer-header",
+      "path": "bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "4118aba6bace82cc10a60e23d279ceaa8a3c676d522120eae0b3185bc7ed5f16",
+      "text": "GET /api/atlas/v2/orgs HTTP/1.1\nHost: cloud.example.test\nAuthorization: Bearer SYNTHETIC-atlas-access-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 79,
+            "end": 125,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--bearer-curl-header",
+      "case": "mongodb-atlas-service-account-access-token-bearer-header",
+      "path": "bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "1d287bf77c13829ddefebcb3113503f008fc6c63bca10d4d3f673318c2178bc2",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-atlas-access-token-never-issued-0001\" https://cloud.example.test/api/atlas/v2/orgs\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 77,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--bearer-json-header-map",
+      "case": "mongodb-atlas-service-account-access-token-bearer-header",
+      "path": "bearer-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "af1812010b8ca8f22821f3ceea20be5a205631500428da8166223001715443a7",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-atlas-access-token-never-issued-0001\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 92,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--basic-raw-http",
+      "case": "mongodb-atlas-service-account-secret-basic-envelope",
+      "path": "basic-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "b6a5ae8cdca84039648e822cf69209ff659d2c2aa137e00dbc66c43502b2ff34",
+      "text": "POST /api/oauth/token HTTP/1.1\nHost: cloud.example.test\nAuthorization: Basic bWRiX3NhX2lkXzAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMTpTWU5USEVUSUMtYXRsYXMtY2xpZW50LXNlY3JldC1uZXZlci1pc3N1ZWQtMDAwMQ==\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=client_credentials\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 77,
+            "end": 189,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--basic-curl-header",
+      "case": "mongodb-atlas-service-account-secret-basic-envelope",
+      "path": "basic-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "67bff4ced2d5928c89cd4054a029bc2f502ed29af03ddcecc75d9a25be8820d9",
+      "text": "curl -X POST -H \"Authorization: Basic bWRiX3NhX2lkXzAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMTpTWU5USEVUSUMtYXRsYXMtY2xpZW50LXNlY3JldC1uZXZlci1pc3N1ZWQtMDAwMQ==\" -d \"grant_type=client_credentials\" https://cloud.example.test/api/oauth/token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 38,
+            "end": 150,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--basic-json-header-map",
+      "case": "mongodb-atlas-service-account-secret-basic-envelope",
+      "path": "basic-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "63643f3b9c698533ece3a0a1ce2c08e1af8be09daf0358ea440b875388d7b68a",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Basic bWRiX3NhX2lkXzAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMTpTWU5USEVUSUMtYXRsYXMtY2xpZW50LXNlY3JldC1uZXZlci1pc3N1ZWQtMDAwMQ==\",\n    \"Content-Type\": \"application/x-www-form-urlencoded\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 45,
+            "end": 157,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--password-raw-http-json-body",
+      "case": "mongodb-atlas-database-user-password-request-field",
+      "path": "password-raw-http-json-body/fixture.txt",
+      "context": "header",
+      "sha256": "97e607a3f50c5ad2e416e9a7b3936884ec2aa64e6659e6c31a38e0a1d680e9f3",
+      "text": "POST /api/atlas/v2/groups/000000000000000000000001/databaseUsers HTTP/1.1\nHost: cloud.example.test\nContent-Type: application/json\n\n{\"databaseName\":\"admin\",\"username\":\"synthetic-user\",\"password\":\"SyntheticPassw0rdNeverUsed01\",\"roles\":[{\"databaseName\":\"admin\",\"roleName\":\"readAnyDatabase\"}]}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 195,
+            "end": 223,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--password-curl-data",
+      "case": "mongodb-atlas-database-user-password-request-field",
+      "path": "password-curl-data/fixture.txt",
+      "context": "cli",
+      "sha256": "598ed87426fd9cba1f460cedd7e6a37ffc24d9015bbb7c4c4b76f9d4f8b4344a",
+      "text": "curl -X POST -H \"Content-Type: application/json\" -d '{\"databaseName\":\"admin\",\"username\":\"synthetic-user\",\"password\":\"SyntheticPassw0rdNeverUsed01\",\"roles\":[{\"databaseName\":\"admin\",\"roleName\":\"readAnyDatabase\"}]}' https://cloud.example.test/api/atlas/v2/groups/000000000000000000000001/databaseUsers\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 117,
+            "end": 145,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--password-json-file",
+      "case": "mongodb-atlas-database-user-password-request-field",
+      "path": "password-json-file/fixture.txt",
+      "context": "structured-file",
+      "sha256": "38173da4ac59281fa30d2b7ebdb75c013f77a64bedf8c01e85d0122e25e4582e",
+      "text": "{\n  \"databaseName\": \"admin\",\n  \"username\": \"synthetic-user\",\n  \"password\": \"SyntheticPassw0rdNeverUsed02\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 76,
+            "end": 104,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--client-id-and-name",
+      "case": "mongodb-atlas-service-account-public-values-and-masked-outputs",
+      "path": "client-id-and-name/fixture.txt",
+      "context": "structured-file",
+      "sha256": "76ca6538302895f351adf8260754dba2907549d2628e01039f1cc94408a02b3d",
+      "text": "{\n  \"clientId\": \"mdb_sa_id_000000000000000000000001\",\n  \"name\": \"synthetic-service-account\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--token-response-lifetime-members",
+      "case": "mongodb-atlas-service-account-public-values-and-masked-outputs",
+      "path": "token-response-lifetime-members/fixture.txt",
+      "context": "structured-file",
+      "sha256": "90c07166ea02ad72002875f610b0efd9a28d35b149d4097c3d6116e33942bd3b",
+      "text": "{\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 3600\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--masked-secret-truncated-example",
+      "case": "mongodb-atlas-service-account-public-values-and-masked-outputs",
+      "path": "masked-secret-truncated-example/fixture.txt",
+      "context": "structured-file",
+      "sha256": "6e02dc178c4e6b43c5bb523193f2744e6182b6d8928bcd7df0b59223eb3d410b",
+      "text": "{\n  \"clientId\": \"mdb_sa_id_000000000000000000000001\",\n  \"maskedSecretValue\": \"mdb_sa_sk_...\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--bearer-environment-reference",
+      "case": "mongodb-atlas-service-account-public-values-and-masked-outputs",
+      "path": "bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "8741fa4ad175e4a783a94d7b5ae02752a81cf2009453ba09baf3330c5391662f",
+      "text": "curl -H \"Authorization: Bearer ${ACCESS_TOKEN}\" https://cloud.example.test/api/atlas/v2/orgs\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--basic-angle-placeholder",
+      "case": "mongodb-atlas-service-account-public-values-and-masked-outputs",
+      "path": "basic-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "65f02928652e288b35d16fec91651c5a49f9115483ff5338a1bae9d2e42dd928",
+      "text": "POST /api/oauth/token HTTP/1.1\nHost: cloud.example.test\nAuthorization: Basic <base64 of CLIENT_ID:CLIENT_SECRET>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--basic-masked-display",
+      "case": "mongodb-atlas-service-account-public-values-and-masked-outputs",
+      "path": "basic-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "a73155555a2af21d56d22b3eb15b5149880c1abdfd2de5974daa2461e062ee45",
+      "text": "POST /api/oauth/token HTTP/1.1\nHost: cloud.example.test\nAuthorization: Basic ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--example-prefix-prose-mention",
+      "case": "mongodb-atlas-service-account-public-values-and-masked-outputs",
+      "path": "example-prefix-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "4083a9b9bb5248ec3f587e5df0941d548cf067f836190f502de473c2fd243890",
+      "text": "The documented example of a service account secret begins with mdb_sa_sk_ followed by an ellipsis.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--digest-authorization-header",
+      "case": "mongodb-atlas-digest-header-and-public-key-non-values",
+      "path": "digest-authorization-header/fixture.txt",
+      "context": "header",
+      "sha256": "4a85df5439523ff51dfad93193a73d8e28804b3ed9208405ecce7a744b454a49",
+      "text": "GET /api/atlas/v2/groups HTTP/1.1\nHost: cloud.example.test\nAuthorization: Digest username=\"synpub01\", realm=\"example.test\", nonce=\"00000000000000000000000000000001\", uri=\"/api/atlas/v2/groups\", algorithm=MD5, qop=auth, nc=00000001, cnonce=\"00000000000000000000000000000002\", response=\"00000000000000000000000000000003\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--public-key-field",
+      "case": "mongodb-atlas-digest-header-and-public-key-non-values",
+      "path": "public-key-field/fixture.txt",
+      "context": "structured-file",
+      "sha256": "082fff5d9c1d9b2982571edb948cc9cde1959dc02e36ec3a8290db9d0d117346",
+      "text": "{\n  \"publicKey\": \"synpub01\",\n  \"desc\": \"synthetic key\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--private-key-redacted-display",
+      "case": "mongodb-atlas-digest-header-and-public-key-non-values",
+      "path": "private-key-redacted-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1ea82baea6c17a59eefcb64cc0fe238cedc894ab47c8c2aed6ae8bccd4d75026",
+      "text": "{\n  \"publicKey\": \"synpub01\",\n  \"privateKey\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--digest-client-environment-reference",
+      "case": "mongodb-atlas-digest-header-and-public-key-non-values",
+      "path": "digest-client-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "1146667332a62d365528b0c7cad194a5240c97de7b8cf04d699e5de9c852f8fe",
+      "text": "curl --digest --user \"${ATLAS_PUBLIC_KEY}:${ATLAS_PRIVATE_KEY}\" https://cloud.example.test/api/atlas/v2/groups\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--user-response-without-password",
+      "case": "mongodb-atlas-database-user-identity-and-password-placeholders",
+      "path": "user-response-without-password/fixture.txt",
+      "context": "structured-file",
+      "sha256": "416d32cd4a76e431d34e92e7d3200b7d8cdeea557af5302e071a3b6336516f8b",
+      "text": "{\n  \"databaseName\": \"admin\",\n  \"username\": \"synthetic-user\",\n  \"groupId\": \"000000000000000000000001\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--password-angle-placeholder",
+      "case": "mongodb-atlas-database-user-identity-and-password-placeholders",
+      "path": "password-angle-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "f783fbb4d97f025a0c08eaa1458eb47e464817441156d3b8b063b04864587450",
+      "text": "{\n  \"databaseName\": \"admin\",\n  \"username\": \"synthetic-user\",\n  \"password\": \"<DB_PASSWORD>\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--password-environment-reference",
+      "case": "mongodb-atlas-database-user-identity-and-password-placeholders",
+      "path": "password-environment-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5e81e3e60c6d45d205f191654a45cdb8c44790333d86df0a14ff7b4fbdf2a94b",
+      "text": "{\n  \"databaseName\": \"admin\",\n  \"username\": \"synthetic-user\",\n  \"password\": \"${DB_PASSWORD}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "mongodb-atlas-authored--password-masked-display",
+      "case": "mongodb-atlas-database-user-identity-and-password-placeholders",
+      "path": "password-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7cb759dd23357179384fae5bc0fda78728078b17e8aefcec166f43235bbcd375",
+      "text": "{\n  \"databaseName\": \"admin\",\n  \"username\": \"synthetic-user\",\n  \"password\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

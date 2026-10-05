@@ -248,6 +248,180 @@
         "outcome": "not-assertable",
         "spans": []
       }
+    },
+    {
+      "id": "canva-authored--access-pretty-json-response",
+      "case": "canva-token-response-access-token-member",
+      "path": "access-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "2019c6d3ba11144e6cadebec29d0b1a9639a58f8e1d74251d9d4da69b68aa859",
+      "text": "{\n  \"access_token\": \"SYNTHETICCanvaAccessNeverIssued0001\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 14400\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 56,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--access-raw-http-response-compact-json",
+      "case": "canva-token-response-access-token-member",
+      "path": "access-raw-http-response-compact-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "706ead0a10e420d73a7370aae110e9f5f87241415f383286947a81fcf26848da",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"access_token\":\"SYNTHETICCanvaAccessNeverIssued0001\",\"token_type\":\"Bearer\",\"expires_in\":14400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 100,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--access-curl-response-output",
+      "case": "canva-token-response-access-token-member",
+      "path": "access-curl-response-output/fixture.txt",
+      "context": "cli",
+      "sha256": "6c01bea6de44b7a0153537ec36bf2819d7816758973145ffa9267cec03288fe2",
+      "text": "$ curl -s -X POST https://api.example.test/rest/v1/oauth/token -d \"grant_type=refresh_token\"\n{\"access_token\":\"SYNTHETICCanvaAccessNeverIssued0001\",\"token_type\":\"Bearer\",\"expires_in\":14400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 110,
+            "end": 145,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--refresh-pretty-json-response",
+      "case": "canva-token-response-refresh-token-member",
+      "path": "refresh-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "25c43d4961f95bfcf10bb92cc964f7691ef9ddbcb5ca44e0c3039ad405fa96e9",
+      "text": "{\n  \"refresh_token\": \"SYNTHETICCanvaRefreshNeverIssued0001\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 14400\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 58,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--refresh-raw-http-response-compact-json",
+      "case": "canva-token-response-refresh-token-member",
+      "path": "refresh-raw-http-response-compact-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "06b90b05961793a1898640843368d1f75b7bf8ac0df63f3d6a1b2439b911706b",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"refresh_token\":\"SYNTHETICCanvaRefreshNeverIssued0001\",\"token_type\":\"Bearer\",\"expires_in\":14400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 66,
+            "end": 102,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--refresh-curl-response-output",
+      "case": "canva-token-response-refresh-token-member",
+      "path": "refresh-curl-response-output/fixture.txt",
+      "context": "cli",
+      "sha256": "31edb21bf5659b3a70f49fbea91d6dc77d4c0ce4d76f04f1450f0ac62f809a49",
+      "text": "$ curl -s -X POST https://api.example.test/rest/v1/oauth/token -d \"grant_type=authorization_code\"\n{\"refresh_token\":\"SYNTHETICCanvaRefreshNeverIssued0001\",\"token_type\":\"Bearer\",\"expires_in\":14400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 116,
+            "end": 152,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--token-lookalike-client-id-type-and-expiry-only",
+      "case": "canva-token-response-lookalikes-and-non-values",
+      "path": "token-lookalike-client-id-type-and-expiry-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "a826c2100eafa8aaebb5eed49d7166a91c1aeb729724dfade79312012505a016",
+      "text": "{\n  \"client_id\": \"OC-SYNTHETIC-client-id\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 14400\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--token-lookalike-access-token-angle-placeholder",
+      "case": "canva-token-response-lookalikes-and-non-values",
+      "path": "token-lookalike-access-token-angle-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "ebadcbf5d62dcb0002730461ffcde7ebe831fe130e87759d88bedc6ee85c1653",
+      "text": "{\n  \"access_token\": \"<ACCESS_TOKEN>\",\n  \"token_type\": \"Bearer\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--token-lookalike-refresh-token-environment-reference",
+      "case": "canva-token-response-lookalikes-and-non-values",
+      "path": "token-lookalike-refresh-token-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "9a06aefc16686ace376bd14e8c72a240c7b61217953444e4b89d9569a9ec0a36",
+      "text": "curl -X POST https://api.example.test/rest/v1/oauth/token -d \"refresh_token=${CANVA_REFRESH_TOKEN}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--token-lookalike-access-token-template-reference",
+      "case": "canva-token-response-lookalikes-and-non-values",
+      "path": "token-lookalike-access-token-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7d5e16682753bb0fda551bc140e24d0097f3326996b15ccda0aecd9f70befca8",
+      "text": "{\n  \"access_token\": \"{{ secrets.CANVA_ACCESS_TOKEN }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--token-lookalike-refresh-token-masked-display",
+      "case": "canva-token-response-lookalikes-and-non-values",
+      "path": "token-lookalike-refresh-token-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "21f3c2fa5c8264bb1849110ac8eabcca6ec4596b8a501f33e1eb10c7bb0ee29b",
+      "text": "{\n  \"refresh_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

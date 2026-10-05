@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "contentful-oauth-client-id-and-token-placeholders-non-values",
+  "title": "Contentful OAuth client ids, scopes, placeholders and masked displays",
+  "summary": "An authorization request with a client id and scope, the documented fragment placeholder, and a reference, a masked display and prose under the access_token name.",
+  "rationale": "A client id is a public application identifier and a scope is metadata. A placeholder such as the documented fragment form, a reference or a masked display carries no value. Flagging them would redact identifiers and documentation a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "contentful:oauth-application-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no access token value. That a client id is public and that a placeholder, reference or masked display is not a value are the project's decisions, not Contentful statements.",
+    "sources": [
+      {
+        "sourceId": "contentful-com-474687f6be",
+        "supports": "https://my-host.com/my-app/#access_token=$CONTENT_MANAGEMENT_API_ACCESS_TOKEN",
+        "locator": "OAuth, Requesting an OAuth 2.0 access token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-bearer-placeholders-and-public-identifiers",
+  "title": "HubSpot Bearer header placeholders and public identifiers",
+  "summary": "Bare Bearer prose, a scheme-only header, placeholders, references, masked values, and public account, client and scope identifiers.",
+  "rationale": "The word Bearer names a scheme and is also an everyday term, so prose or a header with no value is not a credential, and a placeholder, reference or masked display carries no value. A hub or account id, a client id and scope names are public identifiers that sit next to tokens in the same requests.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "hubspot:oauth-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "hubspot:service-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder, reference or public identifier is not a value is a project decision, not a HubSpot statement.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-5873f5074b",
+        "supports": "This token is provided as a Bearer token in the request, and expires after 30 minutes.",
+        "locator": "#token-types"
+      },
+      {
+        "sourceId": "developers-hubspot-com-bf27f315ce",
+        "supports": "create a key, name it, add scopes, copy/paste it, and use it as a Bearer token or API key.",
+        "locator": "How Service Keys replace legacy private apps"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

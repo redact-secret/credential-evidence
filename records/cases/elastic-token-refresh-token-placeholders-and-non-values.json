@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-token-refresh-token-placeholders-and-non-values",
+  "title": "Elasticsearch refresh_token placeholders and non-value members",
+  "summary": "A refresh_token property holding an angle placeholder, a template reference, a masked or empty value or a shell variable reference, a prose mention of the property, and a response with only the type word and the lifetime.",
+  "rationale": "A placeholder, reference, masked or empty value carries no credential, and the property name in prose is an everyday term. The type word and the expires_in number are public members of the same response and are not values of the refresh token.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "elastic:refresh-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder, reference, masked or empty value, prose mention or public identifier is not a value is a project decision, not a Elastic statement.",
+    "sources": [
+      {
+        "sourceId": "elastic-co-3f1bad94db",
+        "supports": "refresh_token string: The string that was returned when you created the token, which enables you to extend its life. If you specify the refresh_token grant type, this parameter is required.",
+        "locator": "Body, refresh_token"
+      },
+      {
+        "sourceId": "elastic-co-3f1bad94db",
+        "supports": "Response 200 object members: access_token (string, required), expires_in (number, required), scope (string), type (string, required), refresh_token (string).",
+        "locator": "Responses, 200"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

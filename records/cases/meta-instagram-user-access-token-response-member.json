@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "meta-instagram-user-access-token-response-member",
+  "title": "Meta Instagram User access token in a token exchange response member",
+  "summary": "A synthetic Instagram User access token as the access_token value of a data entry of the short-lived exchange response, and as the access_token member of the long-lived exchange response, bare and in a raw HTTP response.",
+  "rationale": "Meta documents that the Instagram Login flow returns a short-lived Instagram User access token in a data entry and a long-lived one as the access_token member of a second response. The documentation states no prefix, alphabet or width, so the member name is the only identifying context and no bare-value rule is implied. The Instagram-scoped user id and the permissions string beside it are not the token. The Instagram token is kept separate from the Meta user access token: no shared carrier is assumed.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "meta:instagram-user-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of the access_token member of an Instagram Login token exchange response is treated as a credential. Meta documents the exchange responses (carrier existence only); the value admission and extent are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developers-facebook-com-c121bb0b0b",
+        "supports": "Capture the access_token value. This is the user’s short-lived Instagram User access token which your app can use to access Instagram API with Instagram Login endpoints.",
+        "locator": "Business Login for Instagram, Step 2. Exchange the Code For a Token"
+      },
+      {
+        "sourceId": "developers-facebook-com-c121bb0b0b",
+        "supports": "On success, your app receives a JSON response with your app user’s long-lived access token, the token type, and the expiration.",
+        "locator": "Business Login for Instagram, Step 3. Get a long-lived access token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

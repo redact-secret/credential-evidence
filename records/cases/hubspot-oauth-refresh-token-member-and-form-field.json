@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-oauth-refresh-token-member-and-form-field",
+  "title": "Value of refresh_token in a HubSpot OAuth token exchange",
+  "summary": "A synthetic value of the refresh_token field in a URL-form encoded refresh request, shown as a curl --data argument and a raw HTTP request body, and of the refresh_token member in a token response excerpt.",
+  "rationale": "HubSpot documents the refresh token as a refresh_token member of the token response and as the refresh_token field of the URL-form encoded body of a refresh request to the token endpoint. The page states no prefix, alphabet or width, so the value is flagged because of the field or member it sits in, not because of its shape. The extent is the value only. The client id, the client secret reference, the hub id, the scope list and the expires_in number are not values of this credential, and the access token of the same response is a different credential that these fixtures leave out.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "hubspot:oauth-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "environment-assignment",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of an exact refresh_token field of a token request or member of a token response is treated as a credential whatever its shape and covered whole. HubSpot documents the refresh_token response member and the refresh_token form field of the token endpoint (carrier existence only); the value admission, extent and generic attribution are the project's decisions. No prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-5873f5074b",
+        "supports": "In the response, you’ll receive the access token along with the refresh token, which you can use to refresh the access token. (the example response JSON has the members token_type, refresh_token, access_token, hub_id, scopes and expires_in)",
+        "locator": "#generate-initial-access-and-refresh-tokens"
+      },
+      {
+        "sourceId": "developers-hubspot-com-5873f5074b",
+        "supports": "refresh_token | String | The refresh token value.",
+        "locator": "#refresh-an-access-token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

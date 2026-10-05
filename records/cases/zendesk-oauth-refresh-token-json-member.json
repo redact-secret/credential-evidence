@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zendesk-oauth-refresh-token-json-member",
+  "title": "Value of refresh_token in a Zendesk OAuth token request or response",
+  "summary": "A synthetic value of the refresh_token member in a JSON refresh request body, shown as a curl -d argument and a pretty-printed body, and of the refresh_token member in a token response excerpt.",
+  "rationale": "Zendesk documents the refresh token as the refresh_token member of the JSON body of a refresh request to the OAuth token endpoint and of the JSON token response. The pages state no prefix, alphabet or width and the tutorial values are not a format, so the value is flagged because of the member it sits in, not because of its shape. The extent is the string value only: the member name, the colon and the quotes are outside it. The client identifier, the client secret placeholder, the expires_in and refresh_token_expires_in numbers are not values of this credential, and the access token of the same response is a different credential that these fixtures leave out.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "zendesk:oauth-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the string value of an exact refresh_token member of a token request or response is treated as a credential whatever its shape and covered whole. Zendesk documents the refresh_token member of the JSON request and response of the token endpoint (carrier existence only); the value admission, extent and generic attribution are the project's decisions. No prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developer-zendesk-com-55d989dd48",
+        "supports": "Zendesk will respond with an access token and a refresh token. (the example response JSON has the members access_token, expires_in, refresh_token, token_type, scope and refresh_token_expires_in)",
+        "locator": "Exchanging the authorization code for tokens"
+      },
+      {
+        "sourceId": "developer-zendesk-com-55d989dd48",
+        "supports": "use your refresh token to request a new access token with the Create Token for Grant Type endpoint: curl https://{subdomain}.zendesk.com/oauth/tokens -X POST -H \"Content-Type: application/json\" -d '{ \"grant_type\": \"refresh_token\", \"refresh_token\": \"{YOUR_REFRESH_TOKEN}\", \"client_id\": \"{YOUR_CLIENT_ID}\", \"client_secret\": \"{YOUR_CLIENT_SECRET}\" }'",
+        "locator": "Refreshing the token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

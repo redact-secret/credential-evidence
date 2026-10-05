@@ -30,6 +30,63 @@
           "locator": "Generating and using your key"
         }
       ]
+    },
+    {
+      "id": "cli-global-config-location",
+      "statement": "HubSpot documents that after hs account auth the personal access key is added to the CLI global config file ~/.hscli/config.yml (earlier CLI versions before 7.4.0 stored configuration in hubspot.config.yml files).",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-cc3f520c9e",
+          "supports": "After you authenticate via the CLI using the hs account auth command, your access key will be added to your global config file (~/.hscli/config.yml) for future use.",
+          "locator": "Managing personal access keys"
+        },
+        {
+          "sourceId": "developers-hubspot-com-cc3f520c9e",
+          "supports": "Prior to version 7.4.0 of the HubSpot CLI, configuration was stored within hubspot.config.yml files.",
+          "locator": "Managing personal access keys"
+        }
+      ]
+    },
+    {
+      "id": "config-field-personal-access-key",
+      "statement": "HubSpot's official local development library (hubspot-local-dev-lib, commit f7b9852) defines the config account property personalAccessKey (a string) for an account whose authType is personalaccesskey, and its config README example shows personalAccessKey under an account entry with authType personalaccesskey in the YAML config.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-hubspot-hubspot-local-dev-lib-1d629d0ffc",
+          "supports": "interface PersonalAccessKeyConfigAccount extends BaseHubSpotConfigAccount { authType: typeof PERSONAL_ACCESS_KEY_AUTH_METHOD.value; personalAccessKey: string; auth: { tokenInfo: TokenInfo } }; type AuthType = 'personalaccesskey' | 'apikey' | 'oauth2'",
+          "locator": "types/Accounts.ts lines 12 and 37-43"
+        },
+        {
+          "sourceId": "github-com-hubspot-hubspot-local-dev-lib-bc527cd0db",
+          "supports": "Example config: an account entry with authType: personalaccesskey, an auth.tokenInfo block, accountType: STANDARD and personalAccessKey: 'my-personal-access-key'.",
+          "locator": "config/README.md lines 61-77 (Example config)"
+        },
+        {
+          "sourceId": "github-com-hubspot-hubspot-local-dev-lib-bc527cd0db",
+          "supports": "Global config (~/.hscli/config.yml) stores all authenticated accounts in one place and is used by hs account auth; the local hubspot.config.yml is a deprecated per-project config.",
+          "locator": "config/README.md lines 7-12 (Global vs Local Config)"
+        }
+      ]
+    },
+    {
+      "id": "environment-variable-carrier",
+      "statement": "The same library README lists HUBSPOT_PERSONAL_ACCESS_KEY among the environment variables read when USE_ENVIRONMENT_HUBSPOT_CONFIG loads a config account from the environment.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-hubspot-hubspot-local-dev-lib-bc527cd0db",
+          "supports": "USE_ENVIRONMENT_HUBSPOT_CONFIG - load config account from environment variables. The following environment variables are supported: HUBSPOT_PERSONAL_ACCESS_KEY, HUBSPOT_ACCOUNT_ID, HTTP_TIMEOUT, DEFAULT_CMS_PUBLISH_MODE",
+          "locator": "config/README.md lines 36-43"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -44,6 +101,21 @@
       "id": "open-question-2",
       "question": "No example value or format is given in the text read; not researched beyond existence.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "config-layout-two-shapes",
+      "question": "The type definition keeps accounts in an accounts array while the README example (and the deprecated local layout) uses portals with defaultPortal and portalId; both name the personalAccessKey property. Which layout a given CLI version writes was not established; no layout is preferred here.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "config-token-info-distinct",
+      "question": "The same account entry also holds auth.tokenInfo accessToken and refreshToken, a short-lived OAuth token pair derived from the key; it is a different credential from the personal access key and its family and format were not researched here.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "carrier-established-grammar-open",
+      "question": "The config property is documented by the official library at one commit and by the CLI docs only as a screenshot of an example file (no text names the field); no prefix, alphabet or width of the key is stated.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

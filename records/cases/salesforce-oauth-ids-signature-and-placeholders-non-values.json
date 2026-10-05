@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "salesforce-oauth-ids-signature-and-placeholders-non-values",
+  "title": "Salesforce consumer keys, response signatures, placeholders and masked displays",
+  "summary": "A token request body with a consumer key and no secret, the non-secret members of a token response including its signature, the documented Basic and Bearer placeholders, and references, masked displays and prose under the credential names.",
+  "rationale": "A consumer key is a public application identifier. The signature member of a token response is a derived HMAC output and does not contain the client secret, and the scope, instance URL and token type are metadata. A placeholder such as the documented Basic or Bearer form, a reference or a masked display carries no value. Flagging them would redact identifiers and documentation a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "salesforce:oauth-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "salesforce:external-client-app-consumer-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no access token or consumer secret value. That a consumer key is public, that the response signature is derived output and that a placeholder, reference or masked display is not a value are the project's decisions; Salesforce documents the signature as signed with the client secret.",
+    "sources": [
+      {
+        "sourceId": "help-salesforce-com-490d26490b",
+        "supports": "signature Base64-encoded HMAC-SHA256 signature signed with the client_secret. The signature can include the concatenated ID and issued_at value, which you can use to verify that the identity URL hasn’t changed since the server sent it.",
+        "locator": "OAuth 2.0 Web Server Flow for Web App Integration, token response parameters"
+      },
+      {
+        "sourceId": "help-salesforce-com-490d26490b",
+        "supports": "Authorization: Basic64Encode(client_id:secret)",
+        "locator": "OAuth 2.0 Web Server Flow for Web App Integration, Basic authentication"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

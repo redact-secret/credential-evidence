@@ -44,6 +44,30 @@
           "locator": "#token-expiration (Note on token format)"
         }
       ]
+    },
+    {
+      "id": "carrier-response-member-and-bearer-header",
+      "statement": "The Asana token exchange response is a JSON object whose access_token member carries the access token (token_type bearer), and the OAuth page shows the token passed in an Authorization: Bearer header on API requests. The illustrative example values on the page are not a format statement.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "The token to use in future requests against the API.",
+          "locator": "#token-exchange-endpoint (response, access_token)"
+        },
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "the application gets a token, which can be used in subsequent API calls through the addition of an Authorization header",
+          "locator": "#oauth (introduction)"
+        },
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "-H \"Authorization: Bearer ACCESS_TOKEN\"",
+          "locator": "#oauth (introduction, Shell example)"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",

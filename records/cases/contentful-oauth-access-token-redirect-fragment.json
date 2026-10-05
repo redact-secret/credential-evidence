@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "contentful-oauth-access-token-redirect-fragment",
+  "title": "Contentful OAuth access token in a redirect URI hash fragment",
+  "summary": "A synthetic OAuth access token as the access_token parameter in the hash fragment of a redirect URI, in a bare URL, in a Location response header and in a quoted JSON string.",
+  "rationale": "Contentful documents that an OAuth 2.0 application receives the access token in the redirect URI hash fragment as the access_token parameter. The documentation states no prefix, alphabet or width, so the fragment parameter name is the only identifying context and no bare-value rule is implied. No Authorization header form is documented for the OAuth token on the pages read, so none is asserted. The content management personal access token is a distinct family. The extent stops at the closing quote or the end of the line.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "contentful:oauth-application-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of the access_token parameter in a redirect URI hash fragment is treated as a credential. Contentful documents the fragment parameter (carrier existence only); the value admission and extent are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "contentful-com-474687f6be",
+        "supports": "After a user has logged in, handle the callback from Contentful to your specified redirect URI. This will look similar to the example below, and you can extract the access token from the URI hash fragment.",
+        "locator": "OAuth, Requesting an OAuth 2.0 access token"
+      },
+      {
+        "sourceId": "contentful-com-474687f6be",
+        "supports": "https://my-host.com/my-app/#access_token=$CONTENT_MANAGEMENT_API_ACCESS_TOKEN",
+        "locator": "OAuth, Requesting an OAuth 2.0 access token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

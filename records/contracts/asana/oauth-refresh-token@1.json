@@ -39,6 +39,35 @@
           "locator": "#token-expiration (Note on token format)"
         }
       ]
+    },
+    {
+      "id": "carrier-response-member-and-request-fields",
+      "statement": "The Asana token exchange response carries the refresh token in its refresh_token member. A refresh request is a form-encoded POST body to the token exchange endpoint with grant_type refresh_token and the token in a refresh_token parameter; the revocation endpoint takes the refresh token in a token parameter of a form-encoded body. The illustrative example values on the page are not a format statement.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "If exchanging a `code`, this is a long-lived token that can be used to get new access tokens when older ones expire",
+          "locator": "#token-exchange-endpoint (response, refresh_token)"
+        },
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "If the value of grant_type is refresh_token, this is the refresh token you are using to be granted a new access token",
+          "locator": "#token-exchange-endpoint (request, refresh_token)"
+        },
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "--data-urlencode 'refresh_token=<YOUR_REFRESH_TOKEN>'",
+          "locator": "#token-exchange-endpoint (cURL example)"
+        },
+        {
+          "sourceId": "developers-asana-com-1d3bddfe3f",
+          "supports": "The refresh token that should be deauthorized.",
+          "locator": "#token-deauthorization-endpoint (request, token)"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",

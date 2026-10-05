@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "adobe-token-response-access-token-member",
+  "title": "Value of the access_token member in an Adobe token response",
+  "summary": "A synthetic value of the access_token member in an Adobe IMS token endpoint response, shown as a pretty-printed JSON body, a compact JSON body behind raw HTTP response headers and the output of a curl request.",
+  "rationale": "The member is the carrier: Adobe documents that a client_credentials request returns an access_token member next to token_type bearer and expires_in. The value is flagged because of the member it sits in, not because of any prefix, length or alphabet, none of which Adobe states, and the pages do not say whether the value is opaque or structured. The extent is the member value only: the member name, the colon and the quotes are outside it, and token_type and expires_in are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "adobe:oauth-server-to-server-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the access_token member of the token endpoint response is treated as a credential whatever its shape. Adobe documents that the token endpoint response carries an access_token member (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developer-adobe-com-09955d5cc6",
+        "supports": "Sample response shows access_token, token_type bearer and expires_in; no refresh token is used for OAuth Server-to-Server credentials.",
+        "locator": "section \"Fetching access tokens\", Sample Response"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

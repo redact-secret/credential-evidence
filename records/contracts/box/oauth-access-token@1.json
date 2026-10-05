@@ -25,6 +25,25 @@
           "locator": "components.schemas.AccessToken.description; components.schemas.AccessToken.properties.token_type; components.schemas.AccessToken.properties.expires_in"
         }
       ]
+    },
+    {
+      "id": "carrier-response-member-and-bearer-header",
+      "statement": "The Box token endpoint response carries the access token in its access_token member, and the reference states the token is passed in an authorization header as Authorization: Bearer <Token>. The illustrative example values on the page are not a format statement.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developer-box-com-2781d92831",
+          "supports": "The requested access token.",
+          "locator": "Response 200 (access_token)"
+        },
+        {
+          "sourceId": "developer-box-com-2781d92831",
+          "supports": "Returns a new Access Token that can be used to make authenticated API calls by passing along the token in a authorization header as follows Authorization: Bearer <Token>",
+          "locator": "Response 200"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",

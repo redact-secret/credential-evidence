@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-personal-access-key-placeholders-and-non-values",
+  "title": "HubSpot personalAccessKey placeholders and non-value config fields",
+  "summary": "A personalAccessKey property holding an angle placeholder, a template reference, a masked or empty value, an environment variable with only a reference, a prose mention, and a config entry with only public fields.",
+  "rationale": "A placeholder, reference, masked or empty value carries no credential, and the property name in prose is an everyday term. The account id, the account name and the authType word are public fields of the same account entry and are not values of the key.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "hubspot:personal-access-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder, reference, masked or empty value, prose mention or public identifier is not a value is a project decision, not a HubSpot statement.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-cc3f520c9e",
+        "supports": "After you authenticate via the CLI using the hs account auth command, your access key will be added to your global config file (~/.hscli/config.yml) for future use.",
+        "locator": "Managing personal access keys"
+      },
+      {
+        "sourceId": "github-com-hubspot-hubspot-local-dev-lib-1d629d0ffc",
+        "supports": "interface PersonalAccessKeyConfigAccount extends BaseHubSpotConfigAccount { authType: typeof PERSONAL_ACCESS_KEY_AUTH_METHOD.value; personalAccessKey: string; auth: { tokenInfo: TokenInfo } }; type AuthType = 'personalaccesskey' | 'apikey' | 'oauth2'",
+        "locator": "types/Accounts.ts lines 12 and 37-43"
+      },
+      {
+        "sourceId": "github-com-hubspot-hubspot-local-dev-lib-bc527cd0db",
+        "supports": "USE_ENVIRONMENT_HUBSPOT_CONFIG - load config account from environment variables. The following environment variables are supported: HUBSPOT_PERSONAL_ACCESS_KEY, HUBSPOT_ACCOUNT_ID, HTTP_TIMEOUT, DEFAULT_CMS_PUBLISH_MODE",
+        "locator": "config/README.md lines 36-43"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

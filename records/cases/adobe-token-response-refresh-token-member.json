@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "adobe-token-response-refresh-token-member",
+  "title": "Value of the refresh_token member in an Adobe token response",
+  "summary": "A synthetic value of the refresh_token member in an Adobe authorization code flow token response, shown as a pretty-printed JSON body, a compact JSON body behind raw HTTP response headers and the output of a curl request.",
+  "rationale": "The member is the carrier: Adobe documents a refresh_token member in the response object, present only when offline_access was requested and consented. The value is flagged because of the member it sits in, not because of any prefix, length or alphabet, none of which Adobe states; the request-parameter wording about base64 is not established as the token structure. The extent is the member value only.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "adobe:oauth-user-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the refresh_token member of the token endpoint response is treated as a credential whatever its shape. Adobe documents a refresh_token member in the token response object (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developer-adobe-com-dda8443c8d",
+        "supports": "Response object: refresh_token, generated refresh token, by default expires in 14 days; only present if offline_access was requested and consented.",
+        "locator": "section \"Fetching access tokens\", Response Object"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

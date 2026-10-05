@@ -1,0 +1,482 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "x-authored",
+  "title": "X token and secret carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "x-authored--bearer-raw-http",
+      "case": "x-bearer-token-authorization-header-value",
+      "path": "bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "e4f7269e438f92051f4cb4465004430016057f470e6537ee3d075ce3e16aa561",
+      "text": "GET /2/users/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-x-bearer-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 70,
+            "end": 112,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--bearer-curl-header",
+      "case": "x-bearer-token-authorization-header-value",
+      "path": "bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "74f458d967f34a576aa75fa899d991b5207c1fc63b8831f09ce853e3e6e5883d",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-x-bearer-token-never-issued-0001\" https://api.example.test/2/users/me\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 73,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--bearer-json-header-map",
+      "case": "x-bearer-token-authorization-header-value",
+      "path": "bearer-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "fd38d3751ff4042b706b2ce1fcb9894a8245589e40c952323f06a98f406836ea",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-x-bearer-token-never-issued-0001\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 88,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--basic-raw-http",
+      "case": "x-oauth2-client-secret-basic-envelope",
+      "path": "basic-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "95c7e8a9768417b8fdfa8dfa6dfcc35e1dc5341e6dc856ad66009628655d6cfc",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic U1lOVEhFVElDLXgtY2xpZW50LWlkOlNZTlRIRVRJQy14LWNsaWVudC1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 74,
+            "end": 162,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--basic-curl-header",
+      "case": "x-oauth2-client-secret-basic-envelope",
+      "path": "basic-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "3123b6f0459ff3986311ddd761e5c4d2775655df7271665079132a4ff9f135a4",
+      "text": "curl -X POST -H \"Authorization: Basic U1lOVEhFVElDLXgtY2xpZW50LWlkOlNZTlRIRVRJQy14LWNsaWVudC1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\" -d \"grant_type=authorization_code\" https://api.example.test/2/oauth2/token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 38,
+            "end": 126,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--basic-json-header-map",
+      "case": "x-oauth2-client-secret-basic-envelope",
+      "path": "basic-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d7d481a51c22988fda4e2eaff690b0a2b37355ef8e34c223b63902082a3d415b",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Basic U1lOVEhFVElDLXgtY2xpZW50LWlkOlNZTlRIRVRJQy14LWNsaWVudC1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\",\n    \"Content-Type\": \"application/x-www-form-urlencoded\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 45,
+            "end": 133,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--token-secret-form-body",
+      "case": "x-oauth1-access-token-secret-field",
+      "path": "token-secret-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "d8dd191523db420b0900983f49a790002bb1e7a0a050804242a918b67b88a62e",
+      "text": "oauth_token=SYNTHETIC-x-oauth-token-identity-0001&oauth_token_secret=SYNTHETIC-x-oauth-token-secret-never-issued-0001&user_id=0000000000000001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 117,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--token-secret-json-field",
+      "case": "x-oauth1-access-token-secret-field",
+      "path": "token-secret-json-field/fixture.txt",
+      "context": "structured-file",
+      "sha256": "bc9ff09cacd3984b667d55bd8b543795b151420b6bdb140d846fdc0fcc0ce70a",
+      "text": "{\n  \"oauth_token\": \"SYNTHETIC-x-oauth-token-identity-0001\",\n  \"oauth_token_secret\": \"SYNTHETIC-x-oauth-token-secret-never-issued-0002\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 85,
+            "end": 133,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--token-secret-shell-assignment",
+      "case": "x-oauth1-access-token-secret-field",
+      "path": "token-secret-shell-assignment/fixture.txt",
+      "context": "env",
+      "sha256": "a4a23ec92e451d7509203cdbb610b84083d11d89dccff3381fcdbd9a1508bab6",
+      "text": "oauth_token_secret=SYNTHETIC-x-oauth-token-secret-never-issued-0003\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 19,
+            "end": 67,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--client-id-authorization-query",
+      "case": "x-oauth2-ids-and-bearer-placeholders-non-values",
+      "path": "client-id-authorization-query/fixture.txt",
+      "context": "header",
+      "sha256": "501109c7784a6b20b6838c4c9aa6b37b7d979a62e654264bd1200df25e50f527",
+      "text": "GET /i/oauth2/authorize?response_type=code&client_id=SYNTHETIC-x-client-id&redirect_uri=https%3A%2F%2Fexample.test%2Fcb HTTP/1.1\nHost: api.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--user-id-response",
+      "case": "x-oauth2-ids-and-bearer-placeholders-non-values",
+      "path": "user-id-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7efae9e3d343b64d4efc8d3664e238324c3f06e5c9b86b5aaf74544cee5632c6",
+      "text": "{\n  \"data\": {\n    \"id\": \"0000000000000001\",\n    \"username\": \"synthetic_user\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--bearer-angle-placeholder",
+      "case": "x-oauth2-ids-and-bearer-placeholders-non-values",
+      "path": "bearer-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "fdc1d2702af8b2c58baaf574e40bc110e5abedf3a403c26c469994950be8147d",
+      "text": "GET /2/users/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer <ACCESS_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--bearer-environment-reference",
+      "case": "x-oauth2-ids-and-bearer-placeholders-non-values",
+      "path": "bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "ae45cc420b479e64454ee1f34745e228afe6dfc1a2db225f159b684be6a9113b",
+      "text": "curl -H \"Authorization: Bearer ${X_BEARER_TOKEN}\" https://api.example.test/2/users/me\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--bearer-masked-display",
+      "case": "x-oauth2-ids-and-bearer-placeholders-non-values",
+      "path": "bearer-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "38b244c7012337b620b7211889d2e862f195e338bef384ff79ce0c2d5e023e37",
+      "text": "GET /2/users/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--basic-angle-placeholder",
+      "case": "x-oauth2-ids-and-bearer-placeholders-non-values",
+      "path": "basic-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "1a7b42cc12576fc2c36132f2d7cc28df4f2257db7de359462f4175d290bf1472",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic <base64 of client_id:client_secret>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--basic-template-reference",
+      "case": "x-oauth2-ids-and-bearer-placeholders-non-values",
+      "path": "basic-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "21866b37584d0d0a39ade6bd4ba93380885668d8c2200c685e6e49b7e3d1de5e",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic {{ secrets.X_BASIC_CREDENTIAL }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--bearer-scheme-only",
+      "case": "x-oauth2-ids-and-bearer-placeholders-non-values",
+      "path": "bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "7bad16b16429d950fb336a975ee04da0f51d1370892d8ba6cc1f84fd5ceae9b7",
+      "text": "GET /2/users/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--oauth-authorization-header-identity-and-signature",
+      "case": "x-oauth1-token-identity-and-signature-non-values",
+      "path": "oauth-authorization-header-identity-and-signature/fixture.txt",
+      "context": "header",
+      "sha256": "505f5b746a33d803926ab6cccaf0556edafd7794cb0d799912ce6de87c7e4fac",
+      "text": "GET /1.1/account/verify_credentials.json HTTP/1.1\nHost: api.example.test\nAuthorization: OAuth oauth_nonce=\"SYNTHETICnonce0001\", oauth_signature=\"SYNTHETICsignatureValue0001\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"1700000000\", oauth_token=\"SYNTHETIC-x-oauth-token-identity-0001\", oauth_version=\"1.0\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--token-secret-angle-placeholder",
+      "case": "x-oauth1-token-identity-and-signature-non-values",
+      "path": "token-secret-angle-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "838c2a3838f90e1baf1f4f4385f948f8b5558d1a0bcd24fc03fe2612ac7c0137",
+      "text": "{\n  \"oauth_token_secret\": \"<TOKEN_SECRET>\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--token-secret-environment-reference",
+      "case": "x-oauth1-token-identity-and-signature-non-values",
+      "path": "token-secret-environment-reference/fixture.txt",
+      "context": "env",
+      "sha256": "8a069b045f378b64696944fa208c847a16196874d172eeaa119f68e0bdc57ff3",
+      "text": "oauth_token_secret=${X_OAUTH_TOKEN_SECRET}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--token-secret-masked-display",
+      "case": "x-oauth1-token-identity-and-signature-non-values",
+      "path": "token-secret-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "18fbf9797c315de0a7daeb0033ff27b12b33560989cab970f13f4d8ad37a4e97",
+      "text": "{\n  \"oauth_token_secret\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--token-secret-field-prose-mention",
+      "case": "x-oauth1-token-identity-and-signature-non-values",
+      "path": "token-secret-field-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "a423112feafbb7e8864d74ffd7b5a6f2db098407348111a7e550e4456bb6d2f6",
+      "text": "The access token secret is returned as oauth_token_secret next to oauth_token in the 3-legged flow.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-curl-data-urlencode-refresh-token",
+      "case": "x-oauth2-refresh-token-form-field-and-response-member",
+      "path": "refresh-curl-data-urlencode-refresh-token/fixture.txt",
+      "context": "cli",
+      "sha256": "c57cba37c934eccea0d4790eace7a276922ab105589d9e6321feb279c3678321",
+      "text": "curl -X POST https://api.example.test/2/oauth2/token -H \"Content-Type: application/x-www-form-urlencoded\" --data-urlencode \"refresh_token=SYNTHETIC-never-issued-x-refresh-0001\" --data-urlencode \"grant_type=refresh_token\" --data-urlencode \"client_id=SYNTHETICxClientId01\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 138,
+            "end": 175,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--refresh-raw-http-form-body-refresh-token",
+      "case": "x-oauth2-refresh-token-form-field-and-response-member",
+      "path": "refresh-raw-http-form-body-refresh-token/fixture.txt",
+      "context": "form-body",
+      "sha256": "fb9e459234c4e26c031e6b2ad677f08a2fec27a7710f6ab322d0858ba429496b",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token=SYNTHETIC-never-issued-x-refresh-0002&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 171,
+            "end": 208,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--refresh-response-json-excerpt",
+      "case": "x-oauth2-refresh-token-form-field-and-response-member",
+      "path": "refresh-response-json-excerpt/fixture.txt",
+      "context": "structured-file",
+      "sha256": "30427e06fb7aeb3182478ab931e106a5b63c200478bf60df104b48203c0f948d",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7200,\n  \"refresh_token\": \"SYNTHETIC-never-issued-x-refresh-0003\",\n  \"scope\": \"offline.access tweet.read users.read\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 70,
+            "end": 107,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--refresh-angle-placeholder",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "e38b7b9f0516b725cdb4b481e79a667470fefc76eb5a41fa1c62bd3823fd5212",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token=<refresh token>&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-template-reference",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-template-reference/fixture.txt",
+      "context": "form-body",
+      "sha256": "d82efa3d2ec3312cf984876701e88bafea5dc4339a6995700d6a5a68235262bd",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token={{ secrets.X_REFRESH_TOKEN }}&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-masked-display",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-masked-display/fixture.txt",
+      "context": "form-body",
+      "sha256": "3ff45da43d4cd09c9df16d2fd0901a193ab8c320fea53a293af44eaa017afdb2",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token=********&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-empty-value",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-empty-value/fixture.txt",
+      "context": "form-body",
+      "sha256": "d16be2aad6c36946fa66fc29d093f127d042f36fcbcdc433291bdfe65fd0790a",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token=&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-curl-environment-reference",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "677873ff42d0af98b68e12f8facf4f500a980e8869fb0b9e1ec4c81d992cee6c",
+      "text": "curl -X POST https://api.example.test/2/oauth2/token -H \"Content-Type: application/x-www-form-urlencoded\" --data-urlencode \"refresh_token=$X_REFRESH_TOKEN\" --data-urlencode \"grant_type=refresh_token\" --data-urlencode \"client_id=SYNTHETICxClientId01\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-token-prose-mention",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-token-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "39f57a1ebf32493c7bbf81e5a3f57c71df8fa53000eef01ce88a986b30e971ab",
+      "text": "The offline.access scope makes the token endpoint return a refresh_token that you send back with grant_type=refresh_token.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-response-public-members",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-response-public-members/fixture.txt",
+      "context": "structured-file",
+      "sha256": "c89e1904b3c066ac0b105b9457db06c442b3f2128d04b8f57ca48f8bfc0fe0bc",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7200,\n  \"scope\": \"offline.access tweet.read users.read\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

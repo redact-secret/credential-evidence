@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zendesk-oauth-access-token-bearer-header-value",
+  "title": "Value of an Authorization: Bearer header carrying a Zendesk OAuth access token",
+  "summary": "A synthetic value after Authorization: Bearer in a raw request to a subdomain host, a quoted curl -H argument and a JSON header map.",
+  "rationale": "The header is the carrier: Zendesk documents Authorization: Bearer {access_token} for an OAuth access token. Zendesk states a maximum length of 184 characters and no minimum length, alphabet or prefix, so the value is flagged because of where it sits, not because of its shape. The extent is the value only: the scheme word, the header name and the closing quote or brace are outside it. Global and local OAuth tokens use the same header and no subtype is inferred.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "zendesk:oauth-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the Authorization: Bearer header is treated as a credential whatever its shape. Zendesk documents the Authorization: Bearer {access_token} header for an OAuth access token (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developer-zendesk-com-73874c42bb",
+        "supports": "Zendesk supports using OAuth access tokens to authenticate API requests. ... An OAuth token gives access to a single Zendesk instance ... Authorization: Bearer {access_token}",
+        "locator": "#oauth-access-token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

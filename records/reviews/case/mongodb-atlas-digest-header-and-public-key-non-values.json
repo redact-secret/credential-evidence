@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-mongodb-atlas-digest-header-and-public-key-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "mongodb-atlas-digest-header-and-public-key-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#235 (Batch 2 handoff) from the cited provider pages; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#235. Question: a Digest header, the public key, a redacted private key display and key references are not the private key? Options: flag the Digest response hash or the public key; or leave the case a draft. Decision: do not flag them. Reason: the provider pages document that the header is a hash and that the public key is the username-like half, not whether either is confidential, and the expectation rests on project policy. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The provider does not say the public key or the Digest response is non-confidential, so a stricter policy could treat them as sensitive; leaving the case a draft claims nothing.",
+      "reversingEvidence": "A provider statement that the public key or the Digest response is confidential, a documented wire carrier of the private key, or a second maintainer's retro-review that disputes this outcome."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

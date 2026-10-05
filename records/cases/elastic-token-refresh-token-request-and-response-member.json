@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-token-refresh-token-request-and-response-member",
+  "title": "Value of refresh_token in an Elasticsearch get token exchange",
+  "summary": "A synthetic value of the refresh_token property in a get token refresh request, shown as a curl -d JSON body and a raw HTTP request with a pretty-printed JSON body, and of the refresh_token member in a response excerpt.",
+  "rationale": "Elastic documents the get token API as taking the refresh token in a JSON request body property named refresh_token (required with the refresh_token grant) and returning refresh_token as a member of the response. The page states no prefix, alphabet or width, so the value is flagged because of the property it sits in, not because of its shape. The extent is the string value only: the property name, the quotes and the colon are outside it. The expires_in number and the type word are not values of the credential, and the access token of the same response is a different credential that these fixtures leave out.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "elastic:refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the string value of an exact refresh_token property of a get token request or response is treated as a credential whatever its shape and covered whole. Elastic documents the refresh_token request property and response member of the get token API (carrier existence only); the value admission, extent and generic attribution are the project's decisions. No prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "elastic-co-3f1bad94db",
+        "supports": "refresh_token string: The string that was returned when you created the token, which enables you to extend its life. If you specify the refresh_token grant type, this parameter is required.",
+        "locator": "Body, refresh_token"
+      },
+      {
+        "sourceId": "elastic-co-3f1bad94db",
+        "supports": "Response 200 object members: access_token (string, required), expires_in (number, required), scope (string), type (string, required), refresh_token (string).",
+        "locator": "Responses, 200"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

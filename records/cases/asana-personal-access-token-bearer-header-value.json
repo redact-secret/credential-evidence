@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "asana-personal-access-token-bearer-header-value",
+  "title": "Value of an Authorization: Bearer header carrying an Asana personal access token",
+  "summary": "A synthetic value after Authorization: Bearer in a raw request to an Asana-style API path, a quoted curl -H argument and a JSON header map.",
+  "rationale": "The header is the carrier: Asana documents that a personal access token is passed like an OAuth access token in the Authorization header. Asana states that its tokens are opaque and that formats may change, and states no prefix, alphabet or length, so the value is flagged because of where it sits, not because of its shape. The extent is the value only: the scheme word, the header name and the closing quote or brace are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "asana:personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the Authorization: Bearer header is treated as a credential whatever its shape. Asana documents passing a personal access token in the Authorization header like an OAuth access token (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developers-asana-com-0bccb998c0",
+        "supports": "Personal access tokens should be used similarly to OAuth access tokens when accessing the API (i.e., passing them in the `Authorization` header).",
+        "locator": "#example"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

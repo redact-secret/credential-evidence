@@ -1,0 +1,353 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "spotify-authored",
+  "title": "Spotify token carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "spotify-authored--bearer-raw-http",
+      "case": "spotify-access-token-bearer-header",
+      "path": "bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "a53d5108af353d33900bdbba2494ff195f0f457d38ee637966ec1e89dad26ddd",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-spotify-access-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 113,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--bearer-curl-header",
+      "case": "spotify-access-token-bearer-header",
+      "path": "bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "f591fe52414417dfb395038d2d928639bce826fe1f9400ebeffb546ab82e67af",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-spotify-access-token-never-issued-0001\" https://api.example.test/v1/me\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 79,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--bearer-json-header-map",
+      "case": "spotify-access-token-bearer-header",
+      "path": "bearer-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5a96dc6480d6938e5cb5c44b1532ca067b6fd5f9ea7a37ea447528586958da0b",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-spotify-access-token-never-issued-0001\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 94,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--refresh-token-raw-http-response",
+      "case": "spotify-refresh-token-response-member",
+      "path": "refresh-token-raw-http-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "6de505a40cecee852601550ba467b34d08830c73ae4e46b7ead1d1cf18942290",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"token_type\":\"Bearer\",\"expires_in\":3600,\"refresh_token\":\"SYNTHETIC-spotify-refresh-token-never-issued-0001\",\"scope\":\"user-read-private\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 106,
+            "end": 155,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--refresh-token-json-file",
+      "case": "spotify-refresh-token-response-member",
+      "path": "refresh-token-json-file/fixture.txt",
+      "context": "structured-file",
+      "sha256": "86d132ac538a791307ee03543baacc4b591760f172fd67c3f2489699b8d60dbe",
+      "text": "{\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 3600,\n  \"refresh_token\": \"SYNTHETIC-spotify-refresh-token-never-issued-0002\",\n  \"scope\": \"user-read-private\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 70,
+            "end": 119,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--refresh-token-compact-json",
+      "case": "spotify-refresh-token-response-member",
+      "path": "refresh-token-compact-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7bf27b37120cd8c4be81d4b73ed18db51b7eb3c9445a064d50aabb304642cd2b",
+      "text": "{\"refresh_token\":\"SYNTHETIC-spotify-refresh-token-never-issued-0003\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 18,
+            "end": 67,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--client-id-authorization-query",
+      "case": "spotify-client-id-and-token-placeholders-non-values",
+      "path": "client-id-authorization-query/fixture.txt",
+      "context": "header",
+      "sha256": "df338a113599e7b4d9a1d110ed24b39f0a11445aae2092aa37e98bf4adb4c825",
+      "text": "GET /authorize?response_type=code&client_id=SYNTHETIC-spotify-client-id&redirect_uri=https%3A%2F%2Fexample.test%2Fcb HTTP/1.1\nHost: accounts.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--token-response-lifetime-and-scope",
+      "case": "spotify-client-id-and-token-placeholders-non-values",
+      "path": "token-response-lifetime-and-scope/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7c26ee18b87b152269cf289a7daf890634153190a00128fe36077ef08a550740",
+      "text": "{\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 3600,\n  \"scope\": \"user-read-private\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--bearer-documented-form-placeholder",
+      "case": "spotify-client-id-and-token-placeholders-non-values",
+      "path": "bearer-documented-form-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "c680f832dc4ce05e1740a6fe75d475489c4eb464122e3347c41390119db6dd30",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer <Access Token>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--bearer-environment-reference",
+      "case": "spotify-client-id-and-token-placeholders-non-values",
+      "path": "bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "3cf99747ed33b3cf1bb213d0457c417c90cfcd745bf14bbe92d6abe570595667",
+      "text": "curl -H \"Authorization: Bearer ${SPOTIFY_ACCESS_TOKEN}\" https://api.example.test/v1/me\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--refresh-token-angle-placeholder",
+      "case": "spotify-client-id-and-token-placeholders-non-values",
+      "path": "refresh-token-angle-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "8bea79382f68074dea3149e606d03ded1c0f92ff9a09f42097f3f47d243fa0e0",
+      "text": "{\n  \"refresh_token\": \"<REFRESH_TOKEN>\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--refresh-token-template-reference",
+      "case": "spotify-client-id-and-token-placeholders-non-values",
+      "path": "refresh-token-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "271e46401123cdf318cdd5f9be4369ff2c7d83850f0224cd52245119d7521466",
+      "text": "{\n  \"refresh_token\": \"{{ secrets.SPOTIFY_REFRESH_TOKEN }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--refresh-token-masked-display",
+      "case": "spotify-client-id-and-token-placeholders-non-values",
+      "path": "refresh-token-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "21f3c2fa5c8264bb1849110ac8eabcca6ec4596b8a501f33e1eb10c7bb0ee29b",
+      "text": "{\n  \"refresh_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--basic-raw-http",
+      "case": "spotify-client-secret-basic-envelope",
+      "path": "basic-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "c73d3a9cc0f78ad6a185c507b5f0c38dcbd6c0050ac3f058525d68622e5c08f0",
+      "text": "POST /api/token HTTP/1.1\nHost: accounts.example.test\nAuthorization: Basic U1lOVEhFVElDLXNwb3RpZnktY2xpZW50LWlkOlNZTlRIRVRJQy1zcG90aWZ5LWNsaWVudC1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=client_credentials\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 74,
+            "end": 178,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--basic-curl-header",
+      "case": "spotify-client-secret-basic-envelope",
+      "path": "basic-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "d96126ea85e9ac3764d4183f159ff581985c6d09931d2aead06dd5d54d26817f",
+      "text": "curl -X POST -H \"Authorization: Basic U1lOVEhFVElDLXNwb3RpZnktY2xpZW50LWlkOlNZTlRIRVRJQy1zcG90aWZ5LWNsaWVudC1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDI=\" -d \"grant_type=client_credentials\" https://accounts.example.test/api/token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 38,
+            "end": 142,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--basic-json-header-map",
+      "case": "spotify-client-secret-basic-envelope",
+      "path": "basic-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "ea211792bbee7bb530b0523b17db96bc09b15840b1a65b3bc0159dd47fc88de2",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Basic U1lOVEhFVElDLXNwb3RpZnktY2xpZW50LWlkOlNZTlRIRVRJQy1zcG90aWZ5LWNsaWVudC1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDM=\",\n    \"Content-Type\": \"application/x-www-form-urlencoded\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 45,
+            "end": 149,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "spotify-authored--client-credentials-client-id-query",
+      "case": "spotify-client-credentials-request-placeholders-non-values",
+      "path": "client-credentials-client-id-query/fixture.txt",
+      "context": "url",
+      "sha256": "8bf99a2519a54f35da7a0246efcca81cfaad972ac58a87dd429eedc5fadbd04d",
+      "text": "GET /authorize?response_type=code&client_id=SYNTHETIC-spotify-client-id&redirect_uri=https%3A%2F%2Fapp.example.test%2Fcb HTTP/1.1\nHost: accounts.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--basic-documented-placeholder",
+      "case": "spotify-client-credentials-request-placeholders-non-values",
+      "path": "basic-documented-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "6a5fcd4411be1d9d502f0ac05e367f5f642017ef18bf0bfae91221686459d64c",
+      "text": "Authorization: Basic <base64 encoded client_id:client_secret>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--client-secret-variable-placeholder",
+      "case": "spotify-client-credentials-request-placeholders-non-values",
+      "path": "client-secret-variable-placeholder/fixture.txt",
+      "context": "source-code",
+      "sha256": "a8ebd1ccb4d97a0283aa8c89658ff4637e7b5eab65d36a19ba31e006c258007f",
+      "text": "var client_secret = 'CLIENT_SECRET';\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--basic-environment-reference",
+      "case": "spotify-client-credentials-request-placeholders-non-values",
+      "path": "basic-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "f645497dd3f50378f7dba5f37bd294884df86fa02265ab09a422dec97ee5665e",
+      "text": "curl -X POST -H \"Authorization: Basic ${SPOTIFY_BASIC_CREDENTIALS}\" -d \"grant_type=client_credentials\" https://accounts.example.test/api/token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--basic-scheme-only",
+      "case": "spotify-client-credentials-request-placeholders-non-values",
+      "path": "basic-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "d997adaa9d279a2fe19f623eaed0fecea2043ded60e92ce1b51780a229f67ea0",
+      "text": "Authorization: Basic\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--client-secret-masked-display",
+      "case": "spotify-client-credentials-request-placeholders-non-values",
+      "path": "client-secret-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1eedb8bef088127600a888f3878b008bd5014a6c9f9972dde1b5b10b435449a6",
+      "text": "{\n  \"client_secret\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "spotify-authored--client-secret-prose-mention",
+      "case": "spotify-client-credentials-request-placeholders-non-values",
+      "path": "client-secret-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "5edc1ba35fb46d01a8304d0145da0331d65fc1b144f1266adaae8e4708a8ce51",
+      "text": "Store the client secret securely and rotate it if it is compromised.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

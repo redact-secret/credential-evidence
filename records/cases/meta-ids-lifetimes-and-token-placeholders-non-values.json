@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "meta-ids-lifetimes-and-token-placeholders-non-values",
+  "title": "Meta ids, token lifetimes, client token pair, placeholders and masked displays",
+  "summary": "A Page entry in an accounts response without a token, the non-secret members of a token response, a documented request template, a pair of an app id and a client token, and placeholders, references and masked displays under the access_token name.",
+  "rationale": "A Page id, a user id and a token lifetime are metadata, and a client token is documented as not secret. A placeholder such as the documented request template, a reference or a masked display carries no value. Flagging them would redact identifiers and documentation a reader needs. The case decides nothing about any token kind beyond what it holds.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "meta:user-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "meta:page-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "meta:system-user-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "meta:instagram-user-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no access token value. That a client token pair is public and that a placeholder, reference or masked display is not a value are the project's decisions; Meta documents the client token as not secret and the token members (carrier existence only).",
+    "sources": [
+      {
+        "sourceId": "developers-facebook-com-35c7caf5a9",
+        "supports": "Client tokens identify your app when calling app-level APIs from native or desktop apps. Because client tokens are embedded in apps, they are not secret.",
+        "locator": "Access Tokens for Meta Technologies, Client Access Tokens"
+      },
+      {
+        "sourceId": "developers-facebook-com-35c7caf5a9",
+        "supports": "curl -i -X GET \"https://graph.facebook.com/{your-user-id}/accounts?access_token={user-access-token}\"",
+        "locator": "Access Tokens for Meta Technologies, Page Access Tokens, code sample"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,590 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "hubspot-authored",
+  "title": "HubSpot explicit header carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "hubspot-authored--bearer-raw-http",
+      "case": "hubspot-bearer-authorization-header-value",
+      "path": "bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "bdcf163d83280e3a9f8675f5856dcc032bb7b471cfb2623481d3578d73ec8b20",
+      "text": "GET /crm/v3/objects/contacts HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-never-issued-hubspot-bearer-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 83,
+            "end": 125,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-curl-header",
+      "case": "hubspot-bearer-authorization-header-value",
+      "path": "bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "e47f992d26ef5b0ed396f2628b59eab336de82848365ca469d689d838ab4390c",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-never-issued-hubspot-bearer-0001\" https://api.example.test/crm/v3/objects/contacts\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 73,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-json-header-map",
+      "case": "hubspot-bearer-authorization-header-value",
+      "path": "bearer-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "56a412d09b2ee56021b263ca31cd031183012939df77bc32f1ddbbed42d6c696",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-never-issued-hubspot-bearer-0001\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 88,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-scheme-only",
+      "case": "hubspot-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "1fadc5f14c255d669ae759008858cf6391491e0cb11f15bb7347afb283ca8331",
+      "text": "GET /crm/v3/objects/contacts HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-prose-mention",
+      "case": "hubspot-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "ef58485eea85f85df626991474fcc64004d410d8ecfad20343537d28f86a92fc",
+      "text": "Send the token in the Authorization header using the Bearer scheme.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-angle-placeholder",
+      "case": "hubspot-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "098b07c88f864fb27e96507fc6b3e8866d1c3313867353dbec896daf8ed6a32d",
+      "text": "GET /crm/v3/objects/contacts HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer <ACCESS_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-curl-environment-reference",
+      "case": "hubspot-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "252e11f8f8e2640e1f80dfc9d1c28ce7aaf8027725d420fbca0a0a5a2bad2ae0",
+      "text": "curl -H \"Authorization: Bearer ${ACCESS_TOKEN}\" https://api.example.test/crm/v3/objects/contacts\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-template-reference",
+      "case": "hubspot-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "22ba74f682e1387507af77b21dcc5d60c3887386a1b8fd94e43a7c12ec9d5f4b",
+      "text": "GET /crm/v3/objects/contacts HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer {{ secrets.ACCESS_TOKEN }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-masked-display",
+      "case": "hubspot-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "1a6281c87ae1113f0a720ccc087abdecf2db0e0ea066aea6d0db2b6e2b8a0a1f",
+      "text": "GET /crm/v3/objects/contacts HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--bearer-public-identifiers",
+      "case": "hubspot-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-public-identifiers/fixture.txt",
+      "context": "structured-file",
+      "sha256": "a3e1273f94a4491ab56d3b2ac27188144f2ba1fc120666c5defa80c998c704a6",
+      "text": "{\n  \"hub_id\": 1000001,\n  \"client_id\": \"synthetic-client-id-0001\",\n  \"scopes\": [\"crm.objects.contacts.read\", \"crm.objects.contacts.write\"]\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-curl-data-refresh-token",
+      "case": "hubspot-oauth-refresh-token-member-and-form-field",
+      "path": "refresh-curl-data-refresh-token/fixture.txt",
+      "context": "cli",
+      "sha256": "8f5c3c1f66328ec5d070b8f35dcc4fb510426d205f494320aa57dce7aee37af8",
+      "text": "curl --request POST --url https://api.example.test/oauth/2026-09/token --header 'content-type: application/x-www-form-urlencoded' --data client_id=SYNTHETIC-hubspot-client-id --data client_secret=$HUBSPOT_CLIENT_SECRET --data refresh_token=SYNTHETIC-never-issued-hubspot-refresh-0001 --data grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 240,
+            "end": 283,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-raw-http-form-body-refresh-token",
+      "case": "hubspot-oauth-refresh-token-member-and-form-field",
+      "path": "refresh-raw-http-form-body-refresh-token/fixture.txt",
+      "context": "form-body",
+      "sha256": "402f2500646d3ce1ac49addea122da2da6bd8b91bd10348df6ed6dc585bacd2f",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&client_id=SYNTHETIC-hubspot-client-id&client_secret=<client secret>&refresh_token=SYNTHETIC-never-issued-hubspot-refresh-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 214,
+            "end": 257,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-response-json-excerpt",
+      "case": "hubspot-oauth-refresh-token-member-and-form-field",
+      "path": "refresh-response-json-excerpt/fixture.txt",
+      "context": "structured-file",
+      "sha256": "b9c7ce5584d5458a2d30c550c5d85260db7e0fa19d228b4a7bb89dcd1da6a1a6",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"refresh_token\": \"SYNTHETIC-never-issued-hubspot-refresh-0001\",\n  \"hub_id\": 1234567,\n  \"expires_in\": 1800\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 48,
+            "end": 91,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-angle-placeholder",
+      "case": "hubspot-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "eeee8efae7557a920478ccec4ef9ca1ad7006370713d66cfe5232e31374ab5c4",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&client_id=SYNTHETIC-hubspot-client-id&client_secret=<client secret>&refresh_token=<refresh token>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-template-reference",
+      "case": "hubspot-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-template-reference/fixture.txt",
+      "context": "form-body",
+      "sha256": "31a808888e0ab260a30bcf84718f4965f191ea1f08b389a75f5ab0077c7d61b9",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&client_id=SYNTHETIC-hubspot-client-id&client_secret=<client secret>&refresh_token={{ secrets.HUBSPOT_REFRESH_TOKEN }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-masked-display",
+      "case": "hubspot-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-masked-display/fixture.txt",
+      "context": "form-body",
+      "sha256": "f6e59ac98d080b7d5a5807b1ae2821a7a2a2992abc6e57a7097de16275d5eef8",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&client_id=SYNTHETIC-hubspot-client-id&client_secret=<client secret>&refresh_token=********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-empty-value",
+      "case": "hubspot-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-empty-value/fixture.txt",
+      "context": "form-body",
+      "sha256": "ecd7a8fffdfa2a993699f65b2443a3429a4f7d8f2a3f01b3fdeb84782098167e",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&client_id=SYNTHETIC-hubspot-client-id&client_secret=<client secret>&refresh_token=\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-curl-environment-reference",
+      "case": "hubspot-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "c20e149e256ca7bf5e18a2f1dd7c18459bcd8035eb7f18a3cb1284ca6f264a1a",
+      "text": "curl --request POST --url https://api.example.test/oauth/2026-09/token --header 'content-type: application/x-www-form-urlencoded' --data client_id=SYNTHETIC-hubspot-client-id --data client_secret=$HUBSPOT_CLIENT_SECRET --data refresh_token=$HUBSPOT_REFRESH_TOKEN --data grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-token-prose-mention",
+      "case": "hubspot-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-token-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "6005902e1137cf45f57e6fdc4d5f5fbac9544d291452b8184ffb37bedb80c6c5",
+      "text": "Store the refresh_token from the token response and send it with grant_type=refresh_token to get a new access token.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--refresh-response-public-members",
+      "case": "hubspot-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-response-public-members/fixture.txt",
+      "context": "structured-file",
+      "sha256": "812ce17a5cf2fad7e4f6f00490634c64e2127198bdd3831d198931ca88509ce5",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"hub_id\": 1234567,\n  \"scopes\": [\"oauth\", \"crm.objects.contacts.read\"],\n  \"expires_in\": 1800\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-curl-data-client-secret",
+      "case": "hubspot-oauth-client-secret-form-field",
+      "path": "client-secret-curl-data-client-secret/fixture.txt",
+      "context": "cli",
+      "sha256": "381a578132915b45eca4001196c0dab6cd3f863778fb4f3d264c803d98062447",
+      "text": "curl --request POST --url https://api.example.test/oauth/2026-09/token --header 'content-type: application/x-www-form-urlencoded' --data client_id=SYNTHETIC-hubspot-client-id --data client_secret=SYNTHETIC-never-issued-hubspot-client-secret-0001 --data grant_type=client_credentials --data 'scope=developer.webhooks_journal.read'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 196,
+            "end": 245,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-raw-http-form-body",
+      "case": "hubspot-oauth-client-secret-form-field",
+      "path": "client-secret-raw-http-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "df3070e8b12f580580470ce09c38adbe0b839aba5be5618d254a67950f6d2968",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<code>&client_id=SYNTHETIC-hubspot-client-id&client_secret=SYNTHETIC-never-issued-hubspot-client-secret-0002&redirect_uri=http://localhost:3000/oauth-callback\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 201,
+            "end": 250,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-introspect-request-body",
+      "case": "hubspot-oauth-client-secret-form-field",
+      "path": "client-secret-introspect-request-body/fixture.txt",
+      "context": "structured-file",
+      "sha256": "4e717bc6f62f9f5e8a1c95727c379238db8f77d2d78c744576a24065ee248b74",
+      "text": "{\n  \"client_id\": \"SYNTHETIC-hubspot-client-id\",\n  \"client_secret\": \"SYNTHETIC-never-issued-hubspot-client-secret-0003\",\n  \"token_type_hint\": \"access_token\",\n  \"token\": \"<access token>\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 68,
+            "end": 117,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-angle-placeholder",
+      "case": "hubspot-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "b18e70fe976166eaf8622dbaae19a53db7f53747a1de843be68103d6a2509880",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<code>&client_id=SYNTHETIC-hubspot-client-id&client_secret=<client secret>&redirect_uri=http://localhost:3000/oauth-callback\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-template-reference",
+      "case": "hubspot-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-template-reference/fixture.txt",
+      "context": "form-body",
+      "sha256": "8c32ef1de01185749718a16066d0986fa5d75669356f3e2b959672d93d72c0b7",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<code>&client_id=SYNTHETIC-hubspot-client-id&client_secret={{ secrets.HUBSPOT_CLIENT_SECRET }}&redirect_uri=http://localhost:3000/oauth-callback\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-masked-display",
+      "case": "hubspot-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-masked-display/fixture.txt",
+      "context": "form-body",
+      "sha256": "cf9f08b33d66ba56e6e9956e0a1802377e335959a1d273710b483d17de1e3601",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<code>&client_id=SYNTHETIC-hubspot-client-id&client_secret=********&redirect_uri=http://localhost:3000/oauth-callback\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-empty-value",
+      "case": "hubspot-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-empty-value/fixture.txt",
+      "context": "form-body",
+      "sha256": "ea60c13aeb5b21506ae341b6bcaef08b4b45dbaafb587ac2acf4190924373e91",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<code>&client_id=SYNTHETIC-hubspot-client-id&client_secret=&redirect_uri=http://localhost:3000/oauth-callback\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-curl-environment-reference",
+      "case": "hubspot-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "462617ccef39c0200e47a8480a9a057269238674f36784214cfa6c76197476e1",
+      "text": "curl --request POST --url https://api.example.test/oauth/2026-09/token --header 'content-type: application/x-www-form-urlencoded' --data client_id=SYNTHETIC-hubspot-client-id --data client_secret=$HUBSPOT_CLIENT_SECRET --data grant_type=client_credentials --data 'scope=developer.webhooks_journal.read'\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-prose-mention",
+      "case": "hubspot-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "bdcbe8ac36468e54b240a207b0d555f187edb421d787d14666d4ce948599b5c2",
+      "text": "Copy the client_secret from the Auth page of your app settings and keep it out of source control.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-client-id-only",
+      "case": "hubspot-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-client-id-only/fixture.txt",
+      "context": "form-body",
+      "sha256": "a848c0db9ea2c4e43c53284f04636dcfd94c9b319833231df0be27dd8bd82917",
+      "text": "POST /oauth/2026-09/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&client_id=SYNTHETIC-hubspot-client-id&redirect_uri=http://localhost:3000/oauth-callback\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--client-secret-signature-header-name-only",
+      "case": "hubspot-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-signature-header-name-only/fixture.txt",
+      "context": "header",
+      "sha256": "0b1fa4b2fc30b9d845fc5bba2b8520afd6c061359724a98cced6229ebe8d8a99",
+      "text": "POST /webhook HTTP/1.1\nHost: app.example.test\nX-HubSpot-Signature-v3: <signature>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-global-config-accounts",
+      "case": "hubspot-personal-access-key-config-field",
+      "path": "pak-global-config-accounts/fixture.txt",
+      "context": "yaml",
+      "sha256": "3c2b5ea1913a4a3d23a27645bd3160cd9f5836bf3372d0468e612563528c617d",
+      "text": "defaultAccount: 1234567\naccounts:\n  - name: example-account\n    accountId: 1234567\n    authType: personalaccesskey\n    personalAccessKey: SYNTHETIC-never-issued-hubspot-personal-access-key-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 138,
+            "end": 193,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-legacy-portals-config-quoted",
+      "case": "hubspot-personal-access-key-config-field",
+      "path": "pak-legacy-portals-config-quoted/fixture.txt",
+      "context": "yaml",
+      "sha256": "79606c6f79e711e5c1d80002eeb071109a23c102dc9e7ceab860df5b81e11b14",
+      "text": "defaultPortal: example-account\nportals:\n  - name: example-account\n    portalId: 1234567\n    authType: personalaccesskey\n    personalAccessKey: 'SYNTHETIC-never-issued-hubspot-personal-access-key-0002'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 144,
+            "end": 199,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-environment-assignment",
+      "case": "hubspot-personal-access-key-config-field",
+      "path": "pak-environment-assignment/fixture.txt",
+      "context": "env",
+      "sha256": "fe14914a6335d740a4cd6b9f6b3724ae99e18c33baddd6f71900b93335987306",
+      "text": "USE_ENVIRONMENT_HUBSPOT_CONFIG=true\nHUBSPOT_PERSONAL_ACCESS_KEY=SYNTHETIC-never-issued-hubspot-personal-access-key-0003\nHUBSPOT_ACCOUNT_ID=1234567\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 64,
+            "end": 119,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-angle-placeholder",
+      "case": "hubspot-personal-access-key-placeholders-and-non-values",
+      "path": "pak-angle-placeholder/fixture.txt",
+      "context": "yaml",
+      "sha256": "cebab423f5fc7c9201e81b96f943c2bedc7333a14d7b503f7ac2ce8b01ab6081",
+      "text": "defaultAccount: 1234567\naccounts:\n  - name: example-account\n    accountId: 1234567\n    authType: personalaccesskey\n    personalAccessKey: <personal access key>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-template-reference",
+      "case": "hubspot-personal-access-key-placeholders-and-non-values",
+      "path": "pak-template-reference/fixture.txt",
+      "context": "yaml",
+      "sha256": "fc3453a2bae2be8b4b8ec7b15ad5d9de304967fd9ecad240737a0157403db1d8",
+      "text": "defaultAccount: 1234567\naccounts:\n  - name: example-account\n    accountId: 1234567\n    authType: personalaccesskey\n    personalAccessKey: ${HUBSPOT_PERSONAL_ACCESS_KEY}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-masked-display",
+      "case": "hubspot-personal-access-key-placeholders-and-non-values",
+      "path": "pak-masked-display/fixture.txt",
+      "context": "yaml",
+      "sha256": "99e1cf3f5eaee016fa550d55d7ef1de074d5c3edf15c485216a0f25d276a3b06",
+      "text": "defaultAccount: 1234567\naccounts:\n  - name: example-account\n    accountId: 1234567\n    authType: personalaccesskey\n    personalAccessKey: ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-empty-value",
+      "case": "hubspot-personal-access-key-placeholders-and-non-values",
+      "path": "pak-empty-value/fixture.txt",
+      "context": "yaml",
+      "sha256": "65c8c27dfc7d947e326d1157c1a2861fe5ab157fa70c54369e5923aea8aad075",
+      "text": "defaultAccount: 1234567\naccounts:\n  - name: example-account\n    accountId: 1234567\n    authType: personalaccesskey\n    personalAccessKey: ''\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-environment-reference",
+      "case": "hubspot-personal-access-key-placeholders-and-non-values",
+      "path": "pak-environment-reference/fixture.txt",
+      "context": "env",
+      "sha256": "22802f1d73840c892dd9fc1cc6ffdd89bc938c3f6a10d3ba44e77aae3bd13dfd",
+      "text": "USE_ENVIRONMENT_HUBSPOT_CONFIG=true\nHUBSPOT_PERSONAL_ACCESS_KEY=$PERSONAL_ACCESS_KEY\nHUBSPOT_ACCOUNT_ID=1234567\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-prose-mention",
+      "case": "hubspot-personal-access-key-placeholders-and-non-values",
+      "path": "pak-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "23617c117ffd9e72ee6ec423d9212c7cda895b68a4ad041ea089f7bfab57f73a",
+      "text": "Run hs account auth and paste your personal access key when prompted; the CLI adds it to the global config file.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--pak-public-account-fields-only",
+      "case": "hubspot-personal-access-key-placeholders-and-non-values",
+      "path": "pak-public-account-fields-only/fixture.txt",
+      "context": "yaml",
+      "sha256": "1bc7cb2751a222a107ae910c4f1cf619bb922429161f0af5a1e2954d95969c89",
+      "text": "defaultAccount: 1234567\naccounts:\n  - name: example-account\n    accountId: 1234567\n    authType: personalaccesskey\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
