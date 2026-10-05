@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "x-oauth1-token-identity-and-signature-non-values",
+  "title": "X OAuth 1.0a token identity, signature, placeholders and masked displays",
+  "summary": "An OAuth Authorization header that holds oauth_token and oauth_signature, an oauth_token_secret property that holds a placeholder, a reference or a masked display, and prose that names the field.",
+  "rationale": "The oauth_token is the token identity half that is sent with a request, and oauth_signature is a derived output of the signing step: neither contains the oauth_token_secret. A placeholder, reference or masked display under the secret's name carries no value. Flagging them would redact the signing parameters and documentation a reader needs. The case decides nothing about the oauth_token as a credential in its own right: it asserts only that it is not the secret half.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "x:oauth1-access-token-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no token secret. That the signature is derived output and that oauth_token is not the secret half, and that a placeholder, reference or masked display is not a value, are the project's decisions; X documents the secret and its distinction from the OAuth 2.0 client credentials.",
+    "sources": [
+      {
+        "sourceId": "docs-x-com-4cf664b380",
+        "supports": "access token secret by redirecting a user to X and having them authorize your application",
+        "locator": "Obtaining access tokens using 3-legged OAuth flow"
+      },
+      {
+        "sourceId": "docs-x-com-4cf664b380",
+        "supports": "* Access token secret === Token Secret === resulting `oauth_token_secret`",
+        "locator": "Terminology clarification"
+      },
+      {
+        "sourceId": "docs-x-com-3eb3b20029",
+        "supports": "These are different from your OAuth 1.0a consumer key and secret.",
+        "locator": "Prerequisites"
+      },
+      {
+        "sourceId": "docs-x-com-3eb3b20029",
+        "supports": "For each user, the access token and its token secret, as issued when the user authorized your app.",
+        "locator": "Prerequisites"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

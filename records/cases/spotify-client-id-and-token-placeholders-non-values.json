@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "spotify-client-id-and-token-placeholders-non-values",
+  "title": "Spotify client ids, token lifetimes, placeholders and masked displays",
+  "summary": "A public client id in an authorization request, the non-secret members of a token response, the documented Bearer header form with its placeholder, and placeholders, references and masked displays under the refresh_token name.",
+  "rationale": "A client id is a public application identifier and is not a token. A token lifetime or a scope list is metadata. A placeholder such as the documented Bearer form, a reference or a masked display carries no value. Flagging them would redact identifiers and documentation a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "spotify:access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "spotify:refresh-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no token value. That a client id is public and that a placeholder, reference or masked display is not a value are the project's decisions, not Spotify statements.",
+    "sources": [
+      {
+        "sourceId": "developer-spotify-com-178810eade",
+        "supports": "To use the access token you must include the following header in your API calls: Authorization: Valid access token following the format: Bearer <Access Token>. Note that the access token is valid for 1 hour (3600 seconds). After that time, the token expires and you need to request a new one.",
+        "locator": "Access Token page, introduction"
+      },
+      {
+        "sourceId": "developer-spotify-com-c358a1c8d6",
+        "supports": "A refresh token is a security credential that allows client applications to obtain new access tokens without requiring users to reauthorize the application.",
+        "locator": "Refreshing tokens page, introduction"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

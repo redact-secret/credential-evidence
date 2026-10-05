@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "x-bearer-token-authorization-header-value",
+  "title": "X bearer token in an Authorization header",
+  "summary": "A synthetic token after the Bearer scheme in an Authorization header of an X API request, in a raw request, a quoted curl -H argument and a JSON header map. The values contain only letters, digits and hyphens.",
+  "rationale": "X documents a Bearer header for both an OAuth 2.0 user access token, which replaces the app-only Bearer Token, and the app-only Bearer Token itself. The header cannot tell the two apart, so the case is shared and the attribution stays generic. X states the Bearer Token is a byte array of unspecified format, so no prefix, alphabet or width is claimed and the scheme is the only identifying context. Percent-containing shapes appear only as tool-corroborated leads in the contract and are not a provider statement; whether a raw token may contain a percent character or only a serialised form does, is unresolved, and no fixture contains a percent character in the value. The extent is the value after the scheme and excludes the closing quote.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "x:oauth2-user-access-token",
+      "role": "subject"
+    },
+    {
+      "family": "x:app-only-bearer-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value after an explicit Bearer scheme in an Authorization header of an X API request is treated as a credential and covered whole. X documents the Bearer carrier of the user access token and of the app-only token and states that the byte format is unspecified (carrier existence only); the value admission, extent and generic authorization attribution are the project's decisions. Percent-containing shapes are not asserted either way.",
+    "sources": [
+      {
+        "sourceId": "docs-x-com-2fcd3de449",
+        "supports": "Instead of passing your Bearer Token, you",
+        "locator": "Step 4: Connect to the APIs"
+      },
+      {
+        "sourceId": "docs-x-com-48490501ab",
+        "supports": "the access token you create through the Authorization Code Flow with PKCE will only stay valid for two hours",
+        "locator": "How long will my credentials stay valid?"
+      },
+      {
+        "sourceId": "docs-x-com-8593b0ef23",
+        "supports": "A Bearer Token is a byte array of unspecified format",
+        "locator": "Using and generating an app-only Bearer Token"
+      },
+      {
+        "sourceId": "docs-x-com-acae1aa0ac",
+        "supports": "These values should be considered as sensitive as passwords, and must not be shared or distributed to untrusted parties.",
+        "locator": "About application-only auth"
+      },
+      {
+        "sourceId": "docs-x-com-223dbe29e2",
+        "supports": "If you would like to regenerate your Bearer Token, you must invalidate your token using the",
+        "locator": "Regenerate API keys and tokens"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-x-oauth1-token-identity-and-signature-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "x-oauth1-token-identity-and-signature-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#235 (Batch 2 handoff) from the cited provider pages; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#235. Question: oauth_token, oauth_signature, placeholders, references, masked displays and prose are not the oauth_token_secret value? Options: flag oauth_token or oauth_signature; or leave the case a draft. Decision: do not flag them as the token secret. Reason: the provider pages document the secret half and its distinction from other credentials, not the confidentiality of oauth_token or of a signature, and the expectation rests on project policy. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "oauth_token is the other half of an access credential and a stricter policy could treat it as sensitive; this case does not say it is harmless, only that it is not the secret half.",
+      "reversingEvidence": "A provider statement that oauth_token or oauth_signature is confidential or contains the secret, or a second maintainer's retro-review that disputes this outcome."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

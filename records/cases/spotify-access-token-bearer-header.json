@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "spotify-access-token-bearer-header",
+  "title": "Spotify access token in a Bearer header",
+  "summary": "A synthetic access token after the Bearer scheme in an Authorization header of a Web API request, in a raw request, a quoted curl -H argument and a JSON header map.",
+  "rationale": "Spotify documents the header form Bearer followed by the access token, a token valid for 1 hour. The documentation states no prefix, alphabet or width, so the scheme in the carrier is the only identifying context and no bare-value rule is implied. The Bearer scheme is generic, so the attribution stays generic; the extent is the value after the scheme and excludes the closing quote.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "spotify:access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value after an explicit Bearer scheme in an Authorization header of a Spotify Web API request is treated as a credential and covered whole. Spotify documents the Bearer header form and the 3600 second lifetime (carrier existence only); the value admission, extent and generic authorization attribution are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developer-spotify-com-178810eade",
+        "supports": "To use the access token you must include the following header in your API calls: Authorization: Valid access token following the format: Bearer <Access Token>. Note that the access token is valid for 1 hour (3600 seconds). After that time, the token expires and you need to request a new one.",
+        "locator": "Access Token page, introduction"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "mongodb-atlas-digest-header-and-public-key-non-values",
+  "title": "Atlas Digest header, public key and redacted private key display",
+  "summary": "A Digest Authorization header holding a username, a nonce and a response hash, a public key on its own, a redacted private key display, and a client configuration that names the key by environment reference.",
+  "rationale": "A programmatic API key is a Digest input that the client configures: the Public Key and Private Key are hashed with a nonce, so the Digest header on the wire holds a hash and not the private key. The public key is the username-like half and is documented as exactly 8 characters. Later responses return a redacted private key. None of these holds the private key, so none is a secret value. The case asserts nothing about where a real private key would appear, because no wire carrier is documented.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "mongodb-atlas:programmatic-api-private-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no private key. That a Digest response hash or nonce is derived output, that the public key is not the secret half and that a redacted display or reference is not a value are the project's decisions; Atlas documents the hashing and the 8 character public key, not their confidentiality.",
+    "sources": [
+      {
+        "sourceId": "github-com-mongodb-docs-24390ae37b",
+        "supports": "'API keys have two parts: a Public Key and a Private Key. These serve the same function as a username and a password'",
+        "locator": "#L93-L99"
+      },
+      {
+        "sourceId": "github-com-mongodb-openapi-e316639242",
+        "supports": "ApiKeyUserDetails.privateKey: 'Redacted private key returned for this organization API key. This key displays unredacted when first created.'",
+        "locator": "#L3414-L3418"
+      },
+      {
+        "sourceId": "github-com-mongodb-openapi-e316639242",
+        "supports": "ApiKeyUserDetails.publicKey: minLength 8, maxLength 8",
+        "locator": "#L3419-L3425"
+      },
+      {
+        "sourceId": "github-com-mongodb-openapi-e316639242",
+        "supports": "securitySchemes.DigestAuth: scheme digest, type http",
+        "locator": "#L46028-L46031"
+      },
+      {
+        "sourceId": "github-com-mongodb-docs-24390ae37b",
+        "supports": "'Atlas hashes the Public Key and Private Key using a unique value called a nonce.'",
+        "locator": "#L101-L105"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
