@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-apikey-authorization-header-value",
+  "title": "Encoded value after ApiKey in an Authorization header",
+  "summary": "A synthetic encoded API key after the ApiKey scheme in an Authorization or Proxy-Authorization header, in a raw request, a quoted curl -H argument and a JSON header map, including a lowercase header name and scheme.",
+  "rationale": "Elastic documents the encoded value as the credential sent after the ApiKey scheme. The scheme name is not unique to Elastic, and the carrier cannot tell a Cloud or Serverless key from a self-managed one, so the attribution stays generic. The encoded value is covered whole: it is not decoded and no alphabet or width is assumed. The header name, scheme and closing quote are outside the extent.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "elastic:elasticsearch-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged under project policy: the value after an explicit ApiKey scheme in Authorization or Proxy-Authorization is treated as a credential and covered whole, consistent with how the other authorization credentials are handled. Elastic documents the scheme as the carrier of the encoded value (carrier existence only); the boundary, value admission, extent and generic authorization attribution are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-elasticsearch-specification-21dfae93f5",
+        "supports": "You must create an API key and use the encoded value in the request header: Authorization: ApiKey ${API_KEY}",
+        "locator": "components.securitySchemes.apiKeyAuth.description"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

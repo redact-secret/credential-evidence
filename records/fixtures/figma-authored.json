@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "figma-authored",
+  "title": "Figma explicit header carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "figma-authored--x-figma-token-raw-http",
+      "case": "figma-x-figma-token-header-value",
+      "path": "x-figma-token-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "d45274705ff2a058879e66cd5ec6d67f3af1efde2305664f8cdb96bc243a1827",
+      "text": "GET /v1/files/SYNTHETICfileKey01 HTTP/1.1\nHost: api.example.test\nX-Figma-Token: figd_SYNTHETIC-never-issued-figma-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 80,
+            "end": 118,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-lowercase-name",
+      "case": "figma-x-figma-token-header-value",
+      "path": "x-figma-token-lowercase-name/fixture.txt",
+      "context": "header",
+      "sha256": "dd186844f2856ef7c68b7f870d06411d44014d6fa27395e00181891d508ccc60",
+      "text": "GET /v1/files/SYNTHETICfileKey01 HTTP/1.1\nHost: api.example.test\nx-figma-token: figd_SYNTHETIC-never-issued-figma-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 80,
+            "end": 118,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-curl-header",
+      "case": "figma-x-figma-token-header-value",
+      "path": "x-figma-token-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "bfe852ce5ef4f8892e09420c41804f944477ab32afaf3335f4996ac335e2000b",
+      "text": "curl -H \"X-Figma-Token: figd_SYNTHETIC-never-issued-figma-0001\" https://api.example.test/v1/files/SYNTHETICfileKey01\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 24,
+            "end": 62,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-json-header-map",
+      "case": "figma-x-figma-token-header-value",
+      "path": "x-figma-token-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "8fc1a1b294dc8b51c0d4d2aad6bc4ef9771938898111049742ced08c51c5f3f5",
+      "text": "{\n  \"headers\": {\n    \"X-Figma-Token\": \"figd_SYNTHETIC-never-issued-figma-0001\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 39,
+            "end": 77,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-value-without-figd-prefix",
+      "case": "figma-x-figma-token-header-value",
+      "path": "x-figma-token-value-without-figd-prefix/fixture.txt",
+      "context": "header",
+      "sha256": "3cf2a76cbac3cf8b5894739e6c3f8bc8fa2562389b394174f3aa84e84e63c192",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nX-Figma-Token: SYNTHETIC-opaque-never-issued-figma-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 58,
+            "end": 98,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--token-id-header-with-public-id",
+      "case": "figma-x-figma-token-lookalikes-and-non-values",
+      "path": "token-id-header-with-public-id/fixture.txt",
+      "context": "header",
+      "sha256": "f8525f0a1707fa3db0c2caaa6d0a5bdafd379208e890f86bcc470bfcee1fcb4b",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nX-Figma-Token-Id: 1234567890123\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--suffixed-header-with-public-id",
+      "case": "figma-x-figma-token-lookalikes-and-non-values",
+      "path": "suffixed-header-with-public-id/fixture.txt",
+      "context": "header",
+      "sha256": "54c617491ec9ed948c0faf3055999ab8f5b8c3aa1897cfefd316009cff0c992b",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nX-Figma-Token-Owner: user-1234567890\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-angle-placeholder",
+      "case": "figma-x-figma-token-lookalikes-and-non-values",
+      "path": "x-figma-token-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "7208a5b5fedbf2a8ea2597eaacbba7b55aa2016f988e02ed1ac5bf4e3b5b7c74",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nX-Figma-Token: <YOUR_FIGMA_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-curl-environment-reference",
+      "case": "figma-x-figma-token-lookalikes-and-non-values",
+      "path": "x-figma-token-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "e2d0dc43737b09544ce625d5309f0fd1ff70cd384c8e80c2f9a44d09dddf9460",
+      "text": "curl -H \"X-Figma-Token: $FIGMA_TOKEN\" https://api.example.test/v1/me\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-template-reference",
+      "case": "figma-x-figma-token-lookalikes-and-non-values",
+      "path": "x-figma-token-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "cc47e227f687e272dfc562b20a2dbfee1e741968340fd766ef07718da7813646",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nX-Figma-Token: {{ secrets.FIGMA_TOKEN }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-masked-display",
+      "case": "figma-x-figma-token-lookalikes-and-non-values",
+      "path": "x-figma-token-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "6075765146199f1293a7f16c753568c2faf4b8b8c442b1797d519910ca9e8b2e",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nX-Figma-Token: ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-json-placeholder",
+      "case": "figma-x-figma-token-lookalikes-and-non-values",
+      "path": "x-figma-token-json-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "69f4992374bafe875fa6d926de8443c46c8f8cfdd5da93bc7df6d3149cf435e7",
+      "text": "{\n  \"headers\": {\n    \"X-Figma-Token\": \"<YOUR_FIGMA_TOKEN>\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--public-file-key-and-user-id",
+      "case": "figma-x-figma-token-lookalikes-and-non-values",
+      "path": "public-file-key-and-user-id/fixture.txt",
+      "context": "structured-file",
+      "sha256": "cc2f915cb39bb4a2ca2cf35028bc3098486542494129661769b2a2cb2845afda",
+      "text": "{\n  \"file_key\": \"SYNTHETICfileKey01\",\n  \"user_id\": \"1234567890123\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--x-figma-token-value-on-next-line",
+      "case": "figma-x-figma-token-unsupported-variants",
+      "path": "x-figma-token-value-on-next-line/fixture.txt",
+      "context": "header",
+      "sha256": "55d71ba4bdce91da1b0272a8324fbb70a9995ef33d52cd03f74557752a2b5835",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nX-Figma-Token:\nfigd_SYNTHETIC-never-issued-figma-0001\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--longer-header-name-with-credential-shaped-value",
+      "case": "figma-x-figma-token-unsupported-variants",
+      "path": "longer-header-name-with-credential-shaped-value/fixture.txt",
+      "context": "header",
+      "sha256": "ffa38c6c5e5ab08aedb129a315fb5a760e22db7c9cc0e12e64ebb3d7848db3cc",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nX-Figma-Token-Backup: figd_SYNTHETIC-never-issued-figma-0001\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--bare-prefixed-strings-in-prose",
+      "case": "figma-x-figma-token-unsupported-variants",
+      "path": "bare-prefixed-strings-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "8a4fcc7d41c15e4ad9e9ec2336f627770feb2206731240ff05eb7752be3bd600",
+      "text": "Notes: an older script held figd_SYNTHETIC-prose-0003 and a newer one held figp_SYNTHETIC-prose-0004.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories.",
+  "description": "Hand-written synthetic request fixtures for the exact X-Figma-Token header and its lookalikes. Every fixture projects one Case. No value was issued, derived from a real credential or tested against a service."
+}

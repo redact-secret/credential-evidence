@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "airtable-authored",
+  "title": "Airtable MAC secret field carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "airtable-authored--mac-secret-json-response",
+      "case": "airtable-mac-secret-base64-field-value",
+      "path": "mac-secret-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "06e1d80d829e22f6b6751cdc3592b3ea8ff9c54a1ad9d6e796997299319c2a26",
+      "text": "{\n  \"id\": \"achSYNTHETICHOOK01\",\n  \"macSecretBase64\": \"c3ludGhldGljLWFpcnRhYmxlLW1hYy1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\",\n  \"expirationTime\": \"2026-12-31T00:00:00.000Z\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 54,
+            "end": 118,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-yaml-config",
+      "case": "airtable-mac-secret-base64-field-value",
+      "path": "mac-secret-yaml-config/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1d6cd423bdefcee4b85f485308e0a478b7f19169d5a8a808e8cfcbe37f15a392",
+      "text": "webhook:\n  id: achSYNTHETICHOOK01\n  macSecretBase64: c3ludGhldGljLWFpcnRhYmxlLW1hYy1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 53,
+            "end": 117,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-yaml-quoted",
+      "case": "airtable-mac-secret-base64-field-value",
+      "path": "mac-secret-yaml-quoted/fixture.txt",
+      "context": "structured-file",
+      "sha256": "517d120fb10b7e04539fbd8dac9f066bbf84792c36e4b3d5eb94884a842ac72c",
+      "text": "webhook:\n  macSecretBase64: 'c3ludGhldGljLWFpcnRhYmxlLW1hYy1zZWNyZXQtbmV2ZXItaXNzdWVkLTAy'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 29,
+            "end": 89,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-shell-assignment",
+      "case": "airtable-mac-secret-base64-field-value",
+      "path": "mac-secret-shell-assignment/fixture.txt",
+      "context": "env",
+      "sha256": "d8883b5235aaf74df6f8d80595f41040750298642b6a1208f3b412e6cd414fa2",
+      "text": "macSecretBase64=\"c3ludGhldGljLWFpcnRhYmxlLW1hYy1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 81,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-unquoted-assignment",
+      "case": "airtable-mac-secret-base64-field-value",
+      "path": "mac-secret-unquoted-assignment/fixture.txt",
+      "context": "env",
+      "sha256": "e3578923799a3ed770d5677bdf9d6ef0008378c38bf8baebdd8d58b05b0bdf17",
+      "text": "macSecretBase64=c3ludGhldGljLWFpcnRhYmxlLW1hYy1zZWNyZXQtbmV2ZXItaXNzdWVkLTAy\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 16,
+            "end": 76,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--mac-header-hmac-output",
+      "case": "airtable-mac-header-output-ids-and-non-values",
+      "path": "mac-header-hmac-output/fixture.txt",
+      "context": "header",
+      "sha256": "418d5e258a69c18161b3792a4b4d2731c57a4aee8e360c698af047c9bb7d2079",
+      "text": "POST /airtable-webhook HTTP/1.1\nHost: hooks.example.test\nX-Airtable-Content-MAC: hmac-sha256=5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--webhook-and-base-ids-only",
+      "case": "airtable-mac-header-output-ids-and-non-values",
+      "path": "webhook-and-base-ids-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "6bfd94072c1668b576069ffdc9864309e79fe1f487ff6bc553c3ff6570994620",
+      "text": "{\n  \"id\": \"achSYNTHETICHOOK01\",\n  \"baseId\": \"appSYNTHETICBASE01\",\n  \"areNotificationsEnabled\": true\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-presence-flag",
+      "case": "airtable-mac-header-output-ids-and-non-values",
+      "path": "mac-secret-presence-flag/fixture.txt",
+      "context": "structured-file",
+      "sha256": "3039594d6f3df96f28e1741391f339ea171e6872afd288e078f83aeb9dd72d57",
+      "text": "{\n  \"id\": \"achSYNTHETICHOOK01\",\n  \"macSecretBase64Present\": true\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-angle-placeholder",
+      "case": "airtable-mac-header-output-ids-and-non-values",
+      "path": "mac-secret-angle-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "f6c4f91d727714d3a8e3265b464d6137169b977c27f79bc6444bdfcb1c58aa9b",
+      "text": "{\n  \"macSecretBase64\": \"<MAC_SECRET_BASE64>\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-environment-reference",
+      "case": "airtable-mac-header-output-ids-and-non-values",
+      "path": "mac-secret-environment-reference/fixture.txt",
+      "context": "env",
+      "sha256": "bc7ae187acf1237b0e91a4af8194ec77af3bad54ed39c18f7275cbf2c38980ca",
+      "text": "macSecretBase64=\"${AIRTABLE_MAC_SECRET}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-masked-display",
+      "case": "airtable-mac-header-output-ids-and-non-values",
+      "path": "mac-secret-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "f9850473f799e53261210adb0f34bafea11637e3e387a280e5abb62c271fe154",
+      "text": "{\n  \"macSecretBase64\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--mac-secret-yaml-template-reference",
+      "case": "airtable-mac-header-output-ids-and-non-values",
+      "path": "mac-secret-yaml-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "729338e47b00e55e639a4bc25ff1fea6e4d047b28a7c37535e289737b2a33f67",
+      "text": "webhook:\n  macSecretBase64: {{ secrets.AIRTABLE_MAC_SECRET }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--similarly-named-field-with-base64-value",
+      "case": "airtable-mac-secret-base64-unsupported-variants",
+      "path": "similarly-named-field-with-base64-value/fixture.txt",
+      "context": "structured-file",
+      "sha256": "c9c75f1d7de3020225b8e3147ee87292254c58c92df584a90e8f130de4a01d5b",
+      "text": "{\n  \"otherSecretBase64\": \"c3ludGhldGljLWFpcnRhYmxlLW1hYy1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\"\n}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--longer-field-name-with-base64-value",
+      "case": "airtable-mac-secret-base64-unsupported-variants",
+      "path": "longer-field-name-with-base64-value/fixture.txt",
+      "context": "structured-file",
+      "sha256": "84301d65bd72e5e3dd9774a2bb57f357ac754df78833226acd025bb3e4187965",
+      "text": "{\n  \"macSecretBase64Previous\": \"c3ludGhldGljLWFpcnRhYmxlLW1hYy1zZWNyZXQtbmV2ZXItaXNzdWVkLTAy\"\n}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--bare-base64-string-without-field",
+      "case": "airtable-mac-secret-base64-unsupported-variants",
+      "path": "bare-base64-string-without-field/fixture.txt",
+      "context": "prose",
+      "sha256": "552acfa82524c2cc615cd665a5f68e9865604a04c33af91f517233d6b6afbc00",
+      "text": "Remember: c3ludGhldGljLWFpcnRhYmxlLW1hYy1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories.",
+  "description": "Hand-written synthetic fixtures for the exact macSecretBase64 field and its lookalikes. Every fixture projects one Case. No value was issued or tested against a service."
+}

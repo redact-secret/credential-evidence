@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "asana-authored",
+  "title": "Asana webhook handshake carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "asana-authored--x-hook-secret-raw-http",
+      "case": "asana-x-hook-secret-header-value",
+      "path": "x-hook-secret-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "c289f42663490fa6987fff20a9dc3c48aee467bda45d7a43a3ed6e6f71a66368",
+      "text": "POST /receive-webhook/SYNTHETIC01 HTTP/1.1\nHost: hooks.example.test\nContent-Type: application/json\nX-Hook-Secret: synthetic-asana-hook-secret-never-issued-0001\nContent-Length: 0\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 114,
+            "end": 159,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-secret-lowercase-name",
+      "case": "asana-x-hook-secret-header-value",
+      "path": "x-hook-secret-lowercase-name/fixture.txt",
+      "context": "header",
+      "sha256": "44b91276c75085ed6b4a2db1de9978d4eb91ff6b612b46dede950095cb1b0b94",
+      "text": "POST /receive-webhook/SYNTHETIC01 HTTP/1.1\nHost: hooks.example.test\nx-hook-secret: synthetic-asana-hook-secret-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 83,
+            "end": 128,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-secret-curl-header",
+      "case": "asana-x-hook-secret-header-value",
+      "path": "x-hook-secret-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "cf6ca3456a53cf6e04fc6ca38bc99fa9b9e1f8954b1884dd9b93931eaf573699",
+      "text": "curl -X POST -H \"X-Hook-Secret: synthetic-asana-hook-secret-never-issued-0001\" https://hooks.example.test/receive-webhook/SYNTHETIC01\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 32,
+            "end": 77,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-secret-json-header-map",
+      "case": "asana-x-hook-secret-header-value",
+      "path": "x-hook-secret-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "0dff1f50fa70804031012798dbc93262e2ba26cea22f53477f5d0107322ecc6f",
+      "text": "{\n  \"headers\": {\n    \"X-Hook-Secret\": \"synthetic-asana-hook-secret-never-issued-0001\",\n    \"Content-Type\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 39,
+            "end": 84,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-signature-hmac-output",
+      "case": "asana-hook-header-lookalikes-and-non-values",
+      "path": "x-hook-signature-hmac-output/fixture.txt",
+      "context": "header",
+      "sha256": "80ec56276c9dc952ccc72d77db58813b8bbe7f0a7b0a4c5d7431d7f643b20945",
+      "text": "POST /receive-webhook/SYNTHETIC01 HTTP/1.1\nHost: hooks.example.test\nX-Hook-Signature: 5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-secret-id-header-with-identifier",
+      "case": "asana-hook-header-lookalikes-and-non-values",
+      "path": "x-hook-secret-id-header-with-identifier/fixture.txt",
+      "context": "header",
+      "sha256": "67e14fcfe1efbdfe7b348381fc2850ae5b715d09332b5f2062668935e9a7e967",
+      "text": "POST /receive-webhook/SYNTHETIC01 HTTP/1.1\nHost: hooks.example.test\nX-Hook-Secret-Id: 1234567890123\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-secret-angle-placeholder",
+      "case": "asana-hook-header-lookalikes-and-non-values",
+      "path": "x-hook-secret-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "afbafe4ce96fe2ce3108dce31951034803b160fe40fbd573d346f0edfcd43424",
+      "text": "HTTP/1.1 200 OK\nX-Hook-Secret: <X-Hook-Secret value from the handshake>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-secret-curl-environment-reference",
+      "case": "asana-hook-header-lookalikes-and-non-values",
+      "path": "x-hook-secret-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "c51c6820c29c767b2e3cb2755ab4287038ba535ed88485024db5a6f8503b7031",
+      "text": "curl -X POST -H \"X-Hook-Secret: ${ASANA_HOOK_SECRET}\" https://hooks.example.test/receive-webhook/SYNTHETIC01\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-secret-masked-display",
+      "case": "asana-hook-header-lookalikes-and-non-values",
+      "path": "x-hook-secret-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "3eddd102878a2966649dbb53304a1555c81af7f427ffc739c1c9c15145d809d0",
+      "text": "HTTP/1.1 200 OK\nX-Hook-Secret: ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--x-hook-secret-json-placeholder",
+      "case": "asana-hook-header-lookalikes-and-non-values",
+      "path": "x-hook-secret-json-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "a3a076fb9c14353f23a54c11f55e2fb2cae3505c251308bc1d5760ee7a77143b",
+      "text": "{\n  \"headers\": {\n    \"X-Hook-Secret\": \"<HOOK_SECRET>\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--longer-header-name-with-credential-shaped-value",
+      "case": "asana-x-hook-secret-unsupported-variants",
+      "path": "longer-header-name-with-credential-shaped-value/fixture.txt",
+      "context": "header",
+      "sha256": "4fd6f0ba86e70307df876f698f554be6e159eb3df90e3640b2d07a34c30b62ba",
+      "text": "POST /receive-webhook/SYNTHETIC01 HTTP/1.1\nHost: hooks.example.test\nX-Hook-Secret-Backup: synthetic-asana-hook-secret-never-issued-0001\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "asana-authored--bare-string-without-carrier",
+      "case": "asana-x-hook-secret-unsupported-variants",
+      "path": "bare-string-without-carrier/fixture.txt",
+      "context": "prose",
+      "sha256": "dfb196a42ce605afc4e1eb936b0e03aec9d3d2845e24c0799864aaa5cc019200",
+      "text": "Saved for later: synthetic-asana-hook-secret-never-issued-0001\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories.",
+  "description": "Hand-written synthetic handshake request fixtures for the exact X-Hook-Secret header and its lookalikes. Every fixture projects one Case. No value was issued or tested against a service."
+}

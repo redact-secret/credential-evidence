@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "figma-x-figma-token-unsupported-variants",
+  "title": "Figma token layouts outside the explicit-header claim",
+  "summary": "A value on the line after the header name, a credential-shaped value under a longer header name, and a bare figd_ or figp_ string in prose.",
+  "rationale": "The bounded claim is the exact header with the value on the same line. These layouts may still leak a credential, but nothing here settles whether they are credentials, and Figma states no format that would let a bare figd_ or figp_ string be recognised without a carrier.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "figma:personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. The layouts are frozen as unsupported variants of the explicit-header claim: a consumer neither gains nor loses a point on them. Figma's pages read state no prefix, alphabet or length, and the figd_ and figp_ prefixes rest on scanner-rule artifacts only.",
+    "sources": [
+      {
+        "sourceId": "developers-figma-com-0de277db62",
+        "supports": "passing the token to the API in the X-Figma-Token header of your request.",
+        "locator": "#generate-a-personal-access-token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

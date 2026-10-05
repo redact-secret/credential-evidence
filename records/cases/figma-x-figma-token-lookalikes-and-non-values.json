@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "figma-x-figma-token-lookalikes-and-non-values",
+  "title": "Figma header lookalikes, placeholders and public identifiers",
+  "summary": "Longer or suffixed header names carrying an identifier, placeholders, environment references and masked displays under the exact header, and public Figma identifiers.",
+  "rationale": "A longer name such as X-Figma-Token-Id is a different header, a placeholder or reference stands in for a value that is kept elsewhere, a masked display has no recoverable value, and a file key or user id is a public identifier. Protecting any of these would redact text a reader needs and would extend the exact-name claim beyond what it states.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "figma:personal-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "figma:plan-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged under project policy: the values here are identifiers, placeholders, references or masked text, not credential values. That a placeholder or reference is not a value is a project decision, not a Figma statement.",
+    "sources": [
+      {
+        "sourceId": "developers-figma-com-0de277db62",
+        "supports": "passing the token to the API in the X-Figma-Token header of your request.",
+        "locator": "#generate-a-personal-access-token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

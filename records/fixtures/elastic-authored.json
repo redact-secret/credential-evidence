@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "elastic-authored",
+  "title": "Elasticsearch ApiKey envelope carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "elastic-authored--authorization-apikey-raw-http",
+      "case": "elastic-apikey-authorization-header-value",
+      "path": "authorization-apikey-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "0611075259ae78df54ee30995c2254b3049417c6584c3dd959dcda8a9a9824bd",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nAuthorization: ApiKey c3ludGhldGljLWtleS1pZC0wMDAxOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAx\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 83,
+            "end": 159,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--proxy-authorization-apikey-raw-http",
+      "case": "elastic-apikey-authorization-header-value",
+      "path": "proxy-authorization-apikey-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "a58a8c82a97889d66844d5e61fae2e1439e5d7d5fcd449a0f6568fd3177517ad",
+      "text": "CONNECT api.example.test:443 HTTP/1.1\nHost: api.example.test:443\nProxy-Authorization: ApiKey c3ludGhldGljLWtleS1pZC0wMDAyOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAy\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 93,
+            "end": 169,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--authorization-apikey-lowercase-name-and-scheme",
+      "case": "elastic-apikey-authorization-header-value",
+      "path": "authorization-apikey-lowercase-name-and-scheme/fixture.txt",
+      "context": "header",
+      "sha256": "dc7df09c81dfa0f42cc1e3bc3fe1b008986dcd2c21f6a95e4ac007a1beb9a354",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nauthorization: apikey c3ludGhldGljLWtleS1pZC0wMDAxOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAx\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 83,
+            "end": 159,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--authorization-apikey-curl-header",
+      "case": "elastic-apikey-authorization-header-value",
+      "path": "authorization-apikey-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "aea3db8ce15e69837215c867bbc716c8aee2dea7da89373699633d455842f2e7",
+      "text": "curl -H \"Authorization: ApiKey c3ludGhldGljLWtleS1pZC0wMDAxOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAx\" https://api.example.test/_security/_authenticate\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 107,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--authorization-apikey-json-header-map",
+      "case": "elastic-apikey-authorization-header-value",
+      "path": "authorization-apikey-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "c89d03ace6d5ebc3e8eb2f02576f1ceff4e81fb9611afc971991edadc57ffd4d",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"ApiKey c3ludGhldGljLWtleS1pZC0wMDAxOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAx\",\n    \"Content-Type\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 122,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--proxy-authorization-apikey-json-header-map",
+      "case": "elastic-apikey-authorization-header-value",
+      "path": "proxy-authorization-apikey-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "119e44b894fcb96cc622d35e4fffbe0e6786d6ed38a6a6c2ab8e633bcf1c7b4e",
+      "text": "{\n  \"headers\": {\n    \"Proxy-Authorization\": \"ApiKey c3ludGhldGljLWtleS1pZC0wMDAyOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAy\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 52,
+            "end": 128,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--apikey-scheme-only",
+      "case": "elastic-apikey-lookalikes-and-non-values",
+      "path": "apikey-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "13bfeb5c0d71c1b6dc889607fd8de5159009c15fe503b2c5cc7a3dec34751c4c",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nAuthorization: ApiKey\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--apikey-prose-mention",
+      "case": "elastic-apikey-lookalikes-and-non-values",
+      "path": "apikey-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "aa6e762e299b1f167860cdb288a4591b951dfaf2885fd23895d0ab42f2064c1d",
+      "text": "Send the encoded key in the Authorization header using the ApiKey scheme.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--apikey-angle-placeholder",
+      "case": "elastic-apikey-lookalikes-and-non-values",
+      "path": "apikey-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "0c428c841876451191184fc8c565482e1e41fe00830105898c2f8e0e0b18e3e0",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nAuthorization: ApiKey <base64 of id:api_key>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--apikey-curl-environment-reference",
+      "case": "elastic-apikey-lookalikes-and-non-values",
+      "path": "apikey-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "bbc8d478c4b845db27edae3196d8b179d7145dab8091b75d6bbfc819a75d6ed1",
+      "text": "curl -H \"Authorization: ApiKey ${ELASTIC_API_KEY}\" https://api.example.test/_security/_authenticate\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--apikey-template-reference",
+      "case": "elastic-apikey-lookalikes-and-non-values",
+      "path": "apikey-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "7a3d3c9f5330a549eac18fe3095e57ac81eba315510881f45b558df431dd0f85",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nAuthorization: ApiKey {{ secrets.ELASTIC_API_KEY }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--apikey-masked-display",
+      "case": "elastic-apikey-lookalikes-and-non-values",
+      "path": "apikey-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "17f15e13239dc170846ff05e5d4882f9c260d38e532469b6271016a73ff0c0d6",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nAuthorization: ApiKey ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--apikey-json-placeholder",
+      "case": "elastic-apikey-lookalikes-and-non-values",
+      "path": "apikey-json-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1a8031894c6e82271a041d1f1d36aab2a577896c24cca47ba69052fc0af6e2c0",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"ApiKey <ENCODED_API_KEY>\",\n    \"Content-Type\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--apikey-value-on-next-line",
+      "case": "elastic-apikey-unsupported-variants",
+      "path": "apikey-value-on-next-line/fixture.txt",
+      "context": "header",
+      "sha256": "f4600bf4a1609bd1ea3a13e03e98b6e9c2d3c0cb426a7c74cd9fcafe7e3ec5bc",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nAuthorization: ApiKey\nc3ludGhldGljLWtleS1pZC0wMDAxOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAx\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--prefixed-header-name-with-encoded-value",
+      "case": "elastic-apikey-unsupported-variants",
+      "path": "prefixed-header-name-with-encoded-value/fixture.txt",
+      "context": "header",
+      "sha256": "251d3df056460c09810c53b4a79ab19684330047f03b0984527d2f262ed09693",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nX-Authorization: ApiKey c3ludGhldGljLWtleS1pZC0wMDAxOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAx\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--suffixed-header-name-with-encoded-value",
+      "case": "elastic-apikey-unsupported-variants",
+      "path": "suffixed-header-name-with-encoded-value/fixture.txt",
+      "context": "header",
+      "sha256": "eb9cfa383101a5c689963b8ad0f7f2365218bed8b87b3e99e56db58c661a8a16",
+      "text": "GET /_security/_authenticate HTTP/1.1\nHost: api.example.test\nAuthorization-Backup: ApiKey c3ludGhldGljLWtleS1pZC0wMDAyOnN5bnRoZXRpYy1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAy\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--key-id-alone",
+      "case": "elastic-apikey-unsupported-variants",
+      "path": "key-id-alone/fixture.txt",
+      "context": "structured-file",
+      "sha256": "a3e45238aed7133d82195bee313eb7c573df1957ec169353bb96a7bf9fe767ca",
+      "text": "{\n  \"id\": \"synthetic-key-id-0001\",\n  \"name\": \"ci-key\"\n}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--create-response-id-and-api-key-fields",
+      "case": "elastic-apikey-unsupported-variants",
+      "path": "create-response-id-and-api-key-fields/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7dc092e4621185bb717411314f383cace2b8ee737b631e1ac8493561ff90721a",
+      "text": "{\n  \"id\": \"synthetic-key-id-0001\",\n  \"name\": \"ci-key\",\n  \"api_key\": \"synthetic-api-key-never-issued-0001\"\n}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories.",
+  "description": "Hand-written synthetic request fixtures for the ApiKey authorization envelope and its lookalikes. Every fixture projects one Case. No value was issued, derived from a real key or tested against a service."
+}

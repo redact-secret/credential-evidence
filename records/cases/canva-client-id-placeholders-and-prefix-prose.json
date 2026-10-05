@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "canva-client-id-placeholders-and-prefix-prose",
+  "title": "Canva client ids, placeholders, references and prefix prose",
+  "summary": "A public client id, placeholders, environment references and masked values under client_secret, and prose that names the cnvca prefix.",
+  "rationale": "A client id is a public application identifier and is not the secret. A placeholder, reference or masked display carries no value, and the sentence that names a prefix describes the format without holding a value. Flagging them would redact identifiers and documentation a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "canva:client-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged under project policy: these inputs hold no secret value. That a client id is public and that a placeholder or reference is not a value are the project's decisions, not Canva statements.",
+    "sources": [
+      {
+        "sourceId": "canva-dev-e6b9def37d",
+        "supports": "client_secret string Optional Your app's client secret, for authenticating the request. Begins with cnvca .",
+        "locator": "Body parameters"
+      },
+      {
+        "sourceId": "canva-dev-7dc1064fcc",
+        "supports": "Before authenticating to the REST APIs, you must first create and configure your app in the Developer Portal, including: ... Generating and saving a client secret",
+        "locator": "Prerequisites"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

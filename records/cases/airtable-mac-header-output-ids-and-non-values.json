@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-mac-header-output-ids-and-non-values",
+  "title": "Airtable MAC header output, public ids, lookalike fields and non-values",
+  "summary": "An X-Airtable-Content-MAC HMAC output, webhook and base ids beside the field, a field whose name only resembles it, and placeholders, references and masked values under the exact field.",
+  "rationale": "The MAC header is a hash of a delivery body computed with the secret, so it does not reveal the secret; webhook and base ids are public identifiers; a flag such as macSecretBase64Present is a boolean about the secret and carries none of it. Placeholders, references and masked text carry no value.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "airtable:webhook-mac-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged under project policy. Airtable documents the header as a hash of the body using the hook's MAC secret; that this output is not the secret, that ids are public and that placeholders and references are not values are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-194a73c297",
+        "supports": "A hash of the body contents using the hook's MAC secret is given in the X-Airtable-Content-MAC header.",
+        "locator": "#webhook-notification-delivery"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
