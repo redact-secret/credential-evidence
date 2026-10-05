@@ -1,0 +1,39 @@
+# 0021. Expectation corrections the product proposed for core #1203
+
+- Status: accepted (decided by the repository owner as the sole maintainer, ADR 0020; the decision is a `maintainer-only` act, never `reviewed`)
+- Date: 2026-10-05
+- Issues: redact-secret/redact-secret#1203 (handoff), redact-secret/credential-evidence#221 and #142
+- Deciding maintainer: Milo Kang (GitHub `milocosmopolitan`), the repository owner. Recorded by an AI agent on the owner's instruction.
+- Inputs: the product's decision `decision-settle-the-open-structured-file-url-carrier-and-control-roots-of-1203` (an input, not ground truth: [no scanner consensus](../governance/neutrality.md#no-scanner-consensus-as-ground-truth)) and the benchmarks queue `snapshot-2026.10.04.3.expectation-corrections`
+
+## Context
+
+The product classified 24 base cases of `snapshot-2026.10.04.3` it fails and proposed that 8 expectations change. Each proposal is read here against the evidence, not against what the product returns. An expectation moves only where the evidence (a standard, a provider page, the case's own construction) supports the move. Where it does not, the expectation stays and the product disagreement is recorded.
+
+The model has no scanner action: `warn`, `redact` and `block` are product vocabulary. `may-flag` exists in the record schema but the v1 corpus snapshot has no way to carry it (the exporter maps an outcome to a legacy kind and tier only), so it is not used. The ways to say "either is acceptable" that the snapshot does carry are a `companion` span, an `envelope`, and the family scope of a twin (ADR 0013).
+
+## Decisions
+
+| Case (fixture) | Decision | Evidence read |
+| --- | --- | --- |
+| `http-auth-carriers-authored--basic-empty-password` | **Kept** (`must-not-flag`, project-policy, `maintainer-only` per ADR 0019 item 7) | The decoded user-pass is `user:` with nothing after the colon (RFC 7617 section 2: text after the first colon is the password). The evidence is about the credential, and the credential has no password. That the product claims a Basic value without decoding it (its decision #491) is a statement about what the product can tell, not about the value. An expectation does not move to `redact` to fit a contract that cannot decode. |
+| `http-auth-carriers-authored--basic-rfc-published-example` | **Kept** (`must-not-flag`) | `QWxhZGRpbjpvcGVuIHNlc2FtZQ==` is the literal example of RFC 7617 section 2 (`Aladdin:open sesame`), a public documentation value. Same reasoning. The product's finding is a limitation of claiming the carrier without decoding, recorded for the consumer as a known gap, not corrected here. |
+| `twilio-compound-credentials-authored--api-key-sid-alone` | **Already fixed** | `main` carries `3d170bd` (#224): the input is `SK0123456789abcdef0123456789abcdef`, `SK` plus 32 lowercase hex, the documented API key SID shape. `snapshot-2026.10.04.4` was cut at `20c18bd`, which includes it. The product's proposal was written against `.3`. |
+| `structured-credential-files-authored--service-account-key-file-pretty-json` and `--minified-json` | **Corrected**: secret span ends at the END footer (150-564 and 134-548); the old extent (150-566 and 134-550) becomes the span's `envelope` | RFC 7468 ends a PEM textual encoding at the post-encapsulation boundary; what follows is a line separator, here the JSON-escaped `\n`. Google's key-file page does not say where the secret extent ends (the case already said so), so the whole string value cannot be required as the exact extent. The envelope keeps the old reading acceptable, so no consumer that reported the whole string value is now wrong. |
+| `structured-credential-files-authored--aws-credentials-file-two-profiles` | **Corrected**: the two `aws_access_key_id` values are `companion` spans (28-48, 139-159) | The case asserts only the secret access keys and the session token and says the key ids are "not asserted here". A companion is acceptable cover, not a requirement, which is exactly "reporting the id is not wrong, not reporting it is not wrong". No secret span, outcome or class changes. |
+| `authored-provider-neutral--pytest-fake-fixtures` | **Kept** (`must-not-flag`, project-policy) | The file says "Every credential here is an obvious fake", names the value `FAKE_TOKEN` and the value is `test-token`. The expected silence is the project's policy and the content supports it. A `warn` that leaves the text unchanged is a product action choice; the neutral measurement counts any finding on a control as a flag. No mechanism in the snapshot carries "a warning is acceptable", and recording the case as ambiguous (`not-assertable`) would assert an ambiguity the content does not show. Renaming the variable to make the product pass is excluded by the rule that expectations are not edited to fit a scanner. |
+| `exa--exa-api-key-other-host-twin` | **Kept** (already family-scoped) | The twin is exported with `grouping.family = exa:api-key` and a `twin` link (ADR 0013): a finding of another family is co-detection, which is the allowance the model has. A generic finding on `x-api-key` is therefore not a failed twin on the evidence side. Whether the product's generic finding is read as another family is the consumer's attribution (an unattributed finding fails closed), outside this repository. |
+
+Counts: 3 changed fixtures on previously exported cases (the two service-account fixtures and the AWS fixture), 1 already fixed, 4 kept. The `maintainer-only` count does not change: the corrected cases are `provider-documented` and stay `draft`, because `maintainer-only` is invalid on that class (ADR 0020); each gets a `corrected` event and no review is claimed.
+
+## Dissent and reversing evidence
+
+- Basic cases: the strongest argument against keeping them is that a corpus a scanner cannot score without decoding measures only decoding, and that the owner's own ADR 0019 item 2 treats encoded forms as covered encoded runs. The two cases decode to a non-secret by construction, so they are the benign twins of that policy, not an exception. Reversing evidence: a standard or provider statement that an empty password, or the RFC 7617 example, is a credential, or a decision that carrier values are always secret regardless of content.
+- Service-account extent: the strongest argument against is that the case, written by the same project, took the whole string value as the extent. Reversing evidence: a Google statement that the secret extent includes the line separator.
+- AWS companion: the argument against is that an access key id may be sensitive in some policies. The companion span does not say it is not; it says reporting is acceptable.
+- pytest and exa twin: the argument against is that a measurement that cannot express "a warning is fine" leaves a control failing on a policy-ambiguous input. Reversing evidence: a recorded decision to carry `may-flag` in the snapshot (an exporter and engine contract change), or a recorded policy that a literal under a credential-looking name is ambiguous.
+
+## Consequences
+
+- The next snapshot differs from `snapshot-2026.10.04.4` in three fixtures' expected spans and in the records bundle (two case rationales, two review histories, one ADR). Same fixture count (6,524 materialized, 6,519 exported), same outcomes, same representation facts (`facts_digest` `sha256:f25bf9f3...` and every count unchanged); the corpus digest (`sha256:9870d50f...` to `sha256:df0dcfc2...`) and the records tree change. The snapshot contract, engine floor and `evidence_schema` stay as they are. No release is cut here.
+- A consumer must replay: a score is not comparable across the two snapshots without it. The two service-account fixtures keep their acceptable ranges, so a finding that was COVERED stays acceptable and a finding that ends at the footer becomes EXACT.
