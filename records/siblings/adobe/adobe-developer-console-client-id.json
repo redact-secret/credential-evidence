@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "adobe-developer-console-client-id",
+  "families": [
+    "adobe:enterprise-web-app-client-secret",
+    "adobe:oauth-server-to-server-client-secret",
+    "adobe:oauth-web-app-client-secret"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Adobe Developer Console client ID",
+  "description": "The Client ID of an Adobe Developer Console credential, sent beside the client secret in token requests and as the x-api-key header and shown in the consent URL. The pages present it as the credential's identifier (the consent URL and the I/O Management API headers carry it openly) and the secret is a separate value; the pages state no shape for it beyond a sample list response. No sample is recorded.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "developer-adobe-com-09955d5cc6",
+      "supports": "client_id is the Client ID obtained from the Developer Console and is sent in the x-api-key header of the secrets API requests, separately from the client secret.",
+      "locator": "sections \"Fetching access tokens\" and \"List all client secrets\""
+    },
+    {
+      "sourceId": "developer-adobe-com-8b8b49e695",
+      "supports": "The consent URL carries client_id as a query parameter, described as the Client ID of the partner app from the credential overview page.",
+      "locator": "section \"Consent URL\", Query parameters table"
+    }
+  ],
+  "observedAt": "2026-10-05",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
