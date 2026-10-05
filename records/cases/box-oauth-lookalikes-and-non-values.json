@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "box-oauth-lookalikes-and-non-values",
+  "title": "Box OAuth client id, placeholders and masked values",
+  "summary": "A client id and token type with no token or secret, the documented <Token>, [REFRESH_TOKEN] and [CLIENT_SECRET] placeholders, an environment reference, a template reference and a masked display.",
+  "rationale": "The client id identifies the application and the token_type and expires_in members carry no credential. A placeholder or reference stands in for a value kept elsewhere, and a masked display has no recoverable value.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "box:oauth-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "box:oauth-refresh-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "box:oauth-client-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the values here are identifiers, placeholders, references, masked text or non-secret outputs, not credential values. That a placeholder or reference is not a value is a project decision, not a Box statement.",
+    "sources": [
+      {
+        "sourceId": "developer-box-com-2781d92831",
+        "supports": "The requested access token.",
+        "locator": "Response 200 (access_token)"
+      },
+      {
+        "sourceId": "developer-box-com-ec038b0050",
+        "supports": "The refresh token to refresh.",
+        "locator": "Body, application/x-www-form-urlencoded (refresh_token)"
+      },
+      {
+        "sourceId": "developer-box-com-2781d92831",
+        "supports": "The client secret of the application requesting an access token.",
+        "locator": "Body, application/x-www-form-urlencoded (client_secret)"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

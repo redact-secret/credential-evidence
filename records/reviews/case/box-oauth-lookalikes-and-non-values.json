@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-box-oauth-lookalikes-and-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "box-oauth-lookalikes-and-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#235 (Batch 2 handoff) from the cited provider pages; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#235. Question: identifiers, placeholders, environment or template references, masked displays and non-secret outputs among these token and secret slots are lookalikes that must not be flagged? Options: flag any non-empty value near these names; or leave the case a draft. Decision: do not flag these values. Reason: an identifier, placeholder, reference, masked display or derived output is not a credential value, so the expectation rests on project policy and is not a provider rule or a fact. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "A placeholder or masked display could sit over a real value pasted by mistake, and a public identifier beside a secret may be wanted redacted for context; not flagging narrows protection.",
+      "reversingEvidence": "A provider statement that an identifier or output in this list is confidential or contains the secret, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

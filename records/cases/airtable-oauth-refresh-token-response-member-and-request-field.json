@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-oauth-refresh-token-response-member-and-request-field",
+  "title": "Value of an Airtable OAuth refresh token in a token response or refresh request",
+  "summary": "A synthetic value of the refresh_token member of a pretty-printed token response, and of the refresh_token parameter in a raw form-encoded refresh request and a curl -d argument.",
+  "rationale": "The carrier is documented: the Airtable token response carries the refresh token in its refresh_token field, and a refresh request passes it as the refresh_token parameter of an application/x-www-form-urlencoded body with grant_type refresh_token. Airtable states the token is an opaque, variable-length string and not to rely on any length or format, so the value is flagged because of where it sits, not because of its shape. The extent is the value only: the field or parameter name, the colon or equals sign, the ampersand and the quotes are outside it, and the client_id is a public identifier. The expires_in and refresh_expires_in numbers are not values of this credential.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "airtable:oauth-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the string value of the refresh_token member of a token response, or of the refresh_token parameter of a refresh request, is treated as a credential whatever its shape. Airtable documents the refresh_token response field and the refresh_token request parameter (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-b4c77d59e9",
+        "supports": "`refresh_token` | An opaque string. Can be used to request a new access token after the current one expires.",
+        "locator": "token response table"
+      },
+      {
+        "sourceId": "airtable-com-b4c77d59e9",
+        "supports": "`refresh_token` | The saved refresh token from the previous token grant.",
+        "locator": "#token-refresh-request-body"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

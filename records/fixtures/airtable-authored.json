@@ -370,6 +370,228 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "airtable-authored--refresh-pretty-json-response",
+      "case": "airtable-oauth-refresh-token-response-member-and-request-field",
+      "path": "refresh-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "e9dbee7390c2086c0a6f9e91d18d62fcb3f0714beb00882cdf6d954905b3d7c7",
+      "text": "{\n  \"refresh_token\": \"SYNTHETIC-never-issued-airtable-refresh-0001\",\n  \"token_type\": \"Bearer \",\n  \"expires_in\": 3600,\n  \"refresh_expires_in\": 5184000\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 66,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--refresh-raw-http-form-request",
+      "case": "airtable-oauth-refresh-token-response-member-and-request-field",
+      "path": "refresh-raw-http-form-request/fixture.txt",
+      "context": "form-body",
+      "sha256": "2c9e27c44d1263a8603488516c04395bd7281f056afa174bf4a080112603d276",
+      "text": "POST /oauth2/v1/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&refresh_token=SYNTHETIC-never-issued-airtable-refresh-0002&client_id=SYNTHETIC-client-id-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 142,
+            "end": 186,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--refresh-curl-data-refresh-token",
+      "case": "airtable-oauth-refresh-token-response-member-and-request-field",
+      "path": "refresh-curl-data-refresh-token/fixture.txt",
+      "context": "cli",
+      "sha256": "b45003a1c14031a379c5d24fe2d5ce026457eabd059b94c290b5a539f4044335",
+      "text": "curl -X POST https://api.example.test/oauth2/v1/token -d \"grant_type=refresh_token\" -d \"refresh_token=SYNTHETIC-never-issued-airtable-refresh-0003\" -d \"client_id=SYNTHETIC-client-id-0001\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 102,
+            "end": 146,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--client-secret-basic-raw-http",
+      "case": "airtable-oauth-client-secret-basic-envelope",
+      "path": "client-secret-basic-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "1cccb127d4375ef7975743ccf526d552d269d8669123059c375acc7d5160591f",
+      "text": "POST /oauth2/v1/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic U1lOVEhFVElDLWNsaWVudC1pZC0wMDAxOlNZTlRIRVRJQy1uZXZlci1pc3N1ZWQtYWlydGFibGUtc2VjcmV0LTAwMDEt\nContent-Type: application/x-www-form-urlencoded\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 75,
+            "end": 167,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--client-secret-basic-curl-header",
+      "case": "airtable-oauth-client-secret-basic-envelope",
+      "path": "client-secret-basic-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "656432f4e2995330bb19f2df961001a8ac178950275ec8d43ac9302c1d695911",
+      "text": "curl -X POST -H \"Authorization: Basic U1lOVEhFVElDLWNsaWVudC1pZC0wMDAxOlNZTlRIRVRJQy1uZXZlci1pc3N1ZWQtYWlydGFibGUtc2VjcmV0LTAwMDIt\" https://api.example.test/oauth2/v1/token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 38,
+            "end": 130,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--client-secret-basic-json-header-map",
+      "case": "airtable-oauth-client-secret-basic-envelope",
+      "path": "client-secret-basic-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "37314be0cfbba05a84d1dca9ce607d61b3fa2504027c78ced0d120f2bd0ce4f1",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Basic U1lOVEhFVElDLWNsaWVudC1pZC0wMDAxOlNZTlRIRVRJQy1uZXZlci1pc3N1ZWQtYWlydGFibGUtc2VjcmV0LTAwMDMt\",\n    \"Content-Type\": \"application/x-www-form-urlencoded\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 45,
+            "end": 137,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-client-id-and-lifetimes-only",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-client-id-and-lifetimes-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5efc5937d753d1e193af4012ac1a3ad5fc181bcaacb0841364ae1eb288c1cd06",
+      "text": "{\n  \"client_id\": \"SYNTHETIC-client-id-0001\",\n  \"expires_in\": 3600,\n  \"refresh_expires_in\": 5184000\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-basic-scheme-only",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-basic-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "453e1197e14b624b320a81c89ddc85d0af108e51451b464187b62f2136507081",
+      "text": "POST /oauth2/v1/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-basic-documented-template",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-basic-documented-template/fixture.txt",
+      "context": "header",
+      "sha256": "e721838bc4b43e10fd1b10c9a57773186ab32117a9ee2aedea050fe2fad38503",
+      "text": "POST /oauth2/v1/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic {credentials}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-basic-angle-placeholder",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-basic-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "5077dfba313df35c553d633f8d9e2bf99fa6398312b9c7391b0f33b244793d1e",
+      "text": "POST /oauth2/v1/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic <base64url(client_id:client_secret)>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-basic-curl-environment-reference",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-basic-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "c8c90c37de40df476b4c67694957626c7fa97db8f3696fdd7afcdcaf4161dc6d",
+      "text": "curl -X POST -H \"Authorization: Basic ${AIRTABLE_BASIC_CREDENTIALS}\" https://api.example.test/oauth2/v1/token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-basic-template-reference",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-basic-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "57bc2ac9fd0f80527bb58730a6416ffd4c826198123a80e1aaa96308bd2c728a",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Basic {{ secrets.AIRTABLE_BASIC_CREDENTIALS }}\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-basic-masked-display",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-basic-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "4e8d4e1c20e9ba985bb83a3485c60d9b24fdc83256abe8c759ff5ccf340c04a6",
+      "text": "POST /oauth2/v1/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-refresh-token-angle-placeholder",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-refresh-token-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "61e6c99871aa521aa847c09063d305cbf7d42c200a8e7e91220f816e96da963c",
+      "text": "grant_type=refresh_token&refresh_token=<REFRESH_TOKEN>&client_id=SYNTHETIC-client-id-0001\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--oauth-lookalike-refresh-token-environment-reference",
+      "case": "airtable-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-refresh-token-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "ad980ed246f17cf68fe2c3f9166fce853a66f21dd76f41f40f131756f3bbbcc2",
+      "text": "curl -d \"refresh_token=${AIRTABLE_REFRESH_TOKEN}\" https://api.example.test/oauth2/v1/token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

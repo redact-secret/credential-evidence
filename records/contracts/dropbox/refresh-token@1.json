@@ -30,6 +30,30 @@
           "locator": "#oauth2token"
         }
       ]
+    },
+    {
+      "id": "carrier-response-member-and-request-field",
+      "statement": "The Dropbox /oauth2/token response carries the refresh token in its refresh_token member (when token_access_type was offline), and a refresh request is a form-encoded call to /oauth2/token with grant_type=refresh_token and the token in a refresh_token parameter, with client_id (the app key) beside it. The illustrative example values on the page are not a format statement.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "`refresh_token` *String* If the `token_access_type` was set to `offline` when calling `/oauth2/authorize`, then response will include a refresh token.",
+          "locator": "#oauth2token (Returns, refresh_token)"
+        },
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "`refresh_token` *String?* A unique, long-lived token that can be used to request new short-lived access tokens without direct interaction from a user in your app.",
+          "locator": "#oauth2token (Parameters, refresh_token)"
+        },
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "-d refresh_token=<REFRESH_TOKEN>",
+          "locator": "#oauth2token (Example: refresh token request)"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",

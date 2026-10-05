@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-oauth-lookalikes-and-non-values",
+  "title": "Airtable OAuth client id, placeholders and masked values",
+  "summary": "A client id and lifetime numbers with no token or secret, a Basic scheme with no value, the documented Basic {credentials} template, an angle placeholder, an environment reference, a template reference and a masked display, and refresh_token placeholders.",
+  "rationale": "The client id is an opaque public identifier of the integration, and the expires_in and refresh_expires_in numbers carry no credential. A scheme with no value carries nothing, and a placeholder or reference stands in for a value kept elsewhere, and a masked display has no recoverable value.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "airtable:oauth-refresh-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "airtable:oauth-client-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the values here are identifiers, placeholders, references, masked text or non-secret outputs, not credential values. That a placeholder or reference is not a value is a project decision, not a Airtable statement.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-b4c77d59e9",
+        "supports": "`refresh_token` | An opaque string. Can be used to request a new access token after the current one expires.",
+        "locator": "token response table"
+      },
+      {
+        "sourceId": "airtable-com-b4c77d59e9",
+        "supports": "`Authorization` (optional) | **Required** if your integration has a `client_secret`. **forbidden** if it does not. The value should be the interpolated string \"`Basic {credentials}`\", where `credentials` is the base64 url-encoding of the interpolated string \"`{client_id}:{client_secret}`\".",
+        "locator": "#token-creation-request-headers; #token-refresh-request-headers"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

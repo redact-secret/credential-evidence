@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "box-oauth-token-response-access-token-member",
+  "title": "Value of a Box OAuth access token in a token response or Bearer header",
+  "summary": "A synthetic value of the access_token member of a pretty-printed token response, and after Authorization: Bearer in a raw request and a quoted curl -H argument.",
+  "rationale": "The carrier is documented: the Box token endpoint response carries the access token in its access_token member, and the reference states the token is passed in an authorization header as Authorization: Bearer <Token>. Box states no prefix, alphabet or length, so the value is flagged because of where it sits, not because of its shape. The extent is the value only: the member name, the colon, the scheme word and the quotes are outside it. The expires_in number and the token_type word are not values of this credential.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "box:oauth-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the string value of the access_token member of a token response, or the value after Authorization: Bearer, is treated as a credential whatever its shape. Box documents the access_token response member and the Authorization: Bearer header (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developer-box-com-2781d92831",
+        "supports": "The requested access token.",
+        "locator": "Response 200 (access_token)"
+      },
+      {
+        "sourceId": "developer-box-com-2781d92831",
+        "supports": "Returns a new Access Token that can be used to make authenticated API calls by passing along the token in a authorization header as follows Authorization: Bearer <Token>",
+        "locator": "Response 200"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

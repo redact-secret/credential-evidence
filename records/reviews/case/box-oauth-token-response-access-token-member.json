@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-box-oauth-token-response-access-token-member",
+  "subject": {
+    "kind": "case",
+    "id": "box-oauth-token-response-access-token-member"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#235 (Batch 2 handoff) from the cited provider pages; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#235. Question: a value in the access_token member of a token response or after Authorization: Bearer is a credential whatever its shape? Options: require a documented prefix, alphabet or width (Box states none) or flag only one recognised shape; or leave the case a draft. Decision: flag any such value, no subtype inference. Reason: the provider pages document only that the carrier exists, not its value format, so the expectation rests on project policy and is not a provider rule or a fact. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The provider pages document the carrier but state no value format, so a position-only rule can flag non-secrets or miss a differently shaped secret; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A provider statement of the value format or of the carrier's confidentiality that contradicts this outcome, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

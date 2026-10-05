@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "box-authored",
+  "title": "TODO(record:new): title of this set of authored fixtures",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "box-authored--oauth-access-pretty-json-response",
+      "case": "box-oauth-token-response-access-token-member",
+      "path": "oauth-access-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "fe2a37473d9186c801954cc7045bb1e17d3faf01a1eb286a44cea0c924598cf3",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-never-issued-box-access-0001\",\n  \"expires_in\": 3600,\n  \"token_type\": \"bearer\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 59,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-access-raw-http-bearer-header",
+      "case": "box-oauth-token-response-access-token-member",
+      "path": "oauth-access-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "369c599bb3da211ff450711a3068a0fe6ae90f6de495f09af83f4724e4b29360",
+      "text": "GET /2.0/users/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-never-issued-box-access-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 72,
+            "end": 110,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-access-curl-bearer-header",
+      "case": "box-oauth-token-response-access-token-member",
+      "path": "oauth-access-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "69d5c5920bd101a72322ce6de9e18a98f919cbeb31a34ba36c4c0fd60b625c3f",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-never-issued-box-access-0003\" https://api.example.test/2.0/users/me\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 69,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-refresh-pretty-json-response",
+      "case": "box-oauth-refresh-token-response-member-and-request-field",
+      "path": "oauth-refresh-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "6e99c9a134b52adfbf4da71c0d230ed47123d30014934dd29bd9c9106ddc06a0",
+      "text": "{\n  \"expires_in\": 3600,\n  \"token_type\": \"bearer\",\n  \"refresh_token\": \"SYNTHETIC-never-issued-box-refresh-0001\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 70,
+            "end": 109,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-refresh-raw-http-form-request",
+      "case": "box-oauth-refresh-token-response-member-and-request-field",
+      "path": "oauth-refresh-raw-http-form-request/fixture.txt",
+      "context": "form-body",
+      "sha256": "49684c78d71c17776aae258015b904465e3d0101650a916c19d3152c2f8431c1",
+      "text": "POST /oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&client_id=SYNTHETIC-client-id-0001&refresh_token=SYNTHETIC-never-issued-box-refresh-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 174,
+            "end": 213,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-refresh-curl-data-refresh-token",
+      "case": "box-oauth-refresh-token-response-member-and-request-field",
+      "path": "oauth-refresh-curl-data-refresh-token/fixture.txt",
+      "context": "cli",
+      "sha256": "62c70125a5a94a85445ccbcbc7095368efaa77151bc56bce801229b7ffdb5b76",
+      "text": "curl -i -X POST \"https://api.example.test/oauth2/token\" -d \"client_id=SYNTHETIC-client-id-0001\" -d \"refresh_token=SYNTHETIC-never-issued-box-refresh-0003\" -d \"grant_type=refresh_token\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 114,
+            "end": 153,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-client-secret-form-body",
+      "case": "box-oauth-client-secret-token-request-field",
+      "path": "oauth-client-secret-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "1e7b23378e61e6fae3614b048ea50a1afde2094fd79fc2b63234cb724d43fef6",
+      "text": "POST /oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=SYNTHETIC-code-0001&client_id=SYNTHETIC-client-id-0001&client_secret=SYNTHETIC-never-issued-box-client-secret-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 204,
+            "end": 249,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-client-secret-curl-data",
+      "case": "box-oauth-client-secret-token-request-field",
+      "path": "oauth-client-secret-curl-data/fixture.txt",
+      "context": "cli",
+      "sha256": "0268216482d3334390575880d80427a166677e9b0329ee4ce5d8a2345041af75",
+      "text": "curl -i -X POST \"https://api.example.test/oauth2/token\" -d \"client_id=SYNTHETIC-client-id-0001\" -d \"client_secret=SYNTHETIC-never-issued-box-client-secret-0002\" -d \"grant_type=client_credentials\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 114,
+            "end": 159,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-client-secret-python-form-dictionary",
+      "case": "box-oauth-client-secret-token-request-field",
+      "path": "oauth-client-secret-python-form-dictionary/fixture.txt",
+      "context": "source-code",
+      "sha256": "c6059b5e973b68be8deed9317cf3519e2e1b0cdaddebc4a3412b25f5635af934",
+      "text": "params = urlencode({\n    'grant_type': 'authorization_code',\n    'client_id': 'SYNTHETIC-client-id-0001',\n    'client_secret': 'SYNTHETIC-never-issued-box-client-secret-0003'\n})\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 128,
+            "end": 173,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "box-authored--oauth-lookalike-client-id-and-token-type-only",
+      "case": "box-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-client-id-and-token-type-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5c5ffd983d9c3185861c32ed6df72291b3e222693a1febfd41090994523b05a1",
+      "text": "{\n  \"client_id\": \"SYNTHETIC-client-id-0001\",\n  \"expires_in\": 3600,\n  \"token_type\": \"bearer\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "box-authored--oauth-lookalike-access-token-documented-placeholder",
+      "case": "box-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-access-token-documented-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "98ff86a6a17cf4d41bf4b566e617b704da497f7541fccc0b5b463c408fd0e820",
+      "text": "GET /2.0/users/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer <Token>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "box-authored--oauth-lookalike-refresh-token-documented-placeholder",
+      "case": "box-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-refresh-token-documented-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "68273fe20bdb3058ad437ec2dde09d4f4d69e2bdb3914ff8078d0a5071741bb1",
+      "text": "curl -i -X POST \"https://api.example.test/oauth2/token\" -d \"refresh_token=[REFRESH_TOKEN]\" -d \"grant_type=refresh_token\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "box-authored--oauth-lookalike-refresh-token-environment-reference",
+      "case": "box-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-refresh-token-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "64f9ec6717272f528f913f4835b60618b8c3a56b8eb24cca763980158c057844",
+      "text": "curl -d \"refresh_token=${BOX_REFRESH_TOKEN}\" https://api.example.test/oauth2/token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "box-authored--oauth-lookalike-client-secret-documented-placeholder",
+      "case": "box-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-client-secret-documented-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "3489d86da09b689bb98afb6041d58bdeb381e9a2a260327ce7535ef478d1d5f6",
+      "text": "curl -i -X POST \"https://api.example.test/oauth2/token\" -d \"client_secret=[CLIENT_SECRET]\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "box-authored--oauth-lookalike-client-secret-template-reference",
+      "case": "box-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-client-secret-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "c3ccab906675b64b813c9f63973fe041059bae986093967a29cbb877b622b782",
+      "text": "{\n  \"client_secret\": \"{{ secrets.BOX_CLIENT_SECRET }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "box-authored--oauth-lookalike-token-members-masked-display",
+      "case": "box-oauth-lookalikes-and-non-values",
+      "path": "oauth-lookalike-token-members-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "b5b6648999eb78e4cc81fc2012f11809d9be4bb5f18df183d1ecf939264031b7",
+      "text": "{\n  \"access_token\": \"********\",\n  \"refresh_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
