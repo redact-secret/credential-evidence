@@ -87,6 +87,83 @@
           "locator": "Create your client, paragraphs after the client settings"
         }
       ]
+    },
+    {
+      "id": "peer-rules-prefix-and-body-class",
+      "statement": "Three open-source artifacts from different maintainers, each read at its pinned commit (the betterleaks rule file, the mask-go built-in pattern and the secret-sniffer detector), read the prefix polar_oat_ followed by letters and digits as a Polar organization access token. This is consistency with the prefix and the alphanumeric-body claims only. The artifacts differ on the body's width (betterleaks and secret-sniffer accept 20 to 100 and 20 to 128 characters of letters, digits, hyphen and underscore; mask-go reads exactly 43 letters and digits), so they corroborate nothing about length or boundary. mask-go states that it took the length and alphabet from Polar's token generator, the provider source this contract already cites, and names betterleaks as the only other ruleset it found, so it is not independent of the provider source; the console2svg QuickLeaks file is generated from a Betterleaks config and counts with betterleaks, not separately. Supersedes, without rewriting, the 2026-10 statement in @1 that only betterleaks carries a Polar rule.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-aafa8791c5",
+          "supports": "Rule polar-organization-access-token: regex polar_oat_[A-Za-z0-9_-]{20,100}, keyword polar_oat_, with a validation request to the Polar API.",
+          "locator": "PolarOrganizationAccessToken"
+        },
+        {
+          "sourceId": "github-com-koki-develop-mask-go-1a8cf02297",
+          "supports": "PolarOrganizationAccessToken reads the prefix polar_oat_ and 43 letters and digits (53 characters), derived from Polar's generator; names betterleaks as the one other published ruleset.",
+          "locator": "doc comment of PolarOrganizationAccessToken"
+        },
+        {
+          "sourceId": "github-com-sls-main-secret-sniffer-a3d3716ccd",
+          "supports": "Detector polar-access-token: regex polar_(?:oat|pat)_[A-Za-z0-9_-]{20,128}, keywords polar_oat_ and polar_pat_.",
+          "locator": "line 633"
+        },
+        {
+          "sourceId": "github-com-arika0093-console2svg-2b8ddbdbb9",
+          "supports": "The generated file header says it was generated from a Betterleaks config at commit 2a387a5bad4290a84b9a1eb679bffe70611218cc; it carries polar-organization-access-token.",
+          "locator": "lines 2-3 and the polar-organization-access-token entry"
+        }
+      ]
+    },
+    {
+      "id": "peer-vendor-detection-of-polar-tokens",
+      "statement": "GitHub's supported secret scanning patterns list Polar as a provider with eight token types (access token, personal access token, client secret, client registration token, authorization code, refresh token, customer session token, user session token), each with push protection, and GitGuardian documents a prefixed Polar Organization Access Token detector with a validity check. Neither source publishes a format, and GitHub's list does not name an organization access token. This is consistent with Polar tokens being credentials that scanners report; it says nothing about length, alphabet or boundary.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-github-com-14499c804f",
+          "supports": "The supported-patterns table has eight rows for provider Polar, each with push protection; no row is named organization access token.",
+          "locator": "Polar rows of the supported patterns table"
+        },
+        {
+          "sourceId": "docs-gitguardian-com-51f295ce3c",
+          "supports": "Detector page 'Polar Organization Access Token': family token, category e_commerce, prefixed, validity check available, page last updated 2026-09-25.",
+          "locator": "detector page"
+        }
+      ]
+    },
+    {
+      "id": "peer-rules-disagree-on-length-and-boundary",
+      "statement": "The peer artifacts do not settle the token boundary or the body width. Two read a range (20 to 100, 20 to 128 characters) and mask-go reads exactly 43 letters and digits with no word boundary on either side, redacting the first 53 characters of a longer run and a token with a character glued in front; none states what an expectation about such an input should be, and they differ from one another on it. TruffleHog v3.97.9 (default detector list) and Gitleaks (v8.30.1 and master) carry no Polar rule. What these rules do with such an input does not decide what the expectation should be, so the claim field-boundary stays unresolved.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-betterleaks-betterleaks-aafa8791c5",
+          "supports": "Body range {20,100}.",
+          "locator": "PolarOrganizationAccessToken"
+        },
+        {
+          "sourceId": "github-com-koki-develop-mask-go-1a8cf02297",
+          "supports": "Exact 43-character body, no boundary, a longer run is a token with something written after it.",
+          "locator": "doc comment of PolarOrganizationAccessToken"
+        },
+        {
+          "sourceId": "github-com-sls-main-secret-sniffer-a3d3716ccd",
+          "supports": "Body range {20,128}.",
+          "locator": "line 633"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-7f75b65151",
+          "supports": "The default detector list at the pinned tag has no Polar detector.",
+          "locator": "pkg/engine/defaults/defaults.go"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
