@@ -88,7 +88,7 @@ secret:
       match: c657134d888a1f14b6f2d2c0d809301e6a5c57a03df305b6c23057c472ebcdbc
     - name: "synthetic fixture value, padding stripped"
       match: a16b471a303b50e39d3999072198c2d69e46d6e68c7c6a3fae0699d308d3c7d6
-  # The five Batch 1 carrier sets (#232) hold Base64 and header-shaped synthetic
+  # The Batch 1 (#232) and Batch 2 (#235) carrier sets hold Base64 and header-shaped synthetic
   # values whose exact detector match could not be hashed reliably (padding,
   # envelope and delimiter handling differ per detector). They are authored,
   # synthetic and never issued; only these files are skipped.
@@ -98,3 +98,11 @@ secret:
     - records/fixtures/airtable-authored.json
     - records/fixtures/elastic-authored.json
     - records/fixtures/canva-authored.json
+    - records/fixtures/adobe-authored.json
+    - records/fixtures/dropbox-authored.json
+    - records/fixtures/hubspot-authored.json
+    - records/fixtures/mongodb-atlas-authored.json
+    - records/fixtures/spotify-authored.json
+    - records/fixtures/x-authored.json
+    - records/fixtures/zendesk-authored.json
+    - records/fixtures/zoom-authored.json

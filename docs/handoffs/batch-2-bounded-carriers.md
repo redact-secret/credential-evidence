@@ -125,8 +125,13 @@ Same role never implies the same byte grammar across providers. Where a claim st
 
 All 58 inventory rows are present once (58 unique families, none omitted). Every group's dispositions are complete in this document: each row is either ready or carrier-unresolved with a named follow-up, so each measurement issue can start on its ready rows.
 
+## Cases and fixtures for the ready rows
+
+The 30 ready rows now have Cases: a positive (`must-flag`) and a benign (`must-not-flag`) Case per slot, with synthetic fixtures in the layouts each contract supports. Family, case and fixture lists: [A](batch-2-cases-a.md) (adobe, airtable, asana, canva, dropbox, zendesk, zoom), [B](batch-2-cases-b.md) (elastic, figma, hubspot), [C](batch-2-cases-c.md) (mongodb-atlas, spotify, x). They are `maintainer-only` project-policy decisions recorded on the owner's instruction (2026-10-05, [ADR 0020](../decisions/0020-solo-maintainer-period.md)), never `reviewed`, not independent validation, queued for retro-review (#154). The provider-documented part is the carrier; value admission, span and attribution are project policy. Exceptions: `mongodb-atlas:programmatic-api-private-key` has no positive Case (no wire carrier; only a benign Case that a Digest header and the public key are not the private key), and `database-user-password` leaves percent encoding unresolved.
+
 ## Not done here
 
-- No Case or fixture was authored for these rows. A positive or benign expectation for a carrier is a project-policy decision (see how Batch 1 recorded them as `maintainer-only`), and it needs the maintainer, not this table. The authored case lineage for every row is therefore empty, and benchmarks authors its fixtures and controls independently from the slots above.
-- No source was newly read. The slots come from claims already recorded under `records/contracts/`; the follow-ups for unresolved rows are the next research units (`research-family`), each a separate pull request.
+- The 28 carrier-unresolved rows have no Case; each needs its named source read first (a separate research unit per family).
+- No source was newly read for this table. The slots come from claims already recorded under `records/contracts/`.
+- No unsupported-variant (`not-assertable`) Cases were authored for Batch 2.
 - Open questions of each contract (width, alphabet, subtype, id confidentiality) stay open; none was resolved from a scanner.
