@@ -234,6 +234,429 @@
         "outcome": "not-assertable",
         "spans": []
       }
+    },
+    {
+      "id": "figma-authored--bearer-raw-http",
+      "case": "figma-bearer-authorization-header-value",
+      "path": "bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "e297da01c9cc4ff9979c8fd42405fb0077c6995a15c095ec05b71dde33d38776",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-never-issued-figma-bearer-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 105,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--bearer-curl-header",
+      "case": "figma-bearer-authorization-header-value",
+      "path": "bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "dcc7d2dbfe7741b5589772bfbbb5123e029789f6fcd7bf4d4899cfa7262ef76c",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-never-issued-figma-bearer-0001\" https://api.example.test/v1/me\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 71,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--bearer-json-header-map",
+      "case": "figma-bearer-authorization-header-value",
+      "path": "bearer-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "03b1ccf56d0709e25eaba680c6ebc206043a0b0f4fee912bf6d651b871b70b5b",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-never-issued-figma-bearer-0001\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--bearer-scheme-only",
+      "case": "figma-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "e4497e169ddaa5dfb00bb9134d323f65334c2a658af3aafb82758a8bbb0255fc",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--bearer-prose-mention",
+      "case": "figma-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "ef58485eea85f85df626991474fcc64004d410d8ecfad20343537d28f86a92fc",
+      "text": "Send the token in the Authorization header using the Bearer scheme.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--bearer-angle-placeholder",
+      "case": "figma-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "5ee9e8505074f33b6fe670343367f72b993bc8327fd367384c8951c3b8fe7f14",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer <ACCESS_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--bearer-curl-environment-reference",
+      "case": "figma-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "31b5026408c20bb469ca93944ca4ba3ebb1e839e014da5a60036fd067348e2e1",
+      "text": "curl -H \"Authorization: Bearer ${ACCESS_TOKEN}\" https://api.example.test/v1/me\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--bearer-template-reference",
+      "case": "figma-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "caa0567475ddb61e35fa2b2ddcbbdc3392a047a65e12c0247c17c39051ac8c85",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer {{ secrets.ACCESS_TOKEN }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--bearer-masked-display",
+      "case": "figma-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "230de3f49944a0d75a9c89ddf0da2c5d5e0a7871905accdb6d73c8004c47f381",
+      "text": "GET /v1/me HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--bearer-public-identifiers",
+      "case": "figma-bearer-placeholders-and-public-identifiers",
+      "path": "bearer-public-identifiers/fixture.txt",
+      "context": "structured-file",
+      "sha256": "0ef0bbad3f6e7513d439092309afb7780459bcb9f2de3c4b45fe7dc4e49b7abb",
+      "text": "{\n  \"client_id\": \"SYNTHETICclientId01\",\n  \"file_key\": \"SYNTHETICfileKey01\",\n  \"user_id\": \"1000000000000001\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--oauth-response-pretty-json",
+      "case": "figma-oauth-token-response-members",
+      "path": "oauth-response-pretty-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "01304a78e2a2364f7cc4d7779b88732e3a8860699eab372dabe25e721111424f",
+      "text": "{\n  \"user_id_string\": \"1000000000000001\",\n  \"access_token\": \"SYNTHETIC-never-issued-figma-access-0001\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7776000,\n  \"refresh_token\": \"SYNTHETIC-never-issued-figma-refresh-0001\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 61,
+            "end": 101,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          },
+          {
+            "start": 175,
+            "end": 216,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--oauth-response-compact-json",
+      "case": "figma-oauth-token-response-members",
+      "path": "oauth-response-compact-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1324f20bdca7c15618e231ade177686a40d83b5478676e5a1699db00cc1aef0e",
+      "text": "{\"access_token\":\"SYNTHETIC-never-issued-figma-access-0001\",\"token_type\":\"bearer\",\"expires_in\":7776000,\"refresh_token\":\"SYNTHETIC-never-issued-figma-refresh-0001\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 17,
+            "end": 57,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          },
+          {
+            "start": 119,
+            "end": 160,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--oauth-refresh-response-access-token-only",
+      "case": "figma-oauth-token-response-members",
+      "path": "oauth-refresh-response-access-token-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "63b3447c5775e85f78af0c37f24acf0c36e876573632ef6ef8b36cee440bb360",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-never-issued-figma-access-0001\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7776000\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 61,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--oauth-response-angle-placeholders",
+      "case": "figma-oauth-token-response-placeholders-and-non-secret-members",
+      "path": "oauth-response-angle-placeholders/fixture.txt",
+      "context": "structured-file",
+      "sha256": "05b2b463da632e5c45c3603bd44046f5f47d14bd69665ffe608f739376b84b16",
+      "text": "{\n  \"access_token\": \"<ACCESS_TOKEN>\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7776000,\n  \"refresh_token\": \"<REFRESH_TOKEN>\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--oauth-response-template-references",
+      "case": "figma-oauth-token-response-placeholders-and-non-secret-members",
+      "path": "oauth-response-template-references/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d9a0604ca6118032a3814d8372cc4d14ba3bcbbc50e66905cfe1e22323b79031",
+      "text": "{\n  \"access_token\": \"{{ secrets.FIGMA_ACCESS_TOKEN }}\",\n  \"refresh_token\": \"{{ secrets.FIGMA_REFRESH_TOKEN }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--oauth-response-masked-display",
+      "case": "figma-oauth-token-response-placeholders-and-non-secret-members",
+      "path": "oauth-response-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "b5b6648999eb78e4cc81fc2012f11809d9be4bb5f18df183d1ecf939264031b7",
+      "text": "{\n  \"access_token\": \"********\",\n  \"refresh_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--oauth-response-empty-values",
+      "case": "figma-oauth-token-response-placeholders-and-non-secret-members",
+      "path": "oauth-response-empty-values/fixture.txt",
+      "context": "structured-file",
+      "sha256": "b51b715973cb7adfcf1c4f27fdaeabffb7ed5677b25b09422d3079de7223bb79",
+      "text": "{\n  \"access_token\": \"\",\n  \"refresh_token\": \"\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--oauth-response-non-secret-members",
+      "case": "figma-oauth-token-response-placeholders-and-non-secret-members",
+      "path": "oauth-response-non-secret-members/fixture.txt",
+      "context": "structured-file",
+      "sha256": "740330f90c560325f825280df711b072f02a3c9b06f9ed04393547d2e6ec9bb8",
+      "text": "{\n  \"client_id\": \"SYNTHETICclientId01\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7776000,\n  \"user_id_string\": \"1000000000000001\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--oauth-token-members-prose-mention",
+      "case": "figma-oauth-token-response-placeholders-and-non-secret-members",
+      "path": "oauth-token-members-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "94a5d03b55ad0e9f8caf877b6dd167a8ffccde2acf84e0995d5b9ea4a87bc103",
+      "text": "The response carries an access_token and a refresh_token member; store them securely.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-basic-raw-http",
+      "case": "figma-oauth-client-secret-basic-envelope",
+      "path": "client-secret-basic-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "5942ddd369a5d4ddd06f996b744b07078c1d2ddf9090989df065123327510cdb",
+      "text": "POST /v1/oauth/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic U1lOVEhFVElDLWZpZ21hLWNsaWVudC1pZDpTWU5USEVUSUMtbmV2ZXItaXNzdWVkLWZpZ21hLWNsaWVudC1zZWNyZXQtMDAwMQ==\nContent-Type: application/x-www-form-urlencoded\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 74,
+            "end": 174,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-basic-curl-header",
+      "case": "figma-oauth-client-secret-basic-envelope",
+      "path": "client-secret-basic-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "3ba69384fa28d0743092c8e2bf99cae29bb75cc2808c84249335f2366f461a4e",
+      "text": "curl -X POST -H \"Authorization: Basic U1lOVEhFVElDLWZpZ21hLWNsaWVudC1pZDpTWU5USEVUSUMtbmV2ZXItaXNzdWVkLWZpZ21hLWNsaWVudC1zZWNyZXQtMDAwMQ==\" https://api.example.test/v1/oauth/refresh\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 38,
+            "end": 138,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-basic-json-header-map",
+      "case": "figma-oauth-client-secret-basic-envelope",
+      "path": "client-secret-basic-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "174a79783767d02ce793e082c76db66356f11d3994bef95c811ae0ceee2a3552",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Basic U1lOVEhFVElDLWZpZ21hLWNsaWVudC1pZDpTWU5USEVUSUMtbmV2ZXItaXNzdWVkLWZpZ21hLWNsaWVudC1zZWNyZXQtMDAwMQ==\",\n    \"Content-Type\": \"application/x-www-form-urlencoded\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 45,
+            "end": 145,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-basic-angle-placeholder",
+      "case": "figma-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-basic-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "88df3dcd90aa04911e96ae1ac9bae4f4253bedaab0a9d740537a622947537fdf",
+      "text": "POST /v1/oauth/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic <base64(client_id:client_secret)>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-basic-curl-environment-reference",
+      "case": "figma-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-basic-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "dfd470d541bda4d0e507f578300fbb08f78ee101684ca04e5fcc8f03e67d6f73",
+      "text": "curl -X POST -H \"Authorization: Basic ${FIGMA_BASIC_CREDENTIALS}\" https://api.example.test/v1/oauth/token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-basic-template-reference",
+      "case": "figma-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-basic-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "b7a6fd555dd8a0244a85b9a151fb5c85d7d75d2e778e32099e775498a04c0ee6",
+      "text": "POST /v1/oauth/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic {{ secrets.FIGMA_BASIC_CREDENTIALS }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-basic-masked-display",
+      "case": "figma-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-basic-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "44958747f2657b0229fe218e0c1838610cf2d75b6651ad3750e5827fe93630ce",
+      "text": "POST /v1/oauth/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-basic-scheme-only",
+      "case": "figma-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-basic-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "714bad622e7491def6e3b4bf41857a00d7b49ea127859e9153218429186d1698",
+      "text": "POST /v1/oauth/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-client-id-only",
+      "case": "figma-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-client-id-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "3e1a4d452267254b3372c5f53a2b55c7261d3c2662d22819ae5c1a69f38c21fa",
+      "text": "{\n  \"client_id\": \"SYNTHETICclientId01\",\n  \"redirect_uri\": \"https://app.example.test/callback\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "figma-authored--client-secret-masked-field",
+      "case": "figma-oauth-client-secret-placeholders-and-client-id",
+      "path": "client-secret-masked-field/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1eedb8bef088127600a888f3878b008bd5014a6c9f9972dde1b5b10b435449a6",
+      "text": "{\n  \"client_secret\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",
