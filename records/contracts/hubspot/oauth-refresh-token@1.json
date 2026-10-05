@@ -25,6 +25,35 @@
           "locator": "#token-types"
         }
       ]
+    },
+    {
+      "id": "refresh-token-member-and-form-field",
+      "statement": "HubSpot's OAuth token endpoint (POST /oauth/2026-09/token) returns the refresh token as a refresh_token member of the JSON token response beside access_token, token_type, hub_id, scopes and expires_in, and takes it as the refresh_token field of the URL-form encoded request body of a refresh request (grant_type refresh_token, with client_id and client_secret); the introspection request takes it as the refresh_token and token fields.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-5873f5074b",
+          "supports": "In the response, you’ll receive the access token along with the refresh token, which you can use to refresh the access token. (the example response JSON has the members token_type, refresh_token, access_token, hub_id, scopes and expires_in)",
+          "locator": "#generate-initial-access-and-refresh-tokens"
+        },
+        {
+          "sourceId": "developers-hubspot-com-5873f5074b",
+          "supports": "Using a refresh token, you can generate a new access token by making a URL-form encoded POST request to /oauth/2026-09/token. In the request body, you’ll specify the grant_type, client_id, client_secret, and refresh_token.",
+          "locator": "#refresh-an-access-token"
+        },
+        {
+          "sourceId": "developers-hubspot-com-5873f5074b",
+          "supports": "refresh_token | String | The refresh token value.",
+          "locator": "#refresh-an-access-token"
+        },
+        {
+          "sourceId": "developers-hubspot-com-5873f5074b",
+          "supports": "refresh_token | String | If you specified refresh_token as the token_type_hint, then provide the refresh_token as an additional property in your request.",
+          "locator": "#retrieve-access-token-metadata"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -39,6 +68,16 @@
       "id": "open-question-2",
       "question": "No format statement for refresh tokens appears in the page read; placeholder values in examples are not a format.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "carrier-established-grammar-open",
+      "question": "The member and request field are documented by the 2026-09 token page read on 2026-10-05; its example refresh token is a placeholder value the page does not state as a format, so no prefix, alphabet or width is recorded.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "legacy-v1-layout-not-read",
+      "question": "The page says the v1 endpoints passed parameters as query parameters; the v1 request layout was not read and is not recorded.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

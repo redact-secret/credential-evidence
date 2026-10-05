@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-personal-access-key-config-field",
+  "title": "Value of personalAccessKey in a HubSpot CLI config file or environment",
+  "summary": "A synthetic value of the personalAccessKey property of an account entry in a global-style YAML config, of the same property in the legacy portals layout, and of the HUBSPOT_PERSONAL_ACCESS_KEY environment variable.",
+  "rationale": "HubSpot documents that the CLI stores the personal access key in the global config file after hs account auth. The config property name personalAccessKey comes from the provider-published local development library (its account type and README example) and the environment variable from the same README; the CLI documentation shows the example file only as an image. The pages state no prefix, alphabet or width, so the value is flagged because of the property it sits in, not because of its shape. The extent is the value only: the property name and the quotes are outside it. The account id, the account name and the authType word are not values of the key.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "hubspot:personal-access-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "environment-assignment",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of an exact personalAccessKey property of a CLI config account entry, or of HUBSPOT_PERSONAL_ACCESS_KEY, is treated as a credential whatever its shape and covered whole. HubSpot documents the global config file that holds the key, and its official local development library names the personalAccessKey property and the environment variable (carrier existence only); the value admission, extent and generic attribution are the project's decisions. No prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-cc3f520c9e",
+        "supports": "After you authenticate via the CLI using the hs account auth command, your access key will be added to your global config file (~/.hscli/config.yml) for future use.",
+        "locator": "Managing personal access keys"
+      },
+      {
+        "sourceId": "github-com-hubspot-hubspot-local-dev-lib-1d629d0ffc",
+        "supports": "interface PersonalAccessKeyConfigAccount extends BaseHubSpotConfigAccount { authType: typeof PERSONAL_ACCESS_KEY_AUTH_METHOD.value; personalAccessKey: string; auth: { tokenInfo: TokenInfo } }; type AuthType = 'personalaccesskey' | 'apikey' | 'oauth2'",
+        "locator": "types/Accounts.ts lines 12 and 37-43"
+      },
+      {
+        "sourceId": "github-com-hubspot-hubspot-local-dev-lib-bc527cd0db",
+        "supports": "USE_ENVIRONMENT_HUBSPOT_CONFIG - load config account from environment variables. The following environment variables are supported: HUBSPOT_PERSONAL_ACCESS_KEY, HUBSPOT_ACCOUNT_ID, HTTP_TIMEOUT, DEFAULT_CMS_PUBLISH_MODE",
+        "locator": "config/README.md lines 36-43"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

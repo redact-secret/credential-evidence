@@ -193,6 +193,159 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "zendesk-authored--refresh-request-curl-json-body",
+      "case": "zendesk-oauth-refresh-token-json-member",
+      "path": "refresh-request-curl-json-body/fixture.txt",
+      "context": "cli",
+      "sha256": "fb36177a9f7abc5b50fcddf9f07bd2ba07cd1914a0c37ca22c63bc0116031cef",
+      "text": "curl https://example-subdomain.zendesk.example.test/oauth/tokens -X POST -H \"Content-Type: application/json\" -d '{\"grant_type\":\"refresh_token\",\"refresh_token\":\"SYNTHETIC-never-issued-zendesk-refresh-0001\",\"client_id\":\"SYNTHETIC-client-identifier\",\"client_secret\":\"{YOUR_CLIENT_SECRET}\"}'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 160,
+            "end": 203,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-request-json-body",
+      "case": "zendesk-oauth-refresh-token-json-member",
+      "path": "refresh-request-json-body/fixture.txt",
+      "context": "structured-file",
+      "sha256": "31324b4c9078755599a1063ee99adf0b9b91df1e51774e47bfa34fac8750461c",
+      "text": "{\n  \"grant_type\": \"refresh_token\",\n  \"refresh_token\": \"SYNTHETIC-never-issued-zendesk-refresh-0002\",\n  \"client_id\": \"SYNTHETIC-client-identifier\",\n  \"client_secret\": \"{YOUR_CLIENT_SECRET}\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 55,
+            "end": 98,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-response-json-excerpt",
+      "case": "zendesk-oauth-refresh-token-json-member",
+      "path": "refresh-response-json-excerpt/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7c91ab5f4c026b72fe33f384730bdeab19f01edf921103d43f27b7013bad4a4d",
+      "text": "{\n  \"expires_in\": 600,\n  \"refresh_token\": \"SYNTHETIC-never-issued-zendesk-refresh-0003\",\n  \"token_type\": \"bearer\",\n  \"scope\": \"read write\",\n  \"refresh_token_expires_in\": 2592000\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 43,
+            "end": 86,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-angle-placeholder",
+      "case": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-angle-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "2a010b596d690a81cf22712bc4c7174b8bf3ab239461f11b49cdcb59f2f943e5",
+      "text": "{\n  \"grant_type\": \"refresh_token\",\n  \"refresh_token\": \"<refresh token>\",\n  \"client_id\": \"SYNTHETIC-client-identifier\",\n  \"client_secret\": \"{YOUR_CLIENT_SECRET}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-documented-template",
+      "case": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-documented-template/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5ad2b43a0fbcaad4c4fa4b6f1eed46ea381a1bf84e907be721a81862534edc3c",
+      "text": "{\n  \"grant_type\": \"refresh_token\",\n  \"refresh_token\": \"{YOUR_REFRESH_TOKEN}\",\n  \"client_id\": \"SYNTHETIC-client-identifier\",\n  \"client_secret\": \"{YOUR_CLIENT_SECRET}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-template-reference",
+      "case": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "85313aa9679a9dd7f181d34d3c12ef0a60ea0a1dd6646c096c5d17737a450177",
+      "text": "{\n  \"grant_type\": \"refresh_token\",\n  \"refresh_token\": \"{{ secrets.ZENDESK_REFRESH_TOKEN }}\",\n  \"client_id\": \"SYNTHETIC-client-identifier\",\n  \"client_secret\": \"{YOUR_CLIENT_SECRET}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-masked-display",
+      "case": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "ea19a35beff0bd006740433d603688b4fa30aaee6c2f34a465da8208ac3d1a62",
+      "text": "{\n  \"grant_type\": \"refresh_token\",\n  \"refresh_token\": \"********\",\n  \"client_id\": \"SYNTHETIC-client-identifier\",\n  \"client_secret\": \"{YOUR_CLIENT_SECRET}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-empty-value",
+      "case": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-empty-value/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5c1dd48779198e04dfb3c28551cc5396e487af3dacf631c389153ce250cef01e",
+      "text": "{\n  \"grant_type\": \"refresh_token\",\n  \"refresh_token\": \"\",\n  \"client_id\": \"SYNTHETIC-client-identifier\",\n  \"client_secret\": \"{YOUR_CLIENT_SECRET}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-curl-environment-reference",
+      "case": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "b14babf8aac4603705e844f1d0756f4abffd29322fe1adacc562917f6d70cd0f",
+      "text": "curl https://example-subdomain.zendesk.example.test/oauth/tokens -X POST -H \"Content-Type: application/json\" -d '{\"grant_type\":\"refresh_token\",\"refresh_token\":\"$ZENDESK_REFRESH_TOKEN\",\"client_id\":\"SYNTHETIC-client-identifier\",\"client_secret\":\"{YOUR_CLIENT_SECRET}\"}'\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-token-prose-mention",
+      "case": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-token-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "f4e5fe3ad40cd104509f6b7054f0e4f3c441e76dd532e5ff34db7db774231c2a",
+      "text": "Save the refresh_token when it is first returned: the listing endpoint truncates token values and it cannot be retrieved by an API.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--refresh-response-public-members",
+      "case": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+      "path": "refresh-response-public-members/fixture.txt",
+      "context": "structured-file",
+      "sha256": "a0966d9f5f8d95f17ff6f7cb972daff2387736c275e9149ec33ae6dfd752f2d4",
+      "text": "{\n  \"expires_in\": 600,\n  \"token_type\": \"bearer\",\n  \"scope\": \"read write\",\n  \"refresh_token_expires_in\": 2592000\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

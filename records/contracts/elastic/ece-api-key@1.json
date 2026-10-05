@@ -39,6 +39,25 @@
           "locator": "#ece-api-keys"
         }
       ]
+    },
+    {
+      "id": "authorization-apikey-carrier",
+      "statement": "The Elastic Cloud Enterprise page on accessing the ECE API from the command line says to include a generated ECE API key in an HTTP header on API requests and shows it as an Authorization header with the ApiKey scheme (curl -H \"Authorization: ApiKey $ECE_API_KEY\" against the ECE coordinator API at /api/v1/deployments); the same page shows a temporary bearer token with the Bearer scheme as the separate token-based method.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "elastic-co-f63059c6cc",
+          "supports": "Once you’ve generated your API key, you need to include it in an HTTP \"Authentication\" header when making API requests: curl -k -X GET -H \"Authorization: ApiKey $ECE_API_KEY\" https://$COORDINATOR_HOST:12443/api/v1/deployments",
+          "locator": "Using an API key"
+        },
+        {
+          "sourceId": "elastic-co-f63059c6cc",
+          "supports": "You can also authenticate using a temporary bearer token. ... curl -k -X GET -H \"Authorization: Bearer $TOKEN\" https://$COORDINATOR_HOST:12443/api/v1/deployments",
+          "locator": "Using a bearer token"
+        }
+      ]
     }
   ],
   "openQuestions": [
@@ -51,6 +70,21 @@
       "id": "not-researched-beyond-existence",
       "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "carrier-prose-and-example-name-differ",
+      "question": "The ECE command-line page names the header \"Authentication\" in prose but writes Authorization in both curl examples; the record follows the example header name and keeps the prose wording as an unresolved discrepancy.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "lifetime-statements-differ",
+      "question": "The ECE command-line page says that once set, the API key lasts indefinitely, while the ECE API keys page (claim lifecycle) says the key expires three months after creation by default and can be set to Never; not reconciled here.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "key-grammar-open",
+      "question": "The carrier is now documented; the key value grammar (prefix, alphabet, width, encoding) and whether it shares the Cloud API key representation remain undocumented in the pages read.",
+      "raisedAt": "2026-10-05"
     }
   ],
   "lifecycle": "draft",

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-oauth-refresh-token-placeholders-and-non-values",
+  "title": "HubSpot refresh_token placeholders and non-value fields",
+  "summary": "A refresh_token field holding an angle placeholder, a template or shell reference, a masked or empty value, a prose mention, and a token response with only public members.",
+  "rationale": "A placeholder, reference, masked or empty value carries no credential, and the field name in prose is an everyday term. The token type word, the hub id, the scope names and the expires_in number are public members of the same exchange and are not values of the refresh token.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "hubspot:oauth-refresh-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder, reference, masked or empty value, prose mention or public identifier is not a value is a project decision, not a HubSpot statement.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-5873f5074b",
+        "supports": "In the response, you’ll receive the access token along with the refresh token, which you can use to refresh the access token. (the example response JSON has the members token_type, refresh_token, access_token, hub_id, scopes and expires_in)",
+        "locator": "#generate-initial-access-and-refresh-tokens"
+      },
+      {
+        "sourceId": "developers-hubspot-com-5873f5074b",
+        "supports": "refresh_token | String | The refresh token value.",
+        "locator": "#refresh-an-access-token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "x-oauth2-refresh-token-placeholders-and-non-values",
+  "title": "X OAuth 2.0 refresh_token placeholders and non-value fields",
+  "summary": "A refresh_token field holding an angle placeholder, a template or shell reference, a masked or empty value, a prose mention, and a token response with only the type, lifetime and scope members.",
+  "rationale": "A placeholder, reference, masked or empty value carries no credential, and the field name in prose is an everyday term. The token type word, the expires_in number and the scope list are public members of the same exchange and are not values of the refresh token.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "x:oauth2-refresh-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder, reference, masked or empty value, prose mention or public identifier is not a value is a project decision, not a X statement.",
+    "sources": [
+      {
+        "sourceId": "docs-x-com-b50dc30ba3",
+        "supports": "A refresh token allows an application to obtain a new access token without prompting the user. ... In addition, you will also need to pass in your refresh_token, set your grant_type to be a refresh_token, and define your client_id.",
+        "locator": "Step 5: POST oauth2/token - refresh token"
+      },
+      {
+        "sourceId": "docs-x-com-3eb3b20029",
+        "supports": "Success response (HTTP 200): {\"token_type\": \"bearer\", \"expires_in\": 7200, \"access_token\": \"...\", \"refresh_token\": \"...\", \"scope\": \"...\"}. Store the refresh_token (and current access_token) against the user",
+        "locator": "Success response (HTTP 200)"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

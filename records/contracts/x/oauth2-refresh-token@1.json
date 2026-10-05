@@ -44,6 +44,58 @@
           "locator": "Prerequisites"
         }
       ]
+    },
+    {
+      "id": "refresh-request-form-fields",
+      "statement": "X documents the OAuth 2.0 refresh request as a POST to https://api.x.com/2/oauth2/token with Content-Type application/x-www-form-urlencoded and the form fields refresh_token and grant_type=refresh_token, plus client_id for a public client or an Authorization: Basic header for a confidential client.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-b50dc30ba3",
+          "supports": "A refresh token allows an application to obtain a new access token without prompting the user. ... In addition, you will also need to pass in your refresh_token, set your grant_type to be a refresh_token, and define your client_id.",
+          "locator": "Step 5: POST oauth2/token - refresh token"
+        },
+        {
+          "sourceId": "docs-x-com-b50dc30ba3",
+          "supports": "Here is an example of one for confidential clients: (the refresh request carries an Authorization: Basic header and the refresh_token and grant_type form fields, without client_id)",
+          "locator": "Step 5: POST oauth2/token - refresh token"
+        },
+        {
+          "sourceId": "docs-x-com-48490501ab",
+          "supports": "An example of the request you would make to use a refresh token to obtain a new access token is as follows: POST https://api.x.com/2/oauth2/token with the form fields refresh_token, grant_type=refresh_token and client_id.",
+          "locator": "Refresh tokens"
+        }
+      ]
+    },
+    {
+      "id": "exchange-response-refresh-token-member",
+      "statement": "X's OAuth 1.0a token exchange page shows the success response of POST https://api.x.com/2/oauth2/token as a JSON object with the members token_type, expires_in, access_token, refresh_token and scope, and says to store the refresh_token and the current access_token. The pages read for the authorization code flow show the refresh request but no token response JSON.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-3eb3b20029",
+          "supports": "Success response (HTTP 200): {\"token_type\": \"bearer\", \"expires_in\": 7200, \"access_token\": \"...\", \"refresh_token\": \"...\", \"scope\": \"...\"}. Store the refresh_token (and current access_token) against the user",
+          "locator": "Success response (HTTP 200)"
+        }
+      ]
+    },
+    {
+      "id": "exchanged-tokens-are-ordinary-user-tokens",
+      "statement": "The token exchange page states that exchanged tokens are ordinary OAuth 2.0 user tokens with the same refresh flow, the same scopes model and the same revocation behavior; it does not restate the refresh token lifetime in that answer.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-3eb3b20029",
+          "supports": "Do exchanged tokens behave differently from normal OAuth 2.0 tokens? No. They are ordinary OAuth 2.0 user tokens with the same refresh flow, the same scopes model, and the same revocation behavior.",
+          "locator": "FAQ accordion, \"Do exchanged tokens behave differently from normal OAuth 2.0 tokens?\""
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -63,6 +115,21 @@
       "id": "open-question-3",
       "question": "The candidate is established to exist from the pages read; its format (prefix, alphabet, length) is not researched.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "lifetime-sentence-scope-checked-2026-10-05",
+      "question": "Checked on 2026-10-05: the sentence \"valid for about 6 months and single-use; each refresh returns a new one\" appears only on the OAuth 1.0a token exchange page, about the refresh token the exchange returns; the authorization code flow page and the user access token guide state no refresh token lifetime or single-use rule, and the exchange page FAQ says exchanged tokens are ordinary OAuth 2.0 user tokens without restating a lifetime. Whether the 6 month, single-use rule holds for refresh tokens from the authorization code flow remains unresolved; it is not attributed to them.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "authorization-code-response-member-not-shown",
+      "question": "No token response JSON for the authorization code flow was shown on the pages read, so the response member name there is documented only through the exchange page response and the shared endpoint.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "example-values-not-a-format",
+      "question": "The X pages show example refresh_token and Basic credential values in curl examples; they are not stated as a format and none is recorded or reused.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }
