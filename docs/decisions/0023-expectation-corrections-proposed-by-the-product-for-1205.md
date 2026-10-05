@@ -1,6 +1,6 @@
 # 0023. Expectation corrections the product proposed for core #1205
 
-- Status: proposed. Accepted when the repository owner, as the sole maintainer (ADR 0020), merges it; the decision is then a `maintainer-only` act, never `reviewed`. Written by an AI agent on the owner's instruction, as a recommendation: the owner may change any row before merging.
+- Status: accepted on 2026-10-05, when the repository owner, as the sole maintainer (ADR 0020), merged it (PR #229, `340bdbb`); the decision is a `maintainer-only` act, never `reviewed`. Written by an AI agent on the owner's instruction as a recommendation; the owner merged it without changing a row.
 - Date: 2026-10-05
 - Issues: redact-secret/redact-secret#1205 (handoff), credential-evidence#228, benchmarks#698
 - Inputs: the product's decision `decision-settle-the-snapshot-2026-10-04-4-added-case-roots` (an input, not ground truth: [no scanner consensus](../governance/neutrality.md#no-scanner-consensus-as-ground-truth)); the precedent [ADR 0021](0021-expectation-corrections-proposed-by-the-product-for-1203.md)
