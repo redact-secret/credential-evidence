@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-x-oauth2-refresh-token-placeholders-and-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "x-oauth2-refresh-token-placeholders-and-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#235 (Batch 2 handoff) from the cited provider pages; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#235. Question: a placeholder, reference, masked or empty value, prose mention or public response member in a refresh_token position is not a credential value? Options: flag placeholders too, or leave the case a draft. Decision: do not flag these inputs. Reason: they hold no credential value; this is a project decision, not a X statement. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "A placeholder shaped like a real value could hide a pasted secret, and a draft claims nothing.",
+      "reversingEvidence": "A provider statement of the value format or of the carrier's confidentiality that contradicts this outcome, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

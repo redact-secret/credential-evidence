@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zendesk-oauth-refresh-token-placeholders-and-non-values",
+  "title": "Zendesk refresh_token placeholders and non-value members",
+  "summary": "A refresh_token member holding an angle placeholder, the documented template, a template reference, a masked or empty value or a shell variable reference, a prose mention, and a response with only the type, scope and lifetime members.",
+  "rationale": "A placeholder, reference, masked or empty value carries no credential, and the member name in prose is an everyday term. The token type word, the scope and the two lifetime numbers are public members of the same exchange and are not values of the refresh token.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "zendesk:oauth-refresh-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder, reference, masked or empty value, prose mention or public identifier is not a value is a project decision, not a Zendesk statement.",
+    "sources": [
+      {
+        "sourceId": "developer-zendesk-com-55d989dd48",
+        "supports": "Zendesk will respond with an access token and a refresh token. (the example response JSON has the members access_token, expires_in, refresh_token, token_type, scope and refresh_token_expires_in)",
+        "locator": "Exchanging the authorization code for tokens"
+      },
+      {
+        "sourceId": "developer-zendesk-com-55d989dd48",
+        "supports": "use your refresh token to request a new access token with the Create Token for Grant Type endpoint: curl https://{subdomain}.zendesk.com/oauth/tokens -X POST -H \"Content-Type: application/json\" -d '{ \"grant_type\": \"refresh_token\", \"refresh_token\": \"{YOUR_REFRESH_TOKEN}\", \"client_id\": \"{YOUR_CLIENT_ID}\", \"client_secret\": \"{YOUR_CLIENT_SECRET}\" }'",
+        "locator": "Refreshing the token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

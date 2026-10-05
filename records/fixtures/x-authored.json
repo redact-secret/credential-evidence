@@ -334,6 +334,147 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "x-authored--refresh-curl-data-urlencode-refresh-token",
+      "case": "x-oauth2-refresh-token-form-field-and-response-member",
+      "path": "refresh-curl-data-urlencode-refresh-token/fixture.txt",
+      "context": "cli",
+      "sha256": "c57cba37c934eccea0d4790eace7a276922ab105589d9e6321feb279c3678321",
+      "text": "curl -X POST https://api.example.test/2/oauth2/token -H \"Content-Type: application/x-www-form-urlencoded\" --data-urlencode \"refresh_token=SYNTHETIC-never-issued-x-refresh-0001\" --data-urlencode \"grant_type=refresh_token\" --data-urlencode \"client_id=SYNTHETICxClientId01\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 138,
+            "end": 175,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--refresh-raw-http-form-body-refresh-token",
+      "case": "x-oauth2-refresh-token-form-field-and-response-member",
+      "path": "refresh-raw-http-form-body-refresh-token/fixture.txt",
+      "context": "form-body",
+      "sha256": "fb9e459234c4e26c031e6b2ad677f08a2fec27a7710f6ab322d0858ba429496b",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token=SYNTHETIC-never-issued-x-refresh-0002&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 171,
+            "end": 208,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--refresh-response-json-excerpt",
+      "case": "x-oauth2-refresh-token-form-field-and-response-member",
+      "path": "refresh-response-json-excerpt/fixture.txt",
+      "context": "structured-file",
+      "sha256": "30427e06fb7aeb3182478ab931e106a5b63c200478bf60df104b48203c0f948d",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7200,\n  \"refresh_token\": \"SYNTHETIC-never-issued-x-refresh-0003\",\n  \"scope\": \"offline.access tweet.read users.read\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 70,
+            "end": 107,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "x-authored--refresh-angle-placeholder",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "e38b7b9f0516b725cdb4b481e79a667470fefc76eb5a41fa1c62bd3823fd5212",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token=<refresh token>&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-template-reference",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-template-reference/fixture.txt",
+      "context": "form-body",
+      "sha256": "d82efa3d2ec3312cf984876701e88bafea5dc4339a6995700d6a5a68235262bd",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token={{ secrets.X_REFRESH_TOKEN }}&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-masked-display",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-masked-display/fixture.txt",
+      "context": "form-body",
+      "sha256": "3ff45da43d4cd09c9df16d2fd0901a193ab8c320fea53a293af44eaa017afdb2",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token=********&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-empty-value",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-empty-value/fixture.txt",
+      "context": "form-body",
+      "sha256": "d16be2aad6c36946fa66fc29d093f127d042f36fcbcdc433291bdfe65fd0790a",
+      "text": "POST /2/oauth2/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\nAuthorization: Basic <base64(client_id:client_secret)>\n\nrefresh_token=&grant_type=refresh_token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-curl-environment-reference",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "677873ff42d0af98b68e12f8facf4f500a980e8869fb0b9e1ec4c81d992cee6c",
+      "text": "curl -X POST https://api.example.test/2/oauth2/token -H \"Content-Type: application/x-www-form-urlencoded\" --data-urlencode \"refresh_token=$X_REFRESH_TOKEN\" --data-urlencode \"grant_type=refresh_token\" --data-urlencode \"client_id=SYNTHETICxClientId01\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-token-prose-mention",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-token-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "39f57a1ebf32493c7bbf81e5a3f57c71df8fa53000eef01ce88a986b30e971ab",
+      "text": "The offline.access scope makes the token endpoint return a refresh_token that you send back with grant_type=refresh_token.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--refresh-response-public-members",
+      "case": "x-oauth2-refresh-token-placeholders-and-non-values",
+      "path": "refresh-response-public-members/fixture.txt",
+      "context": "structured-file",
+      "sha256": "c89e1904b3c066ac0b105b9457db06c442b3f2128d04b8f57ca48f8bfc0fe0bc",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7200,\n  \"scope\": \"offline.access tweet.read users.read\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

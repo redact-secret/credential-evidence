@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-hubspot-oauth-refresh-token-member-and-form-field",
+  "subject": {
+    "kind": "case",
+    "id": "hubspot-oauth-refresh-token-member-and-form-field"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#235 (Batch 2 handoff) from the cited provider pages; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#235. Question: the value of an exact refresh_token form field or response member of a HubSpot OAuth token exchange is a credential whatever its shape? Options: require a documented prefix or width (HubSpot states none), or leave the case a draft. Decision: flag the value of an exact refresh_token field or member, no subtype inference. Reason: the provider page documents only the form field and the response member, not the value format, so the expectation rests on project policy and is not a provider rule or a fact. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The pages document the carrier but state no value format, so a carrier-name rule can flag non-secrets or miss a differently shaped secret; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A provider statement of the value format or of the carrier's confidentiality that contradicts this outcome, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

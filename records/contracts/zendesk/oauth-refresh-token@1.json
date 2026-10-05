@@ -35,6 +35,39 @@
           "locator": "#client-credentials-flow"
         }
       ]
+    },
+    {
+      "id": "refresh-token-json-members",
+      "statement": "Zendesk's refresh token tutorial shows the refresh token as a refresh_token member of the JSON response of POST https://{subdomain}.zendesk.com/oauth/tokens (beside access_token, expires_in, token_type, scope and refresh_token_expires_in) and as the refresh_token member of the JSON request body of a refresh request (grant_type refresh_token, with client_id and client_secret, Content-Type application/json).",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-55d989dd48",
+          "supports": "Zendesk will respond with an access token and a refresh token. (the example response JSON has the members access_token, expires_in, refresh_token, token_type, scope and refresh_token_expires_in)",
+          "locator": "Exchanging the authorization code for tokens"
+        },
+        {
+          "sourceId": "developer-zendesk-com-55d989dd48",
+          "supports": "use your refresh token to request a new access token with the Create Token for Grant Type endpoint: curl https://{subdomain}.zendesk.com/oauth/tokens -X POST -H \"Content-Type: application/json\" -d '{ \"grant_type\": \"refresh_token\", \"refresh_token\": \"{YOUR_REFRESH_TOKEN}\", \"client_id\": \"{YOUR_CLIENT_ID}\", \"client_secret\": \"{YOUR_CLIENT_SECRET}\" }'",
+          "locator": "Refreshing the token"
+        }
+      ]
+    },
+    {
+      "id": "listing-truncates-token-values",
+      "statement": "Zendesk says that GET /api/v2/oauth/tokens, which inspects tokens, truncates token values including refresh_token for security reasons, and that the refresh token cannot be retrieved by an API after creation.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-55d989dd48",
+          "supports": "If you’re using GET /api/v2/oauth/tokens to inspect tokens (rather than create them), token values (including refresh_token) are truncated for security reasons. Securely store the refresh token when it’s first returned (at creation time) as it cannot be retrieved by an API.",
+          "locator": "Common questions, Why does my refresh token look short"
+        }
+      ]
     }
   ],
   "openQuestions": [
@@ -47,6 +80,11 @@
       "id": "not-researched-beyond-existence",
       "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "carrier-established-grammar-open",
+      "question": "The JSON members are documented; the tutorial shows example token values that the page does not state as a format, and none is recorded.",
+      "raisedAt": "2026-10-05"
     }
   ],
   "lifecycle": "draft",

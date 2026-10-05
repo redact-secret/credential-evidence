@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-ece-apikey-placeholders-and-non-values",
+  "title": "Elastic Cloud Enterprise ApiKey header placeholders and non-values",
+  "summary": "A scheme-only ApiKey header, bare prose, placeholders, references, masked values and the key expiration response header of an ECE API call.",
+  "rationale": "The word ApiKey names a scheme and is also an everyday term, so prose or a header with no value is not a credential, and a placeholder, reference or masked display carries no value. The X-Elastic-Api-Key-Expiration response header documented by Elastic holds an expiration date, not the key.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "elastic:ece-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder, reference, masked or empty value, prose mention or public identifier is not a value is a project decision, not a Elastic statement.",
+    "sources": [
+      {
+        "sourceId": "elastic-co-f63059c6cc",
+        "supports": "Once you’ve generated your API key, you need to include it in an HTTP \"Authentication\" header when making API requests: curl -k -X GET -H \"Authorization: ApiKey $ECE_API_KEY\" https://$COORDINATOR_HOST:12443/api/v1/deployments",
+        "locator": "Using an API key"
+      },
+      {
+        "sourceId": "github-com-elastic-docs-content-fcfbf9a56e",
+        "supports": "When you use an API key to authenticate, the API response header X-Elastic-Api-Key-Expiration indicates the key’s expiration date.",
+        "locator": "#ece-api-keys"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

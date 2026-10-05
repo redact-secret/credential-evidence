@@ -193,6 +193,178 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "zoom-authored--client-secret-basic-raw-http",
+      "case": "zoom-client-secret-basic-envelope-and-form-field",
+      "path": "client-secret-basic-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "dd7925e1d5d9a46b403a735cdd4dcbf608d61e98d32a3817e2283ee84953209d",
+      "text": "POST /oauth/token HTTP/1.1\nHost: zoom.example.test\nAuthorization: Basic U1lOVEhFVElDLXpvb20tY2xpZW50LWlkOlNZTlRIRVRJQy16b29tLW9hdXRoLWNsaWVudC1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDE=\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<code>&redirect_uri=https://example.test/callback\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 72,
+            "end": 176,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-basic-curl-header",
+      "case": "zoom-client-secret-basic-envelope-and-form-field",
+      "path": "client-secret-basic-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "506f3b24d7a81e7a41b01fb5eec8bcec5ec2eb7ebf4608198444786ccd35d31a",
+      "text": "curl -X POST https://zoom.example.test/oauth/token -d 'grant_type=account_credentials' -d 'account_id=SYNTHETICaccountId01' -H 'Authorization: Basic U1lOVEhFVElDLXpvb20tY2xpZW50LWlkOlNZTlRIRVRJQy16b29tLXMycy1jbGllbnQtc2VjcmV0LW5ldmVyLWlzc3VlZC0wMDAx'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 149,
+            "end": 249,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-basic-json-header-map",
+      "case": "zoom-client-secret-basic-envelope-and-form-field",
+      "path": "client-secret-basic-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "92658751d7ece213d36800a5b7fb76a3540c0dd84994db6160745a88329d7a54",
+      "text": "{\n  \"Content-Type\": \"application/x-www-form-urlencoded\",\n  \"Authorization\": \"Basic U1lOVEhFVElDLXpvb20tY2xpZW50LWlkOlNZTlRIRVRJQy16b29tLXMycy1jbGllbnQtc2VjcmV0LW5ldmVyLWlzc3VlZC0wMDAy\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 83,
+            "end": 183,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-development-form-field",
+      "case": "zoom-client-secret-basic-envelope-and-form-field",
+      "path": "client-secret-development-form-field/fixture.txt",
+      "context": "form-body",
+      "sha256": "093dbd94718609c0958003578f492993b23611c5dd1c5c268d189c0f971bb884",
+      "text": "POST /oauth/token HTTP/1.1\nHost: zoom.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<code>&redirect_uri=https://example.test/callback&client_id=SYNTHETIC-zoom-client-id&client_secret=SYNTHETIC-zoom-oauth-client-secret-never-issued-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 234,
+            "end": 286,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-basic-scheme-only",
+      "case": "zoom-client-secret-placeholders-and-public-ids",
+      "path": "client-secret-basic-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "59691ddbc3e6aea62bd3756f0f80095d7b4ee735820bc78397f79622b65dba85",
+      "text": "POST /oauth/token HTTP/1.1\nHost: zoom.example.test\nAuthorization: Basic\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-basic-angle-placeholder",
+      "case": "zoom-client-secret-placeholders-and-public-ids",
+      "path": "client-secret-basic-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "7ac21dffc5762df94f3b4429c90740bf28904dde31dbaab73573ba2381befc8a",
+      "text": "POST /oauth/token HTTP/1.1\nHost: zoom.example.test\nAuthorization: Basic <base64(client_id:client_secret)>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-basic-curl-environment-reference",
+      "case": "zoom-client-secret-placeholders-and-public-ids",
+      "path": "client-secret-basic-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "092f70895a1bd7306f237d516759106f50235e4a37791279ec1a30e6633e44af",
+      "text": "curl -X POST https://zoom.example.test/oauth/token -d 'grant_type=account_credentials' -d 'account_id=SYNTHETICaccountId01' -H \"Authorization: Basic $ZOOM_BASIC_CREDENTIAL\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-basic-template-reference",
+      "case": "zoom-client-secret-placeholders-and-public-ids",
+      "path": "client-secret-basic-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "87caf8543da6596b0501a73d4fbb41a5b6e05e55567fe12302419afea1c92ec7",
+      "text": "POST /oauth/token HTTP/1.1\nHost: zoom.example.test\nAuthorization: Basic {{ secrets.ZOOM_BASIC_CREDENTIAL }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-basic-masked-display",
+      "case": "zoom-client-secret-placeholders-and-public-ids",
+      "path": "client-secret-basic-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "72cebb1e158d939e6278a866b7afbb8f4b6d900b69207f30027819a934e717a6",
+      "text": "POST /oauth/token HTTP/1.1\nHost: zoom.example.test\nAuthorization: Basic ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-field-masked-and-placeholder",
+      "case": "zoom-client-secret-placeholders-and-public-ids",
+      "path": "client-secret-field-masked-and-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "fa91296a763cb6ee3d38eacbaabaa5bb0fce617b87a1b692e2b3f125f7915194",
+      "text": "POST /oauth/token HTTP/1.1\nHost: zoom.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=<code>&client_id=SYNTHETIC-zoom-client-id&client_secret=********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-prose-mention",
+      "case": "zoom-client-secret-placeholders-and-public-ids",
+      "path": "client-secret-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "ff9e59f8c6e9eb8d4486033159aa09c34e736b3497dbbbe247ff7fb9e2e3e90f",
+      "text": "Encode the client ID and client secret with a colon between them in base64 and send them with the Basic scheme.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--client-secret-account-and-client-id-only",
+      "case": "zoom-client-secret-placeholders-and-public-ids",
+      "path": "client-secret-account-and-client-id-only/fixture.txt",
+      "context": "form-body",
+      "sha256": "38736e4e58bb3a8cc38013b6571c0eff5a979815961ba5f8ba1cf66ef3070fd3",
+      "text": "POST /oauth/token HTTP/1.1\nHost: zoom.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=account_credentials&account_id=SYNTHETICaccountId01&client_id=SYNTHETIC-zoom-client-id\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

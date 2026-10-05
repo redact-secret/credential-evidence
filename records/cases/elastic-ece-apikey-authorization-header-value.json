@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-ece-apikey-authorization-header-value",
+  "title": "Value of an ApiKey Authorization header for an Elastic Cloud Enterprise API key",
+  "summary": "A synthetic opaque value after the ApiKey scheme in an Authorization header of an ECE API request, in a raw request, a quoted curl -H argument and a JSON header map; the value has no documented prefix or width.",
+  "rationale": "The Elastic Cloud Enterprise command-line page shows a generated ECE API key sent as an Authorization header with the ApiKey scheme to the ECE coordinator API. This carrier is read from the ECE page itself, not taken from the Elastic Cloud API key case: the two are different keys for different APIs. The page states no prefix, alphabet or width, so the value is flagged because of where it sits. The extent is the header value only: the header name, the scheme and the closing quote or brace are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "elastic:ece-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value after the ApiKey scheme in an Authorization header of an ECE API request is treated as a credential whatever its shape and covered whole. Elastic documents an ECE API key sent as an Authorization header with the ApiKey scheme (carrier existence only); the value admission, extent and generic attribution are the project's decisions. No prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "elastic-co-f63059c6cc",
+        "supports": "Once you’ve generated your API key, you need to include it in an HTTP \"Authentication\" header when making API requests: curl -k -X GET -H \"Authorization: ApiKey $ECE_API_KEY\" https://$COORDINATOR_HOST:12443/api/v1/deployments",
+        "locator": "Using an API key"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
