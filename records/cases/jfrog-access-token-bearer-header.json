@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "jfrog-access-token-bearer-header",
+  "title": "JFrog access token in a Bearer header",
+  "summary": "A synthetic access token after the Bearer scheme in an Authorization header of a platform request, in a quoted curl -H argument without a space after the option, a raw request and a JSON header map.",
+  "rationale": "JFrog documents that an access token can be used as a bearer token in the Authorization header. The documentation states no prefix, alphabet or width of the token. A JSON Web Token form is not an exclusive identifying grammar, since the same page documents a reference token as an alias that is used as a Basic password, so no fixture depends on a JWT shape and no bare-value rule is implied. The Bearer scheme is generic, so the attribution stays generic; the extent is the value after the scheme and excludes the closing quote.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "jfrog:access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value after an explicit Bearer scheme in an Authorization header of a JFrog platform request is treated as a credential and covered whole. JFrog documents the Bearer header form (carrier existence only); the value admission, extent and generic authorization attribution are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "docs-jfrog-com-a4d14ae414",
+        "supports": "An access token can be used as a bearer token in authorization headers.",
+        "locator": "Access Tokens, Authorization Headers"
+      },
+      {
+        "sourceId": "docs-jfrog-com-a4d14ae414",
+        "supports": "curl -H\"Authorization: Bearer <TOKEN>\" http://JFROG_PLATFORM_URL/router/api/v1/system/ping",
+        "locator": "Access Tokens, Authorization Headers"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

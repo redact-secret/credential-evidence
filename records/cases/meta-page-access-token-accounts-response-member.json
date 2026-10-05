@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "meta-page-access-token-accounts-response-member",
+  "title": "Meta Page access token in an accounts response member",
+  "summary": "A synthetic Page access token as the access_token member of an entry of the data array in the accounts response, pretty-printed, compact and with two Pages in one response.",
+  "rationale": "Meta documents that a Page access token is returned in the accounts response in exchange for a user access token. The documentation states no prefix, alphabet or width, so the member name is the only identifying context and no bare-value rule is implied. The Page id, category, name and tasks beside it are not the token. The user token carrier is not assumed to equal this one, and the Page token is a separate family.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "meta:page-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of the access_token member of an accounts response entry is treated as a Page access token credential. Meta documents the response and its member (carrier existence only); the value admission and extent are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developers-facebook-com-35c7caf5a9",
+        "supports": "This returns a list of Pages you have a role on, including the Page category, your permissions on each Page, and the Page access token.",
+        "locator": "Access Tokens for Meta Technologies, Page Access Tokens, code sample"
+      },
+      {
+        "sourceId": "developers-facebook-com-3d88054c81",
+        "supports": "Sample Response { \"data\":[ { \"access_token\":\"{long-lived-page-access-token}\", \"category\":\"Brand\", ... \"id\":\"{page-id}\" } ] }",
+        "locator": "Get Long-Lived Tokens, Get a Long-Lived Page Access Token, sample response"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

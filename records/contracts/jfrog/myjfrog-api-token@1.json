@@ -25,6 +25,25 @@
           "locator": "sections \"Use an API Token in MyJFrog\" and \"Create an API Token in MyJFrog\""
         }
       ]
+    },
+    {
+      "id": "myjfrog-portal-api-bearer",
+      "statement": "JFrog's MyJFrog Portal API reference documents authentication as an access token sent as a bearer token in the Authorization header (Authorization: Bearer <token>), and states that only a Primary Admin can generate MyJFrog tokens.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a5ad4c54b2",
+          "supports": "Access Tokens as bearer token in authorization header (Authorization: Bearer <token>)",
+          "locator": "MyJFrog Portal API reference (OpenAPI info.description), Authentication"
+        },
+        {
+          "sourceId": "docs-jfrog-com-a5ad4c54b2",
+          "supports": "Access Token as bearer token (Only a Primary Admin can generate MyJFrog tokens)",
+          "locator": "MyJFrog Portal API reference (OpenAPI securitySchemes, BearerAuth)"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -39,6 +58,11 @@
       "id": "myjfrog-token-shape",
       "question": "The page states no prefix, length or alphabet, and does not say whether the MyJFrog API token is a JWT or an access token of the Platform.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "myjfrog-token-vs-platform-access-token",
+      "question": "The MyJFrog API reference calls the credential an Access Token and the MyJFrog page calls it an API token; whether it is the same kind of token as a JFrog Platform access token is not stated, and it stays a separate family.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

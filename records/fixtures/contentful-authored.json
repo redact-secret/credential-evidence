@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "contentful-authored",
+  "title": "TODO(record:new): title of this set of authored fixtures",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "contentful-authored--fragment-redirect-url",
+      "case": "contentful-oauth-access-token-redirect-fragment",
+      "path": "fragment-redirect-url/fixture.txt",
+      "context": "url",
+      "sha256": "fa090ca56e53803db4b6e0992de610f2c84119687b8897a54b758873e47e379a",
+      "text": "https://app.example.test/callback/#access_token=SYNTHETIC-contentful-oauth-access-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 48,
+            "end": 105,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "contentful-authored--fragment-location-header",
+      "case": "contentful-oauth-access-token-redirect-fragment",
+      "path": "fragment-location-header/fixture.txt",
+      "context": "header",
+      "sha256": "4e54071b011738ac9484ba0a2d7f937e423d350d93fe580645e2383be2ee2106",
+      "text": "HTTP/1.1 302 Found\nLocation: https://app.example.test/callback/#access_token=SYNTHETIC-contentful-oauth-access-token-never-issued-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 77,
+            "end": 134,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "contentful-authored--fragment-quoted-json-string",
+      "case": "contentful-oauth-access-token-redirect-fragment",
+      "path": "fragment-quoted-json-string/fixture.txt",
+      "context": "structured-file",
+      "sha256": "7b156fb3c49ba6ee6530f34122ba0b63f49ee55b582eaa6e9321848567b22b43",
+      "text": "{\n  \"redirect\": \"https://app.example.test/callback/#access_token=SYNTHETIC-contentful-oauth-access-token-never-issued-0003\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 122,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "contentful-authored--authorize-request-client-id",
+      "case": "contentful-oauth-client-id-and-token-placeholders-non-values",
+      "path": "authorize-request-client-id/fixture.txt",
+      "context": "url",
+      "sha256": "c2f637c76cb34c11e79cb4a9e7e8645652029a8cb4d1efcef703d4f61629f639",
+      "text": "https://be.example.test/oauth/authorize?response_type=token&client_id=SYNTHETIC-contentful-client-id&redirect_uri=https%3A%2F%2Fapp.example.test%2Fcb&scope=content_management_manage\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--fragment-documented-placeholder",
+      "case": "contentful-oauth-client-id-and-token-placeholders-non-values",
+      "path": "fragment-documented-placeholder/fixture.txt",
+      "context": "url",
+      "sha256": "b25a9c1a600f01f1d14d91a2ef93d8df9f7b732949b77d9831feb413de5a09a1",
+      "text": "https://my-host.example.test/my-app/#access_token=$CONTENT_MANAGEMENT_API_ACCESS_TOKEN\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--fragment-environment-reference",
+      "case": "contentful-oauth-client-id-and-token-placeholders-non-values",
+      "path": "fragment-environment-reference/fixture.txt",
+      "context": "url",
+      "sha256": "8b675b31d3adf1d32aa8a664a773b9016faef9b03b0d3d77b490bb4f8f93ee3c",
+      "text": "https://app.example.test/callback/#access_token=${CONTENTFUL_OAUTH_TOKEN}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--fragment-masked-display",
+      "case": "contentful-oauth-client-id-and-token-placeholders-non-values",
+      "path": "fragment-masked-display/fixture.txt",
+      "context": "url",
+      "sha256": "4ad7b11428869af8ad0c6972a4f67f8f4e94de84bb36be267301eb61e4b40eb6",
+      "text": "https://app.example.test/callback/#access_token=********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--fragment-parameter-prose-mention",
+      "case": "contentful-oauth-client-id-and-token-placeholders-non-values",
+      "path": "fragment-parameter-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "278d4b1b948f6eb2146a3e0ad66bfddbd8d97ec420da16f22ba542f9e0bf1857",
+      "text": "The access token arrives in the redirect URI hash fragment as access_token.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

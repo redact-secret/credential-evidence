@@ -40,6 +40,25 @@
           "locator": "#features"
         }
       ]
+    },
+    {
+      "id": "redirect-uri-hash-fragment",
+      "statement": "Contentful documents that an OAuth 2.0 application requests an OAuth access token with response_type=token, and that the access token is delivered to the application's redirect URI in the URI hash fragment as the access_token parameter.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-474687f6be",
+          "supports": "After a user has logged in, handle the callback from Contentful to your specified redirect URI. This will look similar to the example below, and you can extract the access token from the URI hash fragment.",
+          "locator": "OAuth, Requesting an OAuth 2.0 access token"
+        },
+        {
+          "sourceId": "contentful-com-474687f6be",
+          "supports": "https://my-host.com/my-app/#access_token=$CONTENT_MANAGEMENT_API_ACCESS_TOKEN",
+          "locator": "OAuth, Requesting an OAuth 2.0 access token"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -49,6 +68,16 @@
       "id": "open-question-1",
       "question": "Candidate established at existence level only. No format, expiry or refresh behavior is stated in the pages read. Whether the token the Contentful CLI obtains through its OAuth login is this kind is not stated in the CLI README read.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "oauth-token-request-header-form",
+      "question": "The Authentication page says the authentication token can be sent as an access_token query parameter or as an Authorization: Bearer header, but states it generally for the token sent to an API, not for the OAuth token kind. No header or query form is recorded for the OAuth token (a Contentful OAuth fact does not by itself prove a shared header or distinguish the subtype).",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "oauth-authorization-code-grant",
+      "question": "Only the redirect-fragment delivery for response_type=token is read; any other grant is not documented in the pages read.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "meta-user-access-token-query-parameter-and-response-member",
+  "title": "Meta user access token in an access_token parameter or response member",
+  "summary": "A synthetic user access token as the access_token query parameter of a Graph API request, in a raw request and a quoted curl argument, and as the access_token member of a token exchange response.",
+  "rationale": "Meta documents a user access token passed as the access_token parameter of a Graph API request and returned as the access_token member of the long-lived token exchange response. The documentation states no prefix, alphabet or width and says token length changes over time, so the parameter or member name is the only identifying context and no bare-value rule is implied. This case covers the user access token only: Page, system user and Instagram tokens are separate families with their own carriers, and no shared carrier is assumed.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "meta:user-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of an access_token query parameter or response member of a user access token exchange is treated as a credential. Meta documents the parameter and the response member for the user access token (carrier existence only); the value admission, extent and generic attribution are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developers-facebook-com-35c7caf5a9",
+        "supports": "curl -i -X GET \"https://graph.facebook.com/{your-user-id}/accounts?access_token={user-access-token}\"",
+        "locator": "Access Tokens for Meta Technologies, Page Access Tokens, code sample"
+      },
+      {
+        "sourceId": "developers-facebook-com-3d88054c81",
+        "supports": "Sample Response { \"access_token\":\"{long-lived-user-access-token}\", \"token_type\": \"bearer\", \"expires_in\": 5183944 }",
+        "locator": "Get Long-Lived Tokens, Get a Long-Lived User Access Token, sample response"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

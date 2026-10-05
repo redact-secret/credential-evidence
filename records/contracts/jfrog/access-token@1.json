@@ -30,6 +30,25 @@
           "locator": "sections \"Authorization Headers\" and property table (Scope)"
         }
       ]
+    },
+    {
+      "id": "authorization-bearer-header",
+      "statement": "JFrog documents that an access token can be used as a bearer token in the Authorization header of a request (Authorization: Bearer <TOKEN>), for example to the platform ping endpoint.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "An access token can be used as a bearer token in authorization headers.",
+          "locator": "Access Tokens, Authorization Headers"
+        },
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "curl -H\"Authorization: Bearer <TOKEN>\" http://JFROG_PLATFORM_URL/router/api/v1/system/ping",
+          "locator": "Access Tokens, Authorization Headers"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -49,6 +68,16 @@
       "id": "oidc-exchange-and-identity-tokens",
       "question": "The documentation treats tokens from OIDC exchange, identity tokens and admin tokens as access tokens. Whether any needs its own family is unresolved.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "jwt-not-exclusive-identifying-grammar",
+      "question": "A JWT shape does not identify a JFrog access token: the same page documents that a reference token, an alias of the longer token, can be used as the password for basic authentication, so the carrier and the JWT form together do not identify the token kind. Reference tokens are the separate family jfrog:reference-token.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "token-response-member",
+      "question": "The pages read name no response member (such as access_token) for a newly created access token; none is recorded.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }
