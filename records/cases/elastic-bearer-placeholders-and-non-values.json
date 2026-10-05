@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-bearer-placeholders-and-non-values",
+  "title": "Elastic Bearer header placeholders and non-values",
+  "summary": "Bare Bearer prose, a scheme-only header, placeholders, environment references, masked values and a token response without a token value.",
+  "rationale": "The word Bearer names a scheme and is also an everyday term, so prose or a header with no value is not a credential, and a placeholder, reference or masked display carries no value. A token lifetime or type member is not a token. The token-service refresh token is a separate credential with no documented carrier here, so it is not decided by this case.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "elastic:access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "elastic:service-account-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder or reference is not a value is a project decision, not an Elastic statement.",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-docs-content-8f048c7a49",
+        "supports": "The access token is a bearer token.",
+        "locator": "#token-authentication-access-token"
+      },
+      {
+        "sourceId": "github-com-elastic-docs-content-8f048c7a49",
+        "supports": "To use a service account token, include the generated token value in a request with an Authorization: Bearer header.",
+        "locator": "#token-authentication-services"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
