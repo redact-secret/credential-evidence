@@ -2,7 +2,7 @@
 
 Issue: credential-evidence#232 (parent classification #231). Downstream: benchmarks#717 (baseline and candidate replay) and core #1209 to #1213. Related: [ADR 0023](../decisions/0023-expectation-corrections-proposed-by-the-product-for-1205.md).
 
-This repository maintains the evidence; the Redact Secret project also maintains the product, so none of this is independent validation. Every record here is `draft` and project-authored. It is **not reviewed**: a reviewer other than the author has not yet recorded a review, and the maintainer-only path is not used.
+This repository maintains the evidence; the Redact Secret project also maintains the product, so none of this is independent validation. The ten positive and benign Cases are `maintainer-only` (decided 2026-10-05 by the sole maintainer under [ADR 0020](../decisions/0020-solo-maintainer-period.md), queued for retro-review in #154): never `reviewed`, not independent validation. The five unsupported-variant Cases assert nothing and stay `draft`.
 
 ## What is established and what is policy
 

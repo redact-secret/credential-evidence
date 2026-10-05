@@ -21,7 +21,7 @@
   "expectation": {
     "outcome": "must-not-flag",
     "basis": "project-policy",
-    "rationale": "Not flagged under project policy. Asana documents the signature as a SHA-256 HMAC over the delivery body computed with the shared secret; that it is not itself the secret, and that a placeholder or reference is not a value, are the project's decisions.",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#232). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy. Asana documents the signature as a SHA-256 HMAC over the delivery body computed with the shared secret; that it is not itself the secret, and that a placeholder or reference is not a value, are the project's decisions.",
     "sources": [
       {
         "sourceId": "developers-asana-com-7fb4493377",
@@ -31,6 +31,6 @@
     ],
     "observedAt": "2026-10-05"
   },
-  "lifecycle": "draft",
+  "lifecycle": "maintainer-only",
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
 }
