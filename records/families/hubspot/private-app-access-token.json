@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-05",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "HubSpot documentation states no prefix, alphabet, length or grouping for private app tokens."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "Layout across eras and regions would need issued tokens, which are not created here."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#240"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

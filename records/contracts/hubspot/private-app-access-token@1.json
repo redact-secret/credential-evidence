@@ -49,10 +49,100 @@
           "locator": "pkg/detectors/hubspot_apikey/v2/apikey.go lines 31 and 37 at commit 59e3b04e820c4cad30462696ac497853a5f7679c"
         }
       ]
+    },
+    {
+      "id": "private-app-token-rotation",
+      "statement": "HubSpot's legacy private apps page describes rotating the access token: a rotation creates a new token and the original expires, either immediately or about 7 days later, and HubSpot recommends rotating every six months.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "If your access token is lost or otherwise compromised, you can rotate the token. A new access token will be created and the original access token will expire.",
+          "locator": "Rotate your access token"
+        },
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "which will trigger an expiration of the token in 7 days.",
+          "locator": "Rotate your access token"
+        }
+      ]
+    },
+    {
+      "id": "token-carried-in-info-request-body",
+      "statement": "HubSpot documents a POST request to /oauth/v2/private-apps/get/access-token-info that takes the private app access token in a tokenKey body field and returns the creating user, the Hub ID, the private app ID and the token's scopes.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "make a POST request to /oauth/v2/private-apps/get/access-token-info. In the request body, include your access token:",
+          "locator": "View private app access token information"
+        },
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "The response will include information about the user who created the token, the Hub ID of the account, the private app ID, and the scopes associated with the token.",
+          "locator": "View private app access token information"
+        }
+      ]
+    },
+    {
+      "id": "built-on-oauth",
+      "statement": "HubSpot states that private app access tokens are implemented on top of OAuth and can be passed to its client libraries as an access token; the page does not state that the token string has the same format as an OAuth access token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "Private app access tokens are implemented on top of OAuth, so you can also make authenticated calls with your access token using one of HubSpot's client libraries.",
+          "locator": "Make API calls with your app's access token"
+        }
+      ]
+    },
+    {
+      "id": "legacy-creation-disabled-schedule",
+      "statement": "HubSpot's changelog, announced 2026-08-27, states that creation of new legacy private apps through the account UI is being permanently removed (2026-09-28 for accounts created on or after that date, 2026-10-26 for earlier accounts), that existing legacy private apps continue to work, and that Service Keys are the replacement for new in-account integrations.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-1f9e235294",
+          "supports": "HubSpot is permanently removing the ability to create new legacy, non-Project based, private apps through the account UI.",
+          "locator": "What's Changing"
+        },
+        {
+          "sourceId": "developers-hubspot-com-1f9e235294",
+          "supports": "All existing legacy private apps continue to work as-is.",
+          "locator": "What's Changing"
+        }
+      ]
+    },
+    {
+      "id": "uuid-shape-tool-lead",
+      "statement": "Two open-source scanner rule artifacts by different maintainers (Gitleaks and the TruffleHog version 1 HubSpot detector) both treat a value of five hyphen-separated groups of 8-4-4-4-12 characters, found near a HubSpot-related keyword, as a HubSpot API key or token (Gitleaks admits hexadecimal digits with a case-insensitive flag; TruffleHog admits letters and digits). Neither artifact says which HubSpot credential it targets, and this records consistency of those artifacts only, not a private app token format.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+          "supports": "([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})",
+          "locator": "#L2358-L2361"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-e62e0770c9",
+          "supports": "([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})",
+          "locator": "#L31"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Draft extended in place on 2026-10-05 by an AI agent run (claims and open questions appended; earlier entries unchanged, including earlier open questions that describe the candidate as researched at existence level only, which the later entries supersede in scope but not in wording).",
   "openQuestions": [
     {
       "id": "open-question-1",
@@ -68,6 +158,26 @@
       "id": "open-question-3",
       "question": "Whether private app (and static auth) access tokens carry a pat-na1- or pat-eu1- prefix is unconfirmed: HubSpot pages read show masked or placeholder values only, and only one scanner maintainer's artifact (the TruffleHog v2 detector) shows the prefix. It needs a second independent artifact or a HubSpot statement.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "no-hubspot-statement-of-token-layout",
+      "question": "No HubSpot page read states a prefix, alphabet, length, grouping or region marker for a private app access token. Whether private app tokens issued in different eras or regions begin pat-na1- or pat-eu1-, or are UUID-shaped, is unresolved; the pat- lead rests on one maintainer's detector (version 2) and the UUID-shaped lead names no specific HubSpot credential. A HubSpot statement, or two independent maintainers' artifacts that target private app tokens, would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "kingfisher-has-no-pat-rule",
+      "question": "A search of the Kingfisher, Nosey Parker and Gitleaks rule sets at the commits read found no rule for the pat-na1- or pat-eu1- form; the Kingfisher HubSpot rule is imported from the Gitleaks UUID-shaped rule and counts once with it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "private-app-versus-static-auth-pages",
+      "question": "The legacy private apps page describes a token shown on a private app's Auth tab under Legacy apps; the authentication overview describes a static auth access token found in app settings, configured with auth type static and private distribution. Neither page mentions the other credential and neither states that the two strings share a format, issuer path or revocation behaviour, so they remain two candidate families. A HubSpot statement relating them would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "supported-era-limits",
+      "question": "HubSpot's changelog says creation of new legacy private apps is being disabled from 2026-09-28 (new accounts) and 2026-10-26 (older accounts) while existing ones keep working. Any contract for this family is therefore bounded to tokens already issued; whether tokens of new Service Keys or project-based static auth tokens share this shape is not established.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

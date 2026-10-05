@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "dropbox:access-token",
+  "family": "dropbox:access-token",
+  "lifecycle": "draft",
+  "contract": "dropbox:access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "opaque-may-exceed-one-kilobyte",
+        "text": "Dropbox says access tokens should be treated as opaque, that applications must support variable token size with tokens capable of exceeding 1KB, and that applications should not depend on token composition, which Dropbox may change.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "access-token-documented-opaque"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dropboxapi-com-2835da9ecb"
+          }
+        ]
+      },
+      {
+        "id": "no-guarantee-of-size-or-composition",
+        "text": "Dropbox's token endpoint reference says the access_token member should always be treated as opaque with no guarantees as to the size or composition of the token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "token-response-member-opaque"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dropboxapi-com-2835da9ecb"
+          }
+        ]
+      },
+      {
+        "id": "carrier-bearer-header",
+        "text": "Dropbox sends the access token in an Authorization header with the Bearer scheme, and returns it in the access_token member of the token endpoint response beside an expires_in value.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "access-token-exists"
+          },
+          {
+            "kind": "claim",
+            "claimId": "token-response-member-opaque"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dropboxapi-com-2835da9ecb"
+          }
+        ]
+      },
+      {
+        "id": "prefix-alphabet-and-length",
+        "text": "No prefix, alphabet, minimum, maximum or fixed length of an access token is established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The pages read give response examples whose values begin sl. and sl.u., and one legacy example that does not, but label them examples and state no format; third-party pattern lists disagree on length bounds (a fixed 135, a 130 to 152 range and an open-ended minimum of 130). A Dropbox statement of the format by token kind and issue date would settle it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "oauth-flow-and-console-generate-button",
+        "text": "Access tokens are returned by the OAuth flow for a user and app pair or a team and app pair, and an app owner can also generate one from the app console for quick testing against the owner's own account.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "access-token-exists"
+          },
+          {
+            "kind": "claim",
+            "claimId": "console-generated-token-own-account"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dropboxapi-com-aea155a830"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dropboxapi-com-ee9def1cd1"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "short-lived-with-refresh",
+        "text": "Access tokens are short-lived and expire after a period returned as expires_in; apps needing offline access use a refresh token to obtain new ones.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "access-token-exists"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dropboxapi-com-aea155a830"
+          }
+        ]
+      },
+      {
+        "id": "long-lived-tokens-deprecated",
+        "text": "Dropbox states that long-lived access tokens are deprecated and would remain available as a console option until mid 2021.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "legacy-long-lived-deprecated-statement"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dropboxapi-com-aea155a830"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "user-team-console-sl-u-same-shape",
+        "text": "Whether user, team, console-generated and offline (sl.u.) access tokens share one shape is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The authorization page shows sl. and sl.u. examples and the authentication types page distinguishes user and team tokens, but no page states a shape per kind. A Dropbox statement per token kind would settle it."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "sl-prefix-guarantee",
+        "text": "Whether Dropbox guarantees the sl. prefix for all current access tokens is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "Dropbox says composition may change and gives no prefix guarantee; the legacy long-lived example does not begin sl. A provider statement of the prefix guarantee would settle it."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}

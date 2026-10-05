@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-05",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "Dropbox documentation states no prefix, alphabet or length for access tokens."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "Length and prefix per token kind and date would need issued tokens, which are not created here."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#240"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

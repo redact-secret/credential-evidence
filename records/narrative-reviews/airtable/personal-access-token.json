@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-airtable-personal-access-token",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "airtable:personal-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Drafted by an AI agent run from provider documentation read on 2026-10-05 (source ids airtable-com-3770a0226e, airtable-com-c31dd3fe16, airtable-com-78b7ef5a0e, support-airtable-com-0c413d2898); not reviewed."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'id-boundary-and-remainder-layout' (shape) is recorded as unresolved: Provider states only that tokens are prefixed with their ID and are otherwise opaque and variable-length."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'oauth-token-shape-relationship' (collisions) is recorded as unresolved: No page states a marker that distinguishes a personal access token from an OAuth access token."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'stability-across-issue-dates' (openQuestions) is recorded as unresolved: Provider reserves format changes for newly created tokens and gives no dated layout history."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
