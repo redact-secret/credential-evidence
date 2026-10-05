@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "hubspot-static-auth-masked-placeholder",
+  "families": [
+    "hubspot:static-auth-access-token"
+  ],
+  "siblingClass": "documentation-placeholder",
+  "name": "Masked placeholder static auth access token",
+  "description": "The HubSpot authentication overview shows an example request whose Bearer value is a row of asterisks in seven hyphen-separated groups (3, 3, 9, 4, 4, 4 and 12 asterisks). HubSpot calls it a placeholder static auth access token, so it is a documentation placeholder, not a credential. The page does not say the grouping mirrors a real token's layout, and the grouping differs from the 8-4-4-4-12 grouping in a third-party lead for private app tokens, so neither is established.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "developers-hubspot-com-1876a2b7bb",
+      "supports": "An example request is provided below using a placeholder static auth access token.",
+      "locator": "#static-auth"
+    }
+  ],
+  "observedAt": "2026-10-05",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "samples": [
+    {
+      "value": "***-***-*********-****-****-****-************",
+      "origin": "provider-documented-placeholder"
+    }
+  ]
+}
