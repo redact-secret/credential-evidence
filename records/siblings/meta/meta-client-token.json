@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "meta-client-token",
+  "families": [
+    "meta:app-secret"
+  ],
+  "siblingClass": "non-secret-companion",
+  "name": "Meta client token",
+  "description": "The client token of a Meta app, found in the App Dashboard under Settings, Advanced, Security. Meta says client tokens identify the app when calling app-level APIs from native or desktop apps and, because they are embedded in apps, are not secret. It sits beside the App Secret in the same dashboard and in the same family of app-level credentials, so a value from an app configuration can be a client token (public, embedded) or the App Secret (confidential, server side only). The page states no format for the client token and no sample is recorded.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "developers-facebook-com-35c7caf5a9",
+      "supports": "Client tokens identify your app when calling app-level APIs from native or desktop apps. Because client tokens are embedded in apps, they are not secret.",
+      "locator": "Access Token Type table, Client Token; Client Access Tokens"
+    }
+  ],
+  "observedAt": "2026-10-05",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. The App Secret is a different credential and is not benign."
+}

@@ -1,0 +1,513 @@
+- generic [active] [ref=e1]:
+  - generic [aria-hidden] [ref=e2]: "For AI agents: a documentation index is available at the root level at /llms.txt. Append /llms.txt to any URL for a page-level index, or .md for the markdown version of any page."
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e9]:
+          - generic [ref=e12]:
+            - link [ref=e13] [cursor=pointer]:
+              - /url: /
+            - link [ref=e15] [cursor=pointer]:
+              - /url: /developers/docs/
+              - text: Docs
+          - generic [ref=e17]:
+            - button [ref=e18]:
+              - text: Search
+              - generic [ref=e19]: /
+            - button [ref=e21] [cursor=pointer]:
+              - generic [ref=e22]: Ask AI
+          - text: Light
+          - button [ref=e25] [cursor=pointer]
+        - tablist [ref=e28]:
+          - tab [selected] [ref=e29] [cursor=pointer]:
+            - generic [ref=e30]: API Info
+          - tab [ref=e31] [cursor=pointer]:
+            - generic [ref=e32]: Content Management API
+          - tab [ref=e33] [cursor=pointer]:
+            - generic [ref=e34]: Content Delivery API
+          - tab [ref=e35] [cursor=pointer]:
+            - generic [ref=e36]: Content Preview API
+          - tab [ref=e37] [cursor=pointer]:
+            - generic [ref=e38]: Images API
+          - tab [ref=e39] [cursor=pointer]:
+            - generic [ref=e40]: SCIM API
+          - tab [ref=e41] [cursor=pointer]:
+            - generic [ref=e42]: User Management API
+          - tab [ref=e43] [cursor=pointer]:
+            - generic [ref=e44]: GraphQL API
+          - tab [ref=e45] [cursor=pointer]:
+            - generic [ref=e46]: Experience API
+    - main [ref=e47]:
+      - complementary [ref=e48]:
+        - generic [ref=e51]:
+          - list [ref=e52]:
+            - listitem [ref=e53]:
+              - list [ref=e54]:
+                - listitem [ref=e55]:
+                  - link [ref=e56] [cursor=pointer]:
+                    - /url: /developers/docs/references/api-basics
+                    - generic [ref=e57]: API Basics
+                - listitem [ref=e59]:
+                  - link [ref=e60] [cursor=pointer]:
+                    - /url: /developers/docs/references/authentication
+                    - generic [ref=e61]: Authentication
+                - listitem [ref=e63]:
+                  - link [ref=e64] [cursor=pointer]:
+                    - /url: /developers/docs/references/errors
+                    - generic [ref=e65]: Errors
+                - listitem [ref=e67]:
+                  - link [ref=e68] [cursor=pointer]:
+                    - /url: /developers/docs/references/http-details
+                    - generic [ref=e69]: HTTP details
+          - navigation [aria-hidden] [ref=e71]:
+            - list [ref=e72]:
+              - listitem [ref=e73]:
+                - link [ref=e74] [cursor=pointer]:
+                  - /url: /developers/docs/references/api-basics
+                  - text: API Basics
+              - listitem [ref=e75]:
+                - link [ref=e76] [cursor=pointer]:
+                  - /url: /developers/docs/references/authentication
+                  - text: Authentication
+              - listitem [ref=e77]:
+                - link [ref=e78] [cursor=pointer]:
+                  - /url: /developers/docs/references/errors
+                  - text: Errors
+              - listitem [ref=e79]:
+                - link [ref=e80] [cursor=pointer]:
+                  - /url: /developers/docs/references/http-details
+                  - text: HTTP details
+      - generic [ref=e82]:
+        - article [ref=e83]:
+          - generic [ref=e85]:
+            - heading [level=1] [ref=e88]: Authentication
+            - generic [ref=e90]:
+              - button [ref=e91] [cursor=pointer]:
+                - generic [ref=e92]: Copy page
+              - button [ref=e99] [cursor=pointer]
+          - generic [ref=e105]:
+            - paragraph [ref=e106]:
+              - text: To retrieve or store content with Contentful, you first need to authenticate your app with an OAuth bearer token.
+              - link [ref=e107] [cursor=pointer]:
+                - /url: /developers/docs/references/api-basics
+                - text: Contentful offers five APIs
+              - text: ", and each requires separate authentication, except for the Images API, which delivers images without authentication."
+            - paragraph [ref=e108]: A token provides read-only access to one or more environments. We recommend using different access tokens for different environments in your development process. For example, use one for your production environment and another for staging or continuous integration. This allows you to revoke them individually in the future and manage your delivery channels independently.
+            - paragraph [ref=e109]:
+              - text: There are two ways to send the authentication token to an API. You can include it as a query parameter,
+              - code [ref=e110]: access_token=$token
+              - text: ", or as an HTTP header"
+              - code [ref=e111]: "Authorization: Bearer $token"
+              - text: . The header method is recommended.
+            - generic [ref=e112]:
+              - generic [ref=e119]:
+                - generic [ref=e120]:
+                  - text: $
+                  - generic [ref=e121]: "# As a query parameter:"
+                - generic [ref=e123]:
+                  - text: $
+                  - generic [ref=e124]: curl -v https://cdn.contentful.com/spaces/cfexampleapi/entries?access_token=b4c0n73n7fu1
+              - generic:
+                - button
+                - button
+            - generic [ref=e126]:
+              - generic [ref=e133]:
+                - generic [ref=e134]:
+                  - text: $
+                  - generic [ref=e135]: "# As a header:"
+                - generic [ref=e137]:
+                  - text: $
+                  - generic [ref=e138]: "curl -v https://cdn.contentful.com/spaces/cfexampleapi/entries -H 'Authorization: Bearer b4c0n73n7fu1'"
+              - generic:
+                - button
+                - button
+            - paragraph [ref=e140]: "If you fail to include a valid access token, you will receive an error message:"
+            - generic [ref=e141]:
+              - generic [ref=e148]:
+                - generic [ref=e149]:
+                  - text: $
+                  - generic [ref=e150]: "# Request"
+                - generic [ref=e152]:
+                  - text: $
+                  - generic [ref=e153]: curl https://cdn.contentful.com/spaces/cfexampleapi/entries?access_token=wrong
+                - generic [ref=e155]: $
+                - generic [ref=e157]:
+                  - text: $
+                  - generic [ref=e158]: "# Response"
+                - generic [ref=e160]:
+                  - text: $
+                  - generic [ref=e161]: "{"
+                - generic [ref=e163]:
+                  - text: ">"
+                  - generic [ref=e164]: "\"sys\": {"
+                - generic [ref=e166]:
+                  - text: ">"
+                  - generic [ref=e167]: "\"type\": \"Error\","
+                - generic [ref=e169]:
+                  - text: ">"
+                  - generic [ref=e170]: "\"id\": \"AccessTokenInvalid\""
+                - generic [ref=e172]:
+                  - text: ">"
+                  - generic [ref=e173]: "},"
+                - generic [ref=e175]:
+                  - text: ">"
+                  - generic [ref=e176]: "\"message\": \"The access token you sent could not be found or is invalid.\","
+                - generic [ref=e178]:
+                  - text: ">"
+                  - generic [ref=e179]: "\"requestId\": \"bcc-1808911724\""
+                - generic [ref=e181]:
+                  - text: ">"
+                  - generic [ref=e182]: "}"
+              - generic:
+                - button
+                - button
+            - paragraph [ref=e184]: "If you include a valid access token, but one that is not able to access a resource, you will receive a 404 error:"
+            - generic [ref=e185]:
+              - generic [ref=e192]:
+                - generic [ref=e193]:
+                  - text: $
+                  - generic [ref=e194]: "# Request"
+                - generic [ref=e196]:
+                  - text: $
+                  - generic [ref=e197]: curl https://cdn.contentful.com/spaces/some_other_space/entries?access_token=b4c0n73n7fu1
+                - generic [ref=e199]: $
+                - generic [ref=e201]:
+                  - text: $
+                  - generic [ref=e202]: "# Response"
+                - generic [ref=e204]:
+                  - text: $
+                  - generic [ref=e205]: "{"
+                - generic [ref=e207]:
+                  - text: ">"
+                  - generic [ref=e208]: "\"sys\": {"
+                - generic [ref=e210]:
+                  - text: ">"
+                  - generic [ref=e211]: "\"type\": \"Error\","
+                - generic [ref=e213]:
+                  - text: ">"
+                  - generic [ref=e214]: "\"id\": \"NotFound\""
+                - generic [ref=e216]:
+                  - text: ">"
+                  - generic [ref=e217]: "},"
+                - generic [ref=e219]:
+                  - text: ">"
+                  - generic [ref=e220]: "\"message\": \"The resource could not be found.\","
+                - generic [ref=e222]:
+                  - text: ">"
+                  - generic [ref=e223]: "\"details\": {"
+                - generic [ref=e225]:
+                  - text: ">"
+                  - generic [ref=e226]: "\"sys\": {"
+                - generic [ref=e228]:
+                  - text: ">"
+                  - generic [ref=e229]: "\"type\": \"Space\""
+                - generic [ref=e231]:
+                  - text: ">"
+                  - generic [ref=e232]: "}"
+                - generic [ref=e234]:
+                  - text: ">"
+                  - generic [ref=e235]: "},"
+                - generic [ref=e237]:
+                  - text: ">"
+                  - generic [ref=e238]: "\"requestId\": \"9f3-2148374087\""
+                - generic [ref=e240]:
+                  - text: ">"
+                  - generic [ref=e241]: "}"
+              - generic:
+                - button
+                - button
+            - generic [ref=e246]:
+              - text: If you use
+              - link [ref=e247] [cursor=pointer]:
+                - /url: /developers/docs/sdks/javascript/sdks
+                - text: one our language or platform SDKs
+              - text: ", setting your token in a configuration file will handle the authentication process for you."
+            - paragraph [ref=e248]: Each Contentful API requires you follow different steps to obtain an access token.
+            - heading [level=2] [ref=e249] [cursor=pointer]: The Content Delivery and Preview API
+            - paragraph [ref=e250]:
+              - text: To request data from the
+              - link [ref=e251] [cursor=pointer]:
+                - /url: /developers/docs/references/content-delivery-api/overview
+                - text: Content Delivery API
+              - text: or
+              - link [ref=e252] [cursor=pointer]:
+                - /url: /developers/docs/references/content-preview-api/overview
+                - text: Content Preview API
+              - text: "you can create API keys in two ways:"
+            - list [ref=e253]:
+              - listitem [ref=e254]:
+                - text: ⦁
+                - link [ref=e255] [cursor=pointer]:
+                  - /url: /developers/docs/references/content-management-api/overview
+                  - text: use the Content Management API
+                - text: .
+              - listitem [ref=e256]: ⦁ use the Contentful web app
+            - heading [level=3] [ref=e257] [cursor=pointer]: API keys in the Contentful web app
+            - paragraph [ref=e258]:
+              - text: You can also create API keys using the
+              - link [ref=e259] [cursor=pointer]:
+                - /url: https://app.contentful.com/
+                - text: Contentful web app
+              - text: . Open the space that you want to access (the
+              - emphasis [ref=e264]: top left corner
+              - text: lists all spaces), and navigate to the
+              - strong [ref=e265]: Settings > API keys
+              - text: . Select the
+              - strong [ref=e266]: API keys
+              - text: option and create your first token.
+            - paragraph [ref=e267]
+            - generic [ref=e271]: If you’re using multiple environments make sure that these are accessible with your existing API keys.
+            - paragraph [ref=e275]
+            - heading [level=2] [ref=e279] [cursor=pointer]: The Content Management API
+            - paragraph [ref=e280]:
+              - text: To access the
+              - link [ref=e281] [cursor=pointer]:
+                - /url: /developers/docs/references/content-management-api/overview
+                - text: Content Management API
+              - text: and store content created in your apps, you need a content management token that represents the desired account of your user. This token will have
+              - strong [ref=e282]: the same rights as the owner of the account
+              - text: .
+            - paragraph [ref=e283]: "There are two types of content management tokens which you can use:"
+            - list [ref=e284]:
+              - listitem [ref=e285]:
+                - text: ⦁
+                - strong [ref=e286]: Personal access tokens
+                - text: "- Use if you’re using the content management API to access data from your own Contentful user account"
+              - listitem [ref=e287]:
+                - text: ⦁
+                - strong [ref=e288]: OAuth tokens
+                - text: "- Use if you’re building a public integration that requests access to other Contentful user’s data"
+            - heading [level=3] [ref=e289] [cursor=pointer]: Getting a personal access token
+            - paragraph [ref=e290]:
+              - text: You can create personal access tokens using the
+              - link [ref=e291] [cursor=pointer]:
+                - /url: https://app.contentful.com/
+                - text: Contentful web app
+              - text: ". To create a personal access token:"
+            - list [ref=e296]:
+              - listitem [ref=e297]: Log in to the Contentful web app.
+              - listitem [ref=e298]: Open the space that you want to access using the space selector in the top left.
+              - listitem [ref=e299]:
+                - text: Click
+                - strong [ref=e300]: Settings
+                - text: and select
+                - strong [ref=e301]: CMA tokens
+                - text: from the drop-down list.
+              - listitem [ref=e302]:
+                - text: Click
+                - strong [ref=e303]: Create personal access token
+                - text: . The
+                - strong [ref=e304]: Create personal access token
+                - text: window is displayed.
+              - listitem [ref=e305]:
+                - text: Enter a custom name for your personal access token and click
+                - strong [ref=e306]: Generate
+                - text: . Your personal access token is created.
+              - listitem [ref=e307]: Copy your personal access token to clipboard.
+            - generic [ref=e311]:
+              - text: Make sure to immediately copy your new personal access token. You won’t be able to do it after closing the
+              - strong [ref=e312]: Create personal access token
+              - text: window.
+            - heading [level=3] [ref=e313] [cursor=pointer]: Getting an OAuth token
+            - paragraph [ref=e314]: Contentful doesn’t have an API for acquiring an OAuth token directly for a user account, OAuth applications acquire them.
+            - paragraph [ref=e315]:
+              - text: If you are creating an application intended for re-use by other Contentful users, you should follow the
+              - link [ref=e316] [cursor=pointer]:
+                - /url: /developers/docs/extensibility/oauth
+                - text: Create OAuth 2.0 application
+              - text: .
+        - generic [ref=e317]:
+          - generic [ref=e321]:
+            - generic [ref=e322]: Was this page helpful?
+            - generic [ref=e323]:
+              - button [ref=e324] [cursor=pointer]: "Yes"
+              - button [ref=e325] [cursor=pointer]: "No"
+          - navigation [ref=e326]:
+            - link [ref=e327] [cursor=pointer]:
+              - /url: /developers/docs/references/api-basics
+              - generic [ref=e330]: Previous
+            - link [ref=e331] [cursor=pointer]:
+              - /url: /developers/docs/references/errors
+              - generic [ref=e332]: Errors
+              - generic [ref=e334]: Next
+    - contentinfo [ref=e338]:
+      - generic [ref=e340]:
+        - generic [ref=e342]:
+          - generic [ref=e343]:
+            - generic [ref=e344]: Product
+            - list [ref=e345]:
+              - listitem [ref=e346]:
+                - link [ref=e347] [cursor=pointer]:
+                  - /url: https://www.contentful.com/products/platform/
+                  - text: Platform
+              - listitem [ref=e348]:
+                - link [ref=e349] [cursor=pointer]:
+                  - /url: https://www.contentful.com/products/personalization/
+                  - text: Personalization
+              - listitem [ref=e350]:
+                - link [ref=e351] [cursor=pointer]:
+                  - /url: https://www.contentful.com/products/ai-actions/
+                  - text: AI Actions
+              - listitem [ref=e352]:
+                - link [ref=e353] [cursor=pointer]:
+                  - /url: https://www.contentful.com/products/analytics/
+                  - text: Analytics
+              - listitem [ref=e354]:
+                - link [ref=e355] [cursor=pointer]:
+                  - /url: https://www.contentful.com/whats-new/
+                  - text: What's New
+              - listitem [ref=e356]:
+                - link [ref=e357] [cursor=pointer]:
+                  - /url: https://www.contentful.com/solutions/
+                  - text: Use Cases
+              - listitem [ref=e358]:
+                - link [ref=e359] [cursor=pointer]:
+                  - /url: https://www.contentful.com/pricing/
+                  - text: Pricing
+          - generic [ref=e360]:
+            - generic [ref=e361]: Docs & Help
+            - list [ref=e362]:
+              - listitem [ref=e363]:
+                - link [ref=e364] [cursor=pointer]:
+                  - /url: https://www.contentful.com/developers/docs/
+                  - text: Documentation
+              - listitem [ref=e365]:
+                - link [ref=e366] [cursor=pointer]:
+                  - /url: https://www.contentful.com/help/
+                  - text: Help Center
+              - listitem [ref=e367]:
+                - link [ref=e368] [cursor=pointer]:
+                  - /url: https://training.contentful.com/
+                  - text: Training
+              - listitem [ref=e369]:
+                - link [ref=e370] [cursor=pointer]:
+                  - /url: https://www.contentful.com/products/ecosystem/
+                  - text: Ecosystem
+              - listitem [ref=e371]:
+                - link [ref=e372] [cursor=pointer]:
+                  - /url: https://www.contentful.com/developers/changelog/
+                  - text: Changelog
+              - listitem [ref=e373]:
+                - link [ref=e374] [cursor=pointer]:
+                  - /url: https://www.contentfulstatus.com/
+                  - text: System status
+              - listitem [ref=e375]:
+                - link [ref=e376] [cursor=pointer]:
+                  - /url: https://www.contentful.com/help/faq/
+                  - text: FAQs
+          - generic [ref=e377]:
+            - generic [ref=e378]: About us
+            - list [ref=e379]:
+              - listitem [ref=e380]:
+                - link [ref=e381] [cursor=pointer]:
+                  - /url: https://www.contentful.com/about-us/
+                  - text: About us
+              - listitem [ref=e382]:
+                - link [ref=e383] [cursor=pointer]:
+                  - /url: https://www.contentful.com/careers/
+                  - text: Careers
+              - listitem [ref=e384]:
+                - link [ref=e385] [cursor=pointer]:
+                  - /url: https://www.contentful.com/leadership/
+                  - text: Leadership
+              - listitem [ref=e386]:
+                - link [ref=e387] [cursor=pointer]:
+                  - /url: https://www.contentful.com/blog/
+                  - text: Blog
+              - listitem [ref=e388]:
+                - link [ref=e389] [cursor=pointer]:
+                  - /url: https://www.contentful.com/events/
+                  - text: Events
+              - listitem [ref=e390]:
+                - link [ref=e391] [cursor=pointer]:
+                  - /url: https://www.contentful.com/newsroom/
+                  - text: Newsroom
+          - generic [ref=e392]:
+            - generic [ref=e393]: Get in touch
+            - list [ref=e394]:
+              - listitem [ref=e395]:
+                - link [ref=e396] [cursor=pointer]:
+                  - /url: https://www.contentful.com/contact/
+                  - text: Contact
+              - listitem [ref=e397]:
+                - link [ref=e398] [cursor=pointer]:
+                  - /url: https://www.contentful.com/support/
+                  - text: Support
+              - listitem [ref=e399]:
+                - link [ref=e400] [cursor=pointer]:
+                  - /url: https://www.contentful.com/services/professional-services/
+                  - text: Professional services
+              - listitem [ref=e401]:
+                - link [ref=e402] [cursor=pointer]:
+                  - /url: https://www.contentful.com/partners/
+                  - text: Partners
+          - generic [ref=e403]:
+            - generic [ref=e404]: Connect
+            - list [ref=e405]:
+              - listitem [ref=e406]:
+                - link [ref=e407] [cursor=pointer]:
+                  - /url: https://www.instagram.com/contentful.inc/
+              - listitem [ref=e410]:
+                - link [ref=e411] [cursor=pointer]:
+                  - /url: https://github.com/contentful/
+              - listitem [ref=e415]:
+                - link [ref=e416] [cursor=pointer]:
+                  - /url: https://x.com/contentful/
+              - listitem [ref=e419]:
+                - link [ref=e420] [cursor=pointer]:
+                  - /url: https://www.youtube.com/c/Contentfulinc
+              - listitem [ref=e423]:
+                - link [ref=e424] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/contentful/
+              - listitem [ref=e427]:
+                - link [ref=e428] [cursor=pointer]:
+                  - /url: https://www.contentful.com/developers/changelog.rss
+        - list [ref=e431]:
+          - listitem [ref=e432]:
+            - link [ref=e433] [cursor=pointer]:
+              - /url: https://www.contentful.com/legal/
+              - text: Imprint/Legal
+          - listitem [ref=e435]:
+            - link [ref=e436] [cursor=pointer]:
+              - /url: https://www.contentful.com/legal/privacy-at-contentful/privacy-notice/
+              - text: Privacy
+          - listitem [ref=e438]:
+            - link [ref=e439] [cursor=pointer]:
+              - /url: https://preferences.contentful.com/
+              - text: Your Privacy Choices
+          - listitem [ref=e447]:
+            - link [ref=e448] [cursor=pointer]:
+              - /url: https://www.contentful.com/security/
+              - text: Security
+          - listitem [ref=e450]:
+            - link [ref=e451] [cursor=pointer]:
+              - /url: https://app.contentful.com/
+              - text: Log in
+          - listitem [ref=e453]:
+            - link [ref=e454] [cursor=pointer]:
+              - /url: https://www.contentful.com/help/accessibility-statement/
+              - text: Accessibility Statement
+          - listitem [ref=e456]:
+            - link [ref=e457] [cursor=pointer]:
+              - /url: https://www.contentful.com/sitemap/
+              - text: Site Map
+          - listitem [ref=e458]:
+            - link [ref=e460] [cursor=pointer]:
+              - /url: "#"
+              - text: Cookie Preferences
+        - paragraph [ref=e462]: © 2026 Contentful. All rights reserved.
+  - alert [ref=e486]
+  - complementary [ref=e487]:
+    - dialog "Consent preferences" [ref=e488]:
+      - generic [ref=e490]:
+        - text: We and our vendors use cookies and similar technologies to enhance your experience, analyze site traffic, personalize content, and deliver targeted advertising. You can manage your preferences by selecting Accept all, Reject non-essential, or Manage preferences. For more details, please see our
+        - link "Cookie Notice" [ref=e491] [cursor=pointer]:
+          - /url: https://www.contentful.com/legal/privacy-at-contentful/cookie-notice/
+        - text: and
+        - link "Privacy Notice" [ref=e492] [cursor=pointer]:
+          - /url: https://www.contentful.com/legal/privacy-at-contentful/privacy-notice/
+        - text: .
+      - button "Accept all" [ref=e494] [cursor=pointer]
+      - button "Reject non-essential" [ref=e495] [cursor=pointer]
+      - button "Manage preferences" [ref=e496] [cursor=pointer]
+  - iframe
