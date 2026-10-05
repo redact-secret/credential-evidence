@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-apikey-unsupported-variants",
+  "title": "ApiKey layouts outside the explicit-envelope claim",
+  "summary": "A value on the line after the scheme, a credential-shaped value under a prefixed or suffixed header name, a key id alone, and separate id and api_key fields.",
+  "rationale": "The bounded claim is the explicit Authorization or Proxy-Authorization envelope with the value on the same line. A prefixed header name is another header. Elastic's pages read do not say whether the id half is public, so an id alone is not assumed benign, and the separate id and api_key fields have no stated alphabet or width.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "elastic:elasticsearch-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input",
+    "identifier-and-secret-pair-component-roles"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted: the layouts are frozen as unsupported variants of the explicit-envelope claim. Whether the id alone is benign is an open question of the contract and is not decided here.",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-elasticsearch-specification-21dfae93f5",
+        "supports": "You must create an API key and use the encoded value in the request header: Authorization: ApiKey ${API_KEY}",
+        "locator": "components.securitySchemes.apiKeyAuth.description"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

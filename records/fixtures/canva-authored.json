@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "canva-authored",
+  "title": "Canva client secret carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "canva-authored--client-secret-form-body",
+      "case": "canva-client-secret-parameter-and-basic-envelope",
+      "path": "client-secret-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "f5ac299d6ffa676afbb92023490ea4f8cce4196d75beefee5ffd784b3d767a2f",
+      "text": "POST /rest/v1/oauth/token HTTP/1.1\nHost: api.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=SYNTHETICcode01&client_id=OC-SYNTHETIC-client-id&client_secret=cnvcaSYNTHETICneverIssued0001&redirect_uri=https%3A%2F%2Fexample.test%2Fcb\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 205,
+            "end": 234,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--client-secret-form-body-last-parameter",
+      "case": "canva-client-secret-parameter-and-basic-envelope",
+      "path": "client-secret-form-body-last-parameter/fixture.txt",
+      "context": "form-body",
+      "sha256": "8577f50492123b6f8e15b288dbddff0027ceedf6d3f0303fd374b0953184b8a2",
+      "text": "grant_type=client_credentials&client_id=OC-SYNTHETIC-client-id&client_secret=cnvcaSYNTHETICneverIssued0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 77,
+            "end": 106,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--client-secret-json-body",
+      "case": "canva-client-secret-parameter-and-basic-envelope",
+      "path": "client-secret-json-body/fixture.txt",
+      "context": "structured-file",
+      "sha256": "cfc1d2b696dca332fe27565c258ccdcd3d6bf0e7626ca1e52ef0294a2405d8df",
+      "text": "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"OC-SYNTHETIC-client-id\",\n  \"client_secret\": \"cnvcaSYNTHETICneverIssued0001\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 101,
+            "end": 130,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--client-secret-shell-assignment",
+      "case": "canva-client-secret-parameter-and-basic-envelope",
+      "path": "client-secret-shell-assignment/fixture.txt",
+      "context": "env",
+      "sha256": "2d843d81d009d215b231f0fb31f9da55bbc86c0a08fa44214ca94936f45b1741",
+      "text": "CANVA_CLIENT_ID=OC-SYNTHETIC-client-id\nclient_secret=cnvcaSYNTHETICneverIssued0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 53,
+            "end": 82,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--client-secret-without-prefix",
+      "case": "canva-client-secret-parameter-and-basic-envelope",
+      "path": "client-secret-without-prefix/fixture.txt",
+      "context": "form-body",
+      "sha256": "5251c15cd66f44802890a7e9843415ff14f9066e2165eb19e3af2458223f4e51",
+      "text": "grant_type=client_credentials&client_secret=SYNTHETICneverIssued0002NoPrefix\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 44,
+            "end": 76,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--authorization-basic-envelope",
+      "case": "canva-client-secret-parameter-and-basic-envelope",
+      "path": "authorization-basic-envelope/fixture.txt",
+      "context": "header",
+      "sha256": "9e5b836dca1bb3558fc847934f8233b4f7e631577387fccf7479e1fce6db6ab7",
+      "text": "POST /rest/v1/oauth/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic T0MtU1lOVEhFVElDLWNsaWVudC1pZDpjbnZjYVNZTlRIRVRJQ25ldmVySXNzdWVkMDAwMQ==\nContent-Type: application/x-www-form-urlencoded\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 79,
+            "end": 151,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--authorization-basic-envelope-curl-header",
+      "case": "canva-client-secret-parameter-and-basic-envelope",
+      "path": "authorization-basic-envelope-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "602f2736f4f8123315930c2486d638314d05245954574d44c314990306dda0d2",
+      "text": "curl -X POST -H \"Authorization: Basic T0MtU1lOVEhFVElDLWNsaWVudC1pZDpjbnZjYVNZTlRIRVRJQ25ldmVySXNzdWVkMDAwMQ==\" https://api.example.test/rest/v1/oauth/token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 38,
+            "end": 110,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "canva-authored--client-id-only",
+      "case": "canva-client-id-placeholders-and-prefix-prose",
+      "path": "client-id-only/fixture.txt",
+      "context": "form-body",
+      "sha256": "99fff81ee382fd655f4965a7332b9b9556cc3aaa95ae438f8d8a2c3c7f094c7a",
+      "text": "grant_type=authorization_code&client_id=OC-SYNTHETIC-client-id&code=SYNTHETICcode01\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--client-secret-angle-placeholder",
+      "case": "canva-client-id-placeholders-and-prefix-prose",
+      "path": "client-secret-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "36b14e5d3c0410f0f2abf43ea482a6fb71f1062124691da20db4a85ca57a753e",
+      "text": "grant_type=client_credentials&client_secret=<YOUR_CLIENT_SECRET>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--client-secret-environment-reference",
+      "case": "canva-client-id-placeholders-and-prefix-prose",
+      "path": "client-secret-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "0d18b93e49cd5117553f6f65873ee691807bf7f9b59c28ad4cd745b7ff544f44",
+      "text": "curl -d \"client_secret=${CANVA_CLIENT_SECRET}\" https://api.example.test/rest/v1/oauth/token\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--client-secret-template-reference",
+      "case": "canva-client-id-placeholders-and-prefix-prose",
+      "path": "client-secret-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "05c9c9e142c4f5613899ca9b976e3af005dc532a2fb1e3b4ea81f2e9ed09ee5c",
+      "text": "{\n  \"client_secret\": \"{{ secrets.CANVA_CLIENT_SECRET }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--client-secret-masked-display",
+      "case": "canva-client-id-placeholders-and-prefix-prose",
+      "path": "client-secret-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1eedb8bef088127600a888f3878b008bd5014a6c9f9972dde1b5b10b435449a6",
+      "text": "{\n  \"client_secret\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--authorization-basic-placeholder",
+      "case": "canva-client-id-placeholders-and-prefix-prose",
+      "path": "authorization-basic-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "5be4a8a31959893e189661a387a04ebc9a6d3625d2f8841b9cfc083940458650",
+      "text": "POST /rest/v1/oauth/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic <base64(client_id:client_secret)>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--cnvca-prefix-prose",
+      "case": "canva-client-id-placeholders-and-prefix-prose",
+      "path": "cnvca-prefix-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "f5c07be100269b4b9a3a911ec83cf55daa6487c87fe583236ef4bd9522f9fbb6",
+      "text": "A Canva client secret begins with cnvca, so check the prefix before saving it.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--bare-prefixed-string-without-carrier",
+      "case": "canva-client-secret-unsupported-variants",
+      "path": "bare-prefixed-string-without-carrier/fixture.txt",
+      "context": "prose",
+      "sha256": "a3f6bc61dfc9135ff6195a22bde3ae166a3bd6363d60786b471640e18a179abc",
+      "text": "Saved for later: cnvcaSYNTHETICneverIssued0001\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "canva-authored--authorization-basic-token-split-by-newline",
+      "case": "canva-client-secret-unsupported-variants",
+      "path": "authorization-basic-token-split-by-newline/fixture.txt",
+      "context": "header",
+      "sha256": "443bb51df16e1b2614a00b43a4cf777eb826b7f7433ddd51504660aa976e7c9e",
+      "text": "POST /rest/v1/oauth/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic T0MtU1lOVEhFVElDLWNs\n aWVudC1pZDpjbnZjYVNZTlRIRVRJQ25ldmVySXNzdWVkMDAwMQ==\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories.",
+  "description": "Hand-written synthetic fixtures for a Canva client_secret parameter, field and Basic envelope and their lookalikes. Every fixture projects one Case. No value was issued or tested against a service."
+}

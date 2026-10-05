@@ -58,3 +58,43 @@ secret:
       match: b97aa407ca7c3ed7668cd9ae5e63cd708935cfd2f717bb562c9dfb38e9c9c6e1
     - name: "synthetic fixture value (twilio-compound-credentials-authored.json, documented SK + 32 hex shape)"
       match: 1031581e897fb0c5aeb95adef2b58f85487c09e3f81a8e11cb2a8aaf3be5bc7b
+    - name: "synthetic fixture value (figma-authored.json)"
+      match: 604ce057c3e9365a415d157f249b7353850a305c7757994867ff282802ad7b62
+    - name: "synthetic fixture value (figma-authored.json)"
+      match: 120bcca4af36253d1b5cda972ea3318be5be6cf74911d1ea9e5cb63f001893e2
+    - name: "synthetic fixture value (asana-authored.json)"
+      match: a4e1bc0f71f43439cb166709e071263d878738e15a9f0ba3314151d26a445ca0
+    - name: "synthetic fixture value (airtable-authored.json)"
+      match: 0acd264487b2721eaa9e464806122e66065f41b8b1069afb842082f7d41b0772
+    - name: "synthetic fixture value (airtable-authored.json)"
+      match: 4409d90534802999d55a0b88b21d372d3060d08a1f2091f37f850e9853da0789
+    - name: "synthetic fixture value (elastic-authored.json)"
+      match: 7a8e73b0842d87df14f600a11c534a5aebe7943736ee802084582810c93bf9d2
+    - name: "synthetic fixture value (elastic-authored.json)"
+      match: 2a89ff1fdc5b96500829c54e7439b9faad31ba866cbc45347195b4f8b2b4c305
+    - name: "synthetic fixture value (canva-authored.json)"
+      match: d2946640082892e7e97c86918018c8edeea4aa74413ff7e72abb6447d43f8f1e
+    - name: "synthetic fixture value (canva-authored.json)"
+      match: 8c0c55aac0279313cf49e2cd0655db194e8525aded243a5f507b4d04c06d26c4
+    - name: "synthetic fixture value (canva-authored.json)"
+      match: 0dfba988fc4691441a0050491f3a88c6837aea6420ec150c6b47b91c5ddb5b6e
+    - name: "synthetic fixture value (canva-authored.json)"
+      match: 45ea5369e764c98cc26676e63d2364577b0b8616cb45adb31da09f381e8c1631
+    - name: "synthetic fixture value (canva-authored.json)"
+      match: 98bed33ea0664a59c9d71032c67d9c5f58d531b4bc69edf5c9fa26ef4fe6b621
+    - name: "synthetic fixture value, padding stripped"
+      match: 5bea09b46e645b4cfe48e03904c183f933b38edc00da73e96c7aa2f133b95b69
+    - name: "synthetic fixture value, padding stripped"
+      match: c657134d888a1f14b6f2d2c0d809301e6a5c57a03df305b6c23057c472ebcdbc
+    - name: "synthetic fixture value, padding stripped"
+      match: a16b471a303b50e39d3999072198c2d69e46d6e68c7c6a3fae0699d308d3c7d6
+  # The five Batch 1 carrier sets (#232) hold Base64 and header-shaped synthetic
+  # values whose exact detector match could not be hashed reliably (padding,
+  # envelope and delimiter handling differ per detector). They are authored,
+  # synthetic and never issued; only these files are skipped.
+  ignored-paths:
+    - records/fixtures/figma-authored.json
+    - records/fixtures/asana-authored.json
+    - records/fixtures/airtable-authored.json
+    - records/fixtures/elastic-authored.json
+    - records/fixtures/canva-authored.json

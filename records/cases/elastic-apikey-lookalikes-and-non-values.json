@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-apikey-lookalikes-and-non-values",
+  "title": "ApiKey lookalikes, placeholders and prose",
+  "summary": "Bare ApiKey prose, a scheme-only header, placeholders, environment references and masked values after the ApiKey scheme.",
+  "rationale": "The word ApiKey names a scheme and is also an everyday term, so prose or a header with no value is not a credential, and a placeholder, reference or masked display carries no value.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "elastic:elasticsearch-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged under project policy: these inputs hold no credential value. That a placeholder or reference is not a value is a project decision, not an Elastic statement.",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-elasticsearch-specification-21dfae93f5",
+        "supports": "You must create an API key and use the encoded value in the request header: Authorization: ApiKey ${API_KEY}",
+        "locator": "components.securitySchemes.apiKeyAuth.description"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

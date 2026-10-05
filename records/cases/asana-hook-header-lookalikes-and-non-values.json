@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "asana-hook-header-lookalikes-and-non-values",
+  "title": "Asana hook signature output, lookalike headers and non-values",
+  "summary": "An X-Hook-Signature HMAC output, an X-Hook-Secret-Id header carrying an identifier, and placeholders, environment references and masked displays under X-Hook-Secret.",
+  "rationale": "X-Hook-Signature is the HMAC computed with the shared secret, so it is derived output that does not reveal the secret, and X-Hook-Secret-Id is a different header. Placeholders, references and masked text carry no value. Treating the signature as the secret would redact a value receivers compare in the clear.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "asana:webhook-secret",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Not flagged under project policy. Asana documents the signature as a SHA-256 HMAC over the delivery body computed with the shared secret; that it is not itself the secret, and that a placeholder or reference is not a value, are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developers-asana-com-7fb4493377",
+        "supports": "used afterwards to compute the SHA-256 HMAC signature (X-Hook-Signature) over webhook delivery bodies",
+        "locator": "#the-webhook-handshake"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

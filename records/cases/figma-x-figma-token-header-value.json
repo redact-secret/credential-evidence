@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "figma-x-figma-token-header-value",
+  "title": "Value of an explicit X-Figma-Token header",
+  "summary": "A synthetic value after the exact X-Figma-Token header name in a raw request, a quoted curl -H argument and a JSON header map, including a lowercase header name and a value with no figd_ prefix.",
+  "rationale": "The header is the carrier: Figma documents the X-Figma-Token header for a personal access token, and the same header carries other Figma plan tokens, so the header does not say which kind of token it holds. The value is flagged because of where it sits, not because of any prefix, length or alphabet, none of which Figma states. The extent is the header value only: the header name, the colon and the closing quote or brace are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "figma:personal-access-token",
+      "role": "subject"
+    },
+    {
+      "family": "figma:plan-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Flagged under project policy: a value after the exact X-Figma-Token header name is treated as a credential whatever its shape. Figma documents that the header carries the token (carrier existence only); the exact-name boundary, value admission, extent and a generic header attribution are the project's decisions. No subtype is inferred from the header, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developers-figma-com-0de277db62",
+        "supports": "passing the token to the API in the X-Figma-Token header of your request.",
+        "locator": "#generate-a-personal-access-token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
