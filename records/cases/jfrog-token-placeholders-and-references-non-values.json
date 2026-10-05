@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "jfrog-token-placeholders-and-references-non-values",
+  "title": "JFrog token placeholders, references and masked displays",
+  "summary": "The documented Bearer and Basic request forms with their placeholders, an environment reference, a bare scheme, a masked display and prose under the token names.",
+  "rationale": "A placeholder such as the documented Bearer or Basic form, a reference or a masked display carries no token value, and a bare scheme names none. Flagging them would redact documentation a reader needs. The case says nothing about the platform access token and the MyJFrog API token being the same kind.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "jfrog:access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "jfrog:myjfrog-api-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no token value. That a placeholder, reference, bare scheme or masked display is not a value is the project's decision, not a JFrog statement.",
+    "sources": [
+      {
+        "sourceId": "docs-jfrog-com-a4d14ae414",
+        "supports": "curl -H\"Authorization: Bearer <TOKEN>\" http://JFROG_PLATFORM_URL/router/api/v1/system/ping",
+        "locator": "Access Tokens, Authorization Headers"
+      },
+      {
+        "sourceId": "docs-jfrog-com-a4d14ae414",
+        "supports": "curl -u<USERNAME>:<TOKEN> http://JFROG_PLATFORM_URL/router/api/v1/system/ping",
+        "locator": "Access Tokens, Basic Authentication"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

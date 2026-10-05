@@ -25,6 +25,25 @@
           "locator": "Business Login for Instagram, Step 1 to Step 3"
         }
       ]
+    },
+    {
+      "id": "instagram-token-response-members",
+      "statement": "Meta documents that the Instagram User access token is returned in the access_token value of a data entry of the JSON response of the https://api.instagram.com/oauth/access_token authorization code exchange (short-lived), and as the access_token member of the response of https://graph.instagram.com/access_token (long-lived). This is recorded for the Instagram User access token only.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-c121bb0b0b",
+          "supports": "Capture the access_token value. This is the user’s short-lived Instagram User access token which your app can use to access Instagram API with Instagram Login endpoints.",
+          "locator": "Business Login for Instagram, Step 2. Exchange the Code For a Token"
+        },
+        {
+          "sourceId": "developers-facebook-com-c121bb0b0b",
+          "supports": "On success, your app receives a JSON response with your app user’s long-lived access token, the token type, and the expiration.",
+          "locator": "Business Login for Instagram, Step 3. Get a long-lived access token"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -39,6 +58,11 @@
       "id": "distinct-from-meta-user-token",
       "question": "The Instagram Login flow uses separate endpoints and an Instagram app secret. Whether its tokens are a different family from meta:user-access-token, or the same kind of token, is not stated; kept separate pending a page that settles it.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "instagram-token-request-header-form",
+      "question": "The page states no Authorization header form for calls to Instagram API with Instagram Login endpoints; none is recorded.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "meta-authored",
+  "title": "TODO(record:new): title of this set of authored fixtures",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "meta-authored--query-raw-http",
+      "case": "meta-user-access-token-query-parameter-and-response-member",
+      "path": "query-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "395c86210d469535df5fdbd743fa5005b99ac5d95d2cd2ef965cafee40300ff3",
+      "text": "GET /v26.0/1000000000000001/accounts?access_token=SYNTHETIC-meta-user-access-token-never-issued-0001 HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 50,
+            "end": 100,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--query-curl-argument",
+      "case": "meta-user-access-token-query-parameter-and-response-member",
+      "path": "query-curl-argument/fixture.txt",
+      "context": "cli",
+      "sha256": "13213eb6056f5744c7c2c925e293bbb0b1dc008de1117134ba8de992b09e4709",
+      "text": "curl -i -X GET \"https://graph.example.test/v26.0/1000000000000001/accounts?access_token=SYNTHETIC-meta-user-access-token-never-issued-0002\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 88,
+            "end": 138,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--exchange-response-member",
+      "case": "meta-user-access-token-query-parameter-and-response-member",
+      "path": "exchange-response-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d85e3cc4ffb74065da67dd9a4c8c62473e2754484d5eda8165401bdc3370cdc0",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-meta-user-access-token-never-issued-0003\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 5183944\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 71,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--accounts-response-pretty",
+      "case": "meta-page-access-token-accounts-response-member",
+      "path": "accounts-response-pretty/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5ee272eba1e0398f525c5b4726773946dbd5275763925536e3fc7b30985bd5c3",
+      "text": "{\n  \"data\": [\n    {\n      \"access_token\": \"SYNTHETIC-meta-page-access-token-never-issued-0001\",\n      \"category\": \"Brand\",\n      \"name\": \"Synthetic Page\",\n      \"id\": \"1000000000000002\",\n      \"tasks\": [\n        \"ANALYZE\",\n        \"MODERATE\"\n      ]\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 43,
+            "end": 93,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--accounts-response-compact",
+      "case": "meta-page-access-token-accounts-response-member",
+      "path": "accounts-response-compact/fixture.txt",
+      "context": "structured-file",
+      "sha256": "08cafd60056c4ab9db91fc442e0f2cf338586160e24fe863d88ed9a9bd1508a7",
+      "text": "{\"data\":[{\"access_token\":\"SYNTHETIC-meta-page-access-token-never-issued-0002\",\"category\":\"Brand\",\"name\":\"Synthetic Page\",\"id\":\"1000000000000002\"}]}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 26,
+            "end": 76,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--accounts-response-two-pages",
+      "case": "meta-page-access-token-accounts-response-member",
+      "path": "accounts-response-two-pages/fixture.txt",
+      "context": "structured-file",
+      "sha256": "888e52c4166153bdb131848d94bc17f293bc375aa9c4149f214e486a6809c7ac",
+      "text": "{\n  \"data\": [\n    {\n      \"access_token\": \"SYNTHETIC-meta-page-access-token-never-issued-0003\",\n      \"name\": \"Synthetic Page One\",\n      \"id\": \"1000000000000003\"\n    },\n    {\n      \"access_token\": \"SYNTHETIC-meta-page-access-token-never-issued-0004\",\n      \"name\": \"Synthetic Page Two\",\n      \"id\": \"1000000000000004\"\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 43,
+            "end": 93,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          },
+          {
+            "start": 199,
+            "end": 249,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--generation-response-member",
+      "case": "meta-system-user-access-token-response-member",
+      "path": "generation-response-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "e60cabbd4713c72c222253f2d7f372767c557e8d5ffa670e10e38ceb058a733c",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-meta-system-user-access-token-never-issued-0001\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 78,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--refresh-response-member",
+      "case": "meta-system-user-access-token-response-member",
+      "path": "refresh-response-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "67f541e6da3042b8d8282e9d9b66cb89d03fd18e1800c86315a53abad00ec75c",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-meta-system-user-access-token-never-issued-0002\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 5183944\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 78,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--refresh-response-raw-http",
+      "case": "meta-system-user-access-token-response-member",
+      "path": "refresh-response-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "5a9795334bd50ae16b2d06c5f2d1cc7b729d74c94ca8a02da06bc8c152d080be",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"access_token\":\"SYNTHETIC-meta-system-user-access-token-never-issued-0003\",\"token_type\":\"bearer\",\"expires_in\":5183944}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 122,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--short-lived-data-entry",
+      "case": "meta-instagram-user-access-token-response-member",
+      "path": "short-lived-data-entry/fixture.txt",
+      "context": "structured-file",
+      "sha256": "66ada42ef038205e045ba5636911ce162e8a6a4adb5c1962dba6b66991bcdaf6",
+      "text": "{\n  \"data\": [\n    {\n      \"access_token\": \"SYNTHETIC-meta-instagram-user-access-token-never-issued-0001\",\n      \"user_id\": \"1000000000000005\",\n      \"permissions\": \"instagram_business_basic\"\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 43,
+            "end": 103,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--long-lived-response-member",
+      "case": "meta-instagram-user-access-token-response-member",
+      "path": "long-lived-response-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "9affa8355f09aea4891360463fbcb4bacf756cc0ced2b0095e0cee82126a90a4",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-meta-instagram-user-access-token-never-issued-0002\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 5183944\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 81,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--long-lived-raw-http",
+      "case": "meta-instagram-user-access-token-response-member",
+      "path": "long-lived-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "af4f5db4404f89086859d19ca8ab326cb50d687169a2dc40410befaa8e4f6cec",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"access_token\":\"SYNTHETIC-meta-instagram-user-access-token-never-issued-0003\",\"token_type\":\"bearer\",\"expires_in\":5183944}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 125,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--accounts-entry-without-token",
+      "case": "meta-ids-lifetimes-and-token-placeholders-non-values",
+      "path": "accounts-entry-without-token/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5421a05a734358eb4c2313e0f9d2235e04c659f0a2e1b5ff9a9fc86046163b07",
+      "text": "{\n  \"data\": [\n    {\n      \"category\": \"Brand\",\n      \"name\": \"Synthetic Page\",\n      \"id\": \"1000000000000002\",\n      \"tasks\": [\n        \"ANALYZE\"\n      ]\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--token-response-lifetime-members",
+      "case": "meta-ids-lifetimes-and-token-placeholders-non-values",
+      "path": "token-response-lifetime-members/fixture.txt",
+      "context": "structured-file",
+      "sha256": "f53265e8d0f570ad3e7def06a5c6529672b90e6c534e7b629b9c86cc95af39ac",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"expires_in\": 5183944\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--client-token-pair-parameter",
+      "case": "meta-ids-lifetimes-and-token-placeholders-non-values",
+      "path": "client-token-pair-parameter/fixture.txt",
+      "context": "url",
+      "sha256": "3e1f436fefd0cd6ba6bd62e26f73e809cb24713b5287fed97178dce3d54d5521",
+      "text": "GET /v26.0/1000000000000006/insights?access_token=1000000000000006|SYNTHETIC-meta-client-token-not-secret HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--access-token-documented-template",
+      "case": "meta-ids-lifetimes-and-token-placeholders-non-values",
+      "path": "access-token-documented-template/fixture.txt",
+      "context": "url",
+      "sha256": "db00141a0b5b3140dc04c74ccc8f672b9ccce047b847d9879b93c5d87073005f",
+      "text": "GET /{your-user-id}/accounts?access_token={user-access-token} HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--access-token-environment-reference",
+      "case": "meta-ids-lifetimes-and-token-placeholders-non-values",
+      "path": "access-token-environment-reference/fixture.txt",
+      "context": "env",
+      "sha256": "58424f11e4ad625335535ef386b4cd10a829e35db9de01b5decabf9a3dd3adfc",
+      "text": "access_token=${META_ACCESS_TOKEN}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--access-token-masked-display",
+      "case": "meta-ids-lifetimes-and-token-placeholders-non-values",
+      "path": "access-token-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d8496ffcc2e5a54716aad0c7f6109fd21898a519f26c6adeab94cc190ad95f4b",
+      "text": "{\n  \"access_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--access-token-parameter-prose-mention",
+      "case": "meta-ids-lifetimes-and-token-placeholders-non-values",
+      "path": "access-token-parameter-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "1b9102ca50b43d4a5cbee8ca7089fc89fa4c0892d20c8c0838e9ff4c1a2ea438",
+      "text": "Pass the token in the access_token parameter of the request.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "meta-system-user-access-token-response-member",
+  "title": "Meta system user access token in a generation or refresh response member",
+  "summary": "A synthetic system user access token as the access_token member of a generation response, of a refresh response and of a raw HTTP refresh response.",
+  "rationale": "Meta documents that a system user access token is returned by the generation request and, when refreshed, as the access_token member of the oauth/access_token response. The documentation states no prefix, alphabet or width and says token length changes over time, so the member name is the only identifying context and no bare-value rule is implied. The system user id and business id are public identifiers, and the user, Page and Instagram tokens are separate families with their own carriers.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "meta:system-user-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of the access_token member of a system user token generation or refresh response is treated as a credential. Meta documents the generation and refresh responses (carrier existence only); the value admission and extent are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developers-facebook-com-b8c0dfc58b",
+        "supports": "The response returns the access token string.",
+        "locator": "Install Apps, Generate, Refresh, and Revoke Tokens, Install Apps (generate request and response)"
+      },
+      {
+        "sourceId": "developers-facebook-com-b8c0dfc58b",
+        "supports": "Sample Response { \"access_token\":\"{expiring-system-user-access-token}\", \"token_type\": \"bearer\", \"expires_in\": 5183944 }",
+        "locator": "Install Apps, Generate, Refresh, and Revoke Tokens, Refresh Access Token, sample response"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

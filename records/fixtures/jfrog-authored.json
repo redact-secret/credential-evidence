@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "jfrog-authored",
+  "title": "TODO(record:new): title of this set of authored fixtures",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "jfrog-authored--bearer-curl-header",
+      "case": "jfrog-access-token-bearer-header",
+      "path": "bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "f0f5ab2f00b1baf40e05d577d10defb4a1dee60b569b341a8491d5ac251d0f79",
+      "text": "curl -H\"Authorization: Bearer SYNTHETIC-jfrog-access-token-never-issued-0001\" http://jfrog.example.test/router/api/v1/system/ping\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 30,
+            "end": 76,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--bearer-raw-http",
+      "case": "jfrog-access-token-bearer-header",
+      "path": "bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "2e01e8ef1e21e98ce3c2a4ffc53e47921e51492cdd3395f9c4736e20f9a49a6e",
+      "text": "GET /router/api/v1/system/ping HTTP/1.1\nHost: jfrog.example.test\nAuthorization: Bearer SYNTHETIC-jfrog-access-token-never-issued-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 87,
+            "end": 133,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--bearer-json-header-map",
+      "case": "jfrog-access-token-bearer-header",
+      "path": "bearer-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "fec12dd827466c5d8c8f00bd62e62e868e9ea00b26c9338a3de3d1fd88e8212d",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-jfrog-access-token-never-issued-0003\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 92,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--myjfrog-bearer-raw-http",
+      "case": "myjfrog-api-token-bearer-header",
+      "path": "myjfrog-bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "8011f50d44b01de003fd8dfab15a680af008968503c643e0bf94d34bca9696a1",
+      "text": "GET /usage HTTP/1.1\nHost: myjfrog.example.test\nAuthorization: Bearer SYNTHETIC-myjfrog-api-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 114,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--myjfrog-bearer-curl-header",
+      "case": "myjfrog-api-token-bearer-header",
+      "path": "myjfrog-bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "3448b5b30e5031090cd7c6607973875e0bdec455a11ad2d6b32d96fabd18aee5",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-myjfrog-api-token-never-issued-0002\" https://myjfrog.example.test/usage\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 76,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--myjfrog-bearer-json-header-map",
+      "case": "myjfrog-api-token-bearer-header",
+      "path": "myjfrog-bearer-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "24b854e5bd58d4e03f3d7360c29481d7cfa6fb8f6a992203416bd98b1dd76028",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-myjfrog-api-token-never-issued-0003\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 91,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--bearer-documented-placeholder",
+      "case": "jfrog-token-placeholders-and-references-non-values",
+      "path": "bearer-documented-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "87c9c33898708d1c6282598fd555c5a2aea72ba87a6eb58effb42513d0095c14",
+      "text": "curl -H\"Authorization: Bearer <TOKEN>\" http://JFROG_PLATFORM_URL/router/api/v1/system/ping\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--basic-documented-placeholder",
+      "case": "jfrog-token-placeholders-and-references-non-values",
+      "path": "basic-documented-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "3226e3650e64d2feb4d4bdb60988c683443a2c2914abb7df1954532fb8eb186d",
+      "text": "curl -u<USERNAME>:<TOKEN> http://JFROG_PLATFORM_URL/router/api/v1/system/ping\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--bearer-environment-reference",
+      "case": "jfrog-token-placeholders-and-references-non-values",
+      "path": "bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "a61db7c1a5be1593a87cde82d7dd0fab0ebeceffc1c268acb04ff052d6502ed8",
+      "text": "curl -H \"Authorization: Bearer ${JFROG_ACCESS_TOKEN}\" https://jfrog.example.test/router/api/v1/system/ping\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--bearer-scheme-only",
+      "case": "jfrog-token-placeholders-and-references-non-values",
+      "path": "bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "77f309c43e153b286fe6bb1fbb2a901c15dda9f619e82b4522ede988b8c409cf",
+      "text": "Authorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--myjfrog-bearer-documented-placeholder",
+      "case": "jfrog-token-placeholders-and-references-non-values",
+      "path": "myjfrog-bearer-documented-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "87ffb007fe5f523fbad5c079af445f4f8ace023b57675822e3d2bfa659b7110d",
+      "text": "Authorization: Bearer <token>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--token-masked-display",
+      "case": "jfrog-token-placeholders-and-references-non-values",
+      "path": "token-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "06385de2626192b1bd452c95490ebcdd1b8c9f05f53566426934281ae1e629ac",
+      "text": "{\n  \"token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--bearer-header-prose-mention",
+      "case": "jfrog-token-placeholders-and-references-non-values",
+      "path": "bearer-header-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "f7d13fe406affc91ddfcbb264ab741792fea8084c825dddd2e135b27ec410b4e",
+      "text": "Send the token as a bearer token in the Authorization header.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
