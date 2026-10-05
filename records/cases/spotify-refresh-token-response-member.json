@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "spotify-refresh-token-response-member",
+  "title": "Spotify refresh token in a token response member",
+  "summary": "A synthetic refresh token in the refresh_token member of an authorization token response, in a raw HTTP response, a pretty-printed JSON file and a compact one-line JSON object.",
+  "rationale": "Spotify returns a refresh_token with the access token in the token response of the user-authorized flows, and the token is exchanged for new access tokens; for registered apps it lives 6 months and refreshing does not extend it. The documentation states no prefix, alphabet or width, so the member name is the only identifying context and no bare-value rule is implied. The refresh token belongs to token request and response fields, not to a resource API Bearer header. The extent is the string value of the member and excludes the quotes.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "spotify:refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "quoted-value-extent"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the string value of the refresh_token member of a Spotify token response is treated as a credential. Spotify documents that the response returns a refresh token (carrier existence only); the member value admission and extent are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developer-spotify-com-c358a1c8d6",
+        "supports": "A refresh token is a security credential that allows client applications to obtain new access tokens without requiring users to reauthorize the application.",
+        "locator": "Refreshing tokens page, introduction"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

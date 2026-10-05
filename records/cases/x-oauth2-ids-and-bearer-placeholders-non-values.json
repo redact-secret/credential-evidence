@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "x-oauth2-ids-and-bearer-placeholders-non-values",
+  "title": "X OAuth 2.0 client ids, user ids, placeholders and masked displays",
+  "summary": "A public client id in an authorization request, a user id in a response, Bearer and Basic placeholders, environment and template references, masked displays and a scheme with no value.",
+  "rationale": "A client id and a user id are public identifiers and not tokens or secrets. A placeholder, reference or masked display carries no value, and a scheme with no value holds nothing to flag. Flagging them would redact identifiers and documentation a reader needs. The case makes no statement about percent-containing shapes.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "x:oauth2-user-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "x:oauth2-client-secret",
+      "role": "lookalike"
+    },
+    {
+      "family": "x:app-only-bearer-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "public-identifier",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#235). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no token or secret value. That a client id and a user id are public and that a placeholder, reference or masked display is not a value are the project's decisions; X documents the carriers, not the confidentiality of an id.",
+    "sources": [
+      {
+        "sourceId": "docs-x-com-2fcd3de449",
+        "supports": "Instead of passing your Bearer Token, you",
+        "locator": "Step 4: Connect to the APIs"
+      },
+      {
+        "sourceId": "docs-x-com-48490501ab",
+        "supports": "the access token you create through the Authorization Code Flow with PKCE will only stay valid for two hours",
+        "locator": "How long will my credentials stay valid?"
+      },
+      {
+        "sourceId": "docs-x-com-2fcd3de449",
+        "supports": "To create the basic authorization header you will need to base64 encoding on your Client ID and Client Secret",
+        "locator": "Working with confidential clients"
+      },
+      {
+        "sourceId": "docs-x-com-58d088945a",
+        "supports": "Authenticate with OAuth 2.0. Used for authorization code flow.",
+        "locator": "App credentials table"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
