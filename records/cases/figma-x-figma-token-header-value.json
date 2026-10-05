@@ -24,7 +24,7 @@
   "expectation": {
     "outcome": "must-flag",
     "basis": "project-policy",
-    "rationale": "Flagged under project policy: a value after the exact X-Figma-Token header name is treated as a credential whatever its shape. Figma documents that the header carries the token (carrier existence only); the exact-name boundary, value admission, extent and a generic header attribution are the project's decisions. No subtype is inferred from the header, and no prefix, width or alphabet is claimed.",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#232). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value after the exact X-Figma-Token header name is treated as a credential whatever its shape. Figma documents that the header carries the token (carrier existence only); the exact-name boundary, value admission, extent and a generic header attribution are the project's decisions. No subtype is inferred from the header, and no prefix, width or alphabet is claimed.",
     "sources": [
       {
         "sourceId": "developers-figma-com-0de277db62",
@@ -34,6 +34,6 @@
     ],
     "observedAt": "2026-10-05"
   },
-  "lifecycle": "draft",
+  "lifecycle": "maintainer-only",
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
 }

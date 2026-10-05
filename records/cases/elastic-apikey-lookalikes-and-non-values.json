@@ -22,7 +22,7 @@
   "expectation": {
     "outcome": "must-not-flag",
     "basis": "project-policy",
-    "rationale": "Not flagged under project policy: these inputs hold no credential value. That a placeholder or reference is not a value is a project decision, not an Elastic statement.",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#232). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no credential value. That a placeholder or reference is not a value is a project decision, not an Elastic statement.",
     "sources": [
       {
         "sourceId": "github-com-elastic-elasticsearch-specification-21dfae93f5",
@@ -32,6 +32,6 @@
     ],
     "observedAt": "2026-10-05"
   },
-  "lifecycle": "draft",
+  "lifecycle": "maintainer-only",
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
 }
