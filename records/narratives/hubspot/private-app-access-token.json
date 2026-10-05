@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "hubspot:private-app-access-token",
+  "family": "hubspot:private-app-access-token",
+  "lifecycle": "draft",
+  "contract": "hubspot:private-app-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "bearer-token-unique-to-app-string-fixed",
+        "text": "A legacy private app generates an access token unique to that app, sent as a Bearer token in the Authorization header; changes to the app's scopes update what the token can do but not the token string.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "private-app-token-exists"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-hubspot-com-f67bca3860"
+          }
+        ]
+      },
+      {
+        "id": "carrier-info-request-body",
+        "text": "HubSpot's token information request takes the private app access token in a tokenKey body field and returns the creating user, the Hub ID, the private app ID and the scopes.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "token-carried-in-info-request-body"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-hubspot-com-f67bca3860"
+          }
+        ]
+      },
+      {
+        "id": "prefix-alphabet-length-grouping",
+        "text": "No prefix, region marker, alphabet, length or grouping of a private app access token is established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The pages read state none; their only token strings in this area are masked or placeholder values. Third-party pattern lists show a pat-na1-/pat-eu1- layout from one maintainer and a UUID-shaped layout of unspecified target from two. A HubSpot statement or two independent maintainers' artifacts that target private app tokens would settle it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "created-by-super-admin-in-legacy-apps",
+        "text": "A legacy private app is created in a HubSpot account under Development, Legacy apps, by a super admin, and its token is revealed on the app's Auth tab.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "private-app-token-exists"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-hubspot-com-f67bca3860"
+          }
+        ]
+      },
+      {
+        "id": "creation-being-disabled",
+        "text": "HubSpot has announced that creating new legacy private apps through the account UI is being disabled on 2026-09-28 for new accounts and 2026-10-26 for older accounts, while existing legacy private apps continue to work.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "legacy-creation-disabled-schedule"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-hubspot-com-1f9e235294"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "rotation-and-revocation",
+        "text": "A private app token can be rotated, which creates a new token and expires the original immediately or after about 7 days; HubSpot recommends rotating every six months, and deleting the app revokes the token permanently.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "private-app-token-rotation"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-hubspot-com-f67bca3860"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "built-on-oauth-not-same-format-stated",
+        "text": "HubSpot says private app access tokens are implemented on top of OAuth, without stating that their string format is the same as an OAuth access token's.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "built-on-oauth"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-hubspot-com-f67bca3860"
+          }
+        ]
+      },
+      {
+        "id": "private-app-versus-static-auth",
+        "text": "Whether the legacy private app token and the static auth access token of project-based apps are one credential family is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Neither page read mentions the other credential or states that the strings share a format or lifecycle. A HubSpot statement relating them would settle it."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "service-key-and-project-token-shapes",
+        "text": "Whether the tokens of the replacement Service Keys or project-based apps share the legacy private app token layout is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The changelog names Service Keys as the replacement but no page read states any token layout. A HubSpot statement for each credential would settle it."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}

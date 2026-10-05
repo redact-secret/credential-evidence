@@ -10,7 +10,20 @@
     "until": null
   },
   "supersedes": null,
-  "structure": {},
+  "structure": {
+    "components": [
+      {
+        "name": "token-id-prefix",
+        "role": "prefix",
+        "description": "Airtable says tokens are prefixed with their ID. The pages read do not say what the ID looks like, how long it is, where it ends, or whether it is a non-secret identifier."
+      },
+      {
+        "name": "remainder",
+        "role": "body",
+        "description": "Airtable says the rest of the token is an opaque, variable-length string and that no particular length or format may be relied on. No alphabet, length or layout is documented."
+      }
+    ]
+  },
   "claims": [
     {
       "id": "existence",
@@ -68,15 +81,110 @@
           "locator": "#L25"
         }
       ]
+    },
+    {
+      "id": "shown-once-at-creation",
+      "statement": "Airtable states that a newly created personal access token is shown to its creator once and that the token itself is not stored by Airtable.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "airtable-com-3770a0226e",
+          "supports": "Once your token is created, we will only show it to you once",
+          "locator": "#creating-a-token"
+        }
+      ]
+    },
+    {
+      "id": "no-expiry-regeneration-invalidates-previous",
+      "statement": "Airtable states that a personal access token has no expiration window and stays active until it is deleted, regenerated or modified, and that regenerating a token causes requests with the previous token value to be rejected.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "support-airtable-com-0c413d2898",
+          "supports": "Personal access tokens do not have an expiration window and remain active indefinitely until they are manually deleted, regenerated, or modified.",
+          "locator": "Do personal access tokens expire?"
+        },
+        {
+          "sourceId": "airtable-com-3770a0226e",
+          "supports": "After the token has been regenerated, any API requests that attempt to use the previous token will be rejected.",
+          "locator": "#regenerating-tokens"
+        }
+      ]
+    },
+    {
+      "id": "carrier-bearer-header-not-url-parameter",
+      "statement": "Airtable documents the Authorization: Bearer header as the way to pass a personal access token and states that passing a personal access token through the legacy api_key URL parameter is not supported.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "airtable-com-3770a0226e",
+          "supports": "Personal access tokens should be passed with your API requests as a Authorization: Bearer header.",
+          "locator": "#using-personal-access-tokens"
+        },
+        {
+          "sourceId": "airtable-com-c31dd3fe16",
+          "supports": "Passing personal access tokens and OAuth access tokens via the legacy api_key URL parameter is not supported.",
+          "locator": "#basics"
+        }
+      ]
+    },
+    {
+      "id": "format-change-not-breaking",
+      "statement": "Airtable states that changes to the token format for newly created tokens are not considered to be breaking changes, so the documentation itself bounds any layout observed in existing tokens to those tokens.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "airtable-com-3770a0226e",
+          "supports": "Changes to the token format (for newly created tokens) are not considered to be breaking changes.",
+          "locator": "#using-personal-access-tokens"
+        }
+      ]
+    },
+    {
+      "id": "opaque-notice-changelog-entry",
+      "statement": "Airtable's API changelog lists an entry dated 2023-02-08 saying its documentation for personal access tokens and OAuth integrations was updated to note that tokens should be treated as opaque, variable-length strings.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "airtable-com-78b7ef5a0e",
+          "supports": "Updated documentation for personal access tokens and OAuth integrations to note that tokens should be treated as opaque, variable-length strings",
+          "locator": "2023-02-08 entry"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Draft extended in place on 2026-10-05 by an AI agent run (claims and open questions appended; earlier entries unchanged, including earlier open questions that describe the candidate as researched at existence level only, which the later entries supersede in scope but not in wording).",
   "openQuestions": [
     {
       "id": "open-question-1",
       "question": "The provider says not to rely on a particular length or format, so the literal \"pat\" prefix, 14-character part and 64-hex part are recorded only as consistency of two scanner rule artifacts (maintainers differ; whether one was derived from the other is not established). Not researched beyond existence and this consistency claim; whether the pattern is stable across newly issued tokens is unresolved.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "id-prefix-boundary-and-publicity",
+      "question": "Airtable says tokens are prefixed with their ID but the pages read do not say where the ID ends, what it looks like, or whether the ID is a non-secret identifier that may be shown apart from the rest. Reading the rule artifacts' literal \"pat\" plus 14 characters as that ID and the 64 hexadecimal characters as the remainder is a hypothesis consistent with both, not a documented mapping. A statement from Airtable, or a token-listing reference that shows an ID without the secret remainder, would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "tool-shape-era-and-stability",
+      "question": "The provider says format changes for newly created tokens are not breaking and that no length or format may be relied on; the pat/14/period/64-hex shape in two rule artifacts is therefore recorded only as consistency of those artifacts at one commit each, with no stated issue date range. Whether tokens created at other times or by other paths (for example enterprise service accounts) share it is unresolved. A provider statement of the format by issue date, or archived provider documentation naming it, would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "kingfisher-copy-not-counted",
+      "question": "A third open-source scanner rule set (Kingfisher) carries the same pattern but lists it as imported from the Gitleaks rule through an upstream rule identifier in its generated provenance; it is a copy and counts once with that rule, so no further maintainer corroborates the shape.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

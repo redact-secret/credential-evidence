@@ -73,10 +73,110 @@
           "locator": "#L3-L10"
         }
       ]
+    },
+    {
+      "id": "token-response-member-opaque",
+      "statement": "Dropbox's token endpoint reference describes the access_token member of the token response as the token used to call the Dropbox API and says it should always be treated as opaque with no guarantees as to its size or composition; expires_in gives the validity in seconds.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "The access token to be used to call the Dropbox API. This should always be treated as opaque with no guarantees as to the size or composition of this token.",
+          "locator": "#oauth2token"
+        },
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "The length of time in seconds that the access token will be valid for.",
+          "locator": "#oauth2token"
+        }
+      ]
+    },
+    {
+      "id": "console-generated-token-own-account",
+      "statement": "Dropbox's OAuth guide describes a Generate button in an app's console settings that produces an access token for quick testing, usable only for the account that owns the app.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-aea155a830",
+          "supports": "pressing the button that says \"Generate\" in the OAuth 2 section of your app settings page.",
+          "locator": "#testing-with-a-generated-token"
+        },
+        {
+          "sourceId": "docs-dropboxapi-com-aea155a830",
+          "supports": "Keep in mind that this is only for your own account",
+          "locator": "#testing-with-a-generated-token"
+        }
+      ]
+    },
+    {
+      "id": "legacy-long-lived-deprecated-statement",
+      "statement": "Dropbox's OAuth guide states that the API formerly used only long-lived access tokens, that these are deprecated, and that they would remain available as a console option for compatibility until mid 2021.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-aea155a830",
+          "supports": "In the past, the Dropbox API used only long-lived access tokens. These are now deprecated, but will remain available as an option in the Developer console for compatibility until mid 2021.",
+          "locator": "#using-refresh-tokens"
+        }
+      ]
+    },
+    {
+      "id": "response-examples-labelled",
+      "statement": "Dropbox's token endpoint reference presents response bodies under headings labelled as examples for a short-lived token, a short-lived offline token and a legacy long-lived token; the page states no prefix, alphabet or length for any of them.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "Example: short-lived token",
+          "locator": "#oauth2token"
+        },
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "Example: short-lived \"offline\" access token",
+          "locator": "#oauth2token"
+        },
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "Example: legacy long-lived access token",
+          "locator": "#oauth2token"
+        }
+      ]
+    },
+    {
+      "id": "tool-length-bounds-differ",
+      "statement": "Open-source scanner rule artifacts disagree on how long a short-lived access token body is: one artifact fixes 135 characters after the sl. prefix, one bounds the run at 130 to 152 characters and does not admit the sl.u. form, and one sets a 130 character minimum with no maximum and carries a source comment that newer scoped sl.u. tokens can be about 1.5KB. Dropbox states the token is opaque, may exceed 1KB and has no guaranteed size.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+          "supports": "[a-z0-9\\-=_]{135}",
+          "locator": "#L468"
+        },
+        {
+          "sourceId": "github-com-praetorian-inc-noseyparker-4da81bbf6f",
+          "supports": "(sl\\.[a-zA-Z0-9_-]{130,152})",
+          "locator": "#L9"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-164cc01e1c",
+          "supports": "Newer scoped Dropbox short-lived tokens (sl.u.…) can be ~1.5KB",
+          "locator": "#L26-L27"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Draft extended in place on 2026-10-05 by an AI agent run (claims and open questions appended; earlier entries unchanged, including earlier open questions that describe the candidate as researched at existence level only, which the later entries supersede in scope but not in wording).",
   "openQuestions": [
     {
       "id": "format-not-researched",
@@ -87,6 +187,26 @@
       "id": "opacity-versus-rule-artifacts",
       "question": "The provider documents tokens as opaque with composition subject to change, while three rule artifacts assume an \"sl.\" prefix and a 130+ character body. Which of those properties Dropbox guarantees, and whether the \"sl.u.\" form (shown in provider examples and handled by one artifact) is a separate variant, is unresolved; whether the artifacts derive from the provider's example strings was not checked.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "provider-length-and-prefix-unstated",
+      "question": "Dropbox's pages read state that access tokens are opaque, may exceed 1KB and carry no guarantee on size or composition, and give no prefix, alphabet or length. The sl. prefix and 130-plus character bodies in rule artifacts are therefore contextual only: they do not establish a minimum, a maximum or a fixed width, and a token that does not start with sl. is not excluded by anything read. A Dropbox statement of the format by token kind and issue date would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "example-forms-not-a-format-statement",
+      "question": "The authorization page shows examples whose access_token values begin sl. (short-lived), sl.u. (short-lived offline) and, for the legacy long-lived example, a value that does not begin sl. The page labels them examples and states no format. Whether sl.u. marks a separate variant, and whether a console-generated token, a user token and a team token share one shape, is not settled; no dated variant record was written because no page gives a date for an sl.u. form.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "legacy-long-lived-boundary",
+      "question": "The deprecated long-lived access token is a separate candidate family in this repository; the sl.-prefix lead must not be extended to it and its own rule artifacts must not be read onto this family. When Dropbox stopped issuing long-lived tokens is not established: the page read says only that they would remain available until mid 2021.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "kingfisher-copy-not-counted",
+      "question": "A further scanner rule set (Kingfisher) lists the sl. rule as imported from the Gitleaks rule through an upstream rule identifier in its generated provenance; it counts once with that rule.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

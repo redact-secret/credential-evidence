@@ -8,8 +8,17 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-05",
+    "blockers": [
+      {
+        "kind": "issuance-gated",
+        "summary": "Token layout by issue date can be seen only on issued tokens, which are not created or inspected here."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#240"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

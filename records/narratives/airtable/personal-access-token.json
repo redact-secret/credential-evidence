@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "airtable:personal-access-token",
+  "family": "airtable:personal-access-token",
+  "lifecycle": "draft",
+  "contract": "airtable:personal-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefixed-with-id-otherwise-opaque",
+        "text": "Airtable says a personal access token is prefixed with its ID and is otherwise an opaque, variable-length string, and tells integrators not to rely on a particular length or format.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "opaque-format"
+          },
+          {
+            "kind": "source",
+            "sourceId": "airtable-com-3770a0226e"
+          }
+        ]
+      },
+      {
+        "id": "format-changes-not-breaking",
+        "text": "Airtable states that changes to the token format for newly created tokens are not considered breaking changes.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "format-change-not-breaking"
+          },
+          {
+            "kind": "source",
+            "sourceId": "airtable-com-3770a0226e"
+          }
+        ]
+      },
+      {
+        "id": "carrier-bearer-header",
+        "text": "Airtable documents the Authorization: Bearer header for passing a personal access token and says the legacy api_key URL parameter is not supported for it.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "carrier-bearer-header-not-url-parameter"
+          },
+          {
+            "kind": "source",
+            "sourceId": "airtable-com-3770a0226e"
+          },
+          {
+            "kind": "source",
+            "sourceId": "airtable-com-c31dd3fe16"
+          }
+        ]
+      },
+      {
+        "id": "id-boundary-and-remainder-layout",
+        "text": "Where the ID prefix ends, how long it is, whether it is a non-secret identifier, and the alphabet and length of the remainder are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The pages read say only that tokens are prefixed with their ID and are otherwise opaque and variable-length. Third-party pattern lists show one fixed layout, but the provider says changes for new tokens are not breaking, so that layout is not recorded as the provider's format. A provider statement or an archived page naming the layout by issue date would settle it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "created-in-token-panel-shown-once",
+        "text": "A personal access token is created in the developer token panel with chosen scopes and base or workspace access, and is shown to its creator once; Airtable does not store the token itself.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "shown-once-at-creation"
+          },
+          {
+            "kind": "claim",
+            "claimId": "existence"
+          },
+          {
+            "kind": "source",
+            "sourceId": "airtable-com-3770a0226e"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "no-expiry-regeneration-replaces",
+        "text": "A personal access token does not expire on its own; deleting, regenerating or modifying it ends or changes the old value, and a regenerated token's previous value is rejected.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "no-expiry-regeneration-invalidates-previous"
+          },
+          {
+            "kind": "source",
+            "sourceId": "support-airtable-com-0c413d2898"
+          },
+          {
+            "kind": "source",
+            "sourceId": "airtable-com-3770a0226e"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "oauth-token-shape-relationship",
+        "text": "Whether a personal access token can be told apart from an OAuth access token by its text alone is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "Airtable documents both as bearer tokens and says both are opaque, variable-length strings; no page read states a distinguishing marker. A provider statement of the distinguishing marker would settle it."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "stability-across-issue-dates",
+        "text": "Whether the layout of tokens created at different dates, or for enterprise service accounts, is the same is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The provider reserves the right to change the format for newly created tokens and gives no dated layout history; the changelog entry read dates only the opacity notice. Dated provider documentation or an archived snapshot of the token page would settle it."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}

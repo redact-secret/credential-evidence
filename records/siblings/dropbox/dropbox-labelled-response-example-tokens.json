@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "dropbox-labelled-response-example-tokens",
+  "families": [
+    "dropbox:access-token"
+  ],
+  "siblingClass": "documentation-placeholder",
+  "name": "Access token values in labelled response examples",
+  "description": "Dropbox's token endpoint reference shows access_token values in response bodies under headings that begin 'Example:' (short-lived, short-lived offline and legacy long-lived). They are documentation examples that resemble real tokens; the page does not say whether the exact strings were ever issued, so their non-secret status is a lead, not a documented fact, and no sample value is recorded here.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "docs-dropboxapi-com-2835da9ecb",
+      "supports": "Example: short-lived token",
+      "locator": "#oauth2token"
+    }
+  ],
+  "observedAt": "2026-10-05",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
