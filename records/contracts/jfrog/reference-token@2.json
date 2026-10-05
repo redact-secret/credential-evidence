@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "jfrog:reference-token@2",
+  "family": "jfrog:reference-token",
+  "revision": 2,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": "jfrog:reference-token@1",
+  "structure": {},
+  "claims": [
+    {
+      "id": "identity-page-pattern-64",
+      "statement": "JFrog's Identity Tokens page, whose published metadata shows it last updated on 2026-08-13, states that reference tokens follow the pattern .*\\bcmVmd[A-Za-z0-9]{59}\\b.*, starting with cmVmd and followed by 59 alphanumeric characters, and calls them short (64 characters). The statement is made for the identity reference token (a reference to an identity access token).",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "Unlike a regular JWT token, reference tokens follow this pattern: .*\\bcmVmd[A-Za-z0-9]{59}\\b.* , starting with cmVmd followed by 59 more alphanumeric characters.",
+          "locator": "Understanding Identity Tokens"
+        },
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "Reference tokens are short (64 characters) - unlike JWT Tokens, reference tokens can be used with clients that do not support long tokens or passwords.",
+          "locator": "Comparing Identity Reference Tokens With API Keys"
+        }
+      ]
+    },
+    {
+      "id": "access-page-128-character-key",
+      "statement": "JFrog's Access Tokens page, whose published metadata shows it last updated on 2026-07-06, describes the reference token available for an admin-scoped token from Artifactory release 7.38.4 as a shortened, 128-character key that is an alias for a longer token. The page gives no prefix or alphabet.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "From Artifactory release 7.38.4, you can choose whether to generate an extended token (as in the screen above), or to generate a Reference Token . The Reference Token is a \"shortened,\" 128-character key, thereby providing an alias for a longer token.",
+          "locator": "Create an Admin Scoped Reference Token"
+        }
+      ]
+    },
+    {
+      "id": "length-64-versus-128-conflict",
+      "statement": "Two current JFrog pages state different lengths for a reference token: 64 characters (Identity Tokens, with the cmVmd plus 59 alphanumeric pattern) and 128 characters (Access Tokens, admin-scoped reference token). No page read says whether they describe different forms, different eras or one page being stale, so no length is recorded in the structure.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "Reference tokens are short (64 characters)",
+          "locator": "Comparing Identity Reference Tokens With API Keys"
+        },
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "The Reference Token is a \"shortened,\" 128-character key, thereby providing an alias for a longer token.",
+          "locator": "Create an Admin Scoped Reference Token"
+        }
+      ]
+    },
+    {
+      "id": "introduction-version-conflict",
+      "statement": "JFrog's Access Tokens page says the reference token option exists from Artifactory release 7.38.4, while the Create Token REST reference marks the include_reference_token parameter as since 7.38.10. Both are version statements of the provider; the page does not say whether the parameter and the UI option arrived in different releases.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "From Artifactory release 7.38.4, you can choose whether to generate an extended token (as in the screen above), or to generate a Reference Token .",
+          "locator": "Create an Admin Scoped Reference Token"
+        },
+        {
+          "sourceId": "docs-jfrog-com-3b63e3caba",
+          "supports": "include_reference_token boolean Defaults to false Generate a reference token in addition to the full token. Since 7.38.10.",
+          "locator": "Create Token, request body"
+        }
+      ]
+    },
+    {
+      "id": "carriers-and-handling",
+      "statement": "JFrog documents a reference token as usable like an API key in the X-JFrog-Art-Api header or as the password of basic credentials (with the same user name used when the token was created), as not retrievable after creation because identity tokens are stored hashed, and as an alias that refers to a longer JWT access token. A bearer Authorization header is documented for access tokens in general.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "reference tokens can be used similarly to API Keys , using the “ X-JFrog-Art-Api ” Header, or as basic credentials (“ curl -u User1:<reference token> ”).",
+          "locator": "Comparing Identity Reference Tokens With API Keys"
+        },
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "Reference tokens are not retrievable - identity tokens are stored as hashed, so they are not retrievable from the UI, REST API, or database, making them less likely to be compromised.",
+          "locator": "Comparing Identity Reference Tokens With API Keys"
+        },
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "A reference token can be used instead of a password for basic authentication.",
+          "locator": "Basic Authentication"
+        }
+      ]
+    },
+    {
+      "id": "total-length-64-consistency",
+      "statement": "Gitleaks (jfrog.go, rule jfrog-identity-token) and TruffleHog (artifactoryreferencetoken detector), maintained separately, both treat a JFrog reference/identity token as a 64-character alphanumeric value: Gitleaks as a keyword-gated 64-character alphanumeric run with no prefix, TruffleHog as the literal prefix cmVmdGtu followed by 56 alphanumeric characters. This is consistent with the 64-character figure on the Identity Tokens page; no rule artifact read states 128 characters. It is not the provider's rule.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-gitleaks-gitleaks-142a1c28a9",
+          "supports": "rule jfrog-identity-token uses a 64-character alphanumeric capture, gated by the keywords jfrog, artifactory, bintray, xray (no prefix in the rule)",
+          "locator": "JFrogIdentityToken, line 51"
+        },
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-7dfde64c36",
+          "supports": "tokenPat matches cmVmdGtu followed by 56 alphanumeric characters, commented as 64 characters total",
+          "locator": "lines 32-33"
+        }
+      ]
+    },
+    {
+      "id": "eight-character-prefix-single-artifact",
+      "statement": "TruffleHog's artifactoryreferencetoken detector uses the 8-character prefix cmVmdGtu, a refinement of the documented cmVmd; no second artifact states it, so this is a lead only. No provider page states the characters after cmVmd.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-7dfde64c36",
+          "supports": "tokenPat literal prefix cmVmdGtu; comment says it is the base64 encoding of a six-letter string",
+          "locator": "lines 32-33"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Revision 2 supersedes revision 1 additively and records the 64-versus-128 length conflict and the 7.38.4-versus-7.38.10 version conflict without choosing. Revision 1 recorded a cmVmd prefix in the structure; that is restated here as the Identity Tokens page's pattern claim (scope: identity reference token) and the structure is left empty because a second provider page gives a different length and no page says which form it describes.",
+  "openQuestions": [
+    {
+      "id": "length-64-versus-128",
+      "question": "Does the 128-character figure (Access Tokens, admin-scoped reference token) describe a different form from the 64-character cmVmd form (Identity Tokens), an earlier form, or is it a stale figure? Would be settled by a JFrog statement or release note giving the length history per release with dates, or a dated archive snapshot of the Access Tokens page (none was found; current pages are live-unpinned). An issued sample would be issuance-gated and was not sought.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "identity-versus-admin-scoped-family",
+      "question": "Identity tokens are documented as access tokens scoped to a user; the Access Tokens page describes admin-scoped reference tokens. Whether identity reference tokens and admin-scoped reference tokens are one family with one grammar is not stated. Carried from revision 1.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "characters-after-prefix",
+      "question": "The documented pattern allows any ASCII letter or digit after cmVmd. The pages do not say what the remainder encodes, whether a version or expiry appears in it, or whether the TruffleHog source comment (that the value is a base64 string of a structured payload) is accurate. Not asserted.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "api-key-and-other-token-boundary",
+      "question": "The same page documents the API key pattern AKCp followed by 69 alphanumeric characters, accepted in the same X-JFrog-Art-Api header. A header-only observation does not distinguish an API key from a reference token; whether other JFrog token kinds (pairing tokens, MyJFrog tokens) share the cmVmd prefix is not stated.",
+      "raisedAt": "2026-10-05"
+    }
+  ]
+}

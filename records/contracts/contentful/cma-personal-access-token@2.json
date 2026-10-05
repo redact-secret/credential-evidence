@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "kind": "format-contract",
+  "id": "contentful:cma-personal-access-token@2",
+  "family": "contentful:cma-personal-access-token",
+  "revision": 2,
+  "period": "proposed",
+  "validity": {
+    "from": null,
+    "until": null
+  },
+  "supersedes": "contentful:cma-personal-access-token@1",
+  "structure": {},
+  "claims": [
+    {
+      "id": "existence",
+      "statement": "Contentful's Authentication page names personal access tokens as one of two types of content management (Content Management API) token: created by a user in the Contentful web app under CMA tokens, used to access data from the user's own account, carrying the same rights as the account owner, and shown for copying only at creation.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "Personal access tokens - Use if you’re using the content management API to access data from your own Contentful user account",
+          "locator": "#the-content-management-api"
+        },
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "This token will have the same rights as the owner of the account.",
+          "locator": "#the-content-management-api"
+        },
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "Make sure to immediately copy your new personal access token. You won’t be able to do it after closing the Create personal access token window.",
+          "locator": "#getting-a-personal-access-token"
+        }
+      ]
+    },
+    {
+      "id": "creation-api-bearer-carrier-shown-once",
+      "statement": "Contentful's Content Management API reference documents creating a personal access token with POST /users/me/access_tokens (scopes content_management_read or content_management_manage), states that the token value is returned only once, and documents Authorization: Bearer <token> as the authentication form of that endpoint. The page states no prefix, alphabet or length.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-c9e351aca5",
+          "supports": "Creates a Personal Access Token with the specified scopes (content_management_read or content_management_manage). The token value is only returned once — copy and store it securely.",
+          "locator": "Create an access token, description under the example response"
+        },
+        {
+          "sourceId": "contentful-com-c9e351aca5",
+          "supports": "Bearer authentication of the form Bearer <token>, where token is your auth token.",
+          "locator": "Create an access token, Authentication"
+        }
+      ]
+    },
+    {
+      "id": "provider-placeholders-begin-cfpat",
+      "statement": "Two repositories maintained by Contentful write the placeholder for a CMA token as a value that begins with CFPAT- (a command-line example and a contributing guide). A placeholder shows a leading string only; it states no length, alphabet or issuance rule, and it does not say the prefix applies to every token ever issued.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-contentful-contentful-cli-40c048ff5b",
+          "supports": "$ node client.js [--ssl] --token 'CFPAT-123...789' --space 'cfexample'",
+          "locator": "line 23"
+        },
+        {
+          "sourceId": "github-com-contentful-contentful-migration-e0e0f23262",
+          "supports": "CONTENTFUL_INTEGRATION_TEST_CMA_TOKEN=CFPAT-xxx \\",
+          "locator": "line 25"
+        }
+      ]
+    },
+    {
+      "id": "cfpat-prefix-and-alphabet-consistency",
+      "statement": "Two rule artifacts, TruffleHog contentfulpersonalaccesstoken and Vulnetix vnx-sec-495, both treat a word-bounded literal CFPAT- followed by a run of letters, digits, underscore and hyphen as a Contentful personal access token. They differ on length: exactly 43 characters after the prefix in the first, at least 40 in the second. This records consistency of the artifacts at the pinned commits; it is not a provider statement. Whether the Vulnetix catalog derives from the TruffleHog detector is not stated, so independence is for the reviewer to confirm; the 43-character figure rests on one artifact.",
+      "evidenceClass": "tool-corroborated",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-trufflesecurity-trufflehog-1695724060",
+          "supports": "keyPat: \\b(CFPAT-[a-zA-Z0-9_\\-]{43})\\b",
+          "locator": "contentfulpersonalaccesstoken.go, keyPat in the var block"
+        },
+        {
+          "sourceId": "github-com-vulnetix-cli-005e308d07",
+          "supports": "_pattern := \\b(CFPAT-[A-Za-z0-9_\\-]{40,})\\b",
+          "locator": "vnx-sec-495.rego line 25"
+        }
+      ]
+    },
+    {
+      "id": "reference-example-token-shape-differs",
+      "statement": "The current Contentful Create an access token reference shows the token member of its example response as a 64-character lowercase hexadecimal string with no CFPAT- prefix. The page does not say whether the example is schematic or an issued shape, so it neither confirms nor contradicts the CFPAT- plus 43-character shape the rule artifacts treat as the token. Which shape applies to which issuance period, if either is an issuance shape, is not stated by any page read.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-c9e351aca5",
+          "supports": "Example 201 response with a token member that is 64 lowercase hexadecimal characters and a sys.redactedValue member of four characters (value not copied here).",
+          "locator": "Create an access token, example response"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Revision 2 supersedes revision 1 additively: revision 1 stays as authored; this revision adds the creation-endpoint, placeholder and artifact-consistency claims, records the single-artifact status of the 43-character figure, and records the conflicting example shape without choosing between shapes. No structure is recorded because no provider statement gives a prefix, alphabet or length.",
+  "openQuestions": [
+    {
+      "id": "format-and-prefix-era",
+      "question": "No Contentful page read states the personal access token prefix, alphabet or length. Current evidence points three ways: provider placeholders and two rule artifacts begin with CFPAT-; one rule artifact fixes 43 characters after it while another allows 40 or more; and the current API reference example shows a 64-character hexadecimal token with no prefix. A Contentful-maintained SDK test recording committed on 2018-04-16 (contentful-management.php, tests/Recordings/e2e_personal_access_token_create_get_revoke.json at commit 16900a6145bc21d60b5da5eb5b81009f8d1deba8) has a token member of CFPAT- followed by 64 characters; it is a lead only, its origin is unknown, and its value was not copied. Whether two issuance eras exist is unresolved. A Contentful statement of the format with its dates, or a dated archive snapshot of the Authentication or Create an access token page, would settle it; an issued sample would be issuance-gated and was not sought.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "redacted-value-member",
+      "question": "The example response carries a sys.redactedValue member of four characters. The page does not describe it, so whether it is a public, non-secret tail of the token is not asserted.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "cli-token-kind",
+      "question": "The Contentful CLI README (login via the OAuth service) does not say which token kind the CLI stores, so a separate CLI token family is unresolved. Carried from revision 1.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "expiry-and-revocation",
+      "question": "The example request sets expiresIn to 0 and the response lists expiresAt as null, but the page gives no statement of the default expiry or the meaning of 0. Revocation is an API operation (Revoke an access token) not read in detail. Neither is asserted.",
+      "raisedAt": "2026-10-05"
+    }
+  ]
+}
