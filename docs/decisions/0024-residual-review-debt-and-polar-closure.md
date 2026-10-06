@@ -1,0 +1,37 @@
+# 0024. Residual review debt of epic #92 and closing the Polar evidence reviews
+
+- Status: accepted (decided by the repository owner as the sole maintainer, ADR 0020; a `maintainer-only` act, never `reviewed`)
+- Date: 2026-10-06
+- Issues: credential-evidence#64, #65 (Polar evidence reviews), #142 (review debt of epic #92), #154 (retro-review register)
+- Deciding maintainer: Milo Kang (GitHub `milocosmopolitan`), the repository owner. The owner instructed an agent on 2026-10-06 to complete #64, #65 and #142 with as little intervention as possible; this ADR is the agent's record of what that allows and what it does not. Recorded by an AI agent on the owner's instruction.
+- Inputs: [remaining-work decision packet](../research/remaining-work-decisions.md), [ADR 0019](0019-maintainer-decisions-for-epic-92-review-debt.md), [ADR 0022](0022-polar-boundary-and-identifier-expectations-not-assertable.md), the comments on #64, #65 and #142
+
+## Context
+
+#142 tracks what the epic #92 research left undecided. Most of it needs one of three things that a repository change cannot supply: a statement only the provider can make, a second person who reviews, or a consumer that replays a snapshot. The rest is a set of policy questions where the packet's own recommendation is to keep the expectation `not-assertable` because the sources do not settle it. A decision to keep an expectation unresolved is a decision, and it is recorded here once so the issue can be closed against it. Nothing in this ADR moves an expectation out of `not-assertable`, so no denominator changes.
+
+## Decisions
+
+| # | Subject | Decision |
+| --- | --- | --- |
+| 1 | #64 and #65, Polar | **Closed as not restorable.** The T2 route is not available: the peer tools that detect Polar tokens (recorded in #227) agree on the prefix and the body class but differ on length and boundary, and the project's own artifacts never count. The era-1 token length and alphabet (before 2025-01-02) and whether a bare `polar_at_` token was ever issued are facts only Polar can state; the three `polar:api-credential` fixtures that depend only on them stay at their current class. The 11 fixtures of ADR 0022 stay `not-assertable`. Reversing evidence: a dated Polar statement on those facts (then reopen and restore the dependent fixtures as `provider-documented`). |
+| 2 | Token-boundary default across providers | **Stays `not-assertable`** (option C of ADR 0022) for a well-formed token with characters glued on, for every provider, until a provider documents delimiting or the owner adopts a cross-provider boundary policy that supersedes this ADR. ADR 0019 item 3 is unchanged: a key padded or split so its bytes stay intact remains a partial leak in the cases that already say so. |
+| 3 | #96 Unicode | The readings NBSP-as-a-visible-gap, combining mark after a key and fullwidth normalization **stay `not-assertable`**: Unicode normalization facts do not determine whether a value is a credential. The escaped invisibles in `sendgrid-unicode-authored` were read against the fixture set: the two authored bases carry the markers `SYNTHETIC_NEVER_ISSUED` and `EXAMPLE_ONLY_NOT_ISSUED`, and the variants only insert zero-width, joiner, word-joiner or byte-order-mark code points; this is the synthetic construction the cases describe. This reading is by the author of the records and is not a review. |
+| 4 | #98 placeholders | `EXAMPLE` and `SAMPLE` as whole words under credential names, and values whose body is `EXAMPLE` that no provider publishes, **stay `not-assertable`** (case `example-and-sample-words-as-whole-value-under-credential-names`). Provider-published placeholders are a separate, already-decided case. Downstream comparisons record whether generic-assignment and personal-data detection were enabled. |
+| 5 | #112 and #114 HTTP carriers | Repeated `Authorization` lines and ordinary cookies or opaque application state **stay `not-assertable`**: the sources cited by the cases state no outcome for repeated `Authorization` lines, and RFC 6265 says non-nonce cookie content might be sensitive without saying an ordinary cookie is or is not a credential. **RFC 6265 successor check done:** as of 2026-10-06 the RFC Editor lists no RFC obsoleting RFC 6265; its successor is the Internet-Draft `draft-ietf-httpbis-rfc6265bis` (revision 22, expired 2026-06-04), not a published standard. Recorded as the claim `rfc-6265-not-obsoleted` in `generic:http-session-cookie@1` with two new sources. Whether the draft's grammar differs was not reviewed. |
+| 6 | #113 structured files | The five sensitivity cases (service-account identifiers, kubeconfig exec and auth-provider values, certificate and server fields, netrc login and anonymous template, npmrc username, email and password) **stay `not-assertable`**; the sources state no confidentiality. Docker client configuration **stays under the `docker` provider** (the original proposal); no new provider is introduced. |
+| 7 | #115 digests | A digest of a secret (HMAC, key hash) **stays `not-assertable`**; "content-verification digest, therefore not a credential" is not accepted as `provider-documented` without a provider statement. The two legacy cases are not given new sources here: doing so is an import-baseline edit that adds no evidence the existing citations lack. |
+| 8 | #95 fragments (4 T2 language-spec cases), #144 standards class | **Not decided here.** The first needs a per-carrier language-specification review, the second a reviewed governance clarification and a migration of the affected records; an agent's recommendation is not that. They stay in #142 as the only open policy items. |
+| 9 | Schema proposals (decoded sub-range, compound group) | **Deferred, not required.** Current whole-value encoded fixtures and the existing `secret` and `companion` spans do not need them. Defining the byte coordinate system and the group meaning first is a separate design decision; no field is added. |
+| 10 | Non-author review of PRs #125 to #140, #147, #148, #149 and of every `maintainer-only` record | **Not possible during the solo-maintainer period.** It is the debt register of #154 and stays there; this ADR does not mark anything `reviewed`. |
+| 11 | Downstream repin and replay | **Not recorded here.** Consumption receipts come from the consumers (benchmarks #680, #690, #739 and the later measurement issues); no score is claimed from this repository. The latest published snapshot is `snapshot-2026.10.06`. |
+
+## Dissent and reversing evidence
+
+- Keeping items 3 to 7 unresolved leaves ambiguous inputs unmeasured, and a corpus that asserts nothing about them gives a product no signal. The alternative is a project policy per case (for example flag any value under a credential name). Reversing evidence: a provider statement of confidentiality or non-confidentiality for the case, or an owner decision that names the policy for all providers.
+- Closing #64 and #65 as not restorable stops a standing reminder to ask Polar. Reversing evidence: a Polar publication; the fixtures return to `provider-documented` then.
+
+## Consequences
+
+- Records change in one place: `generic:http-session-cookie@1` gains one claim and two sources. No case, fixture, expectation or outcome changes, so no new denominator and no replay is needed.
+- #64 and #65 close. #142 stays open with exactly the items 8 to 11 and the non-author reviews, none of which this repository can complete alone.
