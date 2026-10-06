@@ -257,6 +257,27 @@ function buildIndex({ catalog, semantics, scenarios, taxonomy }) {
 export { canonicalJson };
 
 /**
+ * credential-eval's validator refuses a twin whose `sibling_family` has no scope family or equals it (its ADR 0020, decision 2),
+ * and a refused snapshot is the cost of an accidental gap. So the exporter fails first: every twin the records give a sibling
+ * family is written with it, and each one has a scope family (ADR 0013) other than the sibling.
+ */
+function assertSiblingFamilies(fixtures, cases) {
+  const byId = new Map(cases.map((c) => [c.id, c]));
+  for (const f of fixtures) {
+    const sibling = f.item.lineage?.siblingFamily;
+    const c = byId.get(f.id);
+    if (!sibling || !c?.twin) continue;
+    if (c.twin.sibling_family !== sibling) throw new Error(`fixture ${f.id}: the records name sibling family '${sibling}' and the snapshot twin does not carry it`);
+    if (c.grouping.family === undefined) throw new Error(`fixture ${f.id}: twin.sibling_family '${sibling}' needs the case to have a scope family, and the twin has none (ADR 0013)`);
+    if (c.grouping.family === sibling) throw new Error(`fixture ${f.id}: twin.sibling_family '${sibling}' equals the twin's scope family`);
+  }
+  for (const c of cases) if (c.twin?.sibling_family !== undefined && !byId.has(c.id)) throw new Error(`case ${c.id}: sibling_family written for an unknown case`);
+}
+
+/** The `evalExport.twinSiblingFamily` block of a release manifest: how many twins carry `twin.sibling_family`. Derived from the snapshot. */
+export const siblingFamilyCount = (cases) => cases.filter((c) => c.twin?.sibling_family !== undefined).length;
+
+/**
  * The input document credential-eval reads (`credential-eval/corpus-snapshot/v1`), in canonical names: case id = the
  * canonical fixture id, path = its materialized path (`<set>/<name>/<file>`), `grouping.group` = the canonical Case or
  * Scenario id, twin lineage by canonical id. One case per fixture, same truth as the legacy corpora. `grouping` carries
@@ -267,7 +288,7 @@ export { canonicalJson };
  * No legacy name appears in it (credential-eval's case ids are a closed grammar with no room for provenance). A consumer
  * that has to compare against a run over the legacy corpus re-keys through `credential-eval/legacy-id-map.json`.
  */
-function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision, representation = false }) {
+function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision, representation = false, siblingFamily = false }) {
   const byId = new Map(fixtures.map((f) => [f.id, f]));
   const cases = [];
   // ADR 0017: the v1 contract's `content` is one JSON string, so it carries a fixture exactly when its bytes are valid UTF-8
@@ -313,7 +334,12 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision, represent
         if (notExportedIds.has(parent.id)) twinNotExported.push({ id: f.id, reason: "twin-positive-not-exported" });
         else if (hasSecret(f)) twinNotExported.push({ id: f.id, reason: "twin-carries-secret-span" });
         else if (!hasSecret(parent)) twinNotExported.push({ id: f.id, reason: "twin-positive-has-no-secret-span" });
-        else out.twin = { twin_of: item.lineage.of, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
+        else {
+          out.twin = { twin_of: item.lineage.of, mutation: item.lineage.mutation, mutation_kind: item.lineage.mutationKind };
+          // ADR 0026 addendum: the family whose contract owns the twin's value, in credential-eval's contract 1.9 (engine
+          // alpha.15, its ADR 0020). Only the release path writes it; an engine older than alpha.15 refuses the snapshot.
+          if (siblingFamily && item.lineage.siblingFamily) out.twin.sibling_family = item.lineage.siblingFamily;
+        }
       }
     }
     cases.push(out);
@@ -327,6 +353,7 @@ function buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision, represent
     if (parentFamily !== undefined) c.grouping.family = parentFamily;
   }
   cases.sort((a, b) => cmp(a.id, b.id));
+  if (siblingFamily) assertSiblingFamilies(fixtures, cases);
   if (representation) assertNoFactLoss(fixtures, notExportedIds, cases);
   const snapshot = {
     schema: "credential-eval/corpus-snapshot/v1",
@@ -395,6 +422,7 @@ export function exportAccounting(snapshot, notExported, materialized, twinNotExp
   return {
     target: snapshot.schema,
     ...(snapshot.identity.representation !== undefined ? { representation: representationAccounting(snapshot.cases) } : {}),
+    ...(siblingFamilyCount(snapshot.cases) > 0 ? { twinSiblingFamily: { exported: siblingFamilyCount(snapshot.cases) } } : {}),
     materialized,
     exported: snapshot.cases.length,
     twinLineageNotExported: { total: twinNotExported.length, byReason: countBy(twinNotExported), cases: twinNotExported.map((n) => ({ id: n.id, reason: n.reason })).sort((a, b) => cmp(a.id, b.id)) },
@@ -501,11 +529,11 @@ function buildOverlayInterface({ taxonomy, index }) {
  *   the contract (ADR 0018, the release path). The default writes the closed v1 document exactly as before ADR 0018.
  * @returns {{ text: string, snapshot: object, fixtures: number }}
  */
-export function buildSnapshot({ records, sourceDigest, schemaRevision }, { representation = false } = {}) {
+export function buildSnapshot({ records, sourceDigest, schemaRevision }, { representation = false, siblingFamily = false } = {}) {
   const ix = indexRecords(records);
   if (!ix.sets.size) throw new Error("records/ has no fixture sets; run the importers first");
   const fixtures = collectFixtures(ix);
-  const { snapshot, notExported, twinNotExported } = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision, representation });
+  const { snapshot, notExported, twinNotExported } = buildCorpusSnapshot(fixtures, { sourceDigest, schemaRevision, representation, siblingFamily });
   return { text: json(snapshot), snapshot, fixtures: fixtures.length, notExported, accounting: exportAccounting(snapshot, notExported, fixtures.length, twinNotExported) };
 }
 
