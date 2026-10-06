@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-06",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "Elastic defines the encoded value identically to a user API key's and states no string property that marks the cross_cluster type."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "Base64 alphabet, padding and part lengths would need an issued key, which is not created here."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#243"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

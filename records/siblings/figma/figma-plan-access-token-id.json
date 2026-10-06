@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "figma-plan-access-token-id",
+  "families": [
+    "figma:plan-access-token",
+    "figma:cli-plan-access-token"
+  ],
+  "siblingClass": "non-secret-companion",
+  "name": "Plan access token id",
+  "description": "Figma's plan access tokens page says a plan access token's id can be viewed and copied after creation while the token secret is visible only at creation, so the id is an identifier distinct from the credential. The page does not say whether the id may be disclosed and states no format for it, so its benign status is a lead and no sample value is recorded.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "developers-figma-com-e9240bb71e",
+      "supports": "You can also view and copy the id of your plan access token. However, you can't access the token secret again.",
+      "locator": "#edit-a-plan-access-token"
+    }
+  ],
+  "observedAt": "2026-10-06",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "dropbox-app-key",
+  "families": [
+    "dropbox:app-auth-token",
+    "dropbox:app-secret"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Dropbox app key (client_id)",
+  "description": "The Dropbox app key (client_id) is issued with the app secret when an app is registered. Dropbox's authorization examples put it in the client_id parameter of the browser-facing https://www.dropbox.com/oauth2/authorize URL, and in the token request it appears beside the app secret (client_id and client_secret) and as the username in the HTTP basic form. It resembles the app secret in role and location but is the identifier half of the pair. The pages read do not call the app key non-secret, so its benign status is a lead and no sample value is recorded.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "docs-dropboxapi-com-2835da9ecb",
+      "supports": "https://www.dropbox.com/oauth2/authorize?client_id=<APP_KEY>&response_type=code ... client_id String The app's key, found in the App Console.",
+      "locator": "#oauth2authorize"
+    },
+    {
+      "sourceId": "docs-dropboxapi-com-ee9def1cd1",
+      "supports": "the app key and secret are given in place of the HTTP username and password, respectively.",
+      "locator": "#app-authentication"
+    }
+  ],
+  "observedAt": "2026-10-06",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

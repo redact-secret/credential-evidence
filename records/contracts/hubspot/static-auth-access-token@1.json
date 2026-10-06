@@ -30,6 +30,77 @@
           "locator": "App authentication"
         }
       ]
+    },
+    {
+      "id": "static-auth-selected-by-app-configuration",
+      "statement": "HubSpot documents that an app uses static auth when the type subproperty of the auth field in its app-hsmeta.json is static and its distribution is private, that it limits the app to a single authorized account, and that the static auth access token is found in the app settings.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-1876a2b7bb",
+          "supports": "If you want to limit distribution of your app to a single authorized account, you'll use a static auth access token. This token can be found in your app settings. ... setting the type subproperty (within the auth field) ... to static, and set the distribution field to private.",
+          "locator": "#static-auth"
+        }
+      ]
+    },
+    {
+      "id": "bearer-carrier-shared-by-oauth-static-and-private-app-tokens",
+      "statement": "HubSpot documents the Authorization: Bearer header for an OAuth access token and for a static auth access token on its authentication overview page, and for a legacy private app access token on its private apps page, so the carrier does not identify which of the three is sent.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-1876a2b7bb",
+          "supports": "This access token is provided using the Bearer HTTP authorization header.",
+          "locator": "#oauth"
+        },
+        {
+          "sourceId": "developers-hubspot-com-1876a2b7bb",
+          "supports": "An example request is provided below using a placeholder static auth access token.",
+          "locator": "#static-auth"
+        },
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "When making a call to one of the HubSpot API endpoints, set the value of the Authorization field to Bearer [YOUR_TOKEN].",
+          "locator": "Make API calls with your app's access token"
+        }
+      ]
+    },
+    {
+      "id": "static-auth-placeholder-is-not-a-format-statement",
+      "statement": "On the authentication overview page HubSpot shows the OAuth access token example as a letter-and-digit placeholder and the static auth access token example as a row of asterisks in seven hyphen-separated groups, and calls the second a placeholder; the page states no prefix, alphabet, length or grouping for either token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-1876a2b7bb",
+          "supports": "An example request is provided below using a placeholder static auth access token.",
+          "locator": "#static-auth"
+        }
+      ]
+    },
+    {
+      "id": "pages-do-not-relate-static-auth-and-private-app-tokens",
+      "statement": "HubSpot's authentication overview describes static auth as the single-account mechanism for apps configured through app-hsmeta.json and its legacy private apps page describes a token created under Legacy apps; neither page read mentions the other credential or states that the two tokens share a format.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-1876a2b7bb",
+          "supports": "If you want to limit distribution of your app to a single authorized account, you'll use a static auth access token.",
+          "locator": "#static-auth"
+        },
+        {
+          "sourceId": "developers-hubspot-com-f67bca3860",
+          "supports": "Private apps allow you to use HubSpot's APIs to access specific data from your HubSpot account. ... which will generate an access token that's unique to your app.",
+          "locator": "Legacy private apps, overview"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -44,6 +115,26 @@
       "id": "open-question-2",
       "question": "The page's only token example is masked; no literal format is shown. Whether a static auth token is distinguishable from a legacy private app token is not stated.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "static-auth-lexical-shape-unstated",
+      "question": "HubSpot states no prefix, alphabet, length or grouping for a static auth access token. The pat-na1- and pat-eu1- lead on hubspot:private-app-access-token rests on one scanner maintainer's detector and is not extended to this role. The masked placeholder's grouping is a documentation device and is not read as a format.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "static-auth-rotation-and-expiry",
+      "question": "Whether and how a static auth access token is rotated, revoked or expires is not stated on the pages read; the rotation facts recorded for private app tokens (about 7 days overlap, six-month recommendation) are not extended to static auth.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "static-auth-vs-service-key",
+      "question": "HubSpot's changelog (recorded on hubspot:private-app-access-token) names Service Keys as the replacement for creating new in-account integrations; whether static auth tokens of project-based apps are a separate role from Service Keys and from legacy private app tokens is not settled by any page read.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "static-auth-scanner-rule-names",
+      "question": "On 2026-10-06 the rule and detector names (not their contents) of two open-source scanner repositories were listed: Gitleaks config/gitleaks.toml at b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b and TruffleHog pkg/detectors at 0186870afd2c4a90def791d80260923ba583d076. Gitleaks lists hubspot-api-key and TruffleHog lists hubspot_apikey; neither names static auth; whether either matches a static auth token is not established. This is a negative observation of names only; it is not a source, not corroboration and not an expectation basis.",
+      "raisedAt": "2026-10-06"
     }
   ]
 }

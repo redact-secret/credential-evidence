@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "instagram-app-id",
+  "families": [
+    "meta:instagram-app-secret"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Instagram App ID",
+  "description": "The Instagram App ID is shown beside the Instagram App Secret in the Instagram business login settings, is a required client_id parameter of the token requests, and is documented as the app ID used by Business Login for Instagram, distinct from the Meta app ID shown at the top of the App Dashboard. It resembles the secret in location and request role but is the identifier half of the pair. No page read calls it non-secret, so its benign status is a lead and no sample value is recorded (the page's sample numeric ID was not copied).",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "developers-facebook-com-c121bb0b0b",
+      "supports": "client_id set to your app's Instagram app ID from the App Dashboard",
+      "locator": "Step 2. Exchange the Code For a Token"
+    },
+    {
+      "sourceId": "developers-facebook-com-a66a788872",
+      "supports": "Apps that use Business Login for Instagram will use the Instagram app ID displayed on the Instagram > API setup with Instagram login section of the dashboard.",
+      "locator": "App IDs"
+    }
+  ],
+  "observedAt": "2026-10-06",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

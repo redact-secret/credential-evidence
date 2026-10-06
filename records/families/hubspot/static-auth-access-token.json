@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-06",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "HubSpot shows only a masked placeholder and states no prefix, alphabet, length or grouping; the relation to legacy private app tokens is not stated."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "The token's string form would need an issued static auth token, which is not created here."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#243"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }
