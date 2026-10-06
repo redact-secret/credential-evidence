@@ -69,7 +69,7 @@ export function buildMaterialization({ sets, cases, scenarios = [] }) {
       if (item.transformation) entry.transformation = { steps: item.transformation.steps };
       if (item.chunking) entry.chunking = { unit: item.chunking.unit, boundaries: item.chunking.boundaries };
       if (item.inputValidity && item.inputValidity !== "valid") entry.inputValidity = item.inputValidity;
-      if (item.lineage) entry.lineage = { relation: item.lineage.relation, of: item.lineage.of, ...(item.lineage.mutationKind ? { mutationKind: item.lineage.mutationKind } : {}) };
+      if (item.lineage) entry.lineage = { relation: item.lineage.relation, of: item.lineage.of, ...(item.lineage.mutationKind ? { mutationKind: item.lineage.mutationKind } : {}), ...(item.lineage.siblingFamily ? { siblingFamily: item.lineage.siblingFamily } : {}) };
       entries.push(entry);
     }
   }
