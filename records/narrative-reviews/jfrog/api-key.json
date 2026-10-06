@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-jfrog-api-key",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "jfrog:api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Drafted by an AI agent run for credential-evidence#246 from the provider documentation, provider client source and archived captures read on 2026-10-06 (source ids recorded in the contract); not reviewed."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'form-per-release' (shape) is recorded as unresolved: JFrog states a 73-character AKCp pattern on one page and shows a 44-character unprefixed example on another, and no page ties either form to a release or says the example is schematic. A JFrog statement of the key format per release, or an issued sample under a maintainer's authority, would settle it; neither was sought."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'fifth-character-and-prefix-variants' (shape) is recorded as unresolved: The client libraries name AKCp8 while the documentation names AKCp, and no page states what the fifth character encodes. A JFrog statement would settle it."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'final-authentication-shutdown' (lifecycle) is recorded as unresolved: The pages state deprecation, an End of Life notice, creation disabled and an optional, default-off usage block, and none names a shutdown release or date. A JFrog release note or lifecycle statement that names one, or defines End of Life, would settle it."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'release-dates' (openQuestions) is recorded as unresolved: The pages date the lifecycle by Artifactory release and quarter only. JFrog release notes would settle it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

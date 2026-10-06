@@ -63,6 +63,198 @@
           "locator": "pkg/detectors/zendeskapi/zendeskapi.go lines 25 and 94 at commit 59e3b04e820c4cad30462696ac497853a5f7679c"
         }
       ]
+    },
+    {
+      "id": "phase-1-inactivity-deactivation-and-new-accounts",
+      "statement": "Zendesk's migration page states that on 2026-07-28 any API token unused for 30 days is automatically deactivated and cannot make requests, a deactivated token left unused for 60 days is permanently deleted, and accounts created on or after 2026-07-28 cannot create or use API tokens. This is the first of three phases and is a different fact from the new-token restriction and from final deactivation.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "On July 28, 2026, these updates take effect: Any API token that hasn't been used for 30 days will be automatically deactivated. Deactivated tokens can't be used to make API requests. If a deactivated token remains unused for 60 days, it will be permanently deleted. New accounts created on or after July 28, 2026 won't be able to create or use API tokens.",
+          "locator": "Migration timeline, Phase 1"
+        }
+      ]
+    },
+    {
+      "id": "phase-2-new-token-creation-blocked",
+      "statement": "Zendesk's migration page states that from 2026-10-27 existing accounts can no longer create new API tokens through the UI or API, while existing active tokens continue to work until 2027-04-30 unless deactivated for inactivity. As of the date this claim was observed (2026-10-06) the date is still ahead.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "October 27, 2026 Phase 2: New token creation is blocked. Existing accounts will no longer be able to create new API tokens through the UI or API. Existing active tokens will continue to work until April 30, 2027, unless they're deactivated due to inactivity.",
+          "locator": "Migration timeline, Phase 2"
+        }
+      ]
+    },
+    {
+      "id": "phase-3-final-deactivation",
+      "statement": "Zendesk's migration page states that on 2027-04-30 all remaining API tokens are permanently deactivated and cannot be reactivated, API requests that use API tokens fail, and the API token management pages are removed from Admin Center. This is the documented final authentication shutdown and is separate from deprecation and from the new-token restriction.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "April 30, 2027 Phase 3: Final deactivation. All remaining API tokens will be permanently deactivated. API tokens can no longer be reactivated, and API requests that use API tokens will fail. API token management pages will be removed from Admin Center.",
+          "locator": "Migration timeline, Phase 3"
+        }
+      ]
+    },
+    {
+      "id": "existing-tokens-work-until-final-date-and-parallel-oauth",
+      "statement": "Zendesk states that existing API tokens continue to work until 2027-04-30 unless they become inactive first, that the 30-day inactivity rule applies to all accounts from 2026-07-28, and that OAuth access tokens and API tokens both work until 2027-04-30 so an integration can be migrated one at a time.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "Existing API tokens continue to work until April 30, 2027, unless they become inactive first. Starting July 28, 2026, the 30-day inactivity rule applies to all accounts.",
+          "locator": "What this means for existing tokens"
+        },
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "Yes. OAuth access tokens and API tokens both work until April 30, 2027. You can migrate integrations one at a time",
+          "locator": "Frequently asked questions, Can I run OAuth and API tokens in parallel"
+        }
+      ]
+    },
+    {
+      "id": "schedule-unchanged-in-2026-09-24-capture",
+      "statement": "An archived capture of Zendesk's migration page taken on 2026-09-24 states the same three phases and dates as the page read on 2026-10-06 (2026-07-28, 2026-10-27 and 2027-04-30). The capture is the only archived copy of that page found, so no earlier schedule is known.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-c384cbbea6",
+          "supports": "July 28, 2026 Phase 1 ... October 27, 2026 Phase 2 ... April 30, 2027 Phase 3: Final deactivation. All remaining API tokens will be permanently deactivated.",
+          "locator": "Migration timeline, capture of 2026-09-24"
+        }
+      ]
+    },
+    {
+      "id": "api-token-recommended-in-2026-04-capture",
+      "statement": "An archived capture of Zendesk's Security and authentication page taken on 2026-04-21 tells readers they can authorize with an email address and an API token or with an OAuth access token, recommends switching from basic authentication to API tokens or OAuth tokens, and heads the section API token without a deprecation label.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-0955bfdfb5",
+          "supports": "You can authorize against the API using your email address and an API token, or with an OAuth access token. ... Zendesk recommends switching your authentication method to API tokens or OAuth tokens for improved security.",
+          "locator": "Introduction note, capture of 2026-04-21"
+        }
+      ]
+    },
+    {
+      "id": "api-token-labelled-deprecated-current",
+      "statement": "Zendesk's Security and authentication page read on 2026-10-06 heads the section API token (deprecated) and tells existing customers using basic authentication or API tokens that they will have to migrate to OAuth access tokens.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "If you're an existing Zendesk customer and are currently using basic authentication or API tokens, you will have to migrate to OAuth access tokens",
+          "locator": "Introduction note and API token (deprecated) heading"
+        }
+      ]
+    },
+    {
+      "id": "reasons-given-for-retirement",
+      "statement": "Zendesk's migration page gives three reasons for retiring API tokens: no expiry (a compromised token stays valid until manually deactivated), no scope restrictions (a token can reach any endpoint the authenticating user may use), and no application binding (any system holding the token and its associated email address can use it).",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-a681e17a67",
+          "supports": "No expiry: If a token is compromised, it stays valid until it's manually deactivated. No scope restrictions ... No application binding: Any system that has the token and its associated email address can use it.",
+          "locator": "Why API tokens are being retired"
+        }
+      ]
+    },
+    {
+      "id": "basic-credential-composition-and-encoding",
+      "statement": "Zendesk's Security and authentication page states that the API token credential is sent as Basic authentication whose username is the account email address followed by /token and whose password is the token, that the string is base64-encoded into an Authorization: Basic header, that curl may pass it with -u, and that over HTTP the slash in {email_address}/token is url-encoded as %2F.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "Use the following format for the credentials: {email_address}/token:{api_token} ... After base64-encoding the resulting string, add it to the Authorization header ... curl ... -u ... If authenticating over HTTP, url-encode the slash character in {email_address}/token as %2F.",
+          "locator": "API token (deprecated)"
+        }
+      ]
+    },
+    {
+      "id": "basic-credential-composition-in-2022-capture",
+      "statement": "An archived capture of Zendesk's Security and authentication page taken on 2022-12-03 states the same {email_address}/token:{api_token} Basic credential composition, base64 step, curl -u form and %2F note as the page read on 2026-10-06, so the composition is documented unchanged across that span.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-b03c7ae811",
+          "supports": "Use the following format for the credentials: {email_address}/token:{api_token} ... After base64-encoding the resulting string, add it to the Authorization header",
+          "locator": "API token section, capture of 2022-12-03"
+        }
+      ]
+    },
+    {
+      "id": "token-is-not-bound-to-a-user-but-needs-an-email",
+      "statement": "Zendesk states that an API token is not associated with a specific Zendesk user, that requests must nevertheless supply the email address of a valid user, that permissions follow the role of that user, and that API tokens do not support client-side CORS requests.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-e25743b4de",
+          "supports": "Not associated with a specific Zendesk user. However, you must provide an email address for an admin, agent, or other valid user when authenticating requests. ... Doesn't support client-side CORS requests.",
+          "locator": "Differences table"
+        }
+      ]
+    },
+    {
+      "id": "token-limits-and-deletion",
+      "statement": "Zendesk states that more than one API token can be active at once, up to 256 tokens (accounts that already have more have a limit of 2048), and that deleting a token deactivates it permanently.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "More than one token can be active at the same time. Deleting a token deactivates it permanently. You can have up to 256 tokens. ... Accounts that currently have more than 256 tokens have a limit of 2048 tokens.",
+          "locator": "API token (deprecated)"
+        }
+      ]
+    },
+    {
+      "id": "documentation-example-token-40-characters",
+      "statement": "The example credential in Zendesk's Security and authentication page has a token part of 40 characters drawn from letters and digits, and the same example appears in archived captures from 2022-12-03 and 2025-01-09 and on the page read on 2026-10-06. The page labels it Example and does not say it is representative of issued tokens; no value is copied here.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developer-zendesk-com-73874c42bb",
+          "supports": "Example: {email_address}/token: followed by a 40-character letters-and-digits value (not copied)",
+          "locator": "API token (deprecated), Example"
+        },
+        {
+          "sourceId": "web-archive-org-b03c7ae811",
+          "supports": "Example credential with the same 40-character token part (not copied)",
+          "locator": "API token section, capture of 2022-12-03"
+        }
+      ]
     }
   ],
   "openQuestions": [
@@ -73,20 +265,35 @@
     },
     {
       "id": "basic-credential-split",
-      "question": "Whether detection evidence should treat the email address and the token as separate identifier and secret parts of one Basic credential string is a modelling question for research-family; this record only states the documented composition.",
-      "raisedAt": "2026-10-04"
+      "question": "Resolved as a modelling statement only: the documented Basic credential has three parts, the account email address (an identifier whose confidentiality Zendesk does not state), the literal /token separator, and the token (a password-like secret that Zendesk says can impersonate any account user). Whether the email address is confidential is not stated; the pages say a holder of the token and its associated email address can use it.",
+      "raisedAt": "2026-10-06"
     },
     {
-      "id": "not-researched-beyond-existence",
-      "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
-      "raisedAt": "2026-10-04"
+      "id": "phase-1-took-effect",
+      "question": "The migration page read on 2026-10-06 is dated after 2026-07-28 yet still words Phase 1 as taking effect; the page does not say whether inactivity deactivation, deletion or the new-account restriction has been applied. Settled by a Zendesk statement of status or a changelog entry.",
+      "raisedAt": "2026-10-06"
     },
     {
       "id": "variants-over-time",
-      "question": "Whether older or newer API tokens differ in length or alphabet is not established by either artifact or by the provider pages.",
-      "raisedAt": "2026-10-04"
+      "question": "Whether older or newer API tokens differ in length or alphabet is not established by the provider pages or by the two scanner rule artifacts. The documentation example is the same 40-character value in captures from 2022 to 2026, which shows only that the example has not changed.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "deprecation-announcement-date",
+      "question": "The deprecation labelling and retirement schedule first appear on the pages between the 2026-04-21 capture of the Security and authentication page and the 2026-09-24 capture of the migration page. The announcement date, and any earlier changelog entry, is not on the pages read; a Zendesk changelog or announcement page would settle it.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "existing-basic-password-authentication",
+      "question": "The Security and authentication page tells customers using basic authentication (email and password) or API tokens to migrate to OAuth; this research covers the API token form only. Whether and when password Basic authentication is retired is not established here.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "webhook-self-callback-tokens",
+      "question": "The migration page says API tokens used in webhooks that call back into the customer's own Zendesk instance stop working on 2027-04-30; whether this changes any earlier date for such tokens is not stated.",
+      "raisedAt": "2026-10-06"
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Zendesk developer documentation read on 2026-10-04; the family is not researched beyond what the claims state."
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Candidate existence established from Zendesk developer documentation read on 2026-10-04; the family is not researched beyond what the claims state. Revised in place as a draft on 2026-10-06 by an AI agent run (credential-evidence#246): claims added, and the not-researched-beyond-existence question removed because the family is now researched. The basic-credential-split and variants-over-time questions are rewritten to the current state of the evidence; the existing claims and the opaque-grammar question are untouched."
 }
