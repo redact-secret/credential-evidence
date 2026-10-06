@@ -88,6 +88,29 @@
         "affiliation": "project-maintainer"
       },
       "note": "Legacy contract review text for 'vercel-app-refresh-token' (verbatim legacy text; the date is the dossier researchedAt, not the authoring date): Scored arrival family (#1013 READY-T2, thin; product redact-secret#1036, which types it as vercel_app_refresh_token inside vercel-token). The Vercel App refresh token. The vcr_ marker is T1 (Vercel changelog and docs); the body is T2: Sign in with Vercel tokens page: vcr_ + the vca_ example body (no independent vcr_ body), plus two peer owners (kingfisher, betterleaks), both of which copy the provider value. No Vercel code generates or validates a length, alphabet or checksum; Vercel code only discriminates by prefix. The body alphabet leaves _ and - out (every provider example and CredSweeper; the kingfisher/betterleaks rules and Vercel's own masking regexes admit them, maskers are not validators), bounded by the record, not settled. The 50 + 6 base62 CRC-32 tail is provider-backed on one vca_ value and the OpenAPI \"token checksum suffix\" only, and the CLI vcp_ example fails it, so it is recorded unresolved and never enforced: positives carry a matching and a mismatching tail. Excluded: the legacy unprefixed 24-character token, the masked filler, vci_ and vck_ (STILL-BLOCKED, ruling Q-VC) and the vercel:access-token compatibility aggregate."
+    },
+    {
+      "seq": 4,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Maintainer decision of 2026-10-06, recorded by an AI agent on the owner's instruction (ADR 0025; #257; a maintainer-only act under ADR 0020, not reviewed, not independent validation). Vercel pages read raw on 2026-10-06 state the prefix and give examples but state no length and no alphabet; the claims field-body and field-alphabet-bound of @1 were typed provider-documented and are replaced in @2 by field-length (tool-corroborated) and field-alphabet (unresolved). The 57-character-body twin and the hyphen and underscore alphabet twins of this family move to not-assertable (3 fixtures per family counted as 1 length and 2 alphabet); the 55-character-body twin stays must-not-flag at tool-corroborated, three pinned rules by different maintainers fixing 56 characters. No fixture identity changes and no support status is implied."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'field-alphabet' is recorded as unresolved: Vercel states no alphabet; the pinned scanner rules disagree on _ and - in the body and Vercel's own Azure DevOps extension masker admits them."
     }
   ],
   "externalRefs": [
