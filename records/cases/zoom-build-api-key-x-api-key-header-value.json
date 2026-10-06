@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zoom-build-api-key-x-api-key-header-value",
+  "title": "Zoom Build platform API key in an x-api-key header",
+  "summary": "A synthetic Build platform API key after an x-api-key header in a raw request, a curl option and a JSON header map.",
+  "rationale": "Zoom documents the x-api-key header as carrying the Build platform API key, and it is the only documented carrier that is API-key-only: the Authorization Bearer header carries either an API key or a JWT and is not covered. The page states no prefix, alphabet or length, so the header name is the only identifying context and no bare-value rule is implied. The key is shown once at creation and the page says raw API keys must never be embedded in client-side code. The key ID shown for internal support is a different value, and the JWT generated from the key and secret is a different credential.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "zoom:build-platform-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#244). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of an x-api-key header on a Build platform request is treated as a credential. Zoom documents the header and the API key (carrier existence only); the value admission and extent are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developers-zoom-us-f5c358d624",
+        "supports": "Custom header: `x-api-key: ZOOM_API_KEY` using your API Key.",
+        "locator": "Make API requests, Make your first API call"
+      },
+      {
+        "sourceId": "developers-zoom-us-8a12072e73",
+        "supports": "**Never embed raw API keys or secrets in client-side code.**",
+        "locator": "Get credentials, Usage guidance"
+      },
+      {
+        "sourceId": "developers-zoom-us-8a12072e73",
+        "supports": "This is your new API key. Make sure to copy it before closing this dialog. For security reasons, it will not be shown again.",
+        "locator": "Get credentials, Create API Key, step 8"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

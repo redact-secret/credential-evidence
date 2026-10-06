@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-zoom-build-api-key-x-api-key-header-value",
+  "subject": {
+    "kind": "case",
+    "id": "zoom-build-api-key-x-api-key-header-value"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#244 (D3) from the cited provider pages read on 2026-10-05; carrier existence and derivation are provider-documented, the span and value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#244. Question: is the value of an x-api-key header a credential, with no bare-value rule? Options: add a value-shape expectation for the key; or leave the case a draft. Decision: flag the value of the x-api-key header; no bare-value expectation and no expectation for the Authorization Bearer header. Reason: the pages document the key and the header, not the format, and the bearer header is shared with the JWT, so the expectation rests on project policy and is not a provider rule or a fact. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The pages state no value format, so a position-only rule can flag a non-secret or miss a differently shaped key; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A Zoom statement of the key format or that the header carries other values, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
