@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "dropbox:legacy-long-lived-access-token",
+  "family": "dropbox:legacy-long-lived-access-token",
+  "lifecycle": "draft",
+  "contract": "dropbox:legacy-long-lived-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "legacy-example-response-has-no-expiry-member",
+        "text": "Dropbox's token endpoint reference shows an example response for a legacy long-lived access token with no expires_in member and no refresh_token member, unlike its short-lived examples.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "legacy-token-response-example-shape"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-dropboxapi-com-2835da9ecb"
+          }
+        ]
+      },
+      {
+        "id": "prefix-alphabet-and-length",
+        "text": "Dropbox states a prefix, alphabet or length for the legacy long-lived access token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "Dropbox treats access tokens as opaque and states no format for this form; the one rule artifact on record has no independent second artifact."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "creation-retirement-planned-2021-09-30",
+        "text": "A Dropbox developer blog post dated Sep 17, 2020 states creation of long-lived access tokens would be retired on September 30th, 2021, and an undated update says new ones are no longer offered.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "retirement-of-creation-announced-2021-09-30"
+          },
+          {
+            "kind": "claim",
+            "claimId": "no-new-long-lived-tokens-update-note"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-d0baf6f549"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "which-retirement-date-applies",
+        "text": "Dropbox's pages agree on one date for the end of long-lived token availability.",
+        "evidenceClass": "unresolved",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The guide says until mid 2021 and the blog says September 30th, 2021; the pages do not reconcile them."
+        }
+      },
+      {
+        "id": "existing-tokens-end-of-authentication",
+        "text": "Dropbox states when, or whether, an already issued long-lived access token stops authenticating.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No page read states it and no token was tested."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "separation-from-short-lived-tokens-by-shape",
+        "text": "A provider statement separates legacy long-lived tokens from short-lived tokens by shape.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Dropbox says tokens are opaque; the separation here rests on the documented issuance and expiry difference only."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}

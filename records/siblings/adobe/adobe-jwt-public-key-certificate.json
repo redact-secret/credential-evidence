@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "adobe-jwt-public-key-certificate",
+  "families": [
+    "adobe:service-account-jwt-private-key"
+  ],
+  "siblingClass": "non-secret-companion",
+  "name": "Adobe Service Account (JWT) public key certificate",
+  "description": "The public certificate (certificate_pub.crt) generated beside the private key and uploaded to Adobe when the integration is created; Adobe's console receives the public key to validate the JWT signature, while the private key signs. It is the verification half of the pair. The archived page tells the developer to store both the private key and the public certificate securely and does not call the certificate non-sensitive, so only its role as the uploaded verification half is established. No sample is recorded.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "web-archive-org-048c2face6",
+      "supports": "Upload the public certificate (certificate_pub.crt) as a part of creating the integration.",
+      "locator": "section \"Using the Public Key Certificate for Service Account Integration\""
+    },
+    {
+      "sourceId": "web-archive-org-dabac41130",
+      "supports": "the consumer of the JWT (i.e. Adobe Developer Console) gets a public key to validate the signature.",
+      "locator": "section \"Sign and Encode your JWT\""
+    }
+  ],
+  "observedAt": "2026-10-05",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

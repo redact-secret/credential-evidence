@@ -35,6 +35,81 @@
           "locator": "changelog entry"
         }
       ]
+    },
+    {
+      "id": "deprecation-period-start-2023-01-18",
+      "statement": "Airtable's Web API changelog, as archived on 2024-03-23, states in its 2023-01-18 entry that with the general availability of personal access tokens and OAuth integrations Airtable is starting the deprecation period for user API keys and will turn off API key access entirely after February 1, 2024.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-a2b518c2e5",
+          "supports": "With the graduation of personal access tokens and OAuth integrations, we're also starting the deprecation period for the previous method of user API keys. We'll turn off API key access entirely after February 1, 2024.",
+          "locator": "entry 2023-01-18, section \"API Key deprecation period start\""
+        }
+      ]
+    },
+    {
+      "id": "no-new-api-keys-2023-08-01",
+      "statement": "Airtable's API key deprecation notice, as archived on 2023-12-20, lists August 1st, 2023 as the date after which users can no longer create new API keys.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-50b6543c04",
+          "supports": "August 1st, 2023: Users can no longer create new API keys",
+          "locator": "section \"Timeline\""
+        }
+      ]
+    },
+    {
+      "id": "existing-keys-end-of-api-access-2024-02-01",
+      "statement": "Airtable's notice archived on 2023-12-20 states that existing API keys can no longer be used to access the Airtable API after February 1st, 2024, and the Web API changelog archived on 2024-03-23 records on 2024-02-01 that the deprecation period for Airtable API keys has ended; these are the provider's statements and no key was tried against the API.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-50b6543c04",
+          "supports": "February 1st, 2024: Existing API keys can no longer be used to access the Airtable API",
+          "locator": "section \"Timeline\""
+        },
+        {
+          "sourceId": "web-archive-org-a2b518c2e5",
+          "supports": "Updated Authentication to reflect that the deprecation period for Airtable API keys has ended.",
+          "locator": "entry 2024-02-01"
+        }
+      ]
+    },
+    {
+      "id": "legacy-key-account-wide-access",
+      "statement": "Airtable's deprecation notice archived on 2023-12-20 describes the API key as the predecessor that provided all-or-nothing access over everything an Airtable user account could see or do, with no way to see what an API key had been shared with.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-50b6543c04",
+          "supports": "API Keys, which were the predecessor that provided \"all-or-nothing\" access over everything that an Airtable user account could see or do. ... Airtable is not able to determine what is using your API key or who you may have shared your API key with in the past.",
+          "locator": "sections \"How can I find what is using my API key?\" and FAQ \"Why are we doing this?\""
+        }
+      ]
+    },
+    {
+      "id": "legacy-api-key-url-parameter-named",
+      "statement": "Airtable's current authentication reference states that passing personal access tokens and OAuth access tokens via the legacy api_key URL parameter is not supported, which names api_key as the URL parameter of the former key mechanism; the page does not describe the former key's format.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "airtable-com-c31dd3fe16",
+          "supports": "Passing personal access tokens and OAuth access tokens via the legacy `api_key` URL parameter is not supported.",
+          "locator": "#basics"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -44,6 +119,31 @@
       "id": "open-question-1",
       "question": "The format of the legacy API key is not stated on the pages read, and the pages read do not give a durable pin for historical claims; the candidate is not researched beyond existence and its deprecated status. Lead only: one scanner rule artifact by a single maintainer (gitleaks rule \"airtable-api-key\" in config/gitleaks.toml @ b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b, L112-L116) uses a 17-alphanumeric pattern; a single artifact does not meet the tool-corroborated requirement, so no format claim is recorded.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "format-unstated-in-pinned-captures",
+      "question": "The archived deprecation notice (2023-12-20) and changelog (2024-03-23) read for this pass state dates and access scope but no prefix, alphabet or length for the key. Second-artifact search: at the pinned TruffleHog commit named in the earlier question the Airtable detectors present are for OAuth and personal access tokens, none for the legacy key, so the single Gitleaks lead still does not meet the tool-corroborated requirement and no format claim is recorded.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "introduction-date-unknown",
+      "question": "No page read states when Airtable user API keys were introduced; the earliest dated statement is the 2022-11-15 changelog note that a deprecation timeline for API keys would follow once personal access tokens and OAuth left beta. Introduction is unknown.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "notice-url-no-longer-serves-notice",
+      "question": "On 2026-10-05 the support URL https://support.airtable.com/docs/airtable-api-key-deprecation-notice, which the live changelog and authentication pages link to for the deprecation notice, returns the personal access token article instead; the notice text is held only through the archived capture (2023-12-20) and the dates repeated in the current FAQ. Whether Airtable moved or retired the notice is not stated.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "key-presentation-form-in-historical-docs",
+      "question": "How keys were presented to the API while they worked (the api_key URL parameter named by the current page, an Authorization bearer header, or both) is not established by a dated, pinned capture. A pinned capture of the pre-2023 API reference would settle it. The presentation form decides which carriers an old key can appear in (URLs, headers, scripts).",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "end-of-api-access-not-verified",
+      "question": "The 2024-02-01 date is the provider's statement. Whether any API key still authenticated on or after that date was not tested and must not be (no live verification); the date is not recorded as an interval during which the key's format was valid. A historical key found in logs or configuration remains a redaction concern independent of this date.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }
