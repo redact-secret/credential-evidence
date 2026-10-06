@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-05",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "No Reddit page read states an access token's format or current lifetime; only the archived wiki describes carriers."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "The token's text can be seen only on an issued token, which is not created or inspected here."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#247"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

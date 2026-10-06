@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-benign-sibling-reddit-oauth-client-id",
+  "subject": {
+    "kind": "benign-sibling",
+    "id": "reddit-oauth-client-id"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Drafted by an AI agent run from github-com-reddit-archive-reddit-e2ca394517 and web-archive-org-c53a558744 read on 2026-10-05; not reviewed."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'non-secret-status' is recorded as unresolved: Reddit's pages read tell integrators never to share the client secret but do not say the client id is non-secret; a provider statement would settle it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
