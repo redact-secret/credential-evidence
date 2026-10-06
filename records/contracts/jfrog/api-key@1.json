@@ -53,25 +53,243 @@
           "locator": "line 33"
         }
       ]
+    },
+    {
+      "id": "carriers-header-and-basic-password",
+      "statement": "JFrog's API Key page states that an API key authenticates REST API calls in two ways: in the X-JFrog-Art-API header, or as the password of basic authentication with the username (instead of the account password).",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "Artifactory allows authentication for REST API calls using your API key as an alternative to your username and password in two ways: either by using the `X-JFrog-Art-API` header with which you can specify an API key, or through basic authentication using your username and API key (instead of your password).",
+          "locator": "API Key, introduction"
+        }
+      ]
+    },
+    {
+      "id": "retrievable-no-expiry-single-key",
+      "statement": "JFrog's API Key page states that API keys are saved in the database and can be retrieved through the REST API or the UI, are created without an expiry date and by default never expire, and that a single user has one active API key at a time.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "API Keys are retrievable: the keys are saved in the database and can be retrieved via REST API or the UI. ... since API Keys are not created with an expiry date, and, by default, never expire ... A single user can have a single active API Key at any moment",
+          "locator": "JFrog API Key Deprecation Process, Why Is JFrog Deprecating API Keys"
+        }
+      ]
+    },
+    {
+      "id": "introduced-4-4-3-regenerate-earlier-keys",
+      "statement": "JFrog states that API keys were introduced in Artifactory 4.4.3 and that a key must have been generated with Artifactory 4.4.3 or later to authenticate; a key generated before 4.4.3 must be regenerated and the new key used as the basic-authentication password.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "To use your API key for authentication, it must be generated using Artifactory 4.4.3 or later. If generated prior to 4.4.3, you **must** regenerate your API key and use the new key as a password for basic authentication.",
+          "locator": "Artifactory Minimum Supported Version"
+        },
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "When JFrog introduced API Keys in Artifactory 4.4.3, the API Keys provided users with a solution to easily create a secret.",
+          "locator": "Comparing Identity Reference Tokens With API Keys"
+        }
+      ]
+    },
+    {
+      "id": "end-of-life-notice-q4-2024",
+      "statement": "JFrog's API Key page, whose published metadata shows it last updated on 2026-03-19, states that, as notified in Artifactory 7.47.10, the API key has reached End of Life at the end of Q4 2024, and that the ability to create new API keys was disabled in Artifactory 7.98. It describes API key deprecation as a process in which JFrog has begun the countdown to fully discontinuing support for the feature.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "As notified in Artifactory 7.47.10, API key has reached End of Life at the end of Q4, 2024. We have disabled the ability to create new API keys in Artifactory version 7.98.",
+          "locator": "API Key Deprecation callout"
+        },
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "JFrog has begun the countdown to fully discontinuing its support for this feature.",
+          "locator": "JFrog API Key Deprecation for Cloud Customers"
+        }
+      ]
+    },
+    {
+      "id": "end-of-life-notice-in-2025-05-capture",
+      "statement": "An archived capture of JFrog's help-center API Key page taken on 2025-05-20 already carries the notice that, as notified in Artifactory 7.47.10, the API key reached End of Life at the end of Q4 2024 and that new API key creation was disabled in Artifactory 7.98, and it also mentions the usage-control checkbox from Artifactory 7.107.1. The statement is therefore not new on the page read in 2026.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-ee79143a94",
+          "supports": "As notified in Artifactory 7.47.10 , API key has reached End of Life at the end of Q4, 2024. We have disabled the ability to create new API keys in Artifactory version 7.98.",
+          "locator": "API Key Deprecation callout, capture of 2025-05-20"
+        }
+      ]
+    },
+    {
+      "id": "new-key-creation-blocked-from-7-98",
+      "statement": "JFrog states that from Artifactory 7.98 new API keys cannot be created through the UI or API and that the default of the self-hosted flag security.authentication.disable-api-key-creation becomes true from 7.98; the flags to control creation and use were available from 7.84.x with a default of false, and a system property artifactory.security.apiKey.blockCreate, with an added Access YAML setting from 7.77, also blocks creation.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "As of Artifactory version 7.98, you will not be able to create new API keys through UI or API.",
+          "locator": "API Key Creation Deprecation"
+        },
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "As of Artifactory version 7.84.x, self-hosted customers can control the creation and usage of API Keys ... with a default setting of `false` ... Starting from Artifactory version 7.98, the default setting for `security.authentication.disable-api-key-creation` will be `true`",
+          "locator": "API Key Deprecation Configuration Create and Usage Flags"
+        },
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "To block the creation of new API Keys in the JFrog Platform, set the property, `artifactory.security.apiKey.blockCreate`, as true ... From Artifactory version 7.77, ... also add the following in the Access YAML Configuration file: security: authentication: disable-api-key-creation: true",
+          "locator": "Block Creation of New API Keys"
+        }
+      ]
+    },
+    {
+      "id": "usage-block-is-administrator-opt-in",
+      "statement": "JFrog states that blocking authentication with an existing API key is a setting the administrator controls and that is off by default: for cloud, from Artifactory 7.107.1, a Disable API Key Usage checkbox under Security, General that is deselected by default; for self-hosted, the flag security.authentication.disable-api-key-authentication with a default of false.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "Starting from Artifactory version 7.107.1, you are able to use a checkbox to control the API Usage Deprecation through the JFrog platform WebUI. This checkbox will be deselected by default: to block API key usage in your environment, select the **Disable API Key Usage** checkbox under **Security** > **General**.",
+          "locator": "API Key Usage Deprecation"
+        },
+        {
+          "sourceId": "docs-jfrog-com-fd72df859f",
+          "supports": "security.authentication.disable-api-key-authentication: false # When set to true, block user from authenticate with api key.",
+          "locator": "API Key Deprecation Configuration Create and Usage Flags"
+        }
+      ]
+    },
+    {
+      "id": "client-code-prefix-akcp8-minimum-73",
+      "statement": "Two JFrog-maintained client repositories, jfrog-client-go and build-info (one maintainer, so one origin), each identify an API key by the leading characters AKCp8 together with a length of at least 73 characters; the Go client then sends such a value as the basic-authentication password rather than as a Bearer token. The code states no maximum length and no alphabet, and the fifth character 8 is narrower than the AKCp prefix on the documentation page.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-jfrog-jfrog-client-go-1d3c44e0c1",
+          "supports": "apiKeyPrefix = \"AKCp8\"; apiKeyMinimalLength = 73; IsApiKey returns HasPrefix(key, apiKeyPrefix) && len(key) >= apiKeyMinimalLength; an access token that IsApiKey is set with SetBasicAuth",
+          "locator": "constants near line 39, IsApiKey line 49, request authentication near line 856"
+        },
+        {
+          "sourceId": "github-com-jfrog-build-info-dba3874b8a",
+          "supports": "apiKeySecretPrefix = \"AKCp8\"; apiKeySecretMinimalLength = 73, used by containsSuspectedSecrets",
+          "locator": "constants lines 28-29, containsSuspectedSecrets line 140"
+        }
+      ]
+    },
+    {
+      "id": "create-api-key-sample-output-44-characters-no-prefix",
+      "statement": "JFrog's Create API Key reference page, last updated 2026-05-31 per its metadata and marked deprecated, shows a response example whose apiKey value is 44 characters long, ends in a single padding equals sign, contains a plus sign, and does not begin with AKCp. The page does not say the example is representative of issued keys.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-cb04684087",
+          "supports": "\"apiKey\" member of the 200 response example (a 44-character value; not copied)",
+          "locator": "Create API Key, OpenAPI definition, responses 200 examples apiKey"
+        }
+      ]
+    },
+    {
+      "id": "create-api-key-sample-output-unchanged-since-2025-09",
+      "statement": "An archived capture of JFrog's help-center Create API Key page taken on 2025-09-06 shows a sample output apiKey value that is the same 44-character value as the current reference page, with no AKCp prefix.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-05e5877a41",
+          "supports": "Sample output: an apiKey member holding a 44-character value (not copied)",
+          "locator": "Create API Key, Sample output, capture of 2025-09-06"
+        }
+      ]
+    },
+    {
+      "id": "pattern-statement-in-2025-10-capture",
+      "statement": "An archived capture of JFrog's Comparing Identity Reference Tokens With API Keys page taken on 2025-10-08 already states that API keys follow the pattern .*\\bAKCp[A-Za-z0-9]{69}\\b.*, starting with AKCp and including 69 alphanumeric characters, so the statement the current page carries is at least a year old.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-a6f7be4af4",
+          "supports": "API Keys follow this pattern: .*\\bAKCp[A-Za-z0-9]{69}\\b.* , starting with AKCp and including 69 alphanumeric characters.",
+          "locator": "Comparing Identity Reference Tokens With API Keys, capture of 2025-10-08"
+        }
+      ]
+    },
+    {
+      "id": "two-provider-statements-of-form-unreconciled",
+      "statement": "JFrog documents two different forms for an API key: a documentation pattern of AKCp followed by 69 alphanumeric characters (73 in all), and a deprecated reference page whose 44-character example with base64 punctuation carries no AKCp prefix. No page read says which form applies to keys issued by which Artifactory release, whether the example is schematic, or whether the two forms coexist, so no alphabet or length is recorded in the structure.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-9efead811f",
+          "supports": "API Keys follow this pattern: .*\\bAKCp[A-Za-z0-9]{69}\\b.*, starting with AKCp and including 69 alphanumeric characters",
+          "locator": "Comparing Identity Reference Tokens With API Keys"
+        },
+        {
+          "sourceId": "docs-jfrog-com-cb04684087",
+          "supports": "\"apiKey\" member of the 200 response example (a 44-character value; not copied)",
+          "locator": "Create API Key, OpenAPI definition"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Revised in place as a draft on 2026-10-06 by an AI agent run (credential-evidence#246): claims and open questions added, the stale existence-only question removed because the family is now researched, the two earlier open questions api-key-format-conflict and api-key-temporality-period rewritten to the current state of the evidence (the latter replaced by final-authentication-shutdown-not-stated, end-of-life-meaning and release-dates-for-artifactory-versions). Existing claims are untouched.",
   "openQuestions": [
     {
-      "id": "existence-only",
-      "question": "Candidate established at existence level only; format, variants, benign siblings and lifecycle are not researched.",
-      "raisedAt": "2026-10-04"
-    },
-    {
       "id": "api-key-format-conflict",
-      "question": "The Identity Tokens page states an AKCp prefix with 69 alphanumerics (73 characters), and two independent scanner rule artifacts (Gitleaks, TruffleHog) are consistent with 73 characters, while the Create API Key page example shows a 44-character value with no AKCp prefix. Which form applies to which Artifactory versions is unresolved; alphabet is recorded only as alphanumeric via the claims above and no structure field is set until the conflict is settled.",
-      "raisedAt": "2026-10-04"
+      "question": "Which form applies to which Artifactory releases is unresolved. The pattern statement (AKCp plus 69 alphanumerics, 73 characters), JFrog's two client repositories (prefix AKCp8, at least 73) and two independent scanner rule artifacts are consistent with a 73-character AKCp form, while the Create API Key example (44 characters, base64 punctuation, no AKCp) is stated by the same provider and has been published unchanged since at least 2025-09-06. Settled by a JFrog statement of the key format per release, or the example being declared schematic; an issued sample is issuance-gated and was not sought.",
+      "raisedAt": "2026-10-06"
     },
     {
-      "id": "api-key-temporality-period",
-      "question": "Introduction at 4.4.3 and deprecation from 7.47.x are documented; whether existing keys still authenticate on current releases, and any end-of-life date, are not established. A historical period needs a durable pin and is not asserted.",
-      "raisedAt": "2026-10-04"
+      "id": "api-key-prefix-fifth-character",
+      "question": "The client code names AKCp8 and the documentation names AKCp. Whether AKCp keys exist with another fifth character, and what the fifth character encodes, is not stated by any page read. Public repositories hold other AKCp-leading strings of unknown origin; they were not used.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "final-authentication-shutdown-not-stated",
+      "question": "No page read states a release or date at which authentication with an existing API key stops unconditionally. The pages state deprecation (7.47.x), an End of Life notice (end of Q4 2024), creation disabled (7.98) and an administrator-controlled usage block that is off by default (7.107.1 and the self-hosted flag). Deprecation, end of new-key issuance and final shutdown are separate facts and only the first three are documented. Settled by a JFrog release note or lifecycle statement that names a shutdown release or date.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "end-of-life-meaning",
+      "question": "The page says the API key has reached End of Life and, on the same page, describes usage blocking as an optional administrator setting that is off by default. Whether End of Life means the end of support or the end of authentication is not stated. Settled by a JFrog definition of the term for this feature.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "release-dates-for-artifactory-versions",
+      "question": "The pages date the lifecycle only by Artifactory release (4.4.3, 7.47.x, 7.47.10, 7.84.x, 7.98, 7.107.1) and by the quarter of the End of Life notice. The calendar dates of those releases are not on the pages read; a JFrog release-notes source would settle them. No historical period is asserted on a validity field.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "cloud-versus-self-hosted-timing",
+      "question": "The pages describe cloud and self-hosted controls separately and do not state whether the cloud platform applied the creation block or the End of Life on the same dates as self-hosted releases.",
+      "raisedAt": "2026-10-06"
     }
   ]
 }

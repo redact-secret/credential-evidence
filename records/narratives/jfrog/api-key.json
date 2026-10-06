@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "jfrog:api-key",
+  "family": "jfrog:api-key",
+  "lifecycle": "draft",
+  "contract": "jfrog:api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "documented-pattern-akcp-69",
+        "text": "JFrog documents an API key pattern of the leading characters AKCp followed by 69 alphanumeric characters, 73 in all.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "existence-prefix-deprecated"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-jfrog-com-9efead811f"
+          }
+        ]
+      },
+      {
+        "id": "client-libraries-akcp8-at-least-73",
+        "text": "JFrog's own client libraries recognise an API key by the leading characters AKCp8 and a length of at least 73 characters, and state no maximum length and no alphabet.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "client-code-prefix-akcp8-minimum-73"
+          }
+        ]
+      },
+      {
+        "id": "reference-example-44-characters-no-prefix",
+        "text": "JFrog's Create API Key reference page shows a 44-character example value with base64 punctuation and no AKCp prefix, and does not say the example is representative of issued keys.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "create-api-key-sample-output-44-characters-no-prefix"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-jfrog-com-cb04684087"
+          }
+        ]
+      },
+      {
+        "id": "form-per-release",
+        "text": "Which of the two documented forms an issued API key has, and for which Artifactory release, is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "JFrog states a 73-character AKCp pattern on one page and shows a 44-character unprefixed example on another, and no page ties either form to a release or says the example is schematic. A JFrog statement of the key format per release, or an issued sample under a maintainer's authority, would settle it; neither was sought."
+        }
+      },
+      {
+        "id": "fifth-character-and-prefix-variants",
+        "text": "Whether API keys exist that begin with AKCp and a character other than 8 is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The client libraries name AKCp8 while the documentation names AKCp, and no page states what the fifth character encodes. A JFrog statement would settle it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "generated-from-unlocked-profile",
+        "text": "A user generates an API key in the profile after unlocking it, by selecting Generate next to the API Key field; a single user has one active API key at a time.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "retrievable-no-expiry-single-key"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-jfrog-com-fd72df859f"
+          }
+        ]
+      },
+      {
+        "id": "creation-disabled-from-7-98",
+        "text": "From Artifactory 7.98 new API keys can no longer be created through the UI or the API, and the self-hosted default for the creation-blocking setting becomes true from that release.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "new-key-creation-blocked-from-7-98"
+          }
+        ]
+      },
+      {
+        "id": "carried-in-header-or-basic-password",
+        "text": "An API key is presented in the X-JFrog-Art-API header or as the password of basic authentication with the username.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "carriers-header-and-basic-password"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "introduced-4-4-3",
+        "text": "API keys were introduced in Artifactory 4.4.3, and a key generated before that release must be regenerated before it can authenticate.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "introduced-4-4-3-regenerate-earlier-keys"
+          }
+        ]
+      },
+      {
+        "id": "retrievable-and-non-expiring",
+        "text": "API keys are saved in the database and can be retrieved through the REST API or the UI, are created without an expiry date, and by default never expire.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "retrievable-no-expiry-single-key"
+          }
+        ]
+      },
+      {
+        "id": "deprecated-from-7-47-x",
+        "text": "JFrog's API reference marks the Create API Key operation deprecated from Artifactory 7.47.x.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "existence-prefix-deprecated"
+          }
+        ]
+      },
+      {
+        "id": "end-of-life-notice-end-of-q4-2024",
+        "text": "JFrog's API Key page states that, as notified in Artifactory 7.47.10, the API key reached End of Life at the end of Q4 2024, and a capture of the help-center page from 2025-05-20 already carries that notice.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "end-of-life-notice-q4-2024"
+          },
+          {
+            "kind": "claim",
+            "claimId": "end-of-life-notice-in-2025-05-capture"
+          }
+        ]
+      },
+      {
+        "id": "usage-block-is-opt-in",
+        "text": "Blocking authentication with an existing API key is a setting the administrator controls and that is off by default, both in the cloud interface from Artifactory 7.107.1 and in the self-hosted configuration.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "usage-block-is-administrator-opt-in"
+          }
+        ]
+      },
+      {
+        "id": "final-authentication-shutdown",
+        "text": "No release or date at which authentication with an existing API key stops unconditionally is stated, and the meaning of End of Life for this feature is not defined.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The pages state deprecation, an End of Life notice, creation disabled and an optional, default-off usage block, and none names a shutdown release or date. A JFrog release note or lifecycle statement that names one, or defines End of Life, would settle it."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "reference-tokens-share-carriers",
+        "text": "JFrog says reference tokens can be used like API keys, in the X-JFrog-Art-Api header or as basic-authentication credentials, so a value in those positions can be an API key or a reference token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "docs-jfrog-com-9efead811f"
+          }
+        ]
+      },
+      {
+        "id": "pattern-contrast-with-reference-token",
+        "text": "JFrog's comparison page gives two patterns side by side: reference tokens begin cmVmd followed by 59 alphanumeric characters, and API keys begin AKCp followed by 69, and a capture of that page from 2025-10-08 already states both.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "pattern-statement-in-2025-10-capture"
+          },
+          {
+            "kind": "source",
+            "sourceId": "docs-jfrog-com-9efead811f"
+          }
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "release-dates",
+        "text": "The calendar dates of Artifactory 4.4.3, 7.47.10, 7.84.x, 7.98 and 7.107.1, and whether the cloud platform applied the changes on the same dates as self-hosted releases, are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The pages date the lifecycle by Artifactory release and quarter only. JFrog release notes would settle it."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}

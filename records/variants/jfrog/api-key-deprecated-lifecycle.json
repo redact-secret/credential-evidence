@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "variant",
+  "id": "api-key-deprecated-lifecycle",
+  "family": "jfrog:api-key",
+  "contract": "jfrog:api-key@1",
+  "name": "API key under deprecation and End of Life notice",
+  "variantType": "deprecated-form",
+  "description": "The API key as JFrog documents it under deprecation: deprecated from Artifactory 7.47.x, with an End of Life notice for the end of Q4 2024, new key creation disabled in Artifactory 7.98, and authentication with an existing key still available unless an administrator blocks it (a setting that is off by default). This variant records the lifecycle state, not a different key format: no page read ties either documented form (AKCp followed by 69 alphanumeric characters, or the unprefixed 44-character reference example) to an era.",
+  "effective": {
+    "from": null,
+    "until": null
+  },
+  "history": [
+    {
+      "observedAt": "2026-10-06",
+      "change": "deprecated",
+      "note": "An archived capture of the help-center API Key page taken on 2025-05-20 already states that, as notified in Artifactory 7.47.10, the API key reached End of Life at the end of Q4 2024 and that new key creation was disabled in Artifactory 7.98. The provider dates the change by Artifactory release and quarter, not by calendar day, so no occurredAt is recorded and the effective period is left open.",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-ee79143a94",
+          "supports": "As notified in Artifactory 7.47.10 , API key has reached End of Life at the end of Q4, 2024. We have disabled the ability to create new API keys in Artifactory version 7.98.",
+          "locator": "API Key Deprecation callout, capture of 2025-05-20"
+        }
+      ]
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

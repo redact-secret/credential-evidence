@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "jfrog-api-key-lookalikes-and-non-values",
+  "title": "JFrog API key header and password positions holding placeholders, references, masked text or the documented pattern as prose",
+  "summary": "The header name with no value, a placeholder, an environment reference, a masked display and a username with no password, in the positions JFrog documents for an API key, and the documented API key pattern written out as prose.",
+  "rationale": "A header or password position with nothing in it has nothing to protect, an angle-bracket placeholder and an environment reference stand in for a value kept elsewhere, and a masked display has no recoverable value. The documented pattern, written as text that describes the leading characters and the count of alphanumerics, is a description of a format and not a value of it. Protecting any of these would redact text a reader needs to understand how the credential is configured.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "jfrog:api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#246). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the texts here are empty positions, placeholders, references, masked text or a described pattern, not credential values. That a placeholder, reference or described pattern is not a value is a project decision, not a JFrog statement.",
+    "sources": [
+      {
+        "sourceId": "docs-jfrog-com-fd72df859f",
+        "supports": "Artifactory allows authentication for REST API calls using your API key as an alternative to your username and password in two ways: either by using the `X-JFrog-Art-API` header with which you can specify an API key, or through basic authentication using your username and API key (instead of your password).",
+        "locator": "API Key, introduction"
+      },
+      {
+        "sourceId": "docs-jfrog-com-9efead811f",
+        "supports": "API Keys follow this pattern: .*\\bAKCp[A-Za-z0-9]{69}\\b.*, starting with AKCp and including 69 alphanumeric characters.",
+        "locator": "Comparing Identity Reference Tokens With API Keys"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

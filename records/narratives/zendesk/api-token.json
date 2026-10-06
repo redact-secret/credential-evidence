@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "zendesk:api-token",
+  "family": "zendesk:api-token",
+  "lifecycle": "draft",
+  "contract": "zendesk:api-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "basic-credential-three-parts",
+        "text": "A Zendesk API token is sent as Basic authentication whose username is the account email address followed by /token and whose password is the token, so the documented credential string has the form {email_address}/token:{api_token}.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "existence"
+          },
+          {
+            "kind": "claim",
+            "claimId": "basic-credential-composition-and-encoding"
+          }
+        ]
+      },
+      {
+        "id": "composition-documented-since-2022",
+        "text": "A capture of Zendesk's Security and authentication page from 2022-12-03 documents the same Basic credential composition as the page read in 2026.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "basic-credential-composition-in-2022-capture"
+          }
+        ]
+      },
+      {
+        "id": "example-token-40-characters",
+        "text": "The example credential on Zendesk's Security and authentication page has a 40-character letters-and-digits token part, has been unchanged since at least 2022-12-03, and is not declared representative of issued tokens.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "documentation-example-token-40-characters"
+          }
+        ]
+      },
+      {
+        "id": "token-grammar",
+        "text": "No prefix, alphabet or length of a Zendesk API token is established by Zendesk.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "The pages read state none and show only one example of 40 characters; two scanner rule artifacts agree on 40 characters but that records consistency between them, not a provider rule. A Zendesk statement of the token format, or an issued sample under a maintainer's authority, would settle it; neither was sought."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "created-in-admin-center-several-active",
+        "text": "API tokens are created in Admin Center under Apps and integrations, APIs, Zendesk API; several can be active at once, up to 256 tokens (2048 for accounts that already had more), and deleting a token deactivates it permanently.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "existence"
+          },
+          {
+            "kind": "claim",
+            "claimId": "token-limits-and-deletion"
+          }
+        ]
+      },
+      {
+        "id": "new-accounts-from-2026-07-28",
+        "text": "Accounts created on or after 2026-07-28 cannot create or use API tokens, and existing accounts lose the ability to create new API tokens from 2026-10-27.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "phase-1-inactivity-deactivation-and-new-accounts"
+          },
+          {
+            "kind": "claim",
+            "claimId": "phase-2-new-token-creation-blocked"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "deprecated-and-retiring-in-three-phases",
+        "text": "Zendesk labels the API token deprecated and is retiring Support API tokens in three phases: inactivity deactivation on 2026-07-28, no new tokens for existing accounts on 2026-10-27, and permanent deactivation of all remaining tokens on 2027-04-30.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "retirement-timeline"
+          },
+          {
+            "kind": "claim",
+            "claimId": "api-token-labelled-deprecated-current"
+          }
+        ]
+      },
+      {
+        "id": "deprecation-new-token-block-final-shutdown-differ",
+        "text": "Deprecation, the restriction on new tokens and the final shutdown are separate events: existing active tokens continue to work after the restriction until 2027-04-30 unless they become inactive first.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "phase-2-new-token-creation-blocked"
+          },
+          {
+            "kind": "claim",
+            "claimId": "phase-3-final-deactivation"
+          },
+          {
+            "kind": "claim",
+            "claimId": "existing-tokens-work-until-final-date-and-parallel-oauth"
+          }
+        ]
+      },
+      {
+        "id": "recommended-until-at-least-2026-04",
+        "text": "A capture of Zendesk's Security and authentication page from 2026-04-21 still recommended API tokens or OAuth tokens over basic authentication and did not label the token deprecated.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "api-token-recommended-in-2026-04-capture"
+          }
+        ]
+      },
+      {
+        "id": "reasons-for-retirement",
+        "text": "Zendesk gives the lack of expiry, the lack of scope restriction and the lack of application binding as the reasons for retiring API tokens.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "reasons-given-for-retirement"
+          }
+        ]
+      },
+      {
+        "id": "phase-1-status-and-announcement-date",
+        "text": "Whether the 2026-07-28 phase has been applied, and the date the retirement was announced, are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The migration page read after 2026-07-28 still words the first phase as taking effect and gives no announcement date; the only dated bounds are the 2026-04-21 and 2026-09-24 captures. A Zendesk status statement or changelog entry would settle it."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "oauth-access-token-different-credential",
+        "text": "An OAuth access token is a different credential in the same account, sent as an Authorization: Bearer value and stated to be up to 184 characters long, whereas an API token is a Basic password paired with an email address.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "source",
+            "sourceId": "developer-zendesk-com-73874c42bb"
+          }
+        ]
+      },
+      {
+        "id": "token-needs-an-email-but-no-user-binding",
+        "text": "An API token is not associated with a specific Zendesk user, yet requests must supply the email address of a valid user, whose role limits what the token can do.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "token-is-not-bound-to-a-user-but-needs-an-email"
+          }
+        ]
+      },
+      {
+        "id": "password-basic-authentication",
+        "text": "Whether and when Basic authentication with the account email and password is retired is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "The page names basic authentication together with API tokens as something to migrate away from, but gives no separate schedule for the password form. A Zendesk statement would settle it."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "variants-over-time",
+        "text": "Whether API tokens of different eras differ in length or alphabet is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-06",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Neither the provider pages nor the two rule artifacts read say so, and the documentation example has not changed since 2022. A Zendesk statement would settle it."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}
