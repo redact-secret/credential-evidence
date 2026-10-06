@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-06",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "Zendesk states no prefix, alphabet or length for an API token; only a 40-character documentation example is given."
+      },
+      {
+        "kind": "date-gated",
+        "summary": "Phase 2 (2026-10-27) and final deactivation (2027-04-30) lie after the observation date; their application cannot yet be observed."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#246"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

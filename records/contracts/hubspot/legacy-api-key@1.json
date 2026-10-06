@@ -65,6 +65,100 @@
           "locator": "pkg/detectors/hubspot_apikey/v1/apikey.go lines 31 and 37 at commit 59e3b04e820c4cad30462696ac497853a5f7679c"
         }
       ]
+    },
+    {
+      "id": "api-key-sunset-announced-2022-06-01-live-2022-11-30",
+      "statement": "HubSpot's developer changelog entry 'Upcoming: API Key Sunset', as archived on 2022-12-02, is labelled 'Announced: June 1, 2022' and 'Live: November 30, 2022'.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-1433438df3",
+          "supports": "Announced: June 1, 2022 / Live: November 30, 2022",
+          "locator": "entry header"
+        }
+      ]
+    },
+    {
+      "id": "no-new-api-keys-2022-07-15",
+      "statement": "The archived changelog entry states that as of July 15, 2022 HubSpot no longer allowed new API keys to be created, that existing keys would work until November 30th, and that accounts without a key on July 15, 2022 could not create one.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-1433438df3",
+          "supports": "As of July 15, 2022, we no longer allowed new API keys to be created. Existing API keys will work until November 30th, but accounts which did not have an API key, as of July 15, 2022, will not have access to create a new API key.",
+          "locator": "section \"When is this change happening?\""
+        }
+      ]
+    },
+    {
+      "id": "api-key-end-of-use-statements-differ",
+      "statement": "HubSpot's authentication page as archived on 2022-07-07 states that starting November 30, 2022 HubSpot API keys will no longer be able to be used as an authentication method, while the changelog entry archived on 2022-12-02 states that after November 30 HubSpot will begin the process of deprecating API keys, that they will no longer be supported and that they would be used at the developer's own risk; the two pages are not worded identically about whether a key stops authenticating on that date, and the pages do not state a later date.",
+      "evidenceClass": "unresolved",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-edd2016419",
+          "supports": "starting November 30, 2022, HubSpot API keys will no longer be able to be used as an authentication method to access HubSpot APIs",
+          "locator": "notice at the top of the page"
+        },
+        {
+          "sourceId": "web-archive-org-1433438df3",
+          "supports": "After November 30, we will begin the process of deprecating API Keys and your API keys will no longer be supported by HubSpot. You will therefore be using API keys at your own risk.",
+          "locator": "section \"When is this change happening?\""
+        }
+      ]
+    },
+    {
+      "id": "api-key-carried-in-hapikey-query-parameter",
+      "statement": "HubSpot's authentication page as archived on 2022-01-18 and 2022-07-07 states that a request with an API key adds the key in a hapikey= query parameter, and shows the key in an example URL in a masked form.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-338425f34b",
+          "supports": "API key, which is added to the URL using the hapikey= query parameter",
+          "locator": "section \"Authentication methods on HubSpot\", Examples"
+        },
+        {
+          "sourceId": "web-archive-org-edd2016419",
+          "supports": "To make a request using an API token, add to key in a hapikey= query parameter",
+          "locator": "section \"API key\""
+        }
+      ]
+    },
+    {
+      "id": "account-and-developer-api-keys-differ-only-by-account-type",
+      "statement": "HubSpot's authentication page as archived on 2022-07-07 states that the only difference between API keys in standard HubSpot accounts and developer accounts is the type of account the key allows access to, and that each developer account comes with a developer account API key; the page states no format, prefix or length for either.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-edd2016419",
+          "supports": "The only difference between API keys in standard HubSpot accounts and developer accounts is the type of account that the key allows access to.",
+          "locator": "section \"Authentication methods on HubSpot\""
+        }
+      ]
+    },
+    {
+      "id": "developer-api-key-current-hapikey-carrier",
+      "statement": "HubSpot's current authentication overview states that some app features require a developer API key available in the developer overview of the account, which is given in the hapikey query parameter (usually with appId), shown with the placeholder {YOUR_DEVELOPER_API_KEY}; the page states no format for it.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-hubspot-com-1876a2b7bb",
+          "supports": "Some app features and settings require a developer API key ... You'll provide the key value in the hapikey query parameter, usually with the appId query parameter ... hapikey={YOUR_DEVELOPER_API_KEY}",
+          "locator": "section \"Developer API keys\""
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -84,6 +178,31 @@
       "id": "open-question-3",
       "question": "Which HubSpot credential kind the UUID-shaped value belongs to is not stated by either scanner artifact. The v1 TruffleHog source verifies it as a hapikey query parameter, but that is one artifact and not a provider statement. Gitleaks's rule is also vendored into other scanner rule sets (for example MongoDB Kingfisher, which lists it as an import of the same upstream rule); such copies count once. The character set (hex versus alphanumeric) is unresolved.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "legacy-and-developer-key-share-carrier-not-format",
+      "question": "HubSpot's own page says the legacy account key and the developer account key differ only by the account type they access and both travel in hapikey; it states a format for neither. So the distinction is of scope (account type) and era (retired versus still in use), not of a documented grammar. Whether the 8-4-4-4-12 shape in the rule artifacts describes the legacy account key, the developer key, both or a later token is not settled by any provider page read.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "masked-example-gives-no-length",
+      "question": "The archived page displays the key as a short masked example in a URL; a masked display establishes no length, alphabet or segment structure and no part of it is recorded or copied.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "introduction-date-unknown",
+      "question": "No page read states when HubSpot API keys were introduced; the earliest dated statement is the 2022-06-01 announcement. Introduction is unknown.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "source-moved-to-archive",
+      "question": "The changelog URL cited by the first claim returned HTTP 404 on 2026-10-05 (an unreachable observation was appended); the same text is held by the archived 2022-12-02 capture, which the new historical claims cite. The earlier claim is left as written and its live-unpinned source is no longer the durable one; a maintainer may re-point it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "end-of-authentication-not-verified",
+      "question": "Whether any legacy key authenticated after 2022-11-30 is not established (two provider pages word it differently; none states a later cutoff) and was not tested. The dates are announcements, not a retrospective validity interval.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

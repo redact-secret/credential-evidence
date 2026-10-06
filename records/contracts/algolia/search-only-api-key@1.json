@@ -58,6 +58,139 @@
           "locator": "#L35"
         }
       ]
+    },
+    {
+      "id": "search-only-api-key-restricted-derivation-and-mitigation",
+      "statement": "Algolia states the Search-only API key works on all of an application's indices and may be used to create more restricted API keys, and as mitigation for exposure it advises that indices contain only data the owner is happy to expose and that a secured search-only API key with rate-limiting, index access and other restrictions be generated and used.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "It works on all your Algolia application indices and is safe to use in your production frontend code. You may want to use this key to create more restricted API keys.",
+          "locator": "#search-only-api-key"
+        },
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Ensure your indices only contain data you’re happy to expose. Generate and use a secured search-only API key with rate-limiting, index access, and other restrictions.",
+          "locator": "#risks-of-api-key-exposure"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-read-acls-beyond-search",
+      "statement": "Algolia's ACL list names read-oriented permissions beyond search that a key can be given: browse (retrieve all index data with the browse endpoint), settings (read all index settings), seeUnretrievableAttributes (retrieve unretrievableAttributes for all operations that return records) and logs (query the logs). The pages read do not state which of these, if any, the predefined Search-only API key holds.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Browse Index (browse): allowed to retrieve all index data with the browse endpoint.",
+          "locator": "#access-control-list-acl"
+        },
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Get unretrievable attributes (seeUnretrievableAttributes): allowed to retrieve unretrievableAttributes for all operations that return records.",
+          "locator": "#access-control-list-acl"
+        },
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Access logs (logs): allowed to query the logs.",
+          "locator": "#access-control-list-acl"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-referrer-restriction-is-light",
+      "statement": "Algolia states that HTTP referrer restrictions on a key can be spoofed, that by default requests from any referrer are allowed, and that referrer rules should be treated as a light access control layer combined with ACLs, index allowlists, key validity, rate limits and secured API keys.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "Referrer and Origin headers can be spoofed. Treat referrer rules as a light access control layer and combine them with other restrictions—like ACLs, index allowlists, key validity, rate limits, and secured API keys—for stronger protection.",
+          "locator": "#authorized-http-referrers"
+        },
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "By default, Algolia allows requests from any referrer.",
+          "locator": "#authorized-http-referrers"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-obfuscated-in-logs",
+      "statement": "Algolia states that its Search API logs and Insights API logs include an obfuscated API key; the pages read do not describe the obfuscation or the shape of the obfuscated value, and do not say which key roles it applies to.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "Your Search API logs include: [...] Obfuscated API key",
+          "locator": "#search-api-logs"
+        },
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "Your Insights API logs include: [...] Obfuscated API key",
+          "locator": "#insights-api-logs"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-index-names-are-public",
+      "statement": "Algolia states that index names are public because they appear in network requests, so a search-only frontend request discloses the index name beside the key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "Don’t use sensitive information in an index name. Index names are public, because they appear in network requests.",
+          "locator": "#sensitive-information"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-rotation-and-validity-guidance",
+      "statement": "Algolia recommends regenerating all API keys at least once a year and limiting each key's validity to one year, and its API reference states that by default a key does not expire.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "Regenerate all your API keys at least once a year. Rotating your API keys reduces the risk of leaks, misuse, and compliance issues. For sensitive apps, rotate your keys more often. Limit each API key’s validity to one year.",
+          "locator": "#rotate-your-api-keys-regularly"
+        },
+        {
+          "sourceId": "algolia-com-9e381d24e8",
+          "supports": "Duration (in seconds) after which the API key expires. By default, API keys don't expire.",
+          "locator": "#body-validity"
+        }
+      ]
+    },
+    {
+      "id": "search-only-api-key-docs-example-key-shape",
+      "statement": "Two Algolia reference pages show an API key (the response property key of the Create an API key reference, and the parent API key in the generate-secured-API-key samples) as an example value of 32 lowercase hexadecimal characters. These are examples shown beside parameters, not a statement of what Algolia issues for any role, and neither example is attributed to a role.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-9e381d24e8",
+          "supports": "The response property key (API key) is shown with an example value of 32 lowercase hexadecimal characters; the value is not copied here.",
+          "locator": "#response-key"
+        },
+        {
+          "sourceId": "algolia-com-b2e285350d",
+          "supports": "The example parentApiKey in the code samples is shown as 32 lowercase hexadecimal characters; the value is not copied here.",
+          "locator": "code samples under Usage"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -82,6 +215,21 @@
       "id": "open-question-4",
       "question": "The 32-character alphanumeric shape is only tool-corroborated by two scanner rule artifacts and is not stated by Algolia; whether every key of this role has that shape, and whether any other key kind shares it, is not established. The two artifacts are not checked beyond their rule text, and a reviewer should confirm their authorship is independent.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-5",
+      "question": "Which ACL entries the predefined Search-only API key carries is not stated on the pages read (the exposure claim says it can scrape and flood; the ACL list names read permissions beyond search). Read-only is not established as harmless, and public-intent is not established as a blanket statement: Algolia ties its frontend statement to the Search-only key and, for restrictions, to secured keys.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-6",
+      "question": "The application ID sent beside the key is not documented on the pages read as public or confidential; only index names are stated to be public. Whether an application ID is a public identifier is not established here.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-7",
+      "question": "The era in which Algolia first documented the Search-only key as frontend-safe, and whether guidance changed over time, is not established; no dated archive snapshot was captured, so no historical claim is made.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

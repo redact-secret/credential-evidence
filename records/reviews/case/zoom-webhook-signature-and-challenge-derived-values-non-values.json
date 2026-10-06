@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-zoom-webhook-signature-and-challenge-derived-values-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "zoom-webhook-signature-and-challenge-derived-values-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#244 (D3) from the cited provider pages read on 2026-10-05; carrier existence and derivation are provider-documented, the span and value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#244. Question: are x-zm-signature values, signed message strings, challenge and encrypted tokens, and references to or masked displays of the secret token non-values of the secret token? Options: do not flag them; flag derived signatures as sensitive; or leave the case a draft. Decision: do not flag any of these inputs as the webhook secret token. Reason: the page documents them as derived HMAC outputs or inputs of the computation, with the secret token as the key, so the expectation rests on project policy for the secret token's span only. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The pages do not state that a signature is non-secret, and two pages say Zoom sends the secret token itself, so a consumer may still protect a signature or a header; nothing here asserts they are public.",
+      "reversingEvidence": "A Zoom statement that the signature is confidential or that the secret token is sent as a header, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

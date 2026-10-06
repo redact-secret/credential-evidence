@@ -25,6 +25,90 @@
           "locator": "section \"Generate Pairing Tokens\""
         }
       ]
+    },
+    {
+      "id": "pairing-token-purpose-and-signed-extension",
+      "statement": "JFrog documents the pairing token as a limited-access, task-dedicated, short-lived access token for the initial pairing flow, with a mandatory base URL and exchange URL and an optional pairing URL in its extension, and says that because the token is signed the exchange URL can be assumed to be trusted.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "The pairing token is an access token that is used for the initial pairing flow. Because the token is a limited-access token, it is dedicated to a specific task and short-lived. ... The exchange URL in the extension is mandatory (since the token is signed, this URL can be assumed as trusted)",
+          "locator": "Generate Pairing Tokens"
+        }
+      ]
+    },
+    {
+      "id": "pairing-token-generation-display",
+      "statement": "JFrog documents generating a pairing token under Administration, User Management, Access Tokens, Pairing Token for Mission Control or Cold Storage, and says the displayed token window includes the expiration (300 seconds by default), the token ID and the actual token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "This displays the token window, which includes the token's expiration (in seconds, set by default to 300 seconds = 5 minutes), the token ID, and the actual token, which you can copy by clicking Copy.",
+          "locator": "Pairing Tokens to Bind a JPD and a Mission Control Microservice"
+        }
+      ]
+    },
+    {
+      "id": "pairing-result-is-a-master-token",
+      "statement": "JFrog states that the result of a pairing is a master token, an access token that is usually strong and long-lived and whose revocation by an admin removes the trust, so the short-lived pairing token is exchanged for a different, longer-lived credential.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "The result of a pairing is the master token, which is an access token that grants the requesting service all the actions it is required to do on the issuing service ... An admin user can revoke trust by revoking this token.",
+          "locator": "Master Token"
+        }
+      ]
+    },
+    {
+      "id": "pairing-token-regenerable-by-api-with-namespace",
+      "statement": "JFrog's cold storage page documents regenerating a pairing token with a POST to the cold instance's service_trust pairing endpoint using the connection's namespace, which is unique, generated during the pairing process and needed to re-establish trust, with an administrator's basic credentials shown in the example.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-e08377920b",
+          "supports": "Each connection between a Live instance and a Cold instance is bound to a namespace in the Cold instance, which is generated during the paring process. ... Regenerate the pairing token by providing the namespace as an argument in the POST request.",
+          "locator": "Re-establishing Trust"
+        }
+      ]
+    },
+    {
+      "id": "pairing-token-replaces-join-key",
+      "statement": "JFrog states that pairing tokens replace the join.key that linked services in the past, that the join.key is a symmetric key (AES-128 or AES-256) used internally to create trust between microservices, and that pairing tokens are revocable and expected to be used at most once.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "Pairing tokens replace the join.key that was used in the past in the JFrog Platform to link between services. ... They are revocable, and are expected to be used at most once",
+          "locator": "How Do Pairing Tokens and Join Keys Differ?"
+        }
+      ]
+    },
+    {
+      "id": "binding-token-is-a-related-role",
+      "statement": "In the version of the page read, JFrog describes a binding token as a type introduced with Artifactory 7.33.8 that allows trust to be bi-directional and that is created by Mission Control; it is a separate role from the pairing token and the master token on the same page.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-jfrog-com-a4d14ae414",
+          "supports": "With the release of JFrog Artifactory 7.33.8, JFrog introduces a type of token called a binding token, which allows trust to be bi-directional.",
+          "locator": "Binding Tokens"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -39,6 +123,31 @@
       "id": "pairing-token-shape",
       "question": "The page calls it an access token; whether its string form differs from any other access token is not stated, so it may not be a distinct credential shape and the family boundary with jfrog:access-token is unresolved.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "pairing-token-form-is-inferred-not-stated",
+      "question": "The page calls the pairing token an access token and a signed token with an extension, and the jfrog:access-token contract records JFrog's statement that the JFrog Access Token is a JSON Web Token; that a pairing token is therefore a JWT with an extension claim is an inference and is not recorded as a claim. No page read states its string form, prefix or length. A JFrog statement for pairing tokens would settle it.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "pairing-token-shared-carrier-with-access-token",
+      "question": "Whether a pairing token is presented to the exchange URL as an Authorization: Bearer value is not stated; what distinguishes it from other access tokens in the documentation is purpose, expiry (300 seconds default), single use and the extension, not a string property. The role record is kept; any detector merge is downstream.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "pairing-token-id-confidentiality",
+      "question": "The token ID shown beside the token is not stated to be non-secret; recorded as an unresolved benign sibling.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "pairing-token-era",
+      "question": "The page says pairing tokens replace the join.key 'in the past' without a date or version; the binding token is tied to Artifactory 7.33.8. No release is documented for pairing tokens themselves, so no era or variant is recorded.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "pairing-token-scanner-rule-names",
+      "question": "On 2026-10-06 the rule and detector names (not their contents) of two open-source scanner repositories were listed: Gitleaks config/gitleaks.toml at b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b and TruffleHog pkg/detectors at 0186870afd2c4a90def791d80260923ba583d076. Gitleaks lists jfrog-api-key, jfrog-identity-token, artifactory-api-key and artifactory-reference-token and TruffleHog lists artifactory and artifactoryreferencetoken; none names a pairing token. This is a negative observation of names only; it is not a source, not corroboration and not an expectation basis.",
+      "raisedAt": "2026-10-06"
     }
   ]
 }

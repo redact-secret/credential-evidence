@@ -30,6 +30,82 @@
           "locator": "#other-api-keys"
         }
       ]
+    },
+    {
+      "id": "usage-api-key-acl-and-source",
+      "statement": "Algolia's ACL list names usage as the permission to retrieve data with the Usage API, and the Usage API reference says the API key is found on the API Keys page under the Usage section and is sent in the X-Algolia-API-Key header beside the application ID.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Use usage API (usage): allowed to retrieve data with the Usage API.",
+          "locator": "#access-control-list-acl"
+        },
+        {
+          "sourceId": "algolia-com-eac8a40cae",
+          "supports": "You can find the APPLICATION_ID variable in your dashboard, and the API_KEY variable on the API Keys page, under the Usage section.",
+          "locator": "page introduction"
+        },
+        {
+          "sourceId": "algolia-com-eac8a40cae",
+          "supports": "The X-Algolia-Application-Id header identifies which app you are accessing, and the X-Algolia-API-Key header authenticates the endpoint.",
+          "locator": "#request-format"
+        }
+      ]
+    },
+    {
+      "id": "usage-api-key-plan-and-host",
+      "statement": "Algolia states that access to the Usage REST API is part of the Premium plan or an Enterprise add-on, and that all calls use the https://usage.algolia.com domain.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-eac8a40cae",
+          "supports": "Access to the Usage REST API is available as part of the Premium plan or as an Enterprise add-on.",
+          "locator": "page introduction"
+        },
+        {
+          "sourceId": "algolia-com-eac8a40cae",
+          "supports": "All API calls use HTTPS, with the https://usage.algolia.com domain.",
+          "locator": "page introduction"
+        }
+      ]
+    },
+    {
+      "id": "usage-api-key-monitoring-usage-endpoints-deprecated",
+      "statement": "Algolia states that the usage endpoints of the Monitoring API are now deprecated and that callers should migrate to the Usage API; the page gives no date for the deprecation.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-eac8a40cae",
+          "supports": "The usage endpoints of the Monitoring API are now deprecated. You should migrate to the new Usage API.",
+          "locator": "#migration-from-the-monitoring-api"
+        }
+      ]
+    },
+    {
+      "id": "usage-api-key-rotation-and-validity-guidance",
+      "statement": "Algolia recommends regenerating all API keys at least once a year and limiting each key's validity to one year, and its API reference states that by default a key does not expire.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "Regenerate all your API keys at least once a year. Rotating your API keys reduces the risk of leaks, misuse, and compliance issues. For sensitive apps, rotate your keys more often. Limit each API key’s validity to one year.",
+          "locator": "#rotate-your-api-keys-regularly"
+        },
+        {
+          "sourceId": "algolia-com-9e381d24e8",
+          "supports": "Duration (in seconds) after which the API key expires. By default, API keys don't expire.",
+          "locator": "#body-validity"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -49,6 +125,16 @@
       "id": "open-question-3",
       "question": "Whether the Usage API key is a distinct credential or an ACL profile of the same key kind as the other predefined keys is not settled by the pages read.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-4",
+      "question": "The date Algolia deprecated the usage endpoints of the Monitoring API is not on the page read (its sample dates are examples, not the deprecation date), and no dated archive was captured; whether a Monitoring API key was accepted for those usage endpoints in the earlier era is not stated, so no era claim or variant is written.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-5",
+      "question": "How sensitive the usage statistics are, and whether Algolia expects the Usage key to be kept confidential, is not stated on the pages read.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

@@ -325,6 +325,135 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "meta-authored--app-pair-raw-http",
+      "case": "meta-app-secret-in-app-id-pipe-access-token",
+      "path": "app-pair-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "5e6e73ab2a201fc4f62cba7a0e9c573b68a37e8cf565892b752486da37d12eb3",
+      "text": "GET /v26.0/me?access_token=1000000000000001|SYNTHETIC-meta-app-secret-never-issued-0001 HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 44,
+            "end": 87,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-pair-curl-url",
+      "case": "meta-app-secret-in-app-id-pipe-access-token",
+      "path": "app-pair-curl-url/fixture.txt",
+      "context": "cli",
+      "sha256": "8a858015ff13b1c1dce16053dc6ec3f9327b375854e77f2b0f4345260c7dc0b0",
+      "text": "curl -i -X GET \"https://graph.example.test/v26.0/me?access_token=1000000000000001|SYNTHETIC-meta-app-secret-never-issued-0002\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 82,
+            "end": 125,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-pair-url-query-continues",
+      "case": "meta-app-secret-in-app-id-pipe-access-token",
+      "path": "app-pair-url-query-continues/fixture.txt",
+      "context": "url",
+      "sha256": "dd049b1287fe80bec274178349c4a00b4f42dc3f91a2a16098e85c71efe39805",
+      "text": "https://graph.example.test/v26.0/me?fields=id&access_token=1000000000000001|SYNTHETIC-meta-app-secret-never-issued-0003&debug=all\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 76,
+            "end": 119,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-pair-lookalike-documented-template",
+      "case": "meta-app-secret-pipe-placeholders-derived-proof-and-non-values",
+      "path": "app-pair-lookalike-documented-template/fixture.txt",
+      "context": "cli",
+      "sha256": "fd5744ac3c54618f4fcc210b4e2774c8c6e075478b02fb58ac62ed06eec233c0",
+      "text": "curl -i -X GET \"https://graph.example.test/{api-endpoint}?access_token={your-app_id}|{your-app_secret}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-pair-lookalike-environment-reference",
+      "case": "meta-app-secret-pipe-placeholders-derived-proof-and-non-values",
+      "path": "app-pair-lookalike-environment-reference/fixture.txt",
+      "context": "header",
+      "sha256": "d77880c93dd481f09d8315b839e5b712406aebde38de1aac3afd60cb53551316",
+      "text": "GET /v26.0/me?access_token=${META_APP_ID}|${META_APP_SECRET} HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-pair-lookalike-masked-secret",
+      "case": "meta-app-secret-pipe-placeholders-derived-proof-and-non-values",
+      "path": "app-pair-lookalike-masked-secret/fixture.txt",
+      "context": "header",
+      "sha256": "d7d1928eabb7263baaf037bb2e2002e721f54d720e22164d67e3678acf77cf24",
+      "text": "GET /v26.0/me?access_token=1000000000000001|******** HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-pair-lookalike-generation-call-placeholder",
+      "case": "meta-app-secret-pipe-placeholders-derived-proof-and-non-values",
+      "path": "app-pair-lookalike-generation-call-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "85badf4197591232afa328910602ab694ee21dc99ed500b68e734365b5cedf89",
+      "text": "curl -X GET \"https://graph.example.test/oauth/access_token?client_id=1000000000000001&client_secret=<your-app-secret>&grant_type=client_credentials\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-pair-lookalike-appsecret-proof-derived",
+      "case": "meta-app-secret-pipe-placeholders-derived-proof-and-non-values",
+      "path": "app-pair-lookalike-appsecret-proof-derived/fixture.txt",
+      "context": "header",
+      "sha256": "6035a1eef90f928a0c054e421cc283747d1abaac712c85724a4d68cbb21b5404",
+      "text": "GET /v26.0/me?access_token={user-access-token}&appsecret_proof=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-pair-lookalike-prose-mention",
+      "case": "meta-app-secret-pipe-placeholders-derived-proof-and-non-values",
+      "path": "app-pair-lookalike-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "4451ddbdffa73639a75c7b029a14d309f4badcf1c89d0ae5461e7013ece2949d",
+      "text": "The app id and the app secret can be joined by a pipe and passed in the access_token parameter of a server-side call.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

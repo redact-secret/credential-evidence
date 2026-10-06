@@ -346,6 +346,123 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "zendesk-authored--api-token-curl-basic-credential",
+      "case": "zendesk-api-token-basic-credential-token-part",
+      "path": "api-token-curl-basic-credential/fixture.txt",
+      "context": "cli",
+      "sha256": "3c7d3291102cbc80f4c71f572c2f551fb77e769c81a3dd5a763e6166ccaf4b1c",
+      "text": "curl https://example-subdomain.zendesk.example.test/api/v2/users.json -u \"agent@example.test/token:SYNTHETICZendeskApiTokenNeverIssued0001\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 99,
+            "end": 138,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-json-credentials-string",
+      "case": "zendesk-api-token-basic-credential-token-part",
+      "path": "api-token-json-credentials-string/fixture.txt",
+      "context": "structured-file",
+      "sha256": "a783f8cb66cd4fd34f7c5228fa1b85b6a175657dcd9fc9b834f37d68c0b887fb",
+      "text": "{\n  \"zendesk\": {\n    \"credentials\": \"agent@example.test/token:SYNTHETICZendeskApiTokenNeverIssued0002\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 62,
+            "end": 101,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-env-assignment",
+      "case": "zendesk-api-token-basic-credential-token-part",
+      "path": "api-token-env-assignment/fixture.txt",
+      "context": "env-assignment",
+      "sha256": "ea39244d5370363c29671406b497c1f517f34ed53aa156d45f4cfc0f969e82ff",
+      "text": "ZENDESK_BASIC_CREDENTIALS=agent@example.test/token:SYNTHETICZendeskApiTokenNeverIssued0003\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 51,
+            "end": 90,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-lookalike-email-and-subdomain-only",
+      "case": "zendesk-api-token-lookalikes-and-non-values",
+      "path": "api-token-lookalike-email-and-subdomain-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "364eccd09a64ebeb8c526ab70c45c6b88bbf5c70acc4c47f4f73696dfda7a2c4",
+      "text": "{\n  \"subdomain\": \"example-subdomain\",\n  \"email\": \"agent@example.test\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-lookalike-documented-template",
+      "case": "zendesk-api-token-lookalikes-and-non-values",
+      "path": "api-token-lookalike-documented-template/fixture.txt",
+      "context": "cli",
+      "sha256": "0d846f26173fb8825946ffb848fbe9f863427f3486b62b6ea3de8b182b6d95a6",
+      "text": "curl https://example-subdomain.zendesk.example.test/api/v2/users.json -u {email_address}/token:{api_token}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-lookalike-environment-reference",
+      "case": "zendesk-api-token-lookalikes-and-non-values",
+      "path": "api-token-lookalike-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "7c888a5150388aca2330bfcd57d0d507cc3a91f2c7d6a04d64df7a7b976f5b78",
+      "text": "curl https://example-subdomain.zendesk.example.test/api/v2/users.json -u \"agent@example.test/token:${ZENDESK_API_TOKEN}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-lookalike-masked-display",
+      "case": "zendesk-api-token-lookalikes-and-non-values",
+      "path": "api-token-lookalike-masked-display/fixture.txt",
+      "context": "env-assignment",
+      "sha256": "9a7f3f7990ec0d4a8d585413ef242e3cad837d86e32cf35cfbba5463571f427b",
+      "text": "ZENDESK_BASIC_CREDENTIALS=agent@example.test/token:********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-lookalike-separator-without-token",
+      "case": "zendesk-api-token-lookalikes-and-non-values",
+      "path": "api-token-lookalike-separator-without-token/fixture.txt",
+      "context": "cli",
+      "sha256": "c47e3addc5b1217ef7de78c90049d205e1a4eb89206e5444a299496f1cff400b",
+      "text": "curl https://example-subdomain.zendesk.example.test/api/v2/users.json -u \"agent@example.test/token\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

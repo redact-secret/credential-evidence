@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-zendesk-api-token",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "zendesk:api-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Drafted by an AI agent run for credential-evidence#246 from the provider documentation, provider client source and archived captures read on 2026-10-06 (source ids recorded in the contract); not reviewed."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'token-grammar' (shape) is recorded as unresolved: The pages read state none and show only one example of 40 characters; two scanner rule artifacts agree on 40 characters but that records consistency between them, not a provider rule. A Zendesk statement of the token format, or an issued sample under a maintainer's authority, would settle it; neither was sought."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'phase-1-status-and-announcement-date' (lifecycle) is recorded as unresolved: The migration page read after 2026-07-28 still words the first phase as taking effect and gives no announcement date; the only dated bounds are the 2026-04-21 and 2026-09-24 captures. A Zendesk status statement or changelog entry would settle it."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'password-basic-authentication' (collisions) is recorded as unresolved: The page names basic authentication together with API tokens as something to migrate away from, but gives no separate schedule for the password form. A Zendesk statement would settle it."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'variants-over-time' (openQuestions) is recorded as unresolved: Neither the provider pages nor the two rule artifacts read say so, and the documentation example has not changed since 2022. A Zendesk statement would settle it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

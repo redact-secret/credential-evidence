@@ -25,6 +25,58 @@
           "locator": "#other-api-keys"
         }
       ]
+    },
+    {
+      "id": "analytics-api-key-accepts-any-key-with-acl",
+      "statement": "Algolia's Analytics API reference states that requests are authenticated with x-algolia-application-id and x-algolia-api-key headers, the latter being an API key with the necessary permissions, and that the required ACL is listed on each endpoint; the ACL list names analytics as the permission to retrieve data with the Analytics API.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-5cc2e19305",
+          "supports": "x-algolia-api-key. An API key with the necessary permissions to make the request. The required access control list (ACL) to make a request is listed in each endpoint’s reference.",
+          "locator": "#availability-and-authentication"
+        },
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Use analytics API (analytics): allowed to retrieve data with the Analytics API.",
+          "locator": "#access-control-list-acl"
+        }
+      ]
+    },
+    {
+      "id": "analytics-api-key-regional-hosts",
+      "statement": "Algolia's Analytics API is served from regional base URLs (analytics.us.algolia.com, analytics.de.algolia.com and the alias analytics.algolia.com), so the key travels to hosts under algolia.com rather than the algolia.net application hosts.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-5cc2e19305",
+          "supports": "https://analytics.us.algolia.com https://analytics.de.algolia.com https://analytics.algolia.com (alias of analytics.us.algolia.com)",
+          "locator": "#base-urls"
+        }
+      ]
+    },
+    {
+      "id": "analytics-api-key-rotation-and-validity-guidance",
+      "statement": "Algolia recommends regenerating all API keys at least once a year and limiting each key's validity to one year, and its API reference states that by default a key does not expire.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "Regenerate all your API keys at least once a year. Rotating your API keys reduces the risk of leaks, misuse, and compliance issues. For sensitive apps, rotate your keys more often. Limit each API key’s validity to one year.",
+          "locator": "#rotate-your-api-keys-regularly"
+        },
+        {
+          "sourceId": "algolia-com-9e381d24e8",
+          "supports": "Duration (in seconds) after which the API key expires. By default, API keys don't expire.",
+          "locator": "#body-validity"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -44,6 +96,16 @@
       "id": "open-question-3",
       "question": "Whether the Analytics API key is a distinct credential or an ACL profile of the same key kind as the other predefined keys is not settled by the pages read.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-4",
+      "question": "The pages read describe the Analytics API as accepting any key with the analytics ACL; they also list an Analytics API key among predefined keys. Whether the predefined key is only an ACL profile of the general API key kind is therefore consistent with the documentation but not stated, and is not recorded as established (open-question-3 stays open).",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-5",
+      "question": "How sensitive the data returned by the Analytics API is (search queries, aggregated click data) is not stated on the pages read, so the privilege level of this role is not established beyond 'retrieve data with the Analytics API'.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

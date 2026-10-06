@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-jfrog-api-key-lookalikes-and-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "jfrog-api-key-lookalikes-and-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#246 (E2) from the cited provider pages; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#246, on the owner's instruction of 2026-10-05 to take maintainer-only decisions for this work. Question: empty positions, placeholders, references, masked displays and the documented pattern written as prose are not credential values? Options: flag any text near the carrier, or flag only text that matches the documented pattern; or leave the case a draft. Decision: do not flag these texts. Reason: Neither a placeholder, a reference nor a described pattern holds a recoverable value, and the pattern as prose is a description of a format; this is a project decision, not a JFrog statement. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "A placeholder or masked display can hide a value in a neighbouring line, and a described pattern could be copied as a real value; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A JFrog statement that contradicts the reading of these texts, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

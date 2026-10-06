@@ -35,6 +35,91 @@
           "locator": "#authentication"
         }
       ]
+    },
+    {
+      "id": "preview-token-is-distinct-from-delivery-token",
+      "statement": "Contentful states that production (Delivery) access tokens will not work with the Preview API and that the Preview API is authenticated in the same way as the CDA but with a preview access token, so the two are different tokens.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-3386a6dbdc",
+          "supports": "You authenticate with the Preview API in the same way as the CDA, but using a preview access token. Your production access tokens will not work with the Preview API.",
+          "locator": "#preview-api-authentication"
+        },
+        {
+          "sourceId": "contentful-com-3c91248657",
+          "supports": "The Preview API key resource has type PreviewApiKey and carries its own accessToken property.",
+          "locator": "Examples, Response"
+        }
+      ]
+    },
+    {
+      "id": "preview-token-purpose-unpublished-content",
+      "statement": "Contentful states that the use of a separate token for the Preview API helps prevent accidentally leaking unpublished content.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-3386a6dbdc",
+          "supports": "The use of a separate token helps prevent accidentally leaking unpublished content.",
+          "locator": "#preview-api-authentication"
+        }
+      ]
+    },
+    {
+      "id": "preview-token-host-and-read-only",
+      "statement": "Contentful states the Preview API is read-only, is served from preview.contentful.com, and is used as though it were the CDA with the hostname and the access token replaced.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-3386a6dbdc",
+          "supports": "You use the Preview API as though it were the CDA, but replacing the hostname cdn.contentful.com with preview.contentful.com, and the production access token with a preview access token.",
+          "locator": "#using-the-preview-api"
+        },
+        {
+          "sourceId": "contentful-com-3386a6dbdc",
+          "supports": "This is a read-only API",
+          "locator": "#basic-api-information"
+        }
+      ]
+    },
+    {
+      "id": "preview-token-environment-scoped-and-paired",
+      "statement": "Contentful states Preview API keys are read-only and scoped to the environments listed on the key, and are handled together with Delivery API keys: creating a Delivery API key creates the corresponding Preview API key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-309014367e",
+          "supports": "These tokens provide read-only access to one or more environments.",
+          "locator": "page introduction"
+        },
+        {
+          "sourceId": "contentful-com-309014367e",
+          "supports": "Even though they are accessed through a different endpoint, Preview API keys are handled together with Delivery API keys. This means that when you create a CDA key, the corresponding CPA key will be created.",
+          "locator": "#preview-api-keys-collection"
+        }
+      ]
+    },
+    {
+      "id": "preview-token-not-in-preview-url",
+      "statement": "Contentful's content-preview tutorial states that, for security reasons, an access token is never to be included in the preview URL and that authentication should be implemented in the client app instead.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-62927e8f26",
+          "supports": "For security reasons, never include an access token in the preview URL. Instead, implement the authentication process in your client app.",
+          "locator": "Info note under the preview URL setup"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -44,6 +129,21 @@
       "id": "open-question-1",
       "question": "Candidate established at existence level only. The README example shows a placeholder value with a preview_ prefix but does not state a format rule; format, confidentiality and public-client exposure are not stated in the README read. The Authentication page does not say whether delivery and preview tokens are the same string or distinct, nor whether either may appear in public client code.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The pages read state the purpose of the separate Preview token (avoid leaking unpublished content) but not whether Contentful expects it to be kept confidential or never shipped to public clients; its handling rule is documented only as far as 'never in the preview URL'. Whether the Preview token is more sensitive than the Delivery token is therefore an inference from purpose, not a documented statement.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-3",
+      "question": "The one value-shape hint, a preview_ prefix on a placeholder in an SDK README example, is unchanged and unstated as a rule; the CMA example response shows a short placeholder-like accessToken for the preview key. No prefix or length is established for the Preview token.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-4",
+      "question": "The EU data-residency Preview host (preview.eu.contentful.com) was seen on an overview page that was not recorded as a source for this contract, so only preview.contentful.com is claimed; whether tokens differ by region is not stated.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

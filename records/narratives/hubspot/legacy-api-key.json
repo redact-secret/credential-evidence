@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "hubspot:legacy-api-key",
+  "family": "hubspot:legacy-api-key",
+  "lifecycle": "draft",
+  "contract": "hubspot:legacy-api-key@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "prefix-alphabet-length-and-grouping",
+        "text": "HubSpot states a prefix, alphabet, length or grouping for the legacy API key.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No HubSpot page read states a format for the legacy account key or the developer key; two rule artifacts agree on a hyphen-grouped shape but are not provider statements."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "carried-in-hapikey-query-parameter-and-creation-stopped-2022-07-15",
+        "text": "HubSpot's archived pages state the API key is added in a hapikey query parameter, and that as of July 15, 2022 new API keys could no longer be created.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "api-key-carried-in-hapikey-query-parameter"
+          },
+          {
+            "kind": "claim",
+            "claimId": "no-new-api-keys-2022-07-15"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-338425f34b"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-edd2016419"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-1433438df3"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "announced-2022-06-01-live-2022-11-30",
+        "text": "HubSpot's changelog entry is labelled announced June 1, 2022 and live November 30, 2022.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "api-key-sunset-announced-2022-06-01-live-2022-11-30"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-1433438df3"
+          }
+        ]
+      },
+      {
+        "id": "what-happens-on-2022-11-30",
+        "text": "HubSpot states one consistent consequence for API keys on November 30, 2022.",
+        "evidenceClass": "unresolved",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "One page says keys can no longer be used as an authentication method from that date, another says HubSpot will begin deprecating them and keys are used at the developer's own risk; neither states a later cutoff."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "developer-and-account-keys-differ-only-by-account-type",
+        "text": "HubSpot's archived 2022 authentication page states the only difference between API keys in standard and developer accounts is the account type the key allows access to.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "account-and-developer-api-keys-differ-only-by-account-type"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-edd2016419"
+          }
+        ]
+      },
+      {
+        "id": "developer-key-uses-the-same-parameter-today",
+        "text": "HubSpot's current authentication overview shows the developer API key in the hapikey query parameter.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "developer-api-key-current-hapikey-carrier"
+          },
+          {
+            "kind": "source",
+            "sourceId": "developers-hubspot-com-1876a2b7bb"
+          }
+        ]
+      },
+      {
+        "id": "which-key-the-grouped-shape-describes",
+        "text": "The hyphen-grouped 8-4-4-4-12 shape in rule artifacts describes the legacy account key rather than the developer key or a later token.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No provider page states which credential the shape belongs to."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}

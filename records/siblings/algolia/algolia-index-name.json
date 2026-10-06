@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "algolia-index-name",
+  "families": [
+    "algolia:search-only-api-key",
+    "algolia:secured-api-key"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "Algolia index name",
+  "description": "The name of an Algolia index, which appears in request paths and bodies beside the API key in search requests. Algolia states index names are public because they appear in network requests, so one is an identifier of the data an application searches rather than a credential; it can sit near a search-only or secured key in frontend code. The pages read give no shape for an index name, so no sample is recorded.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "algolia-com-ca6bd39dbc",
+      "supports": "Don’t use sensitive information in an index name. Index names are public, because they appear in network requests.",
+      "locator": "#sensitive-information"
+    }
+  ],
+  "observedAt": "2026-10-05",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

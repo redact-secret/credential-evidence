@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-dropbox-legacy-long-lived-access-token",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "dropbox:legacy-long-lived-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Drafted by an AI agent run from provider documentation and archived captures read on 2026-10-05 (source ids docs-dropboxapi-com-2835da9ecb, web-archive-org-d0baf6f549); not reviewed."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'prefix-alphabet-and-length' (shape) is recorded as unresolved: Dropbox treats access tokens as opaque and states no format for this form; the one rule artifact on record has no independent second artifact."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'which-retirement-date-applies' (lifecycle) is recorded as unresolved: The guide says until mid 2021 and the blog says September 30th, 2021; the pages do not reconcile them."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'existing-tokens-end-of-authentication' (lifecycle) is recorded as unresolved: No page read states it and no token was tested."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'separation-from-short-lived-tokens-by-shape' (collisions) is recorded as unresolved: Dropbox says tokens are opaque; the separation here rests on the documented issuance and expiry difference only."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

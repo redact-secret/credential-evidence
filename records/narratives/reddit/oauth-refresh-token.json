@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "reddit:oauth-refresh-token",
+  "family": "reddit:oauth-refresh-token",
+  "lifecycle": "draft",
+  "contract": "reddit:oauth-refresh-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "string-in-refresh-token-member",
+        "text": "Reddit's archived OAuth2 documentation names the refresh token as a string returned in the refresh_token member of the token response and sent back in the refresh_token field of a POST body, not in the URL.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-name-refresh-token"
+          },
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-refresh-request-carrier-and-response"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-reddit-archive-reddit-e2ca394517"
+          }
+        ]
+      },
+      {
+        "id": "text-format",
+        "text": "The prefix, alphabet and length of a refresh token are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No page read states any of them, and no sample is published. Only a Reddit statement, or an issued token examined under a maintainer's authority, would settle it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "issued-only-for-permanent-code-flow",
+        "text": "Reddit's archived OAuth2 documentation says a refresh token is issued only when the authorization code flow requests permanent duration; the implicit grant does not allow permanent tokens and app-only grants never receive one.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-name-refresh-token"
+          },
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-refresh-token-only-in-permanent-code-flow"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-reddit-archive-reddit-e2ca394517"
+          }
+        ]
+      },
+      {
+        "id": "current-help-page-requires-registered-oauth-token",
+        "text": "Reddit's current Help page says Data API clients must authenticate with a registered OAuth token; it does not mention refresh tokens.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "current-help-page-requires-registered-oauth-token"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-c53a558744"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "revoking-refresh-token-revokes-related-access-tokens",
+        "text": "Reddit's archived OAuth2 documentation says revoking a refresh token also revokes any related access tokens, and that a refresh token can be submitted to the revoke_token endpoint.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-name-refresh-token"
+          },
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-refresh-token-only-in-permanent-code-flow"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-reddit-archive-reddit-e2ca394517"
+          }
+        ]
+      },
+      {
+        "id": "lifetime-and-rotation",
+        "text": "A refresh token's lifetime, and whether using it rotates it, are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "No page read states either; the archived sample refresh response lists no new refresh token, which describes the sample only. A Reddit statement would settle it."
+        }
+      }
+    ],
+    "collisions": [
+      {
+        "id": "bare-token-attribution",
+        "text": "Whether a bare refresh token value can be told apart from an access token or attributed to Reddit by its text is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No page states a distinguishing marker for either token text. A Reddit statement of a marker would settle it."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "current-help-page-points-to-archived-wiki",
+        "text": "Reddit's current Help page links the archived OAuth2 wiki as its guidance and warns that legacy documentation may be out of date.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "current-help-page-points-to-archived-oauth-wiki"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-c53a558744"
+          }
+        ]
+      },
+      {
+        "id": "current-refresh-semantics",
+        "text": "Whether permanent-duration refresh tokens are still issued is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "Only the archived wiki describes permanent duration, and the current Help page warns that legacy documentation may be out of date. A current Reddit page or dated changelog would settle it."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}

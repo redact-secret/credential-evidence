@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "kind": "family-narrative",
+  "id": "reddit:oauth-access-token",
+  "family": "reddit:oauth-access-token",
+  "lifecycle": "draft",
+  "contract": "reddit:oauth-access-token@1",
+  "sections": {
+    "shape": [
+      {
+        "id": "string-in-access-token-member-sent-as-bearer",
+        "text": "Reddit's archived OAuth2 documentation names the access token as a string in the access_token member of a JSON token response with token_type bearer, sent in an 'Authorization: bearer TOKEN' header to oauth.reddit.com; in the implicit flow it is returned in the redirect URI fragment.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-name-bearer-access-token"
+          },
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-token-response-members-and-fragment"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-reddit-archive-reddit-e2ca394517"
+          }
+        ]
+      },
+      {
+        "id": "text-format",
+        "text": "The prefix, alphabet and length of an access token are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 2,
+          "reason": "No page read states any of them, and no sample is published. Only a Reddit statement, or an issued token examined under a maintainer's authority, would settle it."
+        }
+      }
+    ],
+    "issuance": [
+      {
+        "id": "issued-by-code-implicit-and-app-only-grants",
+        "text": "Reddit's archived OAuth2 documentation says access tokens are issued by the authorization code grant, the implicit grant for installed apps, and app-only grants (client_credentials or installed_client), and that app-only grants never return a refresh token.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-token-response-members-and-fragment"
+          },
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-app-only-and-revocation-carriers"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-reddit-archive-reddit-e2ca394517"
+          }
+        ]
+      },
+      {
+        "id": "current-help-page-requires-registered-oauth-token",
+        "text": "Reddit's current Help page says Data API clients must authenticate with a registered OAuth token and that traffic not using OAuth or login credentials will be blocked.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "current-help-page-requires-registered-oauth-token"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-c53a558744"
+          }
+        ]
+      }
+    ],
+    "lifecycle": [
+      {
+        "id": "expires-after-one-hour",
+        "text": "Reddit's archived OAuth2 documentation says all bearer tokens expire after one hour.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-name-bearer-access-token"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-reddit-archive-reddit-e2ca394517"
+          }
+        ]
+      },
+      {
+        "id": "expires-in-unit-and-current-lifetime",
+        "text": "The unit of the expires_in member and whether the one-hour lifetime still holds are not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 3,
+          "reason": "The archived page describes expires_in as 'Unix Epoch Seconds' in one place and as seconds until expiry in another, and no current page states a lifetime. A current Reddit statement or dated changelog would settle it."
+        }
+      },
+      {
+        "id": "client-can-revoke-and-provider-can-revoke",
+        "text": "Reddit's archived OAuth2 documentation says a client can revoke an access or refresh token at the revoke_token endpoint, which succeeds even for a token that was never valid, and Reddit's current Responsible Builder Policy lists revoking access tokens among its enforcement actions.",
+        "evidenceClass": "provider-documented",
+        "temporality": "historical",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "archived-docs-app-only-and-revocation-carriers"
+          },
+          {
+            "kind": "claim",
+            "claimId": "current-api-access-requires-approval-and-tokens-revocable"
+          },
+          {
+            "kind": "source",
+            "sourceId": "github-com-reddit-archive-reddit-e2ca394517"
+          },
+          {
+            "kind": "source",
+            "sourceId": "web-archive-org-437b75323d"
+          }
+        ]
+      }
+    ],
+    "collisions": [
+      {
+        "id": "bare-token-attribution",
+        "text": "Whether a bare access token value can be attributed to Reddit without its bearer header or host is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 4,
+          "reason": "No page states a distinguishing marker for the token text. A Reddit statement of a marker would settle it."
+        }
+      }
+    ],
+    "openQuestions": [
+      {
+        "id": "api-reference-labels-oauth-scopes",
+        "text": "Reddit's live API reference labels endpoints with OAuth scopes, documents a scopes endpoint, and says modhashes are not required when authenticated with OAuth.",
+        "evidenceClass": "provider-documented",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "citations": [
+          {
+            "kind": "claim",
+            "claimId": "current-api-reference-labels-oauth-scopes"
+          },
+          {
+            "kind": "source",
+            "sourceId": "reddit-com-51679eb6b9"
+          }
+        ]
+      },
+      {
+        "id": "archived-wiki-currentness",
+        "text": "Which statements of the archived OAuth2 wiki about token responses, carriers and lifetime still hold is not established.",
+        "evidenceClass": "unresolved",
+        "temporality": "current",
+        "observedAt": "2026-10-05",
+        "unresolved": {
+          "reviewEvent": 5,
+          "reason": "The current Help page cites the archived wiki and warns that legacy documentation may be out of date, and no current page restates them. A current Reddit page restating them, or a dated changelog, would settle it."
+        }
+      }
+    ]
+  },
+  "notes": "Project-authored by the maintainers of this repository; not independent evidence. Draft; not yet reviewed."
+}

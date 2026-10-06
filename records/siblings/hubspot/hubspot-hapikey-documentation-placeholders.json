@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "hubspot-hapikey-documentation-placeholders",
+  "families": [
+    "hubspot:legacy-api-key"
+  ],
+  "siblingClass": "documentation-placeholder",
+  "name": "HubSpot hapikey documentation placeholders and masked examples",
+  "description": "The values HubSpot's pages show where an API key would go in a hapikey query parameter: in the archived authentication page (2022) a request URL whose key is displayed masked (a few characters at each end with asterisks between), and in the current overview the placeholder {YOUR_DEVELOPER_API_KEY} for the developer API key. They are documentation examples, not credentials; a masked display establishes no length, alphabet or segment structure, and its visible characters are not recorded here.",
+  "evidenceClass": "provider-documented",
+  "sources": [
+    {
+      "sourceId": "web-archive-org-edd2016419",
+      "supports": "API key request example: the hapikey query parameter in the cURL URL carries a masked key.",
+      "locator": "section \"API key\""
+    },
+    {
+      "sourceId": "developers-hubspot-com-1876a2b7bb",
+      "supports": "hapikey={YOUR_DEVELOPER_API_KEY} in the custom channel registration cURL example.",
+      "locator": "section \"Developer API keys\""
+    }
+  ],
+  "observedAt": "2026-10-05",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed.",
+  "samples": [
+    {
+      "value": "{YOUR_DEVELOPER_API_KEY}",
+      "origin": "provider-documented-placeholder"
+    }
+  ]
+}

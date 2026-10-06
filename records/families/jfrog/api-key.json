@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-06",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "Two JFrog pages show different key forms (AKCp plus 69 alphanumerics versus a 44-character unprefixed example); none says which applies to which release."
+      },
+      {
+        "kind": "documentation-gated",
+        "summary": "No page names a release or date at which authentication with an existing API key stops unconditionally."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#246"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

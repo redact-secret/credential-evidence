@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-05",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "No HubSpot page read states a format for the legacy account API key or the developer API key."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "Only an issued key would show the grammar, and none can be issued after 2022-07-15 for accounts without one."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#245"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

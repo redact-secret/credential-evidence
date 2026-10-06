@@ -30,6 +30,105 @@
           "locator": "#plan-access-tokens"
         }
       ]
+    },
+    {
+      "id": "plan-token-categories-and-endpoint-support",
+      "statement": "Figma's plan access tokens page names three categories of plan access token on the developer hub (REST API, npm registry and Figma CLI tabs) and says endpoint support depends on the category: REST API tokens work with REST API endpoints except those needing the file_code_connect:write, file_variables:write or file_comments:write scopes and the /v1/me and /v1/oembed endpoints, while Figma CLI tokens have a fixed scope set and are not general-purpose REST API tokens.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "Endpoint support depends on the plan access token category. REST API tokens can be used with REST API endpoints, with the following exceptions ... Figma CLI tokens have a fixed scope set for supported Figma CLI workflows, including Code Connect and codebase uploads. They aren't general-purpose REST API tokens.",
+          "locator": "#supported-endpoints"
+        },
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "You can use the tabs in the upper-left corner of the page to switch between REST API, npm registry, and Figma CLI.",
+          "locator": "#create-a-plan-access-token"
+        }
+      ]
+    },
+    {
+      "id": "rest-plan-token-scopes-and-resources",
+      "statement": "Creating a REST API plan access token has three modal pages (Describe your token, Choose scopes, Choose resources), an expiration of up to 365 days, and a choice between all resources in the organization and an allowlist of links to files, folders, teams and workspaces.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "The modal has three pages: Describe your token, Choose scopes, and Choose resources. ... All resources ... Only selected resources lets you provide a list of links to resources in your organization",
+          "locator": "#create-a-plan-access-token"
+        }
+      ]
+    },
+    {
+      "id": "plan-token-secret-shown-once-id-viewable",
+      "statement": "Figma states that a plan access token's secret is displayed only when the token is created and cannot be accessed again, while the token's id can be viewed and copied later; the page does not say whether the id may be disclosed.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "You can also view and copy the id of your plan access token. However, you can't access the token secret again. The secret is only visible when you first create the plan access token.",
+          "locator": "#edit-a-plan-access-token"
+        }
+      ]
+    },
+    {
+      "id": "plan-token-refresh-previous-secret-valid-24h",
+      "statement": "Figma documents that refreshing an active plan access token (REST API, npm registry or Figma CLI) generates a new token secret and that the previous secret continues to work for 24 hours, so two secret values can be valid for one token during that window; revoking is immediate and cannot be undone.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "The new token secret is generated and available to copy. The previous secret continues to work for 24 hours. ... This applies to REST API, npm registry, and Figma CLI tokens.",
+          "locator": "#refresh-a-plan-access-token"
+        },
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "The plan access token is immediately revoked. This action cannot be undone.",
+          "locator": "#revoke-a-plan-access-token"
+        }
+      ]
+    },
+    {
+      "id": "x-figma-token-header-shared-with-personal-token",
+      "statement": "Figma's plan access tokens page and its personal access tokens page both say the token is passed to the Figma API in the X-Figma-Token request header, so the header does not identify which token kind is sent.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "You can do so by passing the token to the API in the X-Figma-Token header of your request.",
+          "locator": "#use-a-plan-access-token"
+        },
+        {
+          "sourceId": "developers-figma-com-0de277db62",
+          "supports": "You can do so by passing the token to the API in the X-Figma-Token header of your request.",
+          "locator": "#use-the-personal-access-token"
+        }
+      ]
+    },
+    {
+      "id": "plan-token-generally-available-2026-07-23",
+      "statement": "Figma's REST API changelog, in the version read on 2026-10-06, has an entry dated July 23, 2026 stating that plan access tokens are generally available for Organization and Enterprise plans and an entry dated June 12, 2026 stating that the AI Usage API requires a plan access token; no earlier period is documented in that changelog for this token kind.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-09fcdae5f1",
+          "supports": "July 23, 2026: Plan access tokens are now generally available. ... Plan access tokens are available for Organization and Enterprise plans. June 12, 2026: Added an AI Usage API for Enterprise plans ... Requires the org:ai_metering_usage_read scope and a plan access token.",
+          "locator": "entries July 23, 2026 and June 12, 2026"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -39,6 +138,26 @@
       "id": "format-not-researched",
       "question": "Candidate only: existence is documented, but the pages read state no prefix, alphabet, length or other format. Not researched beyond existence. The page also names an npm registry category of plan access token (a tab on the developer hub) without describing it; whether REST API, npm registry and Figma CLI tokens share one format or are separate families is unresolved.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "plan-token-lexical-shape-unstated",
+      "question": "No Figma page read states a prefix, alphabet or length for a plan access token. The figd_ prefix on the personal access token contract rests on two scanner rule artifacts that were not read as addressing plan tokens (plan tokens became generally available on 2026-07-23 per the changelog), so it is not extended to this role. A Figma statement or an issued sample under a maintainer's authority (issuance-gated) would settle it.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "npm-registry-category-carrier-unstated",
+      "question": "The page names an npm registry category of plan access token but does not describe how that token is sent (the X-Figma-Token statement is made for tokens used with the Figma API). The npm registry category is not given its own record.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "plan-token-categories-share-one-grammar",
+      "question": "Whether REST API, npm registry and Figma CLI plan tokens share one grammar is not stated; the page treats them as categories of one token kind with the same refresh, revoke and creation location. Kept as two candidates (this and figma:cli-plan-access-token) for roles and scope, not grammar.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "plan-token-scanner-rule-names",
+      "question": "On 2026-10-06 the rule and detector names (not their contents) of two open-source scanner repositories were listed: Gitleaks config/gitleaks.toml at b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b and TruffleHog pkg/detectors at 0186870afd2c4a90def791d80260923ba583d076. TruffleHog lists figmapersonalaccesstoken and Gitleaks lists no Figma rule; neither names a plan or CLI token. This is a negative observation of names only; it is not a source, not corroboration and not an expectation basis.",
+      "raisedAt": "2026-10-06"
     }
   ]
 }

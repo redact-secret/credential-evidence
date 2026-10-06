@@ -44,6 +44,101 @@
           "locator": "#secured-api-keys-1"
         }
       ]
+    },
+    {
+      "id": "secured-api-key-construction-documented",
+      "statement": "Algolia's reference for the generate-secured-API-key helper describes the construction: a SHA-256 HMAC is computed with the parent API key as the secret and a URL-encoded list of query parameters as the message; the HMAC is concatenated with the list of query parameters into one string, which is encoded in base64. The query parameters apply to every request that uses the key and cannot be modified by end users.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-b2e285350d",
+          "supports": "Compute a SHA-256 HMAC with: Secret: the parent API key; Message: a URL-encoded list of query parameters. These query parameters are applied to every request that uses the API key and can’t be modified by end users. Concatenate the SHA-256 HMAC with the list of query parameters into a single string. Encode the resulting string in base64.",
+          "locator": "opening section, before Usage"
+        }
+      ]
+    },
+    {
+      "id": "secured-api-key-inherits-restrictions",
+      "statement": "Algolia states a secured API key inherits the rights and restrictions of its base API key, cannot override them, cannot have fewer restrictions than the base key, and is virtual: not stored anywhere and not shown on the dashboard.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "They inherit the rights and restrictions of their base API keys, which they can’t override. It means you can’t generate a secured API key with fewer restrictions than its base API key.",
+          "locator": "#secured-api-keys-2"
+        },
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Secured API keys are virtual, which means they aren’t stored anywhere, and you can’t find them on the Algolia dashboard.",
+          "locator": "#secured-api-keys-2"
+        }
+      ]
+    },
+    {
+      "id": "secured-api-key-frontend-delivery",
+      "statement": "Algolia states that a secured API key with embedded filters should be generated on the backend so users cannot alter the filters, that it can be fetched by the frontend from the backend, and that mobile apps should fetch restricted keys dynamically from the backend rather than hardcode keys.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-0e4572af6d",
+          "supports": "To prevent this, generate a secured API key on the backend with filters (users can’t alter these filters).",
+          "locator": "#generate-a-secured-api-key"
+        },
+        {
+          "sourceId": "algolia-com-0e4572af6d",
+          "supports": "You can get this API key in your frontend from your backend—for example, with an API request.",
+          "locator": "#generate-a-secured-api-key"
+        },
+        {
+          "sourceId": "algolia-com-ca6bd39dbc",
+          "supports": "That’s why we recommend fetching restricted API keys dynamically from your app’s backend.",
+          "locator": "#use-secured-api-keys-in-mobile-apps"
+        }
+      ]
+    },
+    {
+      "id": "secured-api-key-compromise-response",
+      "statement": "Algolia states that if a secured API key is compromised the key it was generated from should be invalidated, and that deleting a main API key also deletes all secured API keys derived from it, which are not restored if the main key is later restored.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-0e4572af6d",
+          "supports": "If a secured API key is compromised, invalidate the search API key used to generate it.",
+          "locator": "#generate-a-secured-api-key"
+        },
+        {
+          "sourceId": "algolia-com-a40cdf08ba",
+          "supports": "Deleting a main API key also deletes all derived secured API keys. You can’t restore secured API keys, even if you restore the main key later.",
+          "locator": "#revoke-an-api-key"
+        }
+      ]
+    },
+    {
+      "id": "secured-api-key-docs-example-key-shape",
+      "statement": "Two Algolia reference pages show an API key (the response property key of the Create an API key reference, and the parent API key in the generate-secured-API-key samples) as an example value of 32 lowercase hexadecimal characters. These are examples shown beside parameters, not a statement of what Algolia issues for any role, and neither example is attributed to a role.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "algolia-com-9e381d24e8",
+          "supports": "The response property key (API key) is shown with an example value of 32 lowercase hexadecimal characters; the value is not copied here.",
+          "locator": "#response-key"
+        },
+        {
+          "sourceId": "algolia-com-b2e285350d",
+          "supports": "The example parentApiKey in the code samples is shown as 32 lowercase hexadecimal characters; the value is not copied here.",
+          "locator": "code samples under Usage"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -63,6 +158,21 @@
       "id": "open-question-3",
       "question": "Whether a secured API key is distinguishable from a main API key by value shape is not documented on the pages read.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-4",
+      "question": "The construction page does not say whether the HMAC is hex-encoded or raw bytes before concatenation, so the layout of the decoded string beyond 'HMAC followed by the query-parameter list' is not established; the page documents a client helper and does not say the service accepts only that construction or that earlier eras used it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-5",
+      "question": "Because the query-parameter list is concatenated with the HMAC before base64, the restrictions (including embedded filters) travel in the value itself; the pages read do not say whether Algolia treats that content as confidential. Whether the parent key can be recovered from a secured key is not discussed on the pages read.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-6",
+      "question": "Whether a secured API key can be told apart from a main API key by value shape alone is not documented; the base64 construction is documented, the length and alphabet of the result are not (it depends on the parameters), so no format claim is made.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

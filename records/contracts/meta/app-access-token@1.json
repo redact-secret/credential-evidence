@@ -25,6 +25,158 @@
           "locator": "Access Tokens for Meta Technologies, App Access Tokens"
         }
       ]
+    },
+    {
+      "id": "generation-call",
+      "statement": "Meta documents generating an app access token with a server-side GET to https://graph.facebook.com/oauth/access_token using the app ID as client_id, the app secret as client_secret and grant_type client_credentials, and states the call returns an app access token to use in place of a user access token; it states the request uses the app secret and must only be made by server-side code.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "To generate an app access token, you need:",
+          "locator": "App Access Tokens, Generating an app access token"
+        },
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "This call returns an app access token that you can use in place of a user access token for API calls.",
+          "locator": "App Access Tokens, Generating an app access token"
+        },
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "This request uses your app secret, so it must only be made using server-side code.",
+          "locator": "App Access Tokens, Generating an app access token"
+        }
+      ]
+    },
+    {
+      "id": "app-id-secret-pair-alternative",
+      "statement": "Meta documents, as another method that does not require a generated app access token, passing the app ID and the app secret joined by a pipe as the access_token parameter of a Graph API call, and says the choice between that method and a generated token depends on where the app secret is kept.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "There is another method to make calls to the Graph API that doesn't require using a generated app access token. You can just pass your app ID and app secret as the access_token parameter when you make a call",
+          "locator": "App Access Tokens, Generating an app access token"
+        },
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "The choice to use a generated access token or this method depends on where you hide your app secret.",
+          "locator": "App Access Tokens, Generating an app access token"
+        }
+      ]
+    },
+    {
+      "id": "exposure-statements",
+      "statement": "Meta states that hard-coding an app access token in client-side code or app binaries exposes the app secret and gives anyone full access to modify the app, that app access tokens are for server-to-server calls only, and (on the Login Security page) that the App Secret or an App Access token should never be included in any code.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "Never hard-code app access tokens into client-side code or app binaries — doing so exposes your app secret and gives anyone who loads your webpage or decompiles your app full access to modify it.",
+          "locator": "App Access Tokens, Generating an app access token"
+        },
+        {
+          "sourceId": "developers-facebook-com-f820e9aa22",
+          "supports": "Therefore the App Secret or an App Access token should never be included in any code.",
+          "locator": "The App Secret"
+        }
+      ]
+    },
+    {
+      "id": "native-desktop-app-type",
+      "statement": "Meta states that for an app whose App Type is Native/Desktop it assumes the binary contains the App Secret or an App Access Token and does not allow calls signed with an App Access Token to proceed; the access-tokens page adds that app access tokens are insecure for such apps because the app secret is typically embedded in the code.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-f820e9aa22",
+          "supports": "we assume that your native app contains the App Secret or an App Access Token in the binary, and we do not allow calls signed with an App Access Token to proceed",
+          "locator": "The App Secret"
+        },
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "App access tokens are insecure if your app is set to `Native/Desktop` in the Advanced settings of your [App Dashboard](https://developers.facebook.com/apps).",
+          "locator": "App Access Tokens, Limitations"
+        }
+      ]
+    },
+    {
+      "id": "client-token-pair-not-secret",
+      "statement": "Meta documents a separate pipe-joined form, the app ID followed by a pipe and the client token, whose client token Meta states is not secret because it is embedded in apps; the form has the same app-ID-pipe-value layout as the app-ID-and-app-secret form but its second part is documented as not secret.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "Because client tokens are embedded in apps, they are not secret.",
+          "locator": "Client Access Tokens"
+        },
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "You must combine them with your App ID by appending the token to the end of the App ID, separated by a pipe symbol (`|`):",
+          "locator": "Client Access Tokens"
+        }
+      ]
+    },
+    {
+      "id": "appsecret-proof-derivation",
+      "statement": "Meta documents appsecret_proof as a sha256 hash of an access token using the app secret as the key, computed with hash_hmac and added as a parameter to server-to-server Graph API calls; it is an output derived from the app secret and a token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-ceaa61b591",
+          "supports": "The app secret proof is a sha256 hash of your access token, using your app secret as the key.",
+          "locator": "Verify Graph API Calls with appsecret_proof"
+        },
+        {
+          "sourceId": "developers-facebook-com-f820e9aa22",
+          "supports": "The app secret proof is a sha256 hash of your access token, using your app secret as the key.",
+          "locator": "Secure Server-side Calls with appsecret_proof"
+        }
+      ]
+    },
+    {
+      "id": "token-length-variable",
+      "statement": "Meta states that the length of access tokens changes over time as Meta updates what they store and how they are encoded, and advises a variable-length data type without a specific maximum size; the page gives no grammar for any token type including the app access token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-35c7caf5a9",
+          "supports": "The length of access tokens changes over time as Meta updates what they store and how they are encoded.",
+          "locator": "Access Token Length"
+        }
+      ]
+    },
+    {
+      "id": "app-id-assigned",
+      "statement": "Meta states that when a Meta app is created it is assigned a unique ID, which must be included when making calls to its APIs, and that the Basic Settings page is where the app secret assigned by Meta is found.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-facebook-com-ad9938bb1e",
+          "supports": "When you create a Facebook app we generate and assign it a unique ID. This ID must be included when making any calls to our APIs.",
+          "locator": "Basic Settings, App ID"
+        },
+        {
+          "sourceId": "developers-facebook-com-ad9938bb1e",
+          "supports": "find the app secret assigned to your app by Meta",
+          "locator": "Basic Settings"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -39,6 +191,21 @@
       "id": "app-id-secret-composite",
       "question": "The same page documents passing the app ID and app secret joined by a pipe as the access_token parameter instead of a generated token. Whether that composite is one more form of this family, a form of meta:app-secret, or neither is not settled; no format claim is made.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "composite-attribution-unsettled",
+      "question": "Which family the pipe-joined app ID and app secret belongs to is not settled by the sources and is not forced here. Established: the second part is the app secret the page names, the page presents the form as an alternative to a generated app access token, and the same access_token parameter takes a generated token, the app-ID-and-secret pair and the app-ID-and-client-token pair. Whether Meta calls the pair an access token, and whether its privilege equals a generated token's, is not stated.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "generated-token-response-shape-unstated",
+      "question": "The page states that the generation call returns an app access token but shows no response body, so the member that carries it and its encoding are not stated on the pages read. Token length is stated to vary over time and no prefix or alphabet is given; no format is claimed.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "generated-token-vs-secret-privilege",
+      "question": "Whether a generated app access token carries the same standing as the app secret it was generated from, or can be rotated independently of it, is not stated; the pages say only that exposing the token exposes the app secret and that the app secret cannot be rotated programmatically (recorded in the app-secret family).",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

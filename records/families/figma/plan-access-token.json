@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-06",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "Figma states no prefix, alphabet or length for a plan access token; the npm registry category's carrier is not described."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "The token's string form would need a token generated in a Figma organization, which is not done here."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#243"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

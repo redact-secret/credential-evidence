@@ -40,6 +40,96 @@
           "locator": "#authentication"
         }
       ]
+    },
+    {
+      "id": "delivery-api-key-read-only-and-environment-scoped",
+      "statement": "Contentful states that Delivery API (CDA) and Preview API (CPA) keys provide read-only access to one or more environments; only the environments listed in the key's environments property can be accessed, a request for any other environment returns a 404, and with no environments listed the key reaches only the master environment.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-309014367e",
+          "supports": "These tokens provide read-only access to one or more environments. [...] Only the environments specified in this property can be accessed using this token and any CDA or CPA request using this token to access content from an environment not specified here will result in a 404 error. If the environments key is not specified, the token will have access to the master environment by default.",
+          "locator": "page introduction"
+        },
+        {
+          "sourceId": "contentful-com-541b321603",
+          "supports": "This is a read-only API",
+          "locator": "#basic-api-information"
+        }
+      ]
+    },
+    {
+      "id": "delivery-api-token-transport",
+      "statement": "Contentful states the access token can be sent to the Delivery API either as an Authorization: Bearer header (recommended) or as the access_token query parameter, and that an invalid token returns an AccessTokenInvalid error.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "There are two ways to send the authentication token to an API. You can include it as a query parameter, access_token=$token, or as an HTTP header Authorization: Bearer $token. The header method is recommended.",
+          "locator": "opening section"
+        },
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "The access token you sent could not be found or is invalid.",
+          "locator": "opening section, error example"
+        }
+      ]
+    },
+    {
+      "id": "delivery-api-key-resource-carries-access-token",
+      "statement": "Contentful's Content Management API creates a Delivery API key together with its corresponding Preview API key; the created key resource carries the token in an accessToken property beside the key name, its environments and a link to the preview key, and the example response uses a short placeholder-like value rather than a representative token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-cc784dbdb6",
+          "supports": "This endpoint allows you to create a Delivery API key and its corresponding Preview API key.",
+          "locator": "page introduction"
+        },
+        {
+          "sourceId": "contentful-com-cc784dbdb6",
+          "supports": "The response example shows accessToken, description, environments, name and preview_api_key members.",
+          "locator": "Examples, Response"
+        }
+      ]
+    },
+    {
+      "id": "delivery-api-key-has-associated-preview-token",
+      "statement": "Contentful states that every delivery API key has an associated preview access token, and that creating a Delivery API key creates its corresponding Preview API key, which cannot be deleted separately.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-3386a6dbdc",
+          "supports": "Every delivery API key has an associated preview access token, which you can view in the APIs tab of a space in the Contentful web app.",
+          "locator": "#preview-api-authentication"
+        },
+        {
+          "sourceId": "contentful-com-309014367e",
+          "supports": "Preview API keys also cannot be deleted, as they will be deleted along with their Delivery API keys.",
+          "locator": "#preview-api-keys-collection"
+        }
+      ]
+    },
+    {
+      "id": "delivery-api-token-per-environment-guidance",
+      "statement": "Contentful recommends using different access tokens for different environments (for example production, staging or continuous integration) so they can be revoked individually and delivery channels managed independently.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "contentful-com-c14fcad040",
+          "supports": "We recommend using different access tokens for different environments in your development process. [...] This allows you to revoke them individually in the future and manage your delivery channels independently.",
+          "locator": "opening section"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -49,6 +139,26 @@
       "id": "open-question-1",
       "question": "Candidate established at existence level only. Format, whether it may be shipped in public client code, and its relation to the Preview token (same API Keys page) are not stated in the README read; public-client exposure needs explicit provider evidence. The Authentication page does not say whether delivery and preview tokens are the same string or distinct, nor whether either may appear in public client code. Lead, not a claim: one open-source scanner rule artifact (gitleaks/gitleaks, cmd/generate/config/rules/contentful.go at commit b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b, lines 12-16) describes a Contentful delivery API token as 43 extended alphanumeric characters appearing near the keyword contentful. It is a keyword-anchored, semi-generic rule; no second artifact by a different maintainer was found (the TruffleHog Contentful detector targets the CFPAT- personal access token, a different family), so a format claim stays unresolved.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "open-question-2",
+      "question": "The pages read describe a token as read-only access to environments and recommend scoping, but none states whether a Delivery API token may be shipped in public client code or must be kept confidential. Public-client exposure is therefore not asserted either way, and a Delivery token is not described as harmless: it reads the environments it is granted.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-3",
+      "question": "Distinct-from-Preview is now documented (see the Preview contract: a production token does not work with the Preview API), but the pages read give no lexical or structural marker that separates a Delivery token from a Preview token by value; the format of both stays unresolved.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-4",
+      "question": "Every Contentful documentation example read shows the access token as a short placeholder-like value (the Authentication and Create a Delivery API key pages), which does not match the 43-character lead in open-question-1 and states no format; whether the lead describes issued tokens remains unestablished and issuance-gated.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "open-question-5",
+      "question": "Whether the space ID and environment ID that accompany the token in requests are public identifiers is not stated on the pages read; no benign-sibling record is written for them.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

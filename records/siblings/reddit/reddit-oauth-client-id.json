@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "reddit-oauth-client-id",
+  "families": [
+    "reddit:app-client-secret"
+  ],
+  "siblingClass": "public-identifier",
+  "name": "OAuth client id",
+  "description": "The client_id Reddit's archived OAuth2 documentation says is generated at app registration and identifies which app is making a request. It is a request parameter in the authorization URL the user's browser is sent to, is the 'user' half of the HTTP Basic client authentication beside the client secret, and Reddit's current Help page counts rate limits per OAuth client id. Reddit tells integrators never to share the client secret but does not say in the pages read that the client id is non-secret, so its non-secret status is a lead, not a documented fact, and no sample value is recorded here.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+      "supports": "client_id: 'The Client ID generated during app registration'; 'Tells reddit.com which app is making the request'; the Basic Authorization 'user' is the client_id",
+      "locator": "Authorization; Retrieving the access token"
+    },
+    {
+      "sourceId": "web-archive-org-c53a558744",
+      "supports": "'The limit is: 100 queries per minute (QPM) per OAuth client id'",
+      "locator": "Rate Limits"
+    }
+  ],
+  "observedAt": "2026-10-05",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

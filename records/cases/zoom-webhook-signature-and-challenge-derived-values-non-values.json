@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zoom-webhook-signature-and-challenge-derived-values-non-values",
+  "title": "Zoom webhook signature, timestamp and challenge outputs next to the secret token's name",
+  "summary": "A webhook request whose headers hold x-zm-request-timestamp and an x-zm-signature value, a validation response with the plain challenge and its encrypted form, the documented signature placeholder, the signed message string, and references and prose that name the secret token.",
+  "rationale": "Zoom documents the webhook secret token as the HMAC key and the x-zm-signature value, the plainToken challenge and the encryptedToken response as inputs or outputs of the HMAC SHA-256 computations, never as the key itself. A derived signature, a timestamp, a signed message string and a challenge are not the secret token, and an environment reference, a masked display or prose that names the secret token carries no value. The case separates the secret input from its derived outputs; it decides nothing about whether a derived signature is itself confidential, and it does not cover the wording conflict about whether Zoom sends the secret token itself.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "zoom:webhook-secret-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "public-identifier",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#244). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no webhook secret token value. That the signature, challenge and encrypted token are derived outputs and not the secret token, and that a reference or masked display is not a value, are the project's decisions; Zoom documents the HMAC computations (derivation only).",
+    "sources": [
+      {
+        "sourceId": "developers-zoom-us-c86052acff",
+        "supports": "Set your webhook's secret token as the secret/salt, and the `message` you constructed as the string to hash. Output in `hex` format.",
+        "locator": "Using webhooks, Verify with Zoom's header, step 3"
+      },
+      {
+        "sourceId": "developers-zoom-us-c86052acff",
+        "supports": "Set your webhook's secret token as the secret (salt), and the `plainToken` value as the string to hash. Output in `hex` format.",
+        "locator": "Using webhooks, endpoint validation, step 2"
+      },
+      {
+        "sourceId": "developers-zoom-us-c86052acff",
+        "supports": "Compare the `signature` you created with the Zoom webhook request header `x-zm-signature` value.",
+        "locator": "Using webhooks, Verify with Zoom's header, step 5"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

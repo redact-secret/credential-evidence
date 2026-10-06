@@ -365,6 +365,219 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "zoom-authored--build-key-raw-http-x-api-key",
+      "case": "zoom-build-api-key-x-api-key-header-value",
+      "path": "build-key-raw-http-x-api-key/fixture.txt",
+      "context": "header",
+      "sha256": "8ec9592b5b43da6218933788af2d390cd4dd57695bee6a00bc550c60971d394a",
+      "text": "GET /v2/videosdk/sessions HTTP/1.1\nHost: api.example.test\nx-api-key: SYNTHETIC-zoom-build-api-key-never-issued-0001\nContent-Type: application/json\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 69,
+            "end": 115,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--build-key-curl-x-api-key",
+      "case": "zoom-build-api-key-x-api-key-header-value",
+      "path": "build-key-curl-x-api-key/fixture.txt",
+      "context": "cli",
+      "sha256": "f7715c51f6ebe744bf335fcf2b6c82182b0077d9352f407960fe76ed7376f962",
+      "text": "curl https://api.example.test/v2/videosdk/sessions -H \"x-api-key: SYNTHETIC-zoom-build-api-key-never-issued-0002\" -H \"Content-Type: application/json\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 66,
+            "end": 112,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--build-key-json-header-map",
+      "case": "zoom-build-api-key-x-api-key-header-value",
+      "path": "build-key-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "2f61f96168333c39495e5c23aa9480f9c4a76938437c810203e65d72a98bdb8b",
+      "text": "{\n  \"headers\": {\n    \"x-api-key\": \"SYNTHETIC-zoom-build-api-key-never-issued-0003\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 35,
+            "end": 81,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zoom-authored--build-key-lookalike-documented-placeholder",
+      "case": "zoom-build-api-key-placeholders-and-non-values",
+      "path": "build-key-lookalike-documented-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "9593af0252caa466b8cce7ec3693d171f1b044cdf4bd5885582c45dffe9e84cc",
+      "text": "curl https://api.example.test/v2/videosdk/sessions -H \"x-api-key: ZOOM_API_KEY\" -H \"Content-Type: application/json\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--build-key-lookalike-environment-reference",
+      "case": "zoom-build-api-key-placeholders-and-non-values",
+      "path": "build-key-lookalike-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "66a7e054bec73cc4f0f01736a13e55e2cdd2067ef87aa9825263660a2a6b595a",
+      "text": "curl https://api.example.test/v2/videosdk/sessions -H \"x-api-key: $ZOOM_API_KEY\" -H \"Content-Type: application/json\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--build-key-lookalike-masked-display",
+      "case": "zoom-build-api-key-placeholders-and-non-values",
+      "path": "build-key-lookalike-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "e350f38670e54952206db8809aa1539f2db101891bcc4864a0cfc018410cf4a5",
+      "text": "GET /v2/videosdk/sessions HTTP/1.1\nHost: api.example.test\nx-api-key: ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--build-key-lookalike-empty-value",
+      "case": "zoom-build-api-key-placeholders-and-non-values",
+      "path": "build-key-lookalike-empty-value/fixture.txt",
+      "context": "header",
+      "sha256": "17d098f46b944549b4da3412faeb6af16a28f647034b26d09bce3e5927991ce5",
+      "text": "GET /v2/videosdk/sessions HTTP/1.1\nHost: api.example.test\nx-api-key:\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--build-key-lookalike-bearer-template",
+      "case": "zoom-build-api-key-placeholders-and-non-values",
+      "path": "build-key-lookalike-bearer-template/fixture.txt",
+      "context": "cli",
+      "sha256": "1881705a6d73ba4bb64fb17888abe8cb6e979ab335e090d9a9b871d8c6956f89",
+      "text": "curl https://api.example.test/v2/videosdk/sessions -H \"Authorization: Bearer TOKEN\" -H \"Content-Type: application/json\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--build-key-lookalike-prose-mention",
+      "case": "zoom-build-api-key-placeholders-and-non-values",
+      "path": "build-key-lookalike-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "284547b57588b4a2f625d842b8af8c7f52207b6dacf951288d386ed928856626",
+      "text": "Send the API key in the x-api-key header, or send an API key or a JWT in an Authorization Bearer header.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--webhook-lookalike-signature-and-timestamp-headers",
+      "case": "zoom-webhook-signature-and-challenge-derived-values-non-values",
+      "path": "webhook-lookalike-signature-and-timestamp-headers/fixture.txt",
+      "context": "header",
+      "sha256": "e0c8dd26e388e2e3cbce3ff1ee2e45e80c99018f3302c57c851819bf17171e46",
+      "text": "POST /webhook HTTP/1.1\nHost: example.test\nx-zm-request-timestamp: 1700000000\nx-zm-signature: v0=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\nContent-Type: application/json\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--webhook-lookalike-validation-response",
+      "case": "zoom-webhook-signature-and-challenge-derived-values-non-values",
+      "path": "webhook-lookalike-validation-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "ba22a1a6c54e3170f774d72fb18dfc08d62d75fd3cedc9e1367fbbd4b75b5e62",
+      "text": "{\n  \"plainToken\": \"SYNTHETIC-zoom-challenge-plain-token-0001\",\n  \"encryptedToken\": \"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--webhook-lookalike-signature-placeholder",
+      "case": "zoom-webhook-signature-and-challenge-derived-values-non-values",
+      "path": "webhook-lookalike-signature-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "92a8c44bb43a3e18a9b4dff362ca9053d23f2fa3c88e44b74e3cb05e31571e4a",
+      "text": "POST /webhook HTTP/1.1\nHost: example.test\nx-zm-request-timestamp: 1700000000\nx-zm-signature: v0={HASHED_WEBHOOK_SECRET_TOKEN}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--webhook-lookalike-secret-token-environment-reference",
+      "case": "zoom-webhook-signature-and-challenge-derived-values-non-values",
+      "path": "webhook-lookalike-secret-token-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "2ac3ea08998558b78bcd7b3f44aec255b80e42e591cbaa3d9c6a9de20535d45c",
+      "text": "const hash = crypto.createHmac(\"sha256\", process.env.ZOOM_WEBHOOK_SECRET_TOKEN).update(message).digest(\"hex\");\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--webhook-lookalike-secret-token-prose-mention",
+      "case": "zoom-webhook-signature-and-challenge-derived-values-non-values",
+      "path": "webhook-lookalike-secret-token-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "8051be6823836f59f5ff5ceeac9edf5dc4ef7307bc8d7f6583cb152c6605d77a",
+      "text": "Recompute x-zm-signature with the webhook secret token as the HMAC key and compare it with the header value.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--webhook-lookalike-signed-message-string",
+      "case": "zoom-webhook-signature-and-challenge-derived-values-non-values",
+      "path": "webhook-lookalike-signed-message-string/fixture.txt",
+      "context": "structured-file",
+      "sha256": "9572a937f8fedc84356b832c75c4ac362ea759fe1e76aa4c2e3b21f6420e4baf",
+      "text": "v0:1700000000:{\"event\":\"synthetic.event\",\"payload\":{\"object\":{\"id\":\"1\"}}}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "zoom-authored--webhook-lookalike-secret-token-masked-display",
+      "case": "zoom-webhook-signature-and-challenge-derived-values-non-values",
+      "path": "webhook-lookalike-secret-token-masked-display/fixture.txt",
+      "context": "env",
+      "sha256": "05cf4b595e2cbf34a700e156f8195e93e34ba088e91e19201a18aa3af5d93569",
+      "text": "ZOOM_WEBHOOK_SECRET_TOKEN=********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

@@ -205,6 +205,135 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "jfrog-authored--api-key-raw-http-art-api-header",
+      "case": "jfrog-api-key-header-and-basic-password-value",
+      "path": "api-key-raw-http-art-api-header/fixture.txt",
+      "context": "header",
+      "sha256": "e09bc325133900eab2869273a8f9fbc97b31183183ee52012e32a6d4157f86f0",
+      "text": "GET /artifactory/api/system/ping HTTP/1.1\nHost: example-host.jfrog.example.test\nX-JFrog-Art-API: SYNTHETICJFrogApiKeyNeverIssued0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 97,
+            "end": 132,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--api-key-curl-art-api-header",
+      "case": "jfrog-api-key-header-and-basic-password-value",
+      "path": "api-key-curl-art-api-header/fixture.txt",
+      "context": "cli",
+      "sha256": "965ea508e69a344e60323c7de2f5f741e77637f772b67d854b809ba751492d0d",
+      "text": "curl -H \"X-JFrog-Art-API: SYNTHETICJFrogApiKeyNeverIssued0002\" https://example-host.jfrog.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 26,
+            "end": 61,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--api-key-curl-basic-password",
+      "case": "jfrog-api-key-header-and-basic-password-value",
+      "path": "api-key-curl-basic-password/fixture.txt",
+      "context": "cli",
+      "sha256": "2f8abfafbbd1b8ec93c7ca2e20e406d91cb3ac33f264c6398d88d6d57a080fde",
+      "text": "curl -u example-user:SYNTHETICJFrogApiKeyNeverIssued0003 https://example-host.jfrog.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 56,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--api-key-lookalike-header-name-only",
+      "case": "jfrog-api-key-lookalikes-and-non-values",
+      "path": "api-key-lookalike-header-name-only/fixture.txt",
+      "context": "header",
+      "sha256": "d15a752e195730bb458cca79e3ff2f6532ec59c0d05b4467df64648bbc1bceea",
+      "text": "GET /artifactory/api/system/ping HTTP/1.1\nHost: example-host.jfrog.example.test\nX-JFrog-Art-API:\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--api-key-lookalike-angle-placeholder",
+      "case": "jfrog-api-key-lookalikes-and-non-values",
+      "path": "api-key-lookalike-angle-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "17fe9166c9281f1743303de4647be1ad4029e3ece41e66c69602ba0479e97d2f",
+      "text": "curl -H \"X-JFrog-Art-API: <YOUR_API_KEY>\" https://example-host.jfrog.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--api-key-lookalike-environment-reference",
+      "case": "jfrog-api-key-lookalikes-and-non-values",
+      "path": "api-key-lookalike-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "a04893edabd4644a0884d8ba8f655517113b4b41fd00f34cb5e77b036951b32e",
+      "text": "curl -H \"X-JFrog-Art-API: ${JFROG_API_KEY}\" https://example-host.jfrog.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--api-key-lookalike-masked-display",
+      "case": "jfrog-api-key-lookalikes-and-non-values",
+      "path": "api-key-lookalike-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "6de67246f730932ca861e23c2918661840c8f564e7cd579c71e4e5ef14c1c837",
+      "text": "{\n  \"apiKey\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--api-key-lookalike-username-without-password",
+      "case": "jfrog-api-key-lookalikes-and-non-values",
+      "path": "api-key-lookalike-username-without-password/fixture.txt",
+      "context": "cli",
+      "sha256": "c955dc4714e12844a5e07a949ebe170df1c48a06af0119a6a11cc0d00d8e9598",
+      "text": "curl -u example-user https://example-host.jfrog.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--api-key-lookalike-documented-pattern-prose",
+      "case": "jfrog-api-key-lookalikes-and-non-values",
+      "path": "api-key-lookalike-documented-pattern-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "6ee3f0a4ed4f775a7bc2faff0870520e01fff6efe3cbb6685a978b1fcb59a534",
+      "text": "An API key is written as the four characters AKCp followed by 69 alphanumeric characters, 73 in all; the pattern is .*\\bAKCp[A-Za-z0-9]{69}\\b.* .\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",
