@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-05",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "Dropbox treats access tokens as opaque and states no format for the legacy long-lived form."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "Whether existing long-lived tokens still authenticate would need a live attempt, which desk research does not make."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#245"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

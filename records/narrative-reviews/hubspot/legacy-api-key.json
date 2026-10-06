@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-hubspot-legacy-api-key",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "hubspot:legacy-api-key"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Drafted by an AI agent run from provider documentation and archived captures read on 2026-10-05 (source ids developers-hubspot-com-1876a2b7bb, web-archive-org-1433438df3, web-archive-org-338425f34b, web-archive-org-edd2016419); not reviewed."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'prefix-alphabet-length-and-grouping' (shape) is recorded as unresolved: No HubSpot page read states a format for the legacy account key or the developer key; two rule artifacts agree on a hyphen-grouped shape but are not provider statements."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'what-happens-on-2022-11-30' (lifecycle) is recorded as unresolved: One page says keys can no longer be used as an authentication method from that date, another says HubSpot will begin deprecating them and keys are used at the developer's own risk; neither states a later cutoff."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'which-key-the-grouped-shape-describes' (collisions) is recorded as unresolved: No provider page states which credential the shape belongs to."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

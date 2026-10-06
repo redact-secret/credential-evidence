@@ -25,6 +25,72 @@
           "locator": "#using-refresh-tokens"
         }
       ]
+    },
+    {
+      "id": "retirement-of-creation-announced-2021-09-30",
+      "statement": "A Dropbox.Tech developer blog post dated Sep 17, 2020 (archived 2024-02-07) states that on September 30th, 2021 Dropbox will retire the creation of long-lived access tokens, so that all new tokens are short-lived, and that the App Console may stop offering legacy app creation before then.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-d0baf6f549",
+          "supports": "On September 30th, 2021, Dropbox will retire the creation of long-lived access tokens — resulting in all new tokens being short-lived.",
+          "locator": "section \"Retiring Legacy Tokens\""
+        },
+        {
+          "sourceId": "web-archive-org-d0baf6f549",
+          "supports": "By Taylor Krusen • Sep 17, 2020",
+          "locator": "post byline"
+        }
+      ]
+    },
+    {
+      "id": "no-new-long-lived-tokens-update-note",
+      "statement": "The same blog post as archived on 2024-02-07 carries an undated bracketed update stating that Dropbox is no longer offering the option to create new long-lived access tokens and that the Access token expiration drop-down is no longer available.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-d0baf6f549",
+          "supports": "[Update: Dropbox is no longer offering the option to create new long-lived access tokens, so the Access token expiration drop-down is no longer available.]",
+          "locator": "section \"Update default token type\""
+        }
+      ]
+    },
+    {
+      "id": "legacy-token-response-example-shape",
+      "statement": "Dropbox's token endpoint reference presents the example response labelled legacy long-lived access token with access_token, token_type (bearer), account_id and uid members and without an expires_in member or a refresh_token member, whereas the short-lived examples on the same page include expires_in; the page states this as an example and gives no format rule for the access_token value.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "Example: legacy long-lived access token (access_token, token_type, account_id, uid); the short-lived examples additionally include expires_in.",
+          "locator": "#oauth2token, response examples"
+        }
+      ]
+    },
+    {
+      "id": "retirement-date-statements-differ",
+      "statement": "Dropbox pages give different dates for the end of long-lived token availability: the OAuth guide (undated) says long-lived tokens remain available in the Developer console for compatibility until mid 2021, while the developer blog post dated Sep 17, 2020 says creation would be retired on September 30th, 2021; the pages do not reconcile the two, and neither states when existing long-lived tokens stop authenticating.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-aea155a830",
+          "supports": "will remain available as an option in the Developer console for compatibility until mid 2021",
+          "locator": "#using-refresh-tokens"
+        },
+        {
+          "sourceId": "web-archive-org-d0baf6f549",
+          "supports": "On September 30th, 2021, Dropbox will retire the creation of long-lived access tokens",
+          "locator": "section \"Retiring Legacy Tokens\""
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -44,6 +110,31 @@
       "id": "single-artifact-lead",
       "question": "One rule artifact (Gitleaks, rule dropbox-long-lived-api-token, lines 460-464 at the pinned commit) matches an 11-character start, a run of ten \"A\" characters and 43 more characters (64 in all) after a dropbox keyword. TruffleHog and Nosey Parker at the pinned commits carry no rule for this form. One artifact does not meet the tool-corroborated requirement, so no format claim is recorded; a second independent artifact or a provider statement would resolve it.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "existing-token-authentication-end-unstated",
+      "question": "No page read states a date on which an existing long-lived access token stops authenticating, nor that it does; the blog says only that creation is retired and the guide says the console option remains available until mid 2021. Whether issued long-lived tokens still authenticate is not established and was not tested. A Dropbox statement about existing tokens, or a pinned changelog entry, would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "update-note-undated",
+      "question": "The update note recording that new long-lived tokens are no longer offered is undated in the archived 2024-02-07 capture. A Wayback capture of the same post from 2023-03-21 (read on 2026-10-05, not recorded as a source) lacks the note and the 2024-02-07 capture has it, which brackets its appearance between those dates as a lead only (the earlier capture is not recorded as a source). The actual date creation stopped is therefore unknown; the planned date is 2021-09-30.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "introduction-date-unknown",
+      "question": "The guide says only that in the past the API used only long-lived access tokens; no page read dates their introduction, so no introduced date is recorded.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "no-second-artifact-for-format",
+      "question": "The earlier single-artifact lead (a Gitleaks rule matching a 64-character form) still has no second independent artifact: the Dropbox detector at the pinned TruffleHog commit matches only the sl.-prefixed short-lived form. No format claim is recorded and no value in a provider example is copied or generalised.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "legacy-versus-current-boundary",
+      "question": "The legacy example response lacks the members and the sl. prefix pattern that Dropbox's short-lived examples show, but the page states no format and says access tokens must be treated as opaque. Distinguishing the two families by shape is not supported by a provider statement; their separation here rests on the documented issuance and expiry difference.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }
