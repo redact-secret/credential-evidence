@@ -454,6 +454,99 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "meta-authored--app-secret-raw-http-client-secret-query",
+      "case": "meta-app-secret-client-secret-query-parameter",
+      "path": "app-secret-raw-http-client-secret-query/fixture.txt",
+      "context": "url",
+      "sha256": "9262fb855e171718ccbd92c0be2309e444924c09bd01fb621172d62435af797e",
+      "text": "GET /oauth/access_token?client_id=1000000000000001&client_secret=SYNTHETIC-meta-app-secret-never-issued-1001&grant_type=client_credentials HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 108,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-curl-client-secret-query",
+      "case": "meta-app-secret-client-secret-query-parameter",
+      "path": "app-secret-curl-client-secret-query/fixture.txt",
+      "context": "cli",
+      "sha256": "e70ec478aff9abdbc5dd3ca00105840cfa1206a19f3b4dc4e561adcc891349ea",
+      "text": "curl -i -X GET \"https://graph.example.test/oauth/access_token?client_id=1000000000000001&client_secret=SYNTHETIC-meta-app-secret-never-issued-1002&grant_type=client_credentials\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 103,
+            "end": 146,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-client-secret-query-continues",
+      "case": "meta-app-secret-client-secret-query-parameter",
+      "path": "app-secret-client-secret-query-continues/fixture.txt",
+      "context": "url",
+      "sha256": "1121c463357671ea54d4f655b8392c40749e72a6429a39fb4a959e180aed96bd",
+      "text": "https://graph.example.test/oauth/access_token?client_secret=SYNTHETIC-meta-app-secret-never-issued-1003&client_id=1000000000000001&grant_type=client_credentials&debug=all\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 60,
+            "end": 103,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-bare-hexadecimal-thirty-two-in-prose",
+      "case": "meta-app-secret-bare-thirty-two-character-values",
+      "path": "app-secret-bare-hexadecimal-thirty-two-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "3c594c14512dd1c4b609b968fc1e1f74f909b5ac224dbc7ea183436a8fc13912",
+      "text": "Keep this for later: 0123456789abcdef0123456789abcdef\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-alphanumeric-thirty-two-in-facebook-environment",
+      "case": "meta-app-secret-bare-thirty-two-character-values",
+      "path": "app-secret-alphanumeric-thirty-two-in-facebook-environment/fixture.txt",
+      "context": "env",
+      "sha256": "8b77902c4aa3a971513573a7774915715dd0b8e0f5ed255a13b6d3136090eedb",
+      "text": "FACEBOOK_APP_SECRET=SYNTHETICNEVERISSUED0123456789SY\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-alphanumeric-thirty-two-in-instagram-environment",
+      "case": "meta-app-secret-bare-thirty-two-character-values",
+      "path": "app-secret-alphanumeric-thirty-two-in-instagram-environment/fixture.txt",
+      "context": "env",
+      "sha256": "0233e84c9145bc7240784b68c19e88901bdcf0e8329119de1abf5940f8464733",
+      "text": "INSTAGRAM_APP_SECRET=SYNTHETICNEVERISSUED0123456789SY\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

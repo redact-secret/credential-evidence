@@ -124,6 +124,183 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "contentful-authored--cma-pat-raw-http-bearer-header",
+      "case": "contentful-cma-personal-access-token-bearer-header-and-create-response-member",
+      "path": "cma-pat-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "920da51976d2cd07e9eef2cb25f4462f97a0babc394f1a9590a58bde34aa09c5",
+      "text": "GET /spaces HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-contentful-cma-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 66,
+            "end": 114,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-curl-bearer-header",
+      "case": "contentful-cma-personal-access-token-bearer-header-and-create-response-member",
+      "path": "cma-pat-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "21ff7df7f0b1625599fb8122d9e60519f349425e16ed3e58dd4a2740cf6c64ea",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-contentful-cma-token-never-issued-0002\" https://api.example.test/spaces\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 79,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-create-response-token-member",
+      "case": "contentful-cma-personal-access-token-bearer-header-and-create-response-member",
+      "path": "cma-pat-create-response-token-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "b315c7fa4e5971afcfe999e28685ac8fcfe677c27d09ac1533e71cf20fb6d5b2",
+      "text": "{\n  \"name\": \"SYNTHETIC-token-name\",\n  \"token\": \"SYNTHETIC-contentful-cma-token-never-issued-0003\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 48,
+            "end": 96,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-lookalike-cli-example-placeholder",
+      "case": "contentful-cma-personal-access-token-documented-placeholders-and-masks",
+      "path": "cma-pat-lookalike-cli-example-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "85e82516dc7b6ee6a7bf66f4965c94486e903447c1aedf0ceb6b35d57036d72f",
+      "text": "$ node client.js [--ssl] --token 'CFPAT-123...789' --space 'cfexample'\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-lookalike-contributing-env-placeholder",
+      "case": "contentful-cma-personal-access-token-documented-placeholders-and-masks",
+      "path": "cma-pat-lookalike-contributing-env-placeholder/fixture.txt",
+      "context": "env",
+      "sha256": "b6975afc4c609c80f9a4e3c81e16a750b149535faa546a01ef10c4d38883e1c4",
+      "text": "CONTENTFUL_INTEGRATION_TEST_CMA_TOKEN=CFPAT-xxx \\\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-lookalike-documented-bearer-form",
+      "case": "contentful-cma-personal-access-token-documented-placeholders-and-masks",
+      "path": "cma-pat-lookalike-documented-bearer-form/fixture.txt",
+      "context": "header",
+      "sha256": "15386a4aada52b4fbb517662bddfb8e3ce3207e54de9a5f6c7217e72cd310c99",
+      "text": "GET /spaces HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer <token>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-lookalike-bearer-scheme-only",
+      "case": "contentful-cma-personal-access-token-documented-placeholders-and-masks",
+      "path": "cma-pat-lookalike-bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "77f309c43e153b286fe6bb1fbb2a901c15dda9f619e82b4522ede988b8c409cf",
+      "text": "Authorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-lookalike-bearer-environment-reference",
+      "case": "contentful-cma-personal-access-token-documented-placeholders-and-masks",
+      "path": "cma-pat-lookalike-bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "bd6d2150efcd1cc885e630501800aa5a82f74f2e46cd0aef558cad802a0e1fef",
+      "text": "curl -H \"Authorization: Bearer ${CONTENTFUL_MANAGEMENT_TOKEN}\" https://api.example.test/spaces\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-lookalike-token-member-masked-display",
+      "case": "contentful-cma-personal-access-token-documented-placeholders-and-masks",
+      "path": "cma-pat-lookalike-token-member-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "06385de2626192b1bd452c95490ebcdd1b8c9f05f53566426934281ae1e629ac",
+      "text": "{\n  \"token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-bare-cfpat-43-in-prose",
+      "case": "contentful-cma-personal-access-token-prefixed-and-hexadecimal-shapes",
+      "path": "cma-pat-bare-cfpat-43-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "0a13dd746967b62a1bc7775335dcf9f680827f44319754322041844221d447ac",
+      "text": "Keep this for later: CFPAT-SYNTHETICNEVERISSUED0123456789SYNTHETICNEVE\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-bare-cfpat-64-in-prose",
+      "case": "contentful-cma-personal-access-token-prefixed-and-hexadecimal-shapes",
+      "path": "cma-pat-bare-cfpat-64-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "547e2cc707729bfa58e7fa3b6f0a4969c8451079d4121de40d0fecf81db1ce99",
+      "text": "Keep this for later: CFPAT-SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNT\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-bare-hexadecimal-64-in-prose",
+      "case": "contentful-cma-personal-access-token-prefixed-and-hexadecimal-shapes",
+      "path": "cma-pat-bare-hexadecimal-64-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "9f9e93d4f6b0ee19ee0aa59daab855aed18acd80e5c51d7b6d56db7e81ceca49",
+      "text": "Keep this for later: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--cma-pat-redacted-value-member-only",
+      "case": "contentful-cma-personal-access-token-prefixed-and-hexadecimal-shapes",
+      "path": "cma-pat-redacted-value-member-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "71a6e6b1b534ece81713d4f03b5495493aa1dacfeecf0a4d239607f815e63e90",
+      "text": "{\n  \"sys\": {\n    \"redactedValue\": \"0001\"\n  }\n}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "dropbox-access-token-sl-prefixed-run-and-unnamed-carriers",
+  "title": "Dropbox access token as a bare sl. or sl.u. prefixed run, or in an unnamed carrier",
+  "summary": "A bare sl. prefixed run, a bare sl.u. prefixed run, a long run with no prefix, and an sl. prefixed run in an environment assignment.",
+  "rationale": "Dropbox states the token is opaque, may exceed 1KB and has no guaranteed size or composition (access-token-documented-opaque); the sl. prefix and 130-plus run in three rule artifacts is consistency only, and the artifacts disagree on bounds (claim tool-length-bounds-differ, unresolved: 135 fixed, 130 to 152, 130 minimum with no maximum). Whether sl. or sl.u. is guaranteed, whether user, team, console-generated and offline tokens share a shape, and the length are open (provider-length-and-prefix-unstated, example-forms-not-a-format-statement). The deprecated long-lived token is a separate family. No outcome is asserted for any bare shape or unnamed carrier.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "dropbox:access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Whether a bare value with or without the sl. or sl.u. prefix, or a value in an environment variable Dropbox does not name, is a Dropbox access token is not stated by any Dropbox page. Settled by a Dropbox statement of the format by token kind and issue date.",
+    "sources": [
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "Access tokens provided by Dropbox should be treated as opaque. Applications must support variable token size with tokens capable of exceeding 1KB.",
+        "locator": "#authorization"
+      },
+      {
+        "sourceId": "github-com-gitleaks-gitleaks-d47395c7b2",
+        "supports": "[a-z0-9\\-=_]{135}",
+        "locator": "#L468"
+      },
+      {
+        "sourceId": "github-com-praetorian-inc-noseyparker-4da81bbf6f",
+        "supports": "(sl\\.[a-zA-Z0-9_-]{130,152})",
+        "locator": "#L9"
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-164cc01e1c",
+        "supports": "Newer scoped Dropbox short-lived tokens (sl.u.…) can be ~1.5KB",
+        "locator": "#L26-L27"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No outcome is asserted. All values are synthetic, were built for this record and were not tested against any service. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

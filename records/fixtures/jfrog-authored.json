@@ -334,6 +334,171 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "jfrog-authored--reference-token-raw-http-art-api-header",
+      "case": "jfrog-reference-token-header-and-basic-password-value",
+      "path": "reference-token-raw-http-art-api-header/fixture.txt",
+      "context": "header",
+      "sha256": "a9f7f7f1603d78ee9c122f9609a0233e13d44af5b890be815a2de823d58dacfa",
+      "text": "GET /artifactory/api/system/ping HTTP/1.1\nHost: artifactory.example.test\nX-JFrog-Art-Api: SYNTHETIC-jfrog-reference-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 90,
+            "end": 139,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-curl-art-api-header",
+      "case": "jfrog-reference-token-header-and-basic-password-value",
+      "path": "reference-token-curl-art-api-header/fixture.txt",
+      "context": "cli",
+      "sha256": "775888bab2d5694d901fef282eb32d5a944a4a85a382833f5d11f74e003be90c",
+      "text": "curl -H \"X-JFrog-Art-Api: SYNTHETIC-jfrog-reference-token-never-issued-0002\" https://artifactory.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 26,
+            "end": 75,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-curl-basic-password",
+      "case": "jfrog-reference-token-header-and-basic-password-value",
+      "path": "reference-token-curl-basic-password/fixture.txt",
+      "context": "cli",
+      "sha256": "e8af4f3ae55b0c9923f6577d929b96aca01a5a055df3273a45e1dcf109a8cc5e",
+      "text": "curl -u User1:SYNTHETIC-jfrog-reference-token-never-issued-0003 https://artifactory.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 14,
+            "end": 63,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-lookalike-documented-basic-form",
+      "case": "jfrog-reference-token-placeholders-references-and-masks",
+      "path": "reference-token-lookalike-documented-basic-form/fixture.txt",
+      "context": "cli",
+      "sha256": "ad53e335628adbdef40836fbadc93eb2a17daac430d9280c56f2aec4b0537ad2",
+      "text": "curl -u User1:<reference token> https://artifactory.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-lookalike-art-api-header-placeholder",
+      "case": "jfrog-reference-token-placeholders-references-and-masks",
+      "path": "reference-token-lookalike-art-api-header-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "25e9aae94676180b141e92a2df8d35e49d40dbf99f23e894120e09c1f19bca10",
+      "text": "X-JFrog-Art-Api: <reference token>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-lookalike-art-api-header-empty",
+      "case": "jfrog-reference-token-placeholders-references-and-masks",
+      "path": "reference-token-lookalike-art-api-header-empty/fixture.txt",
+      "context": "header",
+      "sha256": "cc60c29849ace239e843bcf89d381f54db233296de63678dd79f7ee429394925",
+      "text": "GET /artifactory/api/system/ping HTTP/1.1\nHost: artifactory.example.test\nX-JFrog-Art-Api:\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-lookalike-basic-environment-reference",
+      "case": "jfrog-reference-token-placeholders-references-and-masks",
+      "path": "reference-token-lookalike-basic-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "a4be9a110300bc697051344aa04b59314afdd88ffa4cac3597ea5bed50327177",
+      "text": "curl -u User1:${JFROG_REFERENCE_TOKEN} https://artifactory.example.test/artifactory/api/system/ping\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-lookalike-art-api-header-masked-display",
+      "case": "jfrog-reference-token-placeholders-references-and-masks",
+      "path": "reference-token-lookalike-art-api-header-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "6458f68cd91511e6e8cb8f8e32b7145a52f2ac095fda905e2650b4482e77cf22",
+      "text": "X-JFrog-Art-Api: ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-lookalike-prose-mention",
+      "case": "jfrog-reference-token-placeholders-references-and-masks",
+      "path": "reference-token-lookalike-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "48df4ee3179310f8ed3eb62ca506d8e65a8eeb9a062c0d80e376becb9f411aae",
+      "text": "A reference token is an alias for a longer token and is not retrievable after creation.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-bare-cmvmd-sixty-four-in-prose",
+      "case": "jfrog-reference-token-sixty-four-and-one-hundred-twenty-eight-character-forms",
+      "path": "reference-token-bare-cmvmd-sixty-four-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "191c1f1ea2b74cc9a64dc9493451d5c89a62f9d4f295e4bf89e680f6d4b02bb4",
+      "text": "Keep this for later: cmVmdSYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED012345678\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-bare-cmvmdgtu-sixty-four-in-prose",
+      "case": "jfrog-reference-token-sixty-four-and-one-hundred-twenty-eight-character-forms",
+      "path": "reference-token-bare-cmvmdgtu-sixty-four-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "217dc5a1831530a0ff76aa6b87022571d8751414220f66359606c32c8b71bfc9",
+      "text": "Keep this for later: cmVmdGtuSYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED012345\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "jfrog-authored--reference-token-bare-alphanumeric-one-hundred-twenty-eight-in-prose",
+      "case": "jfrog-reference-token-sixty-four-and-one-hundred-twenty-eight-character-forms",
+      "path": "reference-token-bare-alphanumeric-one-hundred-twenty-eight-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "48ae85d51b90f9978e464f09df479b8d2a7bb72a66f1e5b4061d53fd08f3df9c",
+      "text": "Keep this for later: SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETI\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

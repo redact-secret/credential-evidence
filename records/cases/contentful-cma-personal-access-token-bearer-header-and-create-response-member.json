@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "contentful-cma-personal-access-token-bearer-header-and-create-response-member",
+  "title": "Contentful CMA personal access token as a Bearer header value or the token member of the create response",
+  "summary": "A synthetic opaque value after the Bearer scheme in a raw request and a quoted curl -H argument, and as the token member of a pretty-printed create-token response.",
+  "rationale": "Contentful documents Authorization: Bearer <token> as the authentication form of the endpoint that creates a personal access token, and states that the token value is returned only once (contract claim creation-api-bearer-carrier-shown-once; the response member is the token member of its example response, claim reference-example-token-shape-differs). The page states no prefix, alphabet or length, and the current example shape (64 hexadecimal characters, no prefix) conflicts with the CFPAT- placeholders and the rule artifacts, so no shape is used: the value is flagged because of where it sits. The extent is the value only. The sys.redactedValue member is not asserted (open question redacted-value-member).",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "contentful:cma-personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in an Authorization: Bearer header of a Contentful Content Management API request, or in the token member of the create-token response, is treated as a credential whatever its shape. Contentful documents the Bearer authentication form and a value returned only once (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "contentful-com-c9e351aca5",
+        "supports": "Creates a Personal Access Token with the specified scopes (content_management_read or content_management_manage). The token value is only returned once — copy and store it securely.",
+        "locator": "Create an access token, description under the example response"
+      },
+      {
+        "sourceId": "contentful-com-c9e351aca5",
+        "supports": "Bearer authentication of the form Bearer <token>, where token is your auth token.",
+        "locator": "Create an access token, Authentication"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

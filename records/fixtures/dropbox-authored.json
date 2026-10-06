@@ -265,6 +265,202 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "dropbox-authored--access-token-raw-http-bearer-header",
+      "case": "dropbox-access-token-bearer-header-and-response-member",
+      "path": "access-token-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "c3f50dcadadeb7c7bc38fa67ecfd44be087a74517df30211f40fee7ede776fb6",
+      "text": "POST /2/users/get_current_account HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-dropbox-access-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 88,
+            "end": 136,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-curl-bearer-header",
+      "case": "dropbox-access-token-bearer-header-and-response-member",
+      "path": "access-token-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "4609a757be35a366b10fe662883f5eaac3be00c1a821d6f6537fc7c76a84ea72",
+      "text": "curl -X POST https://api.example.test/2/users/get_current_account --header \"Authorization: Bearer SYNTHETIC-dropbox-access-token-never-issued-0002\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 98,
+            "end": 146,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-pretty-json-response-member",
+      "case": "dropbox-access-token-bearer-header-and-response-member",
+      "path": "access-token-pretty-json-response-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "293eeb0ba786f58a3a54d3af48cd280a099bc6c9c8bc3a7273bfd06d4eebaf45",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-dropbox-access-token-never-issued-0003\",\n  \"expires_in\": 14400\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 69,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-raw-http-response-compact-json",
+      "case": "dropbox-access-token-bearer-header-and-response-member",
+      "path": "access-token-raw-http-response-compact-json/fixture.txt",
+      "context": "structured-file",
+      "sha256": "ac63024c5c8a90b39d63dc65b2fd98536e3edfbfcc50d9689ff46bc9aa367ef6",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"access_token\":\"SYNTHETIC-dropbox-access-token-never-issued-0004\",\"expires_in\":14400}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 113,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-lookalike-documented-bearer-form",
+      "case": "dropbox-access-token-placeholders-references-and-non-values",
+      "path": "access-token-lookalike-documented-bearer-form/fixture.txt",
+      "context": "header",
+      "sha256": "e405078466b7250268d3c09a9f5a4d04c13ce026c707b087e147e0dc2a160e2f",
+      "text": "POST /2/users/get_current_account HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer <TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-lookalike-bearer-scheme-only",
+      "case": "dropbox-access-token-placeholders-references-and-non-values",
+      "path": "access-token-lookalike-bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "77f309c43e153b286fe6bb1fbb2a901c15dda9f619e82b4522ede988b8c409cf",
+      "text": "Authorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-lookalike-bearer-environment-reference",
+      "case": "dropbox-access-token-placeholders-references-and-non-values",
+      "path": "access-token-lookalike-bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "c69d548cea0bd7dde5e24f820972591e06ee890de8f9e78481390d5f72f86865",
+      "text": "curl -X POST https://api.example.test/2/users/get_current_account --header \"Authorization: Bearer ${DROPBOX_ACCESS_TOKEN}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-lookalike-bearer-masked-display",
+      "case": "dropbox-access-token-placeholders-references-and-non-values",
+      "path": "access-token-lookalike-bearer-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "7a270caf3a094ab3650f8e9156d96c34a056690ce5d1e4283d680f85d5e346a4",
+      "text": "Authorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-lookalike-response-lifetime-only",
+      "case": "dropbox-access-token-placeholders-references-and-non-values",
+      "path": "access-token-lookalike-response-lifetime-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "056a0f350355dcf18ea232e38619bde3657bceb1e91679c4adddf75d6ab18ed1",
+      "text": "{\n  \"expires_in\": 14400\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-lookalike-member-prose-mention",
+      "case": "dropbox-access-token-placeholders-references-and-non-values",
+      "path": "access-token-lookalike-member-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "e3fe52c701f888547681d08e385951788aafcb421699000d90041ac816743949",
+      "text": "The access_token member of the response is opaque and expires_in gives its validity in seconds.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-bare-sl-prefixed-run-in-prose",
+      "case": "dropbox-access-token-sl-prefixed-run-and-unnamed-carriers",
+      "path": "access-token-bare-sl-prefixed-run-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "9a783130ef1c65485e2556f13b558af3f90622710e038a6f3b7826ccc90e5974",
+      "text": "Keep this for later: sl.SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERI\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-bare-sl-u-prefixed-run-in-prose",
+      "case": "dropbox-access-token-sl-prefixed-run-and-unnamed-carriers",
+      "path": "access-token-bare-sl-u-prefixed-run-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "348b851b828660a0517420e47999459baf8270ecdbb59e5ccb563235e2d417bd",
+      "text": "Keep this for later: sl.u.SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-bare-unprefixed-run-in-prose",
+      "case": "dropbox-access-token-sl-prefixed-run-and-unnamed-carriers",
+      "path": "access-token-bare-unprefixed-run-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "8f84901ee8eff85992534cbd6c4f528d7fcc6f38ecc142302528cf5a9bf2cb1a",
+      "text": "Keep this for later: SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--access-token-sl-prefixed-run-in-environment-assignment",
+      "case": "dropbox-access-token-sl-prefixed-run-and-unnamed-carriers",
+      "path": "access-token-sl-prefixed-run-in-environment-assignment/fixture.txt",
+      "context": "env",
+      "sha256": "2e0cd93aed83f1e970ba46b4bf4a8f56026850b4b5968eadf6384fa87c372072",
+      "text": "DROPBOX_ACCESS_TOKEN=sl.SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERI\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

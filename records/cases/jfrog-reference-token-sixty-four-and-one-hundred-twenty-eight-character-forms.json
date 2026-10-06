@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "jfrog-reference-token-sixty-four-and-one-hundred-twenty-eight-character-forms",
+  "title": "JFrog reference token as a bare 64-character cmVmd value, an 8-character-prefix value, or a bare 128-character value",
+  "summary": "A bare cmVmd value with 59 characters after the prefix, a bare cmVmdGtu value with 56 after the prefix, and a bare 128-character alphanumeric value.",
+  "rationale": "JFrog's Identity Tokens page states the pattern cmVmd plus 59 alphanumeric characters and calls reference tokens short (64 characters); its Access Tokens page describes the admin-scoped reference token as a 128-character key (claims identity-page-pattern-64, access-page-128-character-key, length-64-versus-128-conflict: unresolved, the pages do not say whether they describe different forms, eras or one stale figure). The 8-character prefix cmVmdGtu is one artifact's lead (eight-character-prefix-single-artifact), and the introduction version differs between 7.38.4 and 7.38.10 (introduction-version-conflict). The handoff for this row says not to author a shape-only expectation. No outcome is asserted.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "jfrog:reference-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input",
+    "wrong-length"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Whether a bare cmVmd value of 64 characters, a cmVmdGtu value, or a bare 128-character value is a JFrog reference token is not settled by JFrog's own pages, which conflict. Settled by a JFrog length history per release with dates, or a dated archive snapshot of the Access Tokens page.",
+    "sources": [
+      {
+        "sourceId": "docs-jfrog-com-9efead811f",
+        "supports": "Unlike a regular JWT token, reference tokens follow this pattern: .*\\bcmVmd[A-Za-z0-9]{59}\\b.* , starting with cmVmd followed by 59 more alphanumeric characters.",
+        "locator": "Understanding Identity Tokens"
+      },
+      {
+        "sourceId": "docs-jfrog-com-9efead811f",
+        "supports": "Reference tokens are short (64 characters) - unlike JWT Tokens, reference tokens can be used with clients that do not support long tokens or passwords.",
+        "locator": "Comparing Identity Reference Tokens With API Keys"
+      },
+      {
+        "sourceId": "docs-jfrog-com-a4d14ae414",
+        "supports": "From Artifactory release 7.38.4, you can choose whether to generate an extended token (as in the screen above), or to generate a Reference Token . The Reference Token is a \"shortened,\" 128-character key, thereby providing an alias for a longer token.",
+        "locator": "Create an Admin Scoped Reference Token"
+      },
+      {
+        "sourceId": "docs-jfrog-com-3b63e3caba",
+        "supports": "include_reference_token boolean Defaults to false Generate a reference token in addition to the full token. Since 7.38.10.",
+        "locator": "Create Token, request body"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No outcome is asserted. All values are synthetic, were built for this record and were not tested against any service. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

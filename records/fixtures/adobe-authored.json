@@ -181,6 +181,357 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "adobe-authored--s2s-secret-raw-http-form-body",
+      "case": "adobe-s2s-client-secret-token-request-parameter",
+      "path": "s2s-secret-raw-http-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "9d88c2544e18a01380d154bd6e73ffe3ccf06d78ef6e550b59b41654a4ffb78b",
+      "text": "POST /token HTTP/1.1\nHost: ims.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=client_credentials&client_id=SYNTHETIC-adobe-client-id&client_secret=SYNTHETIC-adobe-s2s-client-secret-never-issued-0001&scope=openid\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 173,
+            "end": 224,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--s2s-secret-curl-data-parameter",
+      "case": "adobe-s2s-client-secret-token-request-parameter",
+      "path": "s2s-secret-curl-data-parameter/fixture.txt",
+      "context": "cli",
+      "sha256": "2c599040d41488e9c296c392415c3c7d95ebd07c6ba2de9259236b7fac44ca7b",
+      "text": "curl -X POST \"https://ims.example.test/token\" -d \"grant_type=client_credentials\" -d \"client_id=SYNTHETIC-adobe-client-id\" -d \"client_secret=SYNTHETIC-adobe-s2s-client-secret-never-issued-0002\" -d \"scope=openid\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 140,
+            "end": 191,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--s2s-secret-query-string-parameter",
+      "case": "adobe-s2s-client-secret-token-request-parameter",
+      "path": "s2s-secret-query-string-parameter/fixture.txt",
+      "context": "url",
+      "sha256": "0157c8fc867814d2e788cee8753c16f61d5c3ec5bf25133b2b7ea0fddc68dffa",
+      "text": "POST /token?grant_type=client_credentials&client_id=SYNTHETIC-adobe-client-id&client_secret=SYNTHETIC-adobe-s2s-client-secret-never-issued-0003&scope=openid HTTP/1.1\nHost: ims.example.test\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 92,
+            "end": 143,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--web-app-basic-raw-http-token-request",
+      "case": "adobe-web-app-client-secret-basic-envelope",
+      "path": "web-app-basic-raw-http-token-request/fixture.txt",
+      "context": "header",
+      "sha256": "fd0f980998270a49299deebd7dd5e2b09ba9625fff499f8d028555f5332f7f47",
+      "text": "POST /token HTTP/1.1\nHost: ims.example.test\nAuthorization: Basic U1lOVEhFVElDLWFkb2JlLWNsaWVudC1pZDpTWU5USEVUSUMtYWRvYmUtd2ViLWFwcC1jbGllbnQtc2VjcmV0LW5ldmVyLWlzc3VlZC0wMDAx\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&code=SYNTHETIC-authorization-code\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 173,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--web-app-basic-curl-refresh-header",
+      "case": "adobe-web-app-client-secret-basic-envelope",
+      "path": "web-app-basic-curl-refresh-header/fixture.txt",
+      "context": "cli",
+      "sha256": "a5cc7a07786d8cf3e46c70d97fd18f54642496c54d5075bc4e76452ae6d2a770",
+      "text": "curl -X POST -H \"Authorization: Basic U1lOVEhFVElDLWFkb2JlLWNsaWVudC1pZDpTWU5USEVUSUMtYWRvYmUtd2ViLWFwcC1jbGllbnQtc2VjcmV0LW5ldmVyLWlzc3VlZC0wMDAy\" -d \"grant_type=refresh_token\" -d \"refresh_token=SYNTHETIC-placeholder-refresh-reference\" https://ims.example.test/token\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 38,
+            "end": 146,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--web-app-basic-raw-http-revocation",
+      "case": "adobe-web-app-client-secret-basic-envelope",
+      "path": "web-app-basic-raw-http-revocation/fixture.txt",
+      "context": "header",
+      "sha256": "dc8b4f822102099231e7929bdcd9432836c6748d0412773be6cb0a04bc29b92f",
+      "text": "POST /revoke HTTP/1.1\nHost: ims.example.test\nAuthorization: Basic U1lOVEhFVElDLWFkb2JlLWNsaWVudC1pZDpTWU5USEVUSUMtYWRvYmUtd2ViLWFwcC1jbGllbnQtc2VjcmV0LW5ldmVyLWlzc3VlZC0wMDAz\nContent-Type: application/x-www-form-urlencoded\n\ntoken=SYNTHETIC-token-reference\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 66,
+            "end": 174,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--enterprise-secret-raw-http-form-body",
+      "case": "adobe-enterprise-web-app-client-secret-form-parameter",
+      "path": "enterprise-secret-raw-http-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "d5fe21c6d4025169f17b07c6f4621f1ed74c98fbe37c79840c1e8cf17ebf75d7",
+      "text": "POST /token HTTP/1.1\nHost: ims.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=client_credentials&client_id=SYNTHETIC-adobe-client-id&client_secret=SYNTHETIC-adobe-enterprise-client-secret-never-issued-0001&scope=SYNTHETIC-scope&org_id=SYNTHETIC-org-id\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 173,
+            "end": 231,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--enterprise-secret-curl-data-parameter",
+      "case": "adobe-enterprise-web-app-client-secret-form-parameter",
+      "path": "enterprise-secret-curl-data-parameter/fixture.txt",
+      "context": "cli",
+      "sha256": "84574b072d47a4dd9dc2a9eb16aec93dd58e61244db5954001c00a6da3eebbc7",
+      "text": "curl -X POST \"https://ims.example.test/token\" -d \"grant_type=client_credentials\" -d \"client_id=SYNTHETIC-adobe-client-id\" -d \"client_secret=SYNTHETIC-adobe-enterprise-client-secret-never-issued-0002\" -d \"scope=SYNTHETIC-scope\" -d \"org_id=SYNTHETIC-org-id\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 140,
+            "end": 198,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--enterprise-secret-curl-data-urlencode",
+      "case": "adobe-enterprise-web-app-client-secret-form-parameter",
+      "path": "enterprise-secret-curl-data-urlencode/fixture.txt",
+      "context": "cli",
+      "sha256": "6c112d67be42d6d9312b59620d48911c3e6c2f6e4f06a82e6f173d07455a0717",
+      "text": "curl -X POST \"https://ims.example.test/token\" --data-urlencode \"client_id=SYNTHETIC-adobe-client-id\" --data-urlencode \"client_secret=SYNTHETIC-adobe-enterprise-client-secret-never-issued-0003\" --data-urlencode \"org_id=SYNTHETIC-org-id\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 133,
+            "end": 191,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adobe-authored--client-id-in-x-api-key-header",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "client-id-in-x-api-key-header/fixture.txt",
+      "context": "header",
+      "sha256": "bf49d6e23345deddea44dc8f329c96c0bff0f16b912dbf3e46b93573c15e268e",
+      "text": "GET /credentials HTTP/1.1\nHost: api.example.test\nx-api-key: SYNTHETIC-adobe-client-id\nAuthorization: Bearer {ACCESS_TOKEN}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--secret-uuid-in-delete-path",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "secret-uuid-in-delete-path/fixture.txt",
+      "context": "url",
+      "sha256": "9644aa9f63f6ceca501db321f1e8898a3e4489821e6567fabbc2165cc121ee48",
+      "text": "DELETE /credentials/SYNTHETIC-credential-id/clientsecrets/SYNTHETIC-client-secret-uuid-0001 HTTP/1.1\nHost: api.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--list-response-uuid-and-metadata-only",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "list-response-uuid-and-metadata-only/fixture.txt",
+      "context": "structured-file",
+      "sha256": "e6e981de9f0e8ca0c6b5f6102bcaa1e877e18c932508e25098c95ec1160387b1",
+      "text": "{\n  \"client_secrets\": [\n    {\n      \"uuid\": \"SYNTHETIC-client-secret-uuid-0001\",\n      \"created_date\": \"2026-01-01T00:00:00Z\"\n    }\n  ]\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--curl-client-secret-brace-placeholder",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "curl-client-secret-brace-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "c93f35fb706d096d56fe99577cc003c9821f6d190fb33646298a91412d88d802",
+      "text": "curl -X POST \"https://ims.example.test/token\" -d \"client_id={CLIENT_ID}\" -d \"client_secret={CLIENT_SECRET}\" -d \"grant_type=client_credentials\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--add-secret-response-x-run-placeholder",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "add-secret-response-x-run-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "180a2e2675620ad4325c780b2338a97d2784f76338791c41643b10d8837d8e20",
+      "text": "{\n  \"client_secret\": \"XXXXXXXXXXXXX\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--enterprise-client-secret-angle-placeholder",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "enterprise-client-secret-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "ec169536a660230ab68c457e626a841faf5caf929b7adb84dd330637fe337bd7",
+      "text": "grant_type=client_credentials&client_id=SYNTHETIC-adobe-client-id&client_secret=<YOUR_CLIENT_SECRET>&org_id=SYNTHETIC-org-id\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--web-app-basic-authorization-placeholder",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "web-app-basic-authorization-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "8d91ba94d84858666508d9d85ba7c0d9e4b49add9ddfaef8595f1bbac5ab4a74",
+      "text": "POST /token HTTP/1.1\nHost: ims.example.test\nAuthorization: Basic {AUTHORIZATION}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--web-app-basic-expression-in-prose",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "web-app-basic-expression-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "0578397af468dd90d32febe10adc1c52e264f3793ab12dc0e4fb897287c5e623",
+      "text": "Send Authorization: Basic Base64(clientId:clientSecret) on the token request of a confidential client.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--public-client-request-client-id-only",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "public-client-request-client-id-only/fixture.txt",
+      "context": "form-body",
+      "sha256": "6aed85b3a3464b234c1ab0c2de8f14d6666e65132bf3f6462aa9447a15e1427a",
+      "text": "grant_type=authorization_code&client_id=SYNTHETIC-adobe-client-id&code=SYNTHETIC-authorization-code\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--client-secret-environment-reference",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "client-secret-environment-reference/fixture.txt",
+      "context": "env",
+      "sha256": "8901529b33064a51731e93e31b3034574097b121c5b0aef9b8f1b24d9ccd2915",
+      "text": "ADOBE_CLIENT_SECRET=${ADOBE_CLIENT_SECRET}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--client-secret-masked-display",
+      "case": "adobe-client-secret-placeholders-references-and-public-identifiers",
+      "path": "client-secret-masked-display/fixture.txt",
+      "context": "form-body",
+      "sha256": "94663a9d8078e1706ab4e7e5c18e890b8c7a1cf60374012671a753b91590bbf9",
+      "text": "grant_type=client_credentials&client_id=SYNTHETIC-adobe-client-id&client_secret=********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--web-app-form-body-client-secret-parameter",
+      "case": "adobe-web-app-client-secret-post-form-parameter-and-decoded-pair",
+      "path": "web-app-form-body-client-secret-parameter/fixture.txt",
+      "context": "form-body",
+      "sha256": "cf9fc756135f7e623b8b27748f8e76d1c35e62886035e932dabe47ebb2f7b282",
+      "text": "POST /token HTTP/1.1\nHost: ims.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=authorization_code&client_id=SYNTHETIC-adobe-client-id&client_secret=SYNTHETIC-adobe-web-app-form-secret-never-issued-0001&code=SYNTHETIC-authorization-code\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--web-app-decoded-client-id-and-secret-pair",
+      "case": "adobe-web-app-client-secret-post-form-parameter-and-decoded-pair",
+      "path": "web-app-decoded-client-id-and-secret-pair/fixture.txt",
+      "context": "prose",
+      "sha256": "e272fd1eb0879796de7958d1051eea6fb0e281c99ed8c9a2200e505f76373047",
+      "text": "The header was built from SYNTHETIC-adobe-client-id:SYNTHETIC-adobe-web-app-decoded-secret-never-issued-0001 before encoding.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--enterprise-consent-redirect-id-token",
+      "case": "adobe-enterprise-id-token-and-org-id-beside-client-secret",
+      "path": "enterprise-consent-redirect-id-token/fixture.txt",
+      "context": "url",
+      "sha256": "c56207f2256cf61c28645928fa91c9c1ff9c9a06095fcc55a72b2bfc8c655620",
+      "text": "https://app.example.test/callback?id_token=eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJpc3MiOiJodHRwczovL2ltcy5leGFtcGxlLnRlc3QiLCJvcmdfaWQiOiJTWU5USEVUSUMtb3JnLWlkIiwibm9uY2UiOiJTWU5USEVUSUMtbm9uY2UifQ.SYNTHETIC-signature-never-issued&state=SYNTHETIC-state\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--enterprise-org-id-parameter-alone",
+      "case": "adobe-enterprise-id-token-and-org-id-beside-client-secret",
+      "path": "enterprise-org-id-parameter-alone/fixture.txt",
+      "context": "form-body",
+      "sha256": "0d89f093582a54a1be2dc379f9354a1c11d8dedb9362c16fe2ab81c8fa05010f",
+      "text": "org_id=SYNTHETIC-org-id&scope=SYNTHETIC-scope\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

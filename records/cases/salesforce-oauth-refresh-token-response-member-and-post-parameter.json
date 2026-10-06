@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "salesforce-oauth-refresh-token-response-member-and-post-parameter",
+  "title": "Salesforce OAuth refresh token as the refresh_token response member or POST request parameter",
+  "summary": "A synthetic value of the refresh_token member of a pretty-printed token response, and of the refresh_token parameter in a raw form-encoded POST refresh request and a curl -d argument.",
+  "rationale": "Salesforce documents refresh_token as an optional member of the token response, returned only with the refresh_token scope, and states that the value is a secret (claim token-response-member-and-secret); it documents refresh_token as a parameter of a POST to /services/oauth2/token with grant_type=refresh_token (refresh-request-carrier). Salesforce gives no prefix, alphabet or length (format-not-documented), so the value is flagged because of where it sits, not because of its shape; the 5Aep861 prefix is not used. The extent is the value only: the member or parameter name, the colon or equals sign, the ampersand and the quotes are outside it, and the client_id beside it is a public application identifier. The refresh request here carries no client_secret, which Salesforce documents as an alternative to a client_assertion; the access_token member is a different family.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "salesforce:oauth-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the refresh_token member of a Salesforce token response, or in the refresh_token parameter of a POST refresh request, is treated as a credential whatever its shape. Salesforce documents the refresh_token response member and request parameter (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "help-salesforce-com-490d26490b",
+        "supports": "refresh_token Token obtained from the web server, user-agent, or hybrid app token flow. This value is a secret. Take appropriate measures to protect it. This parameter is returned only if your external client app is set up with a refresh_token scope.",
+        "locator": "token response, additional response parameters (section following the access token response)"
+      },
+      {
+        "sourceId": "help-salesforce-com-4202099562",
+        "supports": "refresh_token Token obtained from the web server, user-agent, or hybrid app token flow. This value is a secret. Take appropriate measures to protect it.",
+        "locator": "Request an Updated Access Token, parameters"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

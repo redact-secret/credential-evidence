@@ -475,6 +475,126 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "x-authored--consumer-secret-lookalike-authorization-header-signature-output",
+      "case": "x-oauth1-consumer-secret-signature-output-and-signing-key-placeholders",
+      "path": "consumer-secret-lookalike-authorization-header-signature-output/fixture.txt",
+      "context": "header",
+      "sha256": "b47aa6d249b5a9486ac3683d5f849ae8b109e0814f6225f4c1483adb075e752f",
+      "text": "POST /1.1/statuses/update.json HTTP/1.1\nHost: api.example.test\nAuthorization: OAuth oauth_nonce=\"SYNTHETIC-nonce\", oauth_signature=\"U1lOVEhFVElDLUhNQUMtU0hBLTE%3D\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"1318622958\", oauth_version=\"1.0\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-lookalike-query-string-signature-output",
+      "case": "x-oauth1-consumer-secret-signature-output-and-signing-key-placeholders",
+      "path": "consumer-secret-lookalike-query-string-signature-output/fixture.txt",
+      "context": "url",
+      "sha256": "5c86e24a650d4b6b915b4da8ee0f3d33bc6bab5c085607b604d5692979b0c5ff",
+      "text": "GET /1.1/account/verify_credentials.json?oauth_nonce=SYNTHETIC-nonce&oauth_signature=U1lOVEhFVElDLUhNQUMtU0hBLTE%3D&oauth_signature_method=HMAC-SHA1 HTTP/1.1\nHost: api.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-lookalike-signing-key-angle-placeholder",
+      "case": "x-oauth1-consumer-secret-signature-output-and-signing-key-placeholders",
+      "path": "consumer-secret-lookalike-signing-key-angle-placeholder/fixture.txt",
+      "context": "prose",
+      "sha256": "f7c37fdd113cdc3b838b12f92881d2f392ecdbc0f09559f45d6dae6641b92b75",
+      "text": "The signing key is <consumer-secret>& when the token secret is not yet known.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-lookalike-signing-key-environment-reference",
+      "case": "x-oauth1-consumer-secret-signature-output-and-signing-key-placeholders",
+      "path": "consumer-secret-lookalike-signing-key-environment-reference/fixture.txt",
+      "context": "env",
+      "sha256": "2a334df9e9f701cd030419007d69ce903123f31806b716dfbaa246f0f3e0a1c4",
+      "text": "SIGNING_KEY=${X_CONSUMER_SECRET}&\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-lookalike-signing-key-masked-display",
+      "case": "x-oauth1-consumer-secret-signature-output-and-signing-key-placeholders",
+      "path": "consumer-secret-lookalike-signing-key-masked-display/fixture.txt",
+      "context": "prose",
+      "sha256": "02ec48ab8b1046b8d8f0fd14dc4138df4c16c9653e847a1d67025bff08f66893",
+      "text": "signing key: ********&\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-lookalike-secret-prose-mention",
+      "case": "x-oauth1-consumer-secret-signature-output-and-signing-key-placeholders",
+      "path": "consumer-secret-lookalike-secret-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "943d3e03d4edd8c2c21b7cbe9e40e73f801aab8c4f68ecebd1796997c5a1e017",
+      "text": "The API Key and Secret, also known as the Consumer Key and Secret, are shown once when the App is created.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-signing-key-text-with-ampersand",
+      "case": "x-oauth1-consumer-secret-signing-key-and-bare-values",
+      "path": "consumer-secret-signing-key-text-with-ampersand/fixture.txt",
+      "context": "prose",
+      "sha256": "7f8a70f785ff56241ba35f33f437a0820f0a6c0eec4b2380520b41c32e7fee2e",
+      "text": "signing key: SYNTHETICNEVERISSUED0123456789SYNTHETICNEVE&\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-bare-forty-three-in-prose",
+      "case": "x-oauth1-consumer-secret-signing-key-and-bare-values",
+      "path": "consumer-secret-bare-forty-three-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "764f12679de6e846fdba73d2f556fa7170295351c15013c97c9b7351162ab0d6",
+      "text": "Keep this for later: SYNTHETICNEVERISSUED0123456789SYNTHETICNEVE\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-bare-fifty-in-prose",
+      "case": "x-oauth1-consumer-secret-signing-key-and-bare-values",
+      "path": "consumer-secret-bare-fifty-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "8fa39432b533a2cc879629a8dd23710cb2e0457e8e2171552cb8c68f44ead99d",
+      "text": "Keep this for later: SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "x-authored--consumer-secret-oauth-consumer-secret-form-field",
+      "case": "x-oauth1-consumer-secret-signing-key-and-bare-values",
+      "path": "consumer-secret-oauth-consumer-secret-form-field/fixture.txt",
+      "context": "form-body",
+      "sha256": "80d5abfde6717a767544cf0742b4e471d3b05f1f8b6c8d4ff00a59da664fb66b",
+      "text": "oauth_consumer_key=SYNTHETIC-consumer-key&oauth_consumer_secret=SYNTHETICNEVERISSUED0123456789SYNTHETICNEVERISSUED\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

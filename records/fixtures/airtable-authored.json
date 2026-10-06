@@ -592,6 +592,147 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "airtable-authored--pat-raw-http-bearer-header",
+      "case": "airtable-personal-access-token-bearer-header-value",
+      "path": "pat-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "e258718d511051bfb883c3fdd09ead0626ec89083fe8125850e0eec488b31084",
+      "text": "GET /v0/SYNTHETIC-base-id/SYNTHETIC-table HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-airtable-personal-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 96,
+            "end": 147,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--pat-curl-bearer-header",
+      "case": "airtable-personal-access-token-bearer-header-value",
+      "path": "pat-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "2809955d54c8bdcf174d1d4a4f86535f5e39924c1bef4dedc75e41956e39c006",
+      "text": "curl -H \"Authorization: Bearer SYNTHETIC-airtable-personal-token-never-issued-0002\" https://api.example.test/v0/SYNTHETIC-base-id/SYNTHETIC-table\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 82,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--pat-json-header-map",
+      "case": "airtable-personal-access-token-bearer-header-value",
+      "path": "pat-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d8009cc87a5f3f6bb992d0ebf19f8233a25d5c1cab401aa727c21ca4631c7f77",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-airtable-personal-token-never-issued-0003\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 97,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "airtable-authored--pat-lookalike-bearer-scheme-only",
+      "case": "airtable-personal-access-token-placeholders-references-and-masks",
+      "path": "pat-lookalike-bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "e971863367f85b9d26225311cf39f30914ffa95e59da42d146ebe6a1df37d7aa",
+      "text": "GET /v0/SYNTHETIC-base-id/SYNTHETIC-table HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--pat-lookalike-bearer-angle-placeholder",
+      "case": "airtable-personal-access-token-placeholders-references-and-masks",
+      "path": "pat-lookalike-bearer-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "a1fd6d0a0edd2bcbc193340b5ea5941e66e762b7f2b483ca94c943bd32dcd036",
+      "text": "Authorization: Bearer <YOUR_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--pat-lookalike-bearer-environment-reference",
+      "case": "airtable-personal-access-token-placeholders-references-and-masks",
+      "path": "pat-lookalike-bearer-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "f0a92c9c00dfed845ebdbddd43e36ccf87eadf3e5bf8a45ec2d917b50cec1e20",
+      "text": "curl -H \"Authorization: Bearer ${AIRTABLE_TOKEN}\" https://api.example.test/v0/SYNTHETIC-base-id/SYNTHETIC-table\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--pat-lookalike-token-template-reference",
+      "case": "airtable-personal-access-token-placeholders-references-and-masks",
+      "path": "pat-lookalike-token-template-reference/fixture.txt",
+      "context": "structured-file",
+      "sha256": "4014473a92775cc1cd6c87cefba0f52f11b2b1c4493f168ca7f49b8cdb61dcf6",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer {{ airtable_token }}\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--pat-lookalike-bearer-masked-display",
+      "case": "airtable-personal-access-token-placeholders-references-and-masks",
+      "path": "pat-lookalike-bearer-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "7a270caf3a094ab3650f8e9156d96c34a056690ce5d1e4283d680f85d5e346a4",
+      "text": "Authorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--pat-lookalike-header-prose-mention",
+      "case": "airtable-personal-access-token-placeholders-references-and-masks",
+      "path": "pat-lookalike-header-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "e2e92a44837bf652c361710a2d8da33ac12a0ad123c1db68f4f02a8189c0a2a7",
+      "text": "Personal access tokens should be passed with your API requests as an Authorization: Bearer header.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "airtable-authored--pat-api-key-url-parameter-value",
+      "case": "airtable-personal-access-token-url-parameter-and-tool-layout",
+      "path": "pat-api-key-url-parameter-value/fixture.txt",
+      "context": "url",
+      "sha256": "d5028334192133cb69077584a01dfd08670cd2cb7171bb7e5e1c94129211af74",
+      "text": "GET /v0/SYNTHETIC-base-id/SYNTHETIC-table?api_key=SYNTHETIC-airtable-token-in-unsupported-parameter-0001 HTTP/1.1\nHost: api.example.test\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

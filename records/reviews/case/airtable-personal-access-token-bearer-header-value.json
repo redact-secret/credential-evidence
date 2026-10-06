@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-airtable-personal-access-token-bearer-header-value",
+  "subject": {
+    "kind": "case",
+    "id": "airtable-personal-access-token-bearer-header-value"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for redact-secret#1228 (Group C, Batch 2 follow-up) from the evidence repository's own handoffs C1, C2 and C3 and the cited draft contracts only; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner), authored as maintainer-only on the owner's explicit instruction (owner instruction on 2026-10-06: complete redact-secret#1228, #1229 and #1230 before the next release; baselines and Cases for these groups to be authored maintainer-only as in Batch 2). Question: a value after the Bearer scheme of an Airtable API request is a personal access token whatever its shape? Options: require the pat prefix and the 14-character and 64-hex layout of two rule artifacts (Airtable says do not rely on a format); flag any value in the documented header; or leave the case a draft. Decision: flag any value in the Bearer header; no subtype, prefix, width or alphabet is claimed. Reason: Airtable documents the carrier and tells integrators to treat the token as opaque, so the expectation rests on project policy, not on a provider rule. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "No dissent was raised in this decision. Strongest counter-argument recorded: the provider pages document the carrier but state no value format, so a position-only rule can flag non-secrets or miss a differently shaped secret; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A provider statement of the value format or of the carrier's confidentiality that contradicts this outcome, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

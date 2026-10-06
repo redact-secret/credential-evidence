@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "contentful-cma-personal-access-token-documented-placeholders-and-masks",
+  "title": "Contentful CMA personal access token documented CFPAT- placeholders, references, masks and bare Bearer scheme",
+  "summary": "The Contentful-maintained placeholders CFPAT-123...789 and CFPAT-xxx, the documented Bearer <token> form, a bare scheme, an environment reference and a masked display.",
+  "rationale": "Two repositories maintained by Contentful write the CMA token placeholder as CFPAT- followed by dots or x characters (claim provider-placeholders-begin-cfpat); a placeholder states a leading string only and is not a value. The documented Bearer <token> form, a bare scheme, a reference and a mask also carry no value. The CFPAT- placeholders are provider-published values (option 3 of the synthetic-value rules, linked by the cited sources). Flagging them would redact documentation a reader needs; the case does not say CFPAT- applies to every issued token.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "contentful:cma-personal-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "documentation-placeholder",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the values here are provider-maintained placeholders, the documented Bearer form, references or masks, not credential values; that such forms are not values is a project decision. Contentful-maintained repositories write the placeholders; the API reference writes Bearer <token>.",
+    "sources": [
+      {
+        "sourceId": "github-com-contentful-contentful-cli-40c048ff5b",
+        "supports": "$ node client.js [--ssl] --token 'CFPAT-123...789' --space 'cfexample'",
+        "locator": "line 23"
+      },
+      {
+        "sourceId": "github-com-contentful-contentful-migration-e0e0f23262",
+        "supports": "CONTENTFUL_INTEGRATION_TEST_CMA_TOKEN=CFPAT-xxx \\",
+        "locator": "line 25"
+      },
+      {
+        "sourceId": "contentful-com-c9e351aca5",
+        "supports": "Bearer authentication of the form Bearer <token>, where token is your auth token.",
+        "locator": "Create an access token, Authentication"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

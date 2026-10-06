@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "salesforce-oauth-refresh-token-prefixed-values-and-get-query-carrier",
+  "title": "Salesforce OAuth refresh token as a bare 5Aep861 prefixed value, or in a GET query string",
+  "summary": "A bare 5Aep861 prefixed value with a long remainder including a period and an underscore, one with a shorter remainder and a hyphen, and a refresh_token parameter in a GET query string.",
+  "rationale": "Two rule artifacts begin a refresh token at 5Aep861 but differ on the minimum remainder (80 versus 40) and the extra characters (equals sign versus hyphen), and no scope (org, app, token kind or era) is stated (claims tool-prefix, tool-corroborated, independence unconfirmed; format-not-documented, unresolved). The prefix may not be specific to refresh tokens (open question prefix-token-kind), and connected app and external client app tokens may differ (connected-versus-external-client-app). Salesforce says OAuth tokens and client secrets must not be passed in a GET query string and documents the parameter only for a POST body (refresh-request-carrier), so a GET query is not a documented carrier. No outcome is asserted.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "salesforce:oauth-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Whether a bare 5Aep861 prefixed value, or a refresh_token value in a GET query string, is a Salesforce OAuth refresh token is not stated by any Salesforce page. Settled by a Salesforce statement of a refresh token grammar, maintainer provenance for the rule artifacts, or a statement on the GET query carrier. The vendor-prefix-shaped probe values are intentionally not stored as fixtures (a hosted secret scanner's push protection rejects vendor-shaped literals); a corpus author must assemble such shapes at run time from the shape stated here.",
+    "sources": [
+      {
+        "sourceId": "help-salesforce-com-490d26490b",
+        "supports": "The refresh_token response member is described by origin, secrecy and the refresh_token scope; no format is given.",
+        "locator": "Salesforce Grants an Access Token, response parameters"
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-2aaf915fb8",
+        "supports": "refreshTokenPat: (?i)\\b(5AEP861[a-zA-Z0-9._=]{80,})\\b",
+        "locator": "#L29"
+      },
+      {
+        "sourceId": "github-com-vulnetix-cli-d0ad1ac683",
+        "supports": "_pattern := \\b(5Aep861[A-Za-z0-9_.\\-]{40,})\\b",
+        "locator": "#L25"
+      },
+      {
+        "sourceId": "help-salesforce-com-4202099562",
+        "supports": "Don't use GET parameters in the URL query string to pass sensitive information. Sensitive information includes but isn't limited to usernames, passwords, OAuth tokens, client secrets, and any personally identifiable information.",
+        "locator": "Request an Updated Access Token, Important note"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No outcome is asserted. All values are synthetic, were built for this record and were not tested against any service. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

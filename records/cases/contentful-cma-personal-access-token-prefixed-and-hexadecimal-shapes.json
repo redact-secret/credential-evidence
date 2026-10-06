@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "contentful-cma-personal-access-token-prefixed-and-hexadecimal-shapes",
+  "title": "Contentful CMA personal access token as a bare CFPAT- value, a bare 64-hexadecimal value, or beside redactedValue",
+  "summary": "A bare CFPAT- value with 43 characters after the prefix, a bare CFPAT- value with 64, a bare 64-character lowercase hexadecimal value, and a response member holding only a four-character redactedValue.",
+  "rationale": "Evidence on the personal access token shape points three ways and is era-dependent: provider placeholders and two rule artifacts begin CFPAT- (one fixes 43 characters after it, another allows 40 or more); the current API reference example shows 64 lowercase hexadecimal characters with no prefix (claim reference-example-token-shape-differs, unresolved); and a 2018 SDK recording lead has CFPAT- plus 64 (open question format-and-prefix-era). Contentful states no prefix, alphabet or length, and independence of the two artifacts is unconfirmed (cfpat-prefix-and-alphabet-consistency). The sys.redactedValue member is not described (redacted-value-member). No outcome is asserted for any bare shape.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "contentful:cma-personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Whether a bare CFPAT- value of 43 or 64 characters, a bare 64-character hexadecimal value, or a redactedValue member is or contains a Contentful personal access token is not stated by any Contentful page. Settled by a Contentful statement of the token format and its history, or a dated archive snapshot of the Authentication or Create an access token page.",
+    "sources": [
+      {
+        "sourceId": "contentful-com-c9e351aca5",
+        "supports": "Example 201 response with a token member that is 64 lowercase hexadecimal characters and a sys.redactedValue member of four characters (value not copied here).",
+        "locator": "Create an access token, example response"
+      },
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-1695724060",
+        "supports": "keyPat: \\b(CFPAT-[a-zA-Z0-9_\\-]{43})\\b",
+        "locator": "contentfulpersonalaccesstoken.go, keyPat in the var block"
+      },
+      {
+        "sourceId": "github-com-vulnetix-cli-005e308d07",
+        "supports": "_pattern := \\b(CFPAT-[A-Za-z0-9_\\-]{40,})\\b",
+        "locator": "vnx-sec-495.rego line 25"
+      },
+      {
+        "sourceId": "github-com-contentful-contentful-cli-40c048ff5b",
+        "supports": "$ node client.js [--ssl] --token 'CFPAT-123...789' --space 'cfexample'",
+        "locator": "line 23"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No outcome is asserted. All values are synthetic, were built for this record and were not tested against any service. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
