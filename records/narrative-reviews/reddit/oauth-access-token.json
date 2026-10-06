@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-narrative-reddit-oauth-access-token",
+  "subject": {
+    "kind": "family-narrative",
+    "id": "reddit:oauth-access-token"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Drafted by an AI agent run from github-com-reddit-archive-reddit-e2ca394517, github-com-reddit-archive-reddit-b8d4025e45, web-archive-org-c53a558744, web-archive-org-437b75323d, reddit-com-51679eb6b9, redditinc-com-f6de383a98 and redditinc-com-bfe04809ef read on 2026-10-05; not reviewed."
+    },
+    {
+      "seq": 2,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'text-format' (shape) is recorded as unresolved: No page read states any of them, and no sample is published. Only a Reddit statement, or an issued token examined under a maintainer's authority, would settle it."
+    },
+    {
+      "seq": 3,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'expires-in-unit-and-current-lifetime' (lifecycle) is recorded as unresolved: The archived page describes expires_in as 'Unix Epoch Seconds' in one place and as seconds until expiry in another, and no current page states a lifetime. A current Reddit statement or dated changelog would settle it."
+    },
+    {
+      "seq": 4,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'bare-token-attribution' (collisions) is recorded as unresolved: No page states a distinguishing marker for the token text. A Reddit statement of a marker would settle it."
+    },
+    {
+      "seq": 5,
+      "type": "observed",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "research-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "verdict": "not-assertable",
+      "note": "Statement 'archived-wiki-currentness' (openQuestions) is recorded as unresolved: The current Help page cites the archived wiki and warns that legacy documentation may be out of date, and no current page restates them. A current Reddit page restating them, or a dated changelog, would settle it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

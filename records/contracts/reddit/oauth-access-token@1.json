@@ -25,6 +25,123 @@
           "locator": "Authorization (duration); Retrieving the access token"
         }
       ]
+    },
+    {
+      "id": "current-help-page-points-to-archived-oauth-wiki",
+      "statement": "Reddit's own Help page 'Reddit Data API Wiki' (updated May 11, 2026) says Reddit requires OAuth for authentication, links the archived reddit-archive OAuth2 and OAuth2 App Types wiki pages as its technical guidance for it, and warns that some information in legacy API documentation and support resources may be out of date. The page itself states no app type, grant, token lifetime or token format.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-c53a558744",
+          "supports": "Resources lists 'Reddit requires OAuth for authentication' (linking github.com/reddit-archive/reddit/wiki/OAuth2) and 'Technical guidance for: ... OAuth2' (linking .../wiki/OAuth2-App-Types); the page opens 'Please note: Some of the information in our legacy API documentation and support resources may be out of date.'",
+          "locator": "Resources; opening notice"
+        }
+      ]
+    },
+    {
+      "id": "current-help-page-requires-registered-oauth-token",
+      "statement": "Reddit's current Help page says Data API clients must authenticate with a registered OAuth token, that traffic not using OAuth or login credentials will be blocked, and that the free-access rate limit is counted per OAuth client id.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-c53a558744",
+          "supports": "'Clients must authenticate with a registered OAuth token.'; 'Traffic not using OAuth or login credentials will be blocked'; 'The limit is: 100 queries per minute (QPM) per OAuth client id'",
+          "locator": "Rules; Rate Limits"
+        }
+      ]
+    },
+    {
+      "id": "current-terms-define-access-info-and-forbid-sharing",
+      "statement": "Reddit's Developer Terms define 'Access Info' as tokens, keys, passwords, login credentials and other access controls made available by Reddit and forbid sharing it with a third party except as the terms permit; the Data API Terms require using the Access Info Reddit provided, naming 'the OAuth token' as an example. Neither page names a client secret, an access token or a refresh token as such.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "redditinc-com-f6de383a98",
+          "supports": "1.4 Access Info: 'tokens, keys, passwords, login credentials, and other access controls that are authorized and made available to you by Reddit (collectively, “Access Info”)'; 7.4 Security: 'you will not share or make available to a third party any Access Info'",
+          "locator": "1.4 Access Info; 7.4 Security"
+        },
+        {
+          "sourceId": "redditinc-com-bfe04809ef",
+          "supports": "2.8 Permitted Access: 'You must use the Access Info we provided you (e.g., the OAuth token) when accessing the Data APIs'",
+          "locator": "2.8 Permitted Access"
+        }
+      ]
+    },
+    {
+      "id": "current-api-access-requires-approval-and-tokens-revocable",
+      "statement": "Reddit's Responsible Builder Policy (updated June 05, 2026) says access to Reddit data through its API requires a request and explicit approval, says developers should use the Developer Platform (Devvit) to build apps, and lists revoking access tokens among the enforcement actions Reddit can take.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "web-archive-org-437b75323d",
+          "supports": "'Approval is required: You must request access and get explicit approval before accessing any Reddit data through our API'; 'Developers should use the Developer Platform (“Devvit”) to build apps on Reddit.'; enforcement actions include 'Revoking your access tokens.'",
+          "locator": "Introduction; Developers; Enforcement"
+        }
+      ]
+    },
+    {
+      "id": "archived-docs-token-response-members-and-fragment",
+      "statement": "Reddit's archived OAuth2 documentation says a successful code-flow token response is JSON with access_token, token_type, expires_in and scope (plus refresh_token only when one was requested), and that the implicit flow instead returns access_token, token_type, expires_in, scope and state form-encoded in the redirect URI fragment. Historical statement from an archived page.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+          "supports": "JSON { access_token, token_type: bearer, expires_in, scope, refresh_token }; implicit flow 'will be form encoded into the fragment with the following values: access_token, token_type, expires_in, scope, state'",
+          "locator": "Retrieving the access token; Token Retrieval (Implicit grant flow)"
+        }
+      ]
+    },
+    {
+      "id": "archived-docs-app-only-and-revocation-carriers",
+      "statement": "Reddit's archived OAuth2 documentation says app-only requests (client_credentials, or the installed_client grant with a device_id) return the same JSON token response without a refresh_token, and that a client can POST a token (access or refresh) in the request body to the revoke_token endpoint with HTTP Basic client authentication, which returns success (204) even if the token was never valid. Historical statement from an archived page.",
+      "evidenceClass": "provider-documented",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+          "supports": "'App-only OAuth token requests never receive a refresh_token.'; revoke_token 'token=TOKEN&token_type_hint=TOKEN_TYPE'; 'this request will return a success (204) response even if the passed in token was never valid.'",
+          "locator": "Application Only OAuth; Manually Revoking a Token"
+        }
+      ]
+    },
+    {
+      "id": "current-api-reference-labels-oauth-scopes",
+      "statement": "Reddit's live API reference labels its endpoints with OAuth scopes (for example identity, mysubreddits, modlog), documents a GET /api/v1/scopes endpoint that returns descriptions of Reddit's OAuth2 scopes, and says modhashes are not required when authenticated with OAuth. It does not describe the token endpoint, token lifetime or token format.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "reddit-com-51679eb6b9",
+          "supports": "'GET /api/v1/scopes any: Retrieve descriptions of reddit's OAuth2 scopes'; endpoint headings carry scope labels such as 'GET /api/v1/me identity'; 'Modhashes are not required when authenticated with OAuth.'",
+          "locator": "Overview (modhashes); account; misc"
+        }
+      ]
+    },
+    {
+      "id": "expires-in-meaning-differs-within-archived-page",
+      "statement": "The archived OAuth2 page describes expires_in in the code-flow response sample as 'Unix Epoch Seconds' and in the implicit-flow table as 'Seconds until the token expires'. The unit is left unresolved.",
+      "evidenceClass": "unresolved",
+      "temporality": "historical",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+          "supports": "code-flow sample: \"expires_in\": Unix Epoch Seconds; implicit table: 'expires_in Seconds until the token expires'",
+          "locator": "Retrieving the access token; Token Retrieval (Implicit grant flow)"
+        }
+      ]
     }
   ],
   "openQuestions": [
@@ -37,8 +154,23 @@
       "id": "opaque-token-attribution",
       "question": "The candidate is researched for existence only. No prefix, alphabet or length is claimed. A bare opaque token would need provider context (the bearer header and the oauth.reddit.com host) to be attributed; whether any bare-value form is safely assertable is unresolved.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "archived-wiki-currentness-unconfirmed",
+      "question": "The current Help page links the archived OAuth2 wiki as technical guidance but also warns that legacy documentation may be out of date, and no current page restates the app types, grants, token lifetime, carriers or revocation behaviour. Which statements of the archived wiki still hold is not established; the historical claims stay historical. A current provider page restating them, or a dated changelog of OAuth changes, would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "registration-page-not-readable",
+      "question": "Reddit's app registration page (https://www.reddit.com/prefs/apps) returned only a bare placeholder body to an unauthenticated raw request on 2026-10-05, so what the page currently offers (app types offered, whether a secret is shown, whether registration is gated by the approval the Responsible Builder Policy describes) was not read. A provider statement describing current registration, or a maintainer-authorized read of the page while signed in, would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "expires-in-unit-and-current-lifetime",
+      "question": "The archived page gives one hour as the bearer lifetime but describes expires_in two ways (see claim expires-in-meaning-differs-within-archived-page), and no current page states a lifetime. A current provider statement or a dated changelog would settle both.",
+      "raisedAt": "2026-10-05"
     }
   ],
   "lifecycle": "draft",
-  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Existence claim only, from an archived first-party wiki page; no structure is asserted."
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. Existence claim only, from an archived first-party wiki page; no structure is asserted. Extended on 2026-10-05 with the current Help page, the current Developer and Data API Terms, the Responsible Builder Policy, the live API reference and further archived-wiki statements; the format remains unresolved."
 }
