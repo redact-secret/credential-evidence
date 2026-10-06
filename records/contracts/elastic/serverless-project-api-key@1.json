@@ -39,6 +39,62 @@
           "locator": "#api-keys-create-an-api-key"
         }
       ]
+    },
+    {
+      "id": "serverless-key-types-listed",
+      "statement": "Elastic's Serverless project API keys page lists two key types in Serverless projects, Personal API keys (to let external services access the project, including the Elasticsearch and Kibana APIs, on behalf of a user) and Managed API keys (created by Kibana for background tasks); it lists no cross-cluster type.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-2b309553de",
+          "supports": "In Serverless projects, the following types of API keys exist: Personal API keys ... Managed API keys, created and managed by Kibana to correctly run background tasks.",
+          "locator": "#api-keys"
+        }
+      ]
+    },
+    {
+      "id": "stack-page-calls-serverless-keys-equivalent",
+      "statement": "Elastic's Elasticsearch API keys page says that equivalent keys for Serverless projects are created as described on the Serverless project API keys page, so Elastic describes the Serverless personal key as the Serverless equivalent of the stack personal key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-ab9b9eb129",
+          "supports": "To create equivalent keys for Serverless projects, refer to serverless-project-api-keys.md.",
+          "locator": "tip after the list of key types"
+        }
+      ]
+    },
+    {
+      "id": "serverless-create-response-type-is-shared",
+      "statement": "Elastic's specification defines the create-API-key response with the encoded member annotated as available on stack since 7.16.0 and on serverless, so one response type, with the same encoded definition, covers Elasticsearch and Serverless.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-46ec10b715",
+          "supports": "encoded: API key credentials which is the base64-encoding of the UTF-8 representation of id and api_key joined by a colon; @availability stack since=7.16.0; @availability serverless",
+          "locator": "Response body, field encoded"
+        }
+      ]
+    },
+    {
+      "id": "serverless-cloud-api-key-alternative",
+      "statement": "Elastic's Serverless page names Elastic Cloud API keys as an alternative to project API keys: they can interact with multiple projects and be managed centrally from the Cloud console, and the cross-project search feature requires Cloud API keys for programmatic access.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-2b309553de",
+          "supports": "As an alternative to using Serverless project API keys, which are tied to a single project, you can create Elastic Cloud API keys ... The cross-project search feature requires Elastic Cloud API keys for programmatic access.",
+          "locator": "admonition after the list of key types"
+        }
+      ]
     }
   ],
   "openQuestions": [
@@ -51,6 +107,21 @@
       "id": "not-researched-beyond-existence",
       "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "serverless-no-independent-lexical-signal",
+      "question": "All pages read describe the Serverless project key with the same encoded representation and the same Authorization: ApiKey carrier as the Elasticsearch personal key, and one response type covers both; no page states a property that separates the two strings. The only documented difference is issuance context (a key tied to a single Serverless project, created in the project's Kibana). The evidence supports one shared envelope with an issuance-context role, not a distinct shape; merging or keeping the families is a downstream judgement and the IDs are preserved. An Elastic statement of a distinguishing string property would settle it.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "serverless-key-id-confidentiality",
+      "question": "Whether the id member beside the encoded key is non-secret is not stated; inherited from the Elasticsearch API key contract.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "serverless-scanner-rule-names",
+      "question": "On 2026-10-06 the rule and detector names (not their contents) of two open-source scanner repositories were listed: Gitleaks config/gitleaks.toml at b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b and TruffleHog pkg/detectors at 0186870afd2c4a90def791d80260923ba583d076. Gitleaks lists no Elastic rule and TruffleHog lists elasticemail only (an unrelated provider); neither names a Serverless or Elasticsearch API key rule. This is a negative observation of names only; it is not a source, not corroboration and not an expectation basis.",
+      "raisedAt": "2026-10-06"
     }
   ],
   "lifecycle": "draft",

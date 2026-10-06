@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "benign-sibling",
+  "id": "jfrog-pairing-token-id",
+  "families": [
+    "jfrog:pairing-token"
+  ],
+  "siblingClass": "non-secret-companion",
+  "name": "Token ID shown beside a pairing token",
+  "description": "JFrog's access tokens page says the window shown when a pairing token is generated includes the token's expiration, the token ID and the actual token, so the token ID is displayed beside the token as a separate item. The page does not say whether the token ID may be disclosed and states no format for it, so its benign status is a lead and no sample value is recorded.",
+  "evidenceClass": "unresolved",
+  "sources": [
+    {
+      "sourceId": "docs-jfrog-com-a4d14ae414",
+      "supports": "This displays the token window, which includes the token's expiration (in seconds, set by default to 300 seconds = 5 minutes), the token ID, and the actual token, which you can copy by clicking Copy.",
+      "locator": "Pairing Tokens to Bind a JPD and a Mission Control Microservice"
+    }
+  ],
+  "observedAt": "2026-10-06",
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

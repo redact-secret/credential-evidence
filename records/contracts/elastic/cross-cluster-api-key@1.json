@@ -25,6 +25,138 @@
           "locator": "#elasticsearch-api-keys (type list)"
         }
       ]
+    },
+    {
+      "id": "cross-cluster-key-dedicated-create-endpoint",
+      "statement": "Elastic's API specification describes a dedicated endpoint, POST /_security/cross_cluster/api_key, that creates an API key of the cross_cluster type for API key based remote cluster access, requires the manage_security cluster privilege, and must be authenticated with a credential that is not an API key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-87b77d7fcb",
+          "supports": "Create an API key of the `cross_cluster` type for the API key based remote cluster access. ... To authenticate this request you must use a credential that is not an API key.",
+          "locator": "Request doc comment; urls path /_security/cross_cluster/api_key"
+        }
+      ]
+    },
+    {
+      "id": "cross-cluster-key-refused-on-rest-interface",
+      "statement": "Elastic's API specification states that a cross_cluster API key cannot be used to authenticate through the REST interface, so it is not a credential sent in an Authorization: ApiKey header to the Elasticsearch HTTP API.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-87b77d7fcb",
+          "supports": "A `cross_cluster` API key cannot be used to authenticate through the REST interface.",
+          "locator": "Request doc comment"
+        }
+      ]
+    },
+    {
+      "id": "cross-cluster-key-effective-access",
+      "statement": "Elastic states that a cross-cluster API key does not capture the permissions of the authenticated user: its effective permission is exactly its access property (cross-cluster search and cross-cluster replication), which the creation process converts to a role descriptor.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-87b77d7fcb",
+          "supports": "Unlike REST API keys, a cross-cluster API key does not capture permissions of the authenticated user. The API key's effective permission is exactly as specified with the `access` property.",
+          "locator": "Request doc comment; body.access"
+        }
+      ]
+    },
+    {
+      "id": "cross-cluster-response-members-match-user-key",
+      "statement": "Elastic's specification gives the create-cross-cluster-API-key response the members api_key, id, name, optional expiration and encoded, with encoded defined as the base64 encoding of the UTF-8 representation of id and api_key joined by a colon, the same definition the create-API-key response gives, so the encoded representation is shared with the Elasticsearch user API key rather than distinct.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-ef157a8018",
+          "supports": "encoded: API key credentials which is the base64-encoding of the UTF-8 representation of `id` and `api_key` joined by a colon (`:`).",
+          "locator": "Response body, field encoded"
+        },
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-46ec10b715",
+          "supports": "encoded: API key credentials which is the base64-encoding of the UTF-8 representation of `id` and `api_key` joined by a colon (`:`).",
+          "locator": "Response body, field encoded"
+        }
+      ]
+    },
+    {
+      "id": "cross-cluster-key-carrier-is-local-cluster-keystore",
+      "statement": "Elastic documents that the encoded value of a cross-cluster API key created on the remote cluster is copied and added to the local cluster's keystore, and that the local cluster is configured to provide this API key on each request to the remote cluster.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-e6a937afb1",
+          "supports": "Copy the encoded key (`encoded` in the response) to a safe location. It is required for the local cluster configuration.",
+          "locator": "step 2"
+        },
+        {
+          "sourceId": "github-com-elastic-docs-content-caee4876de",
+          "supports": "To enable this, add the API key to the local cluster's keystore.",
+          "locator": "snippet body"
+        },
+        {
+          "sourceId": "github-com-elastic-docs-content-76f43a5374",
+          "supports": "The local cluster is configured to provide this API key on each request to the remote cluster.",
+          "locator": "#api-key"
+        }
+      ]
+    },
+    {
+      "id": "cross-cluster-key-kibana-privilege-and-license",
+      "statement": "Elastic's Kibana API keys page documents that creating or updating a cross-cluster API key needs the manage_security privilege and an Enterprise license, that its type cannot be changed after creation, and that for a cross-cluster key only the indices other clusters can access and the metadata can be updated.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-ab9b9eb129",
+          "supports": "To create or update a cross-cluster API key, you must have the manage_security privilege and an Enterprise license.",
+          "locator": "#api-keys-security-privileges"
+        },
+        {
+          "sourceId": "github-com-elastic-docs-content-ab9b9eb129",
+          "supports": "You can't update the name or the type of an API key.",
+          "locator": "#update-api-key"
+        }
+      ]
+    },
+    {
+      "id": "cross-cluster-key-optional-certificate-identity",
+      "statement": "Elastic's create-cross-cluster-API-key request has an optional certificate_identity field that restricts the key to connections authenticated by a specific TLS certificate distinguished-name pattern; it is a binding attribute, not part of the encoded credential.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-elasticsearch-specification-87b77d7fcb",
+          "supports": "certificate_identity: The certificate identity to associate with this API key. This field is used to restrict the API key to connections authenticated by a specific TLS certificate.",
+          "locator": "body.certificate_identity"
+        }
+      ]
+    },
+    {
+      "id": "remote-cluster-certificate-model-deprecated",
+      "statement": "Elastic states that TLS certificate based authentication between clusters is now deprecated in favour of the API key based model that uses cross-cluster API keys.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-elastic-docs-content-76f43a5374",
+          "supports": "TLS certificate-based authentication is now deprecated, and users are encouraged to migrate to the API key-based model.",
+          "locator": "introduction"
+        }
+      ]
     }
   ],
   "openQuestions": [
@@ -37,6 +169,26 @@
       "id": "not-researched-beyond-existence",
       "question": "This candidate is recorded from the claims above only; format, variants, history and benign siblings have not been researched.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "cross-cluster-no-independent-lexical-signal",
+      "question": "Elastic documents the cross-cluster key's type (cross_cluster), carrier (local cluster keystore, not an Authorization header) and privilege (indices for search and replication), but the encoded value is defined identically to a user API key's and no page read says the type is visible in the string. The evidence supports a distinct role with a distinct carrier over a shared encoded representation, not a distinct grammar. Whether id or api_key encodes the type is not stated; only an Elastic statement or an issued sample under a maintainer's authority (issuance-gated) would settle it.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "cross-cluster-keystore-setting-name-not-recorded",
+      "question": "The snippets read say the key is added to the local cluster's keystore but do not name the keystore setting; the name is not recorded as a claim. The remote cluster setup page that shows the setting was not cited.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "cross-cluster-encoded-alphabet-padding",
+      "question": "The base64 alphabet and padding of encoded, and the length and alphabet of api_key and id, are not stated; inherited from the open question on the Elasticsearch user API key contract.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "cross-cluster-scanner-rule-names",
+      "question": "On 2026-10-06 the rule and detector names (not their contents) of two open-source scanner repositories were listed: Gitleaks config/gitleaks.toml at b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b and TruffleHog pkg/detectors at 0186870afd2c4a90def791d80260923ba583d076. Gitleaks lists no Elastic rule and TruffleHog lists elasticemail only (an unrelated provider); neither names a cross-cluster or Elasticsearch API key rule. This is a negative observation of names only; it is not a source, not corroboration and not an expectation basis.",
+      "raisedAt": "2026-10-06"
     }
   ],
   "lifecycle": "draft",

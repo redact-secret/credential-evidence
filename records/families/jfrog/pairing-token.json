@@ -8,8 +8,21 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-06",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "JFrog calls the pairing token a signed access token with an extension but states no string form, prefix or length."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "The token's string form would need a pairing token generated on a JFrog platform, which is not done here."
+      }
+    ],
+    "issues": [
+      "redact-secret/credential-evidence#243"
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

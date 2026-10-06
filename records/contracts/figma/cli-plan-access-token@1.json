@@ -30,6 +30,48 @@
           "locator": "#create-a-figma-cli-token"
         }
       ]
+    },
+    {
+      "id": "cli-token-creation-fixed-scope-plan-wide",
+      "statement": "Figma documents that Organization administrators create a Figma CLI token from the Figma CLI tab of the developer hub with a name, a description and an expiration of up to 365 days, that it uses a fixed scope set and plan-wide authorization so there are no scope or resource-selection steps, and that its secret must be stored immediately.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "Go to https://www.figma.com/developers/tokens and select the Figma CLI tab. ... Figma CLI tokens use a fixed scope set and plan-wide authorization, so there are no scope or resource-selection steps.",
+          "locator": "#create-a-figma-cli-token"
+        }
+      ]
+    },
+    {
+      "id": "cli-token-lifecycle-shared-with-plan-tokens",
+      "statement": "Figma states that the refresh behaviour (new secret, previous secret valid for 24 hours) applies to Figma CLI tokens as to REST API and npm registry tokens, and that fixed-category tokens such as Figma CLI tokens do not expose scope or resource controls when edited.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-e9240bb71e",
+          "supports": "This applies to REST API, npm registry, and Figma CLI tokens. ... Fixed-category tokens such as Figma CLI tokens don't expose scope or resource controls.",
+          "locator": "#refresh-a-plan-access-token, #edit-a-plan-access-token"
+        }
+      ]
+    },
+    {
+      "id": "code-connect-cli-carrier-documented-for-personal-token",
+      "statement": "Figma's Code Connect CLI quickstart tells users to generate a personal access token with the Code Connect scope set to Write and the File content scope set to Read and to give it to the CLI as the --token argument or the FIGMA_ACCESS_TOKEN environment variable; the page read does not mention Figma CLI plan tokens.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "developers-figma-com-d1ec7f70da",
+          "supports": "Generate a personal access token with the Code Connect scope set to Write and the File content scope set to Read. ... Optionally, you can use the FIGMA_ACCESS_TOKEN environment variable to pass your personal access token to the Code Connect command line tool.",
+          "locator": "CLI quickstart, authentication steps"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -39,6 +81,26 @@
       "id": "separate-family-or-category",
       "question": "Candidate only. The page presents Figma CLI tokens as a category of plan access token, with different scopes and no scope or resource selection. Whether it is a family distinct from the REST API plan access token (same or different format) is unresolved; no format is stated.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "cli-token-carrier-unstated",
+      "question": "No page read states how a Figma CLI plan token is supplied to the CLI. The plan tokens page says the X-Figma-Token header is used to call the Figma API with a plan access token but also says CLI tokens are not general-purpose REST API tokens, and the Code Connect quickstart documents --token and FIGMA_ACCESS_TOKEN for a personal access token. A Figma statement for CLI tokens would settle it.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "cli-token-lexical-shape-unstated",
+      "question": "No Figma page read states a prefix, alphabet or length for a Figma CLI token or says it differs from the REST API plan token; the evidence supports a scope and issuance role (fixed scope set, plan-wide, administrator-created) and no independent grammar.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "cli-token-codebase-uploads-undocumented",
+      "question": "The plans page names codebase uploads among the supported Figma CLI workflows, but no Figma page read describes that workflow or its token handling.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "cli-token-era",
+      "question": "Plan access tokens are documented as generally available from 2026-07-23 (see figma:plan-access-token); when the Figma CLI category was added is not stated in the changelog version read.",
+      "raisedAt": "2026-10-06"
     }
   ]
 }

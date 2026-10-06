@@ -30,6 +30,76 @@
           "locator": "#app-authentication"
         }
       ]
+    },
+    {
+      "id": "app-auth-token-bearer-carrier",
+      "statement": "Dropbox documents that an app auth token is supplied as a bearer token in an authorization header, shown with the placeholder <OAUTH2_APP_AUTH_TOKEN>.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-ee9def1cd1",
+          "supports": "When using an app auth token, it is supplied as a bearer token in an authorization header.",
+          "locator": "#app-authentication"
+        }
+      ]
+    },
+    {
+      "id": "app-authentication-accepts-secret-or-token",
+      "statement": "Dropbox documents App Authentication as accepting either the app's own app key and secret or an app auth token; the key and secret are transmitted as HTTP basic credentials, either as separate strings or as a Base64 encoding of the app key and secret joined by a colon in an Authorization: Basic header, so the same endpoints accept the app secret itself and the token derived from it.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-ee9def1cd1",
+          "supports": "This type can either use the app's own app key and secret, or an app auth token. ... This can be done either as separate strings ... or as an base64-encoded Basic authorization string in the Authorization header",
+          "locator": "#app-authentication"
+        }
+      ]
+    },
+    {
+      "id": "app-auth-token-request-inputs",
+      "statement": "Dropbox documents that calls to /oauth2/token are authenticated with the app key and secret, as POST parameters or HTTP basic authentication, and shows an app auth token request in the client credentials flow whose inputs are grant_type=client_credentials, client_id (the app key) and client_secret (the app secret).",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "Calls to /oauth2/token need to be authenticated using the apps's key and secret. ... Example: app auth token request in client credentials flow",
+          "locator": "#oauth2token"
+        }
+      ]
+    },
+    {
+      "id": "app-auth-token-response-undocumented",
+      "statement": "The /oauth2/token reference describes its returned members and examples only for grant_type authorization_code and refresh_token; it gives no separate returned-members description and no example response for grant_type client_credentials, so the token's string form, lifetime and expires_in behaviour for an app auth token are not documented.",
+      "evidenceClass": "unresolved",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "### When input grant_type=authorization_code: ... ### When input grant_type=refresh_token:",
+          "locator": "#oauth2token, Returns"
+        }
+      ]
+    },
+    {
+      "id": "app-key-is-sent-in-authorize-url",
+      "statement": "Dropbox's authorization examples carry the app key as the client_id parameter of the browser-facing https://www.dropbox.com/oauth2/authorize URL, while the app secret appears only in the server-side token request; the page does not label the app key as non-secret.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "docs-dropboxapi-com-2835da9ecb",
+          "supports": "https://www.dropbox.com/oauth2/authorize?client_id=<APP_KEY>&response_type=code ... client_id String The app's key, found in the App Console.",
+          "locator": "#oauth2authorize"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -44,6 +114,26 @@
       "id": "distinct-from-access-token",
       "question": "The token response fields for this grant are not separately documented in the pages read, so whether an app auth token is a separate family from the access token is a doubt, not a finding.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "app-auth-token-lexical-shape-unstated",
+      "question": "No Dropbox page read states a prefix, alphabet or length for an app auth token, and no response example exists for the grant. The sl. prefix seen in user access token examples and rule artifacts (dropbox:access-token) is not extended to this role; whether the token shares that form is unresolved. A Dropbox response example or statement for client_credentials would settle it.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "app-auth-token-shares-bearer-carrier",
+      "question": "The app auth token and the user access token (dropbox:access-token) are both sent as Authorization: Bearer; what distinguishes them in the documentation is the grant that issues them and the endpoints they may call (App Authentication only), not a string property. Whether a product should treat them as one detector is downstream and not decided here; the role record is kept.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "app-auth-token-lifetime-undocumented",
+      "question": "Whether an app auth token expires, and after how long, is not stated in the pages read; expires_in is documented only for the other grants.",
+      "raisedAt": "2026-10-06"
+    },
+    {
+      "id": "app-auth-token-scanner-rule-names",
+      "question": "On 2026-10-06 the rule and detector names (not their contents) of two open-source scanner repositories were listed: Gitleaks config/gitleaks.toml at b58d3f102cf3a2c84cb7f923d05c25c9b1aed84b and TruffleHog pkg/detectors at 0186870afd2c4a90def791d80260923ba583d076. Gitleaks lists dropbox-api-token, dropbox-long-lived-api-token and dropbox-short-lived-api-token; TruffleHog lists dropbox; none names an app auth token role. This is a negative observation of names only; it is not a source, not corroboration and not an expectation basis.",
+      "raisedAt": "2026-10-06"
     }
   ]
 }
