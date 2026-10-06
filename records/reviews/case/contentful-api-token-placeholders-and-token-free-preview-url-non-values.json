@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "contentful-api-token-placeholders-and-token-free-preview-url-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#242 (Group D, D1 handoff) from the contract claims delivery-api-access-token/delivery-api-token-transport, preview-api-access-token/preview-token-not-in-preview-url, read on 2026-10-06 in this repository, without any scanner output. Carrier existence is provider-documented; the span and the value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#242. Question: Which non-values in the documented Contentful token slots can be asserted as not credentials when token confidentiality is unresolved? Options: Assert placeholders, references, masks, empty values and a token-free preview URL; or assert nothing until confidentiality is settled. Decision: Assert those non-values only. Make no statement about token confidentiality, space IDs or environment IDs. Reason: A value that is not present cannot be a credential whatever the token's status, so the assertion does not depend on the open question. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's explicit instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases for these groups are authored maintainer-only, as in Batch 2).",
+      "dissent": "No dissent was raised. The strongest counter-argument, recorded because the rule asks for one: A not-flag Case beside two not-assertable Cases could be read as leaning toward the tokens being non-secret; a placeholder in the access_token slot could hide a literal in some configurations.",
+      "reversingEvidence": "A Contentful statement about the tokens' confidentiality that changes what counts as a value in these slots, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

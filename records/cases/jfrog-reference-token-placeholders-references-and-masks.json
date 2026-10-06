@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "jfrog-reference-token-placeholders-references-and-masks",
+  "title": "JFrog reference token documented placeholder, references, masks and header names with no value",
+  "summary": "The documented curl -u User1:<reference token> form, an X-JFrog-Art-Api header with a placeholder, an environment reference, a masked display, a header name with no value, and prose that names the token.",
+  "rationale": "JFrog writes the basic-credentials form with the placeholder <reference token> (claim carriers-and-handling); a reference, a mask or a header with no value carries no token. Flagging them would redact documentation a reader needs. The token ID of a pairing token is a different family's identifier and is not used.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "jfrog:reference-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the values here are the documented placeholder, references, masks, a header with no value or prose, not credential values; that such forms are not values is a project decision. JFrog documents the curl -u User1:<reference token> form (carrier existence only).",
+    "sources": [
+      {
+        "sourceId": "docs-jfrog-com-9efead811f",
+        "supports": "reference tokens can be used similarly to API Keys , using the “ X-JFrog-Art-Api ” Header, or as basic credentials (“ curl -u User1:<reference token> ”).",
+        "locator": "Comparing Identity Reference Tokens With API Keys"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

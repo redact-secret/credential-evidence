@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "algolia-secured-api-key-derived-value-confidentiality-unsettled",
+  "title": "Algolia secured API key: the derived value against its parent key",
+  "summary": "A secured API key (the base64 of an HMAC and a URL-encoded parameter list) delivered to a frontend, and the parent API key that is the secret input of its construction.",
+  "rationale": "Claim secured-api-key-construction-documented records the construction: a SHA-256 HMAC with the parent API key as the secret over the URL-encoded parameters, concatenated with them and base64-encoded. Claim secured-api-key-frontend-delivery records that the derived value is generated on the backend and handed to frontends and mobile apps. The secret input (the parent key, a main key of an unspecified role) and the derived value are therefore different values with different documented handling. What is open: whether Algolia treats the derived value as confidential, since the restrictions and filters travel inside it (open-question-5), the HMAC encoding and the decoded layout (open-question-4), whether it can be told from a main key by shape (open-questions 3 and 6), and whether the parent key can be recovered from it (open-question-5). No bytes of a secured key can be built without guessing, so no fixture exists. Contract claims cited: secured-api-key/secured-api-key-construction-documented, secured-api-key/secured-api-key-frontend-delivery, secured-api-key/secured-api-key-inherits-restrictions.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "algolia:secured-api-key",
+      "role": "subject",
+      "contract": "algolia:secured-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: an Algolia statement of the confidentiality of the derived value, of its encoding and layout, or of whether the parent key is recoverable from it.",
+    "sources": [
+      {
+        "sourceId": "algolia-com-b2e285350d",
+        "supports": "Compute a SHA-256 HMAC with: Secret: the parent API key; Message: a URL-encoded list of query parameters. These query parameters are applied to every request that uses the API key and can’t be modified by end users. Concatenate the SHA-256 HMAC with the list of query parameters into a single string. Encode the resulting string in base64.",
+        "locator": "opening section, before Usage"
+      },
+      {
+        "sourceId": "algolia-com-0e4572af6d",
+        "supports": "To prevent this, generate a secured API key on the backend with filters (users can’t alter these filters).",
+        "locator": "#generate-a-secured-api-key"
+      },
+      {
+        "sourceId": "algolia-com-0e4572af6d",
+        "supports": "You can get this API key in your frontend from your backend—for example, with an API request.",
+        "locator": "#generate-a-secured-api-key"
+      },
+      {
+        "sourceId": "algolia-com-ca6bd39dbc",
+        "supports": "That’s why we recommend fetching restricted API keys dynamically from your app’s backend.",
+        "locator": "#use-secured-api-keys-in-mobile-apps"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "They inherit the rights and restrictions of their base API keys, which they can’t override. It means you can’t generate a secured API key with fewer restrictions than its base API key.",
+        "locator": "#secured-api-keys-2"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "Secured API keys are virtual, which means they aren’t stored anywhere, and you can’t find them on the Algolia dashboard.",
+        "locator": "#secured-api-keys-2"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

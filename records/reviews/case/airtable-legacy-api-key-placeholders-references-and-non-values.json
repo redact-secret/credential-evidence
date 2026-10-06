@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-airtable-legacy-api-key-placeholders-references-and-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "airtable-legacy-api-key-placeholders-references-and-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence epic #238 (Group E follow-up) from the contract claims and handoffs E1, E2 and E3 cited in the expectation, before any scanner was consulted; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence epic #238 (Group E follow-up), on the owner's instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases and baselines authored maintainer-only, as in Batch 2). No dissent was raised by the maintainer; the strongest counter-argument is recorded in the dissent field. Question: An empty api_key parameter, a placeholder, a reference, a masked display or a prose mention is not a credential value? Options: flag any non-empty api_key value; or treat these non-values as not credentials and leave the rest to the positive case. Decision: do not flag an empty value, an angle placeholder, an environment reference, a masked display or a prose mention. Reason: None of them holds a recoverable value; the admission of these forms is project policy and Airtable documents none of them. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "A placeholder-looking or masked text can be a real value chosen to look like one, so not flagging it can miss a leak.",
+      "reversingEvidence": "An Airtable statement that such a form carries a real value, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

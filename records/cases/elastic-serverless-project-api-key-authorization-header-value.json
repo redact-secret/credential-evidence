@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-serverless-project-api-key-authorization-header-value",
+  "title": "Elastic Serverless project API key as the encoded value of an Authorization ApiKey header",
+  "summary": "A synthetic encoded Serverless project API key after the ApiKey scheme of an Authorization header, in a raw request, a curl option and a JSON header map.",
+  "rationale": "Elastic documents that after a Serverless project API key is created, the encoded key is copied and sent as an Authorization: ApiKey header value to the Elasticsearch HTTP API (claim encoded-carrier). Elastic calls the Serverless personal key the equivalent of the stack personal key and one response type defines the encoded member for both (claims stack-page-calls-serverless-keys-equivalent, serverless-create-response-type-is-shared), so the envelope is shared with the Elasticsearch user API key and with the Cloud API key; the contract records an issuance-context role, not a distinct shape, and reuse of the envelope proves nothing about a shape. The case states the span for this family only and does not edit the existing Authorization ApiKey Case. No width, alphabet or padding is claimed; each fixture value is the base64 of a fixed synthetic id and key. The extent is the value after the scheme only. Contract claims cited: serverless-project-api-key/encoded-carrier, serverless-project-api-key/stack-page-calls-serverless-keys-equivalent.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "elastic:serverless-project-api-key",
+      "role": "subject",
+      "contract": "elastic:serverless-project-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#243). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value after the ApiKey scheme of an Authorization header is treated as a credential for a Serverless project key. Elastic documents the carrier (carrier existence only); the value admission, the extent and the shared-envelope attribution are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-docs-content-2b309553de",
+        "supports": "Once created, you can copy the encoded API key and use it to send requests to the Elasticsearch HTTP API: -H \"Authorization: ApiKey ${API_KEY}\"",
+        "locator": "#api-keys-create-an-api-key"
+      },
+      {
+        "sourceId": "github-com-elastic-docs-content-ab9b9eb129",
+        "supports": "To create equivalent keys for Serverless projects, refer to serverless-project-api-keys.md.",
+        "locator": "tip after the list of key types"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

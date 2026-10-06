@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-private-app-access-token-bearer-header-and-token-key-member",
+  "title": "HubSpot private app access token as a Bearer header value or the tokenKey body member",
+  "summary": "A synthetic opaque value after the Bearer scheme in a raw request and a quoted curl -H argument, and as the tokenKey member of the JSON body of an access-token-info request in a raw request and a curl --data argument.",
+  "rationale": "HubSpot documents the private app access token as the value of the Authorization header after Bearer, and as the tokenKey body field of POST /oauth/v2/private-apps/get/access-token-info (contract claims private-app-token-exists and token-carried-in-info-request-body). HubSpot states no prefix, alphabet, length or grouping (no-hubspot-statement-of-token-layout), so the value is flagged because of where it sits, not its shape; the pat-na1- and UUID-shaped leads are not used. The extent is the value only. The Bearer slot is shared with OAuth access tokens and Service Keys, which an existing Case covers (hubspot-bearer-authorization-header-value); this Case names the private app family and adds the tokenKey member. Existing legacy private apps continue to work while creation of new ones is being disabled (legacy-creation-disabled-schedule).",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "hubspot:private-app-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker",
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in an Authorization: Bearer header or the tokenKey member of an access-token-info request to HubSpot is treated as a credential whatever its shape. HubSpot documents the Bearer header and the tokenKey body field (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-f67bca3860",
+        "supports": "When making a call to one of the HubSpot API endpoints, set the value of the Authorization field to Bearer [YOUR_TOKEN].",
+        "locator": "Make API calls with your app's access token"
+      },
+      {
+        "sourceId": "developers-hubspot-com-f67bca3860",
+        "supports": "make a POST request to /oauth/v2/private-apps/get/access-token-info. In the request body, include your access token:",
+        "locator": "View private app access token information"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

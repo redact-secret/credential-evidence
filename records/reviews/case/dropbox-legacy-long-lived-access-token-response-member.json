@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-dropbox-legacy-long-lived-access-token-response-member",
+  "subject": {
+    "kind": "case",
+    "id": "dropbox-legacy-long-lived-access-token-response-member"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence epic #238 (Group E follow-up) from the contract claims and handoffs E1, E2 and E3 cited in the expectation, before any scanner was consulted; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence epic #238 (Group E follow-up), on the owner's instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases and baselines authored maintainer-only, as in Batch 2). No dissent was raised by the maintainer; the strongest counter-argument is recorded in the dissent field. Question: The access_token value of a token response shaped like the legacy long-lived example is a credential whatever its shape and whatever the retirement date? Options: require a documented format (none is stated) or a shape that separates it from short-lived tokens (none is documented); stay silent because creation was retired for 2021-09-30 or mid 2021; or flag by carrier, no era exception. Decision: flag the access_token value of such a response, with no era exception and no separation from the short-lived token by shape. Reason: Dropbox documents the member and the shape of the legacy example but not a format, its two dates conflict, and nothing states when an existing token stops authenticating; the expectation rests on project policy and is not a provider rule, and a legacy token in a log or file is still a redaction concern. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The retirement date has passed and the tokens may no longer exist or authenticate, so the Case may protect nothing; the same member also carries short-lived tokens, so the Case attributes a value to the legacy family only by the shape of a documentation example; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A Dropbox statement that existing long-lived tokens no longer exist or that the response shape is not a stable distinction, a Dropbox statement of the token format that contradicts this outcome, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

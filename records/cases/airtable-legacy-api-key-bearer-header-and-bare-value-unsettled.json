@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-legacy-api-key-bearer-header-and-bare-value-unsettled",
+  "title": "A retired Airtable key value presented in a bearer header or with no carrier",
+  "summary": "A synthetic value after Bearer in an Authorization header and a synthetic value alone in prose, both of the kind a retired user API key might take.",
+  "rationale": "Whether a retired key was also sent in an Authorization bearer header, and what shape it had, is not established by a dated, pinned page: the current page names only the api_key URL parameter and the archived notice states dates and scope but no format. A pinned capture of the pre-2023 API reference would settle the presentation form. The open question is whether these inputs belong to this family; it says nothing about how a bearer header value or a bare token in general is handled, which other families and generic Cases decide.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "airtable:legacy-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted for this family: the presentation form of the retired key (URL parameter, bearer header or both) and its format are not stated by any pinned page read. A pinned capture of the pre-2023 Airtable API reference, or an Airtable statement of the format, would settle it.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-c31dd3fe16",
+        "supports": "Passing personal access tokens and OAuth access tokens via the legacy api_key URL parameter is not supported; the page names api_key as the URL parameter of the former key mechanism and does not describe the former key's format.",
+        "locator": "#basics"
+      },
+      {
+        "sourceId": "web-archive-org-50b6543c04",
+        "supports": "The archived notice states dates and the all-or-nothing scope of the API key but no prefix, alphabet, length or presentation form.",
+        "locator": "section \"Timeline\""
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. No outcome is asserted: the open question named in the expectation is what would have to be settled first."
+}

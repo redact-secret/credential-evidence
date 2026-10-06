@@ -217,6 +217,159 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-pretty-json-response-member",
+      "case": "salesforce-oauth-refresh-token-response-member-and-post-parameter",
+      "path": "refresh-token-pretty-json-response-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "2eca5b9684892e856d64918074d44cb44c078d327999e50dc3b231f074d9eb15",
+      "text": "{\n  \"refresh_token\": \"SYNTHETIC-salesforce-refresh-token-never-issued-0001\",\n  \"token_type\": \"Bearer\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 22,
+            "end": 74,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-raw-http-post-form-body",
+      "case": "salesforce-oauth-refresh-token-response-member-and-post-parameter",
+      "path": "refresh-token-raw-http-post-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "3970eeb247b29ef4dae5dba0795add92646bc3571bf5acd2d51cd2bd88d098a1",
+      "text": "POST /services/oauth2/token HTTP/1.1\nHost: login.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&client_id=SYNTHETIC-consumer-key&refresh_token=SYNTHETIC-salesforce-refresh-token-never-issued-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 183,
+            "end": 235,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-curl-data-parameter",
+      "case": "salesforce-oauth-refresh-token-response-member-and-post-parameter",
+      "path": "refresh-token-curl-data-parameter/fixture.txt",
+      "context": "cli",
+      "sha256": "f136677c6dafa597f9a17e25da5844a036f4a1477f9bf8416227cc7ebfa8a968",
+      "text": "curl -X POST https://login.example.test/services/oauth2/token -d \"grant_type=refresh_token\" -d \"client_id=SYNTHETIC-consumer-key\" -d \"refresh_token=SYNTHETIC-salesforce-refresh-token-never-issued-0003\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 148,
+            "end": 200,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-lookalike-grant-type-only",
+      "case": "salesforce-oauth-refresh-token-placeholders-references-and-masks",
+      "path": "refresh-token-lookalike-grant-type-only/fixture.txt",
+      "context": "form-body",
+      "sha256": "d96d4d1455d6a13314df1fd844743f5763c4d082c26e3290b47a603c217a1dd9",
+      "text": "grant_type=refresh_token&client_id=SYNTHETIC-consumer-key\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-lookalike-parameter-angle-placeholder",
+      "case": "salesforce-oauth-refresh-token-placeholders-references-and-masks",
+      "path": "refresh-token-lookalike-parameter-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "2414a0f5d11ab6f0b8cac550202e22d0e54fdaeb8d2aac29294be08ef1c221d8",
+      "text": "grant_type=refresh_token&client_id=SYNTHETIC-consumer-key&refresh_token=<refresh_token>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-lookalike-parameter-environment-reference",
+      "case": "salesforce-oauth-refresh-token-placeholders-references-and-masks",
+      "path": "refresh-token-lookalike-parameter-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "83107b5dbb724f0b74159f8a82969e6d966cee6b972db18fa43218918abb6439",
+      "text": "curl -X POST https://login.example.test/services/oauth2/token -d \"grant_type=refresh_token\" -d \"refresh_token=${SALESFORCE_REFRESH_TOKEN}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-lookalike-member-masked-display",
+      "case": "salesforce-oauth-refresh-token-placeholders-references-and-masks",
+      "path": "refresh-token-lookalike-member-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "21f3c2fa5c8264bb1849110ac8eabcca6ec4596b8a501f33e1eb10c7bb0ee29b",
+      "text": "{\n  \"refresh_token\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-lookalike-response-without-member",
+      "case": "salesforce-oauth-refresh-token-placeholders-references-and-masks",
+      "path": "refresh-token-lookalike-response-without-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "1549d5dd5fcd6c5299d0aec1b9d4062b76689df970cccc249c335d8d43333860",
+      "text": "{\n  \"token_type\": \"Bearer\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-lookalike-member-prose-mention",
+      "case": "salesforce-oauth-refresh-token-placeholders-references-and-masks",
+      "path": "refresh-token-lookalike-member-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "7f964b931b0fbdda080f74edd1eba41e04b812a7a852ba366ddff33f2c98b010",
+      "text": "The refresh_token member is returned only if the external client app has the refresh_token scope.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-bare-5aep861-short-remainder-with-hyphen-in-prose",
+      "case": "salesforce-oauth-refresh-token-prefixed-values-and-get-query-carrier",
+      "path": "refresh-token-bare-5aep861-short-remainder-with-hyphen-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "d142ea3a4b8176d9914d2cf1ec2149622ca956af3fb2b42a4c7e17ba7b4de76c",
+      "text": "Keep this for later: 5Aep861SYNTHETICNEVERISSUED-SYNTHETICNEVERISSUE\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "salesforce-authored--refresh-token-in-get-query-string",
+      "case": "salesforce-oauth-refresh-token-prefixed-values-and-get-query-carrier",
+      "path": "refresh-token-in-get-query-string/fixture.txt",
+      "context": "url",
+      "sha256": "4f14a735bc2de7d3a55ab33c5f96682351acc8711fb7990b74d1717d618725e1",
+      "text": "GET /services/oauth2/token?grant_type=refresh_token&refresh_token=SYNTHETIC-salesforce-refresh-token-in-get-query-0001 HTTP/1.1\nHost: login.example.test\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

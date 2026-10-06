@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "adobe-jwt-private-key-file-contents-unsettled",
+  "title": "Contents of the locally generated private.key file of a retired Adobe Service Account (JWT) credential",
+  "summary": "The text of a private.key file as it would be pasted into a configuration or a log: planned, not constructed.",
+  "rationale": "Adobe's pages give the file name (private.key), the generator (a local OpenSSL command) and the use (RS256 signing) but no encoding, header label, length or Adobe-specific marker, and nothing makes the key an Adobe format at all: it is a general-purpose RSA key written by a general-purpose tool and uploaded to nobody. What a given OpenSSL version writes is a property of that tool, not an Adobe statement, so no value is built; any fixture would have to guess a representation, and a guess would put a generic private-key shape under an Adobe family. Whether such a key is protected is the business of generic private-key handling, which this record does not decide; the open point here is what Adobe's role-based family can assert about the file's text. The planned fixtures, if a source ever states the encoding, would be the file contents in a multi-line block, as one escaped line inside a JSON string, and as a base64 run in an environment assignment.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "adobe:service-account-jwt-private-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted and no fixture is built: the encoding, header label, length and any Adobe-specific marker of the private key file are not stated by any page read (open questions private-key-encoding-unstated and generic-private-key-boundary). An Adobe statement naming the encoding, or a dated Adobe page on key generation, would settle it. A key of this era found in a log or file remains a redaction concern; this record does not say it is benign.",
+    "sources": [
+      {
+        "sourceId": "web-archive-org-048c2face6",
+        "supports": "The developer generates the private key and public certificate locally with an OpenSSL command that writes the key to a file named private.key and the certificate to certificate_pub.crt, and uploads only the public certificate; the page states no encoding, prefix, header label or length for the private key file.",
+        "locator": "section \"Create a Public Key Certificate\", MacOS and Linux"
+      },
+      {
+        "sourceId": "web-archive-org-dabac41130",
+        "supports": "The JWT must be signed with the private key of a digital signing certificate associated with the integration's API key, using RS256; the private key generates the signature and the Adobe Developer Console receives a public key to validate it.",
+        "locator": "section \"Sign and Encode your JWT\""
+      },
+      {
+        "sourceId": "developer-adobe-com-e0b4921a8f",
+        "supports": "The Service Account (JWT) credential used a public certificate and private key pair to generate access tokens; the developer downloaded and saved the private key, and the pair had to be rotated every year.",
+        "locator": "section \"Why OAuth Server-to-Server credentials?\""
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. No outcome is asserted: the open question named in the expectation is what would have to be settled first."
+}

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "algolia-usage-api-key-confidentiality-and-era-unsettled",
+  "title": "Algolia Usage API key: documented role, undated migration, confidentiality not stated",
+  "summary": "A key sent in the X-Algolia-API-Key header to the Usage API host, which replaces the deprecated usage endpoints of the Monitoring API.",
+  "rationale": "Claims usage-api-key-exists, usage-api-key-acl-and-source and usage-api-key-plan-and-host record the role, the usage ACL, the header and the host; claim usage-api-key-monitoring-usage-endpoints-deprecated records a deprecation the page does not date, so no era is asserted (open-question-4). Whether the key is a distinct credential or an ACL profile (open-question-3) and whether Algolia expects the usage statistics and the key to be kept confidential (open-question-5) are not stated. The header is shared with every other role. Contract claims cited: usage-api-key/usage-api-key-acl-and-source, usage-api-key/usage-api-key-monitoring-usage-endpoints-deprecated.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "algolia:usage-api-key",
+      "role": "subject",
+      "contract": "algolia:usage-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: an Algolia statement of the confidentiality expected for a Usage key, or a dated changelog entry for the migration.",
+    "sources": [
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "Use usage API (usage): allowed to retrieve data with the Usage API.",
+        "locator": "#access-control-list-acl"
+      },
+      {
+        "sourceId": "algolia-com-eac8a40cae",
+        "supports": "You can find the APPLICATION_ID variable in your dashboard, and the API_KEY variable on the API Keys page, under the Usage section.",
+        "locator": "page introduction"
+      },
+      {
+        "sourceId": "algolia-com-eac8a40cae",
+        "supports": "The X-Algolia-Application-Id header identifies which app you are accessing, and the X-Algolia-API-Key header authenticates the endpoint.",
+        "locator": "#request-format"
+      },
+      {
+        "sourceId": "algolia-com-eac8a40cae",
+        "supports": "The usage endpoints of the Monitoring API are now deprecated. You should migrate to the new Usage API.",
+        "locator": "#migration-from-the-monitoring-api"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

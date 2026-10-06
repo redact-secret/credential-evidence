@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "dropbox-access-token-bearer-header-and-response-member",
+  "title": "Dropbox access token as a Bearer header value or the access_token response member",
+  "summary": "A synthetic opaque value after the Bearer scheme in a raw request and a quoted curl -H argument, and as the access_token member of a pretty-printed and of a compact token response that also carries expires_in.",
+  "rationale": "Dropbox documents that authorized requests carry an Authorization header with the value Bearer followed by the access token, and that the token endpoint response has an access_token member beside expires_in (contract claims access-token-exists and token-response-member-opaque). Dropbox says the token is opaque, may exceed 1KB and has no guaranteed size or composition (access-token-documented-opaque), so the value is flagged because of where it sits, not because of its shape; no sl. prefix or length is used. The extent is the value only. expires_in is metadata.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "dropbox:access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value",
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in an Authorization: Bearer header or the access_token member of a Dropbox token response is treated as a credential whatever its shape. Dropbox documents the Bearer Authorization header and the access_token response member (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "Authorized requests to the API should use an Authorization header with the value Bearer <TOKEN>, where <TOKEN> is an access token obtained through the OAuth flow.",
+        "locator": "#authorization"
+      },
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "The access token to be used to call the Dropbox API. This should always be treated as opaque with no guarantees as to the size or composition of this token.",
+        "locator": "#oauth2token"
+      },
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "The length of time in seconds that the access token will be valid for.",
+        "locator": "#oauth2token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

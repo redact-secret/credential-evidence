@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "salesforce-oauth-refresh-token-placeholders-references-and-masks",
+  "title": "Salesforce OAuth refresh token placeholders, references, masks, a grant_type value and a request without the token",
+  "summary": "A refresh request with grant_type=refresh_token and no refresh_token parameter, an angle placeholder, an environment reference, a masked display, a response with only a token type, and prose that names the member.",
+  "rationale": "The literal grant_type value refresh_token names the flow, not a token; a placeholder, a reference or a mask carries no value; and a response without the refresh_token member holds none (the member is returned only with the refresh_token scope). Salesforce's example request shows a placeholder, not a token (claim refresh-request-carrier). Flagging these forms would redact documentation and configuration a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "salesforce:oauth-refresh-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the values here are a grant type name, placeholders, references, masks, a response without the member or prose, not credential values; that such forms are not values is a project decision. Salesforce documents the grant_type value and a placeholder in its example request (carrier existence only).",
+    "sources": [
+      {
+        "sourceId": "help-salesforce-com-4202099562",
+        "supports": "grant_type The OAuth 2.0 grant type that the connected app requests. The value must be refresh_token for this flow.",
+        "locator": "Request an Updated Access Token, parameters"
+      },
+      {
+        "sourceId": "help-salesforce-com-4202099562",
+        "supports": "refresh_token Token obtained from the web server, user-agent, or hybrid app token flow. This value is a secret. Take appropriate measures to protect it.",
+        "locator": "Request an Updated Access Token, parameters"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

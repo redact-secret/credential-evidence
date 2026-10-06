@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "dropbox-app-auth-token-placeholders-and-references-non-values",
+  "title": "Dropbox app auth token placeholders, references, masks and the client credentials request with placeholders",
+  "summary": "The documented <OAUTH2_APP_AUTH_TOKEN> placeholder, an environment reference, a template reference, a masked display and a bare scheme in the Bearer slot, a client credentials token request whose app key and app secret are placeholders, and a Basic header over a placeholder.",
+  "rationale": "Dropbox shows the Bearer slot with the placeholder <OAUTH2_APP_AUTH_TOKEN> (claim app-auth-token-bearer-carrier) and the client credentials request with the app key and app secret as inputs (claim app-auth-token-request-inputs); App Authentication also accepts the app key and secret as Basic credentials (claim app-authentication-accepts-secret-or-token). A placeholder, a reference, a masked display and a bare scheme stand in for a value kept elsewhere. The app key is deliberately absent as a literal: Dropbox does not label it non-secret (claim app-key-is-sent-in-authorize-url), so the case asserts nothing about it, and the app secret and the token derived from it both appear here only as placeholders. Contract claims cited: app-auth-token/app-auth-token-bearer-carrier, app-auth-token/app-auth-token-request-inputs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "dropbox:app-auth-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "documentation-placeholder"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#243). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no token or secret value. That a documented placeholder, reference, masked display or bare scheme is not a value is the project's decision; Dropbox documents the placeholder and the request inputs (carrier facts only).",
+    "sources": [
+      {
+        "sourceId": "docs-dropboxapi-com-ee9def1cd1",
+        "supports": "When using an app auth token, it is supplied as a bearer token in an authorization header.",
+        "locator": "#app-authentication"
+      },
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "Calls to /oauth2/token need to be authenticated using the apps's key and secret. ... Example: app auth token request in client credentials flow",
+        "locator": "#oauth2token"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

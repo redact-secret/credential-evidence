@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-personal-access-token-url-parameter-and-tool-layout",
+  "title": "Airtable personal access token in the unsupported api_key URL parameter, or as a pat-14-period-64-hex layout",
+  "summary": "A synthetic value in an api_key URL parameter, a bare value in the pat, 14-character, period, 64-hexadecimal layout, and the same layout in an environment assignment.",
+  "rationale": "Airtable states that passing a personal access token through the legacy api_key URL parameter is not supported (claim carrier-bearer-header-not-url-parameter), so that parameter is not a documented carrier of this family and a separate legacy API key family exists; whether a value there is a personal access token is not stated. The pat/14/period/64-hex layout is consistency of two rule artifacts only (tool-artifacts-consistency) beside Airtable's statement that the format is opaque, variable-length and may change for new tokens (opaque-format, format-change-not-breaking); where the ID ends, whether it is public, and the layout for other issue dates are open (id-prefix-boundary-and-publicity, tool-shape-era-and-stability). No outcome is asserted for any of these.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "airtable:personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Whether a value in the unsupported api_key parameter, or a bare value in the pat/14/period/64-hex layout, is an Airtable personal access token is not stated by any Airtable page. Settled by an Airtable statement of the token layout by issue date, a token-listing reference showing where the ID ends, or a statement on the legacy api_key parameter. The vendor-prefix-shaped probe values are intentionally not stored as fixtures (a hosted secret scanner's push protection rejects vendor-shaped literals); a corpus author must assemble such shapes at run time from the shape stated here.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-3770a0226e",
+        "supports": "Personal access tokens should be passed with your API requests as a Authorization: Bearer header.",
+        "locator": "#using-personal-access-tokens"
+      },
+      {
+        "sourceId": "airtable-com-c31dd3fe16",
+        "supports": "Passing personal access tokens and OAuth access tokens via the legacy api_key URL parameter is not supported.",
+        "locator": "#basics"
+      },
+      {
+        "sourceId": "airtable-com-3770a0226e",
+        "supports": "While personal access tokens are prefixed with their ID, they should be otherwise treated as opaque, variable-length strings. In particular, do not rely on tokens having a particular length or format.",
+        "locator": "#using-personal-access-tokens"
+      },
+      {
+        "sourceId": "airtable-com-3770a0226e",
+        "supports": "Changes to the token format (for newly created tokens) are not considered to be breaking changes.",
+        "locator": "#using-personal-access-tokens"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No outcome is asserted. All values are synthetic, were built for this record and were not tested against any service. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

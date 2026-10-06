@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "algolia-monitoring-api-key-confidentiality-unsettled",
+  "title": "Algolia Monitoring API key: infrastructure scope documented, confidentiality not",
+  "summary": "A key sent in x-algolia-api-key to the Monitoring API Infrastructure endpoints on the status host.",
+  "rationale": "Claim monitoring-api-key-infrastructure-scope records that the metrics describe Algolia's infrastructure and not the application, and that other endpoints need no authentication; claim monitoring-api-key-plan-and-host records the Premium or Elevate plan gate and the host. The low scope is a documented property of the API, not a handling instruction (open-question-4): whether Algolia expects the key to be kept confidential is not stated. No ACL entry is named for it (open-question-3) and no shape is documented (open-questions 1 and 2). Contract claims cited: monitoring-api-key/monitoring-api-key-infrastructure-scope, monitoring-api-key/monitoring-api-key-plan-and-host.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "algolia:monitoring-api-key",
+      "role": "subject",
+      "contract": "algolia:monitoring-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: an Algolia statement of whether a Monitoring key must be kept confidential, or a maintainer's recorded policy decision.",
+    "sources": [
+      {
+        "sourceId": "algolia-com-0a6c6beeda",
+        "supports": "The metrics exposed by this API are based on results from external monitoring probes checking Algolia’s infrastructure. These metrics reflect the overall infrastructure status and don’t represent the performance of the specific APPID used for authentication.",
+        "locator": "page introduction"
+      },
+      {
+        "sourceId": "algolia-com-0a6c6beeda",
+        "supports": "Other endpoints don’t require authentication.",
+        "locator": "#availability-and-authentication"
+      },
+      {
+        "sourceId": "algolia-com-0a6c6beeda",
+        "supports": "Access to the Infrastructure endpoints is available as part of the Premium or Elevate plans.",
+        "locator": "#availability-and-authentication"
+      },
+      {
+        "sourceId": "algolia-com-0a6c6beeda",
+        "supports": "https://status.algolia.com",
+        "locator": "#base-urls"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

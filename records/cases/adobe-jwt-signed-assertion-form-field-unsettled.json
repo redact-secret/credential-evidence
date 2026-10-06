@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "adobe-jwt-signed-assertion-form-field-unsettled",
+  "title": "The signed JWT assertion sent as jwt_token, derived from the private key",
+  "summary": "A synthetic three-segment signed assertion as the jwt_token parameter of a raw form-encoded exchange request and of a curl form argument.",
+  "rationale": "The assertion is derived from the private key, signed with RS256 and exchanged for an access token, and it is the only place the key's work leaves the developer's machine: the exchange request carries client_id, client_secret and jwt_token and no parameter for the key itself. Adobe recommends that it live a few minutes, but the pages state no maximum lifetime Adobe enforces, so a captured assertion is not recorded as expired or harmless, and no page says it is a credential of the key's family either. The assertion is therefore neither the private key nor shown to be a non-secret; its handling, and that of the client_secret beside it (a separate credential), are left to their own records. The fixture value is three base64url segments of obviously fake content: a header naming RS256, a payload of synthetic claims and a signature segment that encodes the words SYNTHETIC-signature-never-issued, so it cannot verify against any key.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "adobe:service-account-jwt-private-key",
+      "role": "context"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted: the assertion is derived and short-lived by recommendation, Adobe states no enforced maximum lifetime, and no source states whether a captured assertion is sensitive or part of this family. An Adobe statement of the enforced lifetime or of the assertion's confidentiality would settle it (open question derived-assertion-and-secret-companions).",
+    "sources": [
+      {
+        "sourceId": "web-archive-org-dabac41130",
+        "supports": "The exchange request has three URL-encoded body parameters, client_id, client_secret and jwt_token (a base-64 encoded JSON Web Token signed with a private key); the table lists no parameter that carries the private key itself.",
+        "locator": "sections \"Exchanging JWT to retrieve an access token\" and \"Request parameters\""
+      },
+      {
+        "sourceId": "web-archive-org-dabac41130",
+        "supports": "The JWT must be signed with the private key of a digital signing certificate associated with the integration's API key, using RS256; the private key generates the signature and the Adobe Developer Console receives a public key to validate it.",
+        "locator": "section \"Sign and Encode your JWT\""
+      },
+      {
+        "sourceId": "web-archive-org-dabac41130",
+        "supports": "An exp claim is required and a very short-lived JWT (a few minutes) is recommended; longer-lived JWTs that are reused are discouraged.",
+        "locator": "section \"Required Claims for a Service Account JWT\", exp claim"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. No outcome is asserted: the open question named in the expectation is what would have to be settled first."
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "dropbox-access-token-placeholders-references-and-non-values",
+  "title": "Dropbox access token placeholders, references, masks, a token response without the token and prose",
+  "summary": "The documented Bearer <TOKEN> form, a bare scheme, an environment reference, a masked display, a response carrying expires_in with no access_token, and prose that names the member.",
+  "rationale": "Dropbox writes the header as Bearer <TOKEN> (claim access-token-exists), which is a documented placeholder; a bare scheme, a reference or a mask carries no value, and a response without the access_token member holds only a lifetime. Dropbox's labelled response examples are not used as controls: whether the exact example strings were ever issued is unresolved (sibling dropbox-labelled-response-example-tokens), so their non-secret status is not asserted. Flagging the controls here would redact documentation a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "dropbox:access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the values here are the documented placeholder, a bare scheme, references, masks or non-token members, not credential values; that such forms are not values is a project decision. Dropbox documents the Bearer <TOKEN> header form (carrier existence only).",
+    "sources": [
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "Authorized requests to the API should use an Authorization header with the value Bearer <TOKEN>, where <TOKEN> is an access token obtained through the OAuth flow.",
+        "locator": "#authorization"
+      },
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "The length of time in seconds that the access token will be valid for.",
+        "locator": "#oauth2token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

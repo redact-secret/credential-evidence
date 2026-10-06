@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "algolia-search-only-api-key-frontend-exposure-unsettled",
+  "title": "Algolia search-only API key: documented frontend use against documented exposure risk",
+  "summary": "A search-only API key in frontend code, in a request header or in a repository: the evidence documents both that the key is meant for production frontend code and that an exposed key lets third parties scrape the indices and flood the account.",
+  "rationale": "Claim search-only-api-key-exposure records both statements, and claims search-only-api-key-restricted-derivation-and-mitigation and search-only-api-key-referrer-restriction-is-light record Algolia's mitigation advice. Whether a detection of such a key in public code is a finding is an exposure-policy question the contract says it does not answer (open-question-3). The ACL set of the predefined key is not stated (open-question-5), the role is attributable from context only because the header and any value shape are shared with every other role (open-question-2), the application ID beside it has no documented public status (open-question-6) and the era of the frontend-safe guidance is not dated (open-question-7). A must-flag would contradict the documented frontend intent; a must-not-flag would ignore the documented risk. Contract claims cited: search-only-api-key/search-only-api-key-exposure, search-only-api-key/search-only-api-key-restricted-derivation-and-mitigation.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "algolia:search-only-api-key",
+      "role": "subject",
+      "contract": "algolia:search-only-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. The value of a search-only key is recorded as unscored: a consumer neither gains nor loses a point on it. May-flag is not used: no maintainer decision states that either behaviour is acceptable, and the contract says the exposure-policy question is not answered. Settled by: an Algolia statement of the exposure policy or of the ACL set of the predefined key, or a maintainer's recorded policy decision.",
+    "sources": [
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "It works on all your Algolia application indices and is safe to use in your production frontend code. When using Algolia, your search-only API key is exposed and third parties could use it to: Scrape everything from your indices; Flood your account with search requests.",
+        "locator": "#risks-of-api-key-exposure"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "It works on all your Algolia application indices and is safe to use in your production frontend code. You may want to use this key to create more restricted API keys.",
+        "locator": "#search-only-api-key"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "Ensure your indices only contain data you’re happy to expose. Generate and use a secured search-only API key with rate-limiting, index access, and other restrictions.",
+        "locator": "#risks-of-api-key-exposure"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+  "title": "Contentful token placeholders, references, masks and a preview URL that carries no token",
+  "summary": "A Delivery or Preview request whose Authorization Bearer or access_token slot holds an angle placeholder, an environment reference, a masked display or no value, a content-preview URL that carries no token, and prose that names the slot.",
+  "rationale": "A placeholder, a reference, a masked display and an empty parameter stand in for a token kept elsewhere and carry none. Contentful's content-preview tutorial states that an access token is never to be included in the preview URL (claim preview-token-not-in-preview-url), so a preview URL without one holds no token. The case asserts nothing about the token's confidentiality, which the contracts leave open, and nothing about space or environment identifiers, whose public status is not stated: they appear only as literal braces placeholders. Contract claims cited: delivery-api-access-token/delivery-api-token-transport, preview-api-access-token/preview-token-not-in-preview-url.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "contentful:delivery-api-access-token",
+      "role": "lookalike"
+    },
+    {
+      "family": "contentful:preview-api-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "documentation-placeholder"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#242). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no token value. That a placeholder, reference, masked display or empty parameter is not a value is the project's decision; Contentful documents the two carriers and that the preview URL must not carry a token (carrier and handling facts only).",
+    "sources": [
+      {
+        "sourceId": "contentful-com-c14fcad040",
+        "supports": "There are two ways to send the authentication token to an API. You can include it as a query parameter, access_token=$token, or as an HTTP header Authorization: Bearer $token. The header method is recommended.",
+        "locator": "opening section"
+      },
+      {
+        "sourceId": "contentful-com-62927e8f26",
+        "supports": "For security reasons, never include an access token in the preview URL. Instead, implement the authentication process in your client app.",
+        "locator": "Info note under the preview URL setup"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

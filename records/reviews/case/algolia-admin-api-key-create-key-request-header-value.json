@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-algolia-admin-api-key-create-key-request-header-value",
+  "subject": {
+    "kind": "case",
+    "id": "algolia-admin-api-key-create-key-request-header-value"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#242 (Group D, D1 handoff) from the contract claims admin-api-key/admin-api-key-create-key-endpoint-requires-admin, admin-api-key/admin-api-key-handling, admin-api-key/admin-api-key-intended-use, read on 2026-10-06 in this repository, without any scanner output. Carrier existence is provider-documented; the span and the value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#242. Question: Can an admin-role positive be asserted when the x-algolia-api-key header is shared by every Algolia key role, including the frontend-safe search-only key? Options: Flag the header value on any request; flag it only on the create-key request whose documented requirement attributes the role; or author no positive. Decision: Flag the header value on the create-key request only. No bare-value rule and no expectation for the same header on other endpoints. Reason: The create-key endpoint is the one place Algolia states the key must be an admin key, and the admin key's confidentiality is documented; the header on other endpoints is shared with a key documented as safe in frontend code, so a header-only rule would contradict the contract. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's explicit instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases for these groups are authored maintainer-only, as in Batch 2).",
+      "dissent": "No dissent was raised. The strongest counter-argument, recorded because the rule asks for one: The D1 handoff concluded a role-specific must-flag cannot be authored because the carrier is shared; the pages state no value format, so a position-only rule can flag a non-secret or miss a differently shaped value, and a request that is not a create-key request cannot be told from one by the value.",
+      "reversingEvidence": "An Algolia statement that the header carries other values on the create-key endpoint or of the key format, a documented marker that separates admin keys from other keys, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

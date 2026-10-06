@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-cross-cluster-api-key-binding-attributes-and-references-non-values",
+  "title": "Elastic cross-cluster API key request attributes, placeholders, masks and empty members",
+  "summary": "A create-cross-cluster-key request body that holds a name, an access property and a certificate_identity pattern, a response whose api_key and encoded members are placeholders, masks or empty, and prose that names the members.",
+  "rationale": "The certificate_identity field restricts the key to connections authenticated by a TLS certificate distinguished-name pattern and is a binding attribute, not part of the encoded credential (claim cross-cluster-key-optional-certificate-identity); the access property is the key's effective privilege, not a secret (claim cross-cluster-key-effective-access). A placeholder, a masked display and an empty member stand in for a value kept elsewhere. The case asserts nothing about the id member. Contract claims cited: cross-cluster-api-key/cross-cluster-key-optional-certificate-identity, cross-cluster-api-key/cross-cluster-key-effective-access.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "elastic:cross-cluster-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "documentation-placeholder",
+    "templated-reference"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#243). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no key value. That the certificate identity and the access property are binding and privilege attributes and not the key, and that a placeholder, masked display or empty member is not a value, are the project's decisions; Elastic documents the two request properties (derivation and carrier facts only).",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-elasticsearch-specification-87b77d7fcb",
+        "supports": "certificate_identity: The certificate identity to associate with this API key. This field is used to restrict the API key to connections authenticated by a specific TLS certificate.",
+        "locator": "body.certificate_identity"
+      },
+      {
+        "sourceId": "github-com-elastic-elasticsearch-specification-87b77d7fcb",
+        "supports": "Unlike REST API keys, a cross-cluster API key does not capture permissions of the authenticated user. The API key's effective permission is exactly as specified with the `access` property.",
+        "locator": "Request doc comment; body.access"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

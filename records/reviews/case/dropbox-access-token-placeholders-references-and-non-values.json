@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-dropbox-access-token-placeholders-references-and-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "dropbox-access-token-placeholders-references-and-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for redact-secret#1228 (Group C, Batch 2 follow-up) from the evidence repository's own handoffs C1, C2 and C3 and the cited draft contracts only; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner), authored as maintainer-only on the owner's explicit instruction (owner instruction on 2026-10-06: complete redact-secret#1228, #1229 and #1230 before the next release; baselines and Cases for these groups to be authored maintainer-only as in Batch 2). Question: the documented Bearer <TOKEN> form, references, masks and a response without the access_token member carry no access token and are not flagged? Options: flag any text after Bearer; treat placeholders, references, masks and non-token members as non-values; or leave the case a draft. Decision: not flagged. Reason: no value is present in any of these forms; the classification is project policy. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "No dissent was raised in this decision. Strongest counter-argument recorded: a project-policy rule that placeholders, references, masks and public identifiers are not values can be wrong for a documentation example that was once issued; the provider pages do not say whether any example string was ever live.",
+      "reversingEvidence": "A provider statement that a listed placeholder, mask or identifier is itself a live credential or must be treated as confidential, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

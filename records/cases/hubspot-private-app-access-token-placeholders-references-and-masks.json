@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-private-app-access-token-placeholders-references-and-masks",
+  "title": "HubSpot private app access token placeholders, references, masks and bare Bearer scheme",
+  "summary": "The documented Bearer [YOUR_TOKEN] form, a bare scheme, a tokenKey member holding a placeholder, an environment reference and a masked display, and prose that names the member.",
+  "rationale": "HubSpot writes the header as Bearer [YOUR_TOKEN] (claim private-app-token-exists), a documented placeholder; a bare scheme, a reference or a mask carries no value. The masked asterisk placeholder HubSpot shows is attached to the static auth access token, a separate family, and is not reused as a private app layout. Flagging these forms would redact documentation a reader needs.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "hubspot:private-app-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the values here are the documented placeholder, a bare scheme, references, masks or prose, not credential values; that such forms are not values is a project decision. HubSpot documents the Bearer [YOUR_TOKEN] form (carrier existence only).",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-f67bca3860",
+        "supports": "When making a call to one of the HubSpot API endpoints, set the value of the Authorization field to Bearer [YOUR_TOKEN].",
+        "locator": "Make API calls with your app's access token"
+      },
+      {
+        "sourceId": "developers-hubspot-com-f67bca3860",
+        "supports": "make a POST request to /oauth/v2/private-apps/get/access-token-info. In the request body, include your access token:",
+        "locator": "View private app access token information"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

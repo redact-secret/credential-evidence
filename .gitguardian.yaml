@@ -93,6 +93,7 @@ secret:
   # envelope and delimiter handling differ per detector). They are authored,
   # synthetic and never issued; only these files are skipped.
   ignored-paths:
+    - records/fixtures/algolia-authored.json
     - records/fixtures/figma-authored.json
     - records/fixtures/asana-authored.json
     - records/fixtures/airtable-authored.json
@@ -109,5 +110,6 @@ secret:
     - records/fixtures/zoom-authored.json
     - records/fixtures/contentful-authored.json
     - records/fixtures/jfrog-authored.json
+    - records/fixtures/reddit-authored.json
     - records/fixtures/meta-authored.json
     - records/fixtures/salesforce-authored.json

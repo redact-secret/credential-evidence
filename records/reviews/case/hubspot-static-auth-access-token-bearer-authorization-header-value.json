@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-hubspot-static-auth-access-token-bearer-authorization-header-value",
+  "subject": {
+    "kind": "case",
+    "id": "hubspot-static-auth-access-token-bearer-authorization-header-value"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#243 (Group D, D2 handoff) from the contract claims static-auth-access-token/static-auth-token-exists, static-auth-access-token/bearer-carrier-shared-by-oauth-static-and-private-app-tokens, static-auth-access-token/static-auth-placeholder-is-not-a-format-statement, read on 2026-10-06 in this repository, without any scanner output. Carrier existence is provider-documented; the span and the value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#243. Question: Does the static auth access token need a positive Case of its own when it shares the Bearer header with the existing HubSpot Bearer Case? Options: Author a family-specific Case; add the family to the existing Case (an edit to a decided record); or author none. Decision: Author a family-specific Case and leave the existing Case untouched. Reason: The static auth token is a distinct role with its own documented configuration and the existing Case lists other families; an edit would reopen a decided record. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's explicit instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases for these groups are authored maintainer-only, as in Batch 2).",
+      "dissent": "No dissent was raised. The strongest counter-argument, recorded because the rule asks for one: The expectation is the same sentence as the existing Bearer Case with a family name substituted, and the pages give no marker that distinguishes the token from an OAuth access token.",
+      "reversingEvidence": "A maintainer decision that shared-carrier families are covered by one Case, a HubSpot statement relating static auth to private app tokens, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

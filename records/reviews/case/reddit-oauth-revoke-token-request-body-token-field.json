@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-reddit-oauth-revoke-token-request-body-token-field",
+  "subject": {
+    "kind": "case",
+    "id": "reddit-oauth-revoke-token-request-body-token-field"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence epic #238 (Group E follow-up) from the contract claims and handoffs E1, E2 and E3 cited in the expectation, before any scanner was consulted; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence epic #238 (Group E follow-up), on the owner's instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases and baselines authored maintainer-only, as in Batch 2). No dissent was raised by the maintainer; the strongest counter-argument is recorded in the dissent field. Question: The token parameter of a revoke_token request body is a credential whatever its shape and whichever token family it belongs to? Options: attribute the field to one family by the hint (the hint is optional); leave the case a draft because the page is archived; or flag the shared slot by carrier and attribute to both. Decision: flag the value, both families subject, no attribution by hint and no era exception. Reason: Reddit documents one field for both token types, so position cannot tell the families apart, and both are secrets; the expectation rests on project policy. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "A revoke request carries a token that the caller is giving up, so it may already be dead, and the field name token is generic; the archived wiki may be out of date; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A current Reddit page that changes the revocation request, a Reddit statement that a revoked token in a request is not sensitive, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

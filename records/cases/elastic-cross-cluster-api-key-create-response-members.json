@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "elastic-cross-cluster-api-key-create-response-members",
+  "title": "Elastic cross-cluster API key in the response of the create-cross-cluster-key call",
+  "summary": "A synthetic create-cross-cluster-API-key response whose api_key and encoded members hold a key and its base64 form, as pretty JSON, as a raw HTTP response with compact JSON and as curl output.",
+  "rationale": "Elastic's specification gives the create-cross-cluster-API-key response the members api_key, id, name, optional expiration and encoded, with encoded the base64 of the UTF-8 id and api_key joined by a colon (claim cross-cluster-response-members-match-user-key), and Elastic's setup page tells the operator to copy the encoded value to a safe location (claim cross-cluster-key-carrier-is-local-cluster-keystore). The key is not sent in an Authorization header: Elastic states a cross_cluster key cannot authenticate through the REST interface (claim cross-cluster-key-refused-on-rest-interface). Both the api_key member and the encoded member are spans; the encoded span is the whole encoded string and is consistent with the id and api_key beside it. The id member is outside the spans and its confidentiality is not asserted. No alphabet, padding or width is claimed, and the keystore slot is not a carrier here (its setting name is not recorded). Contract claims cited: cross-cluster-api-key/cross-cluster-response-members-match-user-key, cross-cluster-api-key/cross-cluster-key-carrier-is-local-cluster-keystore.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "elastic:cross-cluster-api-key",
+      "role": "subject",
+      "contract": "elastic:cross-cluster-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#243). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the api_key and encoded member values of a create-cross-cluster-API-key response are treated as credentials. Elastic documents the response members and the encoded definition (carrier existence only); the value admission, the two extents and the choice to leave the id unasserted are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "github-com-elastic-elasticsearch-specification-ef157a8018",
+        "supports": "encoded: API key credentials which is the base64-encoding of the UTF-8 representation of `id` and `api_key` joined by a colon (`:`).",
+        "locator": "Response body, field encoded"
+      },
+      {
+        "sourceId": "github-com-elastic-elasticsearch-specification-46ec10b715",
+        "supports": "encoded: API key credentials which is the base64-encoding of the UTF-8 representation of `id` and `api_key` joined by a colon (`:`).",
+        "locator": "Response body, field encoded"
+      },
+      {
+        "sourceId": "github-com-elastic-docs-content-e6a937afb1",
+        "supports": "Copy the encoded key (`encoded` in the response) to a safe location. It is required for the local cluster configuration.",
+        "locator": "step 2"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

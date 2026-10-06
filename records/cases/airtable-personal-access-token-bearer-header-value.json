@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-personal-access-token-bearer-header-value",
+  "title": "Airtable personal access token as the value of a Bearer Authorization header",
+  "summary": "A synthetic opaque value after the Bearer scheme in an Authorization header, in a raw request, a quoted curl -H argument and a JSON header map; the value has no documented prefix or width.",
+  "rationale": "Airtable documents passing a personal access token as an Authorization: Bearer header (contract claims existence and carrier-bearer-header-not-url-parameter). Airtable states the token is prefixed with its ID but otherwise opaque and variable-length, and says not to rely on any length or format (opaque-format), so the value is flagged because of where it sits, not because of its shape; no pat prefix, 14-character part or 64-hex remainder is used, because those are only consistency of two rule artifacts. The extent is the value only: the scheme word, the header name and the closing quote or brace are outside it. The Bearer slot is shared with OAuth access tokens, so the header does not say which kind it holds.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "airtable:personal-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, redact-secret#1228 Group C). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in an Authorization: Bearer header of an Airtable API request is treated as a credential whatever its shape. Airtable documents the Authorization: Bearer header as the way to pass a personal access token (carrier existence only); the value admission, extent and a generic attribution are the project's decisions. No subtype is inferred, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-3770a0226e",
+        "supports": "Personal access tokens should be passed with your API requests as a Authorization: Bearer header.",
+        "locator": "#using-personal-access-tokens"
+      },
+      {
+        "sourceId": "airtable-com-c31dd3fe16",
+        "supports": "Passing personal access tokens and OAuth access tokens via the legacy api_key URL parameter is not supported.",
+        "locator": "#basics"
+      },
+      {
+        "sourceId": "airtable-com-3770a0226e",
+        "supports": "While personal access tokens are prefixed with their ID, they should be otherwise treated as opaque, variable-length strings. In particular, do not rely on tokens having a particular length or format.",
+        "locator": "#using-personal-access-tokens"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

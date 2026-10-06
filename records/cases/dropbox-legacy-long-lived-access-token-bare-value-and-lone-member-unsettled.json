@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "dropbox-legacy-long-lived-access-token-bare-value-and-lone-member-unsettled",
+  "title": "A legacy Dropbox token value with no carrier, and a lone access_token member",
+  "summary": "A synthetic value alone in prose, and an access_token member that stands alone in a JSON object with no token_type, account_id or uid.",
+  "rationale": "Dropbox gives no prefix, alphabet or length for the legacy token and says access tokens are opaque, so a bare value has no carrier and cannot be separated from a short-lived token or other value by shape; the only difference the page shows is which members a response example carries. The pages also conflict on the retirement date (the guide's mid 2021 against the blog's 2021-09-30), no page says when creation actually stopped or when an existing token stops authenticating, and the single-artifact format lead was never corroborated by a second artifact. What is open is attribution to this family, not whether an opaque value is sensitive; the response-member Case does not depend on any of it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "dropbox:legacy-long-lived-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted for this family: the format is not stated, the retirement-date statements conflict (claim retirement-date-statements-differ), the end of authentication of existing tokens is not stated, and a lone member or bare value cannot be separated from the short-lived token by any provider statement. A Dropbox statement of the format, of the date, or of what happens to existing tokens would settle it.",
+    "sources": [
+      {
+        "sourceId": "docs-dropboxapi-com-aea155a830",
+        "supports": "Long-lived access tokens are deprecated and remain available in the Developer console until mid 2021.",
+        "locator": "#using-refresh-tokens"
+      },
+      {
+        "sourceId": "web-archive-org-d0baf6f549",
+        "supports": "On September 30th, 2021 Dropbox will retire the creation of long-lived access tokens; the pages do not reconcile this date with the guide's and neither says when existing tokens stop authenticating.",
+        "locator": "section \"Retiring Legacy Tokens\""
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. No outcome is asserted: the open question named in the expectation is what would have to be settled first."
+}

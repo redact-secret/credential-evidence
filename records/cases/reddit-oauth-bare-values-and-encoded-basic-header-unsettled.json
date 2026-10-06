@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "reddit-oauth-bare-values-and-encoded-basic-header-unsettled",
+  "title": "Reddit token and secret values with no carrier, and a Basic header carrying an encoded client credential",
+  "summary": "Synthetic values alone in prose in the shape of an access token, a refresh token and a client secret, and an Authorization Basic header whose encoded credential holds a synthetic client id and secret.",
+  "rationale": "Reddit states no prefix, alphabet or length for any of the three, and the access and refresh tokens cannot be told apart by text; a bare value would need its header, its host or its member name to be attributed, and the archived pages do not say whether a bare value is attributable at all. The Basic header form is also open: Reddit's pages name the client id as the user and the secret as the password but do not state the encoding step, which is the standard HTTP scheme rather than a Reddit statement, so no outcome is asserted for the encoded run under this family. Lifetime facts are open too (the archived page describes expires_in as an epoch and as seconds until expiry, and no current page states a lifetime). None of this decides how a generic Basic credential or an opaque value is handled, which generic Cases decide.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "reddit:oauth-access-token",
+      "role": "subject"
+    },
+    {
+      "family": "reddit:oauth-refresh-token",
+      "role": "subject"
+    },
+    {
+      "family": "reddit:app-client-secret",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted: no Reddit statement gives a format for the access token, the refresh token or the client secret, none gives a marker that tells the tokens apart, and Reddit does not state the encoding of the Basic credential (open questions opaque-token-attribution, secret-format-not-researched, expires-in-unit-and-current-lifetime). A Reddit statement of a format, of a marker or of the Basic encoding would settle it.",
+    "sources": [
+      {
+        "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+        "supports": "The client secret is the HTTP Basic password paired with the client ID as the user when requesting tokens; it is shown at registration and must never be shared; web and script apps are confidential. Historical statement from an archived page.",
+        "locator": "Getting Started; Retrieving the access token"
+      },
+      {
+        "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+        "supports": "A code-flow token response is JSON with access_token, token_type, expires_in and scope (plus refresh_token only when one was requested); the implicit flow returns access_token, token_type, expires_in, scope and state form-encoded in the redirect URI fragment. Historical statement from an archived page.",
+        "locator": "Retrieving the access token; Token Retrieval (Implicit grant flow)"
+      },
+      {
+        "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+        "supports": "A refresh token is sent in the POST body (grant_type=refresh_token and refresh_token=TOKEN, not in the URL) to the access_token endpoint with the same HTTP Basic client authentication as the original request. Historical statement from an archived page.",
+        "locator": "Refreshing the token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. No outcome is asserted: the open question named in the expectation is what would have to be settled first."
+}

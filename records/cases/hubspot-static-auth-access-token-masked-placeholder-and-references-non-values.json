@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-static-auth-access-token-masked-placeholder-and-references-non-values",
+  "title": "HubSpot static auth token documented masked placeholder, references and masks",
+  "summary": "The documented masked placeholder of seven hyphen-separated groups of asterisks, an angle placeholder, an environment reference, a template reference, a masked display and a bare scheme in the Bearer slot, and prose that names the slot.",
+  "rationale": "HubSpot shows the static auth access token example as a row of asterisks in seven hyphen-separated groups and calls it a placeholder (claim static-auth-placeholder-is-not-a-format-statement). It is a documentation device and not a format statement, so it is a documented placeholder and carries no value. A reference, a placeholder and a masked display stand in for a value kept elsewhere. Contract claims cited: static-auth-access-token/static-auth-placeholder-is-not-a-format-statement.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "hubspot:static-auth-access-token",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "documentation-placeholder"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#243). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no token value. That a documented masked placeholder, reference, masked display or bare scheme is not a value is the project's decision; HubSpot documents the placeholder and says it is one (documentation fact only).",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-1876a2b7bb",
+        "supports": "An example request is provided below using a placeholder static auth access token.",
+        "locator": "#static-auth"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

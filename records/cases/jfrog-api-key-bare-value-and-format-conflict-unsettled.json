@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "jfrog-api-key-bare-value-and-format-conflict-unsettled",
+  "title": "A JFrog API key value with no header or password position around it",
+  "summary": "A synthetic value alone in prose with no header name, no password position and no recognisable prefix.",
+  "rationale": "JFrog's pages state two forms that they do not reconcile: the reference page's pattern of the four characters AKCp followed by 69 alphanumerics (73 in all, deprecated from Artifactory 7.47.x), and the create-API-key reference example of 44 characters with base64 punctuation and no AKCp prefix, unchanged since 2025-09-06. Which form belongs to which release, and whether the example is schematic, are not stated, and the end of authentication is not stated either (End of Life is announced, new-key creation is blocked from 7.98 and blocking use of an existing key is an administrator setting that is off by default). No bare-value fixture is built to either shape, because a shape-based expectation would choose between the two forms; the planned fixtures, if a JFrog statement ever settles it, are one value of each documented form in prose. The header and password-position Case does not depend on any of this.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "jfrog:api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted for a bare value: the two JFrog statements of the key form conflict (claim two-provider-statements-of-form-unreconciled, open question api-key-format-conflict) and no carrier is present. A JFrog per-release format statement or a statement that the example is schematic would settle it.",
+    "sources": [
+      {
+        "sourceId": "docs-jfrog-com-9efead811f",
+        "supports": "API Keys follow this pattern: .*\\bAKCp[A-Za-z0-9]{69}\\b.*, starting with AKCp and including 69 alphanumeric characters.",
+        "locator": "Comparing Identity Reference Tokens With API Keys"
+      },
+      {
+        "sourceId": "docs-jfrog-com-cb04684087",
+        "supports": "The create-API-key reference example is 44 characters with base64 punctuation and no AKCp prefix; the page states it as an example only.",
+        "locator": "Create API Key, sample output"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. No outcome is asserted: the open question named in the expectation is what would have to be settled first."
+}

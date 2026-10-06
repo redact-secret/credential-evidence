@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-private-app-token-layout-leads-and-info-response-identifiers",
+  "title": "HubSpot private app token layout leads and the identifiers of an access-token-info response",
+  "summary": "A bare pat-na1- value with 8-4-4-4-12 groups, a bare pat-eu1- value, a bare UUID-shaped value beside a HubSpot word, and an access-token-info response with the creating user, Hub ID, private app ID and scopes.",
+  "rationale": "The pat-na1- and pat-eu1- layout rests on one maintainer's rule artifact (claim pat-prefix-lead, unresolved); the UUID-shaped layout is consistency of two artifacts that name no specific HubSpot credential (uuid-shape-tool-lead); HubSpot states no prefix, region marker, alphabet, length or grouping and whether private app and static auth tokens are one family is open (no-hubspot-statement-of-token-layout, private-app-versus-static-auth-pages). The response of the token-information request returns the user, Hub ID, private app ID and scopes (token-carried-in-info-request-body) but HubSpot does not call those identifiers non-secret, so they are not asserted as controls. No outcome is asserted.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "hubspot:private-app-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Whether a bare value in a pat-na1-, pat-eu1- or UUID layout is a HubSpot private app token, and whether the Hub ID, private app ID and user ID of the response are confidential, is not stated by any HubSpot page. Settled by a HubSpot statement of the token layout, artifacts from two separate maintainers that target private app tokens, or a HubSpot statement on the identifiers.",
+    "sources": [
+      {
+        "sourceId": "github-com-trufflesecurity-trufflehog-928ac53cb6",
+        "supports": "keyPat: pat-(eu|na)1- followed by 8-4-4-4-12 alphanumeric groups; keywords pat-na1- and pat-eu1-.",
+        "locator": "pkg/detectors/hubspot_apikey/v2/apikey.go lines 31 and 37 at commit 59e3b04e820c4cad30462696ac497853a5f7679c"
+      },
+      {
+        "sourceId": "developers-hubspot-com-f67bca3860",
+        "supports": "The response will include information about the user who created the token, the Hub ID of the account, the private app ID, and the scopes associated with the token.",
+        "locator": "View private app access token information"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No outcome is asserted. All values are synthetic, were built for this record and were not tested against any service. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

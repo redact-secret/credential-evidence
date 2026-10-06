@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "algolia-write-api-key-header-carrier-shared-with-every-role-unsettled",
+  "title": "Algolia write API key: a role carried in a header shared with every other role",
+  "summary": "A write API key (a key whose ACL holds addObject, deleteObject, deleteIndex or editSettings) in the x-algolia-api-key header, a variable or a configuration file.",
+  "rationale": "Algolia states that write-access keys must not be used in frontend code or mobile apps (claim write-api-key-handling) and lists the write ACLs (claim write-api-key-write-acls). The only carrier the pages show is the x-algolia-api-key header, shared by every role whatever its ACL, so the header name does not identify a write key (claim write-api-key-header-carrier); the role is attributable from a variable name, a description or an ACL only, none of which Algolia documents as a marker. Whether the predefined Write key and a custom key with write ACLs are one family or two (open-question-3), the ACL set of the predefined key (open-question-5) and its relation to the Admin key (open-question-6) are open. A role-specific positive would rest on a marker the evidence does not name. Contract claims cited: write-api-key/write-api-key-handling, write-api-key/write-api-key-write-acls, write-api-key/write-api-key-header-carrier.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "algolia:write-api-key",
+      "role": "subject",
+      "contract": "algolia:write-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: an Algolia page that names a marker or a dedicated carrier for the predefined Write key, or states its ACLs and its relation to custom write keys.",
+    "sources": [
+      {
+        "sourceId": "algolia-com-ca6bd39dbc",
+        "supports": "Don't use write-access keys in frontend code or mobile apps, and use environment variables for API keys in your code instead of hardcoding them.",
+        "locator": "#secure-your-api-keys"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "Add records (addObject): allowed to add or update records in the index.",
+        "locator": "#access-control-list-acl"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "Delete records (deleteObject): allowed to delete an existing record.",
+        "locator": "#access-control-list-acl"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "Delete index (deleteIndex): allowed to delete an index.",
+        "locator": "#access-control-list-acl"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "Set index settings (editSettings): allowed to update all index settings.",
+        "locator": "#access-control-list-acl"
+      },
+      {
+        "sourceId": "algolia-com-9e381d24e8",
+        "supports": "Your Algolia API key with the necessary permissions to make the request. Permissions are controlled through access control lists (ACL) and access restrictions.",
+        "locator": "#authorization-x-algolia-api-key"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "The ACL defines each allowed feature for a given API key.",
+        "locator": "#access-control-list-acl"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

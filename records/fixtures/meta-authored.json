@@ -454,6 +454,228 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "meta-authored--instagram-secret-code-exchange-raw-http-form-body",
+      "case": "meta-instagram-app-secret-client-secret-parameter",
+      "path": "instagram-secret-code-exchange-raw-http-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "6352bace06af0c7859b7cc76fdb5ec4b77402484e93be766fd7a9aad265751c9",
+      "text": "POST /oauth/access_token HTTP/1.1\nHost: api.instagram.example.test\nContent-Type: application/x-www-form-urlencoded\n\nclient_id=1000000000000011&client_secret=SYNTHETIC-meta-instagram-app-secret-never-issued-0001&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fexample.test%2Fcallback&code={authorization-code}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 157,
+            "end": 210,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--instagram-secret-code-exchange-curl-form-fields",
+      "case": "meta-instagram-app-secret-client-secret-parameter",
+      "path": "instagram-secret-code-exchange-curl-form-fields/fixture.txt",
+      "context": "cli",
+      "sha256": "c737023f3f7a3c493618d2a9a91830f714b537c6577a3feaa742117f33d981d2",
+      "text": "curl -X POST \"https://api.instagram.example.test/oauth/access_token\" -F client_id=1000000000000011 -F client_secret=SYNTHETIC-meta-instagram-app-secret-never-issued-0002 -F grant_type=authorization_code -F redirect_uri=https://example.test/callback -F code={authorization-code}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 116,
+            "end": 169,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--instagram-secret-long-lived-exchange-query-string",
+      "case": "meta-instagram-app-secret-client-secret-parameter",
+      "path": "instagram-secret-long-lived-exchange-query-string/fixture.txt",
+      "context": "url",
+      "sha256": "14e71d2c048a1d514612e5894aa08381455fb229eafd80df3fd2af16dccb888b",
+      "text": "GET /access_token?grant_type=ig_exchange_token&client_secret=SYNTHETIC-meta-instagram-app-secret-never-issued-0003&access_token={short-lived-access-token} HTTP/1.1\nHost: graph.instagram.example.test\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 61,
+            "end": 114,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--instagram-secret-angle-placeholder",
+      "case": "meta-instagram-app-secret-placeholders-and-references-non-values",
+      "path": "instagram-secret-angle-placeholder/fixture.txt",
+      "context": "form-body",
+      "sha256": "91053bd460e0652e5489825480a1de06b283fdf33ca078529406a1d08c5bf135",
+      "text": "client_secret=<INSTAGRAM_APP_SECRET>&grant_type=authorization_code\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--instagram-secret-environment-reference",
+      "case": "meta-instagram-app-secret-placeholders-and-references-non-values",
+      "path": "instagram-secret-environment-reference/fixture.txt",
+      "context": "url",
+      "sha256": "abfb91dd43d4b919936486a889d7bc3850a3d6b16033ab1a94ff83b598fe422e",
+      "text": "GET /access_token?grant_type=ig_exchange_token&client_secret=${INSTAGRAM_APP_SECRET}&access_token={short-lived-access-token} HTTP/1.1\nHost: graph.instagram.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--instagram-secret-template-reference",
+      "case": "meta-instagram-app-secret-placeholders-and-references-non-values",
+      "path": "instagram-secret-template-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "c3ff5841960290148cea3de86355260ba8f235a498fcb2e1b706fb763bd515c9",
+      "text": "curl -F client_secret={{ secrets.INSTAGRAM_APP_SECRET }} -F grant_type=authorization_code \"https://api.instagram.example.test/oauth/access_token\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--instagram-secret-masked-display",
+      "case": "meta-instagram-app-secret-placeholders-and-references-non-values",
+      "path": "instagram-secret-masked-display/fixture.txt",
+      "context": "form-body",
+      "sha256": "4e45b2bb74aa1658be3300833fde44fb2ca35cb7d1e845d8c2e25df8c53ba6a2",
+      "text": "client_secret=********&grant_type=authorization_code\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--instagram-secret-empty-value",
+      "case": "meta-instagram-app-secret-placeholders-and-references-non-values",
+      "path": "instagram-secret-empty-value/fixture.txt",
+      "context": "form-body",
+      "sha256": "a4dcd9693feeb6e620ba6e0a7745e3911fa3ad5cbc293492963507ec730f5790",
+      "text": "client_secret=&grant_type=authorization_code\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--instagram-secret-field-prose-mention",
+      "case": "meta-instagram-app-secret-placeholders-and-references-non-values",
+      "path": "instagram-secret-field-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "e078136b4fe441e728d3206a6735d8c1e36f0717a4de39b1032b7c7d74eff1d6",
+      "text": "Send your Instagram App Secret as the client_secret field from server-side code only.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-raw-http-client-secret-query",
+      "case": "meta-app-secret-client-secret-query-parameter",
+      "path": "app-secret-raw-http-client-secret-query/fixture.txt",
+      "context": "url",
+      "sha256": "9262fb855e171718ccbd92c0be2309e444924c09bd01fb621172d62435af797e",
+      "text": "GET /oauth/access_token?client_id=1000000000000001&client_secret=SYNTHETIC-meta-app-secret-never-issued-1001&grant_type=client_credentials HTTP/1.1\nHost: graph.example.test\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 108,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-curl-client-secret-query",
+      "case": "meta-app-secret-client-secret-query-parameter",
+      "path": "app-secret-curl-client-secret-query/fixture.txt",
+      "context": "cli",
+      "sha256": "e70ec478aff9abdbc5dd3ca00105840cfa1206a19f3b4dc4e561adcc891349ea",
+      "text": "curl -i -X GET \"https://graph.example.test/oauth/access_token?client_id=1000000000000001&client_secret=SYNTHETIC-meta-app-secret-never-issued-1002&grant_type=client_credentials\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 103,
+            "end": 146,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-client-secret-query-continues",
+      "case": "meta-app-secret-client-secret-query-parameter",
+      "path": "app-secret-client-secret-query-continues/fixture.txt",
+      "context": "url",
+      "sha256": "1121c463357671ea54d4f655b8392c40749e72a6429a39fb4a959e180aed96bd",
+      "text": "https://graph.example.test/oauth/access_token?client_secret=SYNTHETIC-meta-app-secret-never-issued-1003&client_id=1000000000000001&grant_type=client_credentials&debug=all\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 60,
+            "end": 103,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-bare-hexadecimal-thirty-two-in-prose",
+      "case": "meta-app-secret-bare-thirty-two-character-values",
+      "path": "app-secret-bare-hexadecimal-thirty-two-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "3c594c14512dd1c4b609b968fc1e1f74f909b5ac224dbc7ea183436a8fc13912",
+      "text": "Keep this for later: 0123456789abcdef0123456789abcdef\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-alphanumeric-thirty-two-in-facebook-environment",
+      "case": "meta-app-secret-bare-thirty-two-character-values",
+      "path": "app-secret-alphanumeric-thirty-two-in-facebook-environment/fixture.txt",
+      "context": "env",
+      "sha256": "8b77902c4aa3a971513573a7774915715dd0b8e0f5ed255a13b6d3136090eedb",
+      "text": "FACEBOOK_APP_SECRET=SYNTHETICNEVERISSUED0123456789SY\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "meta-authored--app-secret-alphanumeric-thirty-two-in-instagram-environment",
+      "case": "meta-app-secret-bare-thirty-two-character-values",
+      "path": "app-secret-alphanumeric-thirty-two-in-instagram-environment/fixture.txt",
+      "context": "env",
+      "sha256": "0233e84c9145bc7240784b68c19e88901bdcf0e8329119de1abf5940f8464733",
+      "text": "INSTAGRAM_APP_SECRET=SYNTHETICNEVERISSUED0123456789SY\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",
