@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-algolia-api-key-placeholders-references-and-index-names-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "algolia-api-key-placeholders-references-and-index-names-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#242 (Group D, D1 handoff) from the contract claims write-api-key/write-api-key-handling, search-only-api-key/search-only-api-key-index-names-are-public, read on 2026-10-06 in this repository, without any scanner output. Carrier existence is provider-documented; the span and the value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#242. Question: Which non-values beside the shared x-algolia-api-key header are safe to assert as not credentials? Options: Assert placeholders, references, masks, empty values and the documented-public index name; or also assert application IDs; or assert none. Decision: Assert placeholders, references, masks, empty values, a prose mention and the index name. Do not assert application IDs or log-obfuscated keys. Reason: Only the index name is documented public. The application ID's public status is an open question in the contract, so asserting it would go beyond the evidence. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's explicit instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases for these groups are authored maintainer-only, as in Batch 2).",
+      "dissent": "No dissent was raised. The strongest counter-argument, recorded because the rule asks for one: A masked display may reproduce part of a real key in practice and Algolia does not describe its own obfuscation; a placeholder under the header could still be a leaked literal in someone's configuration.",
+      "reversingEvidence": "An Algolia statement that the application ID is public (to add it), a description of the obfuscated-key form, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

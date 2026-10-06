@@ -126,6 +126,102 @@
       }
     },
     {
+      "id": "contentful-authored--bearer-angle-placeholder",
+      "case": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+      "path": "bearer-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "42930ccebbd7b8bb55a6bad5236b549f406a82181afd1d9584a7b65898368e27",
+      "text": "GET /spaces/{space_id}/environments/master/entries HTTP/1.1\nHost: cdn.contentful.com\nAuthorization: Bearer <DELIVERY_API_ACCESS_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--bearer-curl-environment-reference",
+      "case": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+      "path": "bearer-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "87c1f5012b6270c0a66a77a168ddc2db86bb5e9d51ccba74fdb05d107e9d8104",
+      "text": "curl -H \"Authorization: Bearer $CONTENTFUL_DELIVERY_TOKEN\" \"https://cdn.contentful.com/spaces/{space_id}/environments/master/entries\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--preview-query-parameter-environment-reference",
+      "case": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+      "path": "preview-query-parameter-environment-reference/fixture.txt",
+      "context": "url",
+      "sha256": "299f38790c08888038af9933435b5acd9936348a7881875d698042d6cb772d98",
+      "text": "https://preview.contentful.com/spaces/{space_id}/environments/master/entries?access_token=$CONTENTFUL_PREVIEW_TOKEN\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--query-parameter-empty-value",
+      "case": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+      "path": "query-parameter-empty-value/fixture.txt",
+      "context": "url",
+      "sha256": "d5f4fedca327d570ff86fa531521246a56190b45c2fbb52c29f8783e156085f5",
+      "text": "https://cdn.contentful.com/spaces/{space_id}/environments/master/entries?access_token=&content_type=page\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--bearer-masked-display",
+      "case": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+      "path": "bearer-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "57702859958dc7671b90c4745521eb34bbb62cdae4aec3edf76fcb995346b797",
+      "text": "GET /spaces/{space_id}/environments/master/entries HTTP/1.1\nHost: preview.contentful.com\nAuthorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--bearer-scheme-only",
+      "case": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+      "path": "bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "bcea3574b1af3b907025694b6b725035e58e7a96f44b3f513ee1da7be4f85f0e",
+      "text": "GET /spaces/{space_id}/environments/master/entries HTTP/1.1\nHost: cdn.contentful.com\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--preview-url-without-token",
+      "case": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+      "path": "preview-url-without-token/fixture.txt",
+      "context": "url",
+      "sha256": "7e8fbc1c5e1e9d6a1e1098aa2d8e6cdc2999cdd8e4e2a945c510d5bd164a2402",
+      "text": "https://app.example.test/preview/{entry.fields.slug}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "contentful-authored--token-slots-prose-mention",
+      "case": "contentful-api-token-placeholders-and-token-free-preview-url-non-values",
+      "path": "token-slots-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "5c2f8c54656844a9786b007cf4fbd347c702a95b0c65dca45abb7a5e47133ceb",
+      "text": "Send the token in the Authorization header or in the access_token query parameter.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
       "id": "contentful-authored--cma-pat-raw-http-bearer-header",
       "case": "contentful-cma-personal-access-token-bearer-header-and-create-response-member",
       "path": "cma-pat-raw-http-bearer-header/fixture.txt",

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-elastic-serverless-project-api-key-authorization-header-value",
+  "subject": {
+    "kind": "case",
+    "id": "elastic-serverless-project-api-key-authorization-header-value"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#243 (Group D, D2 handoff) from the contract claims serverless-project-api-key/encoded-carrier, serverless-project-api-key/stack-page-calls-serverless-keys-equivalent, read on 2026-10-06 in this repository, without any scanner output. Carrier existence is provider-documented; the span and the value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#243. Question: Does the Serverless project key need its own positive Case, given it shares the Authorization ApiKey envelope with the stack key? Options: Add the family as a subject of the existing Case (an edit to a decided record); author a new family-specific Case; or author none. Decision: Author a new family-specific Case and leave the existing Case untouched. Reason: An edit to a decided record would reopen it; the family needs an expectation of its own for per-family attribution, and the contract's issuance-context role is the specific reasoning. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's explicit instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases for these groups are authored maintainer-only, as in Batch 2).",
+      "dissent": "No dissent was raised. The strongest counter-argument, recorded because the rule asks for one: The reasoning is the same sentence as the existing Authorization ApiKey Case with the family name substituted, which the Case criteria treat as a Scenario or a matrix projection rather than a Case.",
+      "reversingEvidence": "A maintainer decision that shared-envelope families are covered by one Case, or an Elastic statement that merges the families, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

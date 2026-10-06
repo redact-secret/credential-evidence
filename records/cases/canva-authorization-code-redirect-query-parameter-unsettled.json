@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "canva-authorization-code-redirect-query-parameter-unsettled",
+  "title": "Canva authorization code in the redirect URL code query parameter",
+  "summary": "An authorization code delivered to the app's redirect URL as the code query parameter, beside state, and exchanged with the code_verifier and client authentication.",
+  "rationale": "Claim code-redirect-query-parameter names the carrier (a required code query parameter of a browser redirect, by design) and claim code-exchange-inputs records that the exchange needs the code, the code_verifier and client authentication together, and cannot be called from a browser client. Canva states confidentiality only for the code_verifier and the client secret (claim code-verifier-role-and-confidentiality); whether the code alone is a credential is a modelling decision the sources do not make (open question code-confidentiality-unstated). Its lifetime and single use are not stated: the only single-use rule is for refresh tokens (claim single-use-stated-for-refresh-token-only, open question code-lifetime-and-single-use-unstated). No format is stated (code-format-and-example-unstated). A must-flag would rest on a confidentiality statement Canva does not make; the code_challenge's confidentiality is unstated too, so no derived-value control is written. Contract claims cited: authorization-code/code-redirect-query-parameter, authorization-code/code-exchange-inputs, authorization-code/single-use-stated-for-refresh-token-only.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "canva:authorization-code",
+      "role": "subject",
+      "contract": "canva:authorization-code@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: a Canva statement of the code's lifetime and single use or of its confidentiality.",
+    "sources": [
+      {
+        "sourceId": "canva-dev-7dc1064fcc",
+        "supports": "After they authorize your app, they are redirected to your redirect URL with the following query parameters:",
+        "locator": "Send the user to the authorization URL"
+      },
+      {
+        "sourceId": "canva-dev-7dc1064fcc",
+        "supports": "The authorization code you can use to generate an access token.",
+        "locator": "Send the user to the authorization URL, code parameter"
+      },
+      {
+        "sourceId": "canva-dev-e6b9def37d",
+        "supports": "Provide the code_verifier value that you generated when creating the user authorization URL.",
+        "locator": "Generate an access token using an authorization code"
+      },
+      {
+        "sourceId": "canva-dev-e6b9def37d",
+        "supports": "Provide the authorization code you received after the user authorized the app.",
+        "locator": "Generate an access token using an authorization code"
+      },
+      {
+        "sourceId": "canva-dev-e6b9def37d",
+        "supports": "Requests to this endpoint require authentication with your client ID and client secret, using one of the following methods:",
+        "locator": "Endpoint authentication"
+      },
+      {
+        "sourceId": "canva-dev-e6b9def37d",
+        "supports": "This endpoint can't be called from a user's web-browser client because it uses client authentication with client secrets.",
+        "locator": "Endpoint authentication"
+      },
+      {
+        "sourceId": "canva-dev-7dc1064fcc",
+        "supports": "Each refresh token can only be used once.",
+        "locator": "Use a refresh token"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

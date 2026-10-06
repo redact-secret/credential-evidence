@@ -267,6 +267,147 @@
       }
     },
     {
+      "id": "dropbox-authored--app-auth-token-raw-http-bearer-header",
+      "case": "dropbox-app-auth-token-bearer-authorization-header-value",
+      "path": "app-auth-token-raw-http-bearer-header/fixture.txt",
+      "context": "header",
+      "sha256": "0e3c034e6a36f37d08196446a54ff53a8f8e94d2426e9ed59a0b2aab943c80f5",
+      "text": "POST /2/synthetic-app-authenticated-call HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer SYNTHETIC-dropbox-app-auth-token-never-issued-0001\nContent-Type: application/json\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 95,
+            "end": 145,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--app-auth-token-curl-bearer-header",
+      "case": "dropbox-app-auth-token-bearer-authorization-header-value",
+      "path": "app-auth-token-curl-bearer-header/fixture.txt",
+      "context": "cli",
+      "sha256": "06cf8313d47fd0046a0cb3cd97327339db7959bda43e727980c5c16c39098c25",
+      "text": "curl -X POST https://api.example.test/2/synthetic-app-authenticated-call -H \"Authorization: Bearer SYNTHETIC-dropbox-app-auth-token-never-issued-0002\" -H \"Content-Type: application/json\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 99,
+            "end": 149,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--app-auth-token-json-header-map",
+      "case": "dropbox-app-auth-token-bearer-authorization-header-value",
+      "path": "app-auth-token-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "aef50e5218dff3a4058b447c4fb5d8b5278583b3b37c5c54cd0c1e171106301b",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Bearer SYNTHETIC-dropbox-app-auth-token-never-issued-0003\",\n    \"Content-Type\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 96,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dropbox-authored--app-auth-token-documented-placeholder",
+      "case": "dropbox-app-auth-token-placeholders-and-references-non-values",
+      "path": "app-auth-token-documented-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "8eb18d9aa21172ab9c9d74cd898a6bf9cee8ae2e03aaa86bca02a930ac2df280",
+      "text": "POST /2/synthetic-app-authenticated-call HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer <OAUTH2_APP_AUTH_TOKEN>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-auth-token-curl-environment-reference",
+      "case": "dropbox-app-auth-token-placeholders-and-references-non-values",
+      "path": "app-auth-token-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "8a1cb5016d5f8c6120586d3a18bafbb584a65fb549e5bcb2284d38a2dddcc5c0",
+      "text": "curl -X POST https://api.example.test/2/synthetic-app-authenticated-call -H \"Authorization: Bearer $DROPBOX_APP_AUTH_TOKEN\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-auth-token-template-reference",
+      "case": "dropbox-app-auth-token-placeholders-and-references-non-values",
+      "path": "app-auth-token-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "4565e3d0495831a7604290307cd192af2188c8880e819ff4d85389045fb47b04",
+      "text": "POST /2/synthetic-app-authenticated-call HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer {{ secrets.DROPBOX_APP_AUTH_TOKEN }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-auth-token-masked-display",
+      "case": "dropbox-app-auth-token-placeholders-and-references-non-values",
+      "path": "app-auth-token-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "9c186bc5deb8a3472e8f2f0658b9f03f2402fe58e3bd139d31cdcac596cca895",
+      "text": "POST /2/synthetic-app-authenticated-call HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--app-auth-token-bearer-scheme-only",
+      "case": "dropbox-app-auth-token-placeholders-and-references-non-values",
+      "path": "app-auth-token-bearer-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "06ceeb1f079847cd8edd1f91b24d529b38c05d4009ba115cbf365893d7326585",
+      "text": "POST /2/synthetic-app-authenticated-call HTTP/1.1\nHost: api.example.test\nAuthorization: Bearer\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--client-credentials-request-placeholders",
+      "case": "dropbox-app-auth-token-placeholders-and-references-non-values",
+      "path": "client-credentials-request-placeholders/fixture.txt",
+      "context": "form-body",
+      "sha256": "db4cd26e1086bf20c5ba2ebc43d13debd03ed51004d01b85dc36ebfe8753da86",
+      "text": "grant_type=client_credentials&client_id=<APP_KEY>&client_secret=<APP_SECRET>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "dropbox-authored--basic-header-angle-placeholder",
+      "case": "dropbox-app-auth-token-placeholders-and-references-non-values",
+      "path": "basic-header-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "ac386224253c6314ddefcb465a37c80379d1296c30672c83f3379f79cb7b9cf0",
+      "text": "POST /oauth2/token HTTP/1.1\nHost: api.example.test\nAuthorization: Basic <BASE64_OF_APP_KEY_COLON_APP_SECRET>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
       "id": "dropbox-authored--access-token-raw-http-bearer-header",
       "case": "dropbox-access-token-bearer-header-and-response-member",
       "path": "access-token-raw-http-bearer-header/fixture.txt",

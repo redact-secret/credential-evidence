@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-elastic-cross-cluster-api-key-create-response-members",
+  "subject": {
+    "kind": "case",
+    "id": "elastic-cross-cluster-api-key-create-response-members"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#243 (Group D, D2 handoff) from the contract claims cross-cluster-api-key/cross-cluster-response-members-match-user-key, cross-cluster-api-key/cross-cluster-key-carrier-is-local-cluster-keystore, read on 2026-10-06 in this repository, without any scanner output. Carrier existence is provider-documented; the span and the value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#243. Question: Are the api_key and encoded members of the create-cross-cluster-key response credentials, given the key is not an Authorization header value? Options: Flag both members; flag only encoded; or author no positive because the key's working carrier is the keystore, whose setting name is not recorded. Decision: Flag the api_key value and the whole encoded value; leave the id and the keystore slot unasserted. Reason: The response is a documented carrier that holds the secret in two representations and Elastic tells the operator to store the encoded value safely; the keystore setting name is the only part the contract leaves out. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's explicit instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases for these groups are authored maintainer-only, as in Batch 2).",
+      "dissent": "No dissent was raised. The strongest counter-argument, recorded because the rule asks for one: Elastic never states in a sentence that api_key is confidential, and a response body is transient: the value matters in the keystore, which this Case does not cover.",
+      "reversingEvidence": "An Elastic statement that a member is not secret or of the key format, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

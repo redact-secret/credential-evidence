@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "algolia-analytics-api-key-acl-profile-and-data-sensitivity-unsettled",
+  "title": "Algolia Analytics API key: an ACL-defined role whose sensitivity is not stated",
+  "summary": "A key sent in x-algolia-api-key to the regional Analytics API hosts, accepted whenever its ACL includes the analytics permission.",
+  "rationale": "Claim analytics-api-key-accepts-any-key-with-acl records that the Analytics API accepts any key whose ACL includes analytics, and claim analytics-api-key-regional-hosts records the regional hosts the key travels to. The role is therefore defined by an ACL, in a header shared with every other role. Open: whether the predefined Analytics key is a distinct credential or an ACL profile of the general key kind (open-questions 3 and 4), how sensitive the returned data is and so what handling Algolia expects (open-question-5), and any value shape (open-questions 1 and 2). Contract claims cited: analytics-api-key/analytics-api-key-accepts-any-key-with-acl, analytics-api-key/analytics-api-key-regional-hosts.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "algolia:analytics-api-key",
+      "role": "subject",
+      "contract": "algolia:analytics-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: an Algolia statement of the confidentiality expected for an Analytics key and of whether it is a distinct key kind.",
+    "sources": [
+      {
+        "sourceId": "algolia-com-5cc2e19305",
+        "supports": "x-algolia-api-key. An API key with the necessary permissions to make the request. The required access control list (ACL) to make a request is listed in each endpoint’s reference.",
+        "locator": "#availability-and-authentication"
+      },
+      {
+        "sourceId": "algolia-com-a40cdf08ba",
+        "supports": "Use analytics API (analytics): allowed to retrieve data with the Analytics API.",
+        "locator": "#access-control-list-acl"
+      },
+      {
+        "sourceId": "algolia-com-5cc2e19305",
+        "supports": "https://analytics.us.algolia.com https://analytics.de.algolia.com https://analytics.algolia.com (alias of analytics.us.algolia.com)",
+        "locator": "#base-urls"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

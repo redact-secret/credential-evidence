@@ -817,6 +817,282 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-response-pretty-json",
+      "case": "elastic-cross-cluster-api-key-create-response-members",
+      "path": "cross-cluster-response-pretty-json/fixture.txt",
+      "context": "tool-output",
+      "sha256": "6d2b0271f0e8d14501ed41d6fc16d8b82dae626fc5b273611e64df79f53e0b1d",
+      "text": "{\n  \"id\": \"SYNTHETIC-cross-cluster-key-id-0001\",\n  \"name\": \"synthetic-cross-cluster-key\",\n  \"api_key\": \"SYNTHETIC-elastic-cross-cluster-api-key-never-issued-0001\",\n  \"encoded\": \"U1lOVEhFVElDLWNyb3NzLWNsdXN0ZXIta2V5LWlkLTAwMDE6U1lOVEhFVElDLWVsYXN0aWMtY3Jvc3MtY2x1c3Rlci1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAx\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 104,
+            "end": 161,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          },
+          {
+            "start": 178,
+            "end": 302,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-response-raw-http-compact-json",
+      "case": "elastic-cross-cluster-api-key-create-response-members",
+      "path": "cross-cluster-response-raw-http-compact-json/fixture.txt",
+      "context": "tool-output",
+      "sha256": "0bc02c4f2bbc7ea953e0554751773253628a7f2feca880a04f9aba9166d0a24e",
+      "text": "HTTP/1.1 200 OK\ncontent-type: application/json\n\n{\"id\":\"SYNTHETIC-cross-cluster-key-id-0002\",\"name\":\"synthetic-cross-cluster-key\",\"api_key\":\"SYNTHETIC-elastic-cross-cluster-api-key-never-issued-0002\",\"encoded\":\"U1lOVEhFVElDLWNyb3NzLWNsdXN0ZXIta2V5LWlkLTAwMDI6U1lOVEhFVElDLWVsYXN0aWMtY3Jvc3MtY2x1c3Rlci1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAy\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 140,
+            "end": 197,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          },
+          {
+            "start": 210,
+            "end": 334,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-response-curl-output",
+      "case": "elastic-cross-cluster-api-key-create-response-members",
+      "path": "cross-cluster-response-curl-output/fixture.txt",
+      "context": "tool-output",
+      "sha256": "2af0898694f4daa3d794ec0a4e8896bb27dce46a9228d0eb9ea4f1bd4b1d81fc",
+      "text": "$ curl -s -X POST \"https://cluster.example.test/synthetic-create-cross-cluster-api-key\"\n{\"id\":\"SYNTHETIC-cross-cluster-key-id-0003\",\"name\":\"synthetic-cross-cluster-key\",\"api_key\":\"SYNTHETIC-elastic-cross-cluster-api-key-never-issued-0003\",\"encoded\":\"U1lOVEhFVElDLWNyb3NzLWNsdXN0ZXIta2V5LWlkLTAwMDM6U1lOVEhFVElDLWVsYXN0aWMtY3Jvc3MtY2x1c3Rlci1hcGkta2V5LW5ldmVyLWlzc3VlZC0wMDAz\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 180,
+            "end": 237,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          },
+          {
+            "start": 250,
+            "end": 374,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-request-certificate-identity",
+      "case": "elastic-cross-cluster-api-key-binding-attributes-and-references-non-values",
+      "path": "cross-cluster-request-certificate-identity/fixture.txt",
+      "context": "structured-file",
+      "sha256": "5d5d1af92089a619b6b115fd9fa63befeab995cf77d4fa089cac75a97cf03f40",
+      "text": "{\n  \"name\": \"synthetic-cross-cluster-key\",\n  \"access\": {\n    \"search\": [ { \"names\": [ \"synthetic-index-*\" ] } ]\n  },\n  \"certificate_identity\": \"CN=remote-cluster.example.test\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-response-angle-placeholders",
+      "case": "elastic-cross-cluster-api-key-binding-attributes-and-references-non-values",
+      "path": "cross-cluster-response-angle-placeholders/fixture.txt",
+      "context": "tool-output",
+      "sha256": "893a27550fb5ca02dd980e89b2f1a3386d418d6a694c6cf8e8983f03eaaacfb2",
+      "text": "{\n  \"name\": \"synthetic-cross-cluster-key\",\n  \"api_key\": \"<API_KEY>\",\n  \"encoded\": \"<ENCODED_API_KEY>\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-response-masked-display",
+      "case": "elastic-cross-cluster-api-key-binding-attributes-and-references-non-values",
+      "path": "cross-cluster-response-masked-display/fixture.txt",
+      "context": "tool-output",
+      "sha256": "8bf5a2790eff8c266ffe733225b0e7358fa33807869a57f70cf63b67fc06e3ad",
+      "text": "{\n  \"name\": \"synthetic-cross-cluster-key\",\n  \"api_key\": \"********\",\n  \"encoded\": \"********\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-response-empty-members",
+      "case": "elastic-cross-cluster-api-key-binding-attributes-and-references-non-values",
+      "path": "cross-cluster-response-empty-members/fixture.txt",
+      "context": "tool-output",
+      "sha256": "a02b68261c1c78b10d8e6f99903d5190cc6f15e6094e9f4cc4bab538d60d3392",
+      "text": "{\n  \"name\": \"synthetic-cross-cluster-key\",\n  \"api_key\": \"\",\n  \"encoded\": \"\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-response-template-references",
+      "case": "elastic-cross-cluster-api-key-binding-attributes-and-references-non-values",
+      "path": "cross-cluster-response-template-references/fixture.txt",
+      "context": "structured-file",
+      "sha256": "22a37f4c70b9a8e970025da0a124e91bfe9d473ffb26cb80bed05fba2dfd22ea",
+      "text": "{\n  \"api_key\": \"{{ outputs.api_key }}\",\n  \"encoded\": \"{{ outputs.encoded }}\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--cross-cluster-members-prose-mention",
+      "case": "elastic-cross-cluster-api-key-binding-attributes-and-references-non-values",
+      "path": "cross-cluster-members-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "a19a739fd2a5a548b24f061db51b0b99f274022cebca63bdef2eb761dfd9d980",
+      "text": "Copy the encoded member of the response to a safe place; it is needed for the local cluster configuration.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-raw-http",
+      "case": "elastic-serverless-project-api-key-authorization-header-value",
+      "path": "serverless-project-apikey-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "a9f3097fba2054f23167ca46103cd7148e7a931b74491338403b4a1276bb3629",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: project.example.test\nAuthorization: ApiKey U1lOVEhFVElDLXNlcnZlcmxlc3Mta2V5LWlkLTAwMDE6U1lOVEhFVElDLWVsYXN0aWMtc2VydmVybGVzcy1wcm9qZWN0LWFwaS1rZXktbmV2ZXItaXNzdWVkLTAwMDE=\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 80,
+            "end": 208,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-curl-header",
+      "case": "elastic-serverless-project-api-key-authorization-header-value",
+      "path": "serverless-project-apikey-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "800d8fdcf23d3c354f1a20e944447029b6bb3c10e71f044eb181495d111b48f4",
+      "text": "curl -H \"Authorization: ApiKey U1lOVEhFVElDLXNlcnZlcmxlc3Mta2V5LWlkLTAwMDI6U1lOVEhFVElDLWVsYXN0aWMtc2VydmVybGVzcy1wcm9qZWN0LWFwaS1rZXktbmV2ZXItaXNzdWVkLTAwMDI=\" https://project.example.test/synthetic-search\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 159,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-json-header-map",
+      "case": "elastic-serverless-project-api-key-authorization-header-value",
+      "path": "serverless-project-apikey-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d0db8e94751a3b5c5f8c2634550927064740d2082b5739f1c8f3023e7334c197",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"ApiKey U1lOVEhFVElDLXNlcnZlcmxlc3Mta2V5LWlkLTAwMDM6U1lOVEhFVElDLWVsYXN0aWMtc2VydmVybGVzcy1wcm9qZWN0LWFwaS1rZXktbmV2ZXItaXNzdWVkLTAwMDM=\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 46,
+            "end": 174,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-documented-environment-reference",
+      "case": "elastic-serverless-project-api-key-placeholders-and-references-non-values",
+      "path": "serverless-project-apikey-documented-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "ea357641af6c971c535b8463f3a01cc45e199cb4b253607894fc014961914dc4",
+      "text": "curl -H \"Authorization: ApiKey ${API_KEY}\" https://project.example.test/synthetic-search\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-angle-placeholder",
+      "case": "elastic-serverless-project-api-key-placeholders-and-references-non-values",
+      "path": "serverless-project-apikey-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "998f84a723ab050ce9643456f79b97481f5827e6e69ecf9619fad36635384976",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: project.example.test\nAuthorization: ApiKey <ENCODED_API_KEY>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-template-reference",
+      "case": "elastic-serverless-project-api-key-placeholders-and-references-non-values",
+      "path": "serverless-project-apikey-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "a50d17a26812e10f1ee7df724bb0c0833d0bb53988fd5076ffb3a3f7969e2adf",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: project.example.test\nAuthorization: ApiKey {{ secrets.ELASTIC_API_KEY }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-masked-display",
+      "case": "elastic-serverless-project-api-key-placeholders-and-references-non-values",
+      "path": "serverless-project-apikey-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "0429c652ea24dc9a31e9f5ff454b77d662d7e76483b4bf33842fedf14739af13",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: project.example.test\nAuthorization: ApiKey ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-scheme-only",
+      "case": "elastic-serverless-project-api-key-placeholders-and-references-non-values",
+      "path": "serverless-project-apikey-scheme-only/fixture.txt",
+      "context": "header",
+      "sha256": "b7f3f1e8099b700d118be30ad14491ad17da950b7f99754cff83a80c5237df24",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: project.example.test\nAuthorization: ApiKey\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "elastic-authored--serverless-project-apikey-prose-mention",
+      "case": "elastic-serverless-project-api-key-placeholders-and-references-non-values",
+      "path": "serverless-project-apikey-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "fcff36c4f8d3894e76afd8a3f914cbb73adb7fec18d55fd4324946d37be4ef20",
+      "text": "Copy the encoded API key and send it in the Authorization header with the ApiKey scheme.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

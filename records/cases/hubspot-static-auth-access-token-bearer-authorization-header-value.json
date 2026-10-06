@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-static-auth-access-token-bearer-authorization-header-value",
+  "title": "HubSpot static auth access token in an Authorization Bearer header",
+  "summary": "A synthetic static auth access token after the Bearer scheme of an Authorization header, in a raw request, a curl option and a JSON header map.",
+  "rationale": "HubSpot documents the static auth access token as the single-account credential of an app configured with auth type static and private distribution, found in the app settings and sent as a Bearer token (claims static-auth-token-exists, static-auth-selected-by-app-configuration). The Bearer header is shared with OAuth access tokens and legacy private app tokens, so the header does not identify the kind (claim bearer-carrier-shared-by-oauth-static-and-private-app-tokens) and no subtype is inferred. HubSpot's only example is a masked placeholder and the page states no prefix, alphabet, length or grouping (claim static-auth-placeholder-is-not-a-format-statement), so the fixture values are fixed markers. The relation to the legacy private app token and to Service Keys is unresolved (claim pages-do-not-relate-static-auth-and-private-app-tokens). The extent is the value after the scheme only. Contract claims cited: static-auth-access-token/static-auth-token-exists, static-auth-access-token/bearer-carrier-shared-by-oauth-static-and-private-app-tokens, static-auth-access-token/static-auth-placeholder-is-not-a-format-statement.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "hubspot:static-auth-access-token",
+      "role": "subject",
+      "contract": "hubspot:static-auth-access-token@1"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#243). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value after the Bearer scheme of a static auth request is treated as a credential. HubSpot documents the credential and the Bearer carrier (carrier existence only); the value admission, the extent and the choice not to attribute a subtype are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-1876a2b7bb",
+        "supports": "If you want to limit distribution of your app to a single authorized account, you'll use a static auth access token. This token can be found in your app settings.",
+        "locator": "#static-auth"
+      },
+      {
+        "sourceId": "developers-hubspot-com-1876a2b7bb",
+        "supports": "This access token is provided using the Bearer HTTP authorization header.",
+        "locator": "#oauth"
+      },
+      {
+        "sourceId": "developers-hubspot-com-1876a2b7bb",
+        "supports": "An example request is provided below using a placeholder static auth access token.",
+        "locator": "#static-auth"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

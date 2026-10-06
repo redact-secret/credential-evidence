@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "algolia-admin-api-key-create-key-request-header-value",
+  "title": "Algolia admin API key in the x-algolia-api-key header of a create-key request",
+  "summary": "A synthetic admin API key after the x-algolia-api-key header of a request to the endpoint that creates an API key, beside an x-algolia-application-id header, in a raw request, a curl option and a JSON header map.",
+  "rationale": "Algolia's Create an API key reference marks the endpoint as requiring an Admin API key and shows the key in the x-algolia-api-key header beside x-algolia-application-id (claim admin-api-key-create-key-endpoint-requires-admin). It states the admin key gives access to everything in the account, must be kept confidential and must not be used in any app (claims admin-api-key-handling, admin-api-key-intended-use). The header name alone does not identify the role, because every Algolia key role travels in the same header (claim write-api-key-header-carrier) and the search-only key is documented as frontend-safe; so the carrier here is that header on the create-key request, where the documented endpoint requirement attributes the value to the admin role. The path in the fixtures is a synthetic stand-in for that endpoint, not a documented path. No prefix, alphabet or width is claimed; the 32-hexadecimal example on the reference pages is role-unattributed and is not used. The extent is the header value only. The application ID beside it is outside the span and is not asserted either way (its public status is open, search-only contract open-question-6). Contract claims cited: admin-api-key/admin-api-key-create-key-endpoint-requires-admin, admin-api-key/admin-api-key-handling, admin-api-key/admin-api-key-intended-use.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "algolia:admin-api-key",
+      "role": "subject",
+      "contract": "algolia:admin-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#242). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of the x-algolia-api-key header on a request to the endpoint that creates an API key is treated as a credential (an admin key). Algolia documents the endpoint requirement, the header and the admin key's handling (carrier existence and handling only); the value admission, the extent and the attribution by endpoint context are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "algolia-com-9e381d24e8",
+        "supports": "Requires Admin API key",
+        "locator": "endpoint authorization note at the top of the page"
+      },
+      {
+        "sourceId": "algolia-com-9e381d24e8",
+        "supports": "Your Algolia API key with the necessary permissions to make the request. Permissions are controlled through access control lists (ACL) and access restrictions.",
+        "locator": "#authorization-x-algolia-api-key"
+      },
+      {
+        "sourceId": "algolia-com-ca6bd39dbc",
+        "supports": "Your account's admin API key gives access to everything in your account, including all your indices. Keep your admin API key confidential and never use it in production.",
+        "locator": "#keep-your-admin-api-key-confidential"
+      },
+      {
+        "sourceId": "algolia-com-ca6bd39dbc",
+        "supports": "Never use your Admin API key in any app. Use it to generate other, more limited keys for searching and performing indexing operations.",
+        "locator": "#keep-your-admin-api-key-confidential"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "figma-cli-plan-access-token-carrier-unstated",
+  "title": "Figma CLI plan access token: a fixed-scope category whose carrier is not stated",
+  "summary": "A Figma CLI plan access token given to the Figma CLI, in an argument, a variable or a configuration file.",
+  "rationale": "Claims cli-token-creation-fixed-scope-plan-wide and cli-token-lifecycle-shared-with-plan-tokens record a fixed-scope, plan-wide, administrator-created token that shares the refresh and revoke rules of the plan token kind. The plan tokens page says CLI tokens are not general-purpose REST API tokens, so the X-Figma-Token statement made for the Figma API is not read as covering them (open question cli-token-carrier-unstated); the only CLI carrier Figma documents, --token and FIGMA_ACCESS_TOKEN (claim code-connect-cli-carrier-documented-for-personal-token), is for a personal access token and the page does not mention CLI plan tokens. No independent grammar is stated (cli-token-lexical-shape-unstated), the era of the category is not stated (cli-token-era) and the codebase-upload workflow is undocumented (cli-token-codebase-uploads-undocumented). Contract claims cited: cli-plan-access-token/cli-token-creation-fixed-scope-plan-wide, cli-plan-access-token/code-connect-cli-carrier-documented-for-personal-token.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "figma:cli-plan-access-token",
+      "role": "subject",
+      "contract": "figma:cli-plan-access-token@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: a Figma page that states how a Figma CLI plan token is supplied to the CLI.",
+    "sources": [
+      {
+        "sourceId": "developers-figma-com-e9240bb71e",
+        "supports": "Go to https://www.figma.com/developers/tokens and select the Figma CLI tab. ... Figma CLI tokens use a fixed scope set and plan-wide authorization, so there are no scope or resource-selection steps.",
+        "locator": "#create-a-figma-cli-token"
+      },
+      {
+        "sourceId": "developers-figma-com-d1ec7f70da",
+        "supports": "Generate a personal access token with the Code Connect scope set to Write and the File content scope set to Read. ... Optionally, you can use the FIGMA_ACCESS_TOKEN environment variable to pass your personal access token to the Code Connect command line tool.",
+        "locator": "CLI quickstart, authentication steps"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

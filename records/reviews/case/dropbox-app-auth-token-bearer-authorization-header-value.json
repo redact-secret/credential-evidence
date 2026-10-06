@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-dropbox-app-auth-token-bearer-authorization-header-value",
+  "subject": {
+    "kind": "case",
+    "id": "dropbox-app-auth-token-bearer-authorization-header-value"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#243 (Group D, D2 handoff) from the contract claims app-auth-token/app-auth-token-bearer-carrier, app-auth-token/app-auth-token-exists, read on 2026-10-06 in this repository, without any scanner output. Carrier existence is provider-documented; the span and the value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#243. Question: Is the Bearer value of an App Authentication request a credential when the token's response form is undocumented? Options: Flag the Bearer value; or leave the Case a draft until Dropbox documents the response; or flag no Bearer value because the header is shared with the user access token. Decision: Flag the value after the Bearer scheme. No expectation on the response, lifetime or any prefix. Reason: The carrier is documented and a bearer token is a credential by its function; the unresolved response form does not affect where the credential sits in a request. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's explicit instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases for these groups are authored maintainer-only, as in Batch 2).",
+      "dissent": "No dissent was raised. The strongest counter-argument, recorded because the rule asks for one: The header is shared with the user access token and Dropbox gives no marker, so a Bearer rule flags a value without knowing its kind; the pages never state the token is confidential.",
+      "reversingEvidence": "A Dropbox statement that the token may be shared or of its form, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

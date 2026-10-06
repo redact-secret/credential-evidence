@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "contentful-preview-api-access-token-confidentiality-unsettled",
+  "title": "Contentful Preview API access token: purpose documented, handling rule only for the preview URL",
+  "summary": "A Preview API access token, a different token from the Delivery token, used with the preview host to read unpublished content.",
+  "rationale": "Claims preview-token-is-distinct-from-delivery-token and preview-token-purpose-unpublished-content record that the Preview token is a different token whose separate use helps prevent leaking unpublished content; claim preview-token-not-in-preview-url records the one handling rule, that an access token is never included in the preview URL. Whether Contentful expects the Preview token to be confidential or never shipped to public clients is not stated, and that it is more sensitive than the Delivery token is an inference from its purpose, not a statement (open-question-2). No prefix or length is established (open-question-3), and whether tokens differ by region is open (open-question-4). Contract claims cited: preview-api-access-token/preview-token-is-distinct-from-delivery-token, preview-api-access-token/preview-token-purpose-unpublished-content, preview-api-access-token/preview-token-not-in-preview-url.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "contentful:preview-api-access-token",
+      "role": "subject",
+      "contract": "contentful:preview-api-access-token@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: a Contentful statement of the confidentiality expected for a Preview token.",
+    "sources": [
+      {
+        "sourceId": "contentful-com-3386a6dbdc",
+        "supports": "You authenticate with the Preview API in the same way as the CDA, but using a preview access token. Your production access tokens will not work with the Preview API.",
+        "locator": "#preview-api-authentication"
+      },
+      {
+        "sourceId": "contentful-com-3c91248657",
+        "supports": "The Preview API key resource has type PreviewApiKey and carries its own accessToken property.",
+        "locator": "Examples, Response"
+      },
+      {
+        "sourceId": "contentful-com-3386a6dbdc",
+        "supports": "The use of a separate token helps prevent accidentally leaking unpublished content.",
+        "locator": "#preview-api-authentication"
+      },
+      {
+        "sourceId": "contentful-com-62927e8f26",
+        "supports": "For security reasons, never include an access token in the preview URL. Instead, implement the authentication process in your client app.",
+        "locator": "Info note under the preview URL setup"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

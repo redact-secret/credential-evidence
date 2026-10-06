@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "x-oauth1-access-token-half-and-request-token-collision-unsettled",
+  "title": "X OAuth 1.0a access token (oauth_token) next to its secret and the request token that shares its name",
+  "summary": "The oauth_token value in a signed request's Authorization header, in the access token response and as subject_token in the OAuth 2.0 migration exchange, and the temporary request token that also uses the oauth_token name.",
+  "rationale": "Claim access-token-in-authorization-header records that the oauth_token value is sent in the clear in every signed request by design; claim signature-derived-from-two-secrets records that only the consumer secret and the token secret are called incredibly sensitive; claim token-exchange-carrier names subject_token as the carrier of the access token in the migration exchange; claim temporary-and-token-credentials-share-names records X's own table in which the request token and the access token both use oauth_token. Whether the access-token half alone is documented as confidential is not stated (open question token-half-sensitivity-still-unsettled), and the request token's lifetime and confidentiality are not stated (request-token-collision-confirmed). No format is stated and the documentation examples differ in shape (examples-not-format). A must-flag for the token half would invent a policy the sources do not support, and a must-not-flag would too. The secret half already has its own Cases. Contract claims cited: oauth1-access-token/access-token-in-authorization-header, oauth1-access-token/signature-derived-from-two-secrets, oauth1-access-token/token-exchange-carrier, oauth1-access-token/temporary-and-token-credentials-share-names.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "x:oauth1-access-token",
+      "role": "subject",
+      "contract": "x:oauth1-access-token@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted for the oauth_token value. Settled by: an X statement about the oauth_token value alone and the request token's lifetime.",
+    "sources": [
+      {
+        "sourceId": "docs-x-com-76c2170a87",
+        "supports": "X’s implementation requires that requests needing authorization contain an additional HTTP Authorization header with enough information to answer the questions listed above",
+        "locator": "Authorizing a request"
+      },
+      {
+        "sourceId": "docs-x-com-eb6b1f60b4",
+        "supports": "It is very important to note that these values are incredibly sensitive and should never be shared with anyone.",
+        "locator": "Creating a signature, Getting a signing key"
+      },
+      {
+        "sourceId": "docs-x-com-3eb3b20029",
+        "supports": "| `subject_token` | The user's OAuth 1.0a access token |",
+        "locator": "The exchange request"
+      },
+      {
+        "sourceId": "docs-x-com-4cf664b380",
+        "supports": "* Request Token === `oauth_token`",
+        "locator": "Terminology clarification, Temporary credentials"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

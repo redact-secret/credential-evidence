@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "jfrog-pairing-token-form-and-exchange-carrier-unstated",
+  "title": "JFrog pairing token: a signed, short-lived access token whose string form and exchange carrier are not stated",
+  "summary": "A pairing token generated under Administration for Mission Control or Cold Storage, displayed with its expiration and token ID, and exchanged at an exchange URL for a master token.",
+  "rationale": "Claims pairing-token-purpose-and-signed-extension and pairing-token-generation-display record a limited-access, task-dedicated, signed, short-lived (300 seconds by default) token with an extension that holds a base URL and an exchange URL, displayed with its expiration, token ID and the token; claim pairing-result-is-a-master-token records that the result of a pairing is a different, longer-lived master token. The page states no string form (that it is a JWT is an inference), no prefix or length, and does not say whether the token is presented as a Bearer value at the exchange URL (open questions pairing-token-form-is-inferred-not-stated, pairing-token-shared-carrier-with-access-token). The token ID's confidentiality is not stated (pairing-token-id-confidentiality; benign sibling jfrog-pairing-token-id, class unresolved) and no era is documented (pairing-token-era). The master token is a separate credential, so no derived-value control is written. Contract claims cited: pairing-token/pairing-token-purpose-and-signed-extension, pairing-token/pairing-token-generation-display, pairing-token/pairing-result-is-a-master-token.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "jfrog:pairing-token",
+      "role": "subject",
+      "contract": "jfrog:pairing-token@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: a JFrog page for the exchange API that states how the pairing token is presented, or a statement of its form.",
+    "sources": [
+      {
+        "sourceId": "docs-jfrog-com-a4d14ae414",
+        "supports": "The pairing token is an access token that is used for the initial pairing flow. Because the token is a limited-access token, it is dedicated to a specific task and short-lived. ... The exchange URL in the extension is mandatory (since the token is signed, this URL can be assumed as trusted)",
+        "locator": "Generate Pairing Tokens"
+      },
+      {
+        "sourceId": "docs-jfrog-com-a4d14ae414",
+        "supports": "This displays the token window, which includes the token's expiration (in seconds, set by default to 300 seconds = 5 minutes), the token ID, and the actual token, which you can copy by clicking Copy.",
+        "locator": "Pairing Tokens to Bind a JPD and a Mission Control Microservice"
+      },
+      {
+        "sourceId": "docs-jfrog-com-a4d14ae414",
+        "supports": "The result of a pairing is the master token, which is an access token that grants the requesting service all the actions it is required to do on the issuing service ... An admin user can revoke trust by revoking this token.",
+        "locator": "Master Token"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

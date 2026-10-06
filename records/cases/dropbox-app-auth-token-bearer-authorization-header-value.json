@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "dropbox-app-auth-token-bearer-authorization-header-value",
+  "title": "Dropbox app auth token as a Bearer value in an App Authentication request",
+  "summary": "A synthetic app auth token after the Bearer scheme of an Authorization header on a request to an endpoint that uses App Authentication, in a raw request, a curl option and a JSON header map.",
+  "rationale": "Dropbox documents that an app auth token, the output of the client credentials grant, is supplied as a bearer token in an authorization header (claim app-auth-token-bearer-carrier) and can only be used on endpoints that use App Authentication (claim app-auth-token-exists). The Bearer header is the same carrier as the user access token's, so the header does not identify the kind of token and no subtype is inferred; the case states only the span. The token's response member, form and lifetime are not documented (claim app-auth-token-response-undocumented), so no prefix, alphabet or width is claimed and the fixture values are fixed markers. The app secret it is derived from is a different, existing family with its own Cases. The extent is the value after the scheme only. The path in the fixtures is a synthetic stand-in. Contract claims cited: app-auth-token/app-auth-token-bearer-carrier, app-auth-token/app-auth-token-exists.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "dropbox:app-auth-token",
+      "role": "subject",
+      "contract": "dropbox:app-auth-token@1"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#243). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value after the Bearer scheme in an App Authentication request is treated as a credential. Dropbox documents the carrier and the token's use (carrier existence only); the value admission, the extent and the choice not to attribute a subtype are the project's decisions.",
+    "sources": [
+      {
+        "sourceId": "docs-dropboxapi-com-ee9def1cd1",
+        "supports": "When using an app auth token, it is supplied as a bearer token in an authorization header.",
+        "locator": "#app-authentication"
+      },
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "client_credentials for using client credentials to get an app auth token. App auth tokens can only be used to call endpoints that use App Authentication, not User or Team Authentication.",
+        "locator": "#oauth2token"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

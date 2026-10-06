@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-hubspot-static-auth-access-token-masked-placeholder-and-references-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "hubspot-static-auth-access-token-masked-placeholder-and-references-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#243 (Group D, D2 handoff) from the contract claims static-auth-access-token/static-auth-placeholder-is-not-a-format-statement, read on 2026-10-06 in this repository, without any scanner output. Carrier existence is provider-documented; the span and the value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#243. Question: Is the documented masked placeholder of the static auth token a non-value? Options: Assert it with the other placeholders and references; or leave it out because masking may preserve lengths. Decision: Assert it as a non-value, with the other placeholders and references. Reason: HubSpot itself calls it a placeholder; asterisks carry no recoverable value. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's explicit instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases for these groups are authored maintainer-only, as in Batch 2).",
+      "dissent": "No dissent was raised. The strongest counter-argument, recorded because the rule asks for one: Masking may not preserve lengths, so the group sizes are not evidence for or against a real format, and a mask next to a real prefix in practice could leak one.",
+      "reversingEvidence": "A HubSpot statement that the masked form is a format, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-static-auth-access-token-private-app-and-service-key-relation-unsettled",
+  "title": "HubSpot static auth access token: relation to the legacy private app token and to Service Keys",
+  "summary": "A static auth access token of a project-based app next to the legacy private app access token and the Service Key, which share the Bearer header.",
+  "rationale": "Claim pages-do-not-relate-static-auth-and-private-app-tokens (class unresolved) records that neither the authentication overview nor the legacy private apps page mentions the other credential or states a shared format. Whether static auth tokens are a separate role from Service Keys and from legacy private app tokens is not settled (open question static-auth-vs-service-key), and rotation and expiry are not stated (static-auth-rotation-and-expiry). The pat- lead on the private app contract is not extended to this role (static-auth-lexical-shape-unstated). A claim of equivalence either way would be invented. Contract claims cited: static-auth-access-token/pages-do-not-relate-static-auth-and-private-app-tokens, static-auth-access-token/bearer-carrier-shared-by-oauth-static-and-private-app-tokens.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "hubspot:static-auth-access-token",
+      "role": "subject",
+      "contract": "hubspot:static-auth-access-token@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: a HubSpot statement relating static auth tokens to legacy private app tokens and Service Keys.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-1876a2b7bb",
+        "supports": "If you want to limit distribution of your app to a single authorized account, you'll use a static auth access token.",
+        "locator": "#static-auth"
+      },
+      {
+        "sourceId": "developers-hubspot-com-f67bca3860",
+        "supports": "Private apps allow you to use HubSpot's APIs to access specific data from your HubSpot account. ... which will generate an access token that's unique to your app.",
+        "locator": "Legacy private apps, overview"
+      },
+      {
+        "sourceId": "developers-hubspot-com-1876a2b7bb",
+        "supports": "An example request is provided below using a placeholder static auth access token.",
+        "locator": "#static-auth"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "contentful-delivery-api-access-token-public-or-confidential-unsettled",
+  "title": "Contentful Delivery API access token: carriers documented, public or confidential not stated",
+  "summary": "A Delivery API access token in an Authorization Bearer header, in the access_token query parameter or in the accessToken property of a key resource.",
+  "rationale": "Claim delivery-api-token-transport records both carriers (Authorization: Bearer, recommended, and the access_token query parameter); claim delivery-api-key-resource-carries-access-token records the accessToken property; claim delivery-api-key-read-only-and-environment-scoped records that the token is read-only and scoped to listed environments. None of the pages read says whether a Delivery token may be shipped in public client code or must be kept confidential (open-question-2), so a must-flag and a must-not-flag would both be invented. The value grammar, including the 43-character lead from one scanner rule, is unresolved (open-questions 1, 3 and 4), and the public status of the space and environment IDs beside it is not stated (open-question-5). Contract claims cited: delivery-api-access-token/delivery-api-token-transport, delivery-api-access-token/delivery-api-key-resource-carries-access-token, delivery-api-access-token/delivery-api-key-read-only-and-environment-scoped.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "contentful:delivery-api-access-token",
+      "role": "subject",
+      "contract": "contentful:delivery-api-access-token@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. May-flag is not used: the contract states no tolerance. Settled by: a Contentful statement that the Delivery token may be public or must be confidential.",
+    "sources": [
+      {
+        "sourceId": "contentful-com-c14fcad040",
+        "supports": "There are two ways to send the authentication token to an API. You can include it as a query parameter, access_token=$token, or as an HTTP header Authorization: Bearer $token. The header method is recommended.",
+        "locator": "opening section"
+      },
+      {
+        "sourceId": "contentful-com-c14fcad040",
+        "supports": "The access token you sent could not be found or is invalid.",
+        "locator": "opening section, error example"
+      },
+      {
+        "sourceId": "contentful-com-cc784dbdb6",
+        "supports": "This endpoint allows you to create a Delivery API key and its corresponding Preview API key.",
+        "locator": "page introduction"
+      },
+      {
+        "sourceId": "contentful-com-cc784dbdb6",
+        "supports": "The response example shows accessToken, description, environments, name and preview_api_key members.",
+        "locator": "Examples, Response"
+      },
+      {
+        "sourceId": "contentful-com-309014367e",
+        "supports": "These tokens provide read-only access to one or more environments. [...] Only the environments specified in this property can be accessed using this token and any CDA or CPA request using this token to access content from an environment not specified here will result in a 404 error. If the environments key is not specified, the token will have access to the master environment by default.",
+        "locator": "page introduction"
+      },
+      {
+        "sourceId": "contentful-com-541b321603",
+        "supports": "This is a read-only API",
+        "locator": "#basic-api-information"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

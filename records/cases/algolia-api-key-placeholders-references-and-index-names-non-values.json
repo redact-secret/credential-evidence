@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "algolia-api-key-placeholders-references-and-index-names-non-values",
+  "title": "Algolia key header placeholders, references, masks, empty values and public index names",
+  "summary": "The x-algolia-api-key header holding an angle placeholder, an environment reference, a template reference, a masked display or no value, a prose mention of the header, and a request body that names an index and holds no key.",
+  "rationale": "A placeholder, an environment reference (Algolia advises environment variables for keys, claim write-api-key-handling), a template reference, a masked display and an empty value stand in for a key kept elsewhere and carry none. Algolia states index names are public because they appear in network requests (claim search-only-api-key-index-names-are-public), so an index name is a public identifier beside a key, not part of one. The case asserts nothing about an application ID (its public status is open), about the obfuscated key in Algolia logs (its form is not described), or about a search-only or secured key value (frontend intent and exposure risk are both documented). Contract claims cited: write-api-key/write-api-key-handling, search-only-api-key/search-only-api-key-index-names-are-public.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "algolia:admin-api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "algolia:write-api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "algolia:search-only-api-key",
+      "role": "lookalike"
+    },
+    {
+      "family": "algolia:secured-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "documentation-placeholder",
+    "public-identifier"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#242). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no key value. That a placeholder, reference, masked display or empty value is not a value, and that an index name is not part of a key, are the project's decisions; Algolia documents the environment-variable advice and that index names are public (handling and public-identifier facts only).",
+    "sources": [
+      {
+        "sourceId": "algolia-com-ca6bd39dbc",
+        "supports": "Don't use write-access keys in frontend code or mobile apps, and use environment variables for API keys in your code instead of hardcoding them.",
+        "locator": "#secure-your-api-keys"
+      },
+      {
+        "sourceId": "algolia-com-ca6bd39dbc",
+        "supports": "Don’t use sensitive information in an index name. Index names are public, because they appear in network requests.",
+        "locator": "#sensitive-information"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

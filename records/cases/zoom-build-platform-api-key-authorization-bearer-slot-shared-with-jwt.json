@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zoom-build-platform-api-key-authorization-bearer-slot-shared-with-jwt",
+  "title": "Zoom Build platform request Authorization Bearer slot shared by an API key and a JWT",
+  "summary": "An Authorization Bearer value on a Build platform request, which Zoom documents as carrying either an API key or a JWT generated from the key and secret.",
+  "rationale": "Claim api-request-carriers records that x-api-key is API-key-only, that Authorization: Bearer takes an API key or a JWT, and that x-api-key takes precedence when both are sent; the x-api-key header already has its own Cases. Nothing in a request distinguishes a Bearer API key from a Bearer JWT (open question bearer-slot-is-shared). Whether a client-held JWT is confidential is not stated (build-jwt-structure-unstated), whether the key is one string or a key and secret pair in the current flow is not stated (key-secret-pair-or-single-string) and no grammar is stated (value-grammar-unstated). Attribution of a Bearer value to the key or to the JWT is therefore not settled, and a Bearer positive would assert a key where the slot may hold a JWT. Contract claims cited: build-platform-api-key/api-request-carriers, build-platform-api-key/usage-guidance-key-versus-jwt.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "zoom:build-platform-api-key",
+      "role": "subject",
+      "contract": "zoom:build-platform-api-key@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted for the Bearer slot. Settled by: a Zoom page that shows the key's issuance in the current flow and the Build API JWT's construction and confidentiality.",
+    "sources": [
+      {
+        "sourceId": "developers-zoom-us-f5c358d624",
+        "supports": "Bearer token: `Authorization: Bearer TOKEN` using your API Key or JWT.",
+        "locator": "Make API requests, Make your first API call"
+      },
+      {
+        "sourceId": "developers-zoom-us-8a12072e73",
+        "supports": "**API Key** — Use for server-to-server (S2S) calls. Key stays on your backend.",
+        "locator": "Get credentials, Usage guidance"
+      },
+      {
+        "sourceId": "developers-zoom-us-8a12072e73",
+        "supports": "JWT is short-lived and doesn't expose your secret.",
+        "locator": "Get credentials, Usage guidance"
+      },
+      {
+        "sourceId": "developers-zoom-us-8a12072e73",
+        "supports": "**Never embed raw API keys or secrets in client-side code.**",
+        "locator": "Get credentials, Usage guidance"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

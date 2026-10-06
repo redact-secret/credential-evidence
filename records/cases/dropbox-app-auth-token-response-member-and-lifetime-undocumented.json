@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "dropbox-app-auth-token-response-member-and-lifetime-undocumented",
+  "title": "Dropbox app auth token: the client credentials response is undocumented",
+  "summary": "The response of /oauth2/token for grant_type client_credentials, which would carry a newly issued app auth token.",
+  "rationale": "Claim app-auth-token-response-undocumented (class unresolved) records that the reference describes returned members and examples only for the authorization_code and refresh_token grants, so the member that carries an app auth token, its string form and its lifetime are not documented (open questions app-auth-token-lexical-shape-unstated and app-auth-token-lifetime-undocumented). The sl. prefix of user access tokens is not extended to this role. A response-member positive would name a field the evidence does not name. Contract claims cited: app-auth-token/app-auth-token-response-undocumented, app-auth-token/app-auth-token-request-inputs.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "dropbox:app-auth-token",
+      "role": "subject",
+      "contract": "dropbox:app-auth-token@1"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted. Settled by: a Dropbox response description or example for the client_credentials grant.",
+    "sources": [
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "### When input grant_type=authorization_code: ... ### When input grant_type=refresh_token:",
+        "locator": "#oauth2token, Returns"
+      },
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "Calls to /oauth2/token need to be authenticated using the apps's key and secret. ... Example: app auth token request in client credentials flow",
+        "locator": "#oauth2token"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. No expectation is asserted and no value was built: the record states what the cited contract settles and what it leaves open. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

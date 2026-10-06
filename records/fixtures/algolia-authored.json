@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "algolia-authored",
+  "title": "Algolia key carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "algolia-authored--admin-key-create-key-raw-http",
+      "case": "algolia-admin-api-key-create-key-request-header-value",
+      "path": "admin-key-create-key-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "114b490593c6f74ecc4985b30c30a3016be753d39cbf6dcb3be5c0fbbb7efb69",
+      "text": "POST /synthetic-create-api-key HTTP/1.1\nHost: example-dsn.example.test\nx-algolia-application-id: SYNTHETIC-algolia-application-id-0001\nx-algolia-api-key: SYNTHETIC-algolia-admin-api-key-never-issued-0001\nContent-Type: application/json\n\n{\"acl\":[\"addObject\"],\"validity\":3600}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 154,
+            "end": 203,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "algolia-authored--admin-key-create-key-curl-header",
+      "case": "algolia-admin-api-key-create-key-request-header-value",
+      "path": "admin-key-create-key-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "ef10d8e99aa3ff6e2165d304c2f23695af9015979f82895e56a839fa5aca65c9",
+      "text": "curl -X POST \"https://example-dsn.example.test/synthetic-create-api-key\" -H \"x-algolia-application-id: SYNTHETIC-algolia-application-id-0001\" -H \"x-algolia-api-key: SYNTHETIC-algolia-admin-api-key-never-issued-0002\" -d '{\"acl\":[\"addObject\"],\"validity\":3600}'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 165,
+            "end": 214,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "algolia-authored--admin-key-create-key-json-header-map",
+      "case": "algolia-admin-api-key-create-key-request-header-value",
+      "path": "admin-key-create-key-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "64cc94b296bb608342d40a0289f042e3cbbdf371784344484d558b2d1b023645",
+      "text": "{\n  \"method\": \"POST\",\n  \"url\": \"https://example-dsn.example.test/synthetic-create-api-key\",\n  \"headers\": {\n    \"x-algolia-application-id\": \"SYNTHETIC-algolia-application-id-0001\",\n    \"x-algolia-api-key\": \"SYNTHETIC-algolia-admin-api-key-never-issued-0003\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 206,
+            "end": 255,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "algolia-authored--key-header-angle-placeholder",
+      "case": "algolia-api-key-placeholders-references-and-index-names-non-values",
+      "path": "key-header-angle-placeholder/fixture.txt",
+      "context": "header",
+      "sha256": "4d4066ba2dded31dce930c312c85336aa08ae69da05bf315e4cc7ddb97916a8f",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: example-dsn.example.test\nx-algolia-application-id: <ALGOLIA_APPLICATION_ID>\nx-algolia-api-key: <ALGOLIA_ADMIN_API_KEY>\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "algolia-authored--key-header-curl-environment-reference",
+      "case": "algolia-api-key-placeholders-references-and-index-names-non-values",
+      "path": "key-header-curl-environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "ea4267b20f14dbc782e0f2618ec333709140b70b67febb6b5bf219ef16885a33",
+      "text": "curl -H \"x-algolia-application-id: $ALGOLIA_APPLICATION_ID\" -H \"x-algolia-api-key: $ALGOLIA_WRITE_API_KEY\" \"https://example-dsn.example.test/synthetic-search\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "algolia-authored--key-header-template-reference",
+      "case": "algolia-api-key-placeholders-references-and-index-names-non-values",
+      "path": "key-header-template-reference/fixture.txt",
+      "context": "header",
+      "sha256": "cd3703cd94899deaef57081e9041dc0ab6769c574263fc580e0f2dc9d03dd0b0",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: example-dsn.example.test\nx-algolia-api-key: {{ secrets.ALGOLIA_WRITE_API_KEY }}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "algolia-authored--key-header-masked-display",
+      "case": "algolia-api-key-placeholders-references-and-index-names-non-values",
+      "path": "key-header-masked-display/fixture.txt",
+      "context": "header",
+      "sha256": "e01a6360b4257a0f1d2edbf1100f862d8ff964e8e02227272dddbc37b00c492e",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: example-dsn.example.test\nx-algolia-api-key: ********\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "algolia-authored--key-header-empty-value",
+      "case": "algolia-api-key-placeholders-references-and-index-names-non-values",
+      "path": "key-header-empty-value/fixture.txt",
+      "context": "header",
+      "sha256": "fc6aa8cb1b0f2929a284b991055d337df22fb51b1949749e8913c34cb09a7c23",
+      "text": "GET /synthetic-search HTTP/1.1\nHost: example-dsn.example.test\nx-algolia-api-key:\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "algolia-authored--key-header-prose-mention",
+      "case": "algolia-api-key-placeholders-references-and-index-names-non-values",
+      "path": "key-header-prose-mention/fixture.txt",
+      "context": "prose",
+      "sha256": "3e05c9fe42c8bc8de85ff63be313637aac14bac574afc1e71828f739a36c3a0a",
+      "text": "Send the key in the x-algolia-api-key header and keep it out of frontend code.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "algolia-authored--index-name-in-request-body-without-key",
+      "case": "algolia-api-key-placeholders-references-and-index-names-non-values",
+      "path": "index-name-in-request-body-without-key/fixture.txt",
+      "context": "structured-file",
+      "sha256": "ed8ca406e70754333d667aa2eb40d64c3b1f0f9b178d4cc8e52e376ae7c3d380",
+      "text": "{\n  \"indexName\": \"synthetic_products\",\n  \"params\": \"query=shoes\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
