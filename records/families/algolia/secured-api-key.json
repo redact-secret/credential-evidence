@@ -8,8 +8,14 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-05",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "The construction is documented (HMAC then base64) but the length and alphabet of the result are not, and depend on the embedded parameters."
+      }
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }

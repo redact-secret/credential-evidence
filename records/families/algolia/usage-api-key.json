@@ -8,8 +8,18 @@
   "lifecycle": "draft",
   "currentContract": null,
   "research": {
-    "state": "unresearched",
-    "researchedAt": null
+    "state": "researched",
+    "researchedAt": "2026-10-05",
+    "blockers": [
+      {
+        "kind": "documentation-gated",
+        "summary": "The pages read state no prefix, alphabet or length for the value; only a provider statement would."
+      },
+      {
+        "kind": "issuance-gated",
+        "summary": "A real value's shape, and whether it differs by role or era, would need an issued credential."
+      }
+    ]
   },
   "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
 }
