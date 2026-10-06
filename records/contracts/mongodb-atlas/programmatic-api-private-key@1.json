@@ -118,6 +118,58 @@
           "locator": "#L117-L119"
         }
       ]
+    },
+    {
+      "id": "creation-response-member",
+      "statement": "The Atlas Administration API returns the programmatic API private key as the response member privateKey (a read-only string) of the ApiKeyUserDetails object that the create-organization-API-key and create-project-API-key operations answer with; the specification says the key displays unredacted when first created and is redacted otherwise. No request member carries a private key: the create request bodies (CreateAtlasOrganizationApiKey, CreateAtlasProjectApiKey) hold a description and roles, not a key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-openapi-e316639242",
+          "supports": "ApiKeyUserDetails.privateKey: Redacted private key returned for this organization API key. This key displays unredacted when first created. (readOnly, type string)",
+          "locator": "#L3414-L3418"
+        },
+        {
+          "sourceId": "github-com-mongodb-openapi-e316639242",
+          "supports": "createOrgApiKey: response 200 schema is ApiKeyUserDetails (path /api/atlas/v2/orgs/{orgId}/apiKeys)",
+          "locator": "#L71053-L71061"
+        },
+        {
+          "sourceId": "github-com-mongodb-openapi-e316639242",
+          "supports": "createGroupApiKey: response 200 schema is ApiKeyUserDetails (path /api/atlas/v2/groups/{groupId}/apiKeys)",
+          "locator": "#L48900-L48909"
+        }
+      ]
+    },
+    {
+      "id": "cli-profile-property",
+      "statement": "The Atlas CLI stores the programmatic API private key as the profile property private_api_key, next to public_api_key, set with the atlas config set command; the command reference lists private_api_key among the valid property names.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "mongodb-com-5fe682110e",
+          "supports": "Property to set in the profile. Valid values for Atlas CLI are project_id, org_id, service, public_api_key, private_api_key, output, mongosh_path, skip_update_check, telemetry_enabled, access_token, and refresh_token.",
+          "locator": "#propertyName"
+        }
+      ]
+    },
+    {
+      "id": "terraform-provider-documents-service-account-arguments",
+      "statement": "The index documentation of the MongoDB Atlas Terraform provider at v2.19.0 shows the provider block with client_id and client_secret (service account); it documents no private-key argument.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-06",
+      "sources": [
+        {
+          "sourceId": "github-com-mongodb-terraform-provider-mongodbatlas-1a3a9c704d",
+          "supports": "provider \"mongodbatlas\" { client_id = var.mongodbatlas_client_id client_secret = var.mongodbatlas_client_secret }",
+          "locator": "#L10-L12"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -137,6 +189,11 @@
       "id": "historical-private-key-forms",
       "question": "Have private keys been issued in more than one form over time? No page read and no archive snapshot says.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "plaintext-slots-not-established",
+      "question": "Which other plaintext slots hold the programmatic API private key? Not established from the sources read on 2026-10-06: an environment variable name, a command-line flag, a Terraform provider argument and the curl --user layout of a Digest request (the API authentication pages describe HTTP Digest without a request example; the Atlas CLI connect page names MONGODB_ATLAS_CLIENT_ID and MONGODB_ATLAS_CLIENT_SECRET for service accounts only; the Terraform provider index at v2.19.0 documents client_id and client_secret only). Sources checked: mongodb/docs api-authentication.txt at 2fdb253, the API authentication and connect-atlas-cli pages, the atlas config set reference, mongodb/openapi v2.yaml at 5e6f651, the Terraform provider docs/index.md at 32a6c98. The configuration-file, environment-variable and flag spellings of the legacy Atlas CLI and MongoDB CLI are the next sources to read.",
+      "raisedAt": "2026-10-06"
     }
   ]
 }
