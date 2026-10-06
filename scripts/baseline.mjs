@@ -35,9 +35,11 @@ if (command === "check") {
     for (const p of c.problems.slice(0, 40)) console.error(p);
     if (c.problems.length > 40) console.error(`... and ${c.problems.length - 40} more`);
     console.error(`\nFAIL: ${c.problems.length} baseline problem(s). A reviewed edit to a migrated record is allowed once it is declared as a file in ${AMENDMENTS_DIR}/ (npm run baseline:amend).`);
-    process.exit(1);
+    // not process.exit(): it truncates a piped --list longer than the pipe buffer, and the removed: lines come last
+    process.exitCode = 1;
+  } else {
+    console.log(`OK: ${summarize(c)}`);
   }
-  console.log(`OK: ${summarize(c)}`);
 } else if (command === "amend") {
   if (!rest.length) {
     console.error('usage: npm run baseline:amend -- <records/path>... --reason "<why>" [--ref "<issue>"]');
