@@ -44,6 +44,197 @@
           "locator": "App credentials table"
         }
       ]
+    },
+    {
+      "id": "temporary-and-token-credentials-share-names",
+      "statement": "X's 3-legged OAuth page lists the request token and request token secret as temporary credentials named oauth_token and oauth_token_secret, and the access token and access token secret as token credentials whose resulting parameters are also named oauth_token and oauth_token_secret.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "* Request Token === `oauth_token`",
+          "locator": "Terminology clarification, Temporary credentials"
+        },
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "* Request Token Secret === `oauth_token_secret`",
+          "locator": "Terminology clarification, Temporary credentials"
+        },
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "* Access token === Token === resulting `oauth_token`",
+          "locator": "Terminology clarification, Token credentials"
+        },
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "* Access token secret === Token Secret === resulting `oauth_token_secret`",
+          "locator": "Terminology clarification, Token credentials"
+        }
+      ]
+    },
+    {
+      "id": "oauth-token-parameter-role-varies",
+      "statement": "X states that the oauth_token parameter typically represents a user's permission to share access with the application, that in a few authentication requests it is not passed or is a different form of token, and that for most general-purpose requests it is an access token.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-76c2170a87",
+          "supports": "The oauth\\_token parameter typically represents a user’s permission to share access to their account with your application. There are a few authentication requests where this value is not passed or is a different form of token",
+          "locator": "Authorizing a request, Token"
+        },
+        {
+          "sourceId": "docs-x-com-76c2170a87",
+          "supports": "For most general-purpose requests, you will use what is referred to as an **access token**.",
+          "locator": "Authorizing a request, Token"
+        }
+      ]
+    },
+    {
+      "id": "request-token-flow-carriers",
+      "statement": "X documents the request token's carriers: the POST oauth/request_token response body holds oauth_token, oauth_token_secret and oauth_callback_confirmed; the request token is sent as the oauth_token query parameter of the oauth/authorize URL and returned to the callback URL with oauth_verifier; it is then converted into an access token by POST oauth/access_token with the oauth_verifier.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "The body of the response will contain the `oauth_token`, `oauth_token_secret`, and `oauth_callback_confirmed` parameters.",
+          "locator": "Walkthrough steps, Step 1"
+        },
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "Upon successful authentication, your `callback_url` would receive a request containing the `oauth_token` and `oauth_verifier` parameters.",
+          "locator": "Walkthrough steps, Step 2"
+        },
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "To render the request token into a usable access token, your application must make a request to the",
+          "locator": "Walkthrough steps, Step 3"
+        },
+        {
+          "sourceId": "docs-x-com-8050cde60b",
+          "supports": "Send the user to the `oauth/authorize` step in a web browser, including an oauth\\_token parameter:",
+          "locator": "GET oauth/authorize, Example request"
+        }
+      ]
+    },
+    {
+      "id": "access-token-response-members",
+      "statement": "X documents the successful POST oauth/access_token response as containing the oauth_token and oauth_token_secret parameters, to be stored and used for future authenticated requests.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-4cf664b380",
+          "supports": "A successful response contains the `oauth_token`, `oauth_token_secret` parameters. The token and token secret should be stored and used for future authenticated requests to the X API.",
+          "locator": "Walkthrough steps, Step 3"
+        }
+      ]
+    },
+    {
+      "id": "access-token-in-authorization-header",
+      "statement": "X documents that requests needing authorization carry an HTTP Authorization header of oauth_* key/value pairs including oauth_consumer_key, oauth_signature and oauth_token, and that oauth_token is also one of the parameters collected into the signature base string.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-76c2170a87",
+          "supports": "X’s implementation requires that requests needing authorization contain an additional HTTP Authorization header with enough information to answer the questions listed above",
+          "locator": "Authorizing a request"
+        },
+        {
+          "sourceId": "docs-x-com-76c2170a87",
+          "supports": "You should be able to see that the header contains 7 key/value pairs, where the keys all begin with the string “oauth\\_”.",
+          "locator": "Authorizing a request, Collecting parameters"
+        },
+        {
+          "sourceId": "docs-x-com-eb6b1f60b4",
+          "supports": "In addition to the request parameters, every oauth\\_\\* parameter needs to be included in the signature, so collect those too.",
+          "locator": "Creating a signature, Collecting parameters"
+        }
+      ]
+    },
+    {
+      "id": "signature-derived-from-two-secrets",
+      "statement": "X documents the oauth_signature value as generated by running the other request parameters and two secret values through a signing algorithm (HMAC-SHA1, base64 encoded), with the signing key built from the consumer secret and the OAuth token secret, and states that these secret values are incredibly sensitive and should never be shared.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-76c2170a87",
+          "supports": "The oauth\\_signature parameter contains a value which is generated by running all of the other request parameters and two secret values through a signing algorithm.",
+          "locator": "Authorizing a request, Signature"
+        },
+        {
+          "sourceId": "docs-x-com-eb6b1f60b4",
+          "supports": "It is very important to note that these values are incredibly sensitive and should never be shared with anyone.",
+          "locator": "Creating a signature, Getting a signing key"
+        },
+        {
+          "sourceId": "docs-x-com-eb6b1f60b4",
+          "supports": "Both of these values need to be combined to form a **signing key** which will be used to generate the signature.",
+          "locator": "Creating a signature, Getting a signing key"
+        }
+      ]
+    },
+    {
+      "id": "token-exchange-carrier",
+      "statement": "X documents migrating an OAuth 1.0a user token by a form-encoded POST to https://api.x.com/2/oauth2/token that carries the OAuth 1.0a access token as the subject_token parameter (with subject_token_type urn:x:params:oauth:token-type:oauth1_token) and the token secret as the oauth_token_secret parameter in the same request.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-3eb3b20029",
+          "supports": "| `subject_token` | The user's OAuth 1.0a access token |",
+          "locator": "The exchange request"
+        },
+        {
+          "sourceId": "docs-x-com-3eb3b20029",
+          "supports": "| `oauth_token_secret` | The user's OAuth 1.0a token secret |",
+          "locator": "The exchange request"
+        }
+      ]
+    },
+    {
+      "id": "revocation-endpoint",
+      "statement": "X documents POST oauth/invalidate_token as letting a registered application revoke an issued OAuth access token by presenting its client credentials; after invalidation use of the token is no longer allowed.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-8050cde60b",
+          "supports": "Allows a registered application to revoke an issued OAuth access\\_token by presenting its client credentials.",
+          "locator": "POST oauth/invalidate_token"
+        }
+      ]
+    },
+    {
+      "id": "best-practices-token-handling",
+      "statement": "X's authentication best practices state that API keys and tokens should be guarded very carefully, and advise restricting read access to stored access tokens to the owner of the token and encrypting access tokens before storing them; the page does not distinguish the access token from its secret.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "docs-x-com-223dbe29e2",
+          "supports": "Your API keys and tokens should be guarded very carefully.",
+          "locator": "Best practices"
+        },
+        {
+          "sourceId": "docs-x-com-223dbe29e2",
+          "supports": "Encrypt access tokens before storing in any data stores.",
+          "locator": "Best practices, Databases"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -73,6 +264,26 @@
       "id": "open-question-5",
       "question": "Lead only: the Gitleaks twitter-access-token rule (config/gitleaks.toml lines 3136-3139) captures 15 to 25 digits, a hyphen, then 20 to 40 alphanumeric characters. No second maintainer was found with a corresponding artifact in the files read (the TruffleHog and Nosey Parker Twitter files read have none), so it stays unresolved.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "token-half-sensitivity-still-unsettled",
+      "question": "Update to open-question-2: the sources state \"incredibly sensitive\" only for the consumer secret and the OAuth token secret (signing inputs) and show the oauth_token value in the clear in every signed request's Authorization header and in the signature base string. The best-practices page says tokens should be guarded and stored encrypted without distinguishing the access token from its secret, so whether the access-token half is documented as confidential on its own remains unresolved; a statement from X about the oauth_token value alone would settle it.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "request-token-collision-confirmed",
+      "question": "Update to open-question-3: the provider's own terminology table confirms that the temporary request token and the long-lived access token both use the oauth_token name (and the secrets both use oauth_token_secret), and the authorizing-a-request page says the parameter is sometimes a different form of token. A bare oauth_token field therefore does not identify the role; the request token's lifetime, confidentiality and whether it appears in URLs and callback logs by design beyond the examples are not stated. The request token is recorded here as a role, not as a family of its own.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "examples-not-format",
+      "question": "The documentation examples for request tokens and for access tokens show different shapes (the access-token examples carry a numeric part joined by a hyphen to a longer string, the request-token examples do not). An example is not a format statement and the values are not copied; no prefix, alphabet or length is claimed for either. The Gitleaks lead in open-question-5 is unchanged and still has no second maintainer.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "token-exchange-name-mapping",
+      "question": "In the OAuth 1.0a to OAuth 2.0 exchange the access token is sent as subject_token and the secret as oauth_token_secret, so a parameter-name rule that looks only for oauth_token does not see this carrier; X's page does not say whether subject_token carries other token kinds in other exchanges.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

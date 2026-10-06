@@ -35,6 +35,145 @@
           "locator": "Create JWT"
         }
       ]
+    },
+    {
+      "id": "usage-guidance-key-versus-jwt",
+      "statement": "Zoom states that the API Key is for server-to-server calls and stays on the backend, that a JWT is for client apps calling Zoom directly and is short-lived and does not expose the secret, and that raw API keys or secrets must never be embedded in client-side code.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "**API Key** — Use for server-to-server (S2S) calls. Key stays on your backend.",
+          "locator": "Get credentials, Usage guidance"
+        },
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "JWT is short-lived and doesn't expose your secret.",
+          "locator": "Get credentials, Usage guidance"
+        },
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "**Never embed raw API keys or secrets in client-side code.**",
+          "locator": "Get credentials, Usage guidance"
+        }
+      ]
+    },
+    {
+      "id": "key-controls-and-key-id",
+      "statement": "Zoom documents that a Build platform API key is created with an optional internal name, an expiration of Never, 30 days, 90 days, 180 days or 1 year, an optional IP allowlist and per-product permissions; it can be disabled, re-enabled or revoked (immediately and irreversibly), and its details page shows an ID described as \"for internal support\", which is a different value from the key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "**Expires after**. Choose an expiration option: Never, 30 days, 90 days, 180 days, 1 year.",
+          "locator": "Create API Key, step 4"
+        },
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "**Revoke your key** - Choose to revoke your key. Applications using this key will immediately lose access. This action cannot be undone.",
+          "locator": "Table of API keys"
+        },
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "**ID** - The ID, for internal support.",
+          "locator": "Review credential details"
+        }
+      ]
+    },
+    {
+      "id": "jwt-expiry-choices",
+      "statement": "Zoom documents that the JWT generated from the account API key and secret in Platform Studio is given an expiry of 90 minutes, 1 day or 1 week at creation and is copied from a JWT Token field.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "Expire in - Choose the time for the key to expire. 90 minutes, 1 day, or 1 week.",
+          "locator": "Create JWT, Expiration time"
+        },
+        {
+          "sourceId": "developers-zoom-us-8a12072e73",
+          "supports": "Copy your JWT from the **JWT Token** field.",
+          "locator": "Create JWT, Copy JWT"
+        }
+      ]
+    },
+    {
+      "id": "api-request-carriers",
+      "statement": "Zoom documents authenticating Build platform API requests with an Authorization: Bearer header carrying either an API Key or a JWT, or with the custom header x-api-key carrying an API Key; the x-api-key header takes precedence when both are sent, and some APIs accept only the JWT or only the API Key.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-f5c358d624",
+          "supports": "Bearer token: `Authorization: Bearer TOKEN` using your API Key or JWT.",
+          "locator": "Make API requests, Make your first API call"
+        },
+        {
+          "sourceId": "developers-zoom-us-f5c358d624",
+          "supports": "Custom header: `x-api-key: ZOOM_API_KEY` using your API Key.",
+          "locator": "Make API requests, Make your first API call"
+        },
+        {
+          "sourceId": "developers-zoom-us-f5c358d624",
+          "supports": "_When you send both the `x-api-key` custom header and a Bearer token, the `x-api-key` takes precedence._",
+          "locator": "Make API requests, Make your first API call"
+        },
+        {
+          "sourceId": "developers-zoom-us-f5c358d624",
+          "supports": "Some APIs only use JWT or API Key. The API documentation will specify if the API uses JWT only, API Key only, or both.",
+          "locator": "Make API requests, Use Account Settings APIs"
+        }
+      ]
+    },
+    {
+      "id": "legacy-settings-key-and-secret",
+      "statement": "Zoom's Build platform app settings page lists, under API keys, an API Key and an API Secret for the Account Settings APIs, Video SDK API and Cobrowse SDK APIs, and says Build SDK APIs also use JWTs that can be generated from the marketplace page with View JWT Token or generated by the developer.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-95abb9cecf",
+          "supports": "Under **API keys**, get your **API Key** and **API Secret** to access the",
+          "locator": "Build platform app settings, Get API key and secret"
+        },
+        {
+          "sourceId": "developers-zoom-us-95abb9cecf",
+          "supports": "Build SDK APIs also use JWTs for authorization. Click **View JWT Token** to generate and use a token directly from the marketplace page or generate one yourself.",
+          "locator": "Build platform app settings, Get API key and secret"
+        }
+      ]
+    },
+    {
+      "id": "sdk-key-and-secret-are-separate",
+      "statement": "Zoom lists an SDK Key and SDK Secret separately from the API Key and API Secret, for starting and joining Video SDK or Cobrowse SDK sessions with JWTs; the Video SDK JWT is signed with HMAC SHA256 using the Video SDK secret and carries the Video SDK key as the app_key payload claim.",
+      "evidenceClass": "provider-documented",
+      "temporality": "current",
+      "observedAt": "2026-10-05",
+      "sources": [
+        {
+          "sourceId": "developers-zoom-us-95abb9cecf",
+          "supports": "Under **SDK credentials**, get your **SDK Key** and **SDK Secret** to authorize your app to start and join Video SDK or Cobrowse SDK sessions.",
+          "locator": "Build platform app settings, Get SDK key and secret"
+        },
+        {
+          "sourceId": "developers-zoom-us-0cb0a9f863",
+          "supports": "The signature is generated by signing the header and payload using your Video SDK secret and the HMAC SHA256 algorithm.",
+          "locator": "Video SDK authorize, Signature"
+        },
+        {
+          "sourceId": "developers-zoom-us-0cb0a9f863",
+          "supports": "Your Video SDK key.",
+          "locator": "Video SDK authorize, Payload, app_key"
+        }
+      ]
     }
   ],
   "lifecycle": "draft",
@@ -49,6 +188,26 @@
       "id": "open-question-2",
       "question": "The page speaks of an API key and secret; whether the secret is a second credential string, and how the Build-platform JWT relates to Meeting SDK and Video SDK JWTs (documented on other pages not read in this run), is not settled.",
       "raisedAt": "2026-10-04"
+    },
+    {
+      "id": "key-secret-pair-or-single-string",
+      "question": "Whether the Platform Studio API key is one string or a key and secret pair is unresolved: the Create API Key steps show one dialog with one key shown once, while the same page says the JWT is created from the account API key and secret and the legacy settings page lists an API Key and an API Secret. Which half is the confidential one, and whether the secret is shown once, are not stated for the current flow.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "build-jwt-structure-unstated",
+      "question": "The structure of the Build platform API JWT (algorithm, claims, what it is signed with) is not documented on the pages read; the Video SDK JWT is documented (HS256, signed with the Video SDK secret) but the pages do not say the Build API JWT is built the same way, so no grammar or composition is claimed for it. Whether a JWT held by a client is documented as confidential, as opposed to short-lived and non-exposing of the secret, is not stated.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "bearer-slot-is-shared",
+      "question": "An Authorization: Bearer value in Build platform requests may be an API Key or a JWT and the pages give no way to tell which from the request alone; only the x-api-key header is documented as API-Key-only. Attribution of a bearer value to the key or to the JWT is therefore not settled.",
+      "raisedAt": "2026-10-05"
+    },
+    {
+      "id": "value-grammar-unstated",
+      "question": "No prefix, alphabet, length or checksum is stated for the API key, API secret or JWT of the Build platform; examples on the pages are placeholders and no shape is inferred.",
+      "raisedAt": "2026-10-05"
     }
   ]
 }

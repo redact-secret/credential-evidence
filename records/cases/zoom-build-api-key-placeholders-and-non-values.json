@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zoom-build-api-key-placeholders-and-non-values",
+  "title": "Zoom Build platform API key placeholder, reference and masked display",
+  "summary": "An x-api-key header that holds the documented placeholder, an environment reference, a masked display or nothing, a documented Bearer template, and prose that names the header.",
+  "rationale": "The documented placeholder, a reference such as an environment variable, a masked display and an empty value carry no key, and the Bearer template is documentation text. Flagging them would redact the documentation a reader needs. The case decides nothing about a real value in the Authorization Bearer header, which may be an API key or a JWT.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "zoom:build-platform-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#244). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: these inputs hold no API key value. That a placeholder, reference or masked display is not a value is a project decision, not a Zoom statement; Zoom documents the header and its placeholder text.",
+    "sources": [
+      {
+        "sourceId": "developers-zoom-us-f5c358d624",
+        "supports": "Custom header: `x-api-key: ZOOM_API_KEY` using your API Key.",
+        "locator": "Make API requests, Make your first API call"
+      },
+      {
+        "sourceId": "developers-zoom-us-f5c358d624",
+        "supports": "Bearer token: `Authorization: Bearer TOKEN` using your API Key or JWT.",
+        "locator": "Make API requests, Make your first API call"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

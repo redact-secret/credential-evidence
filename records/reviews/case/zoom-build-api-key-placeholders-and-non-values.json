@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-zoom-build-api-key-placeholders-and-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "zoom-build-api-key-placeholders-and-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence#244 (D3) from the cited provider pages read on 2026-10-05; carrier existence and derivation are provider-documented, the span and value policy are project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-05",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-05 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence#244. Question: are a documented placeholder, a reference, a masked display and an empty x-api-key value non-values? Options: do not flag them; or leave the case a draft. Decision: do not flag any of these inputs. Reason: a placeholder or reference stands in for a value kept elsewhere and carries nothing to protect, so the expectation rests on project policy. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "A placeholder spelled like a real key could hide one, and the pages do not define a placeholder grammar.",
+      "reversingEvidence": "A Zoom statement that the placeholder is an issued value, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}
