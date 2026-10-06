@@ -16,7 +16,7 @@ export const RELEASE_MANIFEST_FORMAT = "credential-evidence/release-manifest";
 export const RELEASE_MANIFEST_FORMAT_VERSION = 1;
 export const BUNDLE_FORMAT = "credential-evidence/records-bundle";
 export const BUNDLE_FORMAT_VERSION = 1;
-export const GENERATOR = { name: "credential-evidence/release-bundle", version: "1.3.0" };
+export const GENERATOR = { name: "credential-evidence/release-bundle", version: "1.4.0" };
 
 /** Asset name of the release manifest itself (not listed in its own `files`). */
 export const MANIFEST_ASSET = "release-manifest.json";
@@ -52,6 +52,9 @@ export function evalExportProblem(e, snapshotCases, materialized, snapshot) {
     if (declared !== undefined && declared !== REPRESENTATION_CONTRACT) return `the snapshot declares an unknown representation contract ${declared}`;
     if ((declared === undefined) !== (e.representation === undefined)) return "evalExport.representation and the snapshot's identity.representation disagree about whether the representation contract is used";
     if (declared !== undefined && JSON.stringify(e.representation) !== JSON.stringify(representationAccounting(snapshot.cases))) return "evalExport.representation (contract, facts_digest, counts) differs from the facts the snapshot carries";
+    // ADR 0026 addendum: the sibling families the manifest counts are the ones the snapshot's twins carry.
+    const siblings = snapshot.cases.filter((c) => c.twin?.sibling_family !== undefined).length;
+    if ((e.twinSiblingFamily?.exported ?? 0) !== siblings) return `evalExport.twinSiblingFamily.exported ${e.twinSiblingFamily?.exported ?? "(absent)"} differs from the ${siblings} twins of the snapshot that carry sibling_family`;
   }
   return null;
 }

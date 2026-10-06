@@ -54,7 +54,7 @@ export function collectInputs({ tag, commit }) {
   const sourceFiles = sourcePaths.map(read);
   const schemaFiles = listJson(join(repoRoot, "schemas")).map(read);
   const records = inputs.records;
-  const snapshotBuild = buildSnapshot(inputs, { representation: true });
+  const snapshotBuild = buildSnapshot(inputs, { representation: true, siblingFamily: true });
   const fixtures = buildMaterialization({
     sets: records.filter((r) => r.kind === "fixture-set"),
     cases: records.filter((r) => r.kind === "case"),
@@ -85,6 +85,7 @@ function summary(release) {
     `eval v1 export: ${m.evalExport.exported} exported, ${m.evalExport.notExported.total} not exported to eval v1 ${JSON.stringify(m.evalExport.notExported.byReason)}`,
     ...(m.reviewState ? [`review state ${JSON.stringify(m.reviewState.fixtures)}, maintainer-only ${JSON.stringify(m.reviewState.maintainerOnly)} (${m.reviewState.rule})`] : []),
     ...(m.evalExport.representation ? [`representation ${JSON.stringify(m.evalExport.representation)}`] : []),
+    ...(m.evalExport.twinSiblingFamily ? [`twin sibling_family ${JSON.stringify(m.evalExport.twinSiblingFamily)} (credential-eval alpha.15 or later)`] : []),
     ...m.files.map((f) => `  ${f.asset}  ${f.bytes} bytes  sha256 ${f.sha256}`),
     `manifest digest ${release.manifestDigest}`,
   ];

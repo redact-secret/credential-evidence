@@ -28,3 +28,13 @@ Some twins are not broken near-misses: they carry a real credential of another k
 - Schema 1.8.0: every release manifest and the `evidence_schema` of the snapshot read `1.8.0` from the next release. The legacy projection manifest and the parity report are regenerated; there are no unexplained parity differences.
 - `records/fixtures/anthropic.json` is amended and declared (8 items; no expectation, input or outcome changes). No snapshot case changes, because the field is not exported.
 - A consumer needs nothing until credential-eval accepts the snapshot field; this repository then adds the mapping and cuts a release.
+
+## Addendum 1 (2026-10-06): the snapshot mapping
+
+credential-eval accepted the field (its ADR 0020, PR #66, engine `0.1.0-alpha.15`, contract revision 1.9) as `twin.sibling_family`, so item 5 is carried out. It supersedes item 5 and the first Consequence on what a snapshot holds.
+
+- **Mapping.** The release exporter writes `twin.sibling_family` from `lineage.siblingFamily` for every twin it exports (`buildSnapshot(inputs, { representation: true, siblingFamily: true })`). The default export and the legacy projection, parity and dual-run checks keep the closed v1 document with no such field, so the import baseline and the earlier snapshots are unchanged. The release generator is `credential-evidence/release-bundle` 1.4.0.
+- **The engine's rule is checked first.** Its validator refuses a twin whose case has no scope family or whose scope family equals the sibling. The exporter throws before writing instead: every twin with a sibling family needs a scope family (ADR 0013) other than the sibling, and every such twin of the records is written with it.
+- **Accounting.** The release manifest records `evalExport.twinSiblingFamily.exported` when a snapshot carries any; `release:check` and `release:verify` recompute it from the snapshot's own cases and refuse a difference. A twin that is not exported (ADR 0017) carries no sibling field and is already counted in `twinLineageNotExported`.
+- **Compatibility.** Minimum engine: credential-eval `v0.1.0-alpha.15`. Proven with engines built from credential-eval commits: alpha.15 (`0024de6`) reads a snapshot with 8 twins carrying `sibling_family` and validates it; alpha.14 (`1c3b63a`) refuses the same snapshot with `unknown field sibling_family`, and reads the same snapshot without the field. So an older engine refuses loudly and does not misread. Earlier releases stay readable by the engines they were cut for.
+- **No expectation changes.** The field is evidence input to the evaluator's scoring of the 8 Anthropic twins (its ADR 0020 decision 3); no outcome, input or expected family changes here.
