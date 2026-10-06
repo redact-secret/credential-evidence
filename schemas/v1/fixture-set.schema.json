@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:fixture-set",
   "title": "Fixture set (sharded fixture projections)",
   "description": "A compact shard of executable fixture projections that share one origin: either hand-written fixtures, or the recorded output of one documented generation rule. Each item projects exactly one Case, or exactly one cell (fixture plan, scenario, families) of a matrix projection (schema revision 1.3.0, ADR 0008), and carries its own expected outcome, spans and evidence entry; the set is derived, never the canonical human record. Sets are organised by family provider, never by legacy suite. Content is embedded as text next to its sha256 because the synthetic inputs are small and one file per fixture would not scale (ADR 0005). Added in schema revision 1.1.0. Schema revision 1.6.0 (ADR 0016) lets an item carry its content as text, bytes or a recipe and adds derivation, transformation, chunking and inputValidity.",
-  "x-schemaRevision": "1.7.0",
+  "x-schemaRevision": "1.8.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "title", "origin", "generated", "fixtures", "lifecycle"],
@@ -174,7 +174,8 @@
               "relation": { "enum": ["twin-of", "mutation-of", "metamorphic-of"] },
               "of": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/fixtureId" },
               "mutationKind": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
-              "mutation": { "description": "What exactly was changed, in words.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" }
+              "mutation": { "description": "What exactly was changed, in words.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/text" },
+              "siblingFamily": { "description": "Schema revision 1.8.0, ADR 0026. Only on a twin-of relation: the family whose contract owns the twin's value, when the twin wears another key class of the same provider (a real credential of that class, used as a scoped negative of this one). Absent for an ordinary near-miss. It names the family; it carries no policy, scanner or product action. Must be a family of the same provider as the twin's scope, and a contract of the scoped family must state sibling classes (claim field-sibling-classes or field-sibling-prefixes).", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId" }
             }
           },
           "sha256": { "description": "SHA-256 of the UTF-8 bytes of text.", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/sha256" },

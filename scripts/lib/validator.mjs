@@ -114,6 +114,30 @@ export function checkIntegrity(entries) {
   const get = (kind, id) => byKind.get(kind).get(id)?.record;
   const has = (kind, id) => byKind.get(kind).has(id);
 
+  // Sibling-class twins (schema revision 1.8.0, ADR 0026): a twin whose value is a real credential of another family states that
+  // family in lineage.siblingFamily. The twin is scoped to the family it twins; the sibling must be a known family of the same
+  // provider, and a contract of the scoped family must say that sibling classes exist (the claim ids below), so the field cannot
+  // name a family the evidence does not already treat as a sibling.
+  const SIBLING_CLAIM_IDS = new Set(["field-sibling-classes", "field-sibling-prefixes", "sibling-classes", "sibling-prefixes"]);
+  const contractsByFamily = new Map();
+  for (const { record } of byKind.get("format-contract").values()) {
+    if (!contractsByFamily.has(record.family)) contractsByFamily.set(record.family, []);
+    contractsByFamily.get(record.family).push(record);
+  }
+  const familiesOfCase = (caseId) => (get("case", caseId)?.families ?? []).filter((f) => f.role === "subject" || f.role === "lookalike").map((f) => f.family);
+  const checkSiblingFamily = (path, where, lineage, scope) => {
+    const sibling = lineage.siblingFamily;
+    if (sibling === undefined) return;
+    if (lineage.relation !== "twin-of") err(path, `${where}: lineage.siblingFamily is only for a twin-of relation`);
+    if (!has("family", sibling)) return err(path, `${where}: lineage.siblingFamily '${sibling}' does not exist`);
+    const scoped = (scope ?? []).filter((f) => f !== sibling);
+    if (!scoped.length) return err(path, `${where}: lineage.siblingFamily '${sibling}' needs the twin to be scoped to another family`);
+    const provider = sibling.split(":")[0];
+    for (const f of scoped) if (f.split(":")[0] !== provider) err(path, `${where}: lineage.siblingFamily '${sibling}' is not of the provider of scoped family '${f}'`);
+    const stated = scoped.some((f) => (contractsByFamily.get(f) ?? []).some((c) => c.claims.some((k) => SIBLING_CLAIM_IDS.has(k.id))));
+    if (!stated) err(path, `${where}: no contract of ${scoped.map((f) => `'${f}'`).join(", ")} has a claim ${[...SIBLING_CLAIM_IDS].join(" or ")}: the sibling class is not stated by the evidence`);
+  };
+
   // Fixture ids share one namespace across single projections and set items.
   const fixtureIds = new Map();
   const claimFixtureId = (path, id) => {
@@ -287,6 +311,7 @@ export function checkIntegrity(entries) {
         if (r.lineage) {
           if (r.lineage.of === r.id) err(path, "lineage points at itself");
           else if (!fixtureIds.has(r.lineage.of)) err(path, `lineage.of unknown fixture '${r.lineage.of}'`);
+          checkSiblingFamily(path, "lineage", r.lineage, r.origin?.type === "authored-case" ? familiesOfCase(r.origin.case) : undefined);
         }
         for (const [i, s] of r.expected.spans.entries()) {
           if (s.end <= s.start) err(path, `expected.spans[${i}] end must be greater than start`);
@@ -386,6 +411,7 @@ export function checkIntegrity(entries) {
           if (item.lineage) {
             if (item.lineage.of === item.id) err(path, `${where}: lineage points at itself`);
             else if (!fixtureIds.has(item.lineage.of)) err(path, `${where}: lineage.of unknown fixture '${item.lineage.of}'`);
+            checkSiblingFamily(path, where, item.lineage, item.cell?.families ?? (item.case ? familiesOfCase(item.case) : undefined));
           }
         }
         for (const key of Object.keys(r.evidence ?? {})) if (!cited.has(key)) err(path, `evidence '${key}' is cited by no fixture of the set`);

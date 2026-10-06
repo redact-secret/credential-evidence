@@ -3,7 +3,7 @@
   "$id": "urn:credential-evidence:schema:v1:fixture-projection",
   "title": "Fixture projection and lineage",
   "description": "An executable projection of a case, a reviewed contract, or a documented generation rule. It is derived, never the canonical human record: every projection names its origin, and generated ones record generator, inputs and version. Expected spans are byte-offset facts about the content; the semantic outcome comes from the origin.",
-  "x-schemaRevision": "1.7.0",
+  "x-schemaRevision": "1.8.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["schemaVersion", "kind", "id", "origin", "generated", "content", "expected"],
@@ -76,7 +76,8 @@
       "properties": {
         "relation": { "enum": ["twin-of", "mutation-of", "metamorphic-of"] },
         "of": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/fixtureId" },
-        "mutationKind": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" }
+        "mutationKind": { "$ref": "urn:credential-evidence:schema:v1:common#/$defs/slug" },
+        "siblingFamily": { "description": "Schema revision 1.8.0, ADR 0026. Only on a twin-of relation: the family whose contract owns the twin's value, when the twin wears another key class of the same provider (a real credential of that class, used as a scoped negative of this one). Absent for an ordinary near-miss. It names the family; it carries no policy, scanner or product action. Must be a family of the same provider as the twin's scope, and a contract of the scoped family must state sibling classes (claim field-sibling-classes or field-sibling-prefixes).", "$ref": "urn:credential-evidence:schema:v1:common#/$defs/familyId" }
       }
     },
     "content": {
