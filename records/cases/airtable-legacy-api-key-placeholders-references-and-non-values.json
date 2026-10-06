@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-legacy-api-key-placeholders-references-and-non-values",
+  "title": "api_key URL parameter holding a placeholder, a masked display, a reference or nothing",
+  "summary": "The api_key parameter with no value, an angle-bracket placeholder, an environment reference and a masked display, and a sentence that names the parameter.",
+  "rationale": "An empty parameter holds nothing, an angle-bracket placeholder and an environment reference stand in for a value kept elsewhere, a masked display has no recoverable value, and a sentence that names the legacy parameter describes it. Protecting any of these would redact text a reader needs to understand how an old integration was configured.",
+  "caseTypes": [
+    "benign"
+  ],
+  "families": [
+    {
+      "family": "airtable:legacy-api-key",
+      "role": "lookalike"
+    }
+  ],
+  "scenarios": [
+    "benign-lookalike",
+    "templated-reference",
+    "prose-mention"
+  ],
+  "expectation": {
+    "outcome": "must-not-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#238, Group E). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Not flagged under project policy: the texts here are an empty parameter, placeholders, references, masked text or a parameter named in prose, not credential values. That a placeholder, mask or reference is not a value is a project decision, not an Airtable statement.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-c31dd3fe16",
+        "supports": "Passing personal access tokens and OAuth access tokens via the legacy api_key URL parameter is not supported; the page names api_key as the URL parameter of the former key mechanism and does not describe the former key's format.",
+        "locator": "#basics"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

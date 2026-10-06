@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-legacy-api-key-hyphen-grouped-bare-value-unsettled",
+  "title": "A hyphen-grouped value near a HubSpot word with no hapikey carrier",
+  "summary": "A synthetic five-group 8-4-4-4-12 hexadecimal value beside the word HubSpot in prose and alone on a line, with no hapikey parameter around it.",
+  "rationale": "The only support for a hyphen-grouped 8-4-4-4-12 shape is consistency between two scanner rule artifacts (an existing tool-corroborated claim), and neither says which HubSpot credential the shape describes. HubSpot's own pages state no prefix, alphabet, length or grouping for the account key or the developer key, and a masked example gives none. So the shape is not a documented format, a bare value has no carrier, and a UUID-shaped string is also what many unrelated identifiers look like; whether such a value is the legacy key, the developer key, a later token or an identifier is open.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "hubspot:legacy-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted: no HubSpot statement gives the format, the grouped shape rests on consistency between two scanner rule artifacts only, and a bare value has no documented carrier. A HubSpot statement of the key format, or a dated page showing which credential the grouping belongs to, would settle it. The positive Case for the hapikey query parameter does not depend on the shape.",
+    "sources": [
+      {
+        "sourceId": "developers-hubspot-com-1876a2b7bb",
+        "supports": "The developer API key is given in the hapikey query parameter; the page states no format for it.",
+        "locator": "section \"Developer API keys\""
+      },
+      {
+        "sourceId": "web-archive-org-edd2016419",
+        "supports": "The page states no format, prefix or length for the account key or the developer key.",
+        "locator": "section \"Authentication methods on HubSpot\""
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. No outcome is asserted: the open question named in the expectation is what would have to be settled first."
+}

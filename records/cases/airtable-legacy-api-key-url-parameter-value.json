@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "airtable-legacy-api-key-url-parameter-value",
+  "title": "Value of the api_key URL parameter carrying a retired Airtable user API key",
+  "summary": "A synthetic value of the api_key query parameter in a raw request URL, in a quoted curl URL and in a URL held in a JSON configuration file.",
+  "rationale": "Airtable's current authentication reference names api_key as the legacy URL parameter of the former user API key mechanism, but only in a sentence that says tokens may not be passed that way; it does not describe the former key or say how keys were presented while they worked. The named parameter is the one carrier the evidence gives, so the value is flagged because of where it sits, not because of its shape: no prefix, alphabet or length is stated and none is claimed. The key gave all-or-nothing access to everything its user could reach, which is why a leaked one mattered; Airtable states that existing keys stopped working after 2024-02-01 and nobody tested whether one still does. A retired key left in a URL, log or script is still a redaction concern, so the end date is not a reason to stay silent. The extent is the value only: the parameter name, the equals sign and the other parameters are outside it. Whether keys were also sent in a bearer header is not established and is a separate, unsettled Case.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "airtable:legacy-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#238, Group E). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the api_key URL parameter of an Airtable API request is treated as a credential whatever its shape and whatever the key's era. Airtable names the parameter (the carrier's existence only, in a negative sentence); the value admission, extent, era handling and generic attribution are the project's decisions, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "airtable-com-c31dd3fe16",
+        "supports": "Passing personal access tokens and OAuth access tokens via the legacy api_key URL parameter is not supported; the page names api_key as the URL parameter of the former key mechanism and does not describe the former key's format.",
+        "locator": "#basics"
+      },
+      {
+        "sourceId": "web-archive-org-50b6543c04",
+        "supports": "The API key was the predecessor that provided all-or-nothing access over everything an Airtable user account could see or do, with no way to see what an API key had been shared with.",
+        "locator": "sections \"How can I find what is using my API key?\" and FAQ \"Why are we doing this?\""
+      },
+      {
+        "sourceId": "web-archive-org-50b6543c04",
+        "supports": "Existing API keys can no longer be used to access the Airtable API after February 1st, 2024; August 1st, 2023 is the date after which users can no longer create new API keys.",
+        "locator": "section \"Timeline\""
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

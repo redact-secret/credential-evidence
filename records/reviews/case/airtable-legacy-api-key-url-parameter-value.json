@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-airtable-legacy-api-key-url-parameter-value",
+  "subject": {
+    "kind": "case",
+    "id": "airtable-legacy-api-key-url-parameter-value"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence epic #238 (Group E follow-up) from the contract claims and handoffs E1, E2 and E3 cited in the expectation, before any scanner was consulted; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence epic #238 (Group E follow-up), on the owner's instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases and baselines authored maintainer-only, as in Batch 2). No dissent was raised by the maintainer; the strongest counter-argument is recorded in the dissent field. Question: A value in the api_key URL parameter of an Airtable request is a credential whatever its shape and whether or not the key's end date has passed? Options: leave the case a draft because the only mention of the parameter is a negative sentence in a current page; require a documented key format (none is stated); or flag by position and not by era. Decision: flag any value in the api_key URL parameter of an Airtable API request, with no era exception. Reason: Airtable names the parameter as the legacy key's carrier and describes the key as all-or-nothing account access, but states no value format and no statement settles whether a key authenticated after 2024-02-01, so the expectation rests on project policy and is not a provider rule; a retired key in a URL is still a redaction concern. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The page names the parameter only to say it is not supported for tokens, so it may not describe how keys were presented; a generic api_key parameter also appears in unrelated services, so a position rule can flag non-Airtable values; and the keys were switched off, so the redaction may protect nothing; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A pinned capture of the pre-2023 Airtable API reference showing a different presentation form, or an Airtable statement of the key format or confidentiality that contradicts this outcome, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

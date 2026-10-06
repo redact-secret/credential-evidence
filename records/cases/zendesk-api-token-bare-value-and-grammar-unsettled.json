@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "zendesk-api-token-bare-value-and-grammar-unsettled",
+  "title": "A Zendesk API token value with no email-and-token credential string around it",
+  "summary": "A synthetic value alone in prose and a synthetic value in a JSON member named token, with no email address and no /token separator.",
+  "rationale": "Zendesk documents the token only inside the {email_address}/token:{api_token} credential string and states no prefix, alphabet or length; its example is 40 characters of letters and digits, is labelled an example and is not said to be representative, and the only support for a 40-character run is consistency between two scanner rule artifacts. A bare value has no carrier and no grammar, so what is open is whether it belongs to this family. The three retirement phases (2026-07-28, 2026-10-27, 2027-04-30) are provider dates; it is not stated whether the first phase was applied or when the deprecation was announced, and those facts do not change what the carrier Cases assert.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "zendesk:api-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "unsettled-evidence-input"
+  ],
+  "expectation": {
+    "outcome": "not-assertable",
+    "basis": "unresolved",
+    "rationale": "No outcome is asserted for this family: the token grammar is not documented (open questions opaque-grammar and variants-over-time) and a bare value has no documented carrier. A Zendesk statement of the token format, or a documented carrier for a token alone, would settle it.",
+    "sources": [
+      {
+        "sourceId": "developer-zendesk-com-73874c42bb",
+        "supports": "The example credential's token part is 40 characters of letters and digits; the page labels it Example and does not say it is representative of issued tokens.",
+        "locator": "API token (deprecated), Example"
+      },
+      {
+        "sourceId": "developer-zendesk-com-a681e17a67",
+        "supports": "Retirement in three phases: 2026-07-28, 2026-10-27 and 2027-04-30.",
+        "locator": "Migration timeline, Phase 1 to Phase 3"
+      }
+    ],
+    "observedAt": "2026-10-06"
+  },
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. No outcome is asserted: the open question named in the expectation is what would have to be settled first."
+}

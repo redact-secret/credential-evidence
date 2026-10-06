@@ -585,6 +585,159 @@
       }
     },
     {
+      "id": "hubspot-authored--raw-http-hapikey-query",
+      "case": "hubspot-legacy-api-key-hapikey-query-parameter-value",
+      "path": "raw-http-hapikey-query/fixture.txt",
+      "context": "header",
+      "sha256": "0409ac4dbb8f410d088c22bd6e34c23438c73347229997ec949dbfd6d1b5cb04",
+      "text": "GET /contacts/v1/lists/all/contacts/all?count=10&hapikey=SYNTHETIC-hubspot-api-key-never-issued-0001 HTTP/1.1\nHost: api.hubspot.example.test\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 57,
+            "end": 100,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--curl-hapikey-query",
+      "case": "hubspot-legacy-api-key-hapikey-query-parameter-value",
+      "path": "curl-hapikey-query/fixture.txt",
+      "context": "cli",
+      "sha256": "9e189b45f890c0457da7e6325053a5d67bc113fcd91169eddc897dc75948e978",
+      "text": "curl \"https://api.hubspot.example.test/contacts/v1/lists/all/contacts/all?hapikey=SYNTHETIC-hubspot-api-key-never-issued-0002\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 82,
+            "end": 125,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--curl-developer-key-with-app-id",
+      "case": "hubspot-legacy-api-key-hapikey-query-parameter-value",
+      "path": "curl-developer-key-with-app-id/fixture.txt",
+      "context": "cli",
+      "sha256": "1315866ab543a9756a1cb4798e34dcd4f4616ec2049cfb3475e6d2bf16bafcef",
+      "text": "curl -X POST \"https://api.hubspot.example.test/integrators/timeline/v3/events?hapikey=SYNTHETIC-hubspot-developer-key-never-issued-0003&appId=SYNTHETICAPPID0001\"\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 86,
+            "end": 135,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "hubspot-authored--documented-developer-key-placeholder",
+      "case": "hubspot-legacy-api-key-placeholders-masked-display-and-references",
+      "path": "documented-developer-key-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "0ad4aafc6f36b40468f99de24010d2a66c7fe680bf9d4144233442d37552b408",
+      "text": "curl -X POST \"https://api.hubspot.example.test/integrators/timeline/v3/events?hapikey={YOUR_DEVELOPER_API_KEY}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--masked-display-in-url",
+      "case": "hubspot-legacy-api-key-placeholders-masked-display-and-references",
+      "path": "masked-display-in-url/fixture.txt",
+      "context": "cli",
+      "sha256": "dae8733fd53dce8b7c8d9519ba5d5eb3c0734bef545530b276113836a4116346",
+      "text": "curl \"https://api.hubspot.example.test/contacts/v1/lists/all/contacts/all?hapikey=SY************01\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--angle-placeholder",
+      "case": "hubspot-legacy-api-key-placeholders-masked-display-and-references",
+      "path": "angle-placeholder/fixture.txt",
+      "context": "cli",
+      "sha256": "84daca6a3beb70046e5adfdcedc0ea5903661f87faa098b7ec08478f51dcbe85",
+      "text": "curl \"https://api.hubspot.example.test/contacts/v1/lists/all/contacts/all?hapikey=<your-api-key>\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--environment-reference",
+      "case": "hubspot-legacy-api-key-placeholders-masked-display-and-references",
+      "path": "environment-reference/fixture.txt",
+      "context": "cli",
+      "sha256": "4b675271c4a2d3c2020e98691c9bad83a8ef9edb492cb9135e6961801d1fa0d0",
+      "text": "curl \"https://api.hubspot.example.test/contacts/v1/lists/all/contacts/all?hapikey=${HUBSPOT_API_KEY}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--empty-value",
+      "case": "hubspot-legacy-api-key-placeholders-masked-display-and-references",
+      "path": "empty-value/fixture.txt",
+      "context": "header",
+      "sha256": "83438a9f996bf373397baa1293639f041c74bf19cae0cbb045aad2c313c68105",
+      "text": "GET /contacts/v1/lists/all/contacts/all?count=10&hapikey= HTTP/1.1\nHost: api.hubspot.example.test\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--parameter-named-in-prose",
+      "case": "hubspot-legacy-api-key-placeholders-masked-display-and-references",
+      "path": "parameter-named-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "d8c57bd02851ee4019a8723b10b26c347d4c552f52a1346458d5b1622ca3d805",
+      "text": "Older integrations pass the key in the hapikey query parameter of each request.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--grouped-value-in-prose",
+      "case": "hubspot-legacy-api-key-hyphen-grouped-bare-value-unsettled",
+      "path": "grouped-value-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "979637d4c3b58b49e44d8af169a0f89965b50fcbed36198b3bda0423aea8ad6e",
+      "text": "The HubSpot key for this portal is 53594e54-4845-5449-4300-000000000001 and should be rotated.\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "hubspot-authored--grouped-value-alone-on-line",
+      "case": "hubspot-legacy-api-key-hyphen-grouped-bare-value-unsettled",
+      "path": "grouped-value-alone-on-line/fixture.txt",
+      "context": "prose",
+      "sha256": "4271513901d0c0d6de5ec626873a84d6b7e12f0faa29718c03962ef57d63b6b7",
+      "text": "53594e54-4845-5449-4300-000000000002\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
       "id": "hubspot-authored--static-auth-raw-http-bearer-header",
       "case": "hubspot-static-auth-access-token-bearer-authorization-header-value",
       "path": "static-auth-raw-http-bearer-header/fixture.txt",

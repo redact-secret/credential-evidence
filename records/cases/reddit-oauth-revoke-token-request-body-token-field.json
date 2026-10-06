@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "reddit-oauth-revoke-token-request-body-token-field",
+  "title": "token field of a Reddit revoke_token request body",
+  "summary": "A synthetic value of the token parameter in a raw form-encoded revoke_token request without a hint, and in a curl -d request with token_type_hint=refresh_token.",
+  "rationale": "Reddit's archived OAuth2 documentation says a client can POST a token, access or refresh, in the request body to the revoke_token endpoint with HTTP Basic client authentication, and that a refresh token is accepted with token_type_hint refresh_token. The token parameter is therefore a shared slot: the same field carries either token, so a value without a hint cannot be attributed to one family, and both families are subjects. The carriers come from archived wiki pages that Reddit's current Help page links as its technical guidance; the pages are undated, the same Help page warns that legacy documentation may be out of date, and no current page restates the carriers, so the claims stay historical. A credential of this kind in a log, file or request is still a redaction concern, and the uncertainty about currency is not a reason to stay silent. The endpoint answers success (204) even for a token that was never valid, so a successful revocation says nothing about the value. No prefix, alphabet or length is claimed. The extent is the value only; the Basic client authentication is written with the documentation's own template words and is not asserted.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "reddit:oauth-access-token",
+      "role": "subject"
+    },
+    {
+      "family": "reddit:oauth-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#238, Group E). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of the token parameter of a revoke_token request body is treated as a credential whatever its shape, without deciding whether it is an access or a refresh token. Reddit documents the carrier (carrier existence only, historical); the value admission, extent and generic attribution are the project's decisions, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+        "supports": "A client can POST a token (access or refresh) in the request body to the revoke_token endpoint with HTTP Basic client authentication; token_type_hint refresh_token is accepted; the call returns success (204) even if the token was never valid. Historical statement from an archived page.",
+        "locator": "Manually Revoking a Token"
+      },
+      {
+        "sourceId": "web-archive-org-c53a558744",
+        "supports": "Reddit's Help page (updated May 11, 2026) says Reddit requires OAuth, links the archived OAuth2 and OAuth2 App Types wiki pages as its technical guidance, and warns that some information in legacy API documentation may be out of date.",
+        "locator": "Resources; opening notice"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

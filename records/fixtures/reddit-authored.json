@@ -1,0 +1,460 @@
+{
+  "schemaVersion": 1,
+  "kind": "fixture-set",
+  "id": "reddit-authored",
+  "title": "Reddit OAuth carriers (authored)",
+  "origin": {
+    "type": "authored-cases"
+  },
+  "generated": false,
+  "fixtures": [
+    {
+      "id": "reddit-authored--access-response-pretty-json-response",
+      "case": "reddit-oauth-access-token-response-member",
+      "path": "access-response-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "e1298083b9c317dde45919fb6db746ff8bbae983178aa5ac2a704ad3991eef5c",
+      "text": "{\n  \"access_token\": \"SYNTHETIC-reddit-access-token-never-issued-0001\",\n  \"token_type\": \"bearer\",\n  \"scope\": \"identity\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 21,
+            "end": 68,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--access-response-raw-http-response-compact-json",
+      "case": "reddit-oauth-access-token-response-member",
+      "path": "access-response-raw-http-response-compact-json/fixture.txt",
+      "context": "header",
+      "sha256": "09251c183b7f92f3fe2c9dc18db6e87b6f54ce8b694dd2f03eac6f837f5c2f2a",
+      "text": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"access_token\":\"SYNTHETIC-reddit-access-token-never-issued-0002\",\"token_type\":\"bearer\",\"scope\":\"identity\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 65,
+            "end": 112,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--access-response-curl-response-output",
+      "case": "reddit-oauth-access-token-response-member",
+      "path": "access-response-curl-response-output/fixture.txt",
+      "context": "cli",
+      "sha256": "3fe882575afd56282c6fe78c4ba7df025989f13f9c87188d95d0d59364365cf6",
+      "text": "$ curl -s -X POST https://www.reddit.example.test/api/v1/access_token -d grant_type=authorization_code -d code=CODE -d redirect_uri=URI --user 'CLIENT_ID:CLIENT_SECRET'\n{\"access_token\": \"SYNTHETIC-reddit-access-token-never-issued-0003\", \"token_type\": \"bearer\", \"scope\": \"identity\"}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 187,
+            "end": 234,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--access-carrier-bearer-raw-http",
+      "case": "reddit-oauth-access-token-bearer-header-and-redirect-fragment",
+      "path": "access-carrier-bearer-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "fbc96e500f1b26da37100db8e29b69d57cf18b4372e7cc18a009137b7b97ecc0",
+      "text": "GET /api/v1/scopes HTTP/1.1\nHost: oauth.reddit.com\nAuthorization: bearer SYNTHETIC-reddit-access-token-never-issued-0004\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 73,
+            "end": 120,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--access-carrier-bearer-curl-header",
+      "case": "reddit-oauth-access-token-bearer-header-and-redirect-fragment",
+      "path": "access-carrier-bearer-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "37f0f1ef5d49a91ffa8674aa5dd05939eb37e887929cd18cf8c4cb2ac4eee1e1",
+      "text": "curl -H \"Authorization: bearer SYNTHETIC-reddit-access-token-never-issued-0005\" https://oauth.reddit.com/api/v1/scopes\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 31,
+            "end": 78,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--access-carrier-redirect-fragment",
+      "case": "reddit-oauth-access-token-bearer-header-and-redirect-fragment",
+      "path": "access-carrier-redirect-fragment/fixture.txt",
+      "context": "url-fragment",
+      "sha256": "1452d2ee2114d5b282e55ce1a83b21c7a3a1ec97f3103348808dc73c6dc0dcce",
+      "text": "https://client.example.test/callback#access_token=SYNTHETIC-reddit-access-token-never-issued-0006&token_type=bearer&scope=identity&state=SYNTHETICSTATE0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 50,
+            "end": 97,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--refresh-pretty-json-response",
+      "case": "reddit-oauth-refresh-token-response-member-and-request-field",
+      "path": "refresh-pretty-json-response/fixture.txt",
+      "context": "structured-file",
+      "sha256": "25a576e54bf33e798b558c2b6778c97ea6c19f0596e6a42b63347ce2f0e0cb2a",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"scope\": \"identity\",\n  \"refresh_token\": \"SYNTHETIC-reddit-refresh-token-never-issued-0001\"\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 71,
+            "end": 119,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--refresh-raw-http-form-request",
+      "case": "reddit-oauth-refresh-token-response-member-and-request-field",
+      "path": "refresh-raw-http-form-request/fixture.txt",
+      "context": "form-body",
+      "sha256": "bd3d8446fb773b237bdee0e3a3b3e878c1bfcd74432be54f67b597d5342f501e",
+      "text": "POST /api/v1/access_token HTTP/1.1\nHost: www.reddit.example.test\nContent-Type: application/x-www-form-urlencoded\n\ngrant_type=refresh_token&refresh_token=SYNTHETIC-reddit-refresh-token-never-issued-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 153,
+            "end": 201,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--refresh-curl-data-refresh-token",
+      "case": "reddit-oauth-refresh-token-response-member-and-request-field",
+      "path": "refresh-curl-data-refresh-token/fixture.txt",
+      "context": "cli",
+      "sha256": "a9311d578cad38459c0a62225cbe85eefd286c0c4b32833c71d2f09398f033b7",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/access_token -d grant_type=refresh_token -d refresh_token=SYNTHETIC-reddit-refresh-token-never-issued-0003 --user 'CLIENT_ID:CLIENT_SECRET'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 110,
+            "end": 158,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--revoke-raw-http-form-request-no-hint",
+      "case": "reddit-oauth-revoke-token-request-body-token-field",
+      "path": "revoke-raw-http-form-request-no-hint/fixture.txt",
+      "context": "form-body",
+      "sha256": "6911e927090b06e452fa2b06516b43fde077aff09bc2e524730803c4685d56d0",
+      "text": "POST /api/v1/revoke_token HTTP/1.1\nHost: www.reddit.example.test\nContent-Type: application/x-www-form-urlencoded\n\ntoken=SYNTHETIC-reddit-revoked-token-never-issued-0001\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 120,
+            "end": 168,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--revoke-curl-data-token-with-refresh-hint",
+      "case": "reddit-oauth-revoke-token-request-body-token-field",
+      "path": "revoke-curl-data-token-with-refresh-hint/fixture.txt",
+      "context": "cli",
+      "sha256": "33964850b74eeb595262687810d2421d80445fb23d0d66ceb4ec06d8c64ffd19",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/revoke_token -d token=SYNTHETIC-reddit-revoked-token-never-issued-0002 -d token_type_hint=refresh_token --user 'CLIENT_ID:CLIENT_SECRET'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 74,
+            "end": 122,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--secret-curl-user-code-flow",
+      "case": "reddit-app-client-secret-basic-password",
+      "path": "secret-curl-user-code-flow/fixture.txt",
+      "context": "cli",
+      "sha256": "a0f564222b797a089b4b787e92856c1507d293aca52848bf1b9b3a39b54cd604",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/access_token -d 'grant_type=authorization_code&code=CODE&redirect_uri=URI' --user 'SYNTHETIC-reddit-client-id-0001:SYNTHETIC-reddit-client-secret-never-issued-0001'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 167,
+            "end": 215,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--secret-curl-u-application-only",
+      "case": "reddit-app-client-secret-basic-password",
+      "path": "secret-curl-u-application-only/fixture.txt",
+      "context": "cli",
+      "sha256": "9b153196f7ac35891a442eedb5e4c22f1be08c2d2b82a7114a74f2273ae5858d",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/access_token -d grant_type=client_credentials -u SYNTHETIC-reddit-client-id-0002:SYNTHETIC-reddit-client-secret-never-issued-0002\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 133,
+            "end": 181,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--secret-curl-user-revocation",
+      "case": "reddit-app-client-secret-basic-password",
+      "path": "secret-curl-user-revocation/fixture.txt",
+      "context": "cli",
+      "sha256": "b45d1ba630f7ba6370f9fca74dffb949b8c2d6e2c073d8996a3641bfc3dc531f",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/revoke_token -d token=TOKEN --user 'SYNTHETIC-reddit-client-id-0003:SYNTHETIC-reddit-client-secret-never-issued-0003'\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 120,
+            "end": 168,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-bearer-template-word",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-bearer-template-word/fixture.txt",
+      "context": "header",
+      "sha256": "503a410a9a19ed37508851c0b926dc9e5acb42c7ad424f18c3974af134d1cb5e",
+      "text": "GET /api/v1/scopes HTTP/1.1\nHost: oauth.reddit.com\nAuthorization: bearer TOKEN\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-refresh-token-template-word",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-refresh-token-template-word/fixture.txt",
+      "context": "cli",
+      "sha256": "ffeb2294dca9fc7a1d3a1ed24d9cd744236483cff4834a16c13e7952d1383d9a",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/access_token -d grant_type=refresh_token -d refresh_token=TOKEN --user 'CLIENT_ID:CLIENT_SECRET'\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-basic-user-template-words",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-basic-user-template-words/fixture.txt",
+      "context": "cli",
+      "sha256": "99800a2270d2d5ec5ecf7c135eee841561025aae252a9778cbb13935aade99f3",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/access_token -d 'grant_type=authorization_code&code=CODE&redirect_uri=URI' --user 'CLIENT_ID:CLIENT_SECRET'\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-environment-references",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-environment-references/fixture.txt",
+      "context": "cli",
+      "sha256": "9dc529a1fa7b63f7a44f6f08c2fb5f8a9ae1a4e464fb65824954da47dba928c4",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/access_token -d grant_type=client_credentials --user \"${REDDIT_CLIENT_ID}:${REDDIT_CLIENT_SECRET}\"\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-access-token-angle-placeholder",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-access-token-angle-placeholder/fixture.txt",
+      "context": "structured-file",
+      "sha256": "c8e6f045048285d481efc136a8d6910776bc4125236f726a2c11a0fd0f3a8ca2",
+      "text": "{\n  \"access_token\": \"<access_token>\",\n  \"token_type\": \"bearer\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-refresh-token-masked-display",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-refresh-token-masked-display/fixture.txt",
+      "context": "structured-file",
+      "sha256": "b6d98471fb0eb44ad0a69ea96246410e8184e79066b4c30ca5de6a44e4f8d8d5",
+      "text": "{\n  \"refresh_token\": \"********\",\n  \"token_type\": \"bearer\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-installed-app-empty-basic-password",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-installed-app-empty-basic-password/fixture.txt",
+      "context": "cli",
+      "sha256": "da0f23a6f26a4130cf1689f3961f711f1c30fc9ba1aaf92d4dce0f1e1bf44bd9",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/access_token -d 'grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE' --user 'CLIENT_ID:'\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-device-id-do-not-track-literal",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-device-id-do-not-track-literal/fixture.txt",
+      "context": "form-body",
+      "sha256": "4f544770ba7a02b10f149e549604b2014183e9cf796f440f6844014adb296909",
+      "text": "grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-token-response-without-token-member",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-token-response-without-token-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "d7b42dc345503f08c7f262367e426498296533a8e0c42ecd2601fe68ac5e9280",
+      "text": "{\n  \"token_type\": \"bearer\",\n  \"scope\": \"identity\"\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--non-value-revocation-success-response",
+      "case": "reddit-oauth-documentation-template-words-references-and-non-values",
+      "path": "non-value-revocation-success-response/fixture.txt",
+      "context": "header",
+      "sha256": "2894bdc06b26e0e5becd0968ed3f05fce4ccf1de165d450188d7def942723061",
+      "text": "HTTP/1.1 204 No Content\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--installed-installed-client-non-empty-password",
+      "case": "reddit-installed-app-non-empty-basic-password-unsettled",
+      "path": "installed-installed-client-non-empty-password/fixture.txt",
+      "context": "cli",
+      "sha256": "61514f4b65347b3f7091319103208fa9e7109a08fb1295fb1d6cff2b43a5bcf7",
+      "text": "curl -X POST https://www.reddit.example.test/api/v1/access_token -d 'grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE' --user 'CLIENT_ID:SYNTHETIC-reddit-installed-app-secret-0001'\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--unsettled-bare-access-token-like-value",
+      "case": "reddit-oauth-bare-values-and-encoded-basic-header-unsettled",
+      "path": "unsettled-bare-access-token-like-value/fixture.txt",
+      "context": "prose",
+      "sha256": "88aca2c39f93721a548ab62d4e3f821e121217e40c4360812bd2d19fcbc792ad",
+      "text": "Last token: SYNTHETIC-reddit-access-token-never-issued-0007\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--unsettled-bare-refresh-token-like-value",
+      "case": "reddit-oauth-bare-values-and-encoded-basic-header-unsettled",
+      "path": "unsettled-bare-refresh-token-like-value/fixture.txt",
+      "context": "prose",
+      "sha256": "b539aa831979feed312bd64ad50d110ede508f72d36e6c982c8bfca521cd9231",
+      "text": "Permanent token: SYNTHETIC-reddit-refresh-token-never-issued-0004\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--unsettled-bare-client-secret-like-value",
+      "case": "reddit-oauth-bare-values-and-encoded-basic-header-unsettled",
+      "path": "unsettled-bare-client-secret-like-value/fixture.txt",
+      "context": "prose",
+      "sha256": "4a79b301550b5bbd78e3bc6bfc4a32acb857805ccb596e1ae944052ec5439bdf",
+      "text": "App secret: SYNTHETIC-reddit-client-secret-never-issued-0004\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "reddit-authored--unsettled-basic-header-encoded-client-credential",
+      "case": "reddit-oauth-bare-values-and-encoded-basic-header-unsettled",
+      "path": "unsettled-basic-header-encoded-client-credential/fixture.txt",
+      "context": "header",
+      "sha256": "9a9c7c57695ae75a4940fde7264d7da16f7fd50ff2daa64e6107d3c262b27991",
+      "text": "POST /api/v1/access_token HTTP/1.1\nHost: www.reddit.example.test\nAuthorization: Basic U1lOVEhFVElDLXJlZGRpdC1jbGllbnQtaWQtMDAwNDpTWU5USEVUSUMtcmVkZGl0LWNsaWVudC1zZWNyZXQtbmV2ZXItaXNzdWVkLTAwMDU=\nContent-Type: application/x-www-form-urlencoded\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    }
+  ],
+  "lifecycle": "draft",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

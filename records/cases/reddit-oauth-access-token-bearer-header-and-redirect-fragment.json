@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "reddit-oauth-access-token-bearer-header-and-redirect-fragment",
+  "title": "Reddit access token in an Authorization bearer header or in an implicit-flow redirect fragment",
+  "summary": "A synthetic value after bearer in a raw request to oauth.reddit.com, in a quoted curl -H argument and as the access_token member of a redirect URI fragment.",
+  "rationale": "Reddit's archived OAuth2 documentation says API requests carry the token in an 'Authorization: bearer TOKEN' header sent to oauth.reddit.com, and that the implicit flow returns access_token, token_type, expires_in, scope and state form-encoded in the redirect URI fragment. The carriers come from archived wiki pages that Reddit's current Help page links as its technical guidance; the pages are undated, the same Help page warns that legacy documentation may be out of date, and no current page restates the carriers, so the claims stay historical. A credential of this kind in a log, file or request is still a redaction concern, and the uncertainty about currency is not a reason to stay silent. The Authorization header and the oauth.reddit.com host are what attribute a bare bearer value to this family, since the value itself has no marker. No prefix, alphabet or length is claimed. The extent is the value only: the scheme word, the parameter names, the ampersands and the other fragment members are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "reddit:oauth-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#238, Group E). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value after bearer in an Authorization header sent to the Reddit API host, and the access_token member of a redirect fragment, are treated as credentials whatever their shape. Reddit documents the carriers (carrier existence only, historical); the value admission, extent and generic attribution are the project's decisions, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+        "supports": "The access_token endpoint returns a JSON access_token with token_type bearer; bearer tokens expire after 1 hour; API requests carry the token in an 'Authorization: bearer TOKEN' header sent to oauth.reddit.com. Historical statement from an archived page.",
+        "locator": "Authorization (duration); Retrieving the access token"
+      },
+      {
+        "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+        "supports": "A code-flow token response is JSON with access_token, token_type, expires_in and scope (plus refresh_token only when one was requested); the implicit flow returns access_token, token_type, expires_in, scope and state form-encoded in the redirect URI fragment. Historical statement from an archived page.",
+        "locator": "Retrieving the access token; Token Retrieval (Implicit grant flow)"
+      },
+      {
+        "sourceId": "web-archive-org-c53a558744",
+        "supports": "Reddit's Help page (updated May 11, 2026) says Reddit requires OAuth, links the archived OAuth2 and OAuth2 App Types wiki pages as its technical guidance, and warns that some information in legacy API documentation may be out of date.",
+        "locator": "Resources; opening notice"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

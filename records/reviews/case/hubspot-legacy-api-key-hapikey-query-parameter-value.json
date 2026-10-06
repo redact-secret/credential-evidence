@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-hubspot-legacy-api-key-hapikey-query-parameter-value",
+  "subject": {
+    "kind": "case",
+    "id": "hubspot-legacy-api-key-hapikey-query-parameter-value"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence epic #238 (Group E follow-up) from the contract claims and handoffs E1, E2 and E3 cited in the expectation, before any scanner was consulted; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence epic #238 (Group E follow-up), on the owner's instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases and baselines authored maintainer-only, as in Batch 2). No dissent was raised by the maintainer; the strongest counter-argument is recorded in the dissent field. Question: A value in the hapikey query parameter is a credential whatever its shape, and does the retired era of the account key change that? Options: require a documented prefix, alphabet or length (HubSpot states none) or flag only a hyphen-grouped shape that two artifacts are consistent with; stay silent on the account key because HubSpot said it would stop working on 2022-11-30; or flag by position, whichever key kind and era. Decision: flag any value in the hapikey query parameter, both key kinds, no era exception. Reason: HubSpot documents only that the carrier exists and that the two kinds share it, and its two pages do not agree on whether a key authenticates after 2022-11-30, so the expectation rests on project policy and is not a provider rule or a fact; a credential of a retired era in a URL, log or configuration is still a redaction concern. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "The pages state no value format, so a position-only rule can flag a non-secret that sits in the parameter or miss a differently placed key, and a sunset key may no longer authenticate, so flagging it may be redaction of a dead value; leaving the case a draft would claim nothing.",
+      "reversingEvidence": "A HubSpot statement that the carrier or the key is not confidential, or of a key format that contradicts this outcome, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

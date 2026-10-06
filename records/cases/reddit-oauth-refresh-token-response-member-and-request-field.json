@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "reddit-oauth-refresh-token-response-member-and-request-field",
+  "title": "Reddit refresh token in a token response member and in a refresh request body",
+  "summary": "A synthetic value of the refresh_token member of a token response, and of the refresh_token parameter in a raw form-encoded refresh request and a curl -d argument.",
+  "rationale": "Reddit's archived OAuth2 documentation says a refresh_token is returned alongside the access token when an authorization requests duration permanent and is sent in the POST body, not the URL, in a refresh request with grant_type=refresh_token. The carriers come from archived wiki pages that Reddit's current Help page links as its technical guidance; the pages are undated, the same Help page warns that legacy documentation may be out of date, and no current page restates the carriers, so the claims stay historical. A credential of this kind in a log, file or request is still a redaction concern, and the uncertainty about currency is not a reason to stay silent. Whether permanent refresh tokens are still issued, their lifetime and whether use rotates them are not stated; the archived sample refresh response lists no new refresh_token, which says only what the sample shows. No prefix, alphabet or length is claimed, so the value is flagged because of where it sits, not because of its shape. The fixtures keep the access_token member out of the response so the Case isolates one credential. The extent is the value only: the member or parameter name, the colon or equals sign, the ampersand and the quotes are outside it, and the grant_type and client authentication beside it are not asserted.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "reddit:oauth-refresh-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#238, Group E). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of the refresh_token member of a token response and of the refresh_token parameter of a refresh request is treated as a credential whatever its shape and whatever the currency of the archived page. Reddit documents the carriers (carrier existence only, historical); the value admission, extent and generic attribution are the project's decisions, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+        "supports": "A refresh_token is returned alongside the access token when an authorization requests duration permanent, and is exchanged at the access_token endpoint with grant_type refresh_token. Historical statement from an archived page.",
+        "locator": "Authorization (duration); Refreshing the token"
+      },
+      {
+        "sourceId": "github-com-reddit-archive-reddit-e2ca394517",
+        "supports": "A refresh token is sent in the POST body (grant_type=refresh_token and refresh_token=TOKEN, not in the URL) to the access_token endpoint with the same HTTP Basic client authentication as the original request. Historical statement from an archived page.",
+        "locator": "Refreshing the token"
+      },
+      {
+        "sourceId": "web-archive-org-c53a558744",
+        "supports": "Reddit's Help page (updated May 11, 2026) says Reddit requires OAuth, links the archived OAuth2 and OAuth2 App Types wiki pages as its technical guidance, and warns that some information in legacy API documentation may be out of date.",
+        "locator": "Resources; opening notice"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

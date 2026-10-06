@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "evidence-review-history",
+  "id": "review-case-reddit-oauth-documentation-template-words-references-and-non-values",
+  "subject": {
+    "kind": "case",
+    "id": "reddit-oauth-documentation-template-words-references-and-non-values"
+  },
+  "events": [
+    {
+      "seq": 1,
+      "type": "authored",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "claude-code-agent",
+        "role": "automation",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Authored for credential-evidence epic #238 (Group E follow-up) from the contract claims and handoffs E1, E2 and E3 cited in the expectation, before any scanner was consulted; carrier existence is provider-documented, the context policy is project policy. Not an independent review."
+    },
+    {
+      "seq": 2,
+      "type": "decided",
+      "at": "2026-10-06",
+      "actor": {
+        "id": "milocosmopolitan",
+        "role": "maintainer",
+        "affiliation": "project-maintainer"
+      },
+      "note": "Decided 2026-10-06 by the sole maintainer (Milo Kang, milocosmopolitan, repository owner) for credential-evidence epic #238 (Group E follow-up), on the owner's instruction of 2026-10-06 (complete redact-secret#1228, #1229 and #1230 before the next release; Cases and baselines authored maintainer-only, as in Batch 2). No dissent was raised by the maintainer; the strongest counter-argument is recorded in the dissent field. Question: Documentation template words, references, a masked display, an empty Basic password, the documented do-not-track device_id literal and responses with no token are not credential values? Options: flag any non-empty text in the carrier positions; or treat these as non-values and leave other forms to the positive Cases. Decision: do not flag these texts for any of the three Reddit families. Reason: Reddit documents the template words, the empty password for installed apps and the literal as the value anonymous clients send; the other forms hold no recoverable value and their admission is project policy. Finalized by the sole maintainer alone under the solo-maintainer period (ADR 0020): not reviewed, not independent validation, queued for retro-review (#154). Recorded by an AI agent on the owner's instruction.",
+      "dissent": "A template-looking or masked text can be a real value chosen to look like one, and the empty installed-app password relies on a page that conflicts with another about whether installed apps hold a secret; not flagging can miss a leak.",
+      "reversingEvidence": "A Reddit statement that an installed app's non-empty secret is sent in that position, that a template or mask form carries a real value, or a second maintainer's retro-review that disputes it."
+    }
+  ],
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed."
+}

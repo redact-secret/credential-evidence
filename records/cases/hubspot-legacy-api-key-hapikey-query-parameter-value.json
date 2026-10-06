@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "hubspot-legacy-api-key-hapikey-query-parameter-value",
+  "title": "Value of the hapikey query parameter carrying a HubSpot API key",
+  "summary": "A synthetic value of the hapikey query parameter in a raw request URL, in a quoted curl URL and, with an appId parameter, in a curl URL that registers an integration.",
+  "rationale": "HubSpot documents that a request with an API key adds the key in a hapikey= query parameter, and that the account API key and the developer account API key differ only by the account type they reach and travel in the same parameter. The parameter is therefore the carrier for both kinds, and the value is flagged because of where it sits, not because of its shape: no prefix, alphabet or length is stated for either key and none is claimed, and the carrier does not say which kind a value is. The account key was sunset (no new keys from 2022-07-15, announced end of use 2022-11-30) while the developer key is still current and uses the same parameter; the two pages word the consequence of 2022-11-30 differently, and a key found in a URL, log or configuration remains a redaction concern whatever the date, so the era is not a reason to stay silent. The extent is the value only: the parameter name, the equals sign, the ampersand and the other parameters are outside it.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "hubspot:legacy-api-key",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "missing-context-marker"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#238, Group E). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: a value in the hapikey query parameter is treated as a credential whatever its shape and whichever of the two documented key kinds it is, retired or current. HubSpot documents the carrier (carrier existence only); the value admission, extent, era handling and generic attribution are the project's decisions, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "web-archive-org-edd2016419",
+        "supports": "A request with an API key adds the key in a hapikey= query parameter, and the page shows the key in an example URL in a masked form.",
+        "locator": "section \"API key\""
+      },
+      {
+        "sourceId": "web-archive-org-edd2016419",
+        "supports": "The only difference between API keys in standard HubSpot accounts and developer accounts is the type of account the key allows access to; the page states no format, prefix or length for either.",
+        "locator": "section \"Authentication methods on HubSpot\""
+      },
+      {
+        "sourceId": "developers-hubspot-com-1876a2b7bb",
+        "supports": "Some app features require a developer API key, given in the hapikey query parameter (usually with appId) and shown with the placeholder {YOUR_DEVELOPER_API_KEY}; the page states no format for it.",
+        "locator": "section \"Developer API keys\""
+      },
+      {
+        "sourceId": "web-archive-org-1433438df3",
+        "supports": "As of July 15, 2022 HubSpot no longer allowed new API keys to be created; existing keys would work until November 30th; after that HubSpot would begin the process of deprecating API keys.",
+        "locator": "section \"When is this change happening?\""
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}

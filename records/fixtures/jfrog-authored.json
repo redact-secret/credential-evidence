@@ -336,6 +336,18 @@
       }
     },
     {
+      "id": "jfrog-authored--api-key-bare-value-in-prose",
+      "case": "jfrog-api-key-bare-value-and-format-conflict-unsettled",
+      "path": "api-key-bare-value-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "36f4b3375cfe83e19ff3b8dc6fcf637433221a25fe04bf7fd12b006a982dbc98",
+      "text": "Key to rotate: SYNTHETICJFrogApiKeyNeverIssued0004\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
       "id": "jfrog-authored--reference-token-raw-http-art-api-header",
       "case": "jfrog-reference-token-header-and-basic-password-value",
       "path": "reference-token-raw-http-art-api-header/fixture.txt",

@@ -463,6 +463,87 @@
         "outcome": "must-not-flag",
         "spans": []
       }
+    },
+    {
+      "id": "zendesk-authored--api-token-basic-raw-http",
+      "case": "zendesk-api-token-basic-credential-encoded-header-value",
+      "path": "api-token-basic-raw-http/fixture.txt",
+      "context": "header",
+      "sha256": "51c75c09607be920adfc018401ba3a9fa9907d429294707f7c552a7857c0d2b5",
+      "text": "GET /api/v2/users.json HTTP/1.1\nHost: example-subdomain.zendesk.example.test\nAuthorization: Basic YWdlbnRAZXhhbXBsZS50ZXN0L3Rva2VuOlNZTlRIRVRJQ1plbmRlc2tBcGlUb2tlbk5ldmVySXNzdWVkMDAxMTAx\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 98,
+            "end": 186,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-basic-curl-header",
+      "case": "zendesk-api-token-basic-credential-encoded-header-value",
+      "path": "api-token-basic-curl-header/fixture.txt",
+      "context": "cli",
+      "sha256": "a8b84c95e2f630a4677c221a657a9f78aaeb6c483b67dcc339c619e3cd3fb57e",
+      "text": "curl -H \"Authorization: Basic YWdlbnRAZXhhbXBsZS50ZXN0L3Rva2VuOlNZTlRIRVRJQ1plbmRlc2tBcGlUb2tlbk5ldmVySXNzdWVkMDAxMTAy\" https://example-subdomain.zendesk.example.test/api/v2/users.json\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 30,
+            "end": 118,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-basic-json-header-map",
+      "case": "zendesk-api-token-basic-credential-encoded-header-value",
+      "path": "api-token-basic-json-header-map/fixture.txt",
+      "context": "structured-file",
+      "sha256": "2f5fab01badc84c55ccfe23e32c257a65d522f5214816e1763511c5ad6630e33",
+      "text": "{\n  \"headers\": {\n    \"Authorization\": \"Basic YWdlbnRAZXhhbXBsZS50ZXN0L3Rva2VuOlNZTlRIRVRJQ1plbmRlc2tBcGlUb2tlbk5ldmVySXNzdWVkMDAxMTAz\",\n    \"Accept\": \"application/json\"\n  }\n}\n",
+      "expected": {
+        "outcome": "must-flag",
+        "spans": [
+          {
+            "start": 45,
+            "end": 133,
+            "role": "secret",
+            "note": "Synthetic value; never issued."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-bare-value-in-prose",
+      "case": "zendesk-api-token-bare-value-and-grammar-unsettled",
+      "path": "api-token-bare-value-in-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "2a30978495010458183c308623364fe68a6db4aa4cf82e66513790e7bdc36d25",
+      "text": "Token to rotate: SYNTHETICZendeskApiTokenNeverIssued0004\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "zendesk-authored--api-token-json-token-member",
+      "case": "zendesk-api-token-bare-value-and-grammar-unsettled",
+      "path": "api-token-json-token-member/fixture.txt",
+      "context": "structured-file",
+      "sha256": "8e78654c046687518200fc1e4448b41773578e23f5507fc7e17e91ff92b6586d",
+      "text": "{\n  \"token\": \"SYNTHETICZendeskApiTokenNeverIssued0005\"\n}\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
     }
   ],
   "lifecycle": "draft",

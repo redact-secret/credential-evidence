@@ -183,6 +183,78 @@
       }
     },
     {
+      "id": "adobe-authored--jwt-claims-payload-identifiers",
+      "case": "adobe-jwt-service-account-identifiers-and-private-key-references",
+      "path": "jwt-claims-payload-identifiers/fixture.txt",
+      "context": "structured-file",
+      "sha256": "2bc519941b29ef9dfc2fadfffb5b9682911a3fbd1c5ea00fb8b1ead77940c788",
+      "text": "{\n  \"iss\": \"SYNTHETICORG0001@AdobeOrg\",\n  \"sub\": \"SYNTHETICTECH0001@techacct.adobe.com\",\n  \"aud\": \"https://ims-na1.adobelogin.com/c/SYNTHETICAPIKEY0001\",\n  \"exp\": 1\n}\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--key-generation-command",
+      "case": "adobe-jwt-service-account-identifiers-and-private-key-references",
+      "path": "key-generation-command/fixture.txt",
+      "context": "cli",
+      "sha256": "ae0611716276ef070abfc2724d4cd86e62aee88cd62cb68780896edc8aae8b4a",
+      "text": "openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout private.key -out certificate_pub.crt\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--key-file-path-reference",
+      "case": "adobe-jwt-service-account-identifiers-and-private-key-references",
+      "path": "key-file-path-reference/fixture.txt",
+      "context": "env-assignment",
+      "sha256": "f027ec92cb9542d12bc6d00759f094489cc893ee4161d305631ddc4c83be8dce",
+      "text": "ADOBE_PRIVATE_KEY_PATH=./private.key\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--public-certificate-upload-prose",
+      "case": "adobe-jwt-service-account-identifiers-and-private-key-references",
+      "path": "public-certificate-upload-prose/fixture.txt",
+      "context": "prose",
+      "sha256": "db2bc1a9e263ce0cb219f6aea825f53b45056f731ab2d987d83cab2632be7628",
+      "text": "Upload the public certificate (certificate_pub.crt) when you create the integration; keep private.key on your own machine.\n",
+      "expected": {
+        "outcome": "must-not-flag",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--jwt-token-form-body",
+      "case": "adobe-jwt-signed-assertion-form-field-unsettled",
+      "path": "jwt-token-form-body/fixture.txt",
+      "context": "form-body",
+      "sha256": "82ee4493377df5c5cd41cda1a4c84fc256d81180ad320dd71d1031ccda0d5762",
+      "text": "POST /ims/exchange/jwt/ HTTP/1.1\nHost: ims-na1.adobelogin.example.test\nContent-Type: application/x-www-form-urlencoded\n\nclient_id=SYNTHETICAPIKEY0001&jwt_token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJTWU5USEVUSUNPUkcwMDAxQEFkb2JlT3JnIiwic3ViIjoiU1lOVEhFVElDVEVDSDAwMDFAdGVjaGFjY3QuYWRvYmUuY29tIiwiZXhwIjoxfQ.U1lOVEhFVElDLXNpZ25hdHVyZS1uZXZlci1pc3N1ZWQtMDAwMQ\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
+      "id": "adobe-authored--jwt-token-curl-form-argument",
+      "case": "adobe-jwt-signed-assertion-form-field-unsettled",
+      "path": "jwt-token-curl-form-argument/fixture.txt",
+      "context": "cli",
+      "sha256": "fcb0b4810cf6af3a28f6ec2729bc5b48be8eba428af858b429045a148af50065",
+      "text": "curl -X POST https://ims-na1.adobelogin.example.test/ims/exchange/jwt/ -F client_id=SYNTHETICAPIKEY0001 -F jwt_token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJTWU5USEVUSUNPUkcwMDAxQEFkb2JlT3JnIiwic3ViIjoiU1lOVEhFVElDVEVDSDAwMDFAdGVjaGFjY3QuYWRvYmUuY29tIiwiZXhwIjoxfQ.U1lOVEhFVElDLXNpZ25hdHVyZS1uZXZlci1pc3N1ZWQtMDAwMQ\n",
+      "expected": {
+        "outcome": "not-assertable",
+        "spans": []
+      }
+    },
+    {
       "id": "adobe-authored--s2s-secret-raw-http-form-body",
       "case": "adobe-s2s-client-secret-token-request-parameter",
       "path": "s2s-secret-raw-http-form-body/fixture.txt",

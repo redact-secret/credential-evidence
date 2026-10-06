@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "case",
+  "id": "dropbox-legacy-long-lived-access-token-response-member",
+  "title": "access_token member of a legacy token response with no expires_in",
+  "summary": "A synthetic value of the access_token member of a legacy-style token response (token_type, account_id and uid beside it, no expires_in and no refresh_token), pretty-printed, in a raw HTTP response with compact JSON and in curl output.",
+  "rationale": "Dropbox's token endpoint reference shows the legacy long-lived response as an access_token member with token_type, account_id and uid and without expires_in or refresh_token, which is how it differs from the short-lived examples on the same page; the page gives no format rule and says access tokens are opaque. The member is the carrier, so the value is flagged because of where it sits, not because of its shape, and no prefix, alphabet or length is claimed. Dropbox announced the end of creation of these tokens for 2021-09-30 and an undated update says new ones are no longer offered; the guide says only that they stay available until mid 2021, the two dates are not reconciled, and no page says when an existing token stops authenticating, so a token of this era found in a log or file is still a redaction concern and the era is not a reason to stay silent. Whether a response without expires_in separates this family from the short-lived token is not a provider statement; the Case does not rely on it. The extent is the value only: the member name, the colon and the quotes are outside it, and the account identifiers beside it are not asserted either way.",
+  "caseTypes": [
+    "positive"
+  ],
+  "families": [
+    {
+      "family": "dropbox:legacy-long-lived-access-token",
+      "role": "subject"
+    }
+  ],
+  "scenarios": [
+    "structured-text-value"
+  ],
+  "expectation": {
+    "outcome": "must-flag",
+    "basis": "project-policy",
+    "rationale": "Project policy, maintainer-only (ADR 0020, credential-evidence#238, Group E). Finalized by the sole maintainer alone: not reviewed, not independent validation, queued for retro-review (#154). The question, options, strongest dissent and reversing evidence are in the review history. Flagged under project policy: the value of the access_token member in a token endpoint response is treated as a credential whatever its shape and whether or not the response carries expires_in. Dropbox documents the member and the legacy example (carrier existence only); the value admission, extent, era handling and generic attribution are the project's decisions, and no prefix, width or alphabet is claimed.",
+    "sources": [
+      {
+        "sourceId": "docs-dropboxapi-com-2835da9ecb",
+        "supports": "The example response labelled legacy long-lived access token has access_token, token_type (bearer), account_id and uid members and no expires_in or refresh_token member; the page states it as an example and gives no format rule for the access_token value.",
+        "locator": "#oauth2token, response examples"
+      },
+      {
+        "sourceId": "web-archive-org-d0baf6f549",
+        "supports": "On September 30th, 2021 Dropbox will retire the creation of long-lived access tokens, so that all new tokens are short-lived.",
+        "locator": "section \"Retiring Legacy Tokens\""
+      },
+      {
+        "sourceId": "docs-dropboxapi-com-aea155a830",
+        "supports": "Long-lived access tokens are deprecated and remain available in the Developer console until mid 2021.",
+        "locator": "#using-refresh-tokens"
+      }
+    ],
+    "observedAt": "2026-10-05"
+  },
+  "lifecycle": "maintainer-only",
+  "notes": "Project-authored by the Redact Secret project, which maintains this repository; not independent evidence. Draft; not yet reviewed. All values are synthetic, were built for this record and were not tested against any service. The carrier's existence is what the cited provider pages document; the value admission, span, placeholder handling and attribution are project policy. Parser behaviour, action and product attribution stay with the downstream repositories."
+}
