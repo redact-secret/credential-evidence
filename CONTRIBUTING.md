@@ -13,6 +13,7 @@ described accurately (project-authored work is never called independent).
 
 | I want to... | Use |
 | --- | --- |
+| Ask for a new credential type to be supported (first time) | core's [Request sensitive-data support form](https://github.com/redact-secret/redact-secret/issues/new?template=request-detector.yml), the one route; see [contribution handoff](docs/contribution-handoff.md) |
 | Propose a source-backed fact | [source issue form](.github/ISSUE_TEMPLATE/research-source.yml) |
 | Propose a case | [case issue form](.github/ISSUE_TEMPLATE/case-proposal.yml) |
 | Report an error or stale source | [correction form](.github/ISSUE_TEMPLATE/correction.yml) |
@@ -33,6 +34,12 @@ described accurately (project-authored work is never called independent).
 Scanner adapters, measurements, and normalized observations belong in
 `credential-eval`. Site routes and presentation belong in
 `credential-evidence-site`. Product support status belongs with the product.
+
+## Handoff to core
+
+The five handoff states (`intake`, `research-needed`, `implementation-ready`, `verification-needed`, `complete`), who
+applies each, and what a reviewed handoff records for core are in
+[contribution handoff](docs/contribution-handoff.md). A handoff or state word never grants a support status.
 
 ## Evidence requirements
 
